@@ -459,7 +459,7 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  padding: 40px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   font-size: .875rem;
 
@@ -467,6 +467,17 @@ export default {
 }
 
 /*=== MY CODE ===*/
+.sidebar-sticky ::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+.sidebar-sticky::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+.sidebar-sticky::-webkit-scrollbar-thumb {
+    background: #666;
+}
+
 main{
   margin-left: 170px;
 }
@@ -475,8 +486,8 @@ main{
 }
 
 .nav li{
-  border-bottom:white 0.5px solid;
-  border-top:   white 0.5px solid;
+  border-bottom:white 0.3px solid;
+  border-top:   white 0.3px solid;
 }
 .nav li:hover{
   background-color: #0079fa;
@@ -493,8 +504,8 @@ main{
 }
 
 .sidebar .nav-link.active{
-  background-color: #cccccc; 
-  color: inherit;
+  background-color: #0055af; 
+  color: white;
   border-left: #0079fa 10px solid;
 }
 /*
@@ -562,8 +573,8 @@ h6{
 }
 
 .navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: .50rem;
+  padding-bottom: .50rem;
   font-size: 1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
@@ -573,6 +584,7 @@ h6{
   padding: .75rem 1rem;
   border-width: 0;
   border-radius: 0;
+  height: 40px;
 }
 
 .navbar-nav > .nav-item > .nav-link {
