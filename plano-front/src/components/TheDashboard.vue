@@ -30,7 +30,7 @@
       </b-form-group>
       <div slot="modal-footer">
 
-            <b-button v-on:click="novoPlano()" variant= "success">Criar Plano</b-button>
+            <b-button disabled v-on:click="novoPlano()">Criar Plano</b-button><!-- variant "success"-->
         </div>
     </b-modal>
 
@@ -178,7 +178,7 @@
           <div class="cube2"></div>
         </div>
 
-        <main role="main" class="col-md-11 ml-sm-auto col-lg-11 px-4" v-if="!isLoading">
+        <main role="main" class="col-md-11 col-lg-11 px-4" v-if="!isLoading">
           <router-view></router-view>
         </main>
       </div>
@@ -463,13 +463,64 @@ export default {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   font-size: .875rem;
 
+  max-width: 185px;
 }
+
+/*=== MY CODE ===*/
+main{
+  margin-left: 170px;
+}
+.nav li a i{
+  padding-left: 0.3em;
+}
+
+.nav li{
+  border-bottom:white 0.5px solid;
+  border-top:   white 0.5px solid;
+}
+.nav li:hover{
+  background-color: #0079fa;
+  color:white;
+}
+.sidebar .nav-link:hover{
+  color: white;
+}
+.nav-item a :hover{
+  color:white;
+}
+.sidebar .nav-link.active:hover{
+  background-color: #0055af; 
+}
+
+.sidebar .nav-link.active{
+  background-color: #cccccc; 
+  color: inherit;
+  border-left: #0079fa 10px solid;
+}
+/*
+.sidebar .nav-link.active{
+  
+}
+*/
+
+h6{
+  font-weight: bold;
+}
+
+.nav-link{
+  padding-left: 5px;
+  padding-right:5px;
+}
+
+/*===============*/
 
 .sidebar-sticky {
   position: relative;
+  width:185px;
   top: 0;
   height: calc(100vh - 48px);
   padding-top: .5rem;
+  padding-bottom: 1.0rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -490,11 +541,11 @@ export default {
   margin-right: 4px;
   color: #999;
 }
-
+/*
 .sidebar .nav-link.active {
   color: #007bff;
 }
-
+*/
 .sidebar .nav-link:hover .fas,
 .sidebar .nav-link.active .fas {
   color: inherit;
@@ -507,6 +558,7 @@ export default {
 
 [role="main"] {
   padding-top: 48px; /* Space for fixed navbar */
+  padding-left: 185;
 }
 
 .navbar-brand {
