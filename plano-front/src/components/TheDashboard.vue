@@ -98,7 +98,7 @@
     </b-modal>
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-1 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -178,7 +178,7 @@
           <div class="cube2"></div>
         </div>
 
-        <main role="main" class="col-md-11 col-lg-11 px-4" v-if="!isLoading">
+        <main role="main" class="col-md-10 col-lg-10 px-4" v-if="!isLoading">
           <router-view></router-view>
         </main>
       </div>
@@ -527,7 +527,6 @@ h6{
 
 .sidebar-sticky {
   position: relative;
-  width:185px;
   top: 0;
   height: calc(100vh - 48px);
   padding-top: .5rem;
