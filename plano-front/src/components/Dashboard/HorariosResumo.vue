@@ -6,8 +6,11 @@
                 <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="pdf" style=""> Relatório </button>
             </div>
             <!-- ----------------------------------------------------------------------------------------------- -->
+            <div class="row">
+            <div class="col-sm-6">
             <h1>1º Período</h1>
             <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
+
             <div class="title">
             <h4>Ciência da Computação Diurno</h4>
             </div>
@@ -62,7 +65,7 @@
 
                 </table>
             </div>
-
+            
             <div class="horario" v-if="horarioVazio(ativos1.CCD[1])">
                 <h5>2 Período</h5>
                 <table class="tg">
@@ -114,7 +117,7 @@
 
                 </table>
             </div>
-
+      
             <div class="horario" v-if="horarioVazio(ativos1.CCD[2])">
                 <h5>3 Período</h5>
                 <table class="tg">
@@ -530,6 +533,7 @@
                 </table>
             </div>
             <br/>
+            
             <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <div class="title">
                 <h4>Ciência da Computação Noturno</h4>
@@ -856,7 +860,7 @@
             </div>
 
             <!-- -------------------------------------------- SI ----------------------------------------- -->
-
+            <br>
             <div class="title">
             <h4>Sistemas de Informação</h4>
             </div>
@@ -1773,14 +1777,14 @@
 
                 </table>
             </div>
-
-            <div class="title">
+            </div>
             <!-- ----------------------------------------------------------------------------------------------- -->
+            <div class="col-sm-6">
             <h1>2º Período</h1>
             <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
             <h4>Ciência da Computação Diurno</h4>
-            </div>
+            
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[0])">
                 <h5>1 Período</h5>
@@ -2626,7 +2630,7 @@
             </div>
 
             <!-- -------------------------------------------- SI ----------------------------------------- -->
-
+            <br>
             <div class="title">
             <h4>Sistemas de Informação</h4>
             </div>
@@ -3545,7 +3549,8 @@
 
                 </table>
             </div>
-
+            </div>
+            </div>
         </div>
     </div>
 </template>
