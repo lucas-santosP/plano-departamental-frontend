@@ -1,5 +1,5 @@
 <template>
-    <div class="cargarow" style="width: 324px;">
+    <div class="cargarow" style="width: 334px;">
         <td style="width: 16px;">
             <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(carga)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
         </td>
@@ -16,8 +16,8 @@
         <td style="width: 108px;">
             <input type="text" style="width: 108px" v-model="carga.programa" v-on:blur="editCarga(carga)">
         </td>
-        <td style="width: 20px">
-            <input type="text" style="width: 20px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
+        <td style="width: 30px">
+            <input type="text" style="width: 30px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
         </td>
         <td style="width: 20px;">
 
