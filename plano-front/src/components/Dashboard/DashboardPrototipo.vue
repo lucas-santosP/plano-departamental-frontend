@@ -1,6 +1,6 @@
 <template>
     <div class="DashboardPrototipo" style="height: calc(100vh - 48px)" v-if="Admin">
-        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
+        <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2 col-2">Plano</h1>
             <div class="col-10">
 
@@ -26,7 +26,7 @@
                         </template>
                     </b-modal>
                 </template>
-                <b-form-select v-model="periodos" style="width: 200px; float:right">
+                <b-form-select v-model="periodos" class="selectForm">
                     <option value = "1">Visualizar 1º Semestre</option>
                     <option value = "2">Visualizar 2º Semestre</option>
                     <option value = "3">Visualizar Ambos</option>
@@ -57,7 +57,7 @@
         <div class="cube2"></div>
     </div>
 
-    <div style="height: 75vh; overflow-y: scroll; overflow-x: scroll;" v-if="!isLoading" ref = "mainTable">
+    <div class="tabelaScrol" style="overflow-y: scroll; overflow-x: scroll;" v-if="!isLoading" ref = "mainTable">
         <table class="table table-hover table-sm">
             <thead class="thead-light sticky">
             <tr>
@@ -350,6 +350,27 @@
     }
 </script>
 <style scoped>
+    .tabelaScrol{
+        height: 78vh;
+    }
+    .selectForm{
+        width: 200px; float:right
+    }
+    @media(max-width: 878px){
+         .titulo{
+             flex-direction: column;   
+        }
+        .selectForm{
+            width: 100px; float:right
+        }
+        .tabelaScrol{
+            height: 73vh;
+    }
+
+    @media(max-width:830px){
+        
+    }
+    }
 
     .DashboardPrototipo{
         max-height: 90vh;

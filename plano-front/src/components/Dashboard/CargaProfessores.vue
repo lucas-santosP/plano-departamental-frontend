@@ -5,7 +5,7 @@
             <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="pdf" style=""> Relatório </button>
         </div>
         <div style="width: 100%; height: 80vh; overflow: scroll" class="element" ref="carga">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-bordered">
             <thead class="thead-light">
             <tr>
                 <th scope="col">Nome</th>
@@ -227,7 +227,9 @@
         background: white;
         z-index: 10;
     }
-
+.DashboardCargaProfessores{
+    margin-left: 0px;
+}
     .element::-webkit-scrollbar { width: 0 !important }
 
 </style>
