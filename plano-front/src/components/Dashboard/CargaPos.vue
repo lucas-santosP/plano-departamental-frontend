@@ -5,22 +5,22 @@
             <b-col cols="4" md="auto">
             <h1 class="h2 col sm-4" style="padding:0">Cargas Pós</h1>
             </b-col>
-            <b-col cols="6" style="margin-right:30px; flex: 0 0 45%;"></b-col>
-            <b-col cols="2" style="padding:0; ">
-            <b-form-select v-model="periodos" class="col sm-2" style="float:right;">
+            <b-col cols="6" style="margin-right:30px"></b-col>
+            <b-col cols="2" style="padding:0;">
+            <b-form-select v-model="periodos" class="col sm-2" style="float:right">
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
             </b-form-select>
             </b-col>
-            <b-col cols="2" style="display: flex;">
+            <b-col cols="2">
             <template v-if="isAdd">
                 <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
                 <button type="button" class="btn btn-success" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success" style="margin-left: 10px; float:right;" v-b-modal.modalConfirma>Deletar</button>
-                <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="float:right; margin-left: 20px;">Adicionar </button>
+                <button type="button" class="btn btn-success" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="float:right;">Adicionar </button>
 
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
@@ -43,7 +43,7 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 334px;height: 75vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
+        <div style="width: 324px;height: 75vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
             <table style="width:100%" class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
@@ -51,7 +51,7 @@
                     <th scope="col" style="width:16px">T.</th>
                     <th scope="col" style="width:144px;">Docente</th>
                     <th scope="col" style="width:108px;">Programa</th>
-                    <th scope="col" style="width:30px;">C.</th>
+                    <th scope="col" style="width:20px;">C.</th>
                     <th scope="col" style="width:20px;"></th>
                 </tr>
                 </thead>
@@ -261,10 +261,6 @@
         position: sticky;
         left:0;
     }*/
-
-    .col-2{
-
-    }
 
     .cube1, .cube2 {
         background-color: #333;

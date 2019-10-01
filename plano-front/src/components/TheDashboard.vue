@@ -1,5 +1,5 @@
 <template>
-  <div class="TheDashboard" style="max-width:100%;" v-bind:class="{'loading' : isLoadingFile}">
+  <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
     <nav class="navbar-top navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <router-link :to="{ name: 'dashboard' }" class="navbar-brand mr-0">Plano Departamental</router-link>
       <ul class="navbar-nav px-3">
@@ -96,8 +96,8 @@
         </div>
       </template>
     </b-modal>
-    <div class="container-fluid" >
-      <div class="row" style="max-width:100%">
+    <div class="container-fluid" style="height:100%" >
+      <div class="row" style="max-width:100%; height:100%">
         <nav class="col-md-2 .d-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
@@ -612,8 +612,8 @@ h6{
   font-size: 1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-  min-width: 11.5%;
-  width: max-content;
+  min-width:  max-content;
+  width: 16.7%;
 }
 
 .navbar {
@@ -622,7 +622,7 @@ h6{
   border-radius: 0;
   height: 40px;
 }
-@media(max-width: 754px){
+@media(max-width: 767px){
   .navbar-top{
     height: 62px;
   }
@@ -632,8 +632,8 @@ h6{
   .sidebar{
     padding-top: 50px;
   }
-  
 }
+
 
 
 .navbar-nav > .nav-item > .nav-link {
