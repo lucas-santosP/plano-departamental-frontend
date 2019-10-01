@@ -1,7 +1,7 @@
 <template>
-  <div class="TheDashboard" v-bind:class="{'loading' : isLoadingFile}">
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 mr-0">Plano Departamental</router-link>
+  <div class="TheDashboard" style="max-width:100%;" v-bind:class="{'loading' : isLoadingFile}">
+    <nav class="navbar-top navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <router-link :to="{ name: 'dashboard' }" class="navbar-brand mr-0">Plano Departamental</router-link>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <p class="nav-link" v-on:click="showModalUser"><i class="fas fa-user"></i> Usuário</p>
@@ -96,9 +96,9 @@
         </div>
       </template>
     </b-modal>
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="container-fluid" >
+      <div class="row" style="max-width:100%">
+        <nav class="col-md-2 .d-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -142,7 +142,7 @@
                 <router-link :to="{ name: 'horariosResumo' }" class="nav-link"><i class="fas fa-clipboard"></i> Horários - Resumo</router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link"><i class="fas fa-clipboard"></i> Laboratórios - Alocação</router-link>
+                <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link"><i class="fas fa-clipboard"></i> Alocação - Laboratórios</router-link>
               </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'gradeDisciplinas' }" class="nav-link"><i class="fas fa-clipboard"></i> Grades Disciplinas</router-link>
@@ -173,12 +173,12 @@
           </div>
         </nav>
 
-        <div id="loading" v-if="isLoading">
-          <div class="cube1"></div>
-          <div class="cube2"></div>
-        </div>
+          <div id="loading" v-if="isLoading">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
 
-        <main role="main" class="col-md-10 col-lg-10 px-4" v-if="!isLoading">
+        <main role="main" class="col-md-10 col-lg-10 offset-md-2" v-if="!isLoading">
           <router-view></router-view>
         </main>
       </div>
@@ -459,11 +459,13 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 40px 0 0; /* Height of navbar */
+  padding-top: 40px;/* Height of navbar */
+  padding-right: 0px; 
+  padding-left: 0px;
+
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   font-size: .875rem;
 
-  max-width: 185px;
 }
 
 /*=== MY CODE ===*/
@@ -478,9 +480,7 @@ export default {
     background: #666;
 }
 
-main{
-  margin-left: 170px;
-}
+
 .nav li a i{
   padding-left: 0.3em;
 }
@@ -509,8 +509,7 @@ main{
   border-left: #0079fa 10px solid;
 }
 /*
-.sidebar .nav-link.active{
-  
+.sidebar .nav-link.active{ 
 }
 */
 
@@ -521,6 +520,13 @@ h6{
 .nav-link{
   padding-left: 5px;
   padding-right:5px;
+}
+
+.container-fluid{
+  max-width: 100%;
+  margin: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 /*===============*/
@@ -566,17 +572,48 @@ h6{
   text-transform: uppercase;
 }
 
+.sidebar{
+  /*min-width: 15vh;
+  min-width: 150px; 
+  max-width: 11.5%;
+  */
+}
+@media(max-width: 910px){
+  .sidebar{
+    max-width: 150px;
+  }
+  [role="main"] {
+    margin-left:160px;
+  }
+}
 [role="main"] {
-  padding-top: 48px; /* Space for fixed navbar */
-  padding-left: 185;
+  padding-top: 40px; /* Space for fixed navbar */
+  padding-left: 25px  /*Spcace for fixed sidebar */
 }
 
+
+
+
+/*
+@media(max-width: 1300px){
+  [role="main"] {
+    padding-left: 100px; 
+  }
+  .sidebar{
+    
+    max-width: 20vh;
+  }
+}
+*/
+
+
 .navbar-brand {
-  padding-top: .50rem;
-  padding-bottom: .50rem;
+  padding:.50rem;
   font-size: 1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  min-width: 11.5%;
+  width: max-content;
 }
 
 .navbar {
@@ -585,6 +622,19 @@ h6{
   border-radius: 0;
   height: 40px;
 }
+@media(max-width: 754px){
+  .navbar-top{
+    height: 62px;
+  }
+  [role="main"] {
+  padding-top: 50px;
+  }
+  .sidebar{
+    padding-top: 50px;
+  }
+  
+}
+
 
 .navbar-nav > .nav-item > .nav-link {
   display: inline !important;
@@ -592,7 +642,7 @@ h6{
 }
 
 .navbar-nav > .nav-item > .nav-link:hover {
-  cursor: pointer;
+  cursor: pointer; 
 }
 
 /*Download Files Loading*/
