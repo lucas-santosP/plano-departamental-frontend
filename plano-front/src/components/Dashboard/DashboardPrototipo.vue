@@ -1,9 +1,8 @@
 <template>
     <div class="DashboardPrototipo" style="height:100%" v-if="Admin">
         <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
-            <h1 class="h2 col-2">Plano</h1>
+            <h1 class="h2">Plano</h1>
             <div class="col-10">
-
                 <template v-if="isAdd">
                     <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
                     <button type="button" class="btn btn-success" v-on:click.prevent="addTurma" style="margin-left: 10px;float:right;"> Confirmar </button>

@@ -1,12 +1,11 @@
 <template>
   <div class="DashboardHome">
-    <div
-      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">Dashboard</h1>
     </div>
 
     <!-- alert -->
-    <div class="alert alert-light alert-dismissible fade show" role="alert" style="color: black">
+    <div class="alert alert-light" role="alert" style="color: black">
       <p style="font-size:20px">
         <strong>Olá {{getUsuarioFirstName}}!</strong> Este é o sistema de gerenciamento de Plano departamental do DCC.
         <br />Abaixo segue um resumo das funcionalidade de cada tela:
