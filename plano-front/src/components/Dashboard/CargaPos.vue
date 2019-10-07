@@ -5,15 +5,15 @@
             <b-col cols="3" md="auto">
             <h1 class="h2 col sm-3" style="padding:0">Cargas Pós</h1>
             </b-col>
-            <b-col cols="4" style="margin-right:30px"></b-col>
-            <b-col cols="2" style="padding:0; ">
+            <b-col cols="4" style="margin-right:10%"></b-col>
+            <b-col cols="2" style="padding:0;">
             <b-form-select v-model="periodos" class="col sm-2">
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
             </b-form-select>
             </b-col>
-            <b-col cols="3">
+            <b-col cols="3" style="margin-left: -65px;">
             <template v-if="isAdd">
                 <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
                 <button type="button" class="btn btn-success" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
