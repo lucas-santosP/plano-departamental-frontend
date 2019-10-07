@@ -5,106 +5,106 @@
     </div>
 
     <!-- alert -->
-    <div class="alert alert-light" role="alert" style="color: black">
-      <p style="font-size:20px">
-        <strong>Olá {{getUsuarioFirstName}}!</strong> Este é o sistema de gerenciamento de Plano departamental do DCC.
-        <br />Abaixo segue um resumo das funcionalidade de cada tela:
+    <div class="alert alert-light alert-dismissible fade show alerta" role="alert" style="color: black">
+      <p style="font-size:18px">
+        Olá {{getUsuarioFirstName}}! Este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da Computação.
+        <br>Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
-      <hr/>
+      
       <!-- lista-1 -->
+      <br>
       <h3 class="lista-titulo">PLANO</h3>
       <ul class="listas list-group list-group-flush">
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'pedidos' }">Tabela</router-link>:
-          </strong>Onde se encontra o cadastro de todas as turmas de todas as disciplinas oferecidas pelo departamento do DCC. E permite a
-          alteração de vagas, horararios, local e docentes de todas as disciplinas.
+            <router-link :to="{ name: 'pedidos' }">Tabela:</router-link>
+          </strong> Página onde encontra-se o cadastro de todas as turmas de todas as disciplinas oferecidas pelo DCC. Permite a
+          alteração de vagas, horários, sala e docentes de todas as disciplinas.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'turmasExternas' }">Tabela Externa</router-link>:
-          </strong> Bem parecida com a Tabela principal, porem é onde se encontra o cadastro de todas as turmas de disciplinas
-          oferecidas por outros departamentos (fora o DCC), mas que fazem parte da grade dos cursos do DCC.
+            <router-link :to="{ name: 'turmasExternas' }">Tabela Externa:</router-link>
+          </strong> Similar a Tabela principal, onde encontra-se o cadastro de todas as turmas de disciplinas
+          oferecidas por outros departamentos (externos ao DCC), e que fazem parte da grade dos cursos cadastrados.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'cargaPos' }">Tabela Pós</router-link>:
-          </strong> Onde se encotra as cargas das bolsas de pós graduação.
+            <router-link :to="{ name: 'cargaPos' }">Tabela Pós:</router-link>
+          </strong> Tela onde localiza-se uma tabela com as cargas horárias de cada docente encarregado das bolsas de pós-graduação.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'horarios' }">Horarios</router-link>:
-          </strong> Onde se encontra a listagem de horarios dos cursos do DCC, permitindo filtragem por semestres e cursos.
+            <router-link :to="{ name: 'horarios' }">Horarios:</router-link>
+          </strong> Página onde listam-se os horarios dos cursos do DCC, permitindo filtragem por semestres e cursos.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'turmas' }">Turmas</router-link>:
-          </strong>Onde se encontra a listagem completa de todas as turmas de todas disciplinas ofericidas pelo DCC. Tambem permite a 
-          alteração de horarios, local e docentes porem é mais recomendavel fazer tais alterações pela Tabela principal.
+            <router-link :to="{ name: 'turmas' }">Turmas:</router-link>
+          </strong> Onde localiza-se a listagem completa de todas as turmas de todas disciplinas oferecidas pelo DCC. Também permite a 
+          alteração de horarios, local e docentes. Contudo, recomenda-se fazer tais alterações pela Tabela principal.
         </li>
       </ul>
       <!-- lista-2 -->
+      <br>
       <h3 class="lista-titulo">RELATÓRIOS</h3>
       <ul class="listas list-group list-group-flush">
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'cargaProfessores' }">Carga Professores</router-link>:
-          </strong>Listagem de todos professores e as disciplinas que ministram, e tambem de suas bolsas de pós-gradução. Mostrando
-          tambem o somatorio total de horas de cada professor.
+            <router-link :to="{ name: 'cargaProfessores' }">Carga Professores:</router-link>
+          </strong> Listagem de todos professores e as disciplinas que estes ministram, além das bolsas de pós-gradução. Mostra o somatório parcial por semestre, e o total da carga horária de cada docente.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'horariosResumo' }">Horários - Resumo</router-link>:
-          </strong> Listagem resumidamente todas os horarios de todos os cursos do DCC.
+            <router-link :to="{ name: 'horariosResumo' }">Horários - Resumo:</router-link>
+          </strong> Listagem resumida dos horários de todos os cursos do DCC.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'laboratoriosAlocacao' }">Alocação - Laboratórios</router-link>:
-          </strong> Listagem as alocações dos laboratorios em ambos semestres.
+            <router-link :to="{ name: 'laboratoriosAlocacao' }">Alocação - Laboratórios:</router-link>
+          </strong> Lista as alocações dos laboratórios em ambos os semestres.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'gradeDisciplinas' }">Grades Disciplinas</router-link>:
-          </strong> Listagem as disciplinas de todos departamentos do sistema divididas em perfis e tambem verifica em que semestre e em que periodo
-          cada disciplinas faz parte das grades dos cursos do DCC.
+            <router-link :to="{ name: 'gradeDisciplinas' }">Grades Disciplinas:</router-link>
+          </strong> Listagem das disciplinas do DCC, divididas de acordo com seus perfis. Mostra, além disso, quais semestres e períodos cada uma é ofertada nas grades dos cursos. 
         </li>
       </ul>
       <!-- lista-3 -->
+      <br>
       <h3 class="lista-titulo">GERENCIAR</h3>
       <ul class="listas list-group list-group-flush">
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'cursos' }">Cursos</router-link>:
-          </strong>Lista todos os cursos presentes no sistemas (não só os do DCC), e permite a adição e alteração de informações do cursos.
+            <router-link :to="{ name: 'cursos' }">Cursos:</router-link>
+          </strong> Lista todos os cursos presentes no sistemas (além dos externos ao DCC), e permite a adição e alteração das informações dos cursos.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'docentes' }">Docentes</router-link>:
-          </strong>Listagem de todos os docentes ativo e inativos do DCC e permite a alteração de seus perfis.
+            <router-link :to="{ name: 'docentes' }">Docentes:</router-link>
+          </strong> Listagem de todos os docentes ativo e inativos do DCC, além de permitir a alteração de seus perfis.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'grades' }">Grades</router-link>:
-          </strong> Onde se encontra as grades dos cursos do DCC atuais e antigas que estejam ainda em atividade, e permite a adição de novas
-          grades
+            <router-link :to="{ name: 'grades' }">Grades:</router-link>
+          </strong> Onde encontram-se as grades dos cursos do DCC atuais e antigas que ainda estão em atividade, e permite a adição de novas grades.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'perfis' }">Perfis</router-link>:
-          </strong>Onde se encontra os perfis definidos para cada disciplina nas tabelas, e permite tambem a adição e alteração de perfis
-          e de suas cores e nomes.
+            <router-link :to="{ name: 'perfis' }">Perfis:</router-link>
+          </strong> Onde encontram-se os perfis definidos para cada disciplina nas tabelas, permitindo também a adição e alteração de perfis, seus nomes e as cores destinadas a eles.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'disciplinas' }">Disciplina</router-link>:
-          </strong>Listagem de disciplinas de todos departamentos do sistema. Permitindo a alteração de nome, codigo, carga teórica e pratica,
-          perfis e tambem define se é EAD ou não.
+            <router-link :to="{ name: 'disciplinas' }">Disciplina:</router-link>
+          </strong> Listagem de disciplinas de todos os departamentos cadastrados no sistema. Permite a alteração de nome, código, carga teórica e pratica,
+          perfis e também define se é EAD ou não.
         </li>
         <li class="list-group-item">
           <strong>
-            <router-link :to="{ name: 'salas' }">Salas</router-link>:
-          </strong>Listagem de todas as salas registradas no sistema. Permite a adição de novas salas e a definição se são laboratorios ou não.
+            <router-link :to="{ name: 'salas' }">Salas:</router-link>
+          </strong> Listagem de todas as salas registradas no sistema. Permite a adição de novas salas e laboratórios.
         </li>
+        <hr>
       </ul>
 
     </div>
@@ -124,13 +124,26 @@ export default {
 </script>
 
 <style scoped>
+.alerta {
+  text-align: justify;
+  margin-left: 0;
+  margin-right: 1%;
+  font-weight: 500;
+}
+
 .listas {
   line-height: 30px;
+  text-align: justify;
+  margin-left: 1%;
+  margin-right: 1%;
 }
+
 .lista-titulo {
-  margin-left: 0px;
-  margin-top: 20px;
-  font-size: 22px;
-  font-weight: bold;
+  margin-left: 1%;
+  margin-top: 2%;
+  font-size: 20px;
+  font-weight: 600;
+  color: #5f5c5c;
+  
 }
 </style>
