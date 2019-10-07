@@ -2,18 +2,18 @@
     <div class="CargaPos" style="height: calc(100vh - 48px);">
         <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding:0;">
             <b-row style="width:100%">
-            <b-col cols="4" md="auto">
-            <h1 class="h2 col sm-4" style="padding:0">Cargas Pós</h1>
+            <b-col cols="3" md="auto">
+            <h1 class="h2 col sm-3" style="padding:0">Cargas Pós</h1>
             </b-col>
-            <b-col cols="6" style="margin-right:30px"></b-col>
-            <b-col cols="2" style="padding:0;">
-            <b-form-select v-model="periodos" class="col sm-2" style="float:right">
+            <b-col cols="4" style="margin-right:30px"></b-col>
+            <b-col cols="2" style="padding:0; ">
+            <b-form-select v-model="periodos" class="col sm-2">
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
             </b-form-select>
             </b-col>
-            <b-col cols="2">
+            <b-col cols="3">
             <template v-if="isAdd">
                 <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
                 <button type="button" class="btn btn-success" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
@@ -43,28 +43,28 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 324px;height: 75vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
+        <div style="width: 358px;height: 75vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
             <table style="width:100%" class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col" style="width:16px"></th>
-                    <th scope="col" style="width:16px">T.</th>
-                    <th scope="col" style="width:144px;">Docente</th>
+                    <th scope="col" style="width:20px"></th>
+                    <th scope="col" style="width:20px">T.</th>
+                    <th scope="col" style="width:160px;">Docente</th>
                     <th scope="col" style="width:108px;">Programa</th>
                     <th scope="col" style="width:20px;">C.</th>
-                    <th scope="col" style="width:20px;"></th>
+                    <th scope="col" style="width:30px;"></th>
                 </tr>
                 </thead>
                 <tbody>
 
                 <template v-if="isAdd">
                     <tr>
-                        <td style="width: 16px;"></td>
+                        <td style="width: 20px;"></td>
                         <td>
-                            <input type="text" style="width: 16px;" id="trimestre" v-model="cargaPosForm.trimestre">
+                            <input type="text" style="width: 20px;" id="trimestre" v-model="cargaPosForm.trimestre">
                         </td>
                         <td>
-                            <select type="text" style="width:144px" id="docente1" v-model="cargaPosForm.Docente">
+                            <select type="text" style="width:160px" id="docente1" v-model="cargaPosForm.Docente">
                                 <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
                                 <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
                             </select>
@@ -73,7 +73,7 @@
                             <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
                         </td>
                         <td>
-                            <input type="text" style="width: 20px" id="creditos" v-model="cargaPosForm.creditos">
+                            <input type="text" style="width: 30px" id="creditos" v-model="cargaPosForm.creditos">
                         </td>
                     </tr>
                 </template>
