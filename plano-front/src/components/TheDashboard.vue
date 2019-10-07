@@ -115,7 +115,7 @@
 
     <div class="container-fluid">
       <div class="row" style="max-width:100%; height:100%">
-        <nav class="col-md-2 .d-block d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-block d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
                 <li class="nav-item">
