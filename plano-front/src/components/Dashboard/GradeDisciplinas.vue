@@ -281,7 +281,7 @@
     table {
         font-size: 10px;
         table-layout: fixed;
-        width: 1008px;
+        width: 100%;
     }
 
     p {

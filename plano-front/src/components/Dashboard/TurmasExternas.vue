@@ -409,7 +409,7 @@
     }
 
     .ice {
-        background-color: #9d9ea7 !important;
+        background-color: #c7c7c9 !important;
     }
 </style>
 <style scoped>

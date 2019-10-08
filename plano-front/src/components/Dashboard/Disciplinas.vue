@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
+                    <label for="codigo" class="col-sm-2 col-form-label">Código</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label for="ead" class="col-sm-2 col-form-label">
+                        <label for="ead" class="col-sm-4 col-form-label">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
