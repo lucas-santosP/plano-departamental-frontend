@@ -762,10 +762,10 @@ export default {
 
 /* Animação sidebar slide */
 .slide-fade-enter-active {
-  transition: all .5s ease;
+  transition: all .35s ease;
 }
 .slide-fade-leave-active {
-  transition: all .5s ease;
+  transition: all .35s ease;
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active em versões anteriores a 2.1.8 */ {
