@@ -5,14 +5,13 @@
     </div>
 
     <!-- alert -->
-    <div class="alert alert-light alert-dismissible fade show alerta" role="alert" style="color: black">
+    <div class="alert alert-light alert-dismissible fade show alerta" role="alert">
       <p style="font-size:18px">
         Olá {{getUsuarioFirstName}}! Este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da Computação.
         <br>Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
       
       <!-- lista-1 -->
-      <br>
       <h3 class="lista-titulo">PLANO</h3>
       <ul class="listas list-group list-group-flush">
         <li class="list-group-item">
@@ -129,6 +128,8 @@ export default {
   margin-left: 0;
   margin-right: 1%;
   font-weight: 500;
+  color: black; 
+  padding-right:30px; 
 }
 
 .listas {
@@ -136,6 +137,7 @@ export default {
   text-align: justify;
   margin-left: 1%;
   margin-right: 1%;
+  line-height:inherit;
 }
 
 .lista-titulo {

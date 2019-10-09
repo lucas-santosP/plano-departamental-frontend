@@ -1,35 +1,128 @@
 <template>
   <div class="TheDashboard wrapper" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
 
-    <nav class="navbar navbar-expand-lg navbar-expand-lg navbar-dark bg-dark fixed-top shadow" v-bind:class=" { 'navbarOpen': show }">
-      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 mr-0 active router-link-active">Plano Departamental</router-link>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" v-on:click="toggleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top shadow" v-bind:class=" { 'navbarOpen': show }">
+      <div class="row" style="width:100%">
+  
+      <div @click="show=!show" :class="{aplicaCor: show}" class="navbar-brand col-sm-3 col-md-2 mr-0">
+        <span class="dark-blue-text" style="margin-left:10px; margin-right:10px">
+          <i class="fas fa-bars fa-1x animated-icon2"></i>
+        </span>
+           
+        <span class="brand-titulo">Plano Departamental</span>
+        </div>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" v-bind:class="{ 'show': show }">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <span class="nav-link" v-on:click="showModalUser"><i class="fas fa-user"></i> Usuário</span>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link" v-on:click="showModalNovoPlano"><i class="fas fa-plus-square"></i> Novo </span>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link" v-on:click="showModalLoad"><i class="fas fa-folder-open"></i> Carregar</span>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link" v-on:click="showModalSave"><i class="fas fa-file"></i> Salvar</span>
-          </li>
-          <li class="nav-item">
-            <span class="nav-link" v-on:click="showModalDownload"><i class="fas fa-save"></i> Download</span>
-          </li>
-          <li class="nav-item">
-            <router-link :to="{ name: 'logout' }" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</router-link>
-          </li>
-        </ul>
+        <ul class="navbar-nav testando" style="flex-direction:row;">
+            <li class="nav-item">
+              <span class="nav-link" v-on:click="showModalUser"><i class="fas fa-user"></i> Usuário</span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" v-on:click="showModalNovoPlano"><i class="fas fa-plus-square"></i> Novo </span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" v-on:click="showModalLoad"><i class="fas fa-folder-open"></i> Carregar</span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" v-on:click="showModalSave"><i class="fas fa-file"></i> Salvar</span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" v-on:click="showModalDownload"><i class="fas fa-save"></i> Download</span>
+            </li>
+            <li class="nav-item">
+              <router-link :to="{ name: 'logout' }" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</router-link>
+            </li>
+          </ul>
+        
       </div>
+
     </nav>
+
+    <div class="container-fluid">
+      <div class="row" style="max-width:100%; height:100%">
+        <transition name="slide-fade">
+        <nav v-if="show"  class="col-3 col-sm-2 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <router-link :to="{ name: 'dashboard' }" class="nav-link"><i class="fas fa-home"></i> Dashboard</router-link>
+                </li>
+              </ul>
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Plano</span>
+                <a class="d-flex align-items-center" href="#">
+                  <i class="far fa-calendar-alt mr-1"></i> {{year}}
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-2" v-if="Admin">
+                <li class="nav-item">
+                  <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'turmasExternas' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Externa</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Pós</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'horarios' }" class="nav-link"><i class="fas fa-calendar-alt"></i> Horários</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'turmas' }" class="nav-link"><i class="fas fa-bars"></i> Turmas</router-link>
+                </li>
+              </ul>
+              <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">Relatórios</h6>
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <router-link :to="{ name: 'cargaProfessores' }" class="nav-link"><i class="fas fa-clipboard"></i> Carga Professores</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'horariosResumo' }" class="nav-link"><i class="fas fa-clipboard"></i> Horários - Resumo</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link"><i class="fas fa-clipboard"></i> Alocação - Laboratórios</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'gradeDisciplinas' }" class="nav-link"><i class="fas fa-clipboard"></i> Grades Disciplinas</router-link>
+                </li>
+              </ul>
+              <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted" v-if="Admin">Gerenciar</h6>
+              <ul class="nav flex-column" v-if="Admin">
+                <li class="nav-item">
+                  <router-link :to="{ name: 'cursos' }" class="nav-link"><i class="fas fa-graduation-cap"></i> Cursos</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'docentes' }" class="nav-link"><i class="fas fa-users"></i> Docentes</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'grades' }" class="nav-link"><i class="fas fa-sitemap"></i> Grades</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'perfis' }" class="nav-link"><i class="fas fa-th"></i> Perfis</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'disciplinas' }" class="nav-link"><i class="fas fa-table"></i>Disciplina</router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link :to="{ name: 'salas' }" class="nav-link"><i class="fas fa-clipboard"></i>Salas</router-link>
+                </li>
+
+              </ul>
+
+            </div>
+        </nav>
+        </transition>
+
+        <main @click="show=false" role="main" class="col-12 ml-auto" v-if="!isLoading">
+          <router-view></router-view>
+        </main>
+
+
+        <div id="loading" v-if="isLoading">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
+      </div>
+    </div>
 
     <b-modal id="modal-download" ref="modalDownload" title="Selecione um Arquivo">
       <p v-for="(value) in files" :key="'1'+value" v-on:click="selectFile(value)">{{value}}</p>
@@ -112,97 +205,7 @@
         </div>
       </template>
     </b-modal>
-
-    <div class="container-fluid">
-      <div class="row" style="max-width:100%; height:100%">
-        <nav class="col-md-2 d-block d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <router-link :to="{ name: 'dashboard' }" class="nav-link"><i class="fas fa-home"></i> Dashboard</router-link>
-                </li>
-              </ul>
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Plano</span>
-                <a class="d-flex align-items-center" href="#">
-                  <i class="far fa-calendar-alt mr-1"></i> {{year}}
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-2" v-if="Admin">
-                <li class="nav-item">
-                  <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'turmasExternas' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Externa</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Pós</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'horarios' }" class="nav-link"><i class="fas fa-calendar-alt"></i> Horários</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'turmas' }" class="nav-link"><i class="fas fa-bars"></i> Turmas</router-link>
-                </li>
-              <!--
-                <li class="nav-item">
-                  <router-link :to="{ name: 'relatorios' }" class="nav-link"><i class="fas fa-chart-line"></i> Relatórios</router-link>
-                </li>
-              -->
-              </ul>
-              <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">Relatórios</h6>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <router-link :to="{ name: 'cargaProfessores' }" class="nav-link"><i class="fas fa-clipboard"></i> Carga Professores</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'horariosResumo' }" class="nav-link"><i class="fas fa-clipboard"></i> Horários - Resumo</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link"><i class="fas fa-clipboard"></i> Alocação - Laboratórios</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'gradeDisciplinas' }" class="nav-link"><i class="fas fa-clipboard"></i> Grades Disciplinas</router-link>
-                </li>
-              </ul>
-              <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted" v-if="Admin">Gerenciar</h6>
-              <ul class="nav flex-column" v-if="Admin">
-                <li class="nav-item">
-                  <router-link :to="{ name: 'cursos' }" class="nav-link"><i class="fas fa-graduation-cap"></i> Cursos</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'docentes' }" class="nav-link"><i class="fas fa-users"></i> Docentes</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'grades' }" class="nav-link"><i class="fas fa-sitemap"></i> Grades</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'perfis' }" class="nav-link"><i class="fas fa-th"></i> Perfis</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'disciplinas' }" class="nav-link"><i class="fas fa-table"></i>Disciplina</router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'salas' }" class="nav-link"><i class="fas fa-clipboard"></i>Salas</router-link>
-                </li>
-
-              </ul>
-
-            </div>
-        </nav>
-
-        <main role="main" class="col-md-10 col-lg-10 ml-auto" v-if="!isLoading">
-          <router-view></router-view>
-        </main>
-
-
-        <div id="loading" v-if="isLoading">
-            <div class="cube1"></div>
-            <div class="cube2"></div>
-        </div>
-      </div>
-    </div>
-
+  
   </div>
 </template>
 
@@ -242,11 +245,26 @@ export default {
           userForm: _.clone(emptyUser),
           downloadState : 0,
           planoForm : _.clone(emptyPlano),
-          show: false
+          show: false,
+          classes_main:"",
+          classes_sidebar:"",
       }
   },
 
   computed: {
+    abrir(){
+      if(this.show){
+        this.show= false;
+        //this.classes_main="col-10",
+        //this.classes_sidebar=" col-3 col-sm-2 col-md-2 col-lg-2"
+      }
+      else{
+        this.show= true;
+        //this.classes_main="col-10",
+        //this.classes_sidebar=" col-3 col-sm-2 col-md-2 col-lg-2"
+      }
+    },
+
     year () {
       if(!(_.isEmpty(this.$store.state.plano.Plano))) {
           if(typeof this.$store.state.plano.Plano[0].ano === 'string')
@@ -487,7 +505,7 @@ export default {
   padding-right: 0px; 
   padding-left: 0px;
 
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  box-shadow: -60px 0px 100px -90px;
   font-size: .875rem;
 }
 
@@ -551,7 +569,7 @@ export default {
 .sidebar-sticky {
   position: relative;
   top: 0;
-  padding-top: 10px; 
+  padding-top: 0.5rem; 
   height: calc(100vh - 38px);
   padding-bottom: 1.0rem;
   overflow-x: hidden;
@@ -590,16 +608,22 @@ export default {
   padding-top: 38px; /* Space for fixed navbar */
   padding-left: 25px  /*Spcace for fixed sidebar */
 }
+
 .navbar-brand {
+  color:#CCCDCF;
   font-size: 1.2rem;
   padding-right: 10px;
+  padding-left: 0px;
+  margin-left:10px;
   min-width:  max-content;
   width: 16.7%;
-
+  cursor: pointer;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
-
+.navbar-brand:hover{
+  color:rgb(255, 255, 255);
+}
 .navbar {
   padding-left: 0px;
   padding-right: 0px;
@@ -609,11 +633,33 @@ export default {
   border-width: 0;
   border-radius: 0;
 }
-.navbar-nav{
+.testando{
   margin-left: auto;
   padding-right: 10px;
-  font-size: 15px;
+  padding-left:5px;
+  font-size: 14px;
 }
+
+@media screen and (max-width: 791px) {
+  [role="main"] {
+    padding-top: 76px;
+  }
+  .sidebar{
+    padding-top: 76px;  
+  }
+  .testando{
+     margin-left: 0;
+  }
+}
+@media screen and (max-width: 553px) {
+  [role="main"] {
+    padding-top: 96px;
+  }
+  .sidebar{
+    padding-top: 96px;  
+  }
+}
+
 
 .navbar-nav > .nav-item > .nav-link {
   margin-left: 10px;
@@ -712,6 +758,32 @@ export default {
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
+}
+
+/* Animação sidebar slide */
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active em versões anteriores a 2.1.8 */ {
+  transform: translateX(-300px);
+  opacity:0.5;
+}
+
+/* Remove seleção do usuario da nav bar*/
+.navbar{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.aplicaCor{
+  color:white;
 }
 
 </style>
