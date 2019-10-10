@@ -123,6 +123,11 @@ export default {
 </script>
 
 <style scoped>
+.DashboardHome{
+  max-height: calc(100vh - 38px);
+  display:block;
+  overflow: auto;
+}
 .alerta {
   text-align: justify;
   margin-left: 0;
