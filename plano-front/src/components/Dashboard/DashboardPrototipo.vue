@@ -370,7 +370,6 @@
     }
 
     .DashboardPrototipo{
-       
         max-width: 95vw;
         overflow: hidden;
     }

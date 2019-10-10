@@ -5,7 +5,7 @@
       <div class="row" style="width:100%">
   
       <div @click="show=!show" :class="{aplicaCor: show}" class="navbar-brand col-sm-3 col-md-2 mr-0">
-        <span class="dark-blue-text" style="margin-left:10px; margin-right:10px">
+        <span style="margin-left:10px; margin-right:10px">
           <i class="fas fa-bars fa-1x animated-icon2"></i>
         </span>
            
@@ -40,7 +40,7 @@
     <div class="container-fluid">
       <div class="row" style="max-width:100%; height:100%">
         <transition name="slide-fade">
-        <nav v-if="show"  class="col-3 col-sm-2 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
+        <nav v-if="show"  class="col-3 col-sm-3 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
                 <li class="nav-item">
@@ -640,7 +640,7 @@ export default {
   font-size: 14px;
 }
 
-@media screen and (max-width: 791px) {
+@media screen and (max-width: 785px) {
   [role="main"] {
     padding-top: 76px;
   }
@@ -648,7 +648,7 @@ export default {
     padding-top: 76px;  
   }
   .testando{
-     margin-left: 0;
+    margin-left: 0;
   }
 }
 @media screen and (max-width: 553px) {
