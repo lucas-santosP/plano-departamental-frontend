@@ -3,14 +3,14 @@
         <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2">Plano</h1>
             <div class="col-sm-7"></div>
-            <b-form-select v-model="periodos" style="margin-right: 10px;">
+            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: 100px;">
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
             </b-form-select>
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px;"> Confirmar </button>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;">Cancelar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
             </template>
             <template v-else>
                 <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
@@ -35,7 +35,7 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 908px;height: 80vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
+        <div style="width: 908px;height: 80vh; overflow-y: scroll; overflow-x: hidden; margin: auto;" v-if="!isLoading">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
