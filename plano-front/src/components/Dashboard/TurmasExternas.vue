@@ -1,5 +1,5 @@
 <template>
-    <div class="TurmasExternas" style="height: calc(100vh - 48px)" v-if="Admin">
+    <div class="TurmasExternas" style="height: calc(100vh - 48px);  margin-left: 20px;" v-if="Admin">
         <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2">Plano</h1>
             <div class="col-sm-7"></div>
@@ -9,12 +9,12 @@
                 <option value = "3">Ambos</option>
             </b-form-select>
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addTurma" style="margin-right: 10px;"> Confirmar </button>
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="margin-left: 10px;">Cancelar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px;"> Confirmar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;">Cancelar </button>
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-success col-sm-1" style="" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" style="" v-b-modal.modalConfirma>Deletar </button>
 
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
@@ -410,6 +410,33 @@
 
     .ice {
         background-color: #c7c7c9 !important;
+    }
+    .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    .botao-estilo2{
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover{
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
+    }
+    
+    .botao-estilo2:focus{
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
 </style>
 <style scoped>

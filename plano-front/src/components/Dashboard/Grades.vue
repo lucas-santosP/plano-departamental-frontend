@@ -106,20 +106,20 @@
                   </select>
                 </div>
               </div>
-              <button type="button" class="btn btn-success m-2" v-on:click.prevent="addDisciplinaGrade" :key="4">Adicionar à Grade</button>
-              <button type="button" class="btn btn-success m-2" v-on:click.prevent="editDisciplinaGrade" :key="4">Editar Período</button>
-              <button type="button" class="btn btn-danger m-2" v-on:click.prevent="deleteDisciplinaGrade" :key="4">Excluir Disciplina</button>
+              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="addDisciplinaGrade" :key="4">Adicionar à Grade</button>
+              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editDisciplinaGrade" :key="4">Editar Período</button>
+              <button type="button" class="btn btn-danger m-2 botao-estilo" v-on:click.prevent="deleteDisciplinaGrade" :key="4">Excluir Disciplina</button>
             <br/>
-              <button type="button" class="btn btn-success m-2" v-on:click.prevent="editGrade" :key="1">Editar</button>
-              <button type="button" class="btn btn-danger m-2" v-on:click.prevent="deleteGrade" :key="3">Excluir
+              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editGrade" :key="1">Editar</button>
+              <button type="button" class="btn btn-danger m-2 botao-estilo2" v-on:click.prevent="deleteGrade" :key="3">Excluir
               </button>
-              <button type="button" class="btn btn-secondary m-2" v-on:click.prevent="cleanGrade" :key="2">Cancelar
+              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanGrade" :key="2">Cancelar
               </button>
             </template>
             <template v-else>
-              <button type="button" class="btn btn-success m-2" v-on:click.prevent="addGrade" :key="1">Adicionar
+              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="addGrade" :key="1">Adicionar
               </button>
-              <button type="button" class="btn btn-secondary m-2" v-on:click.prevent="cleanGrade" :key="2">Resetar
+              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanGrade" :key="2">Resetar
               </button>
             </template>
           </div>
@@ -351,4 +351,31 @@
   .even {
     background-color: #a5a7a4;
   }
+
+      .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+    .botao-estilo2{
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover{
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
+    }
+    
+    .botao-estilo2:focus{
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+    }
 </style>

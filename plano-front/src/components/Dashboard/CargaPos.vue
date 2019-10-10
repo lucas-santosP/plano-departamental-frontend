@@ -15,12 +15,12 @@
             </b-col>
             <b-col cols="3" style="margin-left: -65px;">
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
-                <button type="button" class="btn btn-success" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
+                <button type="button" class="btn btn-success botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
+                <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
-                <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="float:right;">Adicionar </button>
+                <button type="button" class="btn btn-success botao-estilo2" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="toggleAdd" style="float:right;">Adicionar </button>
 
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
@@ -315,5 +315,32 @@
             transform: rotate(-360deg);
             -webkit-transform: rotate(-360deg);
         }
+    }
+    .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    .botao-estilo2{
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover{
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
+    }
+    
+    .botao-estilo2:focus{
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
 </style>

@@ -2,7 +2,7 @@
     <div class="DashboardCargaProfessores row">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2">Carga Professores</h1>
-            <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="pdf" style=""> Relatório </button>
+            <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
         </div>
         <div style="width: 100%; height: 80vh; overflow: scroll" class="element" ref="carga">
         <table class="table table-hover table-sm table-bordered">
@@ -227,9 +227,23 @@
         background: white;
         z-index: 10;
     }
-.DashboardCargaProfessores{
+    .DashboardCargaProfessores{
     margin-left: 0px;
-}
+    }
     .element::-webkit-scrollbar { width: 0 !important }
+
+        .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
 
 </style>

@@ -4,13 +4,13 @@
             <h1 class="h2">Plano</h1>
             <div class="col-11">
                 <template v-if="isAdd">
-                    <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
-                    <button type="button" class="btn btn-success" v-on:click.prevent="addTurma" style="margin-left: 10px;float:right;"> Confirmar </button>
+                    <button type="button" class="btn btn-success botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
+                    <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="addTurma" style="margin-left: 10px;float:right;"> Confirmar </button>
                 </template>
                 <template v-else>
-                    <button type="button" class="btn btn-success" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
-                    <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Adicionar </button>
-                    <button type="button" class="btn btn-success" v-on:click.prevent="xlsx(Pedidos)" style="margin-left: 10px;float:right;">XLSX </button>
+                    <button type="button" class="btn btn-success botao-estilo2" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
+                    <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Adicionar </button>
+                    <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="xlsx(Pedidos)" style="margin-left: 10px;float:right;">XLSX </button>
 
                     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                         <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
@@ -30,7 +30,7 @@
                     <option value = "2">Visualizar 2º Semestre</option>
                     <option value = "3">Visualizar Ambos</option>
                 </b-form-select>
-                <b-button v-b-modal.modalPerfis style="float: right; margin-right:20px">Perfis</b-button>
+                <b-button v-b-modal.modalPerfis style="float: right; margin-right:20px botao-estilo">Perfis</b-button>
 
                 <b-modal id="modalPerfis" scrollable title="Selecione os perfis">
                     <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
@@ -461,5 +461,31 @@
             transform: rotate(-360deg);
             -webkit-transform: rotate(-360deg);
         }
+    }
+     .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+    .botao-estilo2{
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover{
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
+    }
+    
+    .botao-estilo2:focus{
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
 </style>
