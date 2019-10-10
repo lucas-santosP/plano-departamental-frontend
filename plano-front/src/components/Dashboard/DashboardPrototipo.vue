@@ -30,7 +30,7 @@
                     <option value = "2">Visualizar 2º Semestre</option>
                     <option value = "3">Visualizar Ambos</option>
                 </b-form-select>
-                <b-button v-b-modal.modalPerfis style="float: right; margin-right:20px botao-estilo">Perfis</b-button>
+                <b-button v-b-modal.modalPerfis class="botao-estilo" style="float: right; margin-right:20px">Perfis</b-button>
 
                 <b-modal id="modalPerfis" scrollable title="Selecione os perfis">
                     <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
@@ -38,10 +38,10 @@
                     </b-form-checkbox-group>
 
                     <div slot="modal-footer">
-                        <b-button size="sm" variant="success" @click="selectAll()" style="margin-right: 20px">
+                        <b-button class="botao-estilo" size="sm" variant="success" @click="selectAll()" style="margin-right: 20px">
                             Selecionar Todos
                         </b-button>
-                        <b-button size="sm" variant="success" @click="selectNone()">
+                        <b-button class="botao-estilo" size="sm" variant="success" @click="selectNone()">
                             Desmarcar Todos
                         </b-button>
                     </div>
