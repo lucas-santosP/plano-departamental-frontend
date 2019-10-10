@@ -1,16 +1,31 @@
 <template>
-  <div class="TheDashboard wrapper" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
+  <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top shadow" v-bind:class=" { 'navbarOpen': show }">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow" style="padding-left:10px" v-bind:class=" { 'navbarOpen': show }">
+      
       <div class="row" style="width:100%">
-  
-      <div @click="show=!show" :class="{aplicaCor: show}" class="navbar-brand col-sm-3 col-md-2 mr-0">
-        <span style="margin-left:10px; margin-right:10px">
+      <div class="navbar-brand col-sm-3 col-md-2 mr-0">
+       <!-- <span style="margin-left:10px; margin-right:10px">
           <i class="fas fa-bars fa-1x animated-icon2"></i>
         </span>
-           
+        :class="{aplicaCor: show}"
+        -->
         <span class="brand-titulo">Plano Departamental</span>
         </div>
+        <transition 
+        name="custom-classes-transition"
+        enter-active-class="animated bounceIn"
+        >
+          <button v-if="show" @click="show=!show" key="save" type="button" class="btn-navbar">
+            <i key="save" class="fas fa-times"></i> 
+        </button>
+        
+        <button v-else @click="show=!show" key="edit" type="button" class="btn-navbar">
+          <i  class="fas fa-bars"></i>
+        </button>
+        </transition>
+
 
         <ul class="navbar-nav testando" style="flex-direction:row;">
             <li class="nav-item">
@@ -32,14 +47,16 @@
               <router-link :to="{ name: 'logout' }" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</router-link>
             </li>
           </ul>
-        
       </div>
-
     </nav>
 
     <div class="container-fluid">
-      <div class="row" style="max-width:100%; height:100%">
-        <transition name="slide-fade">
+      <div class="row" style="max-width:100%; height:100%; margin:0">
+        <transition 
+          name="custom-classes-transition"
+          enter-active-class="animated slideInLeft sidebar-animated"
+          leave-active-class="animated slideOutLeft sidebar-animated"
+        >
         <nav v-if="show"  class="col-3 col-sm-3 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
@@ -112,7 +129,7 @@
         </nav>
         </transition>
 
-        <main @click="show=false" role="main" class="col-12 ml-auto" v-if="!isLoading">
+        <main @click="show=false" role="main" class="col-12 ml-auto" style="padding-right:0" v-if="!isLoading">
           <router-view></router-view>
         </main>
 
@@ -245,26 +262,14 @@ export default {
           userForm: _.clone(emptyUser),
           downloadState : 0,
           planoForm : _.clone(emptyPlano),
-          show: false,
-          classes_main:"",
-          classes_sidebar:"",
-      }
+          show: false, 
+        }
   },
 
   computed: {
-    abrir(){
-      if(this.show){
-        this.show= false;
-        //this.classes_main="col-10",
-        //this.classes_sidebar=" col-3 col-sm-2 col-md-2 col-lg-2"
-      }
-      else{
-        this.show= true;
-        //this.classes_main="col-10",
-        //this.classes_sidebar=" col-3 col-sm-2 col-md-2 col-lg-2"
-      }
+    falso(){
+      return !this.show;
     },
-
     year () {
       if(!(_.isEmpty(this.$store.state.plano.Plano))) {
           if(typeof this.$store.state.plano.Plano[0].ano === 'string')
@@ -526,8 +531,8 @@ export default {
 }
 
 .nav li{
-  border-bottom:white 0.3px solid;
-  border-top:   white 0.3px solid;
+  border-bottom:#FAFAFA 0.3px solid;
+  border-top:   #FAFAFA 0.3px solid;
 }
 .nav li:hover{
   background-color: #0079fa;
@@ -610,11 +615,11 @@ export default {
 }
 
 .navbar-brand {
-  color:#CCCDCF;
+  color:rgb(213, 214, 216);
   font-size: 1.2rem;
   padding-right: 10px;
-  padding-left: 0px;
-  margin-left:10px;
+  padding-left: 5px;
+  margin-left:5px;
   min-width:  max-content;
   width: 16.7%;
   cursor: pointer;
@@ -640,7 +645,7 @@ export default {
   font-size: 14px;
 }
 
-@media screen and (max-width: 785px) {
+@media screen and (max-width: 771px) {
   [role="main"] {
     padding-top: 76px;
   }
@@ -761,17 +766,7 @@ export default {
 }
 
 /* Animação sidebar slide */
-.slide-fade-enter-active {
-  transition: all .35s ease;
-}
-.slide-fade-leave-active {
-  transition: all .35s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active em versões anteriores a 2.1.8 */ {
-  transform: translateX(-300px);
-  opacity:0.5;
-}
+
 
 /* Remove seleção do usuario da nav bar*/
 .navbar{
@@ -782,8 +777,23 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
+.btn-navbar{
+  margin-left:0px;
+  width:40px;
+  color:#CCCDCF;
+  background-color: rgba(0, 0, 0, .25);
+  font-size:22px;
+  border:1px;
+}
 .aplicaCor{
-  color:white;
+  background-color:rgb(226, 226, 226);
+  color:rgba(0, 0, 0, 0.753);
 }
 
+.sidebar-animated {
+   -webkit-animation-duration: 0.3s;
+   animation-duration: 0.3s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+}
 </style>
