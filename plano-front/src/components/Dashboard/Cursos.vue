@@ -41,7 +41,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col">
+    <div class="col-sm-4" style="padding-right: 30px;">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -55,27 +55,27 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-          <div class="col-sm-10">
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+          <div class="col-sm-9">
             <input type="text" class="form-control" id="nome" v-model="cursoForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
-          <div class="col-sm-10">
+          <label for="codigo" class="col-sm-3 col-form-label" style="text-align: end;">Código</label>
+          <div class="col-sm-9">
             <input type="text" class="form-control" id="codigo" v-model="cursoForm.codigo">
           </div>
         </div>
         <div class="form-group row">
-          <label for="alunosEntrada" class="col-sm-2 col-form-label">Alunos por Entrada</label>
-          <div class="col-sm-10">
+          <label for="alunosEntrada" class="col-sm-3 col-form-label" style="text-align: end;">Alunos por Entrada</label>
+          <div class="col-sm-9">
             <input type="text" class="form-control" id="alunosEnrada" v-model="cursoForm.alunosEntrada">
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="turno" class="col-sm-2 col-form-label">Turno</label>
-          <div class="col-sm-10">
+          <label for="turno" class="col-sm-3 col-form-label" style="text-align: end;">Turno</label>
+          <div class="col-sm-9">
             <div id="turno">
               <input type="radio" name="turno" value="Diurno" v-model="cursoForm.turno"> Diurno<br/>
               <input type="radio" name="turno" value="Integral" v-model="cursoForm.turno"> Integral<br/>
@@ -84,8 +84,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="semestreInicial" class="col-sm-2 col-form-label">Semestre de Entrada </label>
-          <div class="col-sm-10">
+          <label for="semestreInicial" class="col-sm-3 col-form-label">Semestre de Entrada </label>
+          <div class="col-sm-9">
             <div id="semestreInicial">
               <input type="radio" name="semestreInicial" value="1" v-model="cursoForm.semestreInicial"> Primeiro<br/>
               <input type="radio" name="semestreInicial" value="2" v-model="cursoForm.semestreInicial"> Segundo<br/>
@@ -97,7 +97,7 @@
           <div class="col-sm-10">
             <template v-if="isEdit">
               <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editCurso" :key="1">Editar</button>
-              <button type="button" class="btn btn-danger m-2 botao-estilo" v-on:click.prevent="deleteCurso" :key="3">Excluir
+              <button type="button" class="btn btn-danger m-2 botao-estilo2" v-on:click.prevent="deleteCurso" :key="3">Excluir
               </button>
               <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanCurso" :key="2">Cancelar
               </button>
@@ -111,6 +111,7 @@
           </div>
         </div>
       </form>
+   
     </div>
   </div>
 </template>

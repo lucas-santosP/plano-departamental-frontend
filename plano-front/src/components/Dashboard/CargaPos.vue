@@ -1,27 +1,27 @@
 <template>
     <div class="CargaPos" style="height: calc(100vh - 48px);">
-        <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding:0;">
+        <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom container-fluid" style="overflow: auto; width: 100%; padding-right:20px;">
             <b-row style="width:100%">
-            <b-col cols="3" md="auto">
-            <h1 class="h2 col sm-3" style="padding:0">Cargas Pós</h1>
+            <b-col cols="">
+            <h1 class="h2 col" style="padding:0">Cargas Pós</h1>
             </b-col>
-            <b-col cols="4" style="margin-right:10%"></b-col>
-            <b-col cols="2" style="padding:0;">
-            <b-form-select v-model="periodos" class="col sm-2">
+            <b-col cols="5" ></b-col>
+            <b-col cols="" >
+            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: 100px;"> 
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
             </b-form-select>
             </b-col>
-            <b-col cols="3" style="margin-left: -65px;">
+            <!-- <b-col cols="2"> -->
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
-                <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="addCarga" style="float:right;"> Confirmar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addCarga" style="float:right; margin-bottom: 10px; margin-right: 10px;"> Confirmar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo2"  v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px;">Cancelar </button>
+
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success botao-estilo2" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
-                <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="toggleAdd" style="float:right;">Adicionar </button>
-
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px; margin-right: 10px;">Adicionar </button>
+                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" style="margin-bottom: 10px;" v-b-modal.modalConfirma>Deletar </button>
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                     <template v-for="carga in Deletar">
@@ -222,7 +222,6 @@
 
     .CargaPos{
         max-height: 90vh;
-        max-width: 90vw;
         overflow: hidden;
     }
     table {

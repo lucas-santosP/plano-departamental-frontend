@@ -30,7 +30,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col">
+    <div class="col-sm-4">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -44,21 +44,21 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-          <div class="col-sm-10">
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+          <div class="col-sm-9">
             <input type="text" class="form-control" id="nome" v-model="docenteForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="apelido" class="col-sm-2 col-form-label">Apelido</label>
-          <div class="col-sm-10">
+          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: end;">Apelido</label>
+          <div class="col-sm-9">
             <input type="text" class="form-control" id="apelido" v-model="docenteForm.apelido">
           </div>
         </div>
         <div class="form-group row">
-          <label for="perfis" class="col-sm-2 col-form-label">Perfis</label>
+          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: end;">Perfis</label>
           <template v-if="docenteForm.id!=undefined">
-          <div class="col-sm-10" id="perfis">
+          <div class="col-sm-9" id="perfis">
             <b-form-checkbox-group stacked v-model="perfisAssociados">
               <b-form-checkbox v-for="perfil in Perfis" :value="perfil.id" v-on:change="managePerfil(perfil.id)">{{perfil.nome}}</b-form-checkbox>
             </b-form-checkbox-group>
@@ -66,7 +66,7 @@
           </template>
         </div>
         <div class="form-group row">
-          <div class="col-sm-12">
+          <div class="col-sm-12" style="padding-left:45px;">
             <label for="ativo" class="col-form-label">
               <input type="checkbox" id="ativo" value="1" v-model="docenteForm.ativo">
           Ativo</label>

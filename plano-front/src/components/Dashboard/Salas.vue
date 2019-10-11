@@ -28,7 +28,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col">
+        <div class="col-sm-4">
             <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <template v-if="isEdit">
@@ -42,14 +42,14 @@
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col-sm-2 col-form-label" style="text-align: center;">Nome</label>
-                    <div class="col-sm-10">
+                    <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="nome" v-model="salaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label for="laboratorio" class="col-sm-4 col-form-label">
+                        <label for="laboratorio" class="col-sm-4 col-form-label" style="margin-left: 25px;">
                             <input type="checkbox" id="laboratorio" value="1" v-model="salaForm.laboratorio">
                         Laboratório</label>
                     </div>
