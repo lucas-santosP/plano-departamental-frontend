@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="semestreInicial" class="col-sm-3 col-form-label">Semestre de Entrada </label>
+          <label for="semestreInicial" class="col-sm-3 col-form-label" style="text-align: end;">Semestre de Entrada </label>
           <div class="col-sm-9">
             <div id="semestreInicial">
               <input type="radio" name="semestreInicial" value="1" v-model="cursoForm.semestreInicial"> Primeiro<br/>

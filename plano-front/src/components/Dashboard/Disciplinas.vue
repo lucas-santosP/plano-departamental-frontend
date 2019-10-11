@@ -52,31 +52,31 @@
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+                    <label for="nome" class="col col-form-label" style="text-align: end;">Nome</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col-sm-3 col-form-label" style="text-align: end;">Código</label>
+                    <label for="codigo" class="col col-form-label" style="text-align: end;">Código</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col-sm-3 col-form-label" style="text-align: end;">Carga Teórica</label>
+                    <label for="cargaTeorica" class="col col-form-label" style="text-align: end;">Carga Teórica</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col-sm-3 col-form-label" style="text-align: end;">Carga Prática</label>
+                    <label for="cargaPratica" class="col col-form-label" style="text-align: end;">Carga Prática</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col-sm-3 col-form-label" style="text-align: end;">Perfil</label>
+                    <label for="perfil" class="col col-form-label" style="text-align: end;">Perfil</label>
                     <div class="col-sm-8">
                         <select type="text" class="form-control" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
@@ -85,8 +85,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col" style="margin-left: -40px;">
-                        <label for="ead" class="col-sm-4 col-form-label" style="text-align: end;">
+                    <div class="col" style="margin-left: -35px;">
+                        <label for="ead" class="col-sm-5 col-form-label" style="text-align: end;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
