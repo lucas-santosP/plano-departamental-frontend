@@ -1,6 +1,6 @@
 <template>
     <div class="TurmasExternas" style="height: calc(100vh - 48px);  margin-left: 20px;" v-if="Admin">
-        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
+        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding-right: 20px;">
             <h1 class="h2">Plano</h1>
             <div class="col-sm-7"></div>
             <b-form-select v-model="periodos" style="margin-right: 10px; min-width: 100px;">
@@ -35,7 +35,7 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 908px;height: 80vh; overflow-y: scroll; overflow-x: hidden; margin: auto;" v-if="!isLoading">
+        <div style="width: 956px;height: 80vh; overflow-y: scroll; overflow-x: hidden; margin: auto;" v-if="!isLoading">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>

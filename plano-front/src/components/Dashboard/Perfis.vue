@@ -30,7 +30,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col">
+    <div class="col-sm-4">
       <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -44,20 +44,20 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-          <div class="col-sm-10">
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+          <div class="col-sm-8">
             <input type="text" class="form-control" id="nome" v-model="perfilForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="abreviacao" class="col-sm-2 col-form-label">Abreviação</label>
-          <div class="col-sm-10">
+          <label for="abreviacao" class="col-sm-3 col-form-label" style="text-align: end;">Abreviação</label>
+          <div class="col-sm-8">
             <input type="text" class="form-control" id="abreviacao" v-model="perfilForm.abreviacao">
           </div>
         </div>
         <div class="form-group row">
-          <label for="cor" class="col-sm-2 col-form-label">Cor</label>
-          <div class="col-sm-10">
+          <label for="cor" class="col-sm-3 col-form-label" style="text-align: end;">Cor</label>
+          <div class="col-sm-8">
             <input type="color" class="form-control" id="cor" v-model="perfilForm.cor">
           </div>
         </div>

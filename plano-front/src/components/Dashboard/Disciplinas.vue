@@ -2,8 +2,8 @@
     <div class="DashboardDisciplinas row" v-if="Admin">
         <div class="col">
             <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Lista Disciplinas</h1>
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
+                <h1 class="h3">Lista Disciplinas</h1>
             </div>
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
@@ -31,53 +31,53 @@
                 </template>
                 <template v-else>
                     <tr>
-                        <td colspan="2" class="text-center"><i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
+                        <td colspan="3" class="text-center"><i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
                         </td>
                     </tr>
                 </template>
                 </tbody>
             </table>
         </div>
-        <div class="col">
+        <div class="col-sm-4">
             <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
                 <template v-if="isEdit">
-                    <h1 class="h2">Editar Disciplina</h1>
+                    <h1 class="h3">Editar Disciplina</h1>
                 </template>
                 <template v-else>
-                    <h1 class="h2">Adicionar Disciplina</h1>
+                    <h1 class="h3">Adicionar Disciplina</h1>
                 </template>
             </div>
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-                    <div class="col-sm-10">
+                    <label for="nome" class="col col-form-label" style="text-align: end;">Nome</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col-sm-2 col-form-label">Código</label>
-                    <div class="col-sm-10">
+                    <label for="codigo" class="col col-form-label" style="text-align: end;">Código</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col-sm-2 col-form-label">Carga Teórica</label>
-                    <div class="col-sm-10">
+                    <label for="cargaTeorica" class="col col-form-label" style="text-align: end;">Carga Teórica</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col-sm-2 col-form-label">Carga Prática</label>
-                    <div class="col-sm-10">
+                    <label for="cargaPratica" class="col col-form-label" style="text-align: end;">Carga Prática</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col-sm-2 col-form-label">Perfil</label>
-                    <div class="col-sm-10">
+                    <label for="perfil" class="col col-form-label" style="text-align: end;">Perfil</label>
+                    <div class="col-sm-8">
                         <select type="text" class="form-control" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
                             <option v-for="perfil in Perfis" :key="perfil.id" :value="perfil.id">{{perfil.nome}}</option>
@@ -85,25 +85,25 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-12">
-                        <label for="ead" class="col-sm-4 col-form-label">
+                    <div class="col" style="margin-left: -35px;">
+                        <label for="ead" class="col-sm-5 col-form-label" style="text-align: end;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <template v-if="isEdit">
-                            <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editDisciplina" :key="1">Editar</button>
-                            <button type="button" class="btn btn-danger m-2 botao-estilo2" v-on:click.prevent="deleteDisciplina" :key="3">Excluir
+                            <button type="button" class="btn btn-success m-3 botao-estilo" v-on:click.prevent="editDisciplina" :key="1">Editar</button>
+                            <button type="button" class="btn btn-danger m-3 botao-estilo3" v-on:click.prevent="deleteDisciplina" :key="3">Excluir
                             </button>
-                            <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanDisciplina" :key="2">Cancelar
+                            <button type="button" class="btn btn-secondary m-3 botao-estilo3" v-on:click.prevent="cleanDisciplina" :key="3">Cancelar
                             </button>
                         </template>
                         <template v-else>
-                            <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="addDisciplina" :key="1">Adicionar
+                            <button type="button" class="btn btn-success m-3 botao-estilo" v-on:click.prevent="addDisciplina" :key="1">Adicionar
                             </button>
-                            <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanDisciplina" :key="2">Resetar
+                            <button type="button" class="btn btn-secondary m-3 botao-estilo3" v-on:click.prevent="cleanDisciplina" :key="3">Resetar
                             </button>
                         </template>
                     </div>
@@ -239,8 +239,8 @@
 
 <style scoped>
     .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
+        background-color: #0078fa !important;
+        border-color: #0078fa !important;
     }
 
     .botao-estilo:hover{
@@ -249,19 +249,19 @@
     }
     
     .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+        box-shadow: 0 0 0 0.3rem rgb8, 136, 166, 0.5) !important;
     }
-    .botao-estilo2{
+    .botao-estilo3{
         background-color: #f51616 !important;
         border-color: #f51616 !important;
     }
 
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
+    .botao-estilo3:hover{
+        background-color: #c81313  !important;
+        border-color: #c81313 !important;
     }
     
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+    .botao-estilo3:focus{
+        box-shadow: 0 0 0 0.3rem rgba(350,,, 0.5) !important;
     }
 </style>
