@@ -2,7 +2,7 @@
     <div class="DashboardPrototipo" style="height:100%;" v-if="Admin">
         <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2">Plano</h1>
-            <div class="col-11">
+            <div class="col">
                 <template v-if="isAdd">
                     <button type="button" class="btn btn-success botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
                     <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="addTurma" style="margin-left: 10px;float:right;"> Confirmar </button>
@@ -30,7 +30,7 @@
                     <option value = "2">Visualizar 2º Semestre</option>
                     <option value = "3">Visualizar Ambos</option>
                 </b-form-select>
-                <b-button v-b-modal.modalPerfis class="botao-estilo" style="float: right; margin-right:20px">Perfis</b-button>
+                <b-button v-b-modal.modalPerfis class="botao-estilo3" style="float: right; margin-right:40px">Perfis</b-button>
 
                 <b-modal id="modalPerfis" scrollable title="Selecione os perfis">
                     <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
@@ -370,7 +370,7 @@
     }
 
     .DashboardPrototipo{
-        max-width: 95vw;
+        max-width: 100%;
         overflow: hidden;
     }
 
@@ -481,11 +481,25 @@
     }
 
     .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
+        background-color: #0079fa  !important;
+        border-color: #0079fa !important;
     }
     
     .botao-estilo2:focus{
         box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
+.botao-estilo3{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+
+    .botao-estilo3:hover{
+        background-color: #0079fa  !important;
+        border-color: #0079fa !important;
+    }
+    
+    .botao-estilo3:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
 </style>
