@@ -1,9 +1,9 @@
 <template>
     <div class="TurmasExternas" style="height: calc(100vh - 48px);  margin-left: 20px;" v-if="Admin">
-        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding-right: 20px;">
+        <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding-right: 20px;">
             <h1 class="h2">Plano</h1>
             <div class="col-sm-7"></div>
-            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: 100px;">
+            <b-form-select v-model="periodos" class="formSelect" style="margin-right: 10px; min-width: 100px; ">
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
@@ -414,6 +414,8 @@
     .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
+        width: 90px;
+        min-width: 90px;
     }
 
     .botao-estilo:hover{
@@ -428,6 +430,8 @@
     .botao-estilo2{
         background-color: #f51616 !important;
         border-color: #f51616 !important;
+        width: 80px;
+        min-width: 80px;
     }
 
     .botao-estilo2:hover{
@@ -438,6 +442,26 @@
     .botao-estilo2:focus{
         box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
+    @media screen and (max-width: 530px){
+        .botao-estilo{
+            max-width: 20%;
+            min-width: 90px;
+        }
+        .botao-estilo2{
+            max-width:20%;
+            min-width: 80px;
+        }
+        
+    }
+    @media screen and (max-width: 767px) {
+        .formSelect
+        {
+            min-width: 100px;
+            max-width: 150px;
+        }
+       
+    }
+
 </style>
 <style scoped>
 
