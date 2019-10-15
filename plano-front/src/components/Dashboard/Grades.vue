@@ -1,5 +1,6 @@
 <template>
-  <div class="DashboardGrades row" v-if="Admin">
+  <div class="DashboardGrades row" style="max-width:100%" v-if="Admin">
+    
     <div class="col">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Lista Disciplinas</h1>
@@ -7,7 +8,7 @@
 
       <div class="w-100"></div>
       <!-- Inicio do Header -->
-      <div class="row" style="margin:0px !important">
+      <div class="row" style="margin:0px !important;">
         <div class="col-4">
           <label for="cursoAtual" class="col-form-label">Curso</label>
           <select id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm">
@@ -41,8 +42,8 @@
     <div class="w-100"></div>
 
     <!-- Inicio do editar -->
-    <div class="col-5 dataContainer" style="position:absolute; margin-top:170px;">
-      <div class="col">
+    <div class="col-5 card pl-0" style="height:max-contet;">
+      <div class="col card-body">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <template v-if="isEdit">
             <h1 class="h2">Editar Grade</h1>
@@ -120,57 +121,63 @@
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  class="btn btn-success m-2 botao-estilo"
-                  v-on:click.prevent="addDisciplinaGrade"
-                  :key="4"
-                >Adicionar à Grade</button>
-                <button
-                  type="button"
-                  class="btn btn-success m-2 botao-estilo"
-                  v-on:click.prevent="editDisciplinaGrade"
-                  :key="4"
-                >Editar Período</button>
-                <button
-                  type="button"
-                  class="btn btn-danger m-2 botao-estilo"
-                  v-on:click.prevent="deleteDisciplinaGrade"
-                  :key="4"
-                >Excluir Disciplina</button>
-                <br />
-                <button
-                  type="button"
-                  class="btn btn-success m-2 botao-estilo"
-                  v-on:click.prevent="editGrade"
-                  :key="1"
-                >Editar</button>
-                <button
-                  type="button"
-                  class="btn btn-danger m-2 botao-estilo2"
-                  v-on:click.prevent="deleteGrade"
-                  :key="3"
-                >Excluir</button>
-                <button
-                  type="button"
-                  class="btn btn-secondary m-2 botao-estilo2"
-                  v-on:click.prevent="cleanGrade"
-                  :key="2"
-                >Cancelar</button>
+                <div class="form-group row">
+                  <button
+                    type="button"
+                    class="btn btn-success m-2 btn-sm botao-estilo"
+                    v-on:click.prevent="addDisciplinaGrade"
+                    :key="4"
+                  >Adicionar à Grade</button>
+                  <button
+                    type="button"
+                    class="btn btn-success m-2 btn-sm botao-estilo"
+                    v-on:click.prevent="editDisciplinaGrade"
+                    :key="4"
+                  >Editar Período</button>
+                  <button
+                    type="button"
+                    class="btn btn-danger m-2 btn-sm botao-estilo"
+                    v-on:click.prevent="deleteDisciplinaGrade"
+                    :key="4"
+                  >Excluir Disciplina</button>
+                  <br />
+                  <button
+                    type="button"
+                    class="btn btn-success m-2 btn-sm botao-estilo"
+                    v-on:click.prevent="editGrade"
+                    :key="1"
+                  >Editar</button>
+                  <div class="w-100"></div>
+                  <button
+                    type="button"
+                    class="btn btn-danger m-2 btn-sm botao-estilo2"
+                    v-on:click.prevent="deleteGrade"
+                    :key="3"
+                  >Excluir</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary m-2 btn-sm botao-estilo2"
+                    v-on:click.prevent="cleanGrade"
+                    :key="2"
+                  >Cancelar</button>
+                </div>
               </template>
+
               <template v-else>
-                <button
-                  type="button"
-                  class="btn btn-success m-2 botao-estilo"
-                  v-on:click.prevent="addGrade"
-                  :key="1"
-                >Adicionar</button>
-                <button
-                  type="button"
-                  class="btn btn-secondary m-2 botao-estilo2"
-                  v-on:click.prevent="cleanGrade"
-                  :key="2"
-                >Resetar</button>
+                <div class="form-group row">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm ml-3 mt-3 botao-estilo"
+                    v-on:click.prevent="addGrade"
+                    :key="1"
+                  >Adicionar</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm ml-3 mt-3 botao-estilo2"
+                    v-on:click.prevent="cleanGrade"
+                    :key="2"
+                  >Resetar</button>
+                </div>
               </template>
             </div>
           </div>
@@ -178,36 +185,49 @@
       </div>
     </div>
     <!-- Final do editar -->
-    <div class="w-100"></div>
 
     <!-- Inicio da tabela -->
-    <div class="col-7 offset-5" style="max-height: calc(100vh - 250px); overflow:auto">
-      <div class="header col-1">P.</div>
-      <div class="header col-10">Disciplina</div>
+    <div class="col-6 ml-3 card" style="max-height: calc(100vh - 250px); overflow:auto">
+      <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="thead-dark sticky">
+          <tr>
+            <th class="header col-1" scope="col">P.</th>
+            <th class="header col-11" scope="col">Disciplina</th>
+          </tr>
+      </thead>
+      
+        <template v-if="currentGrade!=undefined">
+          <tbody v-for="grade in Grades" :key="grade.id" v-on:click.prevent="showGrade(grade)">
+            <template v-if="grade.id===currentGrade">
+              <template v-for="disciplinaGrade in DisciplinaGrades">
+                <template v-if="disciplinaGrade.Grade===grade.id">
+                  <tr class="data" style="width:100%"  v-bind:class="{'even':isEven(disciplinaGrade.periodo)}">
+                      
+                      <th scope="row" class="data col-1">
+                        {{disciplinaGrade.periodo}}
+                      </th>
 
-      <template v-if="currentGrade!=undefined">
-        <div v-for="grade in Grades" :key="grade.id" v-on:click.prevent="showGrade(grade)">
-          <template v-if="grade.id===currentGrade">
-            <template v-for="disciplinaGrade in DisciplinaGrades">
-              <template v-if="disciplinaGrade.Grade===grade.id">
-                <div class="data" style="width: 95%; height:25px" v-bind:class="{'even':isEven(disciplinaGrade.periodo)}">
-
-                  <div class="data col-1">{{disciplinaGrade.periodo}}</div>
-                  <template v-for="disciplina in Disciplinas">
-                    <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                      <div class="data col-10" v-on:click.prevent="showDisciplina(disciplinaGrade)">
-                        {{disciplina.nome}}
-                      </div>
-                    </template>
-                  </template>
-                </div>
+                      <td class="data col-11">
+                        <template v-for="disciplina in Disciplinas">
+                          <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
+                            <span  class="data" v-on:click.prevent="showDisciplina(disciplinaGrade)">
+                              {{disciplina.nome}}
+                            </span>
+                          </template>
+                        </template>
+                      </td>
+                  </tr>
+                </template>
               </template>
+              
             </template>
-          </template>
-        </div>
-      </template>
+          </tbody>
+        </template>
+      </table>
     </div>
     <!-- Final da tabela -->
+    </div>
   </div>
 </template>
 
@@ -453,6 +473,9 @@ export default {
 
 <style scoped>
 
+.btn-sm{
+  height: 35px;
+}
 .form-group{
   margin-bottom: 5px;
 }
@@ -465,7 +488,8 @@ export default {
 }
 
 .even {
-  background-color: #a5a7a4;
+  background-color: #e6e6e6;
+ 
 }
 
 .botao-estilo {
@@ -493,5 +517,15 @@ export default {
 
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+}
+
+.table tr td:hover{
+    background-color: #cfcfcf !important;   
+}
+.table-bordered tr td{
+  border-color: #6d6d6d;
+}
+.table-bordered  tr th{
+  border-color: #6d6d6d;
 }
 </style>

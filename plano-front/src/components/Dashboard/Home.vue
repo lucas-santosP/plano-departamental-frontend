@@ -5,7 +5,7 @@
     </div>
 
     <!-- alert -->
-    <div class="alert alert-light alert-dismissible fade show alerta" role="alert">
+    <div class="alert alert-light alerta" role="alert">
       <p style="font-size:18px">
         Olá {{getUsuarioFirstName}}! Este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da Computação.
         <br>Abaixo segue um resumo das funcionalidade de cada tela:
@@ -138,6 +138,8 @@ export default {
 }
 
 .listas {
+  border:2px #3f3f3f solid;
+  border-radius: 5px;
   line-height: 30px;
   text-align: justify;
   margin-left: 1%;
@@ -150,7 +152,7 @@ export default {
   margin-top: 2%;
   font-size: 20px;
   font-weight: 600;
-  color: #5f5c5c;
+  color: #3f3f3f;
   
 }
 </style>

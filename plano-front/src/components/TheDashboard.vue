@@ -57,10 +57,10 @@
           enter-active-class="animated slideInLeft sidebar-animated"
           leave-active-class="animated slideOutLeft sidebar-animated"
         >
-        <nav v-if="show"  class="col-3 col-sm-3 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
+        <nav v-if="show" class="col-3 col-sm-3 col-md-2 col-lg-2 d-block d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'dashboard' }" class="nav-link"><i class="fas fa-home"></i> Dashboard</router-link>
                 </li>
               </ul>
@@ -71,55 +71,55 @@
                 </a>
               </h6>
               <ul class="nav flex-column mb-2" v-if="Admin">
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'turmasExternas' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Externa</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Pós</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'horarios' }" class="nav-link"><i class="fas fa-calendar-alt"></i> Horários</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'turmas' }" class="nav-link"><i class="fas fa-bars"></i> Turmas</router-link>
                 </li>
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">Relatórios</h6>
               <ul class="nav flex-column">
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cargaProfessores' }" class="nav-link"><i class="fas fa-clipboard"></i> Carga Professores</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'horariosResumo' }" class="nav-link"><i class="fas fa-clipboard"></i> Horários - Resumo</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link"><i class="fas fa-clipboard"></i> Alocação - Laboratórios</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'gradeDisciplinas' }" class="nav-link"><i class="fas fa-clipboard"></i> Grades Disciplinas</router-link>
                 </li>
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted" v-if="Admin">Gerenciar</h6>
               <ul class="nav flex-column" v-if="Admin">
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cursos' }" class="nav-link"><i class="fas fa-graduation-cap"></i> Cursos</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'docentes' }" class="nav-link"><i class="fas fa-users"></i> Docentes</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'grades' }" class="nav-link"><i class="fas fa-sitemap"></i> Grades</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'perfis' }" class="nav-link"><i class="fas fa-th"></i> Perfis</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'disciplinas' }" class="nav-link"><i class="fas fa-table"></i>Disciplina</router-link>
                 </li>
-                <li class="nav-item">
+                <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'salas' }" class="nav-link"><i class="fas fa-clipboard"></i>Salas</router-link>
                 </li>
 
