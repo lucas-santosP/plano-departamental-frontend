@@ -1,232 +1,244 @@
 <template>
   <div class="DashboardGrades row" style="max-width:100%" v-if="Admin">
-    
     <div class="col">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Lista Disciplinas</h1>
       </div>
-
-      <div class="w-100"></div>
-      <!-- Inicio do Header -->
-      <div class="row" style="margin:0px !important;">
-        <div class="col-4">
-          <label for="cursoAtual" class="col-form-label">Curso</label>
-          <select id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm">
-            <option value="4">Ciência da Computação Diurno</option>
-            <option value="1">Ciência da Computação Noturno</option>
-            <option value="3">Sistemas de Informação</option>
-            <option value="2">Engenharia Computacional</option>
-          </select>
-        </div>
-
-        <div class="col-3">
-          <label for="gradeAtual" class="col-form-label">Grade</label>
-          <select
-            id="gradeAtual"
-            v-model="currentGrade"
-            v-on:change="findGrade()"
-            class="form-control form-control-sm"
-            style="width: 90px;"
-          >
-            <option
-              v-for="grade in Grades"
-              v-if="grade.Curso == currentCurso"
-              :value="grade.id"
-            >{{grade.nome}}</option>
-          </select>
-        </div>
-      </div>
-      <hr/>
-    </div>
-    <!-- Final do Header -->
+    
     <div class="w-100"></div>
 
-    <!-- Inicio do editar -->
-    <div class="col-5 card pl-0" style="height:max-contet;">
-      <div class="col card-body">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <template v-if="isEdit">
-            <h1 class="h2">Editar Grade</h1>
-          </template>
-          <template v-else>
-            <h1 class="h2">Adicionar Grade</h1>
-          </template>
-        </div>
-        <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-        <form>
-          <div class="form-group row">
-            <label for="nome" class="col-4 col-form-label">Nome</label>
-            <div class="col-8">
-              <input type="text" style="text-align:center" class="form-control form-control-sm col-3" id="nome" v-model="gradeForm.nome" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="periodoInicio" class="col-4 col-form-label">Período de Início</label>
-            <div class="col-8">
-              <input type="text" style="text-align:center" class="form-control form-control-sm col-3" id="periodoInicio" v-model="gradeForm.periodoInicio"/>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="curso" class="col-4 col-form-label">Curso</label>
-            <div class="col-8">
-              <select type="text" style="text-align:center;" class="form-control form-control-sm" id="curso" v-model="gradeForm.Curso">
+      <!-- Grind esquerdo -->
+      <div class="row" style="margin:0px !important;">
+        <div class="col-7">
+          <!-- Inicio forms Curso e Grande -->
+          <div class="form-row">
+            <div class="col-5">
+              <label for="cursoAtual" class="col-form-label">Curso</label>
+              <select style="max-width:250px" id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm mr-0">
                 <option value="4">Ciência da Computação Diurno</option>
                 <option value="1">Ciência da Computação Noturno</option>
                 <option value="3">Sistemas de Informação</option>
                 <option value="2">Engenharia Computacional</option>
               </select>
             </div>
+
+            <div class="col-2">
+              <label for="gradeAtual" class="col-form-label ">Grade</label>
+              <select
+                id="gradeAtual"
+                v-model="currentGrade"
+                v-on:change="findGrade()"
+                class="form-control form-control-sm"
+                style="width: 90px;">
+                <option
+                  v-for="grade in Grades"
+                  v-if="grade.Curso == currentCurso"
+                  :value="grade.id">
+                {{grade.nome}}</option>
+              </select>
+            </div>
           </div>
-          
-          <div class="form-group row">
-            <div class="col">
-              <template v-if="isEdit">
-                <hr style="margin-top:0; margin-bottom: 23px"/>
+          <!-- Final Forms Curso e Grande -->
+
+          <div class="w-100"></div>
+          <!-- Inicio da tabela -->
+          <div class="col ml-0 mt-3 pl-0" style="max-height: calc(100vh - 230px); overflow:auto; font-size:11px">
+            <table class="table table-bordered">
+              <thead class="thead-light sticky">
+                <tr>
+                  <th class="header col-1" scope="col">P.</th>
+                  <th class="header col-11" scope="col">Disciplina</th>
+                </tr>
+            </thead>
+            
+              <template v-if="currentGrade!=undefined">
+                <tbody v-for="grade in Grades" :key="grade.id" v-on:click.prevent="showGrade(grade)">
+                  <template v-if="grade.id===currentGrade">
+                    <template v-for="disciplinaGrade in DisciplinaGrades">
+                      <template v-if="disciplinaGrade.Grade===grade.id">
+                        <tr class="data" style="width:100%;"  v-bind:class="{'even':isEven(disciplinaGrade.periodo)}">
+                            
+                            <th scope="row" class="data col-1">
+                              {{disciplinaGrade.periodo}}
+                            </th>
+
+                            <td class="data col-11" style="padding-right:0">
+                              <template v-for="disciplina in Disciplinas">
+                                <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
+                                  <span  class="data w-100" v-on:click.prevent="showDisciplina(disciplinaGrade)">
+                                    {{disciplina.nome}}
+                                  </span>
+                                </template>
+                              </template>
+                            </td>
+                        </tr>
+                      </template>
+                    </template>
+                    
+                  </template>
+                </tbody>
+              </template>
+            </table>
+          <!-- Final da tabela -->
+          </div>
+        </div>
+      <!-- Fim Grind  -->
+
+      <!-- Grind direito -->
+        <div class="col-5 pl-0">
+          <!-- Inicio card Edit -->
+          <div class="col card">
+            <div class="card-body" style="padding:15px">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <template v-if="isEdit">
+                  <h1 class="h2">Editar Grade</h1>
+                </template>
+                <template v-else>
+                  <h1 class="h2">Adicionar Grade</h1>
+                </template>
+              </div>
+              <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+              <form>
                 <div class="form-group row">
-                  <label for="disciplina" class="col-4 col-form-label">Disciplina</label>
+                  <label for="nome" class="col-4 col-form-label">Nome</label>
                   <div class="col-8">
-                    <select
-                      type="text"
-                      class="form-control form-control-sm"
-                      id="disciplina"
-                      v-model="disciplinaGradeForm.Disciplina">
-                      <option
-                        v-if="Disciplinas.length===0"
-                        type="text"
-                        value
-                      >Nenhuma Disciplina Encontrada</option>
-                      <option
-                        v-for="disciplina in Disciplinas"
-                        :key="disciplina.id"
-                        :value="disciplina.id"
-                      >{{disciplina.nome}}</option>
+                    <input type="text" style="text-align:center;" class="form-control form-control-sm col-lg-4 col-md-6 col-sm-8" id="nome" v-model="gradeForm.nome" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="periodoInicio" class="col-4 col-form-label">Período de Início</label>
+                  <div class="col-8">
+                    <input type="text" style="text-align:center" class="form-control form-control-sm col-lg-4 col-md-6 col-sm-8" id="periodoInicio" v-model="gradeForm.periodoInicio"/>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="curso" class="col-4 col-form-label">Curso</label>
+                  <div class="col-8">
+                    <select type="text" style="text-align:center;" class="form-control form-control-sm" id="curso" v-model="gradeForm.Curso">
+                      <option value="4">Ciência da Computação Diurno</option>
+                      <option value="1">Ciência da Computação Noturno</option>
+                      <option value="3">Sistemas de Informação</option>
+                      <option value="2">Engenharia Computacional</option>
                     </select>
                   </div>
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm botao-estilo"
+                    v-on:click.prevent="editGrade"
+                    :key="1">
+                    Salvar alterações
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm botao-estilo"
+                    v-on:click.prevent="deleteGrade"
+                    :key="3">
+                      Excluir Grade
+                  </button>
                 </div>
                 
                 <div class="form-group row">
-                  <label for="periodoDisciplina" class="col-4 col-form-label">
-                    Período
-                  </label>
-                  <div class="col-8">
-                    <input
-                      type="text"
-                      class="form-control form-control-sm col-2"
-                      id="periodoDisciplina"
-                      v-model="disciplinaGradeForm.periodo"
-                      style="text-align:center"
-                    />
+                  <div class="col">
+                    <template v-if="isEdit">
+                      <hr style="margin-top:0; margin-bottom: 23px"/>
+                      <div class="form-group row">
+                        <label for="disciplina" class="col-4 col-form-label">Disciplina</label>
+                        <div class="col-8">
+                          <select
+                            type="text"
+                            class="form-control form-control-sm"
+                            id="disciplina"
+                            v-model="disciplinaGradeForm.Disciplina">
+                            <option
+                              v-if="Disciplinas.length===0"
+                              type="text"
+                              value
+                            >Nenhuma Disciplina Encontrada</option>
+                            <option
+                              v-for="disciplina in Disciplinas"
+                              :key="disciplina.id"
+                              :value="disciplina.id"
+                            >{{disciplina.nome}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group row">
+                        <label for="periodoDisciplina" class="col-4 col-form-label">
+                          Período
+                        </label>
+
+                        <div class="col-8 input-group">
+                          <div class="input-group">     
+                            <input
+                            type="text"
+                            class="form-control form-control-sm col-2"
+                            aria-describedby="button-edit-periodo"
+                            id="periodoDisciplina"
+                            v-model="disciplinaGradeForm.periodo"
+                            style="text-align:center; margin-right:0; height:31px">
+                            <button
+                              type="button"
+                              class="btn btn-warning btn-sm botao-estilo"
+                              v-on:click.prevent="editDisciplinaGrade"
+                              :key="4">
+                                Editar Período
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group row pd">
+                        <button
+                          type="button"
+                          class="btn btn-success m-2 btn-sm botao-estilo"
+                          v-on:click.prevent="addDisciplinaGrade"
+                          :key="4"
+                        >Adicionar à Grade</button>
+
+                        <button
+                          type="button"
+                          class="btn btn-danger m-2 btn-sm botao-estilo"
+                          v-on:click.prevent="deleteDisciplinaGrade"
+                          :key="4"
+                        >Excluir Disciplina</button>
+
+                        <button
+                          type="button"
+                          class="btn btn-secondary m-2 btn-sm botao-estilo"
+                          v-on:click.prevent="cleanGrade"
+                          :key="2"
+                        >Cancelar</button>
+                      </div>
+                    </template>
+
+                    <template v-else>
+                      <div class="form-group row">
+                        <button
+                          type="button"
+                          class="btn btn-success btn-sm ml-3 mt-3 botao-estilo"
+                          v-on:click.prevent="addGrade"
+                          :key="1"
+                        >Adicionar</button>
+                        <button
+                          type="button"
+                          class="btn btn-secondary btn-sm ml-3 mt-3 botao-estilo"
+                          v-on:click.prevent="cleanGrade"
+                          :key="2"
+                        >Resetar</button>
+                      </div>
+                    </template>
                   </div>
                 </div>
-
-                <div class="form-group row">
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 btn-sm botao-estilo"
-                    v-on:click.prevent="addDisciplinaGrade"
-                    :key="4"
-                  >Adicionar à Grade</button>
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 btn-sm botao-estilo"
-                    v-on:click.prevent="editDisciplinaGrade"
-                    :key="4"
-                  >Editar Período</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2 btn-sm botao-estilo"
-                    v-on:click.prevent="deleteDisciplinaGrade"
-                    :key="4"
-                  >Excluir Disciplina</button>
-                  <br />
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 btn-sm botao-estilo"
-                    v-on:click.prevent="editGrade"
-                    :key="1"
-                  >Editar</button>
-                  <div class="w-100"></div>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2 btn-sm botao-estilo2"
-                    v-on:click.prevent="deleteGrade"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2 btn-sm botao-estilo2"
-                    v-on:click.prevent="cleanGrade"
-                    :key="2"
-                  >Cancelar</button>
-                </div>
-              </template>
-
-              <template v-else>
-                <div class="form-group row">
-                  <button
-                    type="button"
-                    class="btn btn-success btn-sm ml-3 mt-3 botao-estilo"
-                    v-on:click.prevent="addGrade"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary btn-sm ml-3 mt-3 botao-estilo2"
-                    v-on:click.prevent="cleanGrade"
-                    :key="2"
-                  >Resetar</button>
-                </div>
-              </template>
+              </form>
             </div>
           </div>
-        </form>
+          <!-- Final card Edit -->
+        </div>
       </div>
-    </div>
-    <!-- Final do editar -->
-
-    <!-- Inicio da tabela -->
-    <div class="col-6 ml-3 card" style="max-height: calc(100vh - 250px); overflow:auto">
-      <div class="card-body">
-      <table class="table table-bordered">
-        <thead class="thead-dark sticky">
-          <tr>
-            <th class="header col-1" scope="col">P.</th>
-            <th class="header col-11" scope="col">Disciplina</th>
-          </tr>
-      </thead>
-      
-        <template v-if="currentGrade!=undefined">
-          <tbody v-for="grade in Grades" :key="grade.id" v-on:click.prevent="showGrade(grade)">
-            <template v-if="grade.id===currentGrade">
-              <template v-for="disciplinaGrade in DisciplinaGrades">
-                <template v-if="disciplinaGrade.Grade===grade.id">
-                  <tr class="data" style="width:100%"  v-bind:class="{'even':isEven(disciplinaGrade.periodo)}">
-                      
-                      <th scope="row" class="data col-1">
-                        {{disciplinaGrade.periodo}}
-                      </th>
-
-                      <td class="data col-11">
-                        <template v-for="disciplina in Disciplinas">
-                          <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                            <span  class="data" v-on:click.prevent="showDisciplina(disciplinaGrade)">
-                              {{disciplina.nome}}
-                            </span>
-                          </template>
-                        </template>
-                      </td>
-                  </tr>
-                </template>
-              </template>
-              
-            </template>
-          </tbody>
-        </template>
-      </table>
-    </div>
-    <!-- Final da tabela -->
     </div>
   </div>
 </template>
@@ -493,10 +505,16 @@ export default {
 }
 
 .botao-estilo {
-  background-color: #0079fa !important;
+  /*background-color: #0079fa !important;
   border-color: #0079fa !important;
+  */
+  margin-left:15px;
+  height:31px;
 }
-
+.botao-estilo2 {
+  height:31px;
+}
+/*
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
@@ -505,27 +523,28 @@ export default {
 .botao-estilo:focus {
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
-.botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-}
 
 .botao-estilo2:hover {
   background-color: #c91212 !important;
   border-color: #c91212 !important;
 }
-
+*/
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
 
+
 .table tr td:hover{
     background-color: #cfcfcf !important;   
 }
-.table-bordered tr td{
+.table tr td{
   border-color: #6d6d6d;
+  padding-top:5px;
+  padding-bottom:5px;
 }
-.table-bordered  tr th{
+.table  tr th{
   border-color: #6d6d6d;
+  padding-top:5px;
+  padding-bottom:5px;
 }
 </style>

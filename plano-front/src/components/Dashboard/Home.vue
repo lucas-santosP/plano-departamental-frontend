@@ -138,7 +138,7 @@ export default {
 }
 
 .listas {
-  border:2px #3f3f3f solid;
+  border:1.5px #3f3f3f solid;
   border-radius: 5px;
   line-height: 30px;
   text-align: justify;
