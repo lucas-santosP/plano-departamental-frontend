@@ -8,7 +8,10 @@
             </div>
             <div v-for="lab in Laboratorios">
                 <h5>{{lab.nome}}</h5>
+                <div class="row">
+                    <div class= "col-sm-6">
                 <h6>1º Semestre</h6>
+                
                     <table class="tg">
                         <tr>
                             <th class="tg-0lax">hora</th>
@@ -83,7 +86,12 @@
                         </tr>
 
                     </table>
+                    
+                </div>
+            <div class = "col-sm-6">
                 <h6>2º Semestre</h6>
+                
+                    
                 <table class="tg">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -157,6 +165,11 @@
                         <td class="tg-0lax"><template v-for="turma in Turmas2" v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 30)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}} {{turma.letra}}   </template></template></td>
                     </tr>
                 </table>
+                <br>
+
+                    </div>
+
+            </div>
             </div>
         </div>
 
@@ -251,6 +264,9 @@
 </script>
 
 <style scoped>
+    h5{
+        font-size: 1.4em;
+    }
     td {
         width:91px !important;
         text-align: center !important;
@@ -262,7 +278,7 @@
 
     .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
     .tg td{font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-    .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+    .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(184, 195, 209);color:#333;background-color:#e1eef7;}
     .tg .tg-0lax{vertical-align:center}
         .botao-estilo{
         background-color: #0079fa !important;
@@ -276,5 +292,12 @@
     
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    @media screen {
+        .botao-estilo{
+            max-width: 20%;
+            min-width: 90px;
+        }
     }
 </style>

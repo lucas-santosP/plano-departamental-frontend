@@ -318,6 +318,7 @@
     .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
+        height: 38px;
     }
 
     .botao-estilo:hover{
@@ -332,6 +333,7 @@
     .botao-estilo2{
         background-color: #f51616 !important;
         border-color: #f51616 !important;
+        height: 38px;
     }
 
     .botao-estilo2:hover{

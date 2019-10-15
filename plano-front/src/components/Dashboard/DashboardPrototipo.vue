@@ -1,6 +1,6 @@
 <template>
     <div class="DashboardPrototipo" style="height:100%;" v-if="Admin">
-        <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
+        <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%"  >
             <h1 class="h2">Plano</h1>
             <div class="col">
                 <template v-if="isAdd">
@@ -357,17 +357,7 @@
         width: 170px;
         float:right
     }
-    @media(max-width: 878px){
-         .titulo{
-             flex-direction: column;   
-        }
-        .selectForm{
-            width: 100px; float:right
-        }
-        .tabelaScrol{
-            height: 73vh;
-        }
-    }
+    
 
     .DashboardPrototipo{
         max-width: 100%;
@@ -481,8 +471,8 @@
     }
 
     .botao-estilo2:hover{
-        background-color: #0079fa  !important;
-        border-color: #0079fa !important;
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
     }
     
     .botao-estilo2:focus{
@@ -500,6 +490,45 @@
     
     .botao-estilo3:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    @media screen and (max-width:680px) {
+        .botao-estilo3{
+            margin-top:10px;
+            margin-right: 10px;
+        }
+    }
+
+    @media screen and (max-width: 588px) {
+        .titulo{
+            flex-direction: column; 
+            overflow: auto;
+            width:100%;
+            height: 20vh;  
+        }
+        .selectForm{
+            width: 100px; 
+            float:right;
+        }
+        .tabelaScrol{
+            height: 73vh;
+        }
+        .botao-estilo3{
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    }
+
+    @media screen and (max-width:485px){
+        .botao-estilo3{
+            margin-top:10px;
+        }
+        .selectForm{
+            margin-top:10px;
+        }
+        .titulo{
+            height: 21vh;
+        }
     }
 
 </style>
