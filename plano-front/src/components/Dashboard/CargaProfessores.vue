@@ -4,7 +4,7 @@
             <h1 class="h2">Carga Professores</h1>
             <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
         </div>
-        <div style="width: 100%; height: 80vh; overflow: scroll" class="element" ref="carga">
+        <div style="width: 99%; height: 80vh; overflow: scroll" class="element" ref="carga">
         <table class="table table-hover table-sm table-bordered">
             <thead class="thead-light">
             <tr>
@@ -38,15 +38,15 @@
             <template v-if="Professores.length > 0">
             <template v-for="professor in Professores">
                 <template v-if="turmas(professor).length > 0">
-                    <td>{{professor.apelido}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{creditos1(professor)}}</td>
-                    <td>{{creditos2(professor)}}</td>
-                    <td>{{creditos(professor)}}</td>
+                    <td style = "background-color: #e7e8ef">{{professor.apelido}}</td>
+                    <td style = "background-color: #e7e8ef"></td>
+                    <td style = "background-color: #e7e8ef"></td>
+                    <td style = "background-color: #e7e8ef"></td>
+                    <td style = "background-color: #e7e8ef"></td>
+                    <td style = "background-color: #e7e8ef"></td>
+                    <td style = "background-color: #e7e8ef">{{creditos1(professor)}}</td>
+                    <td style = "background-color: #e7e8ef">{{creditos2(professor)}}</td>
+                    <td style = "background-color: #e7e8ef">{{creditos(professor)}}</td>
                 </template>
 
                 <template v-for="turma in turmas(professor)">
