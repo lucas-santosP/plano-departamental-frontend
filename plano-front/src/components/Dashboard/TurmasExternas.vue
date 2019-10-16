@@ -415,7 +415,7 @@
     .ice {
         background-color: #c7c7c9 !important;
     }
-    .botao-estilo{
+    /* .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
         width: 90px;
@@ -456,7 +456,7 @@
             min-width: 80px;
         }
         
-    }
+    } */
     @media screen and (max-width: 767px) {
         .formSelect
         {

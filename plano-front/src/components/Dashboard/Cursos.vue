@@ -96,16 +96,16 @@
         <div class="form-group row">
           <div class="col-sm-10">
             <template v-if="isEdit">
-              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editCurso" :key="1">Editar</button>
-              <button type="button" class="btn btn-danger m-2 botao-estilo2" v-on:click.prevent="deleteCurso" :key="3">Excluir
+              <button type="button" class="btn btn-warning m-2 botao-estilo" v-on:click.prevent="editCurso" :key="1">Editar</button>
+              <button type="button" class="btn btn-danger m-2" v-on:click.prevent="deleteCurso" :key="3">Excluir
               </button>
-              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanCurso" :key="2">Cancelar
+              <button type="button" class="btn btn-secondary m-2" v-on:click.prevent="cleanCurso" :key="2">Cancelar
               </button>
             </template>
             <template v-else>
-              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="addCurso" :key="1">Adicionar
+              <button type="button" class="btn btn-success m-2" v-on:click.prevent="addCurso" :key="1">Adicionar
               </button>
-              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanCurso" :key="2">Resetar
+              <button type="button" class="btn btn-secondary m-2" v-on:click.prevent="cleanCurso" :key="2">Resetar
               </button>
             </template>
           </div>
@@ -281,20 +281,21 @@ export default {
 
 <style scoped>
     .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
+        background-color: #faca4d !important;
+        border-color: #faca4d !important;
+        color: white;
     }
 
     .botao-estilo:hover{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
+        background-color: #f8ac51 !important;
+        border-color: #f8ac51 !important;
     }
     
     .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+        box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
 
-    .botao-estilo2{
+    /* .botao-estilo2{
         background-color: #f51616 !important;
         border-color: #f51616 !important;
     }
@@ -306,5 +307,5 @@ export default {
     
     .botao-estilo2:focus{
         box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    }
+    } */
 </style>

@@ -15,13 +15,13 @@
             </b-col>
             <!-- <b-col cols="2"> -->
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addCarga" style="float:right; margin-bottom: 10px; margin-right: 10px;"> Confirmar </button>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo2"  v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px;">Cancelar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addCarga" style="float:right; margin-bottom: 10px; margin-right: 10px;"> Confirmar </button>
+                <button type="button" class="btn btn-danger col-sm-1"  v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px;">Cancelar </button>
 
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px; margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" style="margin-bottom: 10px;" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px; margin-right: 10px;">Adicionar </button>
+                <button type="button" class="btn btn-danger col-sm-1" style="margin-bottom: 10px;" v-b-modal.modalConfirma>Deletar </button>
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                     <template v-for="carga in Deletar">
@@ -315,7 +315,7 @@
             -webkit-transform: rotate(-360deg);
         }
     }
-    .botao-estilo{
+    /* .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
         height: 38px;
@@ -343,5 +343,5 @@
     
     .botao-estilo2:focus{
         box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    }
+    } */
 </style>
