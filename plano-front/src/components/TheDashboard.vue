@@ -2,7 +2,7 @@
   <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow" style="padding-left:10px" v-bind:class=" { 'navbarOpen': show }">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow" style="padding-left:10px">
       
       <div class="row" style="width:100%">
       <div class="navbar-brand col-sm-3 col-md-2 mr-0">
@@ -78,7 +78,7 @@
                   <router-link :to="{ name: 'turmasExternas' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Externa</router-link>
                 </li>
                 <li @click="show=false" class="nav-item">
-                  <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i> Tabela Pós</router-link>
+                  <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage"><i class="fas fa-clipboard"></i>  Creditação Pós</router-link>
                 </li>
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'horarios' }" class="nav-link"><i class="fas fa-calendar-alt"></i> Horários</router-link>
