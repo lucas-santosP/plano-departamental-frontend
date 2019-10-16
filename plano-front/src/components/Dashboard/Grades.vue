@@ -56,7 +56,7 @@
                   <template v-if="grade.id===currentGrade">
                     <template v-for="disciplinaGrade in DisciplinaGrades">
                       <template v-if="disciplinaGrade.Grade===grade.id">
-                        <tr class="data" style="width:100%;"  v-bind:class="{'even':isEven(disciplinaGrade.periodo)}">
+                        <tr class="data" style="width:100%;"  v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">
                             
                             <th scope="row" class="data col-1">
                               {{disciplinaGrade.periodo}}
@@ -65,7 +65,7 @@
                             <td class="data col-11" style="padding-right:0">
                               <template v-for="disciplina in Disciplinas">
                                 <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                                  <span  class="data w-100" v-on:click.prevent="showDisciplina(disciplinaGrade)">
+                                  <span  class="data w-100" v-on:click.prevent="showDisciplina(disciplinaGrade); clickada=!clickada">
                                     {{disciplina.nome}}
                                   </span>
                                 </template>
@@ -100,6 +100,23 @@
               <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
               <form>
                 <div class="form-group row">
+                <button
+                    type="button"
+                    class="btn col-3 btn-success btn-sm mr-4 botao-estilo"
+                    v-on:click.prevent="editGrade"
+                    :key="1">
+                    Salvar alterações
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-danger col-3 btn-sm botao-estilo"
+                    v-on:click.prevent="deleteGrade"
+                    :key="3">
+                      Excluir Grade
+                  </button>
+                </div>
+                <div class="form-group row">
                   <label for="nome" class="col-4 col-form-label">Nome</label>
                   <div class="col-8">
                     <input type="text" style="text-align:center;" class="form-control form-control-sm col-lg-4 col-md-6 col-sm-8" id="nome" v-model="gradeForm.nome" />
@@ -123,21 +140,7 @@
                       <option value="2">Engenharia Computacional</option>
                     </select>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-success btn-sm botao-estilo"
-                    v-on:click.prevent="editGrade"
-                    :key="1">
-                    Salvar alterações
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm botao-estilo"
-                    v-on:click.prevent="deleteGrade"
-                    :key="3">
-                      Excluir Grade
-                  </button>
+                  
                 </div>
                 
                 <div class="form-group row">
@@ -271,7 +274,8 @@ export default {
       error: undefined,
       currentGrade: undefined,
       currentCurso: undefined,
-      grades: []
+      grades: [],
+      clickada:false,
     };
   },
 
@@ -500,8 +504,10 @@ export default {
 }
 
 .even {
-  background-color: #e6e6e6;
- 
+  background-color:#B0E0E6;
+}
+.notEven{
+  background-color: #FFE4B5;
 }
 
 .botao-estilo {
@@ -510,6 +516,7 @@ export default {
   */
   margin-left:15px;
   height:31px;
+  margin-bottom: 7px;
 }
 .botao-estilo2 {
   height:31px;
@@ -535,7 +542,7 @@ export default {
 
 
 .table tr td:hover{
-    background-color: #cfcfcf !important;   
+    background-color: #F7F7F7 !important;   
 }
 .table tr td{
   border-color: #6d6d6d;
@@ -546,5 +553,8 @@ export default {
   border-color: #6d6d6d;
   padding-top:5px;
   padding-bottom:5px;
+}
+.disciplinaClickada{
+  background-color: crimson;
 }
 </style>

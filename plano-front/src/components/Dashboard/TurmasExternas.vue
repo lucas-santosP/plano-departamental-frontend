@@ -1,33 +1,37 @@
 <template>
-    <div class="TurmasExternas" style="height: calc(100vh - 48px);  margin-left: 20px;" v-if="Admin">
+    <div class="TurmasExternas" style="height: 100%;" v-if="Admin">
         <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; padding-right: 20px;">
-            <h1 class="h2">Plano</h1>
-            <div class="col-sm-7"></div>
-            <b-form-select v-model="periodos" class="formSelect" style="margin-right: 10px; min-width: 100px; ">
-                <option value = "1">Primeiro</option>
-                <option value = "2">Segundo</option>
-                <option value = "3">Ambos</option>
-            </b-form-select>
-            <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
-                <button type="button" class="btn btn-danger col-sm-1" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
-            </template>
-            <template v-else>
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-danger col-sm-1" style="" v-b-modal.modalConfirma>Deletar </button>
+            <div class="form-inline col">
+                <h1 class="h2 col-1">Plano</h1>
 
-                <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-                    <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-                    <template v-for="turma in Deletar">
-                        <template v-for="disciplina in Disciplinas">
-                            <template v-if="disciplina.id===turma.Disciplina">
-                                <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
-                            </template>
-                        </template>
+                <div class="form-group offset-lg-6 col-lg-5 offset-md-4 col-md-7 flex-wrap">
+                    <b-form-select v-model="periodos" class="formSelect offset-r col-6" style="margin-right: 10px; min-width: 100px; ">
+                        <option value = "1">Primeiro</option>
+                        <option value = "2">Segundo</option>
+                        <option value = "3">Ambos</option>
+                    </b-form-select>
+                    <template v-if="isAdd">
+                        <button type="button" class="btn btn-success col-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
+                        <button type="button" class="btn btn-success col-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
                     </template>
+                    <template v-else>
+                        <button type="button" class="btn btn-success col-1 botao-estilo" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
+                        <button type="button" class="btn btn-success col-1 botao-estilo2" style="" v-b-modal.modalConfirma>Deletar </button>
 
-                </b-modal>
-            </template>
+                        <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+                            <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
+                            <template v-for="turma in Deletar">
+                                <template v-for="disciplina in Disciplinas">
+                                    <template v-if="disciplina.id===turma.Disciplina">
+                                        <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
+                                    </template>
+                                </template>
+                            </template>
+
+                        </b-modal>
+                    </template>
+                </div>
+            </div>
         </div>
 
         <div id="loading" v-if="isLoading">
@@ -35,11 +39,11 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 956px;height: 80vh; overflow-y: scroll; overflow-x: hidden; margin: auto;" v-if="!isLoading">
+        <div class="col ml-0 mt-3 pl-0" style="height: 80vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col" style="width:16px;">S.</th>
+<th scope="col" style="width:16px;">S.</th>
                     <th scope="col" style="width:80px;">Cod</th>
                     <th scope="col" style="width:178px;">Disciplina</th>
                     <th scope="col" style="width:20px;">C.</th>
@@ -57,8 +61,8 @@
                     </template>
                 </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                 <template v-if="isAdd">
                     <tr>
                         <td>
@@ -465,9 +469,8 @@
 </style>
 <style scoped>
 
-    .DashboardPrototipo{
-        max-height: 90vh;
-        max-width: 90vw;
+    .TurmasExternas{
+        max-width: 100%;
         overflow: hidden;
     }
     table {

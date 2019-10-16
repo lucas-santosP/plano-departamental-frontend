@@ -1,15 +1,15 @@
 <template>
-    <div class="turmarow" style="width: 100vw" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
+    <div class="turmarow" style="width: 98vw" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                  'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                  'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}">
         <td style="width: 21px;">
-            <input type="text" style="width: 21px;" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
+            <input type="text" style="width: 21px; text-align: center;" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
             <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(turma)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
         </td>
         <td style="width: 85px;">
             <template v-for="disciplina in Disciplinas">
                 <template v-if="disciplina.id===turma.Disciplina">
-                    <p :key="disciplina.id" style="width:85px">{{disciplina.codigo}}</p>
+                    <p :key="disciplina.id" style="width:85px ">{{disciplina.codigo}}</p>
                 </template>
             </template>
         </td>
@@ -32,7 +32,7 @@
             </p>
         </td>
         <td style="width: 57px;">
-            <input type="text" style="width: 28px; margin-left: 12px; margin-right: 12px" v-model="turma.letra" v-on:blur="editTurma(turma)">
+            <input type="text" style="width: 28px; text-align: center; margin-left: 12px; margin-right: 12px" v-model="turma.letra" v-on:blur="editTurma(turma)">
         </td>
         <td style="width: 95px;">
             <select type="text" style="width: 84px" id="turno1" v-model="turma.turno1" v-on:change="editTurma(turma)">
