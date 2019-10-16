@@ -9,19 +9,19 @@
                 <option value = "3">Ambos</option>
             </b-form-select>
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
+                <button type="button" class="btn btn-danger col-sm-1" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-success col-sm-1 botao-estilo2" style="" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
+                <button type="button" class="btn btn-danger col-sm-1" style="" v-b-modal.modalConfirma>Deletar </button>
 
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
                     <template v-for="turma in Deletar">
                         <template v-for="disciplina in Disciplinas">
                             <template v-if="disciplina.id===turma.Disciplina">
-                                <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
+                                <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
                             </template>
                         </template>
                     </template>
@@ -411,7 +411,7 @@
     .ice {
         background-color: #c7c7c9 !important;
     }
-    .botao-estilo{
+    /* .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
         width: 90px;
@@ -452,7 +452,7 @@
             min-width: 80px;
         }
         
-    }
+    } */
     @media screen and (max-width: 767px) {
         .formSelect
         {

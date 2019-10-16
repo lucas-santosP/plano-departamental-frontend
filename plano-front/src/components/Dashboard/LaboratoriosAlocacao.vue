@@ -278,7 +278,7 @@
 
     .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
     .tg td{font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-    .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(184, 195, 209);color:#333;background-color:#e1eef7;}
+    .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(184, 195, 209);color:#333;background-color:#E9ECEF;}
     .tg .tg-0lax{vertical-align:center}
         .botao-estilo{
         background-color: #0079fa !important;

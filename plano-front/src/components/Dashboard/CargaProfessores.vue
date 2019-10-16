@@ -233,19 +233,20 @@
     .element::-webkit-scrollbar { width: 0 !important }
 
     .botao-estilo{
-        background-color: #63d863  !important;
-        border-color: #63d863  !important;
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
         max-width: 86px;
         width: 86px;
     }
 
     .botao-estilo:hover{
-        background-color: #2aab2a  !important;
-        border-color: #2aab2a  !important;
+        background-color: #0055af !important;
+        border-color: #0055af !important;
     }
     
     .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+        box-shadow: 0 0 0 0.2rem rgba(108, 166, 116, 0.5) !important;
+
     }
 
 </style>

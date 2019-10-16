@@ -166,16 +166,16 @@
         <div class="form-group row">
           <div class="col-sm-10">
             <template v-if="isEdit">
-              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="editTurma" :key="'1edit'">Editar</button>
-              <button type="button" class="btn btn-danger m-2 botao-estilo" v-on:click.prevent="deleteTurma" :key="'3edit'">Excluir
+              <button type="button" class="btn btn-success m-2" v-on:click.prevent="editTurma" :key="'1edit'">Editar</button>
+              <button type="button" class="btn btn-danger m-2" v-on:click.prevent="deleteTurma" :key="'3edit'">Excluir
               </button>
-              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanTurma" :key="'2edit'">Cancelar
+              <button type="button" class="btn btn-secondary m-2" v-on:click.prevent="cleanTurma" :key="'2edit'">Cancelar
               </button>
             </template>
             <template v-else>
-              <button type="button" class="btn btn-success m-2 botao-estilo" v-on:click.prevent="addTurma" :key="'1add'">Adicionar
+              <button type="button" class="btn btn-success m-2" v-on:click.prevent="addTurma" :key="'1add'">Adicionar
               </button>
-              <button type="button" class="btn btn-secondary m-2 botao-estilo2" v-on:click.prevent="cleanTurma" :key="'2add'">Resetar
+              <button type="button" class="btn btn-danger m-2" v-on:click.prevent="cleanTurma" :key="'2add'">Resetar
               </button>
             </template>
           </div>
