@@ -232,14 +232,16 @@
     }
     .element::-webkit-scrollbar { width: 0 !important }
 
-        .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
+    .botao-estilo{
+        background-color: #63d863  !important;
+        border-color: #63d863  !important;
+        max-width: 86px;
+        width: 86px;
     }
 
     .botao-estilo:hover{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
+        background-color: #2aab2a  !important;
+        border-color: #2aab2a  !important;
     }
     
     .botao-estilo:focus{
