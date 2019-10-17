@@ -1,13 +1,13 @@
 <template>
     <div class="DashboardSalas row" v-if="Admin">
         <div class="col">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Lista Salas</h1>
             </div>
-            <div class="col-sm-6" style="overflow-y: scroll;">
+
+            <div style="overflow-y: auto; position:relative; height: 75vh; width: 280px; margin-left: 30%; margin-right: auto;">
                 <!-- Inicio da Tabela -->
-            <table class="table table-hover table-sm">
+            <table class="table table-hover table-sm table-bordered">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">Nome</th>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- Grid Direito -->
-            <div class="adicionaSala card col-sm-4">
+            <div class="adicionaSala card col-sm-4 fixed-top" style="top: 140px;">
                     <div class="card-body" style="padding:15px">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <template v-if="isEdit">
@@ -205,15 +205,14 @@
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
 
-    .table{
-        margin-right: auto;
-        margin-left: auto;
-        width: 50%;
-    }
+
     .adicionaSala{
-        position: fixed;
-        top: 150px;
         margin-left: 65%;
+    }
+
+    th {text-align:center;}
+    td {
+        text-align: center;
     }
 
     @media screen and (max-width:833px){
@@ -228,17 +227,4 @@
             margin-right: auto;
         }
     }
-    /* .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
-    }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
-    }
-    
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    } */
 </style>
