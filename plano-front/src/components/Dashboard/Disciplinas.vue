@@ -239,30 +239,17 @@
 
 <style scoped>
     .botao-estilo{
-        background-color: #faca4d !important;
-        border-color: #faca4d !important;
-        color: white;
+    background-color: #f0852e !important;
+    border-color: #f0852e !important;
+    color: white;
     }
 
     .botao-estilo:hover{
-        background-color: #f8ac51 !important;
-        border-color: #f8ac51 !important;
+    background-color: #e86c07 !important;
+    border-color: #e86c07 !important;
     }
-    
+   
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
-    /* .botao-estilo3{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
-    }
-
-    .botao-estilo3:hover{
-        background-color: #c81313  !important;
-        border-color: #c81313 !important;
-    }
-    
-    .botao-estilo3:focus{
-        box-shadow: 0 0 0 0.3rem rgba(350,,, 0.5) !important;
-    } */
 </style>

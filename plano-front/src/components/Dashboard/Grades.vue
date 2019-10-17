@@ -109,7 +109,7 @@
 
                   <button
                     type="button"
-                    class="btn btn-danger col-3 btn-sm botao-estilo2"
+                    class="btn btn-danger col-3 btn-sm"
                     v-on:click.prevent="deleteGrade"
                     :key="3">
                       Excluir Grade
@@ -185,8 +185,8 @@
                             style="text-align:center; margin-right:0; height:31px">
                             <button
                               type="button"
-                              class="btn btn-warning btn-sm"
-                              style="backgroud-color:#faca4d;"
+                              class="btn btn-warning btn-sm botao-estilo2"
+                              style="backgroud-color:#f0852e;"
                               v-on:click.prevent="editDisciplinaGrade"
                               :key="4">
                                 Editar Período
@@ -205,7 +205,7 @@
 
                         <button
                           type="button"
-                          class="btn btn-danger m-2 btn-sm botao-estilo2"
+                          class="btn btn-danger m-2 btn-sm"
                           v-on:click.prevent="deleteDisciplinaGrade"
                           :key="4"
                         >Excluir Disciplina</button>
@@ -223,13 +223,13 @@
                       <div class="form-group row">
                         <button
                           type="button"
-                          class="btn btn-success btn-sm ml-3 mt-3 botao-estilo"
+                          class="btn btn-success btn-sm ml-3 mt-3"
                           v-on:click.prevent="addGrade"
                           :key="1"
                         >Adicionar</button>
                         <button
                           type="button"
-                          class="btn btn-secondary btn-sm ml-3 mt-3 botao-estilo"
+                          class="btn btn-secondary btn-sm ml-3 mt-3"
                           v-on:click.prevent="cleanGrade"
                           :key="2"
                         >Resetar</button>
@@ -520,14 +520,6 @@ export default {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-.botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-  height:31px;
-  margin-left:15px;
-  height:31px;
-  margin-bottom: 7px;
-}
 
 
 .botao-estilo:hover {
@@ -537,15 +529,6 @@ export default {
 
 .botao-estilo:focus {
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-
-.botao-estilo2:hover {
-  background-color: #c91212 !important;
-  border-color: #c91212 !important;
-}
-
-.botao-estilo2:focus {
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
 
 
@@ -574,5 +557,19 @@ export default {
 .table tr td{
   display: block;
   float:right;
+}
+.botao-estilo2{
+  background-color: #f0852e !important;
+  border-color: #f0852e !important;
+  color: white;
+}
+
+.botao-estilo2:hover{
+  background-color: #e86c07 !important;
+  border-color: #e86c07 !important;
+}
+    
+.botao-estilo2:focus{
+  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 </style>
