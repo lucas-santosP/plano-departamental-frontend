@@ -1,7 +1,7 @@
 <template>
-  <div class="DashboardGrades row" style="max-width:100%" v-if="Admin">
+  <div class="DashboardGrades row" style="max-width:100%;" v-if="Admin">
     <div class="col">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-0 border-bottom">
         <h1 class="h2">Lista Disciplinas</h1>
       </div>
     
@@ -9,11 +9,11 @@
 
       <!-- Grind esquerdo -->
       <div class="row" style="margin:0px !important;">
-        <div class="col-7">
+        <div class="col-lg-7 col-md-12 col-sm-12 col-12">
           <!-- Inicio forms Curso e Grande -->
           <div class="form-row">
-            <div class="col-5">
-              <label for="cursoAtual" class="col-form-label">Curso</label>
+            <div class="col-lg-6 col-md-5 col-sm-6 col-6">
+              <label for="cursoAtual" class="col-form-label col-12">Curso</label>
               <select style="max-width:250px" id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm mr-0">
                 <option value="4">Ciência da Computação Diurno</option>
                 <option value="1">Ciência da Computação Noturno</option>
@@ -42,27 +42,26 @@
 
           <div class="w-100"></div>
           <!-- Inicio da tabela -->
-          <div class="col ml-0 mt-3 pl-0" style="max-height: calc(100vh - 230px); overflow:auto; font-size:11px">
+          <div class="col-lg-12 col-md-10 ml-0 mt-3 pl-0 pr-0" style="width:100%; font-size:11px">
             <table class="table table-bordered">
-              <thead class="thead-light sticky">
+              <thead class="thead-light">
                 <tr>
-                  <th class="header col-1" scope="col">P.</th>
-                  <th class="header col-11" scope="col">Disciplina</th>
+                  <th class="header col-2 col-md-1 col-lg-1 col-sm-1" scope="col" style="text-align:center" >P.</th>
+                  <th class="header col-10 col-md-11 col-lg-11 col-sm-11" scope="col" >Disciplina</th>
                 </tr>
             </thead>
             
               <template v-if="currentGrade!=undefined">
-                <tbody v-for="grade in Grades" :key="grade.id" v-on:click.prevent="showGrade(grade)">
-                  <template v-if="grade.id===currentGrade">
+                <template v-for="grade in Grades">
+                  <tbody v-if="grade.id===currentGrade" :key="grade.id" v-on:click.prevent="showGrade(grade)">
                     <template v-for="disciplinaGrade in DisciplinaGrades">
                       <template v-if="disciplinaGrade.Grade===grade.id">
-                        <tr class="data" style="width:100%;"  v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">
-                            
-                            <th scope="row" class="data col-1">
+                        <tr class="data" style="width:100%;"  v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">                            
+      
+                            <th class="data col-2 col-md-1 col-lg-1 col-sm-1" style="text-align:center;">
                               {{disciplinaGrade.periodo}}
                             </th>
-
-                            <td class="data col-11" style="padding-right:0">
+                            <td class="data col-10 col-md-11 col-lg-11 col-sm-11" style="padding-right:0">
                               <template v-for="disciplina in Disciplinas">
                                 <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
                                   <span  class="data w-100" v-on:click.prevent="showDisciplina(disciplinaGrade); clickada=!clickada">
@@ -71,12 +70,12 @@
                                 </template>
                               </template>
                             </td>
+
                         </tr>
                       </template>
                     </template>
-                    
-                  </template>
-                </tbody>
+                  </tbody>
+                </template>
               </template>
             </table>
           <!-- Final da tabela -->
@@ -85,7 +84,7 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-        <div class="col-5 pl-0">
+        <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
           <!-- Inicio card Edit -->
           <div class="col card">
             <div class="card-body" style="padding:15px">
@@ -102,7 +101,7 @@
                 <div class="form-group row">
                 <button
                     type="button"
-                    class="btn col-3 btn-success btn-sm mr-4 botao-estilo"
+                    class="btn col-3 btn-success btn-sm botao-estilo"
                     v-on:click.prevent="editGrade"
                     :key="1">
                     Salvar alterações
@@ -117,22 +116,22 @@
                   </button>
                 </div>
                 <div class="form-group row">
-                  <label for="nome" class="col-4 col-form-label">Nome</label>
-                  <div class="col-8">
+                  <label for="nome" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label">Nome</label>
+                  <div class="col-lg-8 col-md-6 col-sm-4 col-5">
                     <input type="text" style="text-align:center;" class="form-control form-control-sm col-lg-4 col-md-6 col-sm-8" id="nome" v-model="gradeForm.nome" />
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label for="periodoInicio" class="col-4 col-form-label">Período de Início</label>
-                  <div class="col-8">
+                  <label for="periodoInicio" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label">Período de Início</label>
+                  <div class="col-lg-8 col-md-6 col-sm-4 col-5">
                     <input type="text" style="text-align:center" class="form-control form-control-sm col-lg-4 col-md-6 col-sm-8" id="periodoInicio" v-model="gradeForm.periodoInicio"/>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label for="curso" class="col-4 col-form-label">Curso</label>
-                  <div class="col-8">
+                  <label for="curso" class="col-md-4 col-sm-4 col-12 col-form-label">Curso</label>
+                  <div class="col-lg-8 col-md-7 col-sm-7 col-12">
                     <select type="text" style="text-align:center;" class="form-control form-control-sm" id="curso" v-model="gradeForm.Curso">
                       <option value="4">Ciência da Computação Diurno</option>
                       <option value="1">Ciência da Computação Noturno</option>
@@ -146,10 +145,12 @@
                 <div class="form-group row">
                   <div class="col">
                     <template v-if="isEdit">
-                      <hr style="margin-top:0; margin-bottom: 23px"/>
+
+                      <hr style="margin-top:0; margin-bottom: 15px; margin-top: 15px"/>
+
                       <div class="form-group row">
-                        <label for="disciplina" class="col-4 col-form-label">Disciplina</label>
-                        <div class="col-8">
+                        <label for="disciplina" class="col-md-4 col-sm-4 col-12 col-form-label">Disciplina</label>
+                        <div class="col-lg-8 col-md-7 col-sm-7 col-12">
                           <select
                             type="text"
                             class="form-control form-control-sm"
@@ -170,22 +171,22 @@
                       </div>
                       
                       <div class="form-group row">
-                        <label for="periodoDisciplina" class="col-4 col-form-label">
+                        <label for="periodoDisciplina" class="col-md-4 col-sm-4 col-12 col-form-label">
                           Período
                         </label>
-
-                        <div class="col-8 input-group">
+                        <div class="input-group col-lg-8 col-md-7 col-sm-7 col-12">
                           <div class="input-group">     
                             <input
                             type="text"
-                            class="form-control form-control-sm col-2"
+                            class="form-control form-control-sm col-lg-2 col-md-2 col-sm-2 col-2"
                             aria-describedby="button-edit-periodo"
                             id="periodoDisciplina"
                             v-model="disciplinaGradeForm.periodo"
                             style="text-align:center; margin-right:0; height:31px">
                             <button
                               type="button"
-                              class="btn btn-warning btn-sm botao-estilo"
+                              class="btn btn-warning btn-sm"
+                              style="backgroud-color:#faca4d;"
                               v-on:click.prevent="editDisciplinaGrade"
                               :key="4">
                                 Editar Período
@@ -197,7 +198,7 @@
                       <div class="form-group row pd">
                         <button
                           type="button"
-                          class="btn btn-success m-2 btn-sm botao-estilo"
+                          class="btn btn-success m-2 btn-sm"
                           v-on:click.prevent="addDisciplinaGrade"
                           :key="4"
                         >Adicionar à Grade</button>
@@ -211,7 +212,7 @@
 
                         <button
                           type="button"
-                          class="btn btn-secondary m-2 btn-sm botao-estilo"
+                          class="btn btn-secondary m-2 btn-sm"
                           v-on:click.prevent="cleanGrade"
                           :key="2"
                         >Cancelar</button>
@@ -509,14 +510,15 @@ export default {
 .notEven{
   background-color: #FFE4B5;
 }
-
-.botao-estilo {
-  /*background-color: #0079fa !important;
-  border-color: #0079fa !important;
-  */
-  margin-left:15px;
+.btn{
   height:31px;
   margin-bottom: 7px;
+  margin-left:15px;
+  min-width: max-content;
+}
+.botao-estilo {
+  background-color: #0079fa !important;
+  border-color: #0079fa !important;
 }
 .botao-estilo2 {
   background-color: #f51616 !important;
@@ -526,7 +528,8 @@ export default {
   height:31px;
   margin-bottom: 7px;
 }
-/*
+
+
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
@@ -540,7 +543,7 @@ export default {
   background-color: #c91212 !important;
   border-color: #c91212 !important;
 }
-*/
+
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
@@ -561,5 +564,15 @@ export default {
 }
 .disciplinaClickada{
   background-color: crimson;
+}
+
+.table tbody {
+  display: block;
+  overflow-y: scroll;
+  height:calc(100vh - 230px);
+}
+.table tr td{
+  display: block;
+  float:right;
 }
 </style>
