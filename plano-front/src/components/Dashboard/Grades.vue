@@ -110,7 +110,7 @@
 
                   <button
                     type="button"
-                    class="btn btn-danger col-3 btn-sm botao-estilo"
+                    class="btn btn-danger col-3 btn-sm botao-estilo2"
                     v-on:click.prevent="deleteGrade"
                     :key="3">
                       Excluir Grade
@@ -204,7 +204,7 @@
 
                         <button
                           type="button"
-                          class="btn btn-danger m-2 btn-sm botao-estilo"
+                          class="btn btn-danger m-2 btn-sm botao-estilo2"
                           v-on:click.prevent="deleteDisciplinaGrade"
                           :key="4"
                         >Excluir Disciplina</button>
@@ -519,7 +519,12 @@ export default {
   margin-bottom: 7px;
 }
 .botao-estilo2 {
+  background-color: #f51616 !important;
+  border-color: #f51616 !important;
   height:31px;
+  margin-left:15px;
+  height:31px;
+  margin-bottom: 7px;
 }
 /*
 .botao-estilo:hover {

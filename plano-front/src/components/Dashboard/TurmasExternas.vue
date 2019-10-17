@@ -4,8 +4,8 @@
             <div class="form-inline col">
                 <h1 class="h2 col-1">Plano</h1>
 
-                <div class="form-group offset-lg-6 col-lg-5 offset-md-4 col-md-7 flex-wrap">
-                    <b-form-select v-model="periodos" class="formSelect offset-r col-6" style="margin-right: 10px; min-width: 100px; ">
+                <div class="form-group col-lg-5 col-md-8" style="margin-left: auto;">
+                    <b-form-select v-model="periodos" class="formSelect offset-r col-lg-4 col-md-5 col-sm-6" style="margin-right: 10px; min-width: 100px; ">
                         <option value = "1">Primeiro</option>
                         <option value = "2">Segundo</option>
                         <option value = "3">Ambos</option>
@@ -39,7 +39,7 @@
             <div class="cube2"></div>
         </div>
 
-        <div class="col ml-0 mt-3 pl-0" style="height: 80vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
+        <div class="ml-0 mt-3 pl-0" style="height: 80vh; overflow-y: scroll; overflow-x: hidden;" v-if="!isLoading">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
@@ -415,10 +415,9 @@
     .ice {
         background-color: #c7c7c9 !important;
     }
-    /* .botao-estilo{
+    .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
-        width: 90px;
         min-width: 90px;
     }
 
@@ -434,7 +433,6 @@
     .botao-estilo2{
         background-color: #f51616 !important;
         border-color: #f51616 !important;
-        width: 80px;
         min-width: 80px;
     }
 
@@ -456,7 +454,7 @@
             min-width: 80px;
         }
         
-    } */
+    }
     @media screen and (max-width: 767px) {
         .formSelect
         {
