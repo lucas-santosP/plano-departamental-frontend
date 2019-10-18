@@ -129,7 +129,7 @@
         </nav>
         </transition>
 
-        <main @click="show=false" role="main" class="col-12 ml-auto" style="padding-right:0" v-if="!isLoading">
+        <main @click="show=false" role="main" class="col-12 ml-auto" style="padding-right:0; overflow-x:hidden;" v-if="!isLoading">
           <router-view></router-view>
         </main>
 

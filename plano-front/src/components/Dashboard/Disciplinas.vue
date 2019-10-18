@@ -1,10 +1,17 @@
 <template>
-    <div class="DashboardDisciplinas row" v-if="Admin">
-        <div class="col">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
-                <h1 class="h3">Lista Disciplinas</h1>
+    <div class="DashboardDisciplinas row" style="overflow-y:hidden;" v-if="Admin">
+        <!-- Grid Esquerdo -->
+            <!-- Titulo -->
+            <div class="col-12">
+                <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
+                    <h1 class="h3">Lista Disciplinas</h1>
+                </div>
             </div>
+            <!-- Inicio da Tabela -->
+            
+        <div class="col col-sm col-lg">
+            <div style="overflow-y: auto; position:relative; height: 76vh;">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
@@ -37,8 +44,14 @@
                 </template>
                 </tbody>
             </table>
+            <!-- Fim da tabela -->
+            </div>
         </div>
-        <div class="col-sm-4">
+        <!-- Fim do Grid Esquerdo -->
+        <!-- Grid Direito -->
+        <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto">
+            <div class="card" style="width:90%; max-width:500px; max-height: 75vh; margin-left: auto; margin-right: auto;">
+                <div class="card-body" style="padding-top: 5px;">
             <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
                 <template v-if="isEdit">
@@ -52,32 +65,32 @@
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col col-form-label" style="text-align: end;">Nome</label>
-                    <div class="col-sm-8">
+                    <label for="nome" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Nome</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col col-form-label" style="text-align: end;">Código</label>
-                    <div class="col-sm-8">
+                    <label for="codigo" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Código</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col col-form-label" style="text-align: end;">Carga Teórica</label>
-                    <div class="col-sm-8">
+                    <label for="cargaTeorica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Teórica</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col col-form-label" style="text-align: end;">Carga Prática</label>
-                    <div class="col-sm-8">
+                    <label for="cargaPratica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Prática</label>
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col col-form-label" style="text-align: end;">Perfil</label>
-                    <div class="col-sm-8">
+                    <label for="perfil" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Perfil</label>
+                    <div class="col-sm-9">
                         <select type="text" class="form-control" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
                             <option v-for="perfil in Perfis" :key="perfil.id" :value="perfil.id">{{perfil.nome}}</option>
@@ -86,13 +99,13 @@
                 </div>
                 <div class="form-group row">
                     <div class="col" style="margin-left: -35px;">
-                        <label for="ead" class="col-sm-5 col-form-label" style="text-align: end;">
+                        <label for="ead" class="col-sm-5 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; padding-left: 20px; text-align: end;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <template v-if="isEdit">
                             <button type="button" class="btn btn-success m-3 botao-estilo" v-on:click.prevent="editDisciplina" :key="1">Editar</button>
                             <button type="button" class="btn btn-danger m-3" v-on:click.prevent="deleteDisciplina" :key="3">Excluir
@@ -110,6 +123,9 @@
                 </div>
             </form>
         </div>
+            </div>
+        </div>
+        <!-- Fim do Grid Direito -->
     </div>
 </template>
 
@@ -251,5 +267,11 @@
    
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+    }
+    @media screen and (max-width:575px)
+    {
+        .texto-cartao{
+            text-align: start !important;
+        }
     }
 </style>
