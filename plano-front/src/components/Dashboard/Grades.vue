@@ -12,8 +12,8 @@
         <div class="col-lg-7 col-md-12 col-sm-12 col-12">
           <!-- Inicio forms Curso e Grande -->
           <div class="form-row">
-            <div class="col-lg-6 col-md-5 col-sm-6 col-6">
-              <label for="cursoAtual" class="col-form-label col-12">Curso</label>
+            <div class="col-lg-6 col-md-5 col-sm-6 col-12">
+              <label for="cursoAtual" class="col-form-label py-0">Curso</label>
               <select style="max-width:250px" id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm mr-0">
                 <option value="4">Ciência da Computação Diurno</option>
                 <option value="1">Ciência da Computação Noturno</option>
@@ -22,8 +22,8 @@
               </select>
             </div>
 
-            <div class="col-2">
-              <label for="gradeAtual" class="col-form-label ">Grade</label>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+              <label for="gradeAtual" class="col-form-label py-0 ">Grade</label>
               <select
                 id="gradeAtual"
                 v-model="currentGrade"

@@ -13,7 +13,7 @@
       
       <!-- lista-1 -->
       <h3 class="lista-titulo">PLANO</h3>
-      <ul class="listas list-group list-group-flush">
+      <ul class="listas list-group">
         <li class="list-group-item">
           <strong>
             <router-link :to="{ name: 'pedidos' }">Tabela:</router-link>
@@ -43,10 +43,10 @@
           alteração de horarios, local e docentes. Contudo, recomenda-se fazer tais alterações pela Tabela principal.
         </li>
       </ul>
+      
       <!-- lista-2 -->
-      <br>
       <h3 class="lista-titulo">RELATÓRIOS</h3>
-      <ul class="listas list-group list-group-flush">
+      <ul class="listas list-group">
         <li class="list-group-item">
           <strong>
             <router-link :to="{ name: 'cargaProfessores' }">Carga Professores:</router-link>
@@ -68,10 +68,10 @@
           </strong> Listagem das disciplinas do DCC, divididas de acordo com seus perfis. Mostra, além disso, quais semestres e períodos cada uma é ofertada nas grades dos cursos. 
         </li>
       </ul>
+
       <!-- lista-3 -->
-      <br>
       <h3 class="lista-titulo">GERENCIAR</h3>
-      <ul class="listas list-group list-group-flush">
+      <ul class="listas list-group">
         <li class="list-group-item">
           <strong>
             <router-link :to="{ name: 'cursos' }">Cursos:</router-link>
@@ -129,6 +129,7 @@ export default {
   overflow: auto;
 }
 .alerta {
+  word-break: normal;
   text-align: justify;
   margin-left: 0;
   margin-right: 1%;
@@ -138,8 +139,6 @@ export default {
 }
 
 .listas {
-  border:1.5px #3f3f3f solid;
-  border-radius: 5px;
   line-height: 30px;
   text-align: justify;
   margin-left: 1%;
