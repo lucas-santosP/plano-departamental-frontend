@@ -1,10 +1,16 @@
 <template>
   <div class="DashboardPerfis row" v-if="Admin">
-    <div class="col">
+    <!-- Grid Esquerdo -->
+    <div class="col-12">
+      <!-- Titulo -->
       <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Lista Perfis</h1>
       </div>
+    </div>
+      <div class="col">
+      <!-- Inicio da Tabela -->
+      <div style="overflow-y: auto; height: 75vh;">
       <table class="table table-hover table-sm">
         <thead class="thead-light">
         <tr>
@@ -29,8 +35,14 @@
         </template>
         </tbody>
       </table>
+      </div>
+      <!-- Fim da Tabela -->
     </div>
-    <div class="col-sm-4">
+    <!-- Fim do Grid Esquerdo -->
+    <!-- Grid Direito -->
+     <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
+       <div class="card cartao" style="max-width: 500px; width:90%; margin-left: auto; margin-right: auto; padding-right: 10px; padding-left: 20px;">
+         <div class="card-body">
       <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -44,19 +56,19 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
+          <label for="nome" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Nome</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="nome" v-model="perfilForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="abreviacao" class="col-sm-3 col-form-label" style="text-align: end;">Abreviação</label>
+          <label for="abreviacao" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Abreviação</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="abreviacao" v-model="perfilForm.abreviacao">
           </div>
         </div>
         <div class="form-group row">
-          <label for="cor" class="col-sm-3 col-form-label" style="text-align: end;">Cor</label>
+          <label for="cor" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Cor</label>
           <div class="col-sm-8">
             <input type="color" class="form-control" id="cor" v-model="perfilForm.cor">
           </div>
@@ -79,7 +91,10 @@
           </div>
         </div>
       </form>
+         </div>
+       </div>
     </div>
+    <!-- Fim do Grid Direito -->
   </div>
 </template>
 
@@ -206,18 +221,13 @@ export default {
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
-
-    /* .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
+    @media screen and (max-width: 575px) {
+      .texto-cartao{
+        text-align: start !important;
+      }
+      .cartao{
+        margin-left:auto !important;
+        margin-right:auto !important;
+      }
     }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
-    }
-    
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    } */
 </style>
