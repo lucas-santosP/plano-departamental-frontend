@@ -4,19 +4,19 @@
             <div class="form-inline col">
                 <h1 class="h2 col-1">Plano</h1>
 
-                <div class="form-group col-lg-5 col-md-8" style="margin-left: auto;">
-                    <b-form-select v-model="periodos" class="formSelect offset-r col-lg-4 col-md-5 col-sm-6" style="margin-right: 10px; min-width: 100px; ">
+                <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12" style="margin-left: auto;">
+                    <b-form-select v-model="periodos" class="formSelect col-lg-4 col-md-4 col-sm-8 col-10" style="margin-right:15px">
                         <option value = "1">Primeiro</option>
                         <option value = "2">Segundo</option>
                         <option value = "3">Ambos</option>
                     </b-form-select>
                     <template v-if="isAdd">
-                        <button type="button" class="btn btn-success col-1 botao-estilo" v-on:click.prevent="addTurma" style="margin-right: 10px; min-width: 90px;"> Confirmar </button>
-                        <button type="button" class="btn btn-success col-1 botao-estilo2" v-on:click.prevent="toggleAdd" style="margin-left: 10px; min-width:72px;">Cancelar </button>
+                        <button type="button" class="btn btn-success col-1 botao-estilo" style="margin-left:0" v-on:click.prevent="addTurma" > Confirmar </button>
+                        <button type="button" class="btn btn-success col-1 botao-estilo2" v-on:click.prevent="toggleAdd"> Cancelar </button>
                     </template>
                     <template v-else>
-                        <button type="button" class="btn btn-success col-1 botao-estilo" v-on:click.prevent="toggleAdd" style="margin-right: 10px;">Adicionar </button>
-                        <button type="button" class="btn btn-success col-1 botao-estilo2" style="" v-b-modal.modalConfirma>Deletar </button>
+                        <button type="button" class="btn btn-success col-1" style="margin-left:0" v-on:click.prevent="toggleAdd">Adicionar </button>
+                        <button type="button" class="btn btn-success col-1 botao-estilo2" style="" v-b-modal.modalConfirma> Deletar </button>
 
                         <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                             <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
@@ -124,6 +124,7 @@
                         </td>
                     </tr>
                 </template>
+                <!-- 
                 <template v-if="Turmas.length>0">
                     <template v-for="perfil in Perfis">
                         <tr v-for="turma in inPerfil(perfil, Turmas, Disciplinas)" v-if="turma.periodo==1 && (periodos == 1 || periodos==3)" :key="turma.id"  v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
@@ -137,9 +138,11 @@
                  'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                  'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}">
                             <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                            
                         </tr>
                     </template>
                 </template>
+                -->
                 </tbody>
             </table>
         </div>
@@ -415,55 +418,6 @@
     .ice {
         background-color: #c7c7c9 !important;
     }
-    .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
-        min-width: 90px;
-    }
-
-    .botao-estilo:hover{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
-    }
-    
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-    }
-
-    .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
-        min-width: 80px;
-    }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
-    }
-    
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    }
-    @media screen and (max-width: 530px){
-        .botao-estilo{
-            max-width: 20%;
-            min-width: 90px;
-        }
-        .botao-estilo2{
-            max-width:20%;
-            min-width: 80px;
-        }
-        
-    }
-    @media screen and (max-width: 767px) {
-        .formSelect
-        {
-            min-width: 100px;
-            max-width: 150px;
-        }
-       
-    }
-
 </style>
 <style scoped>
 
@@ -488,6 +442,40 @@
         top: -1px;
         background: white;
         z-index: 10;
+    }
+    .btn{
+        height:31px;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        margin-left:15px;
+        min-width: max-content;
+    }
+    .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    .botao-estilo2{
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover{
+        background-color: #c91212  !important;
+        border-color: #c91212 !important;
+    }
+    
+    .botao-estilo2:focus{
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
     }
 
     /*table.scrolling td:nth-child(-n+10),

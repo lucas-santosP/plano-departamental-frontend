@@ -42,7 +42,7 @@
 
           <div class="w-100"></div>
           <!-- Inicio da tabela -->
-          <div class="col-lg-12 col-md-10 ml-0 mt-3 pl-0 pr-0" style="width:100%; font-size:11px">
+          <div class="col-lg-12 col-md-10 ml-0 mt-2 pl-0 pr-0" style="width:100%; font-size:11px">
             <table class="table table-bordered">
               <thead class="thead-light">
                 <tr>
@@ -84,10 +84,10 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-        <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
+        <div class="col-lg-5 col-md-10 col-sm-12 col-12 my-3 ml-auto mr-auto pl-0">
           <!-- Inicio card Edit -->
-          <div class="col card">
-            <div class="card-body" style="padding:15px">
+          <div class="col card ">
+            <div class="card-body py-0" style="padding:15px">
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <template v-if="isEdit">
                   <h1 class="h2">Editar Grade</h1>
@@ -489,10 +489,6 @@ export default {
 </script>
 
 <style scoped>
-
-.btn-sm{
-  height: 35px;
-}
 .form-group{
   margin-bottom: 5px;
 }
@@ -520,8 +516,6 @@ export default {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
