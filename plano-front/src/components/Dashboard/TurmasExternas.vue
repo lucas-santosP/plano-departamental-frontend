@@ -11,12 +11,12 @@
                         <option value = "3">Ambos</option>
                     </b-form-select>
                     <template v-if="isAdd">
-                        <button type="button" class="btn btn-success col-1 botao-estilo" style="margin-left:0" v-on:click.prevent="addTurma" > Confirmar </button>
-                        <button type="button" class="btn btn-success col-1 botao-estilo2" v-on:click.prevent="toggleAdd"> Cancelar </button>
+                        <button type="button" class="btn btn-sm btn-success col-1 botao-estilo" style="margin-left:0" v-on:click.prevent="addTurma" > Confirmar </button>
+                        <button type="button" class="btn btn-sm btn-success col-1 botao-estilo2" v-on:click.prevent="toggleAdd"> Cancelar </button>
                     </template>
                     <template v-else>
-                        <button type="button" class="btn btn-success col-1" style="margin-left:0" v-on:click.prevent="toggleAdd">Adicionar </button>
-                        <button type="button" class="btn btn-success col-1 botao-estilo2" style="" v-b-modal.modalConfirma> Deletar </button>
+                        <button type="button" class="btn btn-sm btn-success col-1" style="margin-left:0" v-on:click.prevent="toggleAdd">Adicionar </button>
+                        <button type="button" class="btn btn-sm btn-success col-1 botao-estilo2" style="" v-b-modal.modalConfirma> Deletar </button>
 
                         <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                             <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
@@ -444,7 +444,6 @@
         z-index: 10;
     }
     .btn{
-        height:31px;
         margin-top: 7px;
         margin-bottom: 7px;
         margin-left:15px;
