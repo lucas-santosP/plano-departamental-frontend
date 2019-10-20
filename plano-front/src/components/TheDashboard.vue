@@ -2,13 +2,13 @@
   <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow" style="padding-left:10px">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
       
-      <div class="row" style="width:100%">
-      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 mr-0">Plano Departamental</router-link>
+      <div class="row w-100" style="margin:0">
+      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 col-2 mr-0">Plano Departamental</router-link>
         <transition 
         name="custom-classes-transition"
-        enter-active-class="animated bounceIn"
+        mode="out-in"
         >
           <button v-if="show" @click="show=!show" key="save" type="button" class="btn-navbar">
             <i key="save" class="fas fa-times"></i> 
@@ -488,9 +488,9 @@ export default {
 </script>
 
 <style scoped>
-  .loading {
-    cursor: progress;
-  }
+.loading {
+  cursor: progress;
+}
 
 .sidebar {
   position: fixed;
@@ -502,7 +502,9 @@ export default {
   padding-right: 0px; 
   padding-left: 0px;
 
-  box-shadow: -60px 0px 100px -90px;
+  -webkit-box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
+  -moz-box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
+  box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
   font-size: .875rem;
 }
 
@@ -567,6 +569,8 @@ export default {
   position: relative;
   top: 0;
   padding-top: 0.5rem; 
+  height: -webkit-calc(100vh - 38px); 
+  height: -moz-calc(100vh - 38px); 
   height: calc(100vh - 38px);
   padding-bottom: 1.0rem;
   overflow-x: hidden;
@@ -611,12 +615,17 @@ export default {
   font-size: 1.2rem;
   padding-right: 10px;
   padding-left: 5px;
-  margin-left:5px;
+  min-width:  -webkit-max-content;
+  min-width:  -moz-max-content;
   min-width:  max-content;
+  /*
   width: 16.7%;
+  */
   cursor: pointer;
   background-color: rgba(0, 0, 0, .25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+     -moz-box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+          box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
 .navbar-brand:hover{
   color:rgb(255, 255, 255);
@@ -628,7 +637,9 @@ export default {
   padding-bottom: 0px;
 
   border-width: 0;
-  border-radius: 0;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
 }
 .listaNavbarTop{
   margin-left: auto;
@@ -673,9 +684,23 @@ export default {
     display: inline-block;
     vertical-align: bottom;
     -webkit-animation: ellipsis steps(4,end) 900ms infinite;
-    animation: ellipsis steps(4,end) 900ms infinite;
+    -moz-animation: ellipsis steps(4,end) 900ms infinite;
+      -o-animation: ellipsis steps(4,end) 900ms infinite;
+         animation: ellipsis steps(4,end) 900ms infinite;
     content: "\2026"; /* ascii code for the ellipsis character */
     width: 0px;
+  }
+
+  @-moz-keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+
+  @-o-keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
   }
 
   @keyframes ellipsis {
@@ -712,12 +737,16 @@ export default {
   left: 0;
 
   -webkit-animation: cubemove 1.8s infinite ease-in-out;
-  animation: cubemove 1.8s infinite ease-in-out;
+  -moz-animation: cubemove 1.8s infinite ease-in-out;
+    -o-animation: cubemove 1.8s infinite ease-in-out;
+       animation: cubemove 1.8s infinite ease-in-out;
 }
 
 .cube2 {
   -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+    -o-animation-delay: -0.9s;
+       animation-delay: -0.9s;
 }
 
 @-webkit-keyframes cubemove {
@@ -735,25 +764,91 @@ export default {
   }
 }
 
-@keyframes cubemove {
+@-moz-keyframes cubemove {
   25% {
-    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
+         transform: translateX(42px) rotate(-90deg) scale(0.5);
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
   }
   50% {
-    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
+         transform: translateX(42px) translateY(42px) rotate(-179deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
   }
   50.1% {
-    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
+         transform: translateX(42px) translateY(42px) rotate(-180deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
   }
   75% {
-    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+         transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
   }
   100% {
-    transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+         transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@-o-keyframes cubemove {
+  25% {
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+       transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+       transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+       transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+       transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+  }
+  100% {
+    -o-transform: rotate(-360deg);
+       transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes cubemove {
+  25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
+      -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+         transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
+      -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+         transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
+      -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+         transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+      -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+         transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+  }
+  100% {
+    -moz-transform: rotate(-360deg);
+      -o-transform: rotate(-360deg);
+         transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
 }
@@ -765,7 +860,6 @@ export default {
 .navbar{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -785,9 +879,13 @@ export default {
 
 .sidebar-animated {
    -webkit-animation-duration: 0.3s;
-   animation-duration: 0.3s;
+   -moz-animation-duration: 0.3s;
+     -o-animation-duration: 0.3s;
+        animation-duration: 0.3s;
    -webkit-animation-fill-mode: both;
-   animation-fill-mode: both;
+   -moz-animation-fill-mode: both;
+     -o-animation-fill-mode: both;
+        animation-fill-mode: both;
 }
 
 @media screen and (max-width: 728px){
@@ -808,5 +906,4 @@ export default {
     padding-left: 15px;
   }
 }
-
 </style>
