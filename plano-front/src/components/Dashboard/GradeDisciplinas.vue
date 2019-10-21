@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <div style="height: 80vh; overflow-y: scroll; overflow-x: scroll;" ref = "mainTable">
+        <div style="height: 80vh; overflow-y: scroll; overflow-x: auto;" ref = "mainTable">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
@@ -275,7 +275,7 @@
     .DashboardPrototipo{
         max-height: 90vh;
         max-width: 90vw;
-        overflow: hidden;
+        overflow: auto;
     }
 
     table {
