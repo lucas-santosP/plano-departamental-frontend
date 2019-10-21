@@ -54,7 +54,7 @@
       <div class="col card cartao" style="top: -20px; width: 100%; max-width: 500px; max-height: 79vh;">
         <div class="card-body">
       <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
           <h1 class="h2">Editar Curso</h1>
         </template>
@@ -66,27 +66,27 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label" style="text-align: center;">Nome</label>
+          <label for="nome" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label texto" style="text-align: center; margin-bottom: 15px !important;">Nome</label>
           <div class="col-lg-8 col-md-6 col-sm-4 col-5">
             <input type="text" class="form-control form-control-sm col-lg-12 col-md-6 col-sm-8" id="nome" v-model="cursoForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="codigo" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label" style="text-align: center;">Código</label>
+          <label for="codigo" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label texto" style="text-align: center;">Código</label>
           <div class="col-lg-8 col-md-6 col-sm-4 col-5">
             <input type="text" class="form-control form-control-sm col-lg-12 col-md-6 col-sm-8" id="codigo" v-model="cursoForm.codigo">
           </div>
         </div>
         
         <div class="form-group row">
-          <label for="alunosEntrada" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label" style="text-align:center;">Alunos por Entrada</label>
-          <div class="col-lg-8 col-md-6 col-sm-4 col-5">
+          <label for="alunosEntrada" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label texto" style="text-align:center;">Alunos por Entrada</label>
+          <div class="col-lg-8 col-md-6 col-sm-4 col-5" style="margin-top:auto;margin-bottom:auto;">
             <input type="text" class="form-control form-control-sm col-lg-6 col-md-6 col-sm-8"  id="alunosEnrada" v-model="cursoForm.alunosEntrada">
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="turno" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label" style="text-align:center;">Turno</label>
+          <label for="turno" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label texto" style="text-align:center;">Turno</label>
           <div class="col-sm-7">
             <div id="turno">
               <input type="radio" name="turno" value="Diurno" v-model="cursoForm.turno"> Diurno<br/>
@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="semestreInicial" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label" style="text-align: end;">Semestre de Entrada </label>
+          <label for="semestreInicial" class="col-lg-4 col-md-4 col-sm-4 col-12 col-form-label texto" style="text-align: center;">Semestre de Entrada </label>
           <div class="col-sm-7">
             <div id="semestreInicial">
               <input type="radio" name="semestreInicial" value="1" v-model="cursoForm.semestreInicial"> Primeiro<br/>
@@ -309,5 +309,11 @@ export default {
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
-    
+    .form-group {
+      margin-bottom: 8px !important;
+    }
+    .col-form-label{
+      padding-top:0;
+      padding-bottom:0;
+    }
 </style>
