@@ -1,10 +1,10 @@
 <template>
-    <div class="DashboardCargaProfessores row">
+    <div class="DashboardCargaProfessores row" style="padding-right:30px;">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
             <h1 class="h2">Carga Professores</h1>
             <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
         </div>
-        <div style="width: 99%; height: 80vh; overflow: scroll" class="element" ref="carga">
+        <div style="width: 100%; height: 80vh; overflow-y: scroll" class="element" ref="carga">
         <table class="table table-hover table-sm table-bordered">
             <thead class="thead-light">
             <tr>
@@ -246,7 +246,6 @@
     
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 166, 116, 0.5) !important;
-
     }
 
 </style>
