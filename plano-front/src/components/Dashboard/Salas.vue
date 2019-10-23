@@ -57,9 +57,9 @@
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form>
             <div class="form-group row">
-              <label for="nome" class="col-sm-2 col-form-label texto-caixa" style="text-align: end; padding-left:0; padding-right:0;">Nome</label>
+              <label for="nome" class="col-sm-2 col-form-label texto-caixa" style="text-align: end; padding-left:0; padding-right:0; padding-top:2px;">Nome</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="nome" v-model="salaForm.nome" />
+                <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="nome" v-model="salaForm.nome" />
               </div>
             </div>
             <div class="form-group row">
@@ -75,19 +75,19 @@
                 <template v-if="isEdit">
                   <button
                     type="button"
-                    class="btn btn-success m-2 botao-estilo"
+                    class="col-2 btn-sm btn btn-success m-2 botao-estilo"
                     v-on:click.prevent="editSala"
                     :key="1"
                   >Editar</button>
                   <button
                     type="button"
-                    class="btn btn-danger m-2"
+                    class="col-2 btn-sm btn btn-danger m-2"
                     v-on:click.prevent="deleteSala"
                     :key="3"
                   >Excluir</button>
                   <button
                     type="button"
-                    class="btn btn-secondary m-2"
+                    class="col-2 btn-sm btn btn-secondary m-2"
                     v-on:click.prevent="cleanSala"
                     :key="2"
                   >Cancelar</button>
@@ -95,13 +95,13 @@
                 <template v-else>
                   <button
                     type="button"
-                    class="btn btn-success m-2"
+                    class="col-2 btn-sm btn btn-success m-2"
                     v-on:click.prevent="addSala"
                     :key="1"
                   >Adicionar</button>
                   <button
                     type="button"
-                    class="btn btn-secondary m-2"
+                    class="col-2 btn-sm btn btn-secondary m-2"
                     v-on:click.prevent="cleanSala"
                     :key="2"
                   >Resetar</button>
@@ -256,6 +256,16 @@ th {
 }
 td {
   text-align: center;
+}
+.col-form-label{
+  padding-top:0;
+  padding-bottom:0;
+}
+.btn{
+  height:31px;
+  margin-bottom: 7px;
+  margin-left:15px;
+  min-width: max-content;
 }
 
 @media screen and (max-width: 991px) {
