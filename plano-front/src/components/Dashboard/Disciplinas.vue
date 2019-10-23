@@ -65,33 +65,33 @@
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Nome</label>
+                    <label for="nome" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Nome</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="disciplinaForm.nome">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Código</label>
+                    <label for="codigo" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Código</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="codigo" v-model="disciplinaForm.codigo">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Teórica</label>
+                    <label for="cargaTeorica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Carga Teórica</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Prática</label>
+                    <label for="cargaPratica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Carga Prática</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Perfil</label>
+                    <label for="perfil" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Perfil</label>
                     <div class="col-sm-9">
-                        <select type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="perfil" v-model="disciplinaForm.Perfil">
+                        <select type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
                             <option v-for="perfil in Perfis" :key="perfil.id" :value="perfil.id">{{perfil.nome}}</option>
                         </select>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col" style="margin-left: -35px;">
-                        <label for="ead" class="col-sm-5 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; padding-left: 20px; text-align: end;">
+                        <label for="ead" class="col-lg-5 col-md-5 col-sm-12 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; padding-left: 20px; text-align: center;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
@@ -107,16 +107,16 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <template v-if="isEdit">
-                            <button type="button" class="btn btn-success m-3 botao-estilo" v-on:click.prevent="editDisciplina" :key="1">Editar</button>
-                            <button type="button" class="btn btn-danger m-3" v-on:click.prevent="deleteDisciplina" :key="3">Excluir
+                            <button type="button" class="col-2 btn btn-sm btn-success m-2 botao-estilo" v-on:click.prevent="editDisciplina" :key="1">Editar</button>
+                            <button type="button" class="col-2 btn btn-sm btn-danger m-2" v-on:click.prevent="deleteDisciplina" :key="3">Excluir
                             </button>
-                            <button type="button" class="btn btn-secondary m-3" v-on:click.prevent="cleanDisciplina" :key="3">Cancelar
+                            <button type="button" class="col-2 btn btn-sm btn-secondary m-2" v-on:click.prevent="cleanDisciplina" :key="3">Cancelar
                             </button>
                         </template>
                         <template v-else>
-                            <button type="button" class="btn btn-success m-3" v-on:click.prevent="addDisciplina" :key="1">Adicionar
+                            <button type="button" class="col-2 btn btn-sm btn-success m-2" v-on:click.prevent="addDisciplina" :key="1">Adicionar
                             </button>
-                            <button type="button" class="btn btn-secondary m-3" v-on:click.prevent="cleanDisciplina" :key="3">Resetar
+                            <button type="button" class="col-2 btn btn-sm btn-secondary m-2" v-on:click.prevent="cleanDisciplina" :key="3">Resetar
                             </button>
                         </template>
                     </div>
@@ -274,10 +274,17 @@
     .texto-cartao{
         line-height:1.2;
         padding-top: 5px;
+        padding-left: 20px;
     }
     .col-form-label{
       padding-top:0;
       padding-bottom:0;
+    }
+    .btn{
+        height:31px;
+        margin-bottom: 7px;
+        margin-left:15px;
+        min-width: max-content;
     }
     @media screen and (max-width:575px)
     {
