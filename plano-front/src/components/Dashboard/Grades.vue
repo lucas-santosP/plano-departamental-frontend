@@ -42,7 +42,7 @@
 
           <div class="w-100"></div>
           <!-- Inicio da tabela -->
-          <div class="col-lg-12 col-md-10 ml-0 mt-2 pl-0 pr-0" style="width:100%; font-size:11px">
+          <div class="col-lg-12 col-md-10 ml-0 mt-2 pl-0 pr-0" style="width:100%; font-size:13px">
             <table class="table table-bordered">
               <thead class="thead-light">
                 <tr>

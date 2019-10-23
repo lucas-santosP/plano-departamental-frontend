@@ -502,9 +502,9 @@ export default {
   padding-right: 0px; 
   padding-left: 0px;
 
-  -webkit-box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
-  -moz-box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
-  box-shadow: 32px 22px 48px -27px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
   font-size: .875rem;
 }
 
