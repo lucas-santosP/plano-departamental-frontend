@@ -1,11 +1,18 @@
 <template>
   <div class="DashboardDocentes row" v-if="Admin">
-    <div class="col">
+    <!-- Titulo -->
+    <div class="col-12">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Lista Docentes</h1>
       </div>
-      <table class="table table-hover table-sm">
+    </div>
+    <!-- Fim do Titulo -->
+    <!-- Grid Esquerdo -->
+    <div class="col">
+     <div style="overflow-y: auto; position:relative; height: 80vh;">
+        <!-- Inicio da Tabela -->
+        <table class="table table-hover table-sm">
         <thead class="thead-light">
         <tr>
           <th scope="col">Nome</th>
@@ -29,8 +36,14 @@
         </template>
         </tbody>
       </table>
+      <!-- Fim da Tabela -->
     </div>
-    <div class="col-sm-4">
+    </div>
+    <!-- Fim do Grid Esquerdo -->
+    <!-- Grid Direito -->
+    <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
+      <div class="col card cartao" style="top: 0px; width: 90%; max-width: 500px; margin-left:auto;margin-right:auto;">
+        <div class="card-body" style="padding:25px;">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -44,19 +57,19 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="nome" v-model="docenteForm.nome">
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: center;">Nome</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="docenteForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: end;">Apelido</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="apelido" v-model="docenteForm.apelido">
+          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: center;">Apelido</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="apelido" v-model="docenteForm.apelido">
           </div>
         </div>
         <div class="form-group row">
-          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: end;">Perfis</label>
+          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: center;">Perfis</label>
           <template v-if="docenteForm.id!=undefined">
           <div class="col-sm-9" id="perfis">
             <b-form-checkbox-group stacked v-model="perfisAssociados">
@@ -91,6 +104,9 @@
         </div>
       </form>
     </div>
+      </div>
+    </div>
+    <!-- Fim do Grid Direito -->
   </div>
 </template>
 
@@ -290,19 +306,18 @@
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
-    /* 
-    .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
+    .form-group {
+      margin-bottom: 13px !important;
     }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
+    .col-form-label{
+      padding-top:0;
+      padding-bottom:0;
     }
     
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    } */
+    @media screen and (max-width:575px) {
+        .col-form-label{
+            text-align:start !important;
+        }
+    }
 
 </style>

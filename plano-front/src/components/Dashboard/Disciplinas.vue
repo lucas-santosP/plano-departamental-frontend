@@ -67,31 +67,31 @@
                 <div class="form-group row">
                     <label for="nome" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Nome</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="nome" v-model="disciplinaForm.nome">
+                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="codigo" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Código</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="codigo" v-model="disciplinaForm.codigo">
+                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="cargaTeorica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Teórica</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
+                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="cargaPratica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Carga Prática</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
+                        <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="perfil" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: end;">Perfil</label>
                     <div class="col-sm-9">
-                        <select type="text" class="form-control" id="perfil" v-model="disciplinaForm.Perfil">
+                        <select type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
                             <option v-for="perfil in Perfis" :key="perfil.id" :value="perfil.id">{{perfil.nome}}</option>
                         </select>
@@ -268,10 +268,22 @@
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
     }
+    .form-group {
+      margin-bottom: 15px !important;
+    }
+    .texto-cartao{
+        line-height:1.2;
+        padding-top: 5px;
+    }
+    .col-form-label{
+      padding-top:0;
+      padding-bottom:0;
+    }
     @media screen and (max-width:575px)
     {
         .texto-cartao{
             text-align: start !important;
+            padding-bottom: 5px !important;
         }
     }
 </style>
