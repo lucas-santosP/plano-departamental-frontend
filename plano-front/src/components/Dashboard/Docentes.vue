@@ -57,19 +57,19 @@
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;">Nome</label>
-          <div class="col-lg-8 col-md-9 col-sm-4 col-5" style="margin-top:auto;margin-bottom:auto;">
-            <input type="text" class="form-control form-control-sm col-lg-12 col-md-9 col-sm-8" id="nome" v-model="docenteForm.nome">
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: center;">Nome</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="docenteForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: end;">Apelido</label>
-          <div class="col-lg-8 col-md-9 col-sm-4 col-5" style="margin-top:auto;margin-bottom:auto;">
-            <input type="text" class="form-control form-control-sm col-lg-12 col-md-9 col-sm-8" id="apelido" v-model="docenteForm.apelido">
+          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: center;">Apelido</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="apelido" v-model="docenteForm.apelido">
           </div>
         </div>
         <div class="form-group row">
-          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: end;">Perfis</label>
+          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: center;">Perfis</label>
           <template v-if="docenteForm.id!=undefined">
           <div class="col-sm-9" id="perfis">
             <b-form-checkbox-group stacked v-model="perfisAssociados">
@@ -305,6 +305,13 @@
     
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+    }
+    .form-group {
+      margin-bottom: 13px !important;
+    }
+    .col-form-label{
+      padding-top:0;
+      padding-bottom:0;
     }
     
     @media screen and (max-width:575px) {
