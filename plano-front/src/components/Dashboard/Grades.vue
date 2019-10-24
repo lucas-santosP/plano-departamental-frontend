@@ -1,7 +1,7 @@
 <template>
   <div class="DashboardGrades row" style="max-width:100%;" v-if="Admin">
     <div class="col">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-0 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-0 border-bottom">
         <h1 class="h2">Lista Disciplinas</h1>
       </div>
     
@@ -11,7 +11,7 @@
       <div class="row" style="margin:0px !important;">
         <div class="col-lg-7 col-md-12 col-sm-12 col-12">
           <!-- Inicio forms Curso e Grande -->
-          <div class="form-row">
+          <div class="form-row mt-2">
             <div class="col-lg-6 col-md-5 col-sm-6 col-12">
               <label for="cursoAtual" class="col-form-label py-0">Curso</label>
               <select style="max-width:250px" id="cursoAtual" v-model="currentCurso" class="form-control form-control-sm mr-0">
@@ -42,8 +42,8 @@
 
           <div class="w-100"></div>
           <!-- Inicio da tabela -->
-          <div class="col-lg-12 col-md-10 ml-0 mt-2 pl-0 pr-0" style="width:100%; font-size:13px">
-            <table class="table table-bordered">
+          <div class="col-lg-12 col-md-10 ml-0 mt-3 pl-0 pr-0" style="width:100%; font-size:13px">
+            <table class="table table-bordered" style="border: #808080 solid 2px;">
               <thead class="thead-light">
                 <tr>
                   <th class="header col-2 col-md-1 col-lg-1 col-sm-1" scope="col" style="text-align:center" >P.</th>
@@ -84,7 +84,7 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-        <div class="col-lg-5 col-md-10 col-sm-12 col-12 my-3 ml-auto mr-auto pl-0">
+        <div class="col-lg-5 col-md-10 col-sm-12 col-12 my-3 ml-auto mr-auto pl-0" style="top:50px; height:calc(100vh - 200px);">
           <!-- Inicio card Edit -->
           <div class="col card ">
             <div class="card-body py-0" style="padding:15px">
@@ -546,7 +546,7 @@ export default {
 .table tbody {
   display: block;
   overflow-y: scroll;
-  height:calc(100vh - 230px);
+  height:calc(100vh - 235px);
 }
 .table tr td{
   display: block;

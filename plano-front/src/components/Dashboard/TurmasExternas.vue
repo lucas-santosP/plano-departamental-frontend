@@ -39,33 +39,33 @@
             <div class="cube2"></div>
         </div>
 
-        <div class="pl-5" style="overflow-x: scroll;overflow-y: scroll;" v-if="!isLoading">
+        <div class="pl-4 scroll-estilizado" style="overflow-y: scroll;" v-if="!isLoading">
 
-            <table class="table table-bordered table-hover table-sm" style="font-size:13px">
+            <table class="table table-hover table-bordered table-sm scroll-estilizado mr-1" style="height:calc(100vh - 190px);font-size:13px;">
                 <thead class="thead-light sticky">
                 <tr>
-                    <div style="display:block; overflow: hidden;" class="sticky">
-                        <th scope="col"  style="width:32px !important; text-align:center" >S.</th>
-                        <th scope="col"  style="width:80px !important; text-align:center" >Cod</th>
-                        <th scope="col"  style="width:220px !important;text-align:center" >Disciplina</th>
-                        <th scope="col"  style="width:25px !important; text-align:center" >C.</th>
-                        <th scope="col"  style="width:55px !important; text-align:center" >Turma</th>
-                        <th scope="col"  style="width:90px !important; text-align:center" >Turno</th>
-                        <th scope="col"  style="width:100px !important; text-align:center" >Horário</th>
-                        <th scope="col"  style="width:90px !important; text-align:center" >Sala</th>
-                        <th scope="col"  style="width:50px !important; text-align:center" >Total</th>
+                    <div style="display: block; overflow: hidden;" class="sticky">
+                        <th scope="col"> <p class="p-header" style="width:32px !important;">S.</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:70px !important;">Cod</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:300px !important">Disciplina</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:25px !important;">C.</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:50px !important;">Turma</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:90px !important;">Turno</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:100px !important;">Horário</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:95px !important;">Sala</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:40px !important;">Total</p> </th>
                         <template v-for="curso in Cursos">
-                            <th scope="col" style="width:40px!important; text-align:center" :key="'curso'+curso.id" :id="'curso'+curso.id">{{curso.codigo}}</th>
+                            <th scope="col" style="width:40px !important;"  :key="'curso'+curso.id" :id="'curso'+curso.id">{{curso.codigo}}</th>
                             <b-popover :key="curso.id" :target="'curso'+curso.id" placement="bottom" triggers="hover focus">
-                                <span v-if="curso.semestreInicial==1 || curso.semestreInicial==3">1º - {{curso.alunosEntrada}}</span>
-                                <span v-if="curso.semestreInicial==2 || curso.semestreInicial==3">2º - {{curso.alunosEntrada}}</span>
+                                <p v-if="curso.semestreInicial==1 || curso.semestreInicial==3" class="p-header" >1º - {{curso.alunosEntrada}}</p>
+                                <p v-if="curso.semestreInicial==2 || curso.semestreInicial==3" class="p-header" >2º - {{curso.alunosEntrada}}</p>
                             </b-popover>
                         </template>
                     </div>
                 </tr>
                 </thead>
 
-                <tbody class="scr" style="height:calc(100vh - 200px);">
+                <tbody>
                 <!-- Adição de turma-->
                     <template v-if="isAdd">
                         <tr>
@@ -431,36 +431,52 @@
     .header {
         display: inline-block;
     }
+    table{
+        display: block;
+        overflow-x: scroll;
+        background-color: #F5F5F5;
+        border: #808080 solid 2px;
+    }
 
     tbody{
         top: 23px;
         display:block;
-        overflow:auto;
         max-height: 100%;
         width:100%;
-    }
-    .scr::-webkit-scrollbar-track {
-    background-color: #F4F4F4;
-    }
-    .scr::-webkit-scrollbar {
-        width: 6px;
-        background: #F4F4F4;
-    }
-    .scr::-webkit-scrollbar-thumb {
-        background: #666;
     }
     tr thead {
         display:block;
     }
+     tr thead p{
+        margin-bottom: 0;
+        text-align: center;
+    }
     .sticky {
         position: sticky;
         position: -webkit-sticky;
-         top: 0;
+        top: 0;
     }
     thead th{
         padding: 0!important;
-        font-size: 10px;
+        font-size: 14px;
         text-align: center;
-        height: 16px !important;
+        height: 25px !important;
+    }
+    .p-header{
+        padding: 4px 0 4px 0;
+        margin:0;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .scroll-estilizado::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+    }
+    .scroll-estilizado::-webkit-scrollbar {
+        width: 6px;
+        background: #F4F4F4;
+    }
+    .scroll-estilizado::-webkit-scrollbar-thumb {
+        background: #666;
     }
 </style>
