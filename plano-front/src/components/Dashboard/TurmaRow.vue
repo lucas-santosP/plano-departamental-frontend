@@ -84,12 +84,15 @@
             </select>
         </td>
         <td style="width:28px"><p style="width: 28px">{{totalPedidos()}}</p></td>
-        <template v-for="curso in Cursos" v-if="CursosAtivos[curso.id]">
-            <td style="width: 32px;" :key="curso.id">
-                <template v-for="(pedido, index) in Pedidos" v-if="pedido.Curso===curso.id">
-                    <turmaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaPedido>
-                </template>
-            </td>
+
+        <template v-for="curso in Cursos" >
+            <template v-if="CursosAtivos[curso.id]"> 
+                <td style="width: 32px;" :key="curso.id">
+                    <template v-for="(pedido, index) in Pedidos" v-if="pedido.Curso===curso.id">
+                        <turmaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaPedido>
+                    </template>
+                </td>
+            </template>
         </template>
     </div>
 </template>

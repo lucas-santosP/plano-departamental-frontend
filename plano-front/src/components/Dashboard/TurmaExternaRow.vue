@@ -1,20 +1,20 @@
 <template>
-    <div class="turmarow" style="width: 900px;" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
+    <div class="turmarow" style="width: 1000px;" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                  'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                  'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}">
 
         <td>
             <div style="width:32px !important; ">
-                <input type="text" style="width: 20px; text-align: center; margin-top:5px; height:20px" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
+                <input type="text" style="width: 20px; text-align: center; margin-top:5px;" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
                 <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(turma)" v-model="ativo" style="width:16px">
             </div>
         </td>
 
         <td>
-            <div style="width:70px;">
+            <div style="width:90px;">
                 <template v-for="disciplina in Disciplinas">
                     <template v-if="disciplina.id===turma.Disciplina">
-                        <p :key="disciplina.id" style="width:60px;">{{disciplina.codigo}}</p>
+                        <p :key="disciplina.id" style="width:90px; text-align: center;">{{disciplina.codigo}}</p>
                     </template>
                 </template>
             </div>
@@ -22,7 +22,7 @@
 
         <td>
             <div style="width: 300px;"> 
-                <select type="text" style="width:290px; padding:0" id="disciplina" v-model="turma.Disciplina"
+                <select type="text" style="width:290px;" id="disciplina" v-model="turma.Disciplina"
                         v-on:change="editTurma(turma)">
                     <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
                     <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">
@@ -52,22 +52,24 @@
 
         <td >
             <div style="width: 90px;">
-                <select type="text" style="width: 80px" id="turno1" v-model="turma.turno1" v-on:change="editTurma(turma)">
+                <select type="text" style="width: 80px; " id="turno1" v-model="turma.turno1" v-on:change="editTurma(turma)">
                     <option value="Diurno">Diurno</option>
                     <option value="Noturno">Noturno</option>
+                    <option value="EAD">EAD</option>
                 </select>
             </div>
         </td>
+
         <td>
             <div style="width: 100px;">
-                <select type="text" style="width: 90px; margin-bottom:5px" id="horario1" v-model="turma.Horario1"
+                <select type="text" style="width: 90px; margin-bottom:5px;" id="horario1" v-model="turma.Horario1"
                         v-on:change="editTurma(turma)">
                     <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
                     <option v-else value = ""></option>
                     <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
                 </select>
                 <br/>
-                <select type="text" style="width: 90px" id="horario2" v-model="turma.Horario2"
+                <select type="text" style="width: 90px;" id="horario2" v-model="turma.Horario2"
                         v-on:change="editTurma(turma)">
                     <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
                     <option v-else value=""></option>
@@ -97,17 +99,19 @@
                 <p style="40px">{{totalPedidos()}}</p>
             </div>
         </td>
-
+        
         <template v-for="curso in Cursos">
-            <td >
-                <div style="width: 40px">
-                    <template v-for="pedido in Pedidos" v-if="pedido.Curso===curso.id">
-                        <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; text-align:center"
-                            v-on:change="editPedido(pedido)">
-                        <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; text-align:center"
-                            v-on:change="editPedido(pedido)">
+            <td>
+                <template v-for="pedido in Pedidos">
+                    <template v-if="pedido.Curso===curso.id"> 
+                        <div style="width:40px !important;">
+                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; text-align:center"
+                                    v-on:change="editPedido(pedido)">
+                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; text-align:center"
+                                    v-on:change="editPedido(pedido)">
+                        </div>
                     </template>
-                </div>
+                </template>
             </td>
         </template>
     </div>
@@ -240,5 +244,9 @@
         height: 25px;
         width:auto;
         text-align: left;
+    }
+    select{
+        height:20px;
+        padding-bottom: 1.1px;
     }
 </style>
