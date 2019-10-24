@@ -292,6 +292,11 @@
 </script>
 
 <style scoped>
+    table th{
+      position:-webkit-sticky;
+      position: sticky;
+      top: 0;
+    }
     .botao-estilo{
         background-color: #faca4d !important;
         border-color: #faca4d !important;

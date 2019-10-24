@@ -447,14 +447,14 @@
     tr thead {
         display:block;
     }
-     tr thead p{
+    tr thead p{
         margin-bottom: 0;
         text-align: center;
     }
-    .sticky {
-        position: sticky;
-        position: -webkit-sticky;
-        top: 0;
+    table th {
+        position: sticky !important;
+        position: -webkit-sticky !important;
+        top: 0 !important;
     }
     thead th{
         padding: 0!important;

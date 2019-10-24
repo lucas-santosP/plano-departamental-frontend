@@ -9,7 +9,7 @@
     </div>
     <div class="col">
       <div
-        style="overflow-y: auto; position:relative; height: 75vh; width: 280px; margin-left: 30%; margin-right: auto;"
+        style="overflow-y: auto; height: 75vh; width: 280px; margin-left: 30%; margin-right: auto;"
       >
         <!-- Inicio da Tabela -->
         <table class="table table-hover table-sm table-bordered">
@@ -236,6 +236,11 @@ export default {
 </script>
 
 <style scoped>
+table th{
+      position:-webkit-sticky;
+      position: sticky;
+      top: 0;
+    }
 .botao-estilo {
   background-color: #f0852e !important;
   border-color: #f0852e !important;
