@@ -7,11 +7,13 @@
             <input type="text" style="width: 20px;" id="trimestre" v-model="carga.trimestre" v-on:blur="editCarga(carga)">
         </td>
         <td style="width: 160px;">
+            <label>
             <select type="text" style="width:160px" id="docente" v-model="carga.Docente"
                     v-on:change="editCarga(carga)">
                 <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
                 <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
             </select>
+            </label>
         </td>
         <td style="width: 108px;">
             <input type="text" style="width: 108px" v-model="carga.programa" v-on:blur="editCarga(carga)">
@@ -80,8 +82,41 @@
     }
 
     input {
-        height: 25px;
+        height: 30px;
         width:auto;
-        text-align: left;
+        text-align: left;;
+        border: 1px solid #cccccc;
+        margin-left:1px;
+    }
+    select{
+        border: 1px solid #cccccc;
+        appearance:none;
+        cursor:pointer;
+        height: 30px;
+        margin-bottom: 0;
+        margin-left:1px;
+        
+    }
+    label {position:relative; margin-bottom:0;}
+    label:after {
+        content:'>';
+        font:14px "Consolas", monospace;
+        color:#aaa;
+        -webkit-transform:rotate(90deg);
+        -moz-transform:rotate(90deg);
+        -ms-transform:rotate(90deg);
+        transform:rotate(90deg);
+        right:8px; top:4px;
+        padding:0 0 2px;
+        position:absolute;
+        pointer-events:none;
+    }
+    label:before {
+        content:'';
+        right:6px; top:0px;
+        width:20px; height:20px;
+        position:absolute;
+        pointer-events:none;
+        display:block;
     }
 </style>

@@ -2,12 +2,12 @@
     <div class="CargaPos" style="height: calc(100vh - 48px);">
         <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom container-fluid" style="overflow: auto; width: 100%; padding-right:20px;">
             <b-row style="width:100%">
-            <b-col cols="">
+            <!-- <b-col cols=""> -->
             <h1 class="h2 col" style="padding:0">Cargas Pós</h1>
             </b-col>
-            <b-col cols="5" ></b-col>
-            <b-col cols="" >
-            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: 100px;"> 
+            <!-- <b-col cols="5" ></b-col> -->
+            <b-col class="col-sm-3 col-4 col-lg-2 col-md-3" >
+            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: max-content;"> 
                 <option value = "1">Primeiro</option>
                 <option value = "2">Segundo</option>
                 <option value = "3">Ambos</option>
@@ -15,13 +15,13 @@
             </b-col>
             <!-- <b-col cols="2"> -->
             <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addCarga" style="float:right; margin-bottom: 10px; margin-right: 10px;"> Confirmar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addCarga" style="float: right; margin-right: 10px;"> Confirmar </button>
                 <button type="button" class="btn btn-danger col-sm-1"  v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px;">Cancelar </button>
 
             </template>
             <template v-else>
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px; margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-danger col-sm-1" style="margin-bottom: 10px;" v-b-modal.modalConfirma>Deletar </button>
+                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="float:right; margin-right: 10px;">Adicionar </button>
+                <button type="button" class="btn btn-danger col-sm-1" v-b-modal.modalConfirma>Deletar </button>
                 <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                     <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                     <template v-for="carga in Deletar">
@@ -234,7 +234,6 @@
     th {
         text-align: center;
     }
-
     thead th {
         position: sticky;
         position: -webkit-sticky;
@@ -252,6 +251,13 @@
         height: 25px;
         width:auto;
         text-align: left;
+        
+    }
+
+    .btn{
+        min-width: max-content;
+        max-width: max-content;
+        max-height: 38px;
     }
 
     /*table.scrolling td:nth-child(-n+10),
@@ -315,33 +321,4 @@
             -webkit-transform: rotate(-360deg);
         }
     }
-    /* .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
-        height: 38px;
-    }
-
-    .botao-estilo:hover{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
-    }
-    
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-    }
-
-    .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
-        height: 38px;
-    }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
-    }
-    
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    } */
 </style>
