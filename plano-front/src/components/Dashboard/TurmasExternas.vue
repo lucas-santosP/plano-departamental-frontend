@@ -5,7 +5,7 @@
                 <h1 class="h2 col-1">Plano</h1>
 
                 <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12" style="margin-left: auto;">
-                    <b-form-select v-model="periodos" class="formSelect col-lg-4 col-md-4 col-sm-8 col-10" style="margin-right:15px">
+                    <b-form-select v-model="periodos" class="formSelect col-lg-4 col-md-4 col-sm-9 col-10" style="margin-right:15px">
                         <option value = "1">Primeiro</option>
                         <option value = "2">Segundo</option>
                         <option value = "3">Ambos</option>
@@ -39,27 +39,29 @@
             <div class="cube2"></div>
         </div>
 
-        <div class="pl-4 scroll-estilizado" style="overflow-y: scroll;" v-if="!isLoading">
+        <div class="pl-4" style="overflow-y: scroll;" v-if="!isLoading">
 
-            <table class="table table-hover table-bordered table-sm scroll-estilizado mr-1" style="height:calc(100vh - 190px);font-size:13px;">
+            <table class="table table-hover table-bordered table-sm scroll-estilizado mr-2" style="height:calc(100vh - 150px);font-size:13px;">
                 <thead class="thead-light sticky">
                 <tr>
-                    <div style="display: block; overflow: hidden;" class="sticky">
-                        <th scope="col"> <p class="p-header" style="width:32px !important;">S.</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:70px !important;">Cod</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:300px !important">Disciplina</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:25px !important;">C.</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:50px !important;">Turma</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:90px !important;">Turno</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:100px !important;">Horário</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:95px !important;">Sala</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:40px !important;">Total</p> </th>
+                    <div style="display: block; overflow: hidden; width: 1000px;" class="sticky">
+                        <th scope="col"> <p class="p-header sticky" style="width:32px !important;">S.</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:90px !important;">Cod</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:300px !important">Disciplina</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:25px !important;">C.</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:50px !important;">Turma</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:90px !important;">Turno</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:100px !important;">Horário</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:95px !important;">Sala</p> </th>
+                        <th scope="col"> <p class="p-header sticky" style="width:40px !important;">Total</p> </th>
                         <template v-for="curso in Cursos">
-                            <th scope="col" style="width:40px !important;"  :key="'curso'+curso.id" :id="'curso'+curso.id">{{curso.codigo}}</th>
-                            <b-popover :key="curso.id" :target="'curso'+curso.id" placement="bottom" triggers="hover focus">
-                                <p v-if="curso.semestreInicial==1 || curso.semestreInicial==3" class="p-header" >1º - {{curso.alunosEntrada}}</p>
-                                <p v-if="curso.semestreInicial==2 || curso.semestreInicial==3" class="p-header" >2º - {{curso.alunosEntrada}}</p>
-                            </b-popover>
+                            <th scope="col" style="width:41px !important;"   :key="'curso'+curso.id" :id="'curso'+curso.id">
+                                <p class="p-header" style="width:40px !important;">{{curso.codigo}}</p>
+                                <b-popover :key="curso.id" :target="'curso'+curso.id" placement="bottom" triggers="hover focus">
+                                    <span v-if="curso.semestreInicial==1 || curso.semestreInicial==3" >1º - {{curso.alunosEntrada}}</span>
+                                    <span v-if="curso.semestreInicial==2 || curso.semestreInicial==3" >2º - {{curso.alunosEntrada}}</span>
+                                </b-popover>
+                            </th>
                         </template>
                     </div>
                 </tr>
@@ -68,66 +70,94 @@
                 <tbody>
                 <!-- Adição de turma-->
                     <template v-if="isAdd">
-                        <tr>
-                            <td>
-                                <input type="text" style="width:25px; text-align:center;" id="periodo" v-model="turmaForm.periodo">
-                            </td>
+                        
+                        <tr style="background-color:#C0C0C0;">
+                            <div style="width: 1000px;">
+                                
+                                <td>
+                                    <div style="width:32px !important;">
+                                        <input type="text" style="width: 20px; text-align: center; margin-top:5px;" id="periodo" v-model="turmaForm.periodo">
+                                    </div>
+                                </td>
 
-                            <td >
-                                <select type="text" style="width:25px;" id="disciplina" v-model="turmaForm.Disciplina">
-                                    <option v-if="DisciplinasCod.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
-                                    <option v-for="disciplina in DisciplinasCod" :key="disciplina.id" :value="disciplina.id">{{disciplina.codigo}}</option>
-                                </select>
-                            </td>
+                                <td>
+                                    <div style="width:90px;">
+                                        <select type="text" style="width:80px;" id="disciplina" v-model="turmaForm.Disciplina">
+                                            <option v-if="DisciplinasCod.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
+                                            <option v-for="disciplina in DisciplinasCod" :key="disciplina.id" :value="disciplina.id">{{disciplina.codigo}}</option>
+                                        </select>
+                                    </div>
+                                </td>
 
-                            <td >
-                                <select type="text" style="width:25px; text-align:center;"  id="disciplina" v-model="turmaForm.Disciplina">
-                                    <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
-                                    <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">{{disciplina.nome}}</option>
-                                </select>
-                            </td>
-                            <td >
-                                <p style="width:25px; text-align:center;" >
-                                    <template v-for="disciplina in Disciplinas">
-                                        <template v-if="disciplina.id===turmaForm.Disciplina">
-                                            {{disciplina.cargaPratica + disciplina.cargaTeorica}}
-                                        </template>
-                                    </template>
-                                </p>
-                            </td>
-                            <td>
-                                <input type="text" style="width:25px; text-align:center;"  id="turma" v-model="turmaForm.letra">
-                            </td>
-                            <td>
-                                <select type="text" style="width:25px; text-align:center;"  id="turno1" v-model="turmaForm.turno1" v-on:change="setEad">
-                                    <option value="Diurno">Diurno</option>
-                                    <option value="Noturno">Noturno</option>
-                                    <option value="EAD">EAD</option>
-                                </select>
-                                <br/>
-                            </td>
-                            <td>
-                                <select type="text" style="width:25px; text-align:center;"  id="horario1" v-model="turmaForm.Horario1" v-on:change="adjustTurno1">
-                                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-                                </select>
-                                <br/>
-                                <select type="text" style="width:25px; text-align:center;"  id="horario2" v-model="turmaForm.Horario2" v-on:change="adjustTurno2">
-                                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select type="text" style="width:25px; text-align:center;"  id="sala1" v-model="turmaForm.Sala1">
-                                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
-                                </select>
-                                <br/>
-                                <select type="text" style="width:25px; text-align:center;"  id="sala2" v-model="turmaForm.Sala2">
-                                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
-                                </select>
-                            </td>
+                                <td>
+                                    <div style="width: 300px;"> 
+                                        <select type="text" style="width:290px; padding:0;"  id="disciplina" v-model="turmaForm.Disciplina">
+                                            <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
+                                            <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">{{disciplina.nome}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div style="width: 25px;">
+                                        <p style="width:25px;" >
+                                            <template v-for="disciplina in Disciplinas">
+                                                <template v-if="disciplina.id===turmaForm.Disciplina">
+                                                    {{disciplina.cargaPratica + disciplina.cargaTeorica}}
+                                                </template>
+                                            </template>
+                                        </p>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div style="width: 50px">
+                                        <input type="text" style="width:20px; text-align:center;"  id="turma" v-model="turmaForm.letra">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div style="width: 90px;">
+                                        <select type="text" style="width:80px; text-align:center;"  id="turno1" v-model="turmaForm.turno1" v-on:change="setEad">
+                                            <option value="Diurno">Diurno</option>
+                                            <option value="Noturno">Noturno</option>
+                                            <option value="EAD">EAD</option>
+                                        </select>
+                                    </div> 
+                                </td>
+
+                                <td>
+                                    <div style="width: 100px;">
+                                        <select type="text" style="width:90px; margin-bottom:4px;"  id="horario1" v-model="turmaForm.Horario1" v-on:change="adjustTurno1">
+                                            <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                                            <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                                        </select>
+                                        <br/>
+                                        <select type="text" style="width:90px; text-align:center;"  id="horario2" v-model="turmaForm.Horario2" v-on:change="adjustTurno2">
+                                            <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                                            <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    <div style="width: 95px">
+                                        <select type="text" style="width:85px; text-align:center; margin-bottom:4px;"  id="sala1" v-model="turmaForm.Sala1">
+                                            <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                                            <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+                                        </select>
+                                        <br/>
+                                        <select type="text" style="width:85px; text-align:center;"  id="sala2" v-model="turmaForm.Sala2">
+                                            <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                                            <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div style="width: 200px; height:60px;"></div>
+                                </td>
+                            </div>
                         </tr>
                     </template>
 
@@ -433,9 +463,9 @@
     }
     table{
         display: block;
-        overflow-x: scroll;
+        overflow: scroll;
         background-color: #F5F5F5;
-        border: #808080 solid 2px;
+        border: #808080 solid 2.5px;
     }
 
     tbody{
@@ -443,7 +473,18 @@
         display:block;
         max-height: 100%;
         width:100%;
+        table-layout:fixed;
     }
+    td{
+        text-align: center;
+        vertical-align:middle;
+        padding: 0;
+    }
+    p {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
     tr thead {
         display:block;
     }
@@ -473,10 +514,15 @@
     background-color: #F4F4F4;
     }
     .scroll-estilizado::-webkit-scrollbar {
-        width: 6px;
+        width: 10px;
+        height: 6px;
         background: #F4F4F4;
     }
     .scroll-estilizado::-webkit-scrollbar-thumb {
         background: #666;
+    }
+    table select{
+        height:20px;
+        padding-bottom: 1.1px;
     }
 </style>
