@@ -247,6 +247,5 @@
     }
     select{
         height:20px;
-        padding-bottom: 1.1px;
     }
 </style>

@@ -519,11 +519,9 @@ export default {
 .sidebar-sticky::-webkit-scrollbar-thumb {
     background: #666;
 }
-
 .nav li a i{
   padding-left: 0.3em;
 }
-
 .nav li{
   border-bottom:#FAFAFA 0.3px solid;
   border-top:   #FAFAFA 0.3px solid;
