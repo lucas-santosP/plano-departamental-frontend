@@ -8,11 +8,11 @@
             <!-- ----------------------------------------------------------------------------------------------- -->
             <div class="row">
             <div class="col-sm-6">
-            <h1>1º Período</h1>
+            <h3 style="font-weight: 200; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">1º SEMESTRE</span></h3>
             <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
             <div class="title">
-            <h4>Ciência da Computação Diurno</h4>
+            <h4 style="font-weight: 200; text-align: center;">Ciência da Computação Diurno</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[0])">
@@ -536,7 +536,7 @@
             
             <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <div class="title">
-                <h4>Ciência da Computação Noturno</h4>
+                <h4 style="font-weight: 200; text-align: center;">Ciência da Computação Noturno</h4>
                 </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[0])">
@@ -862,7 +862,7 @@
             <!-- -------------------------------------------- SI ----------------------------------------- -->
             <br>
             <div class="title">
-            <h4>Sistemas de Informação</h4>
+            <h4 style="font-weight: 200; text-align: center;">Sistemas de Informação</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[0])">
@@ -1188,7 +1188,7 @@
             <!-- -------------------------------------------- EC ----------------------------------------- -->
 
             <div class="title">
-            <h4>Engenharia Computacional</h4>
+            <h4 style="font-weight: 200; text-align: center;">Engenharia Computacional</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[0])">
@@ -1707,7 +1707,7 @@
                 </table>
             </div>
             <div class="title">
-            <h4>Eletivas</h4>
+            <h4 style="font-weight: 200; text-align: center;">Eletivas</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.Eletivas)">
@@ -1780,11 +1780,11 @@
             </div>
             <!-- ----------------------------------------------------------------------------------------------- -->
             <div class="col-sm-6">
-            <h1>2º Período</h1>
+            <h3 style = "font-weight: 200; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">2º SEMESTRE</span></h3>
             <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-
-            <h4>Ciência da Computação Diurno</h4>
-            
+            <div class = "title">
+            <h4 style="font-weight: 200; text-align: center;">Ciência da Computação Diurno</h4>
+            </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[0])">
                 <h5>1 Período</h5>
@@ -2306,7 +2306,7 @@
 
             <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
             <div class="title">
-            <h4>Ciência da Computação Noturno</h4>
+            <h4 style="font-weight: 200; text-align: center;">Ciência da Computação Noturno</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[0])">
@@ -2632,7 +2632,7 @@
             <!-- -------------------------------------------- SI ----------------------------------------- -->
             <br>
             <div class="title">
-            <h4>Sistemas de Informação</h4>
+            <h4 style="font-weight: 200; text-align: center;">Sistemas de Informação</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[0])">
@@ -2958,7 +2958,7 @@
             <!-- -------------------------------------------- EC ----------------------------------------- -->
 
             <div class="title">
-            <h4>Engenharia Computacional</h4>
+            <h4 style="font-weight: 200; text-align: center;">Engenharia Computacional</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[0])">
@@ -3479,7 +3479,7 @@
                 </table>
             </div>
             <div class="title">
-            <h4>Eletivas</h4>
+            <h4 style="font-weight: 200; text-align: center;">Eletivas</h4>
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.Eletivas)">
@@ -3623,14 +3623,14 @@
                 var eletivas1 = this.ativos1.Eletivas
                 var seg = '', ter = '', qua = '', qui = '', sex = ''
                 var vazio = 0
-                tables.push({text:'1º Semestre', bold:true, margin:[0, 10, 0, 5], fontSize: 20})
-                tables.push({text:'Ciência da Computação Diurno', bold:true, margin:[0, 10, 0, 5], fontSize: 20})
+                tables.push({text:'1º Semestre', bold:false, margin:[0, 10, 0, 5], fontSize: 20})
+                tables.push({text:'Ciência da Computação Diurno',bold: false,  margin:[0, 10, 0, 5], fontSize: 20})
 
                 for(var i = 0; i < 10; i++){
                     if(periodosCCD1[i].length===0){
                         vazio = vazio + 1
                     }else {
-                        tables.push({text: (i + 1) + 'º Período', bold: true, margin:[0, 5, 0, 5]})
+                        tables.push({text: (i + 1) + 'º Período', bold:false, margin:[0, 5, 0, 5]})
                         tables.push({
                             table: {
                                 widths: ['*', '*', '*', '*', '*', '*'],
@@ -5799,6 +5799,9 @@
     .title {
         clear: both;
         display: block;
+        padding-top: 30px;
+        font-weight: 200;
+        text-align: center;
     }
 
     .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
@@ -5806,9 +5809,11 @@
     .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
     .tg .tg-0lax{vertical-align:center}
 
-        .botao-estilo{
+    .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
+        max-width: max-content;
+        min-width: max-content;
     }
 
     .botao-estilo:hover{
@@ -5819,4 +5824,8 @@
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
+    h5{
+        font-weight: 200 !important;
+    }
+    
 </style>
