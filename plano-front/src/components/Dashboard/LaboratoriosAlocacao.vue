@@ -7,10 +7,10 @@
                 <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
             </div>
             <div v-for="lab in Laboratorios">
-                <h5>{{lab.nome}}</h5>
+                <h5 class="lab-num" style="margin-left: -30px !important; margin-bottom: 40px; margin-top: 40px; border-bottom: 1px solid #cccccc; text-align: center; font-weight: 300; font-size: 26px;">{{lab.nome}}</h5>
                 <div class="row">
                     <div class= "col-sm-6">
-                <h6>1º Semestre</h6>
+                <h6 style="font-weight: 200;">1º Semestre</h6>
                 
                     <table class="tg">
                         <tr>
@@ -89,7 +89,7 @@
                     
                 </div>
             <div class = "col-sm-6">
-                <h6>2º Semestre</h6>
+                <h6 style="font-weight: 200;">2º Semestre</h6>
                 
                     
                 <table class="tg">
@@ -280,7 +280,7 @@
     .tg td{font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
     .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:rgb(184, 195, 209);color:#333;background-color:#E9ECEF;}
     .tg .tg-0lax{vertical-align:center}
-        .botao-estilo{
+    .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
     }
@@ -294,10 +294,14 @@
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
 
-    @media screen {
+    @media screen and (max-width: 575px){
         .botao-estilo{
-            max-width: 20%;
-            min-width: 90px;
+            min-width: max-content;
+            max-width: max-content;
+            float: right;
+        }
+        .lab-num{
+            font-size: 22px !important;
         }
     }
 </style>

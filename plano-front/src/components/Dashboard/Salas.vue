@@ -240,7 +240,7 @@ table th{
       position:-webkit-sticky;
       position: sticky;
       top: 0;
-    }
+}
 .botao-estilo {
   background-color: #f0852e !important;
   border-color: #f0852e !important;

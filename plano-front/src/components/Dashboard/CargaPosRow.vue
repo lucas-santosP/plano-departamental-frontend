@@ -5,6 +5,7 @@
         </td>
         <td style="width: 20px;">
             <input type="text" style="width: 20px;" id="trimestre" v-model="carga.trimestre" v-on:blur="editCarga(carga)">
+            
         </td>
         <td style="width: 160px;">
             <label>
@@ -81,7 +82,7 @@
         text-align: center;
     }
 
-    input {
+    input[type="text"] {
         height: 30px;
         width:auto;
         text-align: left;;
@@ -119,4 +120,6 @@
         pointer-events:none;
         display:block;
     }
+  
+
 </style>
