@@ -283,6 +283,8 @@
     .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
+        min-width: max-content;
+        max-width: max-content;
     }
 
     .botao-estilo:hover{

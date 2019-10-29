@@ -2,7 +2,7 @@
     <div class="DashboardHorariosResumo row" style="padding-right:30px;">
         <div class="col-12">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Horarios - Resumo</h1>
+                <h1 class="h2">Horários - Resumo</h1>
                 <button type="button" class="btn btn-success col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
             </div>
             <!-- ----------------------------------------------------------------------------------------------- -->

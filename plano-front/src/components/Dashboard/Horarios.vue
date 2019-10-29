@@ -6,68 +6,68 @@
             </div>
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
             <template v-if="periodo===1 || periodo===3">
-                <h4>1º Semestre</h4>
+                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">1º SEMESTRE</span></h3>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
-                    <h4>Ciência da Computação Diurno</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Diurno</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
 <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <template v-if="activeCCN">
-                    <h4>Ciência da Computação Noturno</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Noturno</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
 <!-- -------------------------------------------- SI ----------------------------------------- -->
                 <template v-if="activeSI">
-                    <h4>Sistemas de Informação</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Sistemas de Informação</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos1.SI"></curso-noturno>
 <!-- -------------------------------------------- EC ----------------------------------------- -->
                 <template v-if="activeEC">
-                    <h4>Engenharia Computacional</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos1.EC"></curso-diurno>
 <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
                 <template v-if="activeEletivas">
-                    <h4>Eletivas</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Eletivas</span></h4>
                 </template>
                 <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
             </template>
 
 <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
             <template v-if="periodo===2 || periodo===3">
-                <h4>2º Semestre</h4>
+                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">2º SEMESTRE</span></h3>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
-                    <h4>Ciência da Computação Diurno</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Diurno</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
 <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <template v-if="activeCCN">
-                    <h4>Ciência da Computação Noturno</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Noturno</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
 <!-- -------------------------------------------- SI ----------------------------------------- -->
                 <template v-if="activeSI">
-                    <h4>Sistemas de Informação</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Sistemas de Informação</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos2.SI"></curso-noturno>
 <!-- -------------------------------------------- EC ----------------------------------------- -->
                 <template v-if="activeEC">
-                    <h4>Engenharia Computacional</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos2.EC"></curso-diurno>
 <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
                 <template v-if="activeEletivas">
-                    <h4>Eletivas</h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Eletivas</span></h4>
                 </template>
                 <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
             </template>
@@ -990,5 +990,11 @@
     
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+    h4{
+        text-align: start !important;
+        padding-left: 100px;
+        margin-bottom: 20px;
+        margin-top: 40px;
     }
 </style>
