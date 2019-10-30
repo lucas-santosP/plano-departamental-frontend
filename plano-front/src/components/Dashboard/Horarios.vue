@@ -1,90 +1,100 @@
 <template>
     <div class="DashboardHorarios row" v-if="Admin">
-        <div class="col-8">
+        <div class="col-12">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Lista Horarios</h1>
+                <h1 class="h2">Lista Horários</h1>
             </div>
+    </div>
+        <div class="col">
+      <div
+         class="tabelas" style="overflow-y: auto; height: 80vh;"
+      >
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
             <template v-if="periodo===1 || periodo===3">
-                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">1º SEMESTRE</span></h3>
+                <div class="col-12">
+                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style="border-bottom: 1px solid #cccccc ">1º SEMESTRE</span></h3>
+                </div>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Diurno</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px; text-align: center !important;"><span style="">Ciência da Computação Diurno</span></h4>
                 </template>
-
                 <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
 <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <template v-if="activeCCN">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Noturno</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Ciência da Computação Noturno</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
 <!-- -------------------------------------------- SI ----------------------------------------- -->
                 <template v-if="activeSI">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Sistemas de Informação</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Sistemas de Informação</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos1.SI"></curso-noturno>
 <!-- -------------------------------------------- EC ----------------------------------------- -->
                 <template v-if="activeEC">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Engenharia Computacional</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos1.EC"></curso-diurno>
 <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
                 <template v-if="activeEletivas">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Eletivas</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Eletivas</span></h4>
                 </template>
                 <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
             </template>
 
 <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
             <template v-if="periodo===2 || periodo===3">
-                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" border-bottom: 1px solid #cccccc">2º SEMESTRE</span></h3>
+                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" ">2º SEMESTRE</span></h3>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Diurno</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Ciência da Computação Diurno</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
 <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
                 <template v-if="activeCCN">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Noturno</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Ciência da Computação Noturno</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
 <!-- -------------------------------------------- SI ----------------------------------------- -->
                 <template v-if="activeSI">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Sistemas de Informação</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Sistemas de Informação</span></h4>
                 </template>
 
                 <curso-noturno :Curso="ativos2.SI"></curso-noturno>
 <!-- -------------------------------------------- EC ----------------------------------------- -->
                 <template v-if="activeEC">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Engenharia Computacional</span></h4>
                 </template>
 
                 <curso-diurno :Curso="ativos2.EC"></curso-diurno>
 <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
                 <template v-if="activeEletivas">
-                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" border-bottom: 1px solid #cccccc">Eletivas</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Eletivas</span></h4>
                 </template>
                 <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
             </template>
 <!-- ----------------------------------------------------------------------------------------------- -->
+      </div>
         </div>
-        <div class="col">
+        <!-- Grid Direito -->
+         <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
+      <div class="col card cartao ml-auto mr-auto" style="top: 0px; width: 90%; max-width: 500px;">
+        <div class="card-body" style="padding:25px;">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1>Definir Grades</h1>
+                <h2>Definir Grades</h2>
             </div>
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
             </b-alert>
             <form>
-                <div class="form-group row" style="display: block;">
+                <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
                     <form name="formPeriodo" id="formPeriodo" ref="formPrioso">
-                        <div class="grade">
+                        <div class="grade" >
                             <label for="periodo" style="margin-right: 10px">Semestre:</label>
-                            <b-form-select id="periodo" v-model="periodo" class="periodo" style="width: 94px;">
+                            <b-form-select id="periodo" v-model="periodo" class="periodo" style="width: 94px; position: relative;">
                                 <option :value="1">1</option>
                                 <option :value="2">2</option>
                                 <option :value="3">Ambos</option>
@@ -97,11 +107,13 @@
                     </b-form-checkbox-group>
                 </div>
                 <div>
-                <b-button variant="success" v-on:click="createHorarios" class="generate botao-estilo" style="width: 100px">Visualizar</b-button>
+                <b-button variant="success" v-on:click="createHorarios" class="col-2 btn-sm generate botao-estilo">Visualizar</b-button>
                 </div>
 
             </form>
         </div>
+      </div>
+         </div>
     </div>
 </template>
 
@@ -941,7 +953,7 @@
 
 <style scoped>
 
-    .quant {
+    /* .quant {
         margin: 10px;
         padding-left: 4.5px;
         padding-right: 4.5px;
@@ -950,7 +962,7 @@
         height: 25px;
         width:25px;
         border-radius: 15px;
-    }
+    } */
 
     .periodo{
         display: inline;
@@ -981,6 +993,8 @@
     .botao-estilo{
         background-color: #0079fa !important;
         border-color: #0079fa !important;
+        min-width: max-content;
+        max-width: max-content;
     }
 
     .botao-estilo:hover{
@@ -992,8 +1006,7 @@
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
     h4{
-        text-align: start !important;
-        padding-left: 100px;
+        text-align: center !important;
         margin-bottom: 20px;
         margin-top: 40px;
     }

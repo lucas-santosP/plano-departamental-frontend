@@ -55,7 +55,7 @@
 </script>
 <style scoped>
     td {
-        width:91px !important;
+        width:115px !important;
         text-align: center !important;
     }
 
