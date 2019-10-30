@@ -1,30 +1,40 @@
 <template>
-    <div class="cargarow" style="width: 358px;">
-        <td style="width: 20px;">
-            <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(carga)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
+    <div class="cargarow" style="width: 345px;">
+        <td style="max-width:25px !important;  height:40px">
+            <div style="width: 25px;">
+                <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(carga)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
+            </div>
         </td>
-        <td style="width: 20px;">
-            <input type="text" style="width: 20px;" id="trimestre" v-model="carga.trimestre" v-on:blur="editCarga(carga)">
-            
-        </td>
-        <td style="width: 160px;">
-            <label>
-            <select type="text" style="width:160px" id="docente" v-model="carga.Docente"
-                    v-on:change="editCarga(carga)">
-                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-            </select>
-            </label>
-        </td>
-        <td style="width: 108px;">
-            <input type="text" style="width: 108px" v-model="carga.programa" v-on:blur="editCarga(carga)">
-        </td>
-        <td style="width: 30px">
-            <input type="text" style="width: 30px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
-        </td>
-        <td style="width: 20px;">
 
+        <td>
+            <div style="width: 30px; text-align: center;">
+                <input type="text" style="width: 15px; text-align: center;" id="trimestre" v-model="carga.trimestre" v-on:blur="editCarga(carga)">
+            </div>
         </td>
+
+        <td style="max-width: 160px;">
+            <div style="width: 160px; padding-left:10px; padding-right:10px">
+                <label>
+                <select type="text" style="width:130px" id="docente" v-model="carga.Docente"
+                        v-on:change="editCarga(carga)">
+                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                </select>
+                </label>
+            </div>
+        </td>
+
+        <td style="max-width: 100px;">
+            <div style="width: 100px;">
+                <input type="text" style="width: 108px" v-model="carga.programa" v-on:blur="editCarga(carga)">
+             </div>
+        </td>
+        <td style="max-width: 30px">
+            <div style="width:30px">
+                <input type="text" style="width: 30px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
+            </div>
+        </td>
+
     </div>
 </template>
 <script>
@@ -74,11 +84,12 @@
 </script>
 <style scoped>
     td {
-        text-align: center;
         padding: 0!important;
+        text-align: center;
+        vertical-align:middle;
     }
-
     p {
+        margin-bottom: 0;
         text-align: center;
     }
 
@@ -93,7 +104,7 @@
         border: 1px solid #cccccc;
         appearance:none;
         cursor:pointer;
-        height: 30px;
+        height: 25px;
         margin-bottom: 0;
         margin-left:1px;
         
@@ -120,6 +131,4 @@
         pointer-events:none;
         display:block;
     }
-  
-
 </style>
