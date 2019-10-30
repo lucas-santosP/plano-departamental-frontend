@@ -9,22 +9,24 @@
     </div>
     <div class="col">
       <div
-        style="overflow-y: auto; height: 75vh; width: 280px; margin-left: 30%; margin-right: auto;"
+        style="overflow-y: hidden; width: 280px; margin-left: 30%; margin-right: auto;"
       >
         <!-- Inicio da Tabela -->
         <table class="table table-hover table-sm table-bordered">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Nome</th>
+          <thead class="thead-light" style="z-index: 3;">
+            <tr style="z-index: 3;">
+              <th scope="col" style="height:200px">Nome</th>
               <th scope="col">Laboratório</th>
             </tr>
           </thead>
           <tbody>
             <template v-if="Salas.length > 0">
               <tr v-for="sala in Salas" :key="sala.id" v-on:click.prevent="showSala(sala)">
-                <td>{{sala.nome}}</td>
                 <td>
-                  <b-form-checkbox disabled v-model="sala.laboratorio"></b-form-checkbox>
+                  {{sala.nome}}
+                </td>
+                <td class="text-center" style="text-align:center">
+                  <b-form-checkbox  style="padding-left:50px" disabled v-model="sala.laboratorio"></b-form-checkbox>
                 </td>
               </tr>
             </template>
@@ -239,8 +241,22 @@ export default {
 table th{
       position:-webkit-sticky;
       position: sticky;
-      top: 0;
+      top: -1px;
+      width: 280px;
+      z-index: 3;
 }
+
+
+table {
+  display: block;
+  width: 280px;
+  overflow: scroll;
+  height: 75vh;
+  font-size: 13px;
+  background-color: #f5f5f5;
+  border: #808080 solid 2px;
+}
+
 .botao-estilo {
   background-color: #f0852e !important;
   border-color: #f0852e !important;
