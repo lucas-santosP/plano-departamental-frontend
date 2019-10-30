@@ -15,7 +15,7 @@
         <table class="table table-hover table-sm table-bordered">
           <thead class="thead-light" style="z-index: 3;">
             <tr style="z-index: 3;">
-              <th scope="col" style="height:200px">Nome</th>
+              <th scope="col">Nome</th>
               <th scope="col">Laboratório</th>
             </tr>
           </thead>
