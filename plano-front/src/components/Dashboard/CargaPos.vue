@@ -43,16 +43,16 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 350px;height: 75vh; overflow: hidden; margin:auto;" v-if="!isLoading">
+        <div style="width: 376px;height: 80vh; overflow: hidden; margin:auto;" v-if="!isLoading">
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-light sticky">
                 <tr>
-                    <div style="display: block; overflow: hidden; width: 345px;" class="sticky">
+                    <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
                         <th scope="col" class="p-header" style="width:25px!important;"></th>
                         <th scope="col" class="p-header" style="width:30px">T.</th>
                         <th scope="col" class="p-header" style="width:160px;">Docente</th>
-                        <th scope="col" class="p-header" style="width:100px;">Programa</th>
-                        <th scope="col" class="p-header" style="width:30px;">C.</th>
+                        <th scope="col" class="p-header" style="width:101px;">Programa</th>
+                        <th scope="col" class="p-header" style="width:40px;">C.</th>
                     </div>
                 </tr>
                 </thead>
@@ -74,7 +74,7 @@
                             <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
                         </td>
                         <td>
-                            <input type="text" style="width: 30px" id="creditos" v-model="cargaPosForm.creditos">
+                            <input type="text" style="width: 40px" id="creditos" v-model="cargaPosForm.creditos">
                         </td>
                     </tr>
                 </template>
@@ -228,7 +228,8 @@
 
     table {
         display: block;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
         max-height: 100%;
         max-width: 100%;
         height: calc(100vh - 150px);
@@ -261,8 +262,8 @@
         padding: 0!important;
     }
 
-    input {
-        height: 25px;
+    input{
+        height: 26px !important;
         width:auto;
         text-align: left;
         
