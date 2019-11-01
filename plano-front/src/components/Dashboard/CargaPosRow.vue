@@ -1,6 +1,6 @@
 <template>
     <div class="cargarow" style="width: 345px;">
-        <td style="max-width:25px !important;  height:40px">
+        <td style="height:40px">
             <div style="width: 25px;">
                 <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(carga)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
             </div>
@@ -12,10 +12,10 @@
             </div>
         </td>
 
-        <td style="max-width: 160px;">
-            <div style="width: 160px; padding-left:10px; padding-right:10px">
+        <td >
+            <div style="width: 160px;">
                 <label>
-                <select type="text" style="width:130px" id="docente" v-model="carga.Docente"
+                <select type="text" style="width:140px" id="docente" v-model="carga.Docente"
                         v-on:change="editCarga(carga)">
                     <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
                     <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
@@ -24,14 +24,14 @@
             </div>
         </td>
 
-        <td style="max-width: 100px;">
+        <td>
             <div style="width: 100px;">
-                <input type="text" style="width: 108px" v-model="carga.programa" v-on:blur="editCarga(carga)">
+                <input type="text" style="width: 90px" v-model="carga.programa" v-on:blur="editCarga(carga)">
              </div>
         </td>
-        <td style="max-width: 30px">
+        <td >
             <div style="width:30px">
-                <input type="text" style="width: 30px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
+                <input type="text" style="width: 20px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
             </div>
         </td>
 
@@ -87,6 +87,7 @@
         padding: 0!important;
         text-align: center;
         vertical-align:middle;
+        padding:0;
     }
     p {
         margin-bottom: 0;
