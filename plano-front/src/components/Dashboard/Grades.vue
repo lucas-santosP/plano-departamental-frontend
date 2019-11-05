@@ -1,7 +1,7 @@
 <template>
   <div class="DashboardGrades row" style="max-width:100%;" v-if="Admin">
     <div class="col">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-0 border-bottom">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Lista Disciplinas</h1>
       </div>
     
