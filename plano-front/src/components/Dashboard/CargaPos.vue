@@ -43,21 +43,31 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 376px;height: 80vh; overflow: hidden; margin:auto;" v-if="!isLoading">
+        <div style="width: 380px; overflow: hidden; margin:auto;" v-if="!isLoading">
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-light sticky">
                 <tr>
                     <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
-                        <th scope="col" class="p-header" style="width:25px!important;"></th>
-                        <th scope="col" class="p-header" style="width:30px">T.</th>
-                        <th scope="col" class="p-header" style="width:160px;">Docente</th>
-                        <th scope="col" class="p-header" style="width:101px;">Programa</th>
-                        <th scope="col" class="p-header" style="width:40px;">C.</th>
+                        <th scope="col">
+                            <p class="p-header" style="width:25px!important;"></p>
+                        </th>
+                        <th scope="col">
+                            <p class="p-header" style="width:30!important;">T.</p>
+                        </th>
+                        <th scope="col">
+                            <p class="p-header" style="width:160!important;">Docente</p>
+                        </th>
+                        <th scope="col">
+                            <p class="p-header" style="width:101!important;">Programa</p>
+                        </th>
+                        <th scope="col">
+                            <p  class="p-header" style="width:40!important;">C.</p>
+                        </th>
                     </div>
                 </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                 <template v-if="isAdd">
                     <tr>
                         <td style="width: 20px;"></td>
@@ -78,6 +88,7 @@
                         </td>
                     </tr>
                 </template>
+                <!-- LINHAS -->
                 <template v-if="CargasPos.length>0">
                     <template v-for="t in [1,  2, 3, 4]">
                     <template v-for="docente in Docentes">
@@ -222,16 +233,19 @@
 <style scoped>
 
     .CargaPos{
-        max-height: 90vh;
+        max-height: 100%;
         overflow: hidden;
     }
-
+    .p-header {
+        padding: 4px 0 4px 0;
+        margin: 0;
+        font-size: 13px;
+        text-align: center;
+    }
     table {
         display: block;
-        overflow-y: scroll;
         overflow-x: hidden;
-        max-height: 100%;
-        max-width: 100%;
+        overflow-y: scroll;
         height: calc(100vh - 150px);
         font-size: 13px;
         background-color: #f5f5f5;
@@ -243,50 +257,42 @@
         max-height: 100%;
         width: 100%;
     }
-    th {
+    table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 0;
+    }
+    table p {
+        margin-bottom: 0;
         text-align: center;
     }
+    tr thead {
+        display: block;
+    }
+    thead th {
+        padding: 0 !important;
+        font-size: 14px;
+        text-align: center;
+        height: 25px !important;
+        z-index: 9;
+    }
+    input{
+        height: 26px !important;
+        width:auto;
+        text-align: left;  
+    }
+
     .sticky{
         position: sticky;
         position: -webkit-sticky;
         top: 0px;
         z-index: 10;
     }
-    thead th {
-        background: #f5f5f5;
-        z-index: 9;
-    }
-
-    td {
-        text-align: center;
-        padding: 0!important;
-    }
-
-    input{
-        height: 26px !important;
-        width:auto;
-        text-align: left;
-        
-    }
-    .p-header {
-        padding: 4px 0 4px 0;
-        margin: 0;
-        font-size: 13px;
-        text-align: center;
-    }
-
     .btn{
         min-width: max-content;
         max-width: max-content;
         max-height: 38px;
     }
-
-    /*table.scrolling td:nth-child(-n+10),
-    table.scrolling th:nth-child(-n+10) {
-        position: -webkit-sticky;
-        position: sticky;
-        left:0;
-    }*/
 
     .cube1, .cube2 {
         background-color: #333;

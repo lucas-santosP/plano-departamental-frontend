@@ -662,9 +662,7 @@ export default {
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
-.header {
-  display: inline-block;
-}
+
 .p-header {
   padding: 4px 0 4px 0;
   margin: 0;
