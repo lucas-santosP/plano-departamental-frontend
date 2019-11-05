@@ -250,7 +250,7 @@ table th{
 table {
   display: block;
   width: 280px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: 75vh;
   font-size: 13px;
   background-color: #f5f5f5;
