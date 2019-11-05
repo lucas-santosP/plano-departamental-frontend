@@ -1,16 +1,14 @@
 <template>
   <div class="TurmasExternas row" style="height: 100%; max-width:100%;" v-if="Admin">
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-    >
-      <div class="form-inline col">
-        <h1 class="h2 col-1">Plano</h1>
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pl-4 mb-3 border-bottom">  
+      <div class="form-inline col-10 pl-0">
+        <h1 class="titulo col-1">Plano</h1>
 
-        <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12" style="margin-left: auto;">
+        <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12 pl-4 mr-5" style="margin-left: auto;">
           <b-form-select
             v-model="periodos"
             class="formSelect col-lg-4 col-md-4 col-sm-8 col-10"
-            style="margin-right:15px"
+            style="margin-right:15px; font-size:14px; height:30px;"
           >
             <option value="1">Primeiro</option>
             <option value="2">Segundo</option>
@@ -68,36 +66,36 @@
     </div>
 
     <div class="pl-4" style="overflow: hidden;" v-if="!isLoading">
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover table-bordered table-sm" >
         <thead class="thead-light sticky">
           <tr>
-            <div style="display: block; overflow: hidden; width: 1000px;" class="sticky">
+            <div style="display: block; overflow: hidden; width: 870px; height:20px !important" class="sticky">
               <th scope="col">
-                <p class="p-header" style="width:32px !important;">S.</p>
+                <p class="p-header" style="width:24px !important;">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:90px !important;">Cod</p>
+                <p class="p-header" style="width:45px !important;">Cod</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:300px !important">Disciplina</p>
+                <p class="p-header" style="width:330px !important">Disciplina</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:25px !important;">C.</p>
+                <p class="p-header" style="width:18px !important;">C.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:50px !important;">Turma</p>
+                <p class="p-header" style="width:40px !important;">Turma</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:90px !important;">Turno</p>
+                <p class="p-header" style="width:68px !important;">Turno</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:100px !important;">Horário</p>
+                <p class="p-header" style="width:72px !important;">Horário</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:95px !important;">Sala</p>
+                <p class="p-header" style="width:98px !important;">Sala</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:40px !important;">Total</p>
+                <p class="p-header" style="width:32px !important;">Total</p>
               </th>
               <template v-for="curso in Cursos">
                 <th
@@ -105,13 +103,12 @@
                   :key="'curso'+curso.id"
                   :id="'curso'+curso.id"
                 >
-                  <p class="p-header" style="width:40px !important;">{{curso.codigo}}</p>
+                  <p class="p-header" style="width:32px !important;">{{curso.codigo}}</p>
                   <b-popover
                     :key="curso.id"
                     :target="'curso'+curso.id"
                     placement="bottom"
-                    triggers="hover focus"
-                  >
+                    triggers="hover focus">
                     <span
                       v-if="curso.semestreInicial==1 || curso.semestreInicial==3"
                     >1º - {{curso.alunosEntrada}}</span>
@@ -130,7 +127,7 @@
           <template v-if="isAdd">
             <tr style="background-color:#C0C0C0;" class="stickyAdd">
 
-              <div style="width: 1000px; height:60px">
+              <div style="width: 870px; height:60px">
                 <td>
                   <div style="width:32px !important;">
                     <input
@@ -287,7 +284,7 @@
           <!-- LINHAS DA TABELA -->
           <template v-if="Turmas.length>0">
             <template v-for="perfil in Perfis">
-              <tr
+              <tr style="height:35px;"
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                 v-if="turma.periodo==1 && (periodos == 1 || periodos==3)"
                 :key="turma.id"
@@ -662,26 +659,24 @@ export default {
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
-.header {
-  display: inline-block;
-}
-.p-header {
-  padding: 4px 0 4px 0;
-  margin: 0;
-  font-size: 13px;
-  text-align: center;
-}
 
+.p-header {
+  padding: 0px 0 0px 0;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
+  height:18px;
+}
 table {
   display: block;
-  overflow: scroll;
-  height: calc(100vh - 150px);
-  font-size: 13px;
+  overflow-y: scroll;
+  height: calc(100vh - 120px);
+  font-size: 11px;
   background-color: #f5f5f5;
   border: #808080 solid 2px;
 }
 tbody {
-  height: calc(100vh - 140px);
+  height: calc(100vh - 120px);
   top: 23px;
   max-height: 100%;
   width: 100%;
@@ -702,10 +697,10 @@ thead th {
   padding: 0 !important;
   font-size: 14px;
   text-align: center;
-  height: 25px !important;
+  height: 18px !important;
 }
 table select {
-  height: 20px;
+  height: 18px;
 }
 
 .sticky {
@@ -719,5 +714,15 @@ table select {
   top: 31px;
   display:fixed;
 }
-
+@media screen and (max-width: 766px) {
+  table{
+    height: calc(100vh - 165px);
+  }
+}
+.titulo{
+  font-size:14px;
+  font-weight: bold;
+  padding-left: 0;
+  margin:0;
+}
 </style>
