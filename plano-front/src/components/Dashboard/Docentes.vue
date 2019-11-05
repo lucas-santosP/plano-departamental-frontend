@@ -296,6 +296,7 @@
       position:-webkit-sticky;
       position: sticky;
       top: 0;
+      z-index: 3;
     }
     .botao-estilo{
         background-color: #faca4d !important;

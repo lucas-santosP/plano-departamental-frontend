@@ -63,7 +63,7 @@
         text-align:center !important;
     }
 
-    .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc; margin-bottom: 30px; margin-right: auto; margin-left: 20px;}
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc; margin-bottom: 30px; margin-right: 20px; margin-left: 20px;}
     .tg td{font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
     .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
     .tg .tg-0lax{vertical-align:center}
