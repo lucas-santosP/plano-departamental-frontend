@@ -1,37 +1,35 @@
 <template>
     <div class="cargarow" style="width: 376px;">
-        <td style="max-width:25px;  height:40px">
+        <td style="min-width:25px;  height:40px">
             <div style="width: 25px;">
                 <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(carga)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
             </div>
         </td>
 
-        <td style="max-width:30px;">
+        <td style="min-width:30px;">
             <div style="width: 30px; text-align: center;">
                 <input type="text" style="width: 15px; text-align: center;" id="trimestre" v-model="carga.trimestre" v-on:blur="editCarga(carga)">
             </div>
         </td>
 
-        <td style="max-width: 160px;" >
+        <td style="min-width: 160px;" >
             <div style="width: 160px;">
-                <label>
-                <select type="text" style="width:140px; padding-left:5px;" id="docente" v-model="carga.Docente"
+                <label><select type="text" style="width:140px; padding-left:5px;" id="docente" v-model="carga.Docente"
                         v-on:change="editCarga(carga)">
                     <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
                     <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-                </select>
-                </label>
+                </select></label>
             </div>
         </td>
 
-        <td>
-            <div style="width: 100px;">
-                <input type="text" style="width: 80px" v-model="carga.programa" v-on:blur="editCarga(carga)">
+        <td style="min-width:101px">
+            <div style="min-width: 101px;">
+                <input type="text" style="width: 80px; text-align:center" v-model="carga.programa" v-on:blur="editCarga(carga)">
              </div>
         </td>
         <td style="max-width: 40px">
             <div style="width:40px">
-                <input type="text" style="width: 25px" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
+                <input type="text" style="width: 25px; text-align:center" id="creditos" v-model="carga.creditos" v-on:blur="editCarga(carga)">
             </div>
         </td>
 
@@ -99,15 +97,13 @@
         width:auto;
         text-align: left;;
         border: 1px solid #cccccc;
-        margin-left:1px;
+        margin-left:0px;
     }
     select{
         border: 1px solid #cccccc;
         appearance:none;
         cursor:pointer;
         height: 25px;
-        margin-bottom: 0;
-        margin-left:1px;
         
     }
     label {position:relative; margin-bottom:0;}

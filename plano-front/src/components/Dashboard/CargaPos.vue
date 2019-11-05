@@ -48,20 +48,21 @@
                 <thead class="thead-light sticky">
                 <tr>
                     <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
+                        
                         <th scope="col">
-                            <p class="p-header" style="width:25px!important;"></p>
+                            <p class="p-header" style="width:25px!important;"> </p>
+                        </th>
+                        <th scope="col" style="width:30px!important;">
+                            <p class="p-header" style="width:30px!important;">T.</p>
                         </th>
                         <th scope="col">
-                            <p class="p-header" style="width:30!important;">T.</p>
+                            <p class="p-header" style="width:160px!important;">Docente</p>
                         </th>
                         <th scope="col">
-                            <p class="p-header" style="width:160!important;">Docente</p>
+                            <p class="p-header" style="width:101px!important;">Programa</p>
                         </th>
                         <th scope="col">
-                            <p class="p-header" style="width:101!important;">Programa</p>
-                        </th>
-                        <th scope="col">
-                            <p  class="p-header" style="width:40!important;">C.</p>
+                            <p  class="p-header" style="width:40px!important;">C.</p>
                         </th>
                     </div>
                 </tr>
@@ -70,22 +71,24 @@
                 <tbody>
                 <template v-if="isAdd">
                     <tr>
-                        <td style="width: 20px;"></td>
-                        <td>
-                            <input type="text" style="width: 20px;" id="trimestre" v-model="cargaPosForm.trimestre">
-                        </td>
-                        <td>
-                            <select type="text" style="width:160px" id="docente1" v-model="cargaPosForm.Docente">
-                                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
-                        </td>
-                        <td>
-                            <input type="text" style="width: 40px" id="creditos" v-model="cargaPosForm.creditos">
-                        </td>
+                        <div style="width: 376px; height:40px">
+                            <td style="min-width:25px; height:40px"></td>
+                            <td style="min-width:30px;">
+                                <input type="text" style="width: 15px; text-align: center;"  id="trimestre" v-model="cargaPosForm.trimestre">
+                            </td>
+                            <td>
+                                <select type="text" style="width:160px" id="docente1" v-model="cargaPosForm.Docente">
+                                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
+                            </td>
+                            <td>
+                                <input type="text" style="width: 40px" id="creditos" v-model="cargaPosForm.creditos">
+                            </td>
+                        </div>
                     </tr>
                 </template>
                 <!-- LINHAS -->
