@@ -43,16 +43,17 @@
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 358px;height: 75vh; overflow-y: scroll; overflow-x: hidden; margin:auto;" v-if="!isLoading">
-            <table style="width:100%" class="table table-hover table-sm">
-                <thead class="thead-light">
+        <div style="width: 376px;height: 80vh; overflow: hidden; margin:auto;" v-if="!isLoading">
+            <table class="table table-hover table-bordered table-sm">
+                <thead class="thead-light sticky">
                 <tr>
-                    <th scope="col" style="width:20px"></th>
-                    <th scope="col" style="width:20px">T.</th>
-                    <th scope="col" style="width:160px;">Docente</th>
-                    <th scope="col" style="width:108px;">Programa</th>
-                    <th scope="col" style="width:20px;">C.</th>
-                    <th scope="col" style="width:30px;"></th>
+                    <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
+                        <th scope="col" class="p-header" style="width:25px!important;"></th>
+                        <th scope="col" class="p-header" style="width:30px">T.</th>
+                        <th scope="col" class="p-header" style="width:160px;">Docente</th>
+                        <th scope="col" class="p-header" style="width:101px;">Programa</th>
+                        <th scope="col" class="p-header" style="width:40px;">C.</th>
+                    </div>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,7 +74,7 @@
                             <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
                         </td>
                         <td>
-                            <input type="text" style="width: 30px" id="creditos" v-model="cargaPosForm.creditos">
+                            <input type="text" style="width: 40px" id="creditos" v-model="cargaPosForm.creditos">
                         </td>
                     </tr>
                 </template>
@@ -224,22 +225,36 @@
         max-height: 90vh;
         overflow: hidden;
     }
+
     table {
-        table-layout: fixed;
-        overflow: auto;
+        display: block;
+        overflow-y: scroll;
+        overflow-x: hidden;
         max-height: 100%;
         max-width: 100%;
+        height: calc(100vh - 150px);
+        font-size: 13px;
+        background-color: #f5f5f5;
+        border: #808080 solid 2px;
     }
-
+    tbody {
+        height: calc(100vh - 140px);
+        top: 23px;
+        max-height: 100%;
+        width: 100%;
+    }
     th {
         text-align: center;
     }
-    thead th {
+    .sticky{
         position: sticky;
         position: -webkit-sticky;
-        top: -1px;
-        background: white;
+        top: 0px;
         z-index: 10;
+    }
+    thead th {
+        background: #f5f5f5;
+        z-index: 9;
     }
 
     td {
@@ -247,11 +262,17 @@
         padding: 0!important;
     }
 
-    input {
-        height: 25px;
+    input{
+        height: 26px !important;
         width:auto;
         text-align: left;
         
+    }
+    .p-header {
+        padding: 4px 0 4px 0;
+        margin: 0;
+        font-size: 13px;
+        text-align: center;
     }
 
     .btn{

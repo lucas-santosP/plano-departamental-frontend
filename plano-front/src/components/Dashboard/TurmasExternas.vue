@@ -68,41 +68,40 @@
     </div>
 
     <div class="pl-4" style="overflow: hidden;" v-if="!isLoading">
-      <table class="table table-hover table-bordered table-sm scroll-estilizado">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light sticky">
           <tr>
             <div style="display: block; overflow: hidden; width: 1000px;" class="sticky">
               <th scope="col">
-                <p class="p-header sticky" style="width:32px !important;">S.</p>
+                <p class="p-header" style="width:32px !important;">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:90px !important;">Cod</p>
+                <p class="p-header" style="width:90px !important;">Cod</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:300px !important">Disciplina</p>
+                <p class="p-header" style="width:300px !important">Disciplina</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:25px !important;">C.</p>
+                <p class="p-header" style="width:25px !important;">C.</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:50px !important;">Turma</p>
+                <p class="p-header" style="width:50px !important;">Turma</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:90px !important;">Turno</p>
+                <p class="p-header" style="width:90px !important;">Turno</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:100px !important;">Horário</p>
+                <p class="p-header" style="width:100px !important;">Horário</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:95px !important;">Sala</p>
+                <p class="p-header" style="width:95px !important;">Sala</p>
               </th>
               <th scope="col">
-                <p class="p-header sticky" style="width:40px !important;">Total</p>
+                <p class="p-header" style="width:40px !important;">Total</p>
               </th>
               <template v-for="curso in Cursos">
                 <th
                   scope="col"
-                  style="width:41px !important;"
                   :key="'curso'+curso.id"
                   :id="'curso'+curso.id"
                 >
@@ -129,8 +128,9 @@
         <tbody>
           <!-- Adição de turma-->
           <template v-if="isAdd">
-            <tr style="background-color:#C0C0C0;">
-              <div style="width: 1000px;">
+            <tr style="background-color:#C0C0C0;" class="stickyAdd">
+
+              <div style="width: 1000px; height:60px">
                 <td>
                   <div style="width:32px !important;">
                     <input
@@ -276,7 +276,8 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 200px; height:60px;"></div>
+                  <!-- Ocupa espaço vazio das vagas na parte de edição -->
+                  <div style="width: 205px; height:59px"></div>
                 </td>
               </div>
             </tr>
@@ -680,6 +681,7 @@ table {
   border: #808080 solid 2px;
 }
 tbody {
+  height: calc(100vh - 140px);
   top: 23px;
   max-height: 100%;
   width: 100%;
@@ -711,15 +713,11 @@ table select {
   position: -webkit-sticky;
   top: 0;
 }
-.scroll-estilizado::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+.stickyAdd{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 31px;
+  display:fixed;
 }
-.scroll-estilizado::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-  background: #f4f4f4;
-}
-.scroll-estilizado::-webkit-scrollbar-thumb {
-  background: #666;
-}
+
 </style>

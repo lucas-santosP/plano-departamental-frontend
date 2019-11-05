@@ -74,4 +74,7 @@
         }
     }
 </script>
-<style scoped></style>
+<style scoped>
+h5{font-weight: 200 !important; text-align: start; padding-left: 20px;}
+
+</style>
