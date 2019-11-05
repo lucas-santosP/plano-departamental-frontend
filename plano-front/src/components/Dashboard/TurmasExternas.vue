@@ -1,14 +1,14 @@
 <template>
   <div class="TurmasExternas row" style="height: 100%; max-width:100%;" v-if="Admin">
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-0 mb-3 border-bottom">
-      <div class="form-inline col">
-        <h1 class="h2 col-1">Plano</h1>
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pl-4 mb-3 border-bottom">  
+      <div class="form-inline col-10 pl-0">
+        <h1 class="titulo col-1">Plano</h1>
 
-        <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12" style="margin-left: auto;">
+        <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12 pl-4 mr-5" style="margin-left: auto;">
           <b-form-select
             v-model="periodos"
             class="formSelect col-lg-4 col-md-4 col-sm-8 col-10"
-            style="margin-right:15px; font-size:14px;"
+            style="margin-right:15px; font-size:14px; height:30px;"
           >
             <option value="1">Primeiro</option>
             <option value="2">Segundo</option>
@@ -669,7 +669,7 @@ export default {
 }
 table {
   display: block;
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - 120px);
   font-size: 11px;
   background-color: #f5f5f5;
@@ -719,8 +719,10 @@ table select {
     height: calc(100vh - 165px);
   }
 }
-.h2{
+.titulo{
   font-size:14px;
   font-weight: bold;
+  padding-left: 0;
+  margin:0;
 }
 </style>

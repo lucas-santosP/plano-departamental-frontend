@@ -2,7 +2,7 @@
   <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
       
       <div class="row w-100" style="margin:0">
       <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 col-2 mr-0">Plano Departamental</router-link>
