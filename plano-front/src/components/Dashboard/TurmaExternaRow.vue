@@ -68,7 +68,6 @@
                     <option v-else value = ""></option>
                     <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
                 </select>
-                <br/>
                 <select type="text" style="width: 67px;" id="horario2" v-model="turma.Horario2"
                         v-on:change="editTurma(turma)">
                     <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
@@ -79,13 +78,12 @@
         </td>
 
         <td>
-            <div style="width: 98px">
+            <div style="width: 98px;">
                 <select type="text" style="width:93px; margin-bottom:1px" id="sala1" v-model="turma.Sala1" v-on:change="editTurma(turma)">
                     <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
                     <option v-else value=""></option>
                     <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
                 </select>
-                <br/>
                 <select type="text" style="width: 93px" id="sala2" v-model="turma.Sala2" v-on:change="editTurma(turma)">
                     <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
                     <option v-else value = ""></option>
@@ -105,9 +103,9 @@
                 <template v-for="pedido in Pedidos">
                     <template v-if="pedido.Curso===curso.id"> 
                         <div style="width:32px !important; padding:0px">
-                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:15px; text-align:center"
-                                    v-on:change="editPedido(pedido)"> <br>
-                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:15px; text-align:center"
+                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:18px; text-align:center"
+                                    v-on:change="editPedido(pedido)">
+                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:18px; text-align:center"
                                     v-on:change="editPedido(pedido)">
                         </div>
                     </template>
@@ -242,9 +240,32 @@
     }
 
     input {
-        height: 15px;
+        height: 18px;
     }
     select{
         height:15px;
     }
+    @-moz-document url-prefix() {
+    select {
+            height: 15px!important;
+            text-align:left;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color: rgb(245, 245, 245);
+        }
+        input{
+            height: 18px!important;
+            text-align:center;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color:rgb(245, 245, 245);
+        }
+    }
+    
 </style>

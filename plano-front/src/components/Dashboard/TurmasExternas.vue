@@ -15,12 +15,12 @@
           <template v-if="isAdd">
             <button
               type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo"
+              class="btn btn-sm btn-success col-1 botao-estilo ml-2"
               v-on:click.prevent="addTurma"
             >Confirmar</button>
             <button
               type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo2"
+              class="btn btn-sm btn-success col-1 botao-estilo2 ml-2"
               v-on:click.prevent="toggleAdd"
             >Cancelar</button>
           </template>
@@ -123,14 +123,14 @@
         <tbody>
           <!-- Adição de turma-->
           <template v-if="isAdd">
-            <tr style="background-color:#C0C0C0;" class="stickyAdd">
+            <tr style="background-color:#cccccc;" class="stickyAdd">
 
               <div style="width: 895px; height:38px;">
                 <td>
                   <div style="width:24px !important;">
                     <input
                       type="text"
-                      style="width: 20px; height:15px; text-align: center; margin-top:5px;"
+                      style="width: 20px; height:20px; text-align: center; "
                       id="periodo"
                       v-model="turmaForm.periodo"/>
                   </div>
@@ -623,6 +623,8 @@ export default {
 }
 .btn {
   height:25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
   min-width: max-content;
   font-size:14px;
   padding: 0 5px 0 5px;
@@ -638,7 +640,9 @@ export default {
 }
 
 .botao-estilo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+     -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+          box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
 
 .botao-estilo2 {
@@ -652,7 +656,9 @@ export default {
 }
 
 .botao-estilo2:focus {
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+     -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+          box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
 
 .p-header {
@@ -665,6 +671,8 @@ export default {
 table {
   display: block;
   overflow-y: scroll;
+  height: -webkit-calc(100vh - 120px);
+  height: -moz-calc(100vh - 120px);
   height: calc(100vh - 120px);
   font-size: 11px;
   background-color: #f5f5f5;
@@ -672,7 +680,7 @@ table {
   margin:0;
 }
 tbody {
-  top: 23px;
+  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -696,11 +704,34 @@ thead th {
 }
 table select {
   height: 15px!important;
-  text-align:center;
+  text-align:left;
 }
 table input{
-  height: 15px!important;
-  text-align:center;
+  height: 18px!important;
+  text-align:center!important;
+}
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+  select {
+      height: 15px!important;
+      text-align:left;
+      box-sizing: border-box;
+      
+      line-height: 8px;
+      border: 0.5px solid rgb(133, 133, 133);
+      border-radius: 2px;
+      background-color: rgb(245, 245, 245);
+  }
+  input{
+      height: 18px!important;
+      text-align:center;
+      box-sizing: border-box;
+      
+      line-height: 8px;
+      border: 0.5px solid rgb(92, 92, 92);
+      border-radius: 2px;
+      background-color:rgb(245, 245, 245);
+  }
 }
 
 .sticky {
@@ -711,7 +742,7 @@ table input{
 .stickyAdd{
   position: sticky;
   position: -webkit-sticky;
-  top: 31px;
+  top: 20px;
   display:fixed;
 }
 
@@ -725,5 +756,21 @@ table input{
   height:26px !important;
   font-size: 12px !important;
   padding:0px 0px 0px 5px !important;
+}.example {
+    display: -ms-grid;
+    display: grid;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(black));
+    background: -webkit-linear-gradient(top, white, black);
+    background: -moz-linear-gradient(top, white, black);
+    background: -o-linear-gradient(top, white, black);
+    background: linear-gradient(to bottom, white, black);
 }
 </style>
