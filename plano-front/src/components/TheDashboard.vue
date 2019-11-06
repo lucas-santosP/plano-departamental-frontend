@@ -2,21 +2,20 @@
   <div class="TheDashboard" style="max-width:100%; height:100%" v-bind:class="{'loading' : isLoadingFile}">
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm" style="height:30px;">
       
       <div class="row w-100" style="margin:0">
       <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 col-2 mr-0">Plano Departamental</router-link>
         <transition 
         name="custom-classes-transition"
-        mode="out-in"
-        >
+        mode="out-in">
           <button v-if="show" @click="show=!show" key="save" type="button" class="btn-navbar">
             <i key="save" class="fas fa-times"></i> 
-        </button>
+          </button>
         
-        <button v-else @click="show=!show" key="edit" type="button" class="btn-navbar">
+          <button v-else @click="show=!show" key="edit" type="button" class="btn-navbar">
           <i  class="fas fa-bars"></i>
-        </button>
+          </button>
         </transition>
 
         <ul class="navbar-nav listaNavbarTop" style="flex-direction:row;">
@@ -121,7 +120,7 @@
         </nav>
         </transition>
 
-        <main @click="show=false" role="main" class="col-12 ml-auto" style="padding-right:0; overflow-x:hidden;" v-if="!isLoading">
+        <main @click="show=false" role="main" class="col-12 ml-auto pl-5" style="padding-right:0; overflow-x:hidden;" v-if="!isLoading">
           <router-view></router-view>
         </main>
 
@@ -498,7 +497,7 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding-top: 38px;/* Height of navbar */
+  padding-top: 35px;/* Height of navbar */
   padding-right: 0px; 
   padding-left: 0px;
 
@@ -561,15 +560,18 @@ export default {
 .navbar-toggler{
   border: 0px;
 }
-/*===============*/
+
+.navtopText{
+    font-size: 12px;
+}
 
 .sidebar-sticky {
   position: relative;
   top: 0;
   padding-top: 0.5rem; 
-  height: -webkit-calc(100vh - 38px); 
-  height: -moz-calc(100vh - 38px); 
-  height: calc(100vh - 38px);
+  height: -webkit-calc(100vh - 35px); 
+  height: -moz-calc(100vh - 35px); 
+  height: calc(100vh - 35px);
   padding-bottom: 1.0rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -604,21 +606,19 @@ export default {
 }
 
 [role="main"] {
-  padding-top: 38px; /* Space for fixed navbar */
-  padding-left: 25px  /*Spcace for fixed sidebar */
+  padding-top: 35px; /* Space for fixed navbar */
+  /*padding-left: 50px */ /*Spcace for fixed sidebar */
 }
 
 .navbar-brand {
+  height:30px;
   color:rgb(213, 214, 216);
-  font-size: 1.2rem;
+  font-size: 15px;
   padding-right: 10px;
   padding-left: 5px;
   min-width:  -webkit-max-content;
   min-width:  -moz-max-content;
   min-width:  max-content;
-  /*
-  width: 16.7%;
-  */
   cursor: pointer;
   background-color: rgba(0, 0, 0, .25);
   -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
@@ -650,23 +650,43 @@ export default {
   margin-left: 5px;
 }
 
-@media screen and (max-width: 626px) {
+@media screen and (max-width: 531px) {
   [role="main"] {
-    padding-top: 75px;
+    padding-top: 70px;
   }
   .sidebar{
-    padding-top: 75px;  
+    padding-top: 70px;  
   }
   .listaNavbarTop{
     margin-left: 0;
   }
+  /*Aumenta a altura da navbar */
+  .navbar{
+    height: 64px!important;
+  }
 }
+
 @media screen and (max-width: 400px) {
   [role="main"] {
     padding-top: 70px;
   }
   .sidebar{
     padding-top: 70px;  
+  }
+}
+/* SUMIR ICONES */
+@media screen and (max-width: 620px){
+  .iconsHide{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .iconsHideSidebar{
+    display:none;
+  }
+  .sidebarText{
+    padding-left: 15px;
   }
 }
 
@@ -863,11 +883,14 @@ export default {
   user-select: none;
 }
 .btn-navbar{
-  margin-left:0px;
   width:40px;
+  padding: 0 6px 0 6px;
+  height:30px;
+  margin-left:0px;
+
   color:#CCCDCF;
   background-color: rgba(0, 0, 0, .25);
-  font-size:22px;
+  font-size:20px;
   border:1px;
 }
 .aplicaCor{
@@ -884,24 +907,5 @@ export default {
    -moz-animation-fill-mode: both;
      -o-animation-fill-mode: both;
         animation-fill-mode: both;
-}
-
-@media screen and (max-width: 728px){
-  .iconsHide{
-    display:none;
-  }
-}
-@media screen and (max-width: 400px){
-  .navtopText{
-    font-size: 12px;
-  }
-}
-@media screen and (max-width: 400px){
-  .iconsHideSidebar{
-    display:none;
-  }
-  .sidebarText{
-    padding-left: 15px;
-  }
 }
 </style>

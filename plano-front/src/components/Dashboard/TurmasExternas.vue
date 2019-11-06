@@ -1,15 +1,13 @@
 <template>
   <div class="TurmasExternas row" style="height: 100%; max-width:100%;" v-if="Admin">
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pl-4 mb-3 border-bottom">  
-      <div class="form-inline col-10 pl-0">
-        <h1 class="titulo col-1">Plano</h1>
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pr-0 pl-0 mb-0">  
+      <div class="form-inline col-12 pl-0">
+        <h1 class="titulo col-2">Plano</h1>
 
-        <div class="form-group col-lg-5 col-md-6 col-sm-6 col-12 pl-4 mr-5" style="margin-left: auto;">
+        <div class="form-group col-12 pl-0 pr-0 mb-2 mt-1">
           <b-form-select
             v-model="periodos"
-            class="formSelect col-lg-4 col-md-4 col-sm-8 col-10"
-            style="margin-right:15px; font-size:14px; height:30px;"
-          >
+            class="formSelect col-lg-1 col-md-2 col-sm-2 col-4">
             <option value="1">Primeiro</option>
             <option value="2">Segundo</option>
             <option value="3">Ambos</option>
@@ -18,7 +16,6 @@
             <button
               type="button"
               class="btn btn-sm btn-success col-1 botao-estilo"
-              style="margin-left:0"
               v-on:click.prevent="addTurma"
             >Confirmar</button>
             <button
@@ -30,13 +27,12 @@
           <template v-else>
             <button
               type="button"
-              class="btn btn-sm btn-success col-1"
-              style="margin-left:0"
+              class="btn btn-sm btn-success col-1 ml-2"
               v-on:click.prevent="toggleAdd"
             >Adicionar</button>
             <button
               type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo2"
+              class="btn btn-sm btn-success col-1 botao-estilo2 ml-2"
               style
               v-b-modal.modalConfirma
             >Deletar</button>
@@ -59,22 +55,24 @@
         </div>
       </div>
     </div>
-    <div class="w-100"></div>
+
+    <div class="w-100 mb-2 border-bottom"></div>
+
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-4" style="overflow: hidden;" v-if="!isLoading">
+    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 120px);" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm" >
         <thead class="thead-light sticky">
           <tr>
-            <div style="display: block; overflow: hidden; width: 870px; height:20px !important" class="sticky">
+            <div style="display: block; overflow: hidden; width: 895px; height:20px !important" class="sticky">
               <th scope="col">
                 <p class="p-header" style="width:24px !important;">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:45px !important;">Cod</p>
+                <p class="p-header" style="width:70px !important;">Cod</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:330px !important">Disciplina</p>
@@ -127,22 +125,21 @@
           <template v-if="isAdd">
             <tr style="background-color:#C0C0C0;" class="stickyAdd">
 
-              <div style="width: 870px; height:60px">
+              <div style="width: 895px; height:38px;">
                 <td>
-                  <div style="width:32px !important;">
+                  <div style="width:24px !important;">
                     <input
                       type="text"
-                      style="width: 20px; text-align: center; margin-top:5px;"
+                      style="width: 20px; height:15px; text-align: center; margin-top:5px;"
                       id="periodo"
-                      v-model="turmaForm.periodo"
-                    />
+                      v-model="turmaForm.periodo"/>
                   </div>
                 </td>
                 <td>
-                  <div style="width:90px;">
+                  <div style="width:70px;">
                     <select
                       type="text"
-                      style="width:80px;"
+                      style="width:65px;"
                       id="disciplina"
                       v-model="turmaForm.Disciplina"
                     >
@@ -160,10 +157,10 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 300px;">
+                  <div style="width: 330px;">
                     <select
                       type="text"
-                      style="width:290px; padding:0;"
+                      style="width:325px;"
                       id="disciplina"
                       v-model="turmaForm.Disciplina"
                     >
@@ -181,8 +178,8 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 25px;">
-                    <p style="width:25px;">
+                  <div style="width: 18px;">
+                    <p style="width:18px;">
                       <template v-for="disciplina in Disciplinas">
                         <template
                           v-if="disciplina.id===turmaForm.Disciplina"
@@ -192,20 +189,20 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 50px">
+                  <div style="width: 40px">
                     <input
                       type="text"
-                      style="width:20px; text-align:center;"
+                      style="width:20px;"
                       id="turma"
                       v-model="turmaForm.letra"
                     />
                   </div>
                 </td>
                 <td>
-                  <div style="width: 90px;">
+                  <div style="width: 68px;">
                     <select
                       type="text"
-                      style="width:80px; text-align:center;"
+                      style="width:63px; text-align:center;"
                       id="turno1"
                       v-model="turmaForm.turno1"
                       v-on:change="setEad"
@@ -217,10 +214,10 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 100px;">
+                  <div style="width: 72px;">
                     <select
                       type="text"
-                      style="width:90px; margin-bottom:4px;"
+                      style="width: 67px; margin-bottom: 1px;"
                       id="horario1"
                       v-model="turmaForm.Horario1"
                       v-on:change="adjustTurno1"
@@ -232,10 +229,9 @@
                         :value="horario.id"
                       >{{horario.horario}}</option>
                     </select>
-                    <br />
                     <select
                       type="text"
-                      style="width:90px; text-align:center;"
+                      style="width: 67px;"
                       id="horario2"
                       v-model="turmaForm.Horario2"
                       v-on:change="adjustTurno2"
@@ -250,20 +246,18 @@
                   </div>
                 </td>
                 <td>
-                  <div style="width: 95px">
+                  <div style="width: 98px">
                     <select
                       type="text"
-                      style="width:85px; text-align:center; margin-bottom:4px;"
+                      style="width:93px; text-align:center; margin-bottom:1px;"
                       id="sala1"
-                      v-model="turmaForm.Sala1"
-                    >
+                      v-model="turmaForm.Sala1">
                       <option v-if="Salas.length===0" type="text" value>Nenhuma Sala Encontrada</option>
                       <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
                     </select>
-                    <br />
                     <select
                       type="text"
-                      style="width:85px; text-align:center;"
+                      style="width:93px;"
                       id="sala2"
                       v-model="turmaForm.Sala2"
                     >
@@ -274,8 +268,9 @@
                 </td>
                 <td>
                   <!-- Ocupa espaço vazio das vagas na parte de edição -->
-                  <div style="width: 205px; height:59px"></div>
+                  <div style="width: 165px; height:37px"></div>
                 </td>
+
               </div>
             </tr>
           </template>
@@ -627,10 +622,10 @@ export default {
   overflow: hidden;
 }
 .btn {
-  margin-top: 7px;
-  margin-bottom: 7px;
-  margin-left: 15px;
+  height:25px;
   min-width: max-content;
+  font-size:14px;
+  padding: 0 5px 0 5px;
 }
 .botao-estilo {
   background-color: #0079fa !important;
@@ -674,9 +669,9 @@ table {
   font-size: 11px;
   background-color: #f5f5f5;
   border: #808080 solid 2px;
+  margin:0;
 }
 tbody {
-  height: calc(100vh - 120px);
   top: 23px;
   max-height: 100%;
   width: 100%;
@@ -684,7 +679,7 @@ tbody {
 table td {
   text-align: center;
   vertical-align: middle;
-  padding: 0;
+  padding: 0 !important;
 }
 table p {
   margin-bottom: 0;
@@ -700,7 +695,12 @@ thead th {
   height: 18px !important;
 }
 table select {
-  height: 18px;
+  height: 15px!important;
+  text-align:center;
+}
+table input{
+  height: 15px!important;
+  text-align:center;
 }
 
 .sticky {
@@ -714,15 +714,16 @@ table select {
   top: 31px;
   display:fixed;
 }
-@media screen and (max-width: 766px) {
-  table{
-    height: calc(100vh - 165px);
-  }
-}
+
 .titulo{
   font-size:14px;
   font-weight: bold;
   padding-left: 0;
   margin:0;
+}
+.formSelect{
+  height:26px !important;
+  font-size: 12px !important;
+  padding:0px 0px 0px 5px !important;
 }
 </style>

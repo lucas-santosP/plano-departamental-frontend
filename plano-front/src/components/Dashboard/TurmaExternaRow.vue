@@ -1,20 +1,20 @@
 <template>
-    <div class="turmarow" style="width: 870px; font-size:11px;" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
+    <div class="turmarow" style="width: 895px; font-size:11px;" v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                  'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                  'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}">
 
         <td>
             <div style="width:24px !important; vertical-align:middle;">
                 <input type="text" style="width: 20px; height:15px; text-align: center;" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
-                <input type="checkbox"  name="ativa" value="true" v-on:click="checkDelete(turma)" v-model="ativo" style="width:16px; height:15px">
+                <input type="checkbox"  name="ativa" value="true"  v-on:click="checkDelete(turma)" v-model="ativo" style="margin-top:2px; width:16px; height:14px">
             </div>
         </td>
 
         <td>
-            <div style="width:45px;">
+            <div style="width:70px;">
                 <template v-for="disciplina in Disciplinas">
                     <template v-if="disciplina.id===turma.Disciplina">
-                        <p :key="disciplina.id" style="width:45px; text-align: center;">{{disciplina.codigo}}</p>
+                        <p :key="disciplina.id" style="width:70px; text-align: center;">{{disciplina.codigo}}</p>
                     </template>
                 </template>
             </div>
@@ -246,6 +246,5 @@
     }
     select{
         height:15px;
-        
     }
 </style>
