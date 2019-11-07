@@ -271,7 +271,6 @@
 <style scoped>
     .titulo{
         height: 45px;
-        padding-left: 20px;
         margin-left: -20px;
         margin-right: 0;
         padding-right: 10px;
