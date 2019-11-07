@@ -1,5 +1,5 @@
 <template>
-  <div class="TurmasExternas row" style="height: 100%; max-width:100%;" v-if="Admin">
+  <div class="TurmasExternas row" v-if="Admin">
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pr-0 pl-0 mb-0">  
       <div class="form-inline col-12 pl-0">
         <h1 class="titulo col-2">Plano</h1>
@@ -620,6 +620,7 @@ export default {
 .TurmasExternas {
   max-width: 100%;
   overflow: hidden;
+  margin:0;
 }
 .btn {
   height:25px;
@@ -628,6 +629,8 @@ export default {
   min-width: max-content;
   font-size:14px;
   padding: 0 5px 0 5px;
+
+  max-width:80px;
 }
 .botao-estilo {
   background-color: #0079fa !important;
@@ -756,7 +759,8 @@ table input{
   height:26px !important;
   font-size: 12px !important;
   padding:0px 0px 0px 5px !important;
-}.example {
+}
+.example {
     display: -ms-grid;
     display: grid;
     -webkit-transition: all .5s;

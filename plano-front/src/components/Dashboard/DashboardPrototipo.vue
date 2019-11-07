@@ -1,56 +1,68 @@
 <template>
-    <div class="DashboardPrototipo" style="height:100%;" v-if="Admin">
-        <div class="titulo d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%"  >
-            <h1 class="h2">Plano</h1>
-            <div class="col">
-                <template v-if="isAdd">
-                    <button type="button" class="btn btn-danger" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Cancelar </button>
-                    <button type="button" class="btn btn-success" v-on:click.prevent="addTurma" style="margin-left: 10px;float:right;"> Confirmar </button>
-                </template>
-                <template v-else>
-                    <button type="button" class="btn btn-danger" style="margin-left: 10px;float:right;" v-b-modal.modalConfirma>Deletar </button>
-                    <button type="button" class="btn btn-success" v-on:click.prevent="toggleAdd" style="margin-left: 10px;float:right;">Adicionar </button>
-                    <button type="button" class="btn btn-success botao-estilo" v-on:click.prevent="xlsx(Pedidos)" style="margin-left: 10px;float:right;">XLSX </button>
+    <div class="DashboardPrototipo row" style="height:100%;" v-if="Admin">
+        <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pr-0 pl-0 mb-0" style="overflow: auto; width: 100%">
+            <div class="form-inline col-12 pl-0">
+                <h1 class="h2 titulo col-2">Plano</h1>
 
-                    <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-                        <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-                        <template v-if="Deletar.length > 0">
-                            <template v-for="turma in Deletar">
-                                <template v-for="disciplina in Disciplinas">
-                                    <template v-if="disciplina.id===turma.Disciplina">
-                                        <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
+                <div class="form-group col-12 pl-0 pr-0 mb-2">
+                    <b-form-select v-model="periodos" class="selectForm col-lg-2 col-md-2 mr-2 mt-1" style="max-width: 170px; min-width:170px">
+                        <option value = "1">Visualizar 1º Semestre</option>
+                        <option value = "2">Visualizar 2º Semestre</option>
+                        <option value = "3">Visualizar Ambos</option>
+                    </b-form-select>
+                    <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-estilo3 mt-1" style="max-width: 60px;" >Perfis</b-button>
+                     
+                    <template v-if="isAdd">
+                        <button type="button" class="btn mt-1 btn-sm btn-danger col-1 mr-2" style="max-width:80px;" v-on:click.prevent="toggleAdd" >Cancelar </button>
+                        <button type="button" class="btn mt-1 btn-sm btn-success col-1 mr-2" style="max-width:80px;" v-on:click.prevent="addTurma" > Confirmar </button>
+                    </template>
+
+                    <template v-else>
+                        <button type="button" class="btn mt-1 btn-sm btn-success col-1 mr-2" style="max-width:80px;" v-on:click.prevent="toggleAdd">Adicionar </button>
+                        <button type="button" class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2" style="max-width:80px;" v-b-modal.modalConfirma>Deletar </button>
+                        <button type="button" class="btn mt-1 btn-sm btn-info col-1 mr-2" style="max-width: 65px;"  v-on:click.prevent="xlsx(Pedidos)">XLSX </button>
+                        <!-- Modals do deletar-->
+                        <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+                            <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
+                            <template v-if="Deletar.length > 0">
+                                <template v-for="turma in Deletar">
+                                    <template v-for="disciplina in Disciplinas">
+                                        <template v-if="disciplina.id===turma.Disciplina">
+                                            <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">Disciplina:{{disciplina.codigo}}<br>Turma:{{turma.letra}}</p>
+                                        </template>
                                     </template>
                                 </template>
                             </template>
-                        </template>
+                        </b-modal>
+                    </template> 
+
+                    <!-- Modals do botão perfis-->
+                    <b-modal  id="modalPerfis" scrollable title="Selecione os perfis">
+                    
+                        <b-form-group style="font-size:14px; display:block!important;">
+                            <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
+                                <b-form-checkbox  size="sm" v-for="perfil in Perfis" :key="'perfil'+perfil.id" :value="perfil">
+                                    <span style="padding-top:2px;">{{perfil.nome}}</span>
+                                </b-form-checkbox>
+                            </b-form-checkbox-group>
+
+                            <div slot="modal-footer">
+                                <b-button class="botao-estilo" size="sm" variant="success" @click="selectAll()" style="margin-right: 20px">
+                                    Selecionar Todos
+                                </b-button>
+                                <b-button size="sm" variant="secondary" @click="selectNone()">
+                                    Desmarcar Todos
+                                </b-button>
+                            </div>  
+                        </b-form-group>   
                     </b-modal>
-                </template>
-                <b-form-select v-model="periodos" class="selectForm">
-                    <option value = "1">Visualizar 1º Semestre</option>
-                    <option value = "2">Visualizar 2º Semestre</option>
-                    <option value = "3">Visualizar Ambos</option>
-                </b-form-select>
-                <b-button v-b-modal.modalPerfis class="botao-estilo3" style="float: right; margin-right:40px">Perfis</b-button>
 
-                <b-modal id="modalPerfis" scrollable title="Selecione os perfis">
-                    <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
-                        <b-form-checkbox v-for="perfil in Perfis" :key="'perfil'+perfil.id" :value="perfil">{{perfil.nome}}</b-form-checkbox>
-                    </b-form-checkbox-group>
-
-                    <div slot="modal-footer">
-                        <b-button class="botao-estilo" size="sm" variant="success" @click="selectAll()" style="margin-right: 20px">
-                            Selecionar Todos
-                        </b-button>
-                        <b-button class="botao-estilo" size="sm" variant="success" @click="selectNone()">
-                            Desmarcar Todos
-                        </b-button>
-                    </div>
-                </b-modal>
-
-
+                </div>
             </div>
         </div>
 
+        <div class="w-100 mb-2 border-bottom"></div>
+        
     <div id="loading" v-if="isLoading">
         <div class="cube1"></div>
         <div class="cube2"></div>
@@ -349,19 +361,61 @@
     }
 </script>
 <style scoped>
+
+    .btn {
+        height:25px;
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
+        min-width: max-content;
+        font-size:14px;
+        padding: 0 5px 0 5px;
+    }
+     .botao-estilo{
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+    
+    .botao-estilo:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+    .botao-estilo3{
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+
+    .botao-estilo3:hover{
+        background-color: #0079fa  !important;
+        border-color: #0079fa !important;
+    }
+    
+    .botao-estilo3:focus{
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+    .titulo{
+        font-size:14px;
+        font-weight: bold;
+        padding-left: 0;
+        margin:0;
+    }
+
     .tabelaScrol{
         height: 78vh;
     }
     .selectForm{
-        min-width: 170px;
-        width: 170px;
-        float:right
+    height:26px !important;
+    font-size: 12px !important;
+    padding:0px 0px 0px 5px !important;
     }
     
-
     .DashboardPrototipo{
         max-width: 100%;
         overflow: hidden;
+        margin:0;
     }
 
     .sticky {
@@ -388,15 +442,7 @@
         overflow:auto;
         max-height: 100%;
         width:100%;
-    }
-
-        
-    /*table.scrolling td:nth-child(-n+10),
-    table.scrolling th:nth-child(-n+10) {
-        position: -webkit-sticky;
-        position: sticky;
-        left:0;
-    }*/
+    }  
 
     .cube1, .cube2 {
         background-color: #333;
@@ -452,84 +498,4 @@
             -webkit-transform: rotate(-360deg);
         }
     }
-     .botao-estilo{
-        background-color: #0079fa !important;
-        border-color: #0079fa !important;
-    }
-
-    .botao-estilo:hover{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
-    }
-    
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-    }
-    /* .botao-estilo2{
-        background-color: #f51616 !important;
-        border-color: #f51616 !important;
-    }
-
-    .botao-estilo2:hover{
-        background-color: #c91212  !important;
-        border-color: #c91212 !important;
-    }
-    
-    .botao-estilo2:focus{
-        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-    } */
-.botao-estilo3{
-        background-color: #0055af !important;
-        border-color: #0055af !important;
-    }
-
-    .botao-estilo3:hover{
-        background-color: #0079fa  !important;
-        border-color: #0079fa !important;
-    }
-    
-    .botao-estilo3:focus{
-        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-    }
-    
-
-    @media screen and (max-width:680px) {
-        .botao-estilo3{
-            margin-top:10px;
-            margin-right: 10px;
-        }
-    }
-
-    @media screen and (max-width: 588px) {
-        .titulo{
-            flex-direction: column; 
-            overflow: auto;
-            width:100%;
-            height: 20vh;  
-        }
-        .selectForm{
-            width: 100px; 
-            float:right;
-        }
-        .tabelaScrol{
-            height: 73vh;
-        }
-        .botao-estilo3{
-            margin-right: 10px;
-            margin-top: 10px;
-        }
-    }
-
-    @media screen and (max-width:485px){
-        .botao-estilo3{
-            margin-top:10px;
-        }
-        .selectForm{
-            margin-top:10px;
-        }
-        .titulo{
-            height: 21vh;
-        }
-    }
-
 </style>
