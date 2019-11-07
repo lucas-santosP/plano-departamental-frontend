@@ -63,7 +63,7 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 120px);" v-if="!isLoading">
+    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 120px); border: #808080 solid 2px;" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm" >
         <thead class="thead-light sticky">
           <tr>
@@ -279,7 +279,7 @@
           <!-- LINHAS DA TABELA -->
           <template v-if="Turmas.length>0">
             <template v-for="perfil in Perfis">
-              <tr style="height:35px;"
+              <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                 v-if="turma.periodo==1 && (periodos == 1 || periodos==3)"
                 :key="turma.id"
@@ -676,7 +676,6 @@ table {
   height: calc(100vh - 120px);
   font-size: 11px;
   background-color: #f5f5f5;
-  border: #808080 solid 2px;
   margin:0;
 }
 tbody {
@@ -710,6 +709,7 @@ table input{
   height: 18px!important;
   text-align:center!important;
 }
+
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   select {

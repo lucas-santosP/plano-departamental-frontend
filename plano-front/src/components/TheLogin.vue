@@ -6,7 +6,7 @@
         {{error}}
       </b-alert>
       <label for="login" class="sr-only">Usuário</label>
-      <input type="text" id="login" class="form-control" placeholder="Usuário" v-model.trim="form.login">
+      <input v-focus type="text" id="login" class="form-control" placeholder="Usuário" v-model.trim="form.login">
       <label for="senha" class="sr-only">Senha</label>
       <input type="password" id="senha" class="form-control" placeholder="Senha" v-model.trim="form.senha">
       <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Entrar</button>
@@ -28,6 +28,14 @@ export default {
     }
   },
 
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus()
+      }
+    }
+  },
+  
   methods: {
     doLogin () {
       this.$store.dispatch('authenticate', this.form).then(() => {

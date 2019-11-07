@@ -4,8 +4,8 @@
                  'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}">
 
         <td>
-            <div style="width:24px !important; vertical-align:middle;">
-                <input type="text" style="width: 20px; height:15px; text-align: center;" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
+            <div style="width:24px !important; margin-left:-1px">
+                <input type="text" style="width: 20px; height:15px; margin-top:3px" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
                 <input type="checkbox"  name="ativa" value="true"  v-on:click="checkDelete(turma)" v-model="ativo" style="margin-top:2px; width:16px; height:14px">
             </div>
         </td>
@@ -14,7 +14,7 @@
             <div style="width:70px;">
                 <template v-for="disciplina in Disciplinas">
                     <template v-if="disciplina.id===turma.Disciplina">
-                        <p :key="disciplina.id" style="width:70px; text-align: center;">{{disciplina.codigo}}</p>
+                        <p :key="disciplina.id" style="width:70px;">{{disciplina.codigo}}</p>
                     </template>
                 </template>
             </div>
@@ -46,7 +46,7 @@
         
         <td>
             <div style="width: 40px">
-                <input type="text" style="width: 20px; text-align: center;" v-model="turma.letra" v-on:blur="editTurma(turma)">
+                <input type="text" style="width: 20px;" v-model="turma.letra" v-on:blur="editTurma(turma)">
             </div>
         </td>
 
@@ -61,7 +61,7 @@
         </td>
 
         <td>
-            <div style="width: 72px;">
+            <div style="width: 72px;  padding-top:1px; padding-bottom:1px">
                 <select type="text" style="width: 67px; margin-bottom:1px;" id="horario1" v-model="turma.Horario1"
                         v-on:change="editTurma(turma)">
                     <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
@@ -78,7 +78,7 @@
         </td>
 
         <td>
-            <div style="width: 98px;">
+            <div style="width: 98px;  padding-top:1px; padding-bottom:1px">
                 <select type="text" style="width:93px; margin-bottom:1px" id="sala1" v-model="turma.Sala1" v-on:change="editTurma(turma)">
                     <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
                     <option v-else value=""></option>
@@ -99,13 +99,13 @@
         </td>
         
         <template v-for="curso in Cursos">
-            <td style=" padding-top:0px;">
+            <td>
                 <template v-for="pedido in Pedidos">
                     <template v-if="pedido.Curso===curso.id"> 
-                        <div style="width:32px !important; padding:0px">
-                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:18px; text-align:center"
+                        <div style="width:32px;">
+                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:18px; margin-bottom:1px"
                                     v-on:change="editPedido(pedido)">
-                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:18px; text-align:center"
+                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:18px; margin-bottom:1px"
                                     v-on:change="editPedido(pedido)">
                         </div>
                     </template>
@@ -232,8 +232,8 @@
         text-align: center;
         vertical-align:middle;
         padding: 0;
+        height:40px;
     }
-
     p {
         margin-bottom: 0;
         text-align: center;
@@ -241,13 +241,15 @@
 
     input {
         height: 18px;
+        text-align: center!important;
     }
     select{
-        height:15px;
+        height:18px;
     }
+
     @-moz-document url-prefix() {
     select {
-            height: 15px!important;
+            height: 18px!important;
             text-align:left;
             box-sizing: border-box;
             

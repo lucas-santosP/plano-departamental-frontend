@@ -1,12 +1,12 @@
 <template>
   <div class="DashboardHome">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Dashboard</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-0 pr-0 pl-0 pb-1 border-bottom">
+      <h1 class="h2 titulo">Dashboard</h1>
     </div>
 
     <!-- alert -->
-    <div class="alert alert-light alerta" role="alert">
-      <p style="font-size:18px">
+    <div class="alert alert-light alerta mt-1" role="alert">
+      <p style="font-size:12px">
         Olá {{getUsuarioFirstName}}! Este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da Computação.
         <br>Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
@@ -128,10 +128,18 @@ export default {
   display:block;
   overflow: auto;
 }
+.titulo{
+  font-size:16px;
+  font-weight: bold;
+  padding-left: 0;
+  margin:0;
+}
+
 .alerta {
   word-break: normal;
   text-align: justify;
   margin-left: 0;
+  padding: 0;
   margin-right: 1%;
   font-weight: 500;
   color: black; 
@@ -140,16 +148,14 @@ export default {
 
 .listas {
   line-height: 30px;
+  font-size: 12px;
   text-align: justify;
-  margin-left: 1%;
-  margin-right: 1%;
   line-height:inherit;
 }
 
 .lista-titulo {
-  margin-left: 1%;
   margin-top: 2%;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   color: #3f3f3f;
   

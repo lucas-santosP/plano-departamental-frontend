@@ -546,8 +546,9 @@ export default {
 }
 
 .nav-link{
-  padding-left: 5px;
-  padding-right:5px;
+  font-size: 12px;
+  height: 30px;
+  padding: 5px;
 }
 
 .container-fluid{
@@ -559,10 +560,6 @@ export default {
 
 .navbar-toggler{
   border: 0px;
-}
-
-.navtopText{
-    font-size: 12px;
 }
 
 .sidebar-sticky {
@@ -614,8 +611,7 @@ export default {
   height:30px;
   color:rgb(213, 214, 216);
   font-size: 15px;
-  padding-right: 10px;
-  padding-left: 5px;
+  padding: 3px 15px 5px 5px;
   min-width:  -webkit-max-content;
   min-width:  -moz-max-content;
   min-width:  max-content;
@@ -694,6 +690,9 @@ export default {
 
 .navbar-nav > .nav-item > .nav-link:hover {
   cursor: pointer; 
+}
+.navbar-nav{
+  height:30px;
 }
 
 /*Download Files Loading*/
