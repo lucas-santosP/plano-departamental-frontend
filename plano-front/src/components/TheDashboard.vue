@@ -10,7 +10,7 @@
         name="custom-classes-transition"
         mode="out-in">
           <button v-if="show" @click="show=!show" key="save" type="button" class="btn-navbar">
-            <i key="save" class="fas fa-times"></i> 
+            <i key="save" class="fas fa-times"></i>
           </button>
         
           <button v-else @click="show=!show" key="edit" type="button" class="btn-navbar">
@@ -120,7 +120,7 @@
         </nav>
         </transition>
 
-        <main @click="show=false" role="main" class="col-12 ml-auto pl-5" style="padding-right:0; overflow-x:hidden;" v-if="!isLoading">
+        <main @click="show=false" role="main" class="col-12 ml-auto pl-4 pr-2" style="padding-right:0; overflow:hidden;" v-if="!isLoading">
           <router-view></router-view>
         </main>
 
