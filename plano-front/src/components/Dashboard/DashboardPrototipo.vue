@@ -68,8 +68,8 @@
         <div class="cube2"></div>
     </div>
 
-    <div class="tabelaScrol" style="overflow-y: scroll; overflow-x: scroll;" v-if="!isLoading" ref = "mainTable">
-        <table class="table table-hover table-sm">
+    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 115px); border: #808080 solid 2px;" v-if="!isLoading" ref = "mainTable">
+        <table class="table table-bordered table-hover table-sm">
             <thead class="thead-light sticky">
             <tr>
                 <turmaheader></turmaheader>
@@ -82,6 +82,7 @@
                     <novaturma></novaturma>
                 </tr>
             </template>
+
             <template v-if="Turmas.length>0">
             <template v-for="perfil in PerfisAtivos">
                 <tr v-for="turma in inPerfil(perfil, Turmas, Disciplinas)" v-if="turma.periodo==1 && (periodos == 1 || periodos==3)" :key="turma.id" v-bind:style="{backgroundColor: perfil.cor}">
@@ -402,10 +403,6 @@
         padding-left: 0;
         margin:0;
     }
-
-    .tabelaScrol{
-        height: 78vh;
-    }
     .selectForm{
     height:26px !important;
     font-size: 12px !important;
@@ -429,20 +426,47 @@
     }
 
     table {
-        font-size: 10px;
-    }
-
-    tr thead {
-        display:block;
+        display: block;
+        overflow-y: scroll;
+        height: -webkit-calc(100vh - 120px);
+        height: -moz-calc(100vh - 120px);
+        height: calc(100vh - 120px);
+        font-size: 11px;
+        background-color: #f5f5f5;
+        margin:0;
     }
 
     tbody {
-        top: 23px;
-        display:block;
-        overflow:auto;
-        max-height: 100%;
-        width:100%;
-    }  
+    /*top: 23px;*/
+    max-height: 100%;
+    width: 100%;
+    }
+    table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 !important;
+    }
+    table p {
+    margin-bottom: 0;
+    text-align: center;
+    }
+    tr thead {
+    display: block;
+    }
+    thead th {
+    padding: 0 !important;
+    font-size: 14px;
+    text-align: center;
+    height: 18px !important;
+    }
+    table select {
+    height: 15px!important;
+    text-align:left;
+    }
+    table input{
+    height: 18px!important;
+    text-align:center!important;
+    }
 
     .cube1, .cube2 {
         background-color: #333;

@@ -6,7 +6,7 @@
         <td>
             <div style="width:24px !important; margin-left:-1px">
                 <input type="text" style="width: 20px; height:15px; margin-top:3px" id="periodo" v-model="turma.periodo" v-on:blur="editTurma(turma)">
-                <input type="checkbox"  name="ativa" value="true"  v-on:click="checkDelete(turma)" v-model="ativo" style="margin-top:2px; width:16px; height:14px">
+                <input type="checkbox" style="margin-top:2px; width:16px; height:14px"  name="ativa" value="true"  v-on:click="checkDelete(turma)" v-model="ativo">
             </div>
         </td>
 

@@ -1,36 +1,46 @@
 <template>
-    <div class="turmarow" style="width: 571px;" v-bind:style="{backgroundColor: perfil.cor}">
-        <td style="width: 16px;">
-            <input type="text" style="width: 16px;" id="periodo" v-model="turmaForm.periodo" v-on:blur="editTurma(turma)">
-            <input type="checkbox" name="ativa" value="true" v-on:click="checkDelete(turma)" v-model="ativo" style="width:16px;height: 16px;padding:0;">
+    <div class="turmarow" style="width: 797px;  font-size:11px;" v-bind:style="{backgroundColor: perfil.cor}">
+        <td>
+            <div style="width:24px !important;">
+                <input type="text" style="width: 18px; height:15px; margin-top:3px" id="periodo" v-model="turmaForm.periodo" v-on:blur="editTurma(turma)">
+                <input type="checkbox" style="margin-top:2px; width:16px; height:14px" name="ativa" value="true" v-on:click="checkDelete(turma)" v-model="ativo">
+            </div>
         </td>
-        <td style="width: 64px;">
-            <template v-for="disciplina in Disciplinas">
-                <template v-if="disciplina.id===turma.Disciplina">
-                    <p :key="disciplina.id" style="width:64px">{{disciplina.codigo}}</p>
-                </template>
-            </template>
-        </td>
-        <td style="width: 120px;">
-            <select type="text" style="width:120px;" id="disciplina" v-model="turmaForm.Disciplina"
-                    v-on:change="editTurma(turma)">
-                <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
-                <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">
-                    {{disciplina.nome}}
-                </option>
-            </select>
-        </td>
-        <td style="width: 20px;">
-            <p style="width:20px; min-width: 20px;">
+        <td>
+            <div style="width:70px;">
                 <template v-for="disciplina in Disciplinas">
                     <template v-if="disciplina.id===turma.Disciplina">
-                        {{disciplina.cargaPratica + disciplina.cargaTeorica}}
+                        <p :key="disciplina.id" style="width:70px">{{disciplina.codigo}}</p>
                     </template>
                 </template>
-            </p>
+            </div>
         </td>
-        <td style="width: 36px;">
-            <input type="text" style="width: 20px; margin-left: 8px; margin-right: 8px" v-model="turmaForm.letra" v-on:blur="editTurma(turma)">
+        <td >
+            <div style="width: 330px;">
+                <select type="text" style="width:325px;" id="disciplina" v-model="turmaForm.Disciplina"
+                        v-on:change="editTurma(turma)">
+                    <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
+                    <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">
+                        {{disciplina.nome}}
+                    </option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div style="width: 18px;">
+                <p style="width:18px;">
+                    <template v-for="disciplina in Disciplinas">
+                        <template v-if="disciplina.id===turma.Disciplina">
+                            {{disciplina.cargaPratica + disciplina.cargaTeorica}}
+                        </template>
+                    </template>
+                </p>
+            </div>
+        </td>
+        <td >
+            <div style="width: 40px">
+                <input type="text" style="width: 20px;" v-model="turmaForm.letra" v-on:blur="editTurma(turma)">
+            </div>
         </td>
         <td style="width: 100px;">
             <select type="text" style="width:100px" id="docente1" v-model="turmaForm.Docente1"
@@ -242,17 +252,43 @@
 <style scoped>
     td {
         text-align: center;
-        padding: 0!important;
+        vertical-align:middle;
+        padding: 0;
+        height:40px;
     }
-
     p {
+        margin-bottom: 0;
         text-align: center;
     }
 
     input {
-        height: 25px;
-        width:auto;
-        text-align: center;
+        height: 18px;
+        text-align: center!important;
+    }
+    select{
+        height:18px;
     }
 
+    @-moz-document url-prefix() {
+    select {
+            height: 18px!important;
+            text-align:left;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color: rgb(245, 245, 245);
+        }
+        input{
+            height: 18px!important;
+            text-align:center;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color:rgb(245, 245, 245);
+        }
+    }
 </style>

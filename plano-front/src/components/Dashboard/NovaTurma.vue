@@ -1,32 +1,42 @@
 <template>
     <div>
         <td>
-            <input type="text" style="width: 16px;" id="periodo" v-model="turmaForm.periodo">
+            <div style="width:24px">
+                <input type="text" style="width: 18px; height:15px; margin-top:3px" id="periodo" v-model="turmaForm.periodo">
+            </div>
         </td>
         <td>
-            <template v-for="disciplina in Disciplinas">
-                <template v-if="disciplina.id===turmaForm.Disciplina">
-                    <p :key="disciplina.id" style="width:64px">{{disciplina.codigo}}</p>
-                </template>
-            </template>
-        </td>
-        <td>
-            <select type="text" style="width:120px;" id="disciplina" v-model="turmaForm.Disciplina">
-                <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
-                <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">{{disciplina.nome}}</option>
-            </select>
-        </td>
-        <td>
-            <p style="width:20px; min-width: 20px;">
+            <div style="width:70px">
                 <template v-for="disciplina in Disciplinas">
                     <template v-if="disciplina.id===turmaForm.Disciplina">
-                        {{disciplina.cargaPratica + disciplina.cargaTeorica}}
+                        <p :key="disciplina.id" style="width:64px">{{disciplina.codigo}}</p>
                     </template>
                 </template>
-            </p>
+            </div>
         </td>
         <td>
-            <input type="text" style="width: 36px" id="turma" v-model="turmaForm.letra">
+            <div style="width: 330px;"> 
+                <select type="text" style="width:325px;" id="disciplina" v-model="turmaForm.Disciplina">
+                    <option v-if="Disciplinas.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
+                    <option v-for="disciplina in Disciplinas" :key="disciplina.id" :value="disciplina.id">{{disciplina.nome}}</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div style="width: 18px">
+                <p style="width:20px">
+                    <template v-for="disciplina in Disciplinas">
+                        <template v-if="disciplina.id===turmaForm.Disciplina">
+                            {{disciplina.cargaPratica + disciplina.cargaTeorica}}
+                        </template>
+                    </template>
+                </p>
+            </div>
+        </td>
+        <td>
+            <div style="width: 40px">
+                <input type="text" style="width: 20px" id="turma" v-model="turmaForm.letra">
+            </div>
         </td>
         <td>
             <select type="text" style="width:100px" id="docente1" v-model="turmaForm.Docente1">
@@ -204,7 +214,44 @@
 </script>
 <style scoped>
     td {
-        padding:0;
         text-align: center;
+        vertical-align:middle;
+        padding: 0;
+        height:40px;
+    }
+    p {
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    input {
+        height: 18px;
+        text-align: center!important;
+    }
+    select{
+        height:18px;
+    }
+
+    @-moz-document url-prefix() {
+    select {
+            height: 18px!important;
+            text-align:left;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color: rgb(245, 245, 245);
+        }
+        input{
+            height: 18px!important;
+            text-align:center;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color:rgb(245, 245, 245);
+        }
     }
 </style>

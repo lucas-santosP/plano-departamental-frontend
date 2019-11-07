@@ -1,10 +1,10 @@
 <template>
     <div  style="display:block; overflow: hidden" class="sticky">
-        <th scope="col"><p style="width:16px !important;">S.</p></th>
-        <th scope="col"><p style="width:64px !important;">Cod</p></th>
-        <th scope="col"><p style="width:120px !important;">Disciplina</p></th>
-        <th scope="col"><p style="width:20px !important;">C.</p></th>
-        <th scope="col"><p style="width:36px !important;">Turma</p></th>
+        <th scope="col"><p style="width:24px !important;">S.</p></th>
+        <th scope="col"><p style="width:70px !important;">Cod</p></th>
+        <th scope="col"><p style="width:330px !important;">Disciplina</p></th>
+        <th scope="col"><p style="width:18px !important;">C.</p></th>
+        <th scope="col"><p style="width:40px !important;">Turma</p></th>
         <th scope="col"><p style="width:100px !important;">Docente</p></th>
         <th scope="col"><p style="width:62px !important;">Turno</p></th>
         <th scope="col"><p style="width:65px !important;">Horário</p></th>
@@ -58,10 +58,11 @@
     }
 
     p{
-        padding: 4px 0 4px 0;
-        margin:0;
-        font-size: 10px;
+        padding: 0px 0 0px 0;
+        margin: 0;
+        font-size: 11px;
         text-align: center;
+        height:18px;
     }
 
     th{
