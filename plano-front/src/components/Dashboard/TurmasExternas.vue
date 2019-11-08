@@ -20,7 +20,7 @@
             >Confirmar</button>
             <button
               type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo2 ml-2"
+              class="btn btn-sm btn-danger col-1 ml-2"
               v-on:click.prevent="toggleAdd"
             >Cancelar</button>
           </template>
@@ -32,7 +32,7 @@
             >Adicionar</button>
             <button
               type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo2 ml-2"
+              class="btn btn-sm btn-danger col-1 botao-estilo2 ml-2"
               style
               v-b-modal.modalConfirma
             >Deletar</button>
