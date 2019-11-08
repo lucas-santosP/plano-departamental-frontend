@@ -1,5 +1,5 @@
 <template>
-    <div class="turmarow" style="width: 797px;  font-size:11px;" v-bind:style="{backgroundColor: perfil.cor}">
+    <div class="turmarow" style="width: 850px;  font-size:11px;" v-bind:style="{backgroundColor: perfil.cor}">
         <td>
             <div style="width:24px !important;">
                 <input type="text" style="width: 18px; height:15px; margin-top:3px" id="periodo" v-model="turmaForm.periodo" v-on:blur="editTurma(turma)">
@@ -42,65 +42,80 @@
                 <input type="text" style="width: 20px;" v-model="turmaForm.letra" v-on:blur="editTurma(turma)">
             </div>
         </td>
-        <td style="width: 100px;">
-            <select type="text" style="width:100px" id="docente1" v-model="turmaForm.Docente1"
-                    v-on:change="editTurma(turma)">
-                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                <option v-else type="text" value=""></option>
-                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-            </select>
-            <br/>
-            <select type="text" style="width:100px;" id="docente2" v-model="turmaForm.Docente2"
-                    v-on:change="editTurma(turma)">
-                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                <option v-else type="text" value=""></option>
-                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-            </select>
+        <td>
+            <div style="width: 130px;"> 
+                <select type="text" style="width:125px" id="docente1" v-model="turmaForm.Docente1"
+                        v-on:change="editTurma(turma)">
+                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                    <option v-else type="text" value=""></option>
+                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                </select>
+                
+                <select type="text" style="width:125px;" id="docente2" v-model="turmaForm.Docente2"
+                        v-on:change="editTurma(turma)">
+                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                    <option v-else type="text" value=""></option>
+                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                </select>
+            </div>
         </td>
-        <td style="width: 62px;">
-            <select type="text" style="width: 62px" id="turno1" v-model="turmaForm.turno1" v-on:change="editTurma(turma)">
-                <option value=""></option>
-                <option value="Diurno">Diurno</option>
-                <option value="Noturno">Noturno</option>
-            </select>
-            <br/>
+
+        <td>
+            <div style="width: 68px">
+                <select type="text" style="width: 63px" id="turno1" v-model="turmaForm.turno1" v-on:change="editTurma(turma)">
+                    <option value=""></option>
+                    <option value="Diurno">Diurno</option>
+                    <option value="Noturno">Noturno</option>
+                </select>
+            </div>
         </td>
-        <td style="width: 65px;">
-            <select type="text" style="width: 65px" id="horario1" v-model="turmaForm.Horario1"
-                    v-on:change="editTurma(turma)">
-                <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                <option v-else value=""></option>
-                <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-            </select>
-            <br/>
-            <select type="text" style="width: 65px" id="horario2" v-model="turmaForm.Horario2"
-                    v-on:change="editTurma(turma)">
-                <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                <option v-else value=""></option>
-                <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-            </select>
+
+        <td>
+            <div style="width:72px">
+                <select type="text" style="width: 67px; margin-bottom:1px" id="horario1" v-model="turmaForm.Horario1"
+                        v-on:change="editTurma(turma)">
+                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                    <option v-else value=""></option>
+                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                </select>
+                
+                <select type="text" style="width: 67px" id="horario2" v-model="turmaForm.Horario2"
+                        v-on:change="editTurma(turma)">
+                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                    <option v-else value=""></option>
+                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                </select>
+            </div>
         </td>
-        <td style="width: 60px">
-            <select type="text" style="width:60px" id="sala1" v-model="turmaForm.Sala1" v-on:change="editTurma(turma)">
-                <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                <option v-else value=""></option>
-                <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+        <td>
+            <div style="width: 98px">
+                <select type="text" style="width:92px; margin-bottom:1px;" id="sala1" v-model="turmaForm.Sala1" v-on:change="editTurma(turma)">
+                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                    <option v-else value=""></option>
+                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+                </select>
+                <select type="text" style="width: 92px" id="sala2" v-model="turmaForm.Sala2" v-on:change="editTurma(turma)">
+                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                    <option v-else value=""></option>
+                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
             </select>
-            <br/>
-            <select type="text" style="width: 60px" id="sala2" v-model="turmaForm.Sala2" v-on:change="editTurma(turma)">
-                <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                <option v-else value=""></option>
-                <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
-            </select>
+            </div>
         </td>
-        <td style="width:28px"><p style="width: 28px">{{totalPedidos()}}</p></td>
+
+        <td>
+            <div style="width:32px">
+                <p style="width: 32px">
+                    {{totalPedidos()}}
+                </p>
+            </div>
+        </td>
 
         <template v-for="curso in Cursos" >
             <template v-if="CursosAtivos[curso.id]"> 
-                <td style="width: 32px;" :key="curso.id">
-                    <template v-for="(pedido, index) in Pedidos" v-if="pedido.Curso===curso.id">
-                        <turmaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaPedido>
-                    </template>
+                <td :key="curso.id">
+                        <template v-for="(pedido, index) in Pedidos" v-if="pedido.Curso===curso.id">
+                            <turmaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaPedido>
+                        </template>
                 </td>
             </template>
         </template>

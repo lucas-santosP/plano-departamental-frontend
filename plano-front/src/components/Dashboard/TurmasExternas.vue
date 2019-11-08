@@ -1,16 +1,18 @@
 <template>
   <div class="TurmasExternas row" v-if="Admin">
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-1 pb-0 pr-0 pl-0 mb-0">  
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">  
       <div class="form-inline col-12 pl-0">
         <h1 class="titulo col-2">Plano</h1>
 
-        <div class="form-group col-12 pl-0 pr-0 mb-2 mt-1">
+        <div class="form-group col-12 pl-0 pr-0 mb-2 mt-2">
           <b-form-select
             v-model="periodos"
-            class="formSelect col-lg-1 col-md-2 col-sm-2 col-4">
-            <option value="1">Primeiro</option>
-            <option value="2">Segundo</option>
-            <option value="3">Ambos</option>
+            style="max-width: 170px; min-width:170px"
+            class="formSelect col-lg-2 col-md-2 col-sm-2 col-4">
+            <option value="" selected disabled>Selecione um Semestre</option>
+            <option value="1" >1º Semestre</option>
+            <option value="2" >2º Semestre</option>
+            <option value="3" >Ambos</option>
           </b-form-select>
           <template v-if="isAdd">
             <button
@@ -96,12 +98,9 @@
                 <p class="p-header" style="width:32px !important;">Total</p>
               </th>
               <template v-for="curso in Cursos">
-                <th
-                  scope="col"
-                  :key="'curso'+curso.id"
-                  :id="'curso'+curso.id"
-                >
+                <th scope="col" :key="'curso'+curso.id" :id="'curso'+curso.id">
                   <p class="p-header" style="width:32px !important;">{{curso.codigo}}</p>
+                  
                   <b-popover
                     :key="curso.id"
                     :target="'curso'+curso.id"
@@ -341,7 +340,7 @@ export default {
       isAdd: false,
       atual: undefined,
       semestre: 1,
-      periodos: 3
+      periodos: ""
     };
   },
   components: {
@@ -627,7 +626,7 @@ export default {
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-size:14px;
+  font-size:12px;
   padding: 0 5px 0 5px;
 
   max-width:80px;

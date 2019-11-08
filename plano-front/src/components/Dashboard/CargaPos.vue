@@ -1,5 +1,5 @@
 <template>
-    <div class="CargaPos" style="height: calc(100vh - 48px);">
+    <div class="CargaPos" style="height: calc(100vh - 48px); font-size:11px;">
         <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom container-fluid" style="overflow: auto; width: 100%; padding-right:20px;">
             <b-row style="width:100%">
             <!-- <b-col cols=""> -->
@@ -48,22 +48,11 @@
                 <thead class="thead-light sticky">
                 <tr>
                     <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
-                        
-                        <th scope="col">
-                            <p class="p-header" style="width:25px!important;"> </p>
-                        </th>
-                        <th scope="col" style="width:30px!important;">
-                            <p class="p-header" style="width:30px!important;">T.</p>
-                        </th>
-                        <th scope="col">
-                            <p class="p-header" style="width:160px!important;">Docente</p>
-                        </th>
-                        <th scope="col">
-                            <p class="p-header" style="width:101px!important;">Programa</p>
-                        </th>
-                        <th scope="col">
-                            <p  class="p-header" style="width:40px!important;">C.</p>
-                        </th>
+                        <th scope="col"> <p class="p-header" style="width:25px!important;" > </p> </th>
+                        <th scope="col"> <p class="p-header" style="width:30px!important;" >T.</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:160px!important;" >Docente</p> </th>
+                        <th scope="col"> <p class="p-header" style="width:101px!important;" >Programa</p> </th>
+                        <th scope="col"> <p  class="p-header" style="width:40px!important;" >C.</p> </th>
                     </div>
                 </tr>
                 </thead>
@@ -240,49 +229,51 @@
         overflow: hidden;
     }
     .p-header {
-        padding: 4px 0 4px 0;
+        padding: 0px 0 0px 0;
         margin: 0;
-        font-size: 13px;
+        font-size: 11px;
         text-align: center;
+        height:18px;
     }
     table {
         display: block;
         overflow-x: hidden;
         overflow-y: scroll;
-        height: calc(100vh - 150px);
-        font-size: 13px;
+        height: calc(100vh - 140px);
+        font-size: 11px;
         background-color: #f5f5f5;
         border: #808080 solid 2px;
     }
     tbody {
-        height: calc(100vh - 140px);
-        top: 23px;
-        max-height: 100%;
-        width: 100%;
+  /*top: 23px;*/
+    max-height: 100%;
+    width: 100%;
     }
     table td {
-        text-align: center;
-        vertical-align: middle;
-        padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 !important;
     }
     table p {
-        margin-bottom: 0;
-        text-align: center;
+    margin-bottom: 0;
+    text-align: center;
     }
     tr thead {
-        display: block;
+    display: block;
     }
     thead th {
-        padding: 0 !important;
-        font-size: 14px;
-        text-align: center;
-        height: 25px !important;
-        z-index: 9;
+    padding: 0 !important;
+    font-size: 14px;
+    text-align: center;
+    height: 18px !important;
     }
-    input{
-        height: 26px !important;
-        width:auto;
-        text-align: left;  
+    table select {
+    height: 15px!important;
+    text-align:left;
+    }
+    table input{
+    height: 18px!important;
+    text-align:center!important;
     }
 
     .sticky{

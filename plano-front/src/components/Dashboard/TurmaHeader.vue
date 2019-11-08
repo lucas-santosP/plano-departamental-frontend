@@ -5,17 +5,24 @@
         <th scope="col"><p style="width:330px !important;">Disciplina</p></th>
         <th scope="col"><p style="width:18px !important;">C.</p></th>
         <th scope="col"><p style="width:40px !important;">Turma</p></th>
-        <th scope="col"><p style="width:100px !important;">Docente</p></th>
-        <th scope="col"><p style="width:62px !important;">Turno</p></th>
-        <th scope="col"><p style="width:65px !important;">Horário</p></th>
-        <th scope="col"><p style="width:60px !important;">Sala</p></th>
-        <th scope="col"><p style="width:28px !important;">Total</p></th>
-        <template v-for="curso in Cursos" v-if="CursosAtivos[curso.id]">
-            <th :key="curso.id" :id="'curso'+curso.id"><p v-bind:class="{'cursoGrande':big(curso.codigo)}" style="width: 32px !important;" v-on:mouseover="">{{curso.codigo}}</p></th>
-            <b-popover :target="'curso'+curso.id" placement="bottom" triggers="hover focus">
-                <div v-if="curso.semestreInicial==1 || curso.semestreInicial==3">1º - {{curso.alunosEntrada}}</div>
-                <div v-if="curso.semestreInicial==2 || curso.semestreInicial==3">2º - {{curso.alunosEntrada}}</div>
-            </b-popover>
+        <th scope="col"><p style="width:130px !important;">Docente</p></th>
+        <th scope="col"><p style="width:68px !important;">Turno</p></th>
+        <th scope="col"><p style="width:72px !important;">Horário</p></th>
+        <th scope="col"><p style="width:98px !important;">Sala</p></th>
+        <th scope="col"><p style="width:32px !important;">Total</p></th>
+        <template v-for="curso in Cursos">
+            <template  v-if="CursosAtivos[curso.id]">  
+                <th :key="curso.id" :id="'curso'+curso.id">
+                    <p v-bind:class="{'cursoGrande':big(curso.codigo)}" style="width: 32px !important;" v-on:mouseover="">
+                        {{curso.codigo}}
+                    </p>
+                </th>
+                
+                <b-popover :target="'curso'+curso.id" placement="bottom" triggers="hover focus">
+                    <div v-if="curso.semestreInicial==1 || curso.semestreInicial==3">1º - {{curso.alunosEntrada}}</div>
+                    <div v-if="curso.semestreInicial==2 || curso.semestreInicial==3">2º - {{curso.alunosEntrada}}</div>
+                </b-popover>
+            </template>
         </template>
     </div>
 </template>

@@ -14,11 +14,10 @@
 
         <td style="min-width: 160px;" >
             <div style="width: 160px;">
-                <label><select type="text" style="width:140px; padding-left:5px;" id="docente" v-model="carga.Docente"
-                        v-on:change="editCarga(carga)">
+                <select type="text" style="width:140px; padding-left:5px;" id="docente" v-model="carga.Docente" v-on:change="editCarga(carga)">
                     <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
                     <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-                </select></label>
+                </select>
             </div>
         </td>
 
@@ -82,50 +81,45 @@
 </script>
 <style scoped>
     td {
-        padding: 0!important;
         text-align: center;
         vertical-align:middle;
-        padding:0;
+        padding: 0;
+        height:40px;
     }
     p {
         margin-bottom: 0;
         text-align: center;
     }
 
-    input[type="text"] {
-        height: 25px;
-        width:auto;
-        text-align: left;;
-        border: 1px solid #cccccc;
-        margin-left:0px;
+    input {
+        height: 18px;
+        text-align: center!important;
     }
     select{
-        border: 1px solid #cccccc;
-        appearance:none;
-        cursor:pointer;
-        height: 25px;
-        
+        height:18px;
     }
-    label {position:relative; margin-bottom:0;}
-    label:after {
-        content:'>';
-        font:14px "Consolas", monospace;
-        color:#aaa;
-        -webkit-transform:rotate(90deg);
-        -moz-transform:rotate(90deg);
-        -ms-transform:rotate(90deg);
-        transform:rotate(90deg);
-        right:8px; top:4px;
-        padding:0 0 2px;
-        position:absolute;
-        pointer-events:none;
+
+    @-moz-document url-prefix() {
+    select {
+            height: 18px!important;
+            text-align:left;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color: rgb(245, 245, 245);
+        }
+        input{
+            height: 18px!important;
+            text-align:center;
+            box-sizing: border-box;
+            
+            line-height: 8px;
+            border: 0.5px solid rgb(160, 160, 160);
+            border-radius: 2px;
+            background-color:rgb(245, 245, 245);
+        }
     }
-    label:before {
-        content:'';
-        right:6px; top:0px;
-        width:20px; height:20px;
-        position:absolute;
-        pointer-events:none;
-        display:block;
-    }
+    
 </style>

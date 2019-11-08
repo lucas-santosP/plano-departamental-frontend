@@ -103,9 +103,9 @@
                 <template v-for="pedido in Pedidos">
                     <template v-if="pedido.Curso===curso.id"> 
                         <div style="width:32px;">
-                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:18px; margin-bottom:1px"
+                            <input type="text" v-model="pedido.vagasPeriodizadas" style="width: 25px; height:15px; margin-top:1px; margin-bottom:1px"
                                     v-on:change="editPedido(pedido)">
-                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:18px; margin-bottom:1px"
+                            <input type="text" v-model="pedido.vagasNaoPeriodizadas" style="width: 25px; height:15px;"
                                     v-on:change="editPedido(pedido)">
                         </div>
                     </template>

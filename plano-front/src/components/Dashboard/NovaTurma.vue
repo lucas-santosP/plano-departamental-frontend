@@ -39,15 +39,17 @@
             </div>
         </td>
         <td>
-            <select type="text" style="width:100px" id="docente1" v-model="turmaForm.Docente1">
-                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-            </select>
-            <br/>
-            <select type="text" style="width:100px;" id="docente2" v-model="turmaForm.Docente2">
-                <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-            </select>
+            <div style="width:130px">
+                <select type="text" style="width:125px; margin-bottom:1px;" id="docente1" v-model="turmaForm.Docente1">
+                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                </select>
+                
+                <select type="text" style="width:125px;" id="docente2" v-model="turmaForm.Docente2">
+                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                </select>
+            </div>
         </td>
         <td>
             <select type="text" style="width: 62px" id="turno1" v-model="turmaForm.turno1">
