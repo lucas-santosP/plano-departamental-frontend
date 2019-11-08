@@ -5,16 +5,18 @@
                 <h1 class="h2 titulo col-2">Plano</h1>
 
                 <div class="form-group col-12 pl-0 pr-0 mb-2">
-                    <b-form-select v-model="periodos" class="selectForm col-lg-2 col-md-2 mr-2 mt-1" style="max-width: 170px; min-width:170px">
-                        <option value = "1">Visualizar 1º Semestre</option>
-                        <option value = "2">Visualizar 2º Semestre</option>
-                        <option value = "3">Visualizar Ambos</option>
+                    <b-form-select v-model="periodos" size="sm" class="selectForm col-lg-2 col-md-2 mr-2 mt-1" style="max-width: 170px; min-width:170px">
+                        <option value="" selected disabled>Selecione um Semestre</option>
+                        <option value = "1">Primeiro</option>
+                        <option value = "2">Segundo</option>
+                        <option value = "3">Ambos</option>
                     </b-form-select>
-                    <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-estilo3 mt-1" style="max-width: 60px;" >Perfis</b-button>
+                    
+                    <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis mt-1" style="max-width: 60px;" >Perfis</b-button>          
                      
                     <template v-if="isAdd">
-                        <button type="button" class="btn mt-1 btn-sm btn-danger col-1 mr-2" style="max-width:80px;" v-on:click.prevent="toggleAdd" >Cancelar </button>
-                        <button type="button" class="btn mt-1 btn-sm btn-success col-1 mr-2" style="max-width:80px;" v-on:click.prevent="addTurma" > Confirmar </button>
+                        <button type="button" class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2" style="max-width:80px;" v-on:click.prevent="toggleAdd" >Cancelar </button>
+                        <button type="button" class="btn mt-1 btn-sm btn-success col-1 mr-2 botao-estilo" style="max-width:80px;" v-on:click.prevent="addTurma" > Confirmar </button>
                     </template>
 
                     <template v-else>
@@ -38,14 +40,16 @@
 
                     <!-- Modals do botão perfis-->
                     <b-modal  id="modalPerfis" scrollable title="Selecione os perfis">
-                    
-                        <b-form-group style="font-size:14px; display:block!important;">
-                            <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisAtivos">
-                                <b-form-checkbox  size="sm" v-for="perfil in Perfis" :key="'perfil'+perfil.id" :value="perfil">
-                                    <span style="padding-top:2px;">{{perfil.nome}}</span>
+                        <b-form-group style="font-size:14px;">
+                       
+                            <b-form-checkbox-group  id="checkboxGroupPerfis" v-model="PerfisAtivos" :options="options">
+                                
+                                <b-form-checkbox  v-for="perfil in Perfis" :key="'perfil'+perfil.id" :value="perfil" switch>
+                                    {{perfil.nome}}
                                 </b-form-checkbox>
-                            </b-form-checkbox-group>
 
+                            </b-form-checkbox-group>
+                    
                             <div slot="modal-footer">
                                 <b-button class="botao-estilo" size="sm" variant="success" @click="selectAll()" style="margin-right: 20px">
                                     Selecionar Todos
@@ -53,10 +57,10 @@
                                 <b-button size="sm" variant="secondary" @click="selectNone()">
                                     Desmarcar Todos
                                 </b-button>
-                            </div>  
+                            </div> 
+
                         </b-form-group>   
                     </b-modal>
-
                 </div>
             </div>
         </div>
@@ -139,7 +143,7 @@
                 isAdd:false,
                 atual:undefined,
                 semestre: 1,
-                periodos: 3,
+                periodos: "",
                 PerfisAtivos: []
             }
         },
@@ -384,17 +388,33 @@
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
-    .botao-estilo3{
+    .botao-estilo2 {
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover {
+        background-color: #c91212 !important;
+        border-color: #c91212 !important;
+    }
+
+    .botao-estilo2:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+        -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+    }
+
+    .botao-perfis{
         background-color: #0055af !important;
         border-color: #0055af !important;
     }
 
-    .botao-estilo3:hover{
+    .botao-perfis:hover{
         background-color: #0079fa  !important;
         border-color: #0079fa !important;
     }
     
-    .botao-estilo3:focus{
+    .botao-perfis:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
     .titulo{
