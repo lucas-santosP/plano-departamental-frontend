@@ -5,6 +5,7 @@
                 <input type="text" style="width: 18px; height:15px; margin-top:3px" id="periodo" v-model="turmaForm.periodo">
             </div>
         </td>
+
         <td>
             <div style="width:70px">
                 <template v-for="disciplina in Disciplinas">
@@ -14,6 +15,7 @@
                 </template>
             </div>
         </td>
+
         <td>
             <div style="width: 330px;"> 
                 <select type="text" style="width:325px;" id="disciplina" v-model="turmaForm.Disciplina">
@@ -22,6 +24,7 @@
                 </select>
             </div>
         </td>
+
         <td>
             <div style="width: 18px">
                 <p style="width:20px">
@@ -38,6 +41,7 @@
                 <input type="text" style="width: 20px" id="turma" v-model="turmaForm.letra">
             </div>
         </td>
+
         <td>
             <div style="width:130px">
                 <select type="text" style="width:125px; margin-bottom:1px;" id="docente1" v-model="turmaForm.Docente1">
@@ -51,34 +55,42 @@
                 </select>
             </div>
         </td>
+
         <td>
-            <select type="text" style="width: 62px" id="turno1" v-model="turmaForm.turno1">
-                <option value="Diurno">Diurno</option>
-                <option value="Noturno">Noturno</option>
-            </select>
-            <br/>
+            <div style="width:68px">
+                <select type="text" style="width: 62px" id="turno1" v-model="turmaForm.turno1">
+                    <option value="Diurno">Diurno</option>
+                    <option value="Noturno">Noturno</option>
+                </select>
+            </div>
         </td>
+        
         <td>
-            <select type="text" style="width: 65px" id="horario1" v-model="turmaForm.Horario1" v-on:change="adjustTurno1">
-                <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-            </select>
-            <br/>
-            <select type="text" style="width: 65px" id="horario2" v-model="turmaForm.Horario2" v-on:change="adjustTurno2">
-                <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
-                <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
-            </select>
+            <div style="width: 72px">
+                <select type="text" style="width: 67px; margin-bottom:1px" id="horario1" v-model="turmaForm.Horario1" v-on:change="adjustTurno1">
+                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                </select>
+                <br/>
+                <select type="text" style="width: 67px" id="horario2" v-model="turmaForm.Horario2" v-on:change="adjustTurno2">
+                    <option v-if="Horarios.length===0" type="text" value="">Nenhum Horário Encontrado</option>
+                    <option v-for="horario in Horarios" :key="horario.id" :value="horario.id">{{horario.horario}}</option>
+                </select>
+            </div>
         </td>
+
         <td>
-            <select type="text" style="width:60px" id="sala1" v-model="turmaForm.Sala1">
-                <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
-            </select>
-            <br/>
-            <select type="text" style="width: 60px" id="sala2" v-model="turmaForm.Sala2">
-                <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
-                <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
-            </select>
+            <div style="width: 98px">
+                <select type="text" style="width:93px; margin-bottom:1px" id="sala1" v-model="turmaForm.Sala1">
+                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+                </select>
+                
+                <select type="text" style="width: 93px" id="sala2" v-model="turmaForm.Sala2">
+                    <option v-if="Salas.length===0" type="text" value="">Nenhuma Sala Encontrada</option>
+                    <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
+                </select>
+            </div>
         </td>
     </div>
 </template>

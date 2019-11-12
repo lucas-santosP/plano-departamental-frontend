@@ -646,7 +646,7 @@ export default {
   margin-left: 5px;
 }
 
-@media screen and (max-width: 531px) {
+@media screen and (max-width: 536px) {
   [role="main"] {
     padding-top: 70px;
   }
@@ -671,7 +671,7 @@ export default {
   }
 }
 /* SUMIR ICONES */
-@media screen and (max-width: 620px){
+@media screen and (max-width: 624px){
   .iconsHide{
     display:none;
   }

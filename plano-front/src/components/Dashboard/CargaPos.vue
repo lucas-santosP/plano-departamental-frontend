@@ -1,81 +1,104 @@
 <template>
     <div class="CargaPos" style="height: calc(100vh - 48px); font-size:11px;">
-        <b-container fluid class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom container-fluid" style="overflow: auto; width: 100%; padding-right:20px;">
-            <b-row style="width:100%">
-            <!-- <b-col cols=""> -->
-            <h1 class="h2 col" style="padding:0">Cargas Pós</h1>
-            </b-col>
-            <!-- <b-col cols="5" ></b-col> -->
-            <b-col class="col-sm-3 col-4 col-lg-2 col-md-3" >
-            <b-form-select v-model="periodos" style="margin-right: 10px; min-width: max-content;"> 
-                <option value = "1">Primeiro</option>
-                <option value = "2">Segundo</option>
-                <option value = "3">Ambos</option>
-            </b-form-select>
-            </b-col>
-            <!-- <b-col cols="2"> -->
-            <template v-if="isAdd">
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="addCarga" style="float: right; margin-right: 10px;"> Confirmar </button>
-                <button type="button" class="btn btn-danger col-sm-1"  v-on:click.prevent="toggleAdd" style="float:right; margin-bottom:10px;">Cancelar </button>
+        <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"> 
+            <div class="form-inline col-12 pl-0 mb-2 pr-1">
 
-            </template>
-            <template v-else>
-                <button type="button" class="btn btn-success col-sm-1" v-on:click.prevent="toggleAdd" style="float:right; margin-right: 10px;">Adicionar </button>
-                <button type="button" class="btn btn-danger col-sm-1" v-b-modal.modalConfirma>Deletar </button>
-                <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-                    <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
-                    <template v-for="carga in Deletar">
-                        <template v-for="docente in Docentes">
-                            <template v-if="docente.id===carga.Docente">
-                                <p :key="'carga'+carga.id+'docente'+docente.id" style="width:80px">Docente:{{docente.apelido}}<br>Programa:{{carga.programa}}</p>
-                            </template>
+                <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Carga Pos</h1>
+
+                <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;" >
+                    <div class="input-group mr-0 ml-auto mb-0 mt-0">
+                        
+                        <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+                            <option value = "1">Primeiro</option>
+                            <option value = "2">Segundo</option>
+                            <option value = "3">Ambos</option>
+                        </select>
+                        <div class="input-group-append mt-1 mr-4">
+                            <div class="input-group-append">
+                                <label class="input-group-text" >Semestre</label>
+                            </div>
+                        </div>
+
+                        <template v-if="isAdd">
+                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-success botao-estilo" v-on:click.prevent="addCarga" > Confirmar </button>
+                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger "  v-on:click.prevent="toggleAdd" >Cancelar </button>
                         </template>
-                    </template>
 
-                </b-modal>
-            </template>
-            </b-col>
-            </b-row>
-        </b-container>
+                        <template v-else>
+                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-success " v-on:click.prevent="toggleAdd" >Adicionar </button>
+                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger botao-estilo2" v-b-modal.modalConfirma>Deletar </button>
+
+                            <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+                                <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
+                                <template v-for="carga in Deletar">
+                                    <template v-for="docente in Docentes">
+                                        <template v-if="docente.id===carga.Docente">
+                                            <p :key="'carga'+carga.id+'docente'+docente.id" style="width:80px">Docente:{{docente.apelido}}<br>Programa:{{carga.programa}}</p>
+                                        </template>
+                                    </template>
+                                </template>
+                            </b-modal>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 mb-2 border-bottom"></div>
 
         <div id="loading" v-if="isLoading">
             <div class="cube1"></div>
             <div class="cube2"></div>
         </div>
 
-        <div style="width: 380px; overflow: hidden; margin:auto;" v-if="!isLoading">
+        <div class="pl-0" style="overflow: hidden; height: calc(100vh - 100px); border: #808080 solid 2px; width:351px" v-if="!isLoading">
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-light sticky">
-                <tr>
-                    <div style="display: block; overflow: hidden; width: 376px;" class="sticky">
-                        <th scope="col"> <p class="p-header" style="width:25px!important;" > </p> </th>
-                        <th scope="col"> <p class="p-header" style="width:30px!important;" >T.</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:160px!important;" >Docente</p> </th>
-                        <th scope="col"> <p class="p-header" style="width:101px!important;" >Programa</p> </th>
-                        <th scope="col"> <p  class="p-header" style="width:40px!important;" >C.</p> </th>
-                    </div>
-                </tr>
+                    <tr>
+                        <div style="display: block; overflow: hidden; width: 330px;" class="sticky">
+                            <th scope="col"> <p class="p-header" style="width:24px!important;" > </p> </th>
+                            <th scope="col"> <p class="p-header" style="width:24px!important;" >T.</p> </th>
+                            <th scope="col"> <p class="p-header" style="width:135px!important;" >Docente</p> </th>
+                            <th scope="col"> <p class="p-header" style="width:100px!important;" >Programa</p> </th>
+                            <th scope="col"> <p class="p-header" style="width:40px!important;" >C.</p> </th>
+                        </div>
+                    </tr>
                 </thead>
 
                 <tbody>
                 <template v-if="isAdd">
                     <tr>
-                        <div style="width: 376px; height:40px">
-                            <td style="min-width:25px; height:40px"></td>
-                            <td style="min-width:30px;">
-                                <input type="text" style="width: 15px; text-align: center;"  id="trimestre" v-model="cargaPosForm.trimestre">
-                            </td>
+                        <div style="width: 330px;">
                             <td>
-                                <select type="text" style="width:160px" id="docente1" v-model="cargaPosForm.Docente">
-                                    <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
-                                    <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
-                                </select>
+                                <div style="width:24px; height:40px"></div>
                             </td>
+
                             <td>
-                                <input type="text" style="width: 108px" id="programa" v-model="cargaPosForm.programa">
+                                <div style="width:24px;">
+                                    <input type="text" style="width: 15px; text-align: center;"  id="trimestre" v-model="cargaPosForm.trimestre">
+                                </div>
                             </td>
+
                             <td>
-                                <input type="text" style="width: 40px" id="creditos" v-model="cargaPosForm.creditos">
+                                <div style="width: 135px">
+                                    <select type="text" style="width:130px" id="docente1" v-model="cargaPosForm.Docente">
+                                        <option v-if="Docentes.length===0" type="text" value="">Nenhum Docente Encontrado</option>
+                                        <option v-for="docente in Docentes" :key="docente.id" :value="docente.id">{{docente.apelido}}</option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div style="width: 100px">
+                                    <input type="text" style="width: 80px" id="programa" v-model="cargaPosForm.programa">
+                                </div>
+                            </td>
+
+                            <td>
+                                <div style="width: 40px">
+                                    <input type="text" style="width: 25px" id="creditos" v-model="cargaPosForm.creditos">
+                                </div>
                             </td>
                         </div>
                     </tr>
@@ -223,7 +246,7 @@
     }
 </script>
 <style scoped>
-
+    
     .CargaPos{
         max-height: 100%;
         overflow: hidden;
@@ -235,17 +258,82 @@
         text-align: center;
         height:18px;
     }
+    .btn {
+        height:25px;
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
+        min-width: max-content;
+        font-size:12px;
+        padding: 0 5px 0 5px;
+        max-width:65px;
+    }
+
+    .botao-estilo {
+        background-color: #0079fa !important;
+        border-color: #0079fa !important;
+    }
+
+    .botao-estilo:hover {
+        background-color: #0055af !important;
+        border-color: #0055af !important;
+    }
+
+    .botao-estilo:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+        -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+        box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+    }
+
+    .botao-estilo2 {
+        background-color: #f51616 !important;
+        border-color: #f51616 !important;
+    }
+
+    .botao-estilo2:hover {
+        background-color: #c91212 !important;
+        border-color: #c91212 !important;
+    }
+
+    .botao-estilo2:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+        -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+        box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+    }
+    .titulo{
+        font-size:25px;
+        font-weight: normal;
+        padding-left: 0;
+        margin:0;
+    }
+    .custom-select{
+        height:26px !important;
+        font-size: 12px !important;
+        padding:0px 0px 0px 10px !important;
+        min-width: 85px; 
+        max-width: 85px;
+        text-align:center
+    }
+    .input-group-text{
+        max-width: 70px;
+        min-width: 70px;
+        height:26px!important; 
+        margin-left:-5px; 
+        padding-left:15px; 
+        font-size: 12px !important;
+    }
+
     table {
         display: block;
-        overflow-x: hidden;
         overflow-y: scroll;
-        height: calc(100vh - 140px);
+        height: -webkit-calc(100vh - 100px);
+        height: -moz-calc(100vh - 100px);
+        height: calc(100vh - 100px);
         font-size: 11px;
         background-color: #f5f5f5;
-        border: #808080 solid 2px;
+        margin:0;
     }
     tbody {
-  /*top: 23px;*/
+    /*top: 23px;*/
     max-height: 100%;
     width: 100%;
     }
@@ -276,18 +364,35 @@
     text-align:center!important;
     }
 
+    /* APENAS NO FIREFOX */
+    @-moz-document url-prefix() {
+    select {
+        height: 15px!important;
+        text-align:left;
+        box-sizing: border-box;
+        
+        line-height: 8px;
+        border: 0.5px solid rgb(133, 133, 133);
+        border-radius: 2px;
+        background-color: rgb(245, 245, 245);
+    }
+    input{
+        height: 18px!important;
+        text-align:center;
+        box-sizing: border-box;
+        
+        line-height: 8px;
+        border: 0.5px solid rgb(92, 92, 92);
+        border-radius: 2px;
+        background-color:rgb(245, 245, 245);
+    }
+    }
     .sticky{
         position: sticky;
         position: -webkit-sticky;
         top: 0px;
         z-index: 10;
     }
-    .btn{
-        min-width: max-content;
-        max-width: max-content;
-        max-height: 38px;
-    }
-
     .cube1, .cube2 {
         background-color: #333;
         width: 20px;

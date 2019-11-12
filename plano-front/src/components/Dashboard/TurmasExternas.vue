@@ -1,59 +1,65 @@
 <template>
   <div class="TurmasExternas row" v-if="Admin">
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">  
-      <div class="form-inline col-12 pl-0">
-        <h1 class="titulo col-2">Plano</h1>
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+        
+        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
 
-        <div class="form-group col-12 pl-0 pr-0 mb-2 mt-2">
-          <b-form-select
-            v-model="periodos"
-            style="max-width: 170px; min-width:170px"
-            class="formSelect col-lg-2 col-md-2 col-sm-2 col-4">
-            <option value="" selected disabled>Selecione um Semestre</option>
-            <option value="1" >1º Semestre</option>
-            <option value="2" >2º Semestre</option>
-            <option value="3" >Ambos</option>
-          </b-form-select>
-          <template v-if="isAdd">
-            <button
-              type="button"
-              class="btn btn-sm btn-success col-1 botao-estilo ml-2"
-              v-on:click.prevent="addTurma"
-            >Confirmar</button>
-            <button
-              type="button"
-              class="btn btn-sm btn-danger col-1 ml-2"
-              v-on:click.prevent="toggleAdd"
-            >Cancelar</button>
-          </template>
-          <template v-else>
-            <button
-              type="button"
-              class="btn btn-sm btn-success col-1 ml-2"
-              v-on:click.prevent="toggleAdd"
-            >Adicionar</button>
-            <button
-              type="button"
-              class="btn btn-sm btn-danger col-1 botao-estilo2 ml-2"
-              style
-              v-b-modal.modalConfirma
-            >Deletar</button>
+        <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;" >
+            <div class="input-group mr-0 ml-auto mb-0 mt-0" >
+              
+              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+                <option value = "1">Primeiro</option>
+                <option value = "2">Segundo</option>
+                <option value = "3">Ambos</option>
+              </select>
+              <div class="input-group-append mt-1 mr-4">
+                <div class="input-group-append">
+                  <label class="input-group-text" >Semestre</label>
+                </div>
+              </div>
 
-            <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-              <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-              <template v-for="turma in Deletar">
-                <template v-for="disciplina in Disciplinas">
-                  <template v-if="disciplina.id===turma.Disciplina">
-                    <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">
-                      Disciplina:{{disciplina.codigo}}
-                      <br />
-                      Turma:{{turma.letra}}
-                    </p>
-                  </template>
-                </template>
+              <template v-if="isAdd">
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-success col-1 botao-estilo mr-2"
+                  v-on:click.prevent="addTurma"
+                >Confirmar</button>
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-danger col-1 mr-2"
+                  v-on:click.prevent="toggleAdd"
+                >Cancelar</button>
               </template>
-            </b-modal>
-          </template>
+              <template v-else>
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-success col-1 mr-2"
+                  v-on:click.prevent="toggleAdd"
+                >Adicionar</button>
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2 mr-2"
+                  style
+                  v-b-modal.modalConfirma
+                >Deletar</button>
+
+                <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+                  <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
+                  <template v-for="turma in Deletar">
+                    <template v-for="disciplina in Disciplinas">
+                      <template v-if="disciplina.id===turma.Disciplina">
+                        <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">
+                          Disciplina:{{disciplina.codigo}}
+                          <br />
+                          Turma:{{turma.letra}}
+                        </p>
+                      </template>
+                    </template>
+                  </template>
+                </b-modal>
+              </template>
+          </div>
         </div>
       </div>
     </div>
@@ -65,7 +71,7 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 120px); border: #808080 solid 2px;" v-if="!isLoading">
+    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 100px); border: #808080 solid 2px;" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm" >
         <thead class="thead-light sticky">
           <tr>
@@ -340,7 +346,7 @@ export default {
       isAdd: false,
       atual: undefined,
       semestre: 1,
-      periodos: ""
+      periodos: 3
     };
   },
   components: {
@@ -628,8 +634,7 @@ export default {
   min-width: max-content;
   font-size:12px;
   padding: 0 5px 0 5px;
-
-  max-width:80px;
+  max-width:65px;
 }
 .botao-estilo {
   background-color: #0079fa !important;
@@ -663,6 +668,28 @@ export default {
           box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
 
+.titulo{
+  font-size:25px;
+  font-weight: normal;
+  padding-left: 0;
+  margin:0;
+}
+.custom-select{
+  height:26px !important;
+  font-size: 12px !important;
+  padding:0px 0px 0px 10px !important;
+  min-width:85px;
+  max-width:85px;
+  text-align:center
+}
+.input-group-text{
+  max-width: 70px;
+  min-width: 70px;
+  height:26px!important; 
+  margin-left:-5px; 
+  padding-left:15px; 
+  font-size: 12px !important;
+}
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -670,12 +697,13 @@ export default {
   text-align: center;
   height:18px;
 }
+
 table {
   display: block;
   overflow-y: scroll;
-  height: -webkit-calc(100vh - 120px);
-  height: -moz-calc(100vh - 120px);
-  height: calc(100vh - 120px);
+  height: -webkit-calc(100vh - 100px);
+  height: -moz-calc(100vh - 100px);
+  height: calc(100vh - 100px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin:0;
@@ -747,18 +775,13 @@ table input{
   top: 20px;
   display:fixed;
 }
-
-.titulo{
-  font-size:25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin:0;
-}
+/*
 .formSelect{
   height:26px !important;
   font-size: 12px !important;
   padding:0px 0px 0px 5px !important;
 }
+*/
 .example {
     display: -ms-grid;
     display: grid;

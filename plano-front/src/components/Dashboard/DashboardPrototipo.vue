@@ -1,35 +1,26 @@
 <template>
     <div class="DashboardPrototipo row" style="height:100%;" v-if="Admin">
         <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0" style="overflow: auto; width: 100%">
-            <div class="form-inline col-12 pl-0 mb-2">
-                <h1 class="h2 titulo col-2">Plano</h1>
-
+            <div class="form-inline col-12 pl-0 mb-2 pr-1">
                 
-                    <!-- 
-                    <b-form-select v-model="periodos" size="sm" class="selectForm col-lg-2 col-md-2 mr-2 mt-1" style="max-width: 170px; min-width:170px">
-                        <option value="" selected disabled>Selecione um Semestre</option>
-                        <option value = "1">1º Semestre</option>
-                        <option value = "2">2º Semestre</option>
-                        <option value = "3">Ambos</option>
-                    </b-form-select>
-                    <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis mt-1" style="max-width: 60px;" >Perfis</b-button> 
-                    -->
-                   <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-2 botao-perfis" >Perfis</b-button>
+                <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
 
-                    <div class="input-group mt-1 mr-4">
-                        <select class="custom-select custom-select-sm" style=" min-width:75px; text-align:center" v-model="periodos">
-                            <option value = "1">1 º</option>
-                            <option value = "2">2 º</option>
+                <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;">
+                    <div class="input-group mr-0 ml-auto mb-0 mt-0" >
+
+                        <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+                            <option value = "1">Primeiro</option>
+                            <option value = "2">Segundo</option>
                             <option value = "3">Ambos</option>
                         </select>
-                        <div class="input-group-append">
+                        <div class="input-group-append mt-1 mr-2">
                             <div class="input-group-append">
-                            <label class="input-group-text " >Semestre</label>
+                            <label class="input-group-text" >Semestre</label>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                             
-                   
+
+                    <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis" >Perfis</b-button>
+                    
                     <template v-if="isAdd">
                         <button type="button" class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2" style="max-width:80px;" v-on:click.prevent="toggleAdd" >Cancelar </button>
                         <button type="button" class="btn mt-1 btn-sm btn-success col-1 mr-2 botao-estilo" style="max-width:80px;" v-on:click.prevent="addTurma" > Confirmar </button>
@@ -77,7 +68,8 @@
 
                         </b-form-group>   
                     </b-modal>
-                
+                </div>
+                </div>
             </div>
         </div>
 
@@ -88,7 +80,7 @@
         <div class="cube2"></div>
     </div>
 
-    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 115px); border: #808080 solid 2px;" v-if="!isLoading" ref = "mainTable">
+    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 100px); border: #808080 solid 2px;" v-if="!isLoading" ref = "mainTable">
         <table class="table table-bordered table-hover table-sm">
             <thead class="thead-light sticky">
             <tr>
@@ -434,9 +426,10 @@
     .botao-perfis:focus{
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
+
     .titulo{
-        font-size:14px;
-        font-weight: bold;
+        font-size:25px;
+        font-weight: normal;
         padding-left: 0;
         margin:0;
     }
@@ -449,7 +442,10 @@
     .custom-select{
         height:26px !important;
         font-size: 12px !important;
+        min-width:85px;
+        max-width:85px;
         padding:0px 0px 0px 10px !important;
+        text-align:center;
     }
 
     .input-group-text{
@@ -479,9 +475,9 @@
     table {
         display: block;
         overflow-y: scroll;
-        height: -webkit-calc(100vh - 120px);
-        height: -moz-calc(100vh - 120px);
-        height: calc(100vh - 120px);
+        height: -webkit-calc(100vh - 100px);
+        height: -moz-calc(100vh - 100px);
+        height: calc(100vh - 100px);
         font-size: 11px;
         background-color: #f5f5f5;
         margin:0;
