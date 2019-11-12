@@ -1,10 +1,10 @@
 <template>
     <div class="DashboardPrototipo row" style="height:100%;" v-if="Admin">
         <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0" style="overflow: auto; width: 100%">
-            <div class="form-inline col-12 pl-0">
+            <div class="form-inline col-12 pl-0 mb-2">
                 <h1 class="h2 titulo col-2">Plano</h1>
 
-                <div class="form-group col-12 pl-0 pr-0 mb-2">
+                
                     <!-- 
                     <b-form-select v-model="periodos" size="sm" class="selectForm col-lg-2 col-md-2 mr-2 mt-1" style="max-width: 170px; min-width:170px">
                         <option value="" selected disabled>Selecione um Semestre</option>
@@ -77,7 +77,7 @@
 
                         </b-form-group>   
                     </b-modal>
-                </div>
+                
             </div>
         </div>
 
