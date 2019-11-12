@@ -749,8 +749,8 @@ table input{
 }
 
 .titulo{
-  font-size:14px;
-  font-weight: bold;
+  font-size:25px;
+  font-weight: normal;
   padding-left: 0;
   margin:0;
 }

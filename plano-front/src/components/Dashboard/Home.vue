@@ -141,7 +141,7 @@ export default {
   margin-left: 0;
   padding: 0;
   margin-right: 1%;
-  font-weight: 500;
+  font-weight: normal;
   color: black; 
   padding-right:30px; 
 }

@@ -1,8 +1,8 @@
 <template>
     <div class="DashboardHorarios row" v-if="Admin">
         <div class="col-12">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Lista Horários</h1>
+            <div class="titulo d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;">Lista Horários</h1>
             </div>
     </div>
         <div class="col">
@@ -16,7 +16,7 @@
                 </div>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
-                    <h4 style="font-weight: 200; font-size: 26px; text-align: center !important;"><span style="">Ciência da Computação Diurno</span></h4>
+                    <h4 style="font-weight: 200; font-size: 26px;"><span style="">Ciência da Computação Diurno</span></h4>
                 </template>
                 <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
 <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
@@ -46,7 +46,7 @@
 
 <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
             <template v-if="periodo===2 || periodo===3">
-                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style=" ">2º SEMESTRE</span></h3>
+                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style="border-bottom: 1px solid #cccccc">2º SEMESTRE</span></h3>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
                     <h4 style="font-weight: 200; font-size: 26px;"><span style=" ">Ciência da Computação Diurno</span></h4>
@@ -81,11 +81,11 @@
       </div>
         </div>
         <!-- Grid Direito -->
-         <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-      <div class="col card cartao ml-auto mr-auto" style="top: 0px; width: 90%; max-width: 500px;">
-        <div class="card-body" style="padding:25px;">
+         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
+      <div class="col card cartao ml-auto mr-auto" style="top: 0px; max-width: 350px;">
+        <div class="card-body">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h2>Definir Grades</h2>
+                <h2 style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;">Definir Grades</h2>
             </div>
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
             </b-alert>
@@ -93,8 +93,8 @@
                 <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
                     <form name="formPeriodo" id="formPeriodo" ref="formPrioso">
                         <div class="grade" >
-                            <label for="periodo" style="margin-right: 10px">Semestre:</label>
-                            <b-form-select id="periodo" v-model="periodo" class="periodo" style="width: 94px; position: relative;">
+                            <label for="periodo" style="margin-right: 10px; font-size: 12px;">Semestre:</label>
+                            <b-form-select id="periodo" v-model="periodo" class="periodo" style="font-size: 11px; width: 80px; height:28px !important; position: relative;">
                                 <option :value="1">1</option>
                                 <option :value="2">2</option>
                                 <option :value="3">Ambos</option>
@@ -102,12 +102,14 @@
                             <br/>
                         </div>
                     </form>
-                    <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
-                    <b-form-checkbox-group v-model="cursos" stacked name="cursosCheck" :options="options" style="display: block;" v-on:change.capture="defineSelectAll">
-                    </b-form-checkbox-group>
+                    <div class="texto">
+                        <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
+                        <b-form-checkbox-group v-model="cursos" stacked name="cursosCheck" :options="options" style="display: block;" v-on:change.capture="defineSelectAll">
+                        </b-form-checkbox-group>
+                    </div>
                 </div>
                 <div>
-                <b-button variant="success" v-on:click="createHorarios" class="col-2 btn-sm generate botao-estilo">Visualizar</b-button>
+                <b-button variant="success" v-on:click="createHorarios" class="col-1 btn-sm generate botao-estilo">Visualizar</b-button>
                 </div>
 
             </form>
@@ -963,6 +965,9 @@
         width:25px;
         border-radius: 15px;
     } */
+    .titulo{
+        height: 45px;
+    }
 
     .periodo{
         display: inline;
@@ -978,7 +983,7 @@
 
     td {
         width:91px !important;
-        text-align: center !important;
+        text-align: start !important;
     }
 
     th{
@@ -1006,8 +1011,25 @@
         box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
     }
     h4{
-        text-align: center !important;
+        text-align: start !important;
         margin-bottom: 20px;
         margin-top: 40px;
     }
+    .texto{
+        font-size: 12px;
+    }
+    span{
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .cartao{
+        padding: 0, 0, 0, 10px;
+    }
+    option{
+        font-size:11px; 
+        box-sizing:border-box; 
+        width: 25px;
+    }
+    
+    
 </style>
