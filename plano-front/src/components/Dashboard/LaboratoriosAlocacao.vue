@@ -271,9 +271,6 @@
 <style scoped>
     .titulo{
         height: 45px;
-        margin-left: -20px;
-        margin-right: 0;
-        padding-right: 10px;
     }
 
     h5{
