@@ -5838,9 +5838,9 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(17, 17, 17, 0.829);
-        color:rgb(255, 255, 255);
-        background-color:rgba(24, 23, 23, 0.678);
+        border-color:rgba(153, 151, 151, 0.829);
+        color:rgb(43, 43, 43);
+        background-color:rgba(189, 188, 188, 0.993);
     }
     .tg .tg-0lax{
         vertical-align:center;
