@@ -3,11 +3,11 @@
         <div class="col-12">
             <div
                     class="titulo d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2" style="font-size:14px;font-weight:bold;padding-left:0;margin:0">Laboratórios - Alocação</h1>
+                    <h1 class="h2" style="font-size:25px;font-weight:normal;padding-left:0;margin:0">Laboratórios - Alocação</h1>
                     <button type="button" class="btn btn-success btn-sm col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
             </div>
             
-            <h6><span style="border-bottom: 1px solid #ccc">1º Semestre</span></h6>
+            <h6>1º SEMESTRE</h6>
             <div class="flex-container">
                 <div v-for="lab in Laboratorios">
                     <h5 class="lab-num">{{lab.nome}}</h5>
@@ -91,7 +91,7 @@
                 </div>
             </div>
             
-            <h6><span style="border-bottom: 1px solid #ccc">2º Semestre</span></h6>
+            <h6>2º SEMESTRE</h6>
 
              <div class="flex-container">
                 <div v-for="lab in Laboratorios">
@@ -281,7 +281,7 @@
     }
     h6{
         margin-top: 15px;
-        font-weight:lighter; 
+        font-weight:bold; 
         font-size: 20px;
         text-align: center;
     }
@@ -295,6 +295,10 @@
     }
     
     .flex-container{
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
@@ -315,7 +319,7 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(48, 46, 46, 0.247);
+        border-color:rgba(189, 189, 189, 0.644);
         color:#333;
         background-color:#fff;
     }
@@ -328,13 +332,22 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(153, 151, 151, 0.829);
-        color:rgb(43, 43, 43);
-        background-color:rgba(189, 188, 188, 0.993);
+        border-color:rgba(189, 189, 189, 0.623);
+        color:#333;
+        background-color:#e9ecef;
     }
     .tg .tg-0lax{
         vertical-align:center;
         height: 18px;
+    }
+    .btn {
+        height:25px;
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
+        min-width: max-content;
+        font-size:12px;
+        padding: 0 5px 0 5px;
+        max-width:65px;
     }
     .botao-estilo{
         margin-top: -8px;

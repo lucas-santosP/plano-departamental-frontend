@@ -5796,8 +5796,7 @@
     .title {
         clear: both;
         display: block;
-        padding-top: 30px;
-        font-weight: 200;
+        padding-top: 0px;
         text-align: start !important;
     }
 
@@ -5817,7 +5816,7 @@
         margin-bottom: 20px;
         margin-right: 20px;
     }
-    .tg td{
+   .tg td{
         font-family:Arial, sans-serif;
         font-size:11px;
         padding:0px;
@@ -5825,7 +5824,7 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(48, 46, 46, 0.247);
+        border-color:rgba(189, 189, 189, 0.644);
         color:#333;
         background-color:#fff;
     }
@@ -5838,14 +5837,23 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(153, 151, 151, 0.829);
-        color:rgb(43, 43, 43);
-        background-color:rgba(189, 188, 188, 0.993);
+        border-color:rgba(189, 189, 189, 0.623);
+        color:#333;
+        background-color:#e9ecef;
     }
     .tg .tg-0lax{
         vertical-align:center;
         height: 18px;
         width: 46px !important;
+    }
+    .btn {
+        height:25px;
+        min-width: -webkit-max-content;
+        min-width: -moz-max-content;
+        min-width: max-content;
+        font-size:12px;
+        padding: 0 5px 0 5px;
+        max-width:65px;
     }
     .botao-estilo{
         background-color: #0079fa !important;

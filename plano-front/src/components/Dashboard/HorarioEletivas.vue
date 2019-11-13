@@ -102,7 +102,7 @@
 </script>
 <style scoped>
      td {
-        width:45px !important;
+        width:60px !important;
         text-align: center !important;
     }
 

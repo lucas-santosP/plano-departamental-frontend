@@ -1,63 +1,83 @@
 <template>
-    <div class="flex-container">
-        <div>
+    <div class="row">
+        <div>    
             <template v-if="horarioVazio(Curso[0])">
-                <h5>1 Período</h5>
-                <horario-noturno :Turmas="Curso[0]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>1 Período</h5>
+                    <horario-noturno :Turmas="Curso[0]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
-            <template v-if="horarioVazio(Curso[1])">
-                <h5>2 Período</h5>
-                <horario-noturno :Turmas="Curso[1]"></horario-noturno>
-            </template>
+        <div>    
+        <template v-if="horarioVazio(Curso[1])">
+            <div class="col-12 item">
+                    <h5>2 Período</h5>
+                    <horario-noturno :Turmas="Curso[1]"></horario-noturno>
+            </div>
+        </template>
         </div>
-        <div>
+        <div>    
             <template v-if="horarioVazio(Curso[2])">
-                <h5>3 Período</h5>
-                <horario-noturno :Turmas="Curso[2]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>3 Período</h5>
+                    <horario-noturno :Turmas="Curso[2]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
+        <div>    
             <template v-if="horarioVazio(Curso[3])">
-                <h5>4 Período</h5>
-                <horario-noturno :Turmas="Curso[3]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>4 Período</h5>
+                    <horario-noturno :Turmas="Curso[3]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
+        <div>    
             <template v-if="horarioVazio(Curso[4])">
-                <h5>5 Período</h5>
-                <horario-noturno :Turmas="Curso[4]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>5 Período</h5>
+                    <horario-noturno :Turmas="Curso[4]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
-            <template v-if="horarioVazio(Curso[5])">
-                <h5>6 Período</h5>
-                <horario-noturno :Turmas="Curso[5]"></horario-noturno>
+        <div>    
+        <template v-if="horarioVazio(Curso[5])">
+                <div class="col-12 item">
+                    <h5>6 Período</h5>
+                    <horario-noturno :Turmas="Curso[5]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
+        <div>    
             <template v-if="horarioVazio(Curso[6])">
-                <h5>7 Período</h5>
-                <horario-noturno :Turmas="Curso[6]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>7 Período</h5>
+                    <horario-noturno :Turmas="Curso[6]"></horario-noturno>
+                </div>
             </template>
         </div>
-        <div>
+        <div>    
             <template v-if="horarioVazio(Curso[7])">
-                <h5>8 Período</h5>
-                <horario-noturno :Turmas="Curso[7]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>8 Período</h5>
+                    <horario-noturno :Turmas="Curso[7]"></horario-noturno>
+                </div>
             </template>
         </div>
         <div>
             <template v-if="horarioVazio(Curso[8])">
-                <h5>9 Período</h5>
-                <horario-noturno :Turmas="Curso[8]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>9 Período</h5>
+                    <horario-noturno :Turmas="Curso[8]"></horario-noturno>
+                </div>
             </template>
         </div>
         <div>
             <template v-if="horarioVazio(Curso[9])">
-                <h5>10 Período</h5>
-                <horario-noturno :Turmas="Curso[9]"></horario-noturno>
+                <div class="col-12 item">
+                    <h5>10 Período</h5>
+                    <horario-noturno :Turmas="Curso[9]"></horario-noturno>
+                </div>
             </template>
         </div>
     </div>
@@ -87,17 +107,12 @@
 </script>
 <style scoped>
 h5{
-    font-weight: 200 !important; 
+    font-weight: normal !important; 
     text-align: start; 
-    padding-left: 20px;
+    font-size: 14px;
 }
-.flex-container{
-    display: flex;
-    width: 100% !important;
-    flex-wrap:wrap;
-    justify-content: space-between;
-    /* -webkit-box-orient: unset;
-    -webkit-box-direction: unset;
-    -webkit-box-align: unset; */
+.item{
+    margin-left:auto;
+    margin-right:40px;
 }
 </style>
