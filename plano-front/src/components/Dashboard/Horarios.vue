@@ -2,7 +2,7 @@
     <div class="DashboardHorarios row" v-if="Admin">
         <div class="col-12">
             <div class="titulo d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2" style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;">Lista Horários</h1>
+                <h1 class="h2" style="font-size:25px; font-weight:normal; padding-left:0; margin-left:0;">Lista Horários</h1>
             </div>
     </div>
         <div class="col">
@@ -10,7 +10,7 @@
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
             <template v-if="periodo===1 || periodo===3">
                 <div class="col-12">
-                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style="border-bottom: 1px solid #cccccc ">1º SEMESTRE</span></h3>
+                <h3 style="font-weight: bold; font-size: 18px; text-align: center;">1º SEMESTRE</h3>
                 </div>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
@@ -44,7 +44,7 @@
 
 <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
             <template v-if="periodo===2 || periodo===3">
-                <h3 style="font-weight: 200; font-size: 26px; text-align: center;"><span style="border-bottom: 1px solid #cccccc">2º SEMESTRE</span></h3>
+                <h3 style="font-weight: bold; font-size: 18px; text-align: center;">2º SEMESTRE</h3>
 <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
                 <template v-if="activeCCD">
                     <h4>Ciência da Computação Diurno</h4>

@@ -7,7 +7,6 @@
 
                 <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;" >
                     <div class="input-group mr-0 ml-auto mb-0 mt-0">
-                        <input type="text" v-model="search" placeholder="Programa">
                         <select class="custom-select custom-select-sm mt-1" v-model="periodos">
                             <option value = "1">Primeiro</option>
                             <option value = "2">Segundo</option>

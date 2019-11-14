@@ -125,7 +125,7 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(48, 46, 46, 0.247);
+        border-color:rgba(189, 189, 189, 0.644);
         color:#333;
         background-color:#fff;
     }
@@ -138,9 +138,9 @@
         border-width:1px;
         overflow:hidden;
         word-break:normal;
-        border-color:rgba(17, 17, 17, 0.829);
-        color:rgb(255, 255, 255);
-        background-color:rgba(24, 23, 23, 0.678);
+        border-color:rgba(189, 189, 189, 0.623);
+        color:#333;
+        background-color:#e9ecef;
     }
     .tg .tg-0lax{
         vertical-align:center;
