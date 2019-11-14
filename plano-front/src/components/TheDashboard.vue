@@ -5,7 +5,7 @@
     <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm" style="height:30px;">
       
       <div class="row w-100" style="margin:0">
-      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 col-2 mr-0">Plano Departamental</router-link>
+      <router-link :to="{ name: 'dashboard' }" class="navbar-brand col-sm-3 col-md-2 col-2 mr-0" style="text-align: center;">Plano Departamental</router-link>
         <transition 
         name="custom-classes-transition"
         mode="out-in">
@@ -61,7 +61,7 @@
                   <i class="far fa-calendar-alt mr-1"></i> {{year}}
                 </a>
               </h6>
-              <ul class="nav flex-column mb-2" v-if="Admin">
+              <ul class="nav  flex-column mb-2" v-if="Admin">
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'pedidos' }" class="sidebarText nav-link" v-on:click="loadPage"><i class="iconsHideSidebar fas fa-clipboard"></i> Tabela</router-link>
                 </li>
@@ -500,7 +500,7 @@ export default {
   padding-top: 35px;/* Height of navbar */
   padding-right: 0px; 
   padding-left: 0px;
-
+  max-width:195px;
   -webkit-box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 75px 0px rgba(0,0,0,0.75);
@@ -611,10 +611,13 @@ export default {
   height:30px;
   color:rgb(213, 214, 216);
   font-size: 15px;
-  padding: 3px 15px 5px 5px;
+  padding: 3px 10px 5px 5px;
   min-width:  -webkit-max-content;
   min-width:  -moz-max-content;
   min-width:  max-content;
+  max-width:  -webkit-max-content;
+  max-width:  -moz-max-content;
+  max-width:  max-content;
   cursor: pointer;
   background-color: rgba(0, 0, 0, .25);
   -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
@@ -646,7 +649,7 @@ export default {
   margin-left: 5px;
 }
 
-@media screen and (max-width: 536px) {
+@media screen and (max-width: 531px) {
   [role="main"] {
     padding-top: 70px;
   }
@@ -886,12 +889,16 @@ export default {
   padding: 0 6px 0 6px;
   height:30px;
   margin-left:0px;
-
   color:#CCCDCF;
   background-color: rgba(0, 0, 0, .25);
   font-size:20px;
   border:1px;
 }
+.btn-navbar:hover{
+  color:white;
+}
+
+
 .aplicaCor{
   background-color:rgb(226, 226, 226);
   color:rgba(0, 0, 0, 0.753);

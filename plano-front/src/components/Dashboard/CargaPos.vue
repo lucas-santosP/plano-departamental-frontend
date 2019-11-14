@@ -311,7 +311,7 @@
         padding:0px 0px 0px 10px !important;
         min-width: 85px; 
         max-width: 85px;
-        text-align:center
+        text-align:center;
     }
     .input-group-text{
         max-width: 70px;

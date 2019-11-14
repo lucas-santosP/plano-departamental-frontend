@@ -6,9 +6,7 @@
             </div>
     </div>
         <div class="col">
-      <div
-         class="tabelas" style="overflow-y: auto; overflow-x: hidden; height: 80vh;"
-      >
+      <div class="tabelas" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);">
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
             <template v-if="periodo===1 || periodo===3">
                 <div class="col-12">
@@ -1030,7 +1028,10 @@
         font-size: 12px;
     }
     .cartao{
-        padding: 0, 0, 0, 10px;
+        padding: 0 0 0 10px;
+    }
+    .card-body{
+        padding-top: 10px;
     }
     option{
         font-size:11px; 
