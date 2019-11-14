@@ -7,7 +7,7 @@
 
                 <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;" >
                     <div class="input-group mr-0 ml-auto mb-0 mt-0">
-                        
+                        <input type="text" v-model="search" placeholder="Programa">
                         <select class="custom-select custom-select-sm mt-1" v-model="periodos">
                             <option value = "1">Primeiro</option>
                             <option value = "2">Segundo</option>
@@ -15,13 +15,13 @@
                         </select>
                         <div class="input-group-append mt-1 mr-4">
                             <div class="input-group-append">
-                                <label class="input-group-text" >Semestre</label>
+                                <label class="input-group-text">Semestre</label>
                             </div>
                         </div>
 
                         <template v-if="isAdd">
                             <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-success botao-estilo" v-on:click.prevent="addCarga" > Confirmar </button>
-                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger "  v-on:click.prevent="toggleAdd" >Cancelar </button>
+                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger"  v-on:click.prevent="toggleAdd" >Cancelar </button>
                         </template>
 
                         <template v-else>

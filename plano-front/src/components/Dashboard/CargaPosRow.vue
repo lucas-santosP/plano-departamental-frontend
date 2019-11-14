@@ -46,7 +46,8 @@
 
         data () {
             return {
-                ativo: false
+                ativo: false,
+                search:''
             }
         },
 
@@ -76,6 +77,12 @@
             Docentes () {
                 return _.orderBy(_.filter(this.$store.state.docente.Docentes, ['ativo', true]),'apelido')
             },
+            // // Meu codigo
+            // Programa:function(){
+            //     return this.programa.filter((carga.programa)=>{
+            //         return carga.programa.match(this.search)
+            //     }
+            // },
         }
     }
 </script>
