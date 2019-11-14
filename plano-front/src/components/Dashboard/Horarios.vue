@@ -79,8 +79,8 @@
       </div>
         </div>
         <!-- Grid Direito -->
-         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-      <div class="col card cartao ml-auto mr-auto" style="top: 0px; max-width: 350px;">
+         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0">
+      <div class="col card cartao ml-auto mr-auto" style="top: 0px; margin-right: 20px; max-width: 350px;">
         <div class="card-body">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h2 style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;">Definir Grades</h2>
@@ -1028,7 +1028,8 @@
         font-size: 12px;
     }
     .cartao{
-        padding: 0 0 0 10px;
+        width: 300px;
+        height:305px;
     }
     .card-body{
         padding-top: 10px;

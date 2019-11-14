@@ -2,7 +2,7 @@
   <div class="DashboardCursos row" v-if="Admin">
     <div class="col-12">
       <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="height: 45px;">
         <h1 class="h2">Lista Cursos</h1>
       </div>
     </div>
@@ -50,45 +50,45 @@
     </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
-       <div class="cartao-inteiro col-lg-4 col-md-12 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-      <div class="col col-lg-12 col-md-12 col-sm-12 col-12 card cartao" style="top: -20px; margin-right:auto; margin-left:auto; width: 100%; max-width: 500px; max-height: 79vh;">
+       <div class="cartao-inteiro col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0" style="margin-right: 20px;">
+      <div class="col col-lg-12 col-md-12 col-sm-12 col-12 card cartao" style="top: -20px; width: 100%; max-width: 350px; max-height: 79vh;">
         <div class="card-body">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
-          <h1 class="h2">Editar Curso</h1>
+          <h1 style="font-size:14px; font-weight: bold; padding-left: 10px;">Editar Curso</h1>
         </template>
         <template v-else>
-          <h1 class="h2">Adicionar Curso</h1>
+          <h1 style="font-size:14px; font-weight: bold; padding-left: 10px;">Adicionar Curso</h1>
         </template>
       </div>
       <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-form-label col-sm-4 col-4" style="text-align: center; margin-bottom: 15px !important;">Nome</label>
-          <div class="col-8">
+          <label for="nome" class="col-form-label col-sm-3 col-3" style="text-align: end; padding: 0">Nome</label>
+          <div class="col-9" style="padding-left: 10px;">
             <input type="text" class="form-control form-control-sm" id="nome" v-model="cursoForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="codigo" class="col-form-label col-sm-4 col-4" style="text-align: center;">Código</label>
-          <div class="col-8">
+          <label for="codigo" class="col-form-label col-sm-3 col-3" style="text-align: end; padding: 0">Código</label>
+          <div class="col-9" style="padding-left: 10px;">
             <input type="text" class="form-control form-control-sm" id="codigo" v-model="cursoForm.codigo">
           </div>
         </div>
         
         <div class="form-group row">
-          <label for="alunosEntrada" class="col-form-label col-sm-4 col-4" style="text-align:center;">Alunos por Entrada</label>
-          <div class="col-8" style="margin-top:auto;margin-bottom:auto;">
+          <label for="alunosEntrada" class="col-form-label col-sm-3 col-3" style="text-align:end; padding: 0">Alunos por Entrada</label>
+          <div class="col-9" style="padding-left: 10px;">
             <input type="text" class="form-control form-control-sm"  id="alunosEnrada" v-model="cursoForm.alunosEntrada">
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="turno" class="col-lg-4 col-md-4 col-sm-4 col-4 col-form-label" style="text-align:center;">Turno</label>
+          <label for="turno" class="col-lg-3 col-md-3 col-sm-3 col-3 col-form-label" style="text-align:end; padding: 0">Turno</label>
           <div class="col-sm-6 col-6">
-            <div id="turno">
+            <div class="radio" id="turno">
               <input type="radio" name="turno" value="Diurno" v-model="cursoForm.turno"> Diurno<br/>
               <input type="radio" name="turno" value="Integral" v-model="cursoForm.turno"> Integral<br/>
               <input type="radio" name="turno" value="Noturno" v-model="cursoForm.turno"> Noturno<br/>
@@ -96,9 +96,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="semestreInicial" class="col-lg-4 col-md-4 col-sm-4 col-4 col-form-label" style="text-align: center;">Semestre de Entrada </label>
+          <label for="semestreInicial" class="col-lg-3 col-md-3 col-sm-3 col-3 col-form-label" style="text-align: end;padding: 0;">Semestre de Entrada </label>
           <div class="col-sm-6 col-6">
-            <div id="semestreInicial">
+            <div class="radio" id="semestreInicial">
               <input type="radio" name="semestreInicial" value="1" v-model="cursoForm.semestreInicial"> Primeiro<br/>
               <input type="radio" name="semestreInicial" value="2" v-model="cursoForm.semestreInicial"> Segundo<br/>
               <input type="radio" name="semestreInicial" value="3" v-model="cursoForm.semestreInicial"> Ambos<br/>
@@ -299,6 +299,17 @@ table th {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  font-size: 11px;
+}
+td{
+  font-size: 11px;
+}
+.h2{
+  font-size: 25px;
+  font-weight: normal;
+}
+.radio{
+  font-size:11px;
 }
 .botao-estilo{
     background-color: #faca4d !important;
@@ -314,12 +325,35 @@ table th {
 .botao-estilo:focus{
     box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
+.btn {
+    height:25px;
+    min-width: -webkit-max-content;
+    min-width: -moz-max-content;
+    min-width: max-content;
+    font-size:12px;
+    padding: 0 5px 0 5px;
+    max-width:65px;
+}
 .form-group {
   margin-bottom: 8px !important;
 }
 .col-form-label{
+  font-size: 11px;
   padding-top:0;
   padding-bottom:0;
+}
+input[type="text"]{
+  height:25px;
+}
+input[type="radio"],
+input[type="checkbox"]{
+  height: 13px;
+}
+
+.cartao{
+  width: 300px !important;
+  height: 370px !important;
+  padding: 0 0 0 5px;
 }
 @media screen and (max-width: 1189px){
   .cartao{
@@ -329,10 +363,10 @@ table th {
 }
 @media screen and (min-width: 992px; max-width: 1189px){
   .cartao-inteiro{
-    width:500px !important;
+    width:350px !important;
   }
   .cartao{
-    width: 500px !important;
+    width: 350px !important;
   }
 }
 </style>
