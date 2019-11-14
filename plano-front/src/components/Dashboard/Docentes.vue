@@ -3,8 +3,8 @@
     <!-- Titulo -->
     <div class="col-12">
       <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Lista Docentes</h1>
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="height:45px">
+        <h1 style="font-size: 25px; font-weight:normal ">Lista Docentes</h1>
       </div>
     </div>
     <!-- Fim do Titulo -->
@@ -297,6 +297,33 @@
       position: sticky;
       top: 0;
       z-index: 3;
+      font-size: 11px;
+      height: 20px;
+      padding: 0;
+      vertical-align: middle;
+    }
+    td{
+      font-size: 11px;
+      padding: 0;
+      height: 24px !important;
+      vertical-align: middle;
+    }
+    label{
+      font-size: 12px !important;
+    }
+    input[type="text"]{
+      height: 25px;
+    }
+    input[type="checkbox"]{
+      height: 20px;
+      vertical-align: middle;
+    }
+    .h2{
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .custom-control{
+      font-size: 12px;
     }
     .botao-estilo{
         background-color: #faca4d !important;
@@ -311,6 +338,15 @@
     
     .botao-estilo:focus{
         box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+    }
+    .btn {
+      height:25px;
+      min-width: -webkit-max-content;
+      min-width: -moz-max-content;
+      min-width: max-content;
+      font-size:12px;
+      padding: 0 5px 0 5px;
+      max-width:65px;
     }
     .form-group {
       margin-bottom: 13px !important;
