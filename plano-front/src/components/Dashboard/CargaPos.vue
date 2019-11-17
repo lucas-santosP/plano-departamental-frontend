@@ -1,5 +1,5 @@
 <template>
-    <div class="CargaPos" style="height: calc(100vh - 48px); font-size:11px;">
+    <div class="CargaPos" style="font-size:11px;">
         <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"> 
             <div class="form-inline col-12 pl-0 mb-2 pr-1">
 
@@ -20,12 +20,12 @@
 
                         <template v-if="isAdd">
                             <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-success botao-estilo" v-on:click.prevent="addCarga" > Confirmar </button>
-                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger"  v-on:click.prevent="toggleAdd" >Cancelar </button>
+                            <button type="button" class="btn btn-sm col-1 mt-1 btn-danger"  v-on:click.prevent="toggleAdd" >Cancelar </button>
                         </template>
 
                         <template v-else>
                             <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-success " v-on:click.prevent="toggleAdd" >Adicionar </button>
-                            <button type="button" class="btn btn-sm col-1 mt-1 mr-2 btn-danger botao-estilo2" v-b-modal.modalConfirma>Deletar </button>
+                            <button type="button" class="btn btn-sm col-1 mt-1 btn-danger botao-estilo2" v-b-modal.modalConfirma>Deletar </button>
 
                             <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
@@ -51,7 +51,7 @@
             <div class="cube2"></div>
         </div>
 
-        <div class="pl-0" style="overflow: hidden; height: calc(100vh - 100px); border: #808080 solid 2px; width:351px" v-if="!isLoading">
+        <div class="pl-0 divTable" v-if="!isLoading">
             <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-light sticky">
                     <tr>
@@ -320,7 +320,12 @@
         padding-left:15px; 
         font-size: 12px !important;
     }
-
+    .divTable{
+        overflow: hidden;
+        height: calc(100vh - 100px);
+        border: #808080 solid 2px;
+        width:max-content;
+    }
     table {
         display: block;
         overflow-y: scroll;

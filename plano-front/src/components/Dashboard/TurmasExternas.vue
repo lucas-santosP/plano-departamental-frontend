@@ -1,64 +1,67 @@
 <template>
   <div class="TurmasExternas row" v-if="Admin">
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">  
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+    >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
 
-        <div class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0" style="justify-content: flex-end;" >
-            <div class="input-group mr-0 ml-auto mb-0 mt-0" >
-              
-              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
-                <option value = "1">Primeiro</option>
-                <option value = "2">Segundo</option>
-                <option value = "3">Ambos</option>
-              </select>
-              <div class="input-group-append mt-1 mr-4">
-                <div class="input-group-append">
-                  <label class="input-group-text" >Semestre</label>
-                </div>
+        <div
+          class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"
+          style="justify-content: flex-end;"
+        >
+          <div class="input-group mr-0 ml-auto mb-0 mt-0">
+            <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+              <option value="1">Primeiro</option>
+              <option value="2">Segundo</option>
+              <option value="3">Ambos</option>
+            </select>
+            <div class="input-group-append mt-1 mr-4">
+              <div class="input-group-append">
+                <label class="input-group-text">Semestre</label>
               </div>
+            </div>
 
-              <template v-if="isAdd">
-                <button
-                  type="button"
-                  class="btn btn-sm mt-1 btn-success col-1 botao-estilo mr-2"
-                  v-on:click.prevent="addTurma"
-                >Confirmar</button>
-                <button
-                  type="button"
-                  class="btn btn-sm mt-1 btn-danger col-1 mr-2"
-                  v-on:click.prevent="toggleAdd"
-                >Cancelar</button>
-              </template>
-              <template v-else>
-                <button
-                  type="button"
-                  class="btn btn-sm mt-1 btn-success col-1 mr-2"
-                  v-on:click.prevent="toggleAdd"
-                >Adicionar</button>
-                <button
-                  type="button"
-                  class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2 mr-2"
-                  style
-                  v-b-modal.modalConfirma
-                >Deletar</button>
+            <template v-if="isAdd">
+              <button
+                type="button"
+                class="btn btn-sm mt-1 btn-success col-1 botao-estilo mr-2"
+                v-on:click.prevent="addTurma"
+              >Confirmar</button>
+              <button
+                type="button"
+                class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                v-on:click.prevent="toggleAdd"
+              >Cancelar</button>
+            </template>
+            <template v-else>
+              <button
+                type="button"
+                class="btn btn-sm mt-1 btn-success col-1 mr-2"
+                v-on:click.prevent="toggleAdd"
+              >Adicionar</button>
+              <button
+                type="button"
+                class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                style
+                v-b-modal.modalConfirma
+              >Deletar</button>
 
-                <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-                  <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-                  <template v-for="turma in Deletar">
-                    <template v-for="disciplina in Disciplinas">
-                      <template v-if="disciplina.id===turma.Disciplina">
-                        <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">
-                          Disciplina:{{disciplina.codigo}}
-                          <br />
-                          Turma:{{turma.letra}}
-                        </p>
-                      </template>
+              <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+                <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
+                <template v-for="turma in Deletar">
+                  <template v-for="disciplina in Disciplinas">
+                    <template v-if="disciplina.id===turma.Disciplina">
+                      <p :key="'disciplina'+disciplina.id+'tirma'+turma.id" style="width:80px">
+                        Disciplina:{{disciplina.codigo}}
+                        <br />
+                        Turma:{{turma.letra}}
+                      </p>
                     </template>
                   </template>
-                </b-modal>
-              </template>
+                </template>
+              </b-modal>
+            </template>
           </div>
         </div>
       </div>
@@ -71,11 +74,14 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-0" style="overflow: hidden; height:auto; height: calc(100vh - 100px); border: #808080 solid 2px;" v-if="!isLoading">
-      <table class="table table-hover table-bordered table-sm" >
+    <div class="pl-0 divTable" v-if="!isLoading">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light sticky">
           <tr>
-            <div style="display: block; overflow: hidden; width: 895px; height:20px !important" class="sticky">
+            <div
+              style="display: block; overflow: hidden; width: 895px; height:20px !important"
+              class="sticky"
+            >
               <th scope="col">
                 <p class="p-header" style="width:24px !important;">S.</p>
               </th>
@@ -106,12 +112,13 @@
               <template v-for="curso in Cursos">
                 <th scope="col" :key="'curso'+curso.id" :id="'curso'+curso.id">
                   <p class="p-header" style="width:32px !important;">{{curso.codigo}}</p>
-                  
+
                   <b-popover
                     :key="curso.id"
                     :target="'curso'+curso.id"
                     placement="bottom"
-                    triggers="hover focus">
+                    triggers="hover focus"
+                  >
                     <span
                       v-if="curso.semestreInicial==1 || curso.semestreInicial==3"
                     >1º - {{curso.alunosEntrada}}</span>
@@ -129,7 +136,6 @@
           <!-- Adição de turma-->
           <template v-if="isAdd">
             <tr style="background-color:#cccccc;" class="stickyAdd">
-
               <div style="width: 895px; height:38px;">
                 <td>
                   <div style="width:24px !important;">
@@ -137,7 +143,8 @@
                       type="text"
                       style="width: 20px; height:20px; text-align: center; "
                       id="periodo"
-                      v-model="turmaForm.periodo"/>
+                      v-model="turmaForm.periodo"
+                    />
                   </div>
                 </td>
                 <td>
@@ -195,12 +202,7 @@
                 </td>
                 <td>
                   <div style="width: 40px">
-                    <input
-                      type="text"
-                      style="width:20px;"
-                      id="turma"
-                      v-model="turmaForm.letra"
-                    />
+                    <input type="text" style="width:20px;" id="turma" v-model="turmaForm.letra" />
                   </div>
                 </td>
                 <td>
@@ -256,16 +258,12 @@
                       type="text"
                       style="width:93px; text-align:center; margin-bottom:1px;"
                       id="sala1"
-                      v-model="turmaForm.Sala1">
+                      v-model="turmaForm.Sala1"
+                    >
                       <option v-if="Salas.length===0" type="text" value>Nenhuma Sala Encontrada</option>
                       <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
                     </select>
-                    <select
-                      type="text"
-                      style="width:93px;"
-                      id="sala2"
-                      v-model="turmaForm.Sala2"
-                    >
+                    <select type="text" style="width:93px;" id="sala2" v-model="turmaForm.Sala2">
                       <option v-if="Salas.length===0" type="text" value>Nenhuma Sala Encontrada</option>
                       <option v-for="sala in Salas" :key="sala.id" :value="sala.id">{{sala.nome}}</option>
                     </select>
@@ -275,7 +273,6 @@
                   <!-- Ocupa espaço vazio das vagas na parte de edição -->
                   <div style="width: 165px; height:37px"></div>
                 </td>
-
               </div>
             </tr>
           </template>
@@ -625,16 +622,16 @@ export default {
 .TurmasExternas {
   max-width: 100%;
   overflow: hidden;
-  margin:0;
+  margin: 0;
 }
 .btn {
-  height:25px;
+  height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-size:12px;
+  font-size: 12px;
   padding: 0 5px 0 5px;
-  max-width:65px;
+  max-width: 65px;
 }
 .botao-estilo {
   background-color: #0079fa !important;
@@ -648,8 +645,8 @@ export default {
 
 .botao-estilo:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-     -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-          box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
 
 .botao-estilo2 {
@@ -664,30 +661,30 @@ export default {
 
 .botao-estilo2:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-     -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-          box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
 }
 
-.titulo{
-  font-size:25px;
+.titulo {
+  font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin:0;
+  margin: 0;
 }
-.custom-select{
-  height:26px !important;
+.custom-select {
+  height: 26px !important;
   font-size: 12px !important;
-  padding:0px 0px 0px 10px !important;
-  min-width:85px;
-  max-width:85px;
-  text-align:center
+  padding: 0px 0px 0px 10px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: center;
 }
-.input-group-text{
+.input-group-text {
   max-width: 70px;
   min-width: 70px;
-  height:26px!important; 
-  margin-left:-5px; 
-  padding-left:15px; 
+  height: 26px !important;
+  margin-left: -5px;
+  padding-left: 15px;
   font-size: 12px !important;
 }
 .p-header {
@@ -695,9 +692,15 @@ export default {
   margin: 0;
   font-size: 11px;
   text-align: center;
-  height:18px;
+  height: 18px;
 }
-
+.divTable {
+  overflow: hidden;
+  height: auto;
+  height: calc(100vh - 100px);
+  border: #808080 solid 2px;
+  width: max-content;
+}
 table {
   display: block;
   overflow-y: scroll;
@@ -706,7 +709,7 @@ table {
   height: calc(100vh - 100px);
   font-size: 11px;
   background-color: #f5f5f5;
-  margin:0;
+  margin: 0;
 }
 tbody {
   /*top: 23px;*/
@@ -732,35 +735,35 @@ thead th {
   height: 18px !important;
 }
 table select {
-  height: 15px!important;
-  text-align:left;
+  height: 15px !important;
+  text-align: left;
 }
-table input{
-  height: 18px!important;
-  text-align:center!important;
+table input {
+  height: 18px !important;
+  text-align: center !important;
 }
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   select {
-      height: 15px!important;
-      text-align:left;
-      box-sizing: border-box;
-      
-      line-height: 8px;
-      border: 0.5px solid rgb(133, 133, 133);
-      border-radius: 2px;
-      background-color: rgb(245, 245, 245);
+    height: 15px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
   }
-  input{
-      height: 18px!important;
-      text-align:center;
-      box-sizing: border-box;
-      
-      line-height: 8px;
-      border: 0.5px solid rgb(92, 92, 92);
-      border-radius: 2px;
-      background-color:rgb(245, 245, 245);
+  input {
+    height: 18px !important;
+    text-align: center;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
   }
 }
 
@@ -769,34 +772,34 @@ table input{
   position: -webkit-sticky;
   top: 0;
 }
-.stickyAdd{
+.stickyAdd {
   position: sticky;
   position: -webkit-sticky;
   top: 20px;
-  display:fixed;
+  display: fixed;
 }
-/*
-.formSelect{
-  height:26px !important;
-  font-size: 12px !important;
-  padding:0px 0px 0px 5px !important;
-}
-*/
+
 .example {
-    display: -ms-grid;
-    display: grid;
-    -webkit-transition: all .5s;
-    -o-transition: all .5s;
-    -moz-transition: all .5s;
-    transition: all .5s;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    background: -webkit-gradient(linear, left top, left bottom, from(white), to(black));
-    background: -webkit-linear-gradient(top, white, black);
-    background: -moz-linear-gradient(top, white, black);
-    background: -o-linear-gradient(top, white, black);
-    background: linear-gradient(to bottom, white, black);
+  display: -ms-grid;
+  display: grid;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(white),
+    to(black)
+  );
+  background: -webkit-linear-gradient(top, white, black);
+  background: -moz-linear-gradient(top, white, black);
+  background: -o-linear-gradient(top, white, black);
+  background: linear-gradient(to bottom, white, black);
 }
 </style>

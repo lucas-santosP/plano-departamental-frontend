@@ -6,7 +6,7 @@
   >
     <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css" />
 
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
       <div class="row w-100" style="margin:0">
         <router-link
           :to="{ name: 'dashboard' }"
@@ -188,7 +188,7 @@
         <main
           @click="show=false"
           role="main"
-          class="col-12 ml-auto pl-4 pr-0"
+          class="col-12 ml-auto pl-2 pr-2"
           style="padding-right:0; overflow:hidden;"
           v-if="!isLoading"
         >
@@ -628,7 +628,7 @@ export default {
   padding-top: 35px; /* Height of navbar */
   padding-right: 0px;
   padding-left: 0px;
-  max-width: 195px;
+  max-width: 200px;
   -webkit-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
@@ -731,14 +731,14 @@ export default {
 }
 
 [role="main"] {
-  padding-top: 35px; /* Space for fixed navbar */
+  padding-top: 32px; /* Space for fixed navbar */
 }
 
 .navbar-brand {
   height: 30px;
   color: rgb(213, 214, 216);
   font-size: 15px;
-  padding: 3px 10px 5px 5px;
+  padding: 3px 12px 5px 10px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
@@ -1002,10 +1002,10 @@ export default {
 }
 @media screen and (max-width: 522px) {
   [role="main"] {
-    padding-top: 65px;
+    padding-top: 62px;
   }
   .sidebar {
-    padding-top: 65px;
+    padding-top: 62px;
   }
   .listaNavbarTop {
     margin-left: 0;

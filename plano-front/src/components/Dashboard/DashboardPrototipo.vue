@@ -34,7 +34,7 @@
               >Cancelar</button>
               <button
                 type="button"
-                class="btn mt-1 btn-sm btn-success col-1 mr-2 botao-estilo"
+                class="btn mt-1 btn-sm btn-success col-1 botao-estilo"
                 style="max-width:80px;"
                 v-on:click.prevent="addTurma"
               >Confirmar</button>
@@ -55,7 +55,7 @@
               >Deletar</button>
               <button
                 type="button"
-                class="btn mt-1 btn-sm btn-info col-1 mr-2"
+                class="btn mt-1 btn-sm btn-info col-1"
                 style="max-width: 65px;"
                 v-on:click.prevent="xlsx(Pedidos)"
               >XLSX</button>
