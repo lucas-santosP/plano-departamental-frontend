@@ -188,7 +188,7 @@
         <main
           @click="show=false"
           role="main"
-          class="col-12 ml-auto pl-2 pr-2"
+          class="col-12 ml-auto pl-2 pr-0"
           style="padding-right:0; overflow:hidden;"
           v-if="!isLoading"
         >
