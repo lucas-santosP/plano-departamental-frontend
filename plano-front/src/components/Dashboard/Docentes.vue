@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardDocentes row" v-if="Admin">
+  <div class="DashboardDocentes row" v-if="Admin" style="max-height: 92vh">
     <!-- Titulo -->
     <div class="col-12">
       <div
@@ -10,23 +10,23 @@
     <!-- Fim do Titulo -->
     <!-- Grid Esquerdo -->
     <div class="col">
-     <div style="overflow-y: auto; position:relative; height: 80vh;">
+     <div style="overflow:hidden auto; position:relative; height: 82vh; width: 480px;">
         <!-- Inicio da Tabela -->
         <table class="table table-hover table-sm">
         <thead class="thead-light">
         <tr>
           <th scope="col">Nome</th>
           <th scope="col">Apelido</th>
-          <th scope="col">Ativo</th>
+          <th style="width: 40px"scope="col">Ativo</th>
         </tr>
         </thead>
         <tbody>
         <template v-if="Docentes.length > 0">
-          <tr v-for="docente in Docentes" :key="docente.id" v-on:click.prevent="showDocentes(docente, DocentePerfis)">
-            <td>{{docente.nome}}</td>
-            <td>{{docente.apelido}}</td>
-            <td><b-form-checkbox disabled v-model="docente.ativo"></b-form-checkbox></td>
-          </tr>
+            <tr v-for="docente in Docentes" :key="docente.id" v-on:click.prevent="showDocentes(docente, DocentePerfis)">
+              <td style="width: 305px !important;">{{docente.nome}}</td>
+              <td style="width: 150px !important;">{{docente.apelido}}</td>
+              <td><b-form-checkbox disabled v-model="docente.ativo"></b-form-checkbox></td>
+            </tr>
         </template>
         <template v-else>
           <tr>
@@ -41,11 +41,12 @@
     </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
-    <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-      <div class="col card cartao" style="top: 0px; width: 90%; max-width: 500px; margin-left:auto;margin-right:auto;">
-        <div class="card-body" style="padding:25px;">
+       
+    <div class="cartao-inteiro col-lg-5 col-md-10 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
+        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
       <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
           <h1 class="h2">Editar Docente</h1>
         </template>
@@ -55,21 +56,21 @@
       </div>
       <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
       </b-alert>
-      <form>
+      <form style="overflow:hidden auto; max-height: 70vh">
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label" style="text-align: center;">Nome</label>
+          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;padding:0">Nome</label>
           <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
             <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="docenteForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: center;">Apelido</label>
+          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: end; padding:0">Apelido</label>
           <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
             <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="apelido" v-model="docenteForm.apelido">
           </div>
         </div>
         <div class="form-group row">
-          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: center;">Perfis</label>
+          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: end;padding:0">Perfis</label>
           <template v-if="docenteForm.id!=undefined">
           <div class="col-sm-9" id="perfis">
             <b-form-checkbox-group stacked v-model="perfisAssociados">
@@ -292,6 +293,7 @@
 </script>
 
 <style scoped>
+    table{height:80vh;width:475px !important;}
     table th{
       position:-webkit-sticky;
       position: sticky;
@@ -313,17 +315,31 @@
     }
     input[type="text"]{
       height: 25px;
+      font-size: 11px;
     }
     input[type="checkbox"]{
       height: 20px;
       vertical-align: middle;
     }
     .h2{
+      padding-left: 10px;
       font-size: 14px;
       font-weight: bold;
     }
+    .cartao{
+      width: 330px !important;
+      height:auto !important;
+      top: -20px !important;
+      padding: 0 0 0 5px;
+    } 
+    .cartao-inteiro{
+      padding-right:15px;
+    }
     .custom-control{
-      font-size: 12px;
+      font-size: 11px;
+    }
+    .custom-control-inline{
+      margin-right: 0 !important;
     }
     .botao-estilo{
         background-color: #faca4d !important;
@@ -355,7 +371,7 @@
       padding-top:0;
       padding-bottom:0;
     }
-    
+   
     @media screen and (max-width:575px) {
         .col-form-label{
             text-align:start !important;
