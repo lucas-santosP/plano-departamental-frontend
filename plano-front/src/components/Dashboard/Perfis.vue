@@ -4,13 +4,13 @@
     <div class="col-12">
       <!-- Titulo -->
       <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Lista Perfis</h1>
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="height: 45px">
+        <h1>Lista Perfis</h1>
       </div>
     </div>
       <div class="col">
       <!-- Inicio da Tabela -->
-      <div style="overflow-y: auto; height: 75vh;">
+      <div style="overflow: auto; position:relative; height: 82vh; max-width: 500px;">
       <table class="table table-hover table-sm">
         <thead class="thead-light">
         <tr>
@@ -22,9 +22,9 @@
         <tbody>
         <template v-if="Perfis.length > 0">
           <tr v-for="perfil in Perfis" :key="perfil.id" v-on:click.prevent="showPerfil(perfil)">
-            <td>{{perfil.nome}}</td>
+            <td style="width: 350px">{{perfil.nome}}</td>
             <td>{{perfil.abreviacao}}</td>
-            <input type="color" v-model="perfil.cor">
+            <input type="color" style="width: 30px;padding:0;vertical-align:middle" v-model="perfil.cor">
           </tr>
         </template>
         <template v-else>
@@ -40,37 +40,37 @@
     </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
-     <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-       <div class="card cartao" style="max-width: 500px; width:90%; margin-left: auto; margin-right: auto; padding-right: 10px; padding-left: 20px;">
-         <div class="card-body">
+     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
+         <div class="card-body"style="padding:20px;">
       <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
-          <h1 class="h2">Editar Perfil</h1>
+          <h2>Editar Perfil</h2>
         </template>
         <template v-else>
-          <h1 class="h2">Adicionar Perfil</h1>
+          <h2>Adicionar Perfil</h2>
         </template>
       </div>
       <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
       </b-alert>
       <form>
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Nome</label>
-          <div class="col-sm-8">
+          <label for="nome" class="col-sm-3 col-3 col-form-label texto-cartao" style="text-align: end;">Nome</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-9">
             <input type="text" class="form-control" id="nome" v-model="perfilForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="abreviacao" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Abreviação</label>
-          <div class="col-sm-8">
+          <label for="abreviacao" class="col-sm-3 col-3 col-form-label texto-cartao" style="text-align: end;">Abreviação</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-9">
             <input type="text" class="form-control" id="abreviacao" v-model="perfilForm.abreviacao">
           </div>
         </div>
         <div class="form-group row">
-          <label for="cor" class="col-sm-3 col-form-label texto-cartao" style="text-align: end;">Cor</label>
-          <div class="col-sm-8">
-            <input type="color" class="form-control" id="cor" v-model="perfilForm.cor">
+          <label for="cor" class="col-sm-3 col-3 col-form-label texto-cartao" style="text-align: end;">Cor</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-9">
+            <input type="color" class="form-control" style="height:25px !important; padding:2px;" id="cor" v-model="perfilForm.cor">
           </div>
         </div>
         <div class="form-group row">
@@ -207,32 +207,58 @@ export default {
 </script>
 
 <style scoped>
-table th{
-      position:-webkit-sticky;
-      position: sticky;
-      top: 0;
-    }
-    .botao-estilo{
-        background-color: #faca4d !important;
-        border-color: #faca4d !important;
-        color: white;
-    }
+  table{height:80vh; width:500px !important;}
+  table th{
+    position:-webkit-sticky;
+    position: sticky;
+    top: 0;
+    font-size: 11px;
+  }
+  td{font-size:11px;}
+  h1{font-size:25px;}
+  h2{font-size:14px; font-weight:bold;padding-left: 10px;}
+  .custom-control{font-size: 11px;}
+  .texto-cartao{
+    font-size:12px;
+    padding:0;
+  }
+  input[type="text"]{height:25px !important;font-size:11px;}
+  .cartao{
+      width: 330px !important;
+      height:auto !important;
+      top: -20px !important;
+      padding: 0 0 0 5px;
+  } 
+  .cartao-inteiro{
+      padding-right:15px;
+  }
+  .btn {
+      height:25px;
+      min-width: -webkit-max-content;
+      min-width: -moz-max-content;
+      min-width: max-content;
+      font-size:12px;
+      padding: 0 5px 0 5px;
+      max-width:65px;
+  }
+  .botao-estilo{
+      background-color: #faca4d !important;
+      border-color: #faca4d !important;
+      color: white;
+  }
 
-    .botao-estilo:hover{
-        background-color: #f8ac51 !important;
-        border-color: #f8ac51 !important;
+  .botao-estilo:hover{
+      background-color: #f8ac51 !important;
+      border-color: #f8ac51 !important;
+  }
+  
+  .botao-estilo:focus{
+      box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  }
+  @media screen and (max-width: 992px) {
+    .cartao{
+      margin-left:auto !important;
+      margin-right:auto !important;
     }
-    
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-    }
-    @media screen and (max-width: 575px) {
-      .texto-cartao{
-        text-align: start !important;
-      }
-      .cartao{
-        margin-left:auto !important;
-        margin-right:auto !important;
-      }
-    }
+  }
 </style>

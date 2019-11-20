@@ -293,7 +293,7 @@
 </script>
 
 <style scoped>
-    table{height:80vh;width:475px !important;}
+    table{height:80vh;max-width:475px !important;}
     table th{
       position:-webkit-sticky;
       position: sticky;
