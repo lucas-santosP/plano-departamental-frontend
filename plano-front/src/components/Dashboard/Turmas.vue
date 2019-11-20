@@ -594,7 +594,6 @@ export default {
   text-align: center;
   height: 18px;
 }
-
 table {
   display: block;
   overflow-y: scroll;

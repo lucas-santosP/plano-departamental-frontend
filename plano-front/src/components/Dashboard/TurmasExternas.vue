@@ -1,5 +1,5 @@
 <template>
-  <div class="TurmasExternas row" v-if="Admin">
+  <div class="TurmasExternas row pr-2" v-if="Admin">
     <div
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
@@ -283,25 +283,27 @@
             <template v-for="perfil in Perfis">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                v-if="turma.periodo==1 && (periodos == 1 || periodos==3)"
                 :key="turma.id"
                 v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                     'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
               >
-                <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                <template v-if="turma.periodo==1 && (periodos == 1 || periodos==3)">
+                  <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                </template>
               </tr>
             </template>
             <template v-for="perfil in Perfis">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                v-if="turma.periodo==3 && (periodos==2 || periodos==3)"
                 :key="turma.id"
                 v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                     'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
               >
-                <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                <template v-if="turma.periodo==3 && (periodos==2 || periodos==3)">
+                  <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                </template>
               </tr>
             </template>
           </template>
@@ -696,9 +698,8 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  height: auto;
-  height: calc(100vh - 100px);
   border: #808080 solid 2px;
+  height: max-content;
   width: max-content;
 }
 table {

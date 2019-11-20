@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardPrototipo row" style="height:100%;" v-if="Admin">
+  <div class="DashboardPrototipo row pr-2" style="height:100%;" v-if="Admin">
     <div
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
       style="overflow: auto; width: 100%"
@@ -121,12 +121,7 @@
       <div class="cube2"></div>
     </div>
 
-    <div
-      class="pl-0"
-      style="overflow: hidden; height:auto; height: calc(100vh - 100px); border: #808080 solid 2px;"
-      v-if="!isLoading"
-      ref="mainTable"
-    >
+    <div class="pl-0 divTable" v-if="!isLoading" ref="mainTable">
       <table class="table table-bordered table-hover table-sm">
         <thead class="thead-light sticky">
           <tr>
@@ -592,7 +587,12 @@ export default {
 .cursoGrande {
   font-size: 7px !important;
 }
-
+.divTable {
+  overflow: hidden;
+  border: #808080 solid 2px;
+  height: max-content;
+  width: max-content;
+}
 table {
   display: block;
   overflow-y: scroll;

@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardCargaProfessores row">
+  <div class="DashboardCargaProfessores row pr-2" style="overflow-y:auto">
     <div
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
@@ -17,7 +17,7 @@
 
     <div class="divTable pl-0" ref="carga">
       <table class="table table-hover table-sm table-bordered">
-        <thead class="thead-light sticky" >
+        <thead class="thead-light sticky">
           <tr>
             <div
               style="display: block; overflow: hidden; width: 645px; height:20px !important"
@@ -98,7 +98,10 @@
               </template>
 
               <template v-for="turma in turmas(professor)">
-                <tr v-for="disciplina in Disciplinas" :key="'turma'+turma.id+'disciplina'+disciplina.id+'professor'+professor.id">
+                <tr
+                  v-for="disciplina in Disciplinas"
+                  :key="'turma'+turma.id+'disciplina'+disciplina.id+'professor'+professor.id"
+                >
                   <template
                     v-if="turma.Disciplina===disciplina.id && (turma.Docente1===professor.id || turma.Docente2===professor.id)"
                   >
@@ -113,7 +116,9 @@
                         <div style="width: 80px">{{disciplina.codigo}}</div>
                       </td>
                       <td>
-                        <div style="width: 150px; text-algin:center"><p style="width: 150px;">{{disciplina.nome}}</p></div>
+                        <div style="width: 150px; text-algin:center">
+                          <p style="width: 150px;">{{disciplina.nome}}</p>
+                        </div>
                       </td>
                       <td>
                         <div style="width: 24px">{{turma.letra}}</div>
@@ -167,20 +172,40 @@
 
               <template v-for="carga in CargasPos">
                 <template v-if="carga.Docente===professor.id">
-                  <tr>
+                  <tr :key="'cargaPos'+carga.id+'professor'+professor.id">
                     <div style="width: 645px;">
-                      <td><div style="width: 130px"></div></td>
-                      <td><div style="width: 24px">{{carga.trimestre}}</div></td>
-                      <td><div style="width: 80px"></div></td>
-                      <td><div style="width: 150px">Disciplina do {{carga.programa}}</div></td>
-                      <td><div style="width: 24px"></div></td>
-                      <td><div style="width: 120px"></div></td>
+                      <td>
+                        <div style="width: 130px"></div>
+                      </td>
+                      <td>
+                        <div style="width: 24px">{{carga.trimestre}}</div>
+                      </td>
+                      <td>
+                        <div style="width: 80px"></div>
+                      </td>
+                      <td>
+                        <div style="width: 150px">Disciplina do {{carga.programa}}</div>
+                      </td>
+                      <td>
+                        <div style="width: 24px"></div>
+                      </td>
+                      <td>
+                        <div style="width: 120px"></div>
+                      </td>
 
-                      <td v-if="carga.trimestre==1 || carga.trimestre==2"><div style="width: 32px">{{carga.creditos}}</div></td>
-                      <td v-else><div style="width: 32px">-</div></td>
+                      <td v-if="carga.trimestre==1 || carga.trimestre==2">
+                        <div style="width: 32px">{{carga.creditos}}</div>
+                      </td>
+                      <td v-else>
+                        <div style="width: 32px">-</div>
+                      </td>
 
-                      <td v-if="carga.trimestre==3 || carga.trimestre==4"><div style="width: 32px">{{carga.creditos}}</div></td>
-                      <td v-else><div style="width: 32px">-</div></td>
+                      <td v-if="carga.trimestre==3 || carga.trimestre==4">
+                        <div style="width: 32px">{{carga.creditos}}</div>
+                      </td>
+                      <td v-else>
+                        <div style="width: 32px">-</div>
+                      </td>
 
                       <td></td>
                     </div>
@@ -372,7 +397,7 @@ export default {
 </script>
 
 <style scoped>
-.DashboardCargaProfessores{
+.DashboardCargaProfessores {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
@@ -384,11 +409,11 @@ export default {
   text-align: center;
   height: 18px;
 }
-.divTable{
-  height: calc(100vh - 100px);
+.divTable {
   overflow: hidden;
   border: #808080 solid 2px;
-  width:max-content;
+  height: max-content;
+  width: max-content;
 }
 table {
   display: block;
