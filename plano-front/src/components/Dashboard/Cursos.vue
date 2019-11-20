@@ -50,9 +50,9 @@
     </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
-       <div class="cartao-inteiro col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0" style="margin-right: 20px;">
-      <div class="col col-lg-12 col-md-12 col-sm-12 col-12 card cartao" style="top: -20px; max-width: 350px; max-height: 79vh;">
-        <div class="card-body">
+     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
+        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
         <template v-if="isEdit">
@@ -352,21 +352,16 @@ input[type="checkbox"]{
 
 .cartao{
   width: 330px !important;
-  height: 370px !important;
+  height: auto !important;
   padding: 0 0 0 5px;
+  margin-right: 20px !important;
+  margin-left:auto;
 }
-@media screen and (max-width: 1189px){
-  .cartao{
-    max-height: auto;
-    top: 20px !important;
-  }
-}
-@media screen and (min-width: 992px; max-width: 1189px){
-  .cartao-inteiro{
-    width:350px !important;
-  }
-  .cartao{
-    width: 350px !important;
-  }
-}
+ @media screen and (max-width: 992px) {
+        .cartao{
+          margin-right:auto !important;
+          top:0 !important;
+        }
+    }
+
 </style>
