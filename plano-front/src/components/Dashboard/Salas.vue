@@ -1,95 +1,129 @@
 <template>
   <div class="DashboardSalas row" v-if="Admin">
-    
-      <div class="col-12">
-     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Lista Salas</h1>
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+    >
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+        <h1 class="titulo">Lista Salas</h1>
       </div>
-    
     </div>
-    <div class="col">
-      <div
-        style="overflow-y: hidden; width: 280px; margin-left: 30%; margin-right: auto;"
-      >
-        <!-- Inicio da Tabela -->
-        <table class="table table-hover table-sm table-bordered">
-          <thead class="thead-light" style="z-index: 3;">
-            <tr style="z-index: 3;">
-              <th scope="col">Nome</th>
-              <th scope="col">Laboratório</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-if="Salas.length > 0">
-              <tr v-for="sala in Salas" :key="sala.id" v-on:click.prevent="showSala(sala)">
+
+    <div class="w-100 mb-2 border-bottom"></div>
+
+    <div class="divTable">
+      <!-- Inicio da Tabela -->
+      <table class="table table-hover table-sm table-bordered">
+        <thead class="thead-light" style="z-index: 3;">
+          <tr>
+            <div style="display: block; overflow: hidden; width: 139px; z-index:3" class="sticky">
+              <th scope="col">
+                <p class="p-header" style="width: 62px">Nome</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width: 72px">Laboratório</p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-if="Salas.length > 0">
+            <tr
+              v-for="sala in Salas"
+              :key="sala.id"
+              v-on:click.prevent="showSala(sala)"
+              style="cursor:pointer"
+            >
+              <div style="width: 139px">
                 <td>
-                  {{sala.nome}}
+                  <p style="width: 62px">{{sala.nome}}</p>
                 </td>
                 <td class="text-center" style="text-align:center">
-                  <b-form-checkbox  style="padding-left:50px" disabled v-model="sala.laboratorio"></b-form-checkbox>
+                  <div style="width: 72px">
+                    <b-form-checkbox style="padding-left:50px" disabled v-model="sala.laboratorio"></b-form-checkbox>
+                  </div>
                 </td>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
+              </div>
+            </tr>
+          </template>
+          <template v-else>
+            <tr>
+              <div style="width: 139px">
                 <td colspan="2" class="text-center">
                   <i class="fas fa-exclamation-triangle"></i> Nenhuma sala encontrada!
                 </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <!-- Fim da Tabela -->
-      </div>
+              </div>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <!-- Fim da Tabela -->
     </div>
+
     <!-- Grid Direito -->
-    <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto pl-0">
-      <div class="col card cartao" style="top: 0px; width: 90%; max-width: 500px;">
-        <div class="card-body" style="padding:25px;">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
-            <template v-if="isEdit">
-              <h1 class="h2">Editar Sala</h1>
-            </template>
-            <template v-else>
-              <h1 class="h2">Adicionar Sala</h1>
-            </template>
-          </div>
+    <div class="col-lg-5 col-md-10 col-sm-12 col-12">
+      <div class="card cartao">
+        <div class="card-header">
+          <template v-if="isEdit">
+            <h1 class="card-title">Editar Sala</h1>
+          </template>
+          <template v-else>
+            <h1 class="card-title">Adicionar Sala</h1>
+          </template>
+        </div>
+
+        <div class="card-body">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+
           <form>
-            <div class="form-group row">
-              <label for="nome" class="col-sm-2 col-form-label texto-caixa" style="text-align: end; padding-left:0; padding-right:0; padding-top:2px;">Nome</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="nome" v-model="salaForm.nome" />
+            <div class="row mb-2 mx-0">
+              <div class="form-group m-0 px-0">
+                <label for="nome" class="col-form-label py-0">Nome</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="nome"
+                  v-model="salaForm.nome"
+                />
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-12">
-                <label for="laboratorio" class="col-form-label lab">
-                  <input type="checkbox" id="laboratorio" value="1" v-model="salaForm.laboratorio" />
-                  Laboratório
-                </label>
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group m-0 px-0">
+                <div class="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    id="laboratorio"
+                    class="custom-control-input"
+                    value="1"
+                    v-model="salaForm.laboratorio"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="laboratorio"
+                    style="padding-top:4px!important"
+                  >Laboratório</label>
+                </div>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-10 botoes">
+
+            <div class="row mb-1 mt-1 mx-0">
+              <div class="form-group m-0 px-0">
                 <template v-if="isEdit">
                   <button
                     type="button"
-                    class="col-2 btn-sm btn btn-success m-2 botao-estilo"
+                    class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
                     v-on:click.prevent="editSala"
                     :key="1"
                   >Editar</button>
                   <button
                     type="button"
-                    class="col-2 btn-sm btn btn-danger m-2"
+                    class="btn-sm btn btn-danger mr-2 mb-2"
                     v-on:click.prevent="deleteSala"
                     :key="3"
                   >Excluir</button>
                   <button
                     type="button"
-                    class="col-2 btn-sm btn btn-secondary m-2"
+                    class="btn-sm btn btn-secondary mb-2"
                     v-on:click.prevent="cleanSala"
                     :key="2"
                   >Cancelar</button>
@@ -97,13 +131,13 @@
                 <template v-else>
                   <button
                     type="button"
-                    class="col-2 btn-sm btn btn-success m-2"
+                    class="btn-sm btn btn-success mr-2 mb-2"
                     v-on:click.prevent="addSala"
                     :key="1"
                   >Adicionar</button>
                   <button
                     type="button"
-                    class="col-2 btn-sm btn btn-secondary m-2"
+                    class="btn-sm btn btn-secondary mb-2"
                     v-on:click.prevent="cleanSala"
                     :key="2"
                   >Resetar</button>
@@ -238,68 +272,205 @@ export default {
 </script>
 
 <style scoped>
-table th{
-      position:-webkit-sticky;
-      position: sticky;
-      top: -1px;
-      width: 280px;
-      z-index: 3;
+.DashboardSalas {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
 }
-
-
-table {
-  display: block;
-  width: 280px;
-  overflow-y: scroll;
-  height: 75vh;
-  font-size: 13px;
-  background-color: #f5f5f5;
-  border: #808080 solid 2px;
+.btn {
+  height: 25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  font-size: 12px;
+  padding: 0 5px 0 5px;
 }
-
 .botao-estilo {
+  background-color: #0079fa !important;
+  border-color: #0079fa !important;
+}
+
+.botao-estilo:hover {
+  background-color: #0055af !important;
+  border-color: #0055af !important;
+}
+
+.botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+}
+.botao-estilo2 {
   background-color: #f0852e !important;
   border-color: #f0852e !important;
   color: white;
 }
 
-.botao-estilo:hover {
+.botao-estilo2:hover {
   background-color: #e86c07 !important;
   border-color: #e86c07 !important;
 }
 
-.botao-estilo:focus {
+.botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 
-th {
+.titulo {
+  font-size: 25px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
   text-align: center;
 }
-td {
+.card {
+  width: max-content;
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
+
+select {
+  height: 25px !important;
+  font-size: 11px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 100px;
+  max-width: 100px;
   text-align: center;
 }
-.col-form-label{
-  padding-top:0;
-  padding-bottom:0;
+.selectMenor {
+  min-width: 80px;
+  max-width: 80px;
 }
-.btn{
-  height:31px;
-  margin-bottom: 7px;
-  margin-left:15px;
-  min-width: max-content;
+.selectMaior {
+  min-width: 200px;
+  max-width: 200px;
+}
+input {
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
+  font-size: 11px !important;
+  text-align: left;
+}
+.titulo {
+  font-size: 25px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+}
+.custom-select {
+  height: 26px !important;
+  font-size: 12px !important;
+  padding: 0px 0px 0px 10px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: center;
+}
+.input-group-text {
+  max-width: 70px;
+  min-width: 70px;
+  height: 26px !important;
+  margin-left: -5px;
+  padding-left: 15px;
+  font-size: 12px !important;
+}
+.p-header {
+  padding: 0px 0 0px 0;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
+  height: 18px;
+}
+.divTable {
+  overflow: hidden;
+  border: #808080 solid 2px;
+  height: max-content;
+  width: max-content;
+}
+table {
+  display: block;
+  overflow-y: scroll;
+  height: -webkit-calc(100vh - 100px);
+  height: -moz-calc(100vh - 100px);
+  height: calc(100vh - 100px);
+  font-size: 11px;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+tbody {
+  /*top: 23px;*/
+  max-height: 100%;
+  width: 100%;
+}
+table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 !important;
+}
+table p {
+  margin-bottom: 0;
+  text-align: center;
+}
+tr thead {
+  display: block;
+}
+thead th {
+  padding: 0 !important;
+  font-size: 14px;
+  text-align: center;
+  height: 18px !important;
+}
+table select {
+  height: 15px !important;
+  text-align: left;
+}
+table input {
+  height: 18px !important;
+  text-align: center !important;
+}
+
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+  table select {
+    height: 15px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  table input {
+    height: 18px !important;
+    text-align: center;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+}
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
 }
 
 @media screen and (max-width: 991px) {
-    .cartao{
-        margin-left:auto;
-        margin-right:auto;
-    }
-    .lab{
-        margin-left:0;
-    }
-    .texto-caixa{
-        text-align: start !important;
-        padding-left: 14px !important;
-    }
+  .cartao {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>

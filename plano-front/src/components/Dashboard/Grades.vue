@@ -1,8 +1,7 @@
 <template>
   <div class="DashboardGrades row" v-if="Admin">
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo">Lista Disciplinas</h1>
       </div>
@@ -10,9 +9,9 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
+    <div class="row w-100 m-0" style="font-size:11px">
     <!-- Grind esquerdo -->
-    <div class="row w-100" style="margin:0px!important; font-size:11px">
-      <div class="col-lg-4 col-md-5 col-sm-6 col-12 mr-4 px-0">
+      <div class="gridEsquerdo col-lg-5 col-md-6 col-sm-12 col-12 mr-md-5 mr-lg-5 px-0">
         <!-- Inicio forms Curso e Grande -->
         <div class="form-row">
           <div class="col-lg-6 col-md-6 col-sm-6 col-6 mr-2">
@@ -38,9 +37,9 @@
               class="form-control form-control-sm selectMenor"
               style="width: 90px;"
             >
-              <option v-for="grade in Grades" :key="grade.nome" :value="grade.id">
-                <template v-if="grade.Curso == currentCurso">{{grade.nome}}</template>
-              </option>
+              <template v-for="grade in Grades">
+                <option v-if="grade.Curso == currentCurso" :key="grade.nome" :value="grade.id">{{grade.nome}}</option>
+              </template>
             </select>
           </div>
         </div>
@@ -110,7 +109,7 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="col p-0" style="height:max-content;">
+      <div class="p-0 mb-2" style="height:max-content;">
         <div class="w-100 row" style="height:58px"></div>
         <!-- Inicio card Edit -->
 
@@ -260,22 +259,20 @@
               </template>
 
               <template v-else>
-                <div class="form-group row">
-                  <div class="col">
-                    <div class="form-group row">
-                      <button
-                        type="button"
-                        class="btn btn-success btn-sm ml-3 mt-3"
-                        v-on:click.prevent="addGrade"
-                        :key="1"
-                      >Adicionar</button>
-                      <button
-                        type="button"
-                        class="btn btn-secondary btn-sm ml-3 mt-3"
-                        v-on:click.prevent="cleanGrade"
-                        :key="2"
-                      >Resetar</button>
-                    </div>
+                <div class="row mb-0 mt-3 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-sm mr-2"
+                      v-on:click.prevent="addGrade"
+                      :key="1"
+                    >Adicionar</button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm mr-2"
+                      v-on:click.prevent="cleanGrade"
+                      :key="2"
+                    >Resetar</button>
                   </div>
                 </div>
               </template>
@@ -603,7 +600,7 @@ export default {
   text-align: center;
 }
 .card {
-  width: 400px;
+  width: 390px;
 }
 .card-body {
   font-size: 12px;
@@ -708,7 +705,7 @@ thead th {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  /*
+  
   table select {
     height: 15px !important;
     text-align: left;
@@ -729,6 +726,10 @@ thead th {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  */
+}
+@media screen and (min-width:1100px) {
+  .gridEsquerdo{
+    margin-right: 0px!important;
+  }
 }
 </style>

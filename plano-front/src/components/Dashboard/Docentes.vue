@@ -43,7 +43,7 @@
     <!-- Grid Direito -->
        
     <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
+      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
         <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
       <div
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
