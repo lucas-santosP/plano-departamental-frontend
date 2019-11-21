@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardDocentes row" v-if="Admin" style="max-height: 92vh">
+  <div class="DashboardDocentes row" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12">
       <div
@@ -42,7 +42,7 @@
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
        
-    <div class="cartao-inteiro col-lg-5 col-md-10 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+    <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
         <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
       <div
@@ -58,19 +58,19 @@
       </b-alert>
       <form style="overflow:hidden auto; max-height: 70vh">
         <div class="form-group row">
-          <label for="nome" class="col-sm-3 col-form-label" style="text-align: end;padding:0">Nome</label>
-          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
-            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="nome" v-model="docenteForm.nome">
+          <label for="nome" class="col-sm-3 col-3 col-form-label" style="text-align: end;padding:0">Nome</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-9" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12" id="nome" v-model="docenteForm.nome">
           </div>
         </div>
         <div class="form-group row">
-          <label for="apelido" class="col-sm-3 col-form-label" style="text-align: end; padding:0">Apelido</label>
-          <div class="col-lg-8 col-md-9 col-sm-9 col-12" style="margin-top:auto;margin-bottom:auto;">
-            <input type="text" class="form-control form-control-sm col-lg-12 col-md-12 col-sm-12" id="apelido" v-model="docenteForm.apelido">
+          <label for="apelido" class="col-sm-3 col-3 col-form-label" style="text-align: end; padding:0">Apelido</label>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-9" style="margin-top:auto;margin-bottom:auto;">
+            <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12" id="apelido" v-model="docenteForm.apelido">
           </div>
         </div>
         <div class="form-group row">
-          <label for="perfis" class="col-sm-3 col-form-label" style="text-align: end;padding:0">Perfis</label>
+          <label for="perfis" class="col-sm-3 col-3 col-form-label" style="text-align: end;padding:0">Perfis</label>
           <template v-if="docenteForm.id!=undefined">
           <div class="col-sm-9" id="perfis">
             <b-form-checkbox-group stacked v-model="perfisAssociados">
@@ -293,7 +293,7 @@
 </script>
 
 <style scoped>
-    table{height:80vh;width:475px !important;}
+    table{height:80vh;max-width:475px !important;}
     table th{
       position:-webkit-sticky;
       position: sticky;
@@ -372,9 +372,10 @@
       padding-bottom:0;
     }
    
-    @media screen and (max-width:575px) {
-        .col-form-label{
-            text-align:start !important;
+    @media screen and (max-width:767px) {
+        .cartao{
+          margin-right:auto !important;
+          top:0 !important;
         }
     }
 
