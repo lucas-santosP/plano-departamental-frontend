@@ -4,14 +4,14 @@
             <!-- Titulo -->
             <div class="col-12">
                 <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
-                    <h1 class="h3">Lista Disciplinas</h1>
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom" style="height: 45px;">
+                    <h1>Lista Disciplinas</h1>
                 </div>
             </div>
             <!-- Inicio da Tabela -->
             
         <div class="col col-sm col-lg">
-            <div style="overflow-y: auto; position:relative; height: 76vh;">
+            <div style="overflow:hidden auto; position:relative; height: 82vh;">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
@@ -49,57 +49,56 @@
         </div>
         <!-- Fim do Grid Esquerdo -->
         <!-- Grid Direito -->
-        <div class="col-lg-5 col-md-10 col-sm-12 col-12 mt-3 ml-auto mr-auto">
-            <div class="card" style="width:90%; max-width:500px; max-height: 75vh; margin-left: auto; margin-right: auto;">
-                <div class="card-body" style="padding-top: 5px;">
-            <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom">
+       <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
+        <div class="card-body" style="padding:20px; padding-bottom:0;">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
                 <template v-if="isEdit">
-                    <h1 class="h3">Editar Disciplina</h1>
+                    <h2>Editar Disciplina</h2>
                 </template>
                 <template v-else>
-                    <h1 class="h3">Adicionar Disciplina</h1>
+                    <h2>Adicionar Disciplina</h2>
                 </template>
             </div>
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Nome</label>
+                    <label for="nome" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Nome</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Código</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="codigo" v-model="disciplinaForm.codigo">
+                    <label for="codigo" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Código</label>
+                    <div class="col-sm-9 col-9">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Carga Teórica</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
+                    <label for="cargaTeorica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Carga Teórica</label>
+                    <div class="col-sm-9 col-9">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Carga Prática</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
+                    <label for="cargaPratica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Carga Prática</label>
+                    <div class="col-sm-9 col-9">
+                        <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; text-align: center;">Perfil</label>
-                    <div class="col-sm-9">
-                        <select type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="perfil" v-model="disciplinaForm.Perfil">
+                    <label for="perfil" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Perfil</label>
+                    <div class="col-sm-9 col-9">
+                        <select type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" style="height:25px" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
                             <option v-for="perfil in Perfis" :key="perfil.id" :value="perfil.id">{{perfil.nome}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col" style="margin-left: -35px;">
-                        <label for="ead" class="col-lg-5 col-md-5 col-sm-12 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0; padding-left: 20px; text-align: center;">
+                    <div class="col">
+                        <label for="ead" class="col-lg-12 col-md-12 col-sm-12 col-form-label ead-texto" style="padding-top: 0; padding-bottom: 0; padding-left: 20px;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
@@ -254,10 +253,42 @@
 </script>
 
 <style scoped>
+    table{height:80vh;max-width:900px !important;}
     table th{
-    position:-webkit-sticky;
-    position: sticky;
-    top: 0;
+      position:-webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      font-size: 11px;
+      height: 20px;
+      padding: 0 !important;
+      vertical-align: middle;
+    }
+    td{font-size:11px}
+    h1{font-size: 25px; font-weight: normal;}
+    h2{font-size:14px; font-weight:bold; padding-left:10px}
+    input[type="text"],select[type="text"]{
+      height: 25px;
+      font-size: 11px;
+    }
+    input[type="checkbox"]{
+      height: 20px;
+      vertical-align: middle;
+    }
+    .cartao{
+      width: 330px !important;
+      height:auto !important;
+      top: -20px !important;
+      padding: 0 0 0 5px;
+    } 
+    .cartao-inteiro{
+      padding-right:15px;
+    }
+    .custom-control{
+      font-size: 11px;
+    }
+    .custom-control-inline{
+      margin-right: 0 !important;
     }
     .botao-estilo{
     background-color: #f0852e !important;
@@ -280,22 +311,35 @@
         line-height:1.2;
         padding-top: 5px;
         padding-left: 20px;
+        font-size: 12px;
+        text-align: end;
+    }
+    .ead-texto{
+        text-align:start;
+        padding-left:20px;
+        line-height:1.2;
+        padding-top: 5px;
+        font-size: 12px;
     }
     .col-form-label{
       padding-top:0;
       padding-bottom:0;
     }
-    .btn{
-        height:31px;
-        margin-bottom: 7px;
-        margin-left:15px;
-        min-width: max-content;
+    .btn {
+      height:25px;
+      min-width: -webkit-max-content;
+      min-width: -moz-max-content;
+      min-width: max-content;
+      font-size:12px;
+      padding: 0 5px 0 5px;
+      max-width:65px;
     }
-    @media screen and (max-width:575px)
-    {
-        .texto-cartao{
-            text-align: start !important;
-            padding-bottom: 5px !important;
+    
+
+    @media screen and (max-width:767px) {
+        .cartao{
+          margin-right:auto !important;
+          top:0 !important;
         }
     }
 </style>
