@@ -60,8 +60,8 @@
     </div>
 
     <!-- Grid Direito -->
-    <div class="col-lg-5 col-md-10 col-sm-12 col-12">
-      <div class="card cartao">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-6">
+      <div class="card ml-0 cartao">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Editar Sala</h1>

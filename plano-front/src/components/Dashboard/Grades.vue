@@ -1,7 +1,8 @@
 <template>
   <div class="DashboardGrades row" v-if="Admin">
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+    >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo">Lista Disciplinas</h1>
       </div>
@@ -10,11 +11,11 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="row w-100 m-0" style="font-size:11px">
-    <!-- Grind esquerdo -->
-      <div class="gridEsquerdo col-lg-5 col-md-6 col-sm-12 col-12 mr-md-5 mr-lg-5 px-0">
+      <!-- Grind esquerdo -->
+      <div class="mr-2 px-0">
         <!-- Inicio forms Curso e Grande -->
-        <div class="form-row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-6 mr-2">
+        <div class="form-row mx-0">
+          <div class="mr-2">
             <label for="cursoAtual" class="col-form-label py-0">Curso</label>
             <select
               id="cursoAtual"
@@ -38,7 +39,11 @@
               style="width: 90px;"
             >
               <template v-for="grade in Grades">
-                <option v-if="grade.Curso == currentCurso" :key="grade.nome" :value="grade.id">{{grade.nome}}</option>
+                <option
+                  v-if="grade.Curso == currentCurso"
+                  :key="grade.nome"
+                  :value="grade.id"
+                >{{grade.nome}}</option>
               </template>
             </select>
           </div>
@@ -109,8 +114,8 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="p-0 mb-2" style="height:max-content;">
-        <div class="w-100 row" style="height:58px"></div>
+      <div class="mb-2" style="height:max-content;">
+        <div class="w-100 row espaco"></div>
         <!-- Inicio card Edit -->
 
         <div class="card">
@@ -705,7 +710,6 @@ thead th {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  
   table select {
     height: 15px !important;
     text-align: left;
@@ -727,9 +731,13 @@ thead th {
     background-color: rgb(245, 245, 245);
   }
 }
-@media screen and (min-width:1100px) {
-  .gridEsquerdo{
-    margin-right: 0px!important;
+
+.espaco {
+  height: 58px;
+}
+@media screen and (max-width: 846px) {
+  .espaco {
+    height: 10px;
   }
 }
 </style>
