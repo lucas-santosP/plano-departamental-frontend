@@ -11,17 +11,16 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <!-- Grind esquerdo -->
-    <div class="row w-100" style="margin:0px !important;">
-      <div class="col-lg-4 col-md-5 col-sm-6 col-12 px-0">
+    <div class="row w-100" style="margin:0px!important; font-size:11px">
+      <div class="col-lg-4 col-md-5 col-sm-6 col-12 mr-4 px-0">
         <!-- Inicio forms Curso e Grande -->
         <div class="form-row">
-          <div class="col-lg-4 col-md-5 col-sm-6 col-12">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-6 mr-2">
             <label for="cursoAtual" class="col-form-label py-0">Curso</label>
             <select
-              style="max-width:200px"
               id="cursoAtual"
               v-model="currentCurso"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm selectMaior"
             >
               <option value="4">Ciência da Computação Diurno</option>
               <option value="1">Ciência da Computação Noturno</option>
@@ -30,13 +29,13 @@
             </select>
           </div>
 
-          <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+          <div class="col-3">
             <label for="gradeAtual" class="col-form-label py-0">Grade</label>
             <select
               id="gradeAtual"
               v-model="currentGrade"
               v-on:change="findGrade()"
-              class="form-control form-control-sm"
+              class="form-control form-control-sm selectMenor"
               style="width: 90px;"
             >
               <option v-for="grade in Grades" :key="grade.nome" :value="grade.id">
@@ -55,14 +54,14 @@
             <thead class="thead-light">
               <tr>
                 <div
-                  style="display: block; overflow: hidden; width: ‭385px; height:20px !important"
+                  style="display: block; overflow: hidden; width: 435px; height:20px !important"
                   class="sticky"
                 >
                   <th scope="col">
                     <p class="p-header" style="width: 32px">P.</p>
                   </th>
                   <th scope="col">
-                    <p class="p-header" style="width: 350px">Disciplina</p>
+                    <p class="p-header" style="width: 400px">Disciplina</p>
                   </th>
                 </div>
               </tr>
@@ -80,9 +79,9 @@
                       :key="disciplinaGrade.periodo"
                       v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
                     >
-                      <div style="width: ‭385px;">
+                      <div style="width: 432px;">
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td style=" height:30px">
+                          <td style=" height:20px">
                             <div style="width:32px;">{{disciplinaGrade.periodo}}</div>
                           </td>
 
@@ -90,9 +89,9 @@
                             <template v-for="disciplina in Disciplinas">
                               <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
                                 <div
-                                  style="width: 350px"
+                                  style="width: 400px; cursor:pointer"
                                   :key="disciplina.nome"
-                                  v-on:click.prevent="showDisciplina(disciplinaGrade); clickada=!clickada"
+                                  v-on:click.prevent="showDisciplina(disciplinaGrade)"
                                 >{{disciplina.nome}}</div>
                               </template>
                             </template>
@@ -111,25 +110,28 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="col mt-2" style=" height:calc(100vh - 200px);">
+      <div class="col p-0" style="height:max-content;">
+        <div class="w-100 row" style="height:58px"></div>
         <!-- Inicio card Edit -->
-        <div class="card col-5">
-          <div class="card-body py-1 px-1">
-            <div class="form-inline col pl-0 mb-2 pr-1">
-              <template v-if="isEdit">
-                <h1 class="h2">Editar Grade</h1>
-              </template>
-              <template v-else>
-                <h1 class="h2">Adicionar Grade</h1>
-              </template>
-            </div>
 
+        <div class="card">
+          <div class="card-header">
+            <template v-if="isEdit">
+              <h1 class="card-title">Editar Grade</h1>
+            </template>
+            <template v-else>
+              <h1 class="card-title">Adicionar Grade</h1>
+            </template>
+          </div>
+
+          <div class="card-body">
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+
             <form>
-              <div class="form-group">
+              <div class="form-group mb-1">
                 <button
                   type="button"
-                  class="btn btn-success btn-sm mr-2 botao-estilo"
+                  class="btn btn-success btn-sm mr-3 botao-estilo"
                   v-on:click.prevent="editGrade"
                   :key="1"
                 >Salvar alterações</button>
@@ -141,41 +143,35 @@
                 >Excluir Grade</button>
               </div>
 
-              <div class="row px-0 mb-4">
-                <div class="col-5 px-0">
-                  <label for="nome" class="col col-form-label">Nome</label>
-                  <div class="col">
-                    <input
-                      type="text"
-                      style="text-align:center;"
-                      class="inputMenor form-control form-control-sm col"
-                      id="nome"
-                      v-model="gradeForm.nome"
-                    />
-                  </div>
+              <div class="row mb-1 mx-0">
+                <div class="form-group m-0 mr-4 px-0">
+                  <label for="nome" class="col-form-label">Nome</label>
+                  <input
+                    type="text"
+                    class="inputMenor form-control form-control-sm"
+                    id="nome"
+                    v-model="gradeForm.nome"
+                  />
                 </div>
 
-                <div class="col-7 px-0">
-                  <label for="periodoInicio" class="col col-form-label">Período de Início</label>
-                  <div class="col">
-                    <input
-                      type="text"
-                      style="text-align:center"
-                      class="inputMenor form-control form-control-sm col"
-                      id="periodoInicio"
-                      v-model="gradeForm.periodoInicio"
-                    />
-                  </div>
+                <div class="form-group m-0 px-0">
+                  <label for="periodoInicio" class="col-form-label">Período de Início</label>
+                  <input
+                    type="text"
+                    class="inputMenor form-control form-control-sm col"
+                    id="periodoInicio"
+                    v-model="gradeForm.periodoInicio"
+                  />
                 </div>
               </div>
 
-              <div class="form-group row">
-                <label for="curso" class="col col-form-label">Curso</label>
-                <div class="col-lg-8 col-md-7 col-sm-7 col-12">
+              <div class="row mb-1 mx-0">
+                <div class="form-group m-0 col px-0">
+                  <label for="curso" class="col-form-label">Curso</label>
                   <select
                     type="text"
                     style="text-align:center;"
-                    class="form-control form-control-sm"
+                    class="form-control form-control-sm selectMaior"
                     id="curso"
                     v-model="gradeForm.Curso"
                   >
@@ -187,87 +183,85 @@
                 </div>
               </div>
 
-              <div class="form-group row">
-                <div class="col">
-                  <template v-if="isEdit">
-                    <hr style="margin-top:0; margin-bottom: 15px; margin-top: 15px" />
+              <template v-if="isEdit">
+                <div class="border-bottom w-100 mt-2 mb-0"></div>
 
-                    <div class="form-group row">
-                      <label
-                        for="disciplina"
-                        class="col-md-4 col-sm-4 col-12 col-form-label"
-                      >Disciplina</label>
-                      <div class="col-lg-8 col-md-7 col-sm-7 col-12">
-                        <select
-                          type="text"
-                          class="form-control form-control-sm"
-                          id="disciplina"
-                          v-model="disciplinaGradeForm.Disciplina"
-                        >
-                          <option
-                            v-if="Disciplinas.length===0"
-                            type="text"
-                            value
-                          >Nenhuma Disciplina Encontrada</option>
-                          <option
-                            v-for="disciplina in Disciplinas"
-                            :key="disciplina.id"
-                            :value="disciplina.id"
-                          >{{disciplina.nome}}</option>
-                        </select>
+                <div class="row mb-1 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="disciplina" class="mr-2 col-form-label">Disciplina</label>
+                    <select
+                      type="text"
+                      class="selectMaior2 form-control form-control-sm"
+                      id="disciplina"
+                      v-model="disciplinaGradeForm.Disciplina"
+                    >
+                      <option
+                        v-if="Disciplinas.length===0"
+                        type="text"
+                        value
+                      >Nenhuma Disciplina Encontrada</option>
+                      <option
+                        v-for="disciplina in Disciplinas"
+                        :key="disciplina.id"
+                        :value="disciplina.id"
+                      >{{disciplina.nome}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-1 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="periodoDisciplina" class="col-form-label">Período</label>
+
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm inputMenor2"
+                        aria-describedby="button-edit-periodo"
+                        id="periodoDisciplina"
+                        v-model="disciplinaGradeForm.periodo"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="btn btn-outline-warning btn-sm botao-estilo2"
+                          v-on:click.prevent="editDisciplinaGrade"
+                          :key="4"
+                        >Editar Período</button>
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    <div class="form-group row">
-                      <label
-                        for="periodoDisciplina"
-                        class="col-md-4 col-sm-4 col-12 col-form-label"
-                      >Período</label>
-                      <div class="input-group col-lg-8 col-md-7 col-sm-7 col-12">
-                        <div class="input-group">
-                          <input
-                            type="text"
-                            class="form-control form-control-sm col-lg-2 col-md-2 col-sm-2 col-2"
-                            aria-describedby="button-edit-periodo"
-                            id="periodoDisciplina"
-                            v-model="disciplinaGradeForm.periodo"
-                            style="text-align:center; margin-right:0; height:31px"
-                          />
-                          <button
-                            type="button"
-                            class="btn btn-warning btn-sm botao-estilo2"
-                            v-on:click.prevent="editDisciplinaGrade"
-                            :key="4"
-                          >Editar Período</button>
-                        </div>
-                      </div>
-                    </div>
+                <div class="row mb-0 mt-3 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <button
+                      type="button"
+                      class="btn btn-success mr-2 btn-sm"
+                      v-on:click.prevent="addDisciplinaGrade"
+                      :key="4"
+                    >Adicionar à Grade</button>
 
-                    <div class="form-group row pd">
-                      <button
-                        type="button"
-                        class="btn btn-success m-2 btn-sm"
-                        v-on:click.prevent="addDisciplinaGrade"
-                        :key="4"
-                      >Adicionar à Grade</button>
+                    <button
+                      type="button"
+                      class="btn btn-danger mr-2 btn-sm"
+                      v-on:click.prevent="deleteDisciplinaGrade"
+                      :key="4"
+                    >Excluir Disciplina</button>
 
-                      <button
-                        type="button"
-                        class="btn btn-danger m-2 btn-sm"
-                        v-on:click.prevent="deleteDisciplinaGrade"
-                        :key="4"
-                      >Excluir Disciplina</button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary mr-2 btn-sm"
+                      v-on:click.prevent="cleanGrade"
+                      :key="2"
+                    >Cancelar</button>
+                  </div>
+                </div>
+              </template>
 
-                      <button
-                        type="button"
-                        class="btn btn-secondary m-2 btn-sm"
-                        v-on:click.prevent="cleanGrade"
-                        :key="2"
-                      >Cancelar</button>
-                    </div>
-                  </template>
-
-                  <template v-else>
+              <template v-else>
+                <div class="form-group row">
+                  <div class="col">
                     <div class="form-group row">
                       <button
                         type="button"
@@ -282,9 +276,9 @@
                         :key="2"
                       >Resetar</button>
                     </div>
-                  </template>
+                  </div>
                 </div>
-              </div>
+              </template>
             </form>
           </div>
         </div>
@@ -548,10 +542,10 @@ export default {
   display: inline-block;
 }
 .even {
-  background-color: #b0e0e6;
+  background-color: #d0f6fb;
 }
 .notEven {
-  background-color: #ffe4b5;
+  background-color: #fff0d5;
 }
 
 .btn {
@@ -601,22 +595,63 @@ export default {
   padding-left: 0;
   margin: 0;
 }
-.form-control {
-  height: 26px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 10px !important;
-  min-width: 85px;
-  max-width: 85px;
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
   text-align: center;
 }
-.inputMenor {
-  max-width: 80px;
-  min-width: 80px;
-  height: 26px !important;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
+.card {
+  width: 400px;
 }
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
+.col-form-label {
+  padding-bottom: 0px;
+}
+select {
+  height: 25px !important;
+  font-size: 11px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 100px;
+  max-width: 100px;
+  text-align: center;
+}
+.selectMenor {
+  min-width: 80px;
+  max-width: 80px;
+}
+.selectMaior {
+  min-width: 200px;
+  max-width: 200px;
+}
+input {
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
+  font-size: 11px !important;
+  text-align: left;
+}
+.inputMenor {
+  max-width: 60px;
+  min-width: 60px;
+  padding: 0px 0px 0px 0px !important;
+  text-align: center;
+}
+.inputMenor2 {
+  max-width: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px !important;
+  text-align: center;
+}
+
+.selectMaior2 {
+  max-width: 350px;
+  min-width: 350px;
+}
+
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -638,6 +673,7 @@ table {
   height: -moz-calc(100vh - 160px);
   height: calc(100vh - 160px);
   font-size: 11px;
+  font-weight: normal;
   background-color: #f5f5f5;
   margin: 0;
 }
@@ -673,7 +709,7 @@ thead th {
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   /*
-  select {
+  table select {
     height: 15px !important;
     text-align: left;
     box-sizing: border-box;
@@ -683,7 +719,7 @@ thead th {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  input {
+  table input {
     height: 18px !important;
     text-align: center;
     box-sizing: border-box;
