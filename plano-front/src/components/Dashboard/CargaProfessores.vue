@@ -206,7 +206,7 @@
                       <td v-else>
                         <div style="width: 32px">-</div>
                       </td>
-
+                      
                       <td></td>
                     </div>
                   </tr>

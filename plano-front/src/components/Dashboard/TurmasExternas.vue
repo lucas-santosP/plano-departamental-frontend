@@ -11,7 +11,7 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+            <select class="form-control form-control-sm mt-1" v-model="periodos">
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
@@ -673,10 +673,10 @@ export default {
   padding-left: 0;
   margin: 0;
 }
-.custom-select {
-  height: 26px !important;
+.form-control {
+  height: 25px !important;
   font-size: 12px !important;
-  padding: 0px 0px 0px 10px !important;
+  padding: 0px 0px 0px 5px !important;
   min-width: 85px;
   max-width: 85px;
   text-align: center;
@@ -684,7 +684,7 @@ export default {
 .input-group-text {
   max-width: 70px;
   min-width: 70px;
-  height: 26px !important;
+  height: 25px !important;
   margin-left: -5px;
   padding-left: 15px;
   font-size: 12px !important;
