@@ -512,21 +512,6 @@ export default {
 .botao-estilo:focus {
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
-.botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-}
-
-.botao-estilo2:hover {
-  background-color: #c91212 !important;
-  border-color: #c91212 !important;
-}
-
-.botao-estilo2:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-}
 
 .botao-perfis {
   background-color: #0055af !important;
@@ -561,7 +546,7 @@ export default {
   min-width: 85px;
   max-width: 85px;
   padding: 0px 0px 0px 10px !important;
-  text-align: center;
+  text-align: start;
 }
 
 .input-group-text {

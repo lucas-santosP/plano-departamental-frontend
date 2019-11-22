@@ -507,8 +507,6 @@ table input {
 .botao-estilo {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
-  max-width: 86px;
-  width: 86px;
 }
 
 .botao-estilo:hover {
