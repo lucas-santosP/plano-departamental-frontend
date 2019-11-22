@@ -17,8 +17,8 @@
                 <tr>
                     <th scope="col">Nome</th>
                     <th scope="col">Código</th>
-                    <th scope="col">Carga Teórica</th>
-                    <th scope="col">Carga Prática</th>
+                    <th scope="col" style="text-align: center">Carga Teórica</th>
+                    <th scope="col" style="text-align: center">Carga Prática</th>
                     <th scope="col">Perfil</th>
                     <th scope="col">EAD</th>
                 </tr>
@@ -28,8 +28,8 @@
                     <tr v-for="disciplina in Disciplinas" :key="disciplina.id" v-on:click.prevent="showDisciplina(disciplina)">
                         <td>{{disciplina.nome}}</td>
                         <td>{{disciplina.codigo}}</td>
-                        <td>{{disciplina.cargaTeorica}}</td>
-                        <td>{{disciplina.cargaPratica}}</td>
+                        <td style="text-align: center">{{disciplina.cargaTeorica}}</td>
+                        <td style="text-align:center">{{disciplina.cargaPratica}}</td>
                         <template v-for="perfil in Perfis">
                             <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id">{{perfil.nome}}</td>
                         </template>
@@ -64,31 +64,31 @@
             </b-alert>
             <form>
                 <div class="form-group row">
-                    <label for="nome" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Nome</label>
-                    <div class="col-sm-9">
+                    <label for="nome" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-bottom: 0;">Nome</label>
+                    <div class="col-sm-9 col-9">
                         <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12" id="nome" v-model="disciplinaForm.nome">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="codigo" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Código</label>
+                    <label for="codigo" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-bottom: 0;">Código</label>
                     <div class="col-sm-9 col-9">
                         <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="codigo" v-model="disciplinaForm.codigo">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaTeorica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Carga Teórica</label>
+                    <label for="cargaTeorica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-bottom: 0;">Carga Teórica</label>
                     <div class="col-sm-9 col-9">
                         <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="cargaTeorica" v-model="disciplinaForm.cargaTeorica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="cargaPratica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Carga Prática</label>
+                    <label for="cargaPratica" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-bottom: 0;">Carga Prática</label>
                     <div class="col-sm-9 col-9">
                         <input type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" id="cargaPratica" v-model="disciplinaForm.cargaPratica">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="perfil" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-top: 0; padding-bottom: 0;">Perfil</label>
+                    <label for="perfil" class="col-3 col-sm-3 col-form-label texto-cartao" style="padding-bottom: 0;">Perfil</label>
                     <div class="col-sm-9 col-9">
                         <select type="text" class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11" style="height:25px" id="perfil" v-model="disciplinaForm.Perfil">
                             <option v-if="Perfis.length===0" type="text" value="">Nenhum Perfil Encontrado</option>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col">
-                        <label for="ead" class="col-lg-12 col-md-12 col-sm-12 col-form-label ead-texto" style="padding-top: 0; padding-bottom: 0; padding-left: 20px;">
+                        <label for="ead" class="col-lg-12 col-md-12 col-sm-12 col-form-label ead-texto" style="padding-bottom: 0; padding-left: 20px;">
                             <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead">
                             EAD</label>
                     </div>
@@ -261,7 +261,7 @@
       z-index: 3;
       font-size: 11px;
       height: 20px;
-      padding: 0 !important;
+      padding: 0 0 0 5px !important;
       vertical-align: middle;
     }
     td{font-size:11px}
@@ -309,10 +309,11 @@
     }
     .texto-cartao{
         line-height:1.2;
-        padding-top: 5px;
+        padding-top: 5px !important;
         padding-left: 20px;
         font-size: 12px;
         text-align: end;
+        
     }
     .ead-texto{
         text-align:start;
