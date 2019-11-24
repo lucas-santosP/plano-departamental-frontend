@@ -4,10 +4,10 @@
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Plano Externo</h1>
 
         <div
-          class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"
+          class="form-group col-xl-10 col-md-9 col-sm-8 col-8 mb-0 pr-0"
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
@@ -25,24 +25,24 @@
             <template v-if="isAdd">
               <button
                 type="button"
-                class="btn btn-sm mt-1 btn-success col-1 botao-estilo mr-2"
+                class="btn btn-sm mt-1 btn-success botao-estilo mr-2"
                 v-on:click.prevent="addTurma"
               >Confirmar</button>
               <button
                 type="button"
-                class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                class="btn btn-sm mt-1 btn-danger botao-estilo2"
                 v-on:click.prevent="toggleAdd"
               >Cancelar</button>
             </template>
             <template v-else>
               <button
                 type="button"
-                class="btn btn-sm mt-1 btn-success col-1 mr-2"
+                class="btn btn-sm mt-1 btn-success mr-2"
                 v-on:click.prevent="toggleAdd"
               >Adicionar</button>
               <button
                 type="button"
-                class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                class="btn btn-sm mt-1 btn-danger botao-estilo2"
                 style
                 v-b-modal.modalConfirma
               >Deletar</button>

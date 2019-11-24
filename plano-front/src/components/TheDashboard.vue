@@ -88,11 +88,7 @@
               </h6>
               <ul class="nav flex-column mb-2" v-if="Admin">
                 <li @click="show=false" class="nav-item">
-                  <router-link
-                    :to="{ name: 'pedidos' }"
-                    class="nav-link"
-                    v-on:click="loadPage"
-                  >
+                  <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage">
                     <i class="fas fa-clipboard"></i> Tabela
                   </router-link>
                 </li>
@@ -106,11 +102,7 @@
                   </router-link>
                 </li>
                 <li @click="show=false" class="nav-item">
-                  <router-link
-                    :to="{ name: 'cargaPos' }"
-                    class="nav-link"
-                    v-on:click="loadPage"
-                  >
+                  <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage">
                     <i class="fas fa-clipboard"></i> Creditação Pós
                   </router-link>
                 </li>
@@ -756,8 +748,8 @@ export default {
 }
 .navbar {
   padding: 0;
-  margin:0;
-  height:30px;
+  margin: 0;
+  height: 30px;
   border-width: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -996,11 +988,11 @@ export default {
   animation-fill-mode: both;
 }
 @media screen and(max-width: 400px) {
-  .nav-link{
-    font-size: 5px!important;
+  .nav-link {
+    font-size: 5px !important;
   }
 }
-@media screen and (max-width: 522px) {
+@media screen and (max-width: 530px) {
   [role="main"] {
     padding-top: 62px;
   }
@@ -1009,13 +1001,15 @@ export default {
   }
   .listaNavbarTop {
     margin-left: 0;
+    width: 100%;
   }
-  .navbar { /*Aumenta a altura da navbar */
+  .navbar {
+    /*Aumenta a altura da navbar */
     height: 60px !important;
   }
 }
 /* SUMIR ICONES DA NAVBAR TOP */
-@media screen and (max-width: 615px) {
+@media screen and (max-width: 620px) {
   .iconsHide {
     display: none;
   }

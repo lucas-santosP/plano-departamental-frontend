@@ -556,17 +556,18 @@ export default {
 }
 
 .custom-select {
-  height: 26px !important;
-  font-size: 12px !important;
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
   min-width: 85px;
   max-width: 85px;
-  padding: 0px 0px 0px 10px !important;
+  font-size: 12px !important;
   text-align: center;
 }
 
 .input-group-text {
   max-width: 70px;
-  height: 26px !important;
+  min-width: 70px;
+  height: 25px !important;
   margin-left: -5px;
   padding-left: 15px;
   font-size: 12px !important;

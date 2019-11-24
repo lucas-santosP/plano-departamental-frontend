@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardGrades row" v-if="Admin">
+  <div class="DashboardGrades row pr-2" v-if="Admin">
     <div
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
@@ -53,7 +53,7 @@
         <div class="w-100"></div>
 
         <!-- Inicio da tabela -->
-        <div class="divTable ml-0 mt-3 pl-0 pr-0" style="border: #808080 solid 2px;">
+        <div class="divTable ml-0 mt-3 pl-0 pr-0">
           <table class="table table-bordered table-hover">
             <thead class="thead-light">
               <tr>
@@ -71,21 +71,19 @@
               </tr>
             </thead>
 
-            <template v-if="currentGrade!=undefined">
-              <template v-for="grade in Grades">
-                <tbody
-                  v-if="grade.id===currentGrade"
-                  :key="grade.id"
-                  v-on:click.prevent="showGrade(grade)"
-                >
+            <tbody>
+              <template v-if="currentGrade!=undefined">
+                <template v-for="grade in Grades">
                   <template v-for="disciplinaGrade in DisciplinaGrades">
                     <tr
-                      :key="disciplinaGrade.periodo"
+                      v-if="grade.id===currentGrade"
+                      :key="grade.id+'grade'+disciplinaGrade.periodo+'periodo'"
+                      v-on:click.prevent="showGrade(grade)"
                       v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
                     >
-                      <div style="width: 432px;">
+                      <div :key="disciplinaGrade.periodo" style="width: 432px; font-size:12px;">
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td style=" height:20px">
+                          <td>
                             <div style="width:32px;">{{disciplinaGrade.periodo}}</div>
                           </td>
 
@@ -104,9 +102,9 @@
                       </div>
                     </tr>
                   </template>
-                </tbody>
+                </template>
               </template>
-            </template>
+            </tbody>
           </table>
           <!-- Final da tabela -->
         </div>
@@ -537,19 +535,12 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.header {
-  display: inline-block;
-}
-.data {
-  display: inline-block;
-}
 .even {
   background-color: #d0f6fb;
 }
 .notEven {
   background-color: #fff0d5;
 }
-
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -586,7 +577,6 @@ export default {
   background-color: #e86c07 !important;
   border-color: #e86c07 !important;
 }
-
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
@@ -614,6 +604,7 @@ export default {
 .col-form-label {
   padding-bottom: 0px;
 }
+
 select {
   height: 25px !important;
   font-size: 11px !important;
@@ -630,6 +621,7 @@ select {
   min-width: 200px;
   max-width: 200px;
 }
+
 input {
   height: 25px !important;
   padding: 0px 0px 0px 5px !important;
@@ -648,7 +640,6 @@ input {
   padding: 0px 0px 0px 0px !important;
   text-align: center;
 }
-
 .selectMaior2 {
   max-width: 350px;
   min-width: 350px;
@@ -662,22 +653,21 @@ input {
   height: 18px;
 }
 .divTable {
-  overflow: hidden;
-  height: auto;
-  height: calc(100vh - 160px);
-  border: #808080 solid 2px;
-  width: max-content;
+  overflow: hidden !important;
+  height: max-content !important;
+  border: #808080 solid 2px !important;
+  width: max-content !important;
 }
 table {
-  display: block;
-  overflow-y: scroll;
-  height: -webkit-calc(100vh - 160px);
-  height: -moz-calc(100vh - 160px);
-  height: calc(100vh - 160px);
-  font-size: 11px;
-  font-weight: normal;
+  display: block !important;
+  overflow-y: scroll !important;
+  height: -webkit-calc(100vh - 150px);
+  height: -moz-calc(100vh - 150px);
+  height: calc(100vh - 150px);
+  font-size: 11px !important;
+  font-weight: normal !important;
   background-color: #f5f5f5;
-  margin: 0;
+  margin: 0 !important;
 }
 tbody {
   /*top: 23px;*/
