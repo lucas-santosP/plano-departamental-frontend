@@ -651,22 +651,6 @@ export default {
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
 
-.botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-}
-
-.botao-estilo2:hover {
-  background-color: #c91212 !important;
-  border-color: #c91212 !important;
-}
-
-.botao-estilo2:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-}
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -676,10 +660,10 @@ export default {
 .form-control {
   height: 25px !important;
   font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
+  padding: 0px 0px 0px 10px !important;
   min-width: 85px;
   max-width: 85px;
-  text-align: center;
+  text-align: start;
 }
 .input-group-text {
   max-width: 70px;
@@ -747,7 +731,7 @@ table input {
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   select {
-    height: 15px !important;
+    height: 16px !important;
     text-align: left;
     box-sizing: border-box;
 

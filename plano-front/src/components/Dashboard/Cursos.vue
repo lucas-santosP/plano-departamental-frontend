@@ -1,12 +1,12 @@
 <template>
-  <div class="DashboardCursos row pr-2" v-if="Admin">
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo">Lista Cursos</h1>
+  <div class="DashboardCursos row" v-if="Admin">
+     <div class="col-12">
+                <div
+                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom" style="height: 45px;">
+                    <h1>Lista Cursos</h1>
+                </div>
       </div>
-    </div>
-
-	  <div class="w-100 mb-2 border-bottom"></div>
+	  <!-- <div class="w-100 mb-2 border-bottom"></div> -->
 
     <!-- Grid Esquerdo -->
     <div class="col">
@@ -15,14 +15,14 @@
         <table class="table table-hover table-sm">
           <thead class="thead-light">
             <tr>
-              <div style="display: block; overflow: hidden; width: 570px" class="sticky">
-                <th scope="col">Nome</th>
-                <th scope="col">Código</th>
-                <th scope="col">Turno</th>
-                <th scope="col">1º Sem.</th>
-                <th scope="col">2º Sem.</th>
+              <div style="display: block; overflow: hidden; width: 503px" class="sticky">
+                <th scope="col"><p class="p-header" style="width:300px!important;" >Nome</p></th>
+                <th scope="col"><p class="p-header" style="width:50px!important;" >Código</p></th>
+                <th scope="col"><p class="p-header" style="width:50px!important;" >Turno</p></th>
+                <th scope="col"><p class="p-header" style="width:44px!important;" >1º Sem.</p></th>
+                <th scope="col"><p class="p-header" style="width:44px!important;" >2º Sem.</p></th>
                 <th scope="col">
-                  <input type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
+                  <input style="width: 15px" type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
                 </th>
               </div>
             </tr>
@@ -31,21 +31,21 @@
           <tbody>
             <template v-if="Cursos.length > 0">
               <tr v-for="curso in Cursos" :key="curso.id" v-on:click.prevent="showCurso(curso)">
-                <div style="width: 570px">
-                  <td>{{ curso.nome }}</td>
-                  <td>{{ curso.codigo }}</td>
-                  <td>{{ curso.turno }}</td>
+                <div style="width: 503px">
+                  <td style="width: 300px; text-align: start">{{ curso.nome }}</td>
+                  <td style="width: 50px">{{ curso.codigo }}</td>
+                  <td style="width: 50px; text-align: start; padding-left: 2px !important">{{ curso.turno }}</td>
                   <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
-                  <td
+                  <td style="width: 44px"
                     v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3"
                   >{{ curso.alunosEntrada }}</td>
-                  <td v-else>0</td>
+                  <td style="width: 44px"v-else>0</td>
                   <td
-                    v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
+                    style="width: 44px" v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
                   >{{ curso.alunosEntrada }}</td>
-                  <td v-else>0</td>
+                  <td style="width: 44px" v-else>0</td>
                   <td>
-                    <input
+                    <input style="width: 15px"
                       type="checkbox"
                       v-model="CursosAtivos[curso.id]"
                       v-on:click.prevent="toggleCurso(curso.id)"
@@ -71,7 +71,7 @@
 	 
     <!-- Grid Direito -->
      <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
+      <div class="col card cartao ml-auto"style="max-width: 350px;">
         <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
@@ -94,7 +94,7 @@
               <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
-                  class="form-control form-control-sm"
+                  class="form-control "
                   id="nome"
                   v-model="cursoForm.nome"
                 />
@@ -109,7 +109,7 @@
               <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
-                  class="form-control form-control-sm"
+                  class="form-control "
                   id="codigo"
                   v-model="cursoForm.codigo"
                 />
@@ -117,8 +117,11 @@
             </div>
 
             <div class="form-group row">
-              <label for="alunosEntrada" class="col-sm-2 col-form-label">Alunos 1º semestre</label>
-              <div class="col-sm-10">
+              <label 
+                for="alunosEntrada" 
+                class="col-form-label col-sm-3 col-3"
+                style="text-align: end; padding: 0">Alunos 1º semestre</label>
+              <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
                   class="form-control"
@@ -128,11 +131,14 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="alunosEntrada" class="col-sm-2 col-form-label">Alunos 2º semestre</label>
-              <div class="col-sm-10">
+              <label 
+                for="alunosEntrada" 
+                class="col-form-label col-sm-3 col-3"
+                style="text-align: end; padding: 0">Alunos 2º semestre</label>
+              <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control "
                   id="alunosEnrada"
                   v-model="cursoForm.alunosEntrada2"
                 />
@@ -392,10 +398,11 @@ export default {
 <style scoped>
 
 .DashboardCursos {
-  max-width: 100%;
+  /* max-width: 100%; */
   overflow: hidden;
-  margin: 0;
+  /* margin: 0; */
 }
+h1{font-size: 25px; font-weight: normal;}
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -509,10 +516,9 @@ table input {
     background-color: rgb(245, 245, 245);
   }
   input {
-    height: 18px !important;
+    /* height: 18px !important; */
     text-align: center;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
     border-radius: 2px;
@@ -541,6 +547,8 @@ table input {
 
 input[type="text"] {
   height: 25px;
+  font-size: 11px;
+
 }
 
 input[type="radio"],
@@ -554,6 +562,8 @@ input[type="checkbox"] {
   padding: 0 0 0 5px;
   margin-right: 20px !important;
   margin-left:auto;
+  top: -20px !important;
+
 }
  @media screen and (max-width: 992px) {
         .cartao{
