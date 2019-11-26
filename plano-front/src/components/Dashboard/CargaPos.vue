@@ -73,120 +73,353 @@
       <div class="cube1"></div>
       <div class="cube2"></div>
     </div>
-
-    <div class="pl-0 divTable" v-if="!isLoading">
-      <table class="table table-hover table-bordered table-sm">
-        <thead class="thead-light sticky">
-          <tr>
-            <div style="display: block; overflow: hidden; width: 330px;" class="sticky">
-              <th scope="col">
-                <p class="p-header" style="width:24px!important;"></p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width:24px!important;">T.</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width:135px!important;">Docente</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width:100px!important;">Programa</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width:40px!important;">C.</p>
-              </th>
-            </div>
-          </tr>
-        </thead>
-
-        <tbody>
-          <template v-if="isAdd">
-            <tr>
-              <div style="width: 330px;">
-                <td>
-                  <div style="width:24px; height:40px"></div>
-                </td>
-
-                <td>
-                  <div style="width:24px;">
-                    <input
-                      type="text"
-                      style="width: 15px; text-align: center;"
-                      id="trimestre"
-                      v-model="cargaPosForm.trimestre"
-                    />
+<!-- Inicio Tabela 1 -->
+    
+      <div class="row">
+        <div class="col">
+          <div class="pl-0 divTable" v-if="!isLoading">
+            <table class="table table-hover table-bordered table-sm">
+              <thead class="thead-light sticky">
+                <tr>
+                  <div style="display: block; width: 330px;" class="sticky">
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;"></p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;">T.</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:135px!important;">Docente</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:100px!important;">Programa</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:40px!important;">C.</p>
+                    </th>
                   </div>
-                </td>
-
-                <td>
-                  <div style="width: 135px">
-                    <select
-                      type="text"
-                      style="width:130px"
-                      id="docente1"
-                      v-model="cargaPosForm.Docente"
-                    >
-                      <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
-                      <option
-                        v-for="docente in Docentes"
-                        :key="docente.id"
-                        :value="docente.id"
-                      >{{docente.apelido}}</option>
-                    </select>
-                  </div>
-                </td>
-
-                <td>
-                  <div style="width: 100px">
-                    <input
-                      type="text"
-                      style="width: 80px"
-                      id="programa"
-                      v-model="cargaPosForm.programa"
-                    />
-                  </div>
-                </td>
-
-                <td>
-                  <div style="width: 40px">
-                    <input
-                      type="text"
-                      style="width: 25px"
-                      id="creditos"
-                      v-model="cargaPosForm.creditos"
-                    />
-                  </div>
-                </td>
-              </div>
-            </tr>
-          </template>
-          <!-- LINHAS -->
-          <template v-if="CargasPos.length>0">
-            <template v-for="t in [1,  2, 3, 4]">
-              <template v-for="docente in Docentes">
-                <tr
-                  v-for="carga in CargasPGMC"
-                  :key="'docente'+docente.id+'carga'+carga.id"
-                  v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                >
-                  <template
-                    v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
-                  >
-                    <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
-                  </template>
-                  <template
-                    v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
-                  >
-                    <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
-                  </template>
                 </tr>
-              </template>
-            </template>
-          </template>
-        </tbody>
-      </table>
+              </thead>
+
+              <tbody>
+                <template v-if="isAdd">
+                  <tr>
+                    <div style="width: 330px;">
+                      <td>
+                        <div style="width:24px; height:40px"></div>
+                      </td>
+
+                      <td>
+                        <div style="width:24px;">
+                          <input
+                            type="text"
+                            style="width: 15px; text-align: center;"
+                            id="trimestre"
+                            v-model="cargaPosForm.trimestre"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 135px">
+                          <select
+                            type="text"
+                            style="width:130px"
+                            id="docente1"
+                            v-model="cargaPosForm.Docente"
+                          >
+                            <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
+                            <option
+                              v-for="docente in Docentes"
+                              :key="docente.id"
+                              :value="docente.id"
+                            >{{docente.apelido}}</option>
+                          </select>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 100px">
+                          <input
+                            type="text"
+                            style="width: 80px"
+                            id="programa"
+                            v-model="cargaPosForm.programa"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 40px">
+                          <input
+                            type="text"
+                            style="width: 25px"
+                            id="creditos"
+                            v-model="cargaPosForm.creditos"
+                          />
+                        </div>
+                      </td>
+                    </div>
+                  </tr>
+                </template>
+                <!-- LINHAS -->
+                <template v-if="CargasPGMC.length>0">
+                  <template v-for="t in [1,  2, 3, 4]">
+                    <template v-for="docente in Docentes">
+                      <tr
+                        v-for="carga in CargasPGMC"
+                        :key="'docente'+docente.id+'carga'+carga.id"
+                        v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
+                      >
+                        <template
+                          v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                        >
+                          <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                        <template
+                          v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                        >
+                          <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                      </tr>
+                    </template>
+                  </template>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col">
+          <div class="pl-0 divTable" v-if="!isLoading">
+            <table class="table table-hover table-bordered table-sm">
+              <thead class="thead-light sticky">
+                <tr>
+                  <div style="display: block; width: 330px;" class="sticky">
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;"></p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;">T.</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:135px!important;">Docente</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:100px!important;">Programa</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:40px!important;">C.</p>
+                    </th>
+                  </div>
+                </tr>
+              </thead>
+
+              <tbody>
+                <template v-if="isAdd">
+                  <tr>
+                    <div style="width: 330px;">
+                      <td>
+                        <div style="width:24px; height:40px"></div>
+                      </td>
+
+                      <td>
+                        <div style="width:24px;">
+                          <input
+                            type="text"
+                            style="width: 15px; text-align: center;"
+                            id="trimestre"
+                            v-model="cargaPosForm.trimestre"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 135px">
+                          <select
+                            type="text"
+                            style="width:130px"
+                            id="docente1"
+                            v-model="cargaPosForm.Docente"
+                          >
+                            <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
+                            <option
+                              v-for="docente in Docentes"
+                              :key="docente.id"
+                              :value="docente.id"
+                            >{{docente.apelido}}</option>
+                          </select>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 100px">
+                          <input
+                            type="text"
+                            style="width: 80px"
+                            id="programa"
+                            v-model="cargaPosForm.programa"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 40px">
+                          <input
+                            type="text"
+                            style="width: 25px"
+                            id="creditos"
+                            v-model="cargaPosForm.creditos"
+                          />
+                        </div>
+                      </td>
+                    </div>
+                  </tr>
+                </template>
+                <!-- LINHAS -->
+                <template v-if="CargasPGCC.length>0">
+                  <template v-for="t in [1,  2, 3, 4]">
+                    <template v-for="docente in Docentes">
+                      <tr
+                        v-for="carga in CargasPGCC"
+                        :key="'docente'+docente.id+'carga'+carga.id"
+                        v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
+                      >
+                        <template
+                          v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                        >
+                          <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                        <template
+                          v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                        >
+                          <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                      </tr>
+                    </template>
+                  </template>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col">
+          <div class="pl-0 divTable" v-if="!isLoading">
+            <table class="table table-hover table-bordered table-sm">
+              <thead class="thead-light sticky">
+                <tr>
+                  <div style="display: block; width: 330px;" class="sticky">
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;"></p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:24px!important;">T.</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:135px!important;">Docente</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:100px!important;">Programa</p>
+                    </th>
+                    <th scope="col">
+                      <p class="p-header" style="width:40px!important;">C.</p>
+                    </th>
+                  </div>
+                </tr>
+              </thead>
+
+              <tbody>
+                <template v-if="isAdd">
+                  <tr>
+                    <div style="width: 330px;">
+                      <td>
+                        <div style="width:24px; height:40px"></div>
+                      </td>
+
+                      <td>
+                        <div style="width:24px;">
+                          <input
+                            type="text"
+                            style="width: 15px; text-align: center;"
+                            id="trimestre"
+                            v-model="cargaPosForm.trimestre"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 135px">
+                          <select
+                            type="text"
+                            style="width:130px"
+                            id="docente1"
+                            v-model="cargaPosForm.Docente"
+                          >
+                            <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
+                            <option
+                              v-for="docente in Docentes"
+                              :key="docente.id"
+                              :value="docente.id"
+                            >{{docente.apelido}}</option>
+                          </select>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 100px">
+                          <input
+                            type="text"
+                            style="width: 80px"
+                            id="programa"
+                            v-model="cargaPosForm.programa"
+                          />
+                        </div>
+                      </td>
+
+                      <td>
+                        <div style="width: 40px">
+                          <input
+                            type="text"
+                            style="width: 25px"
+                            id="creditos"
+                            v-model="cargaPosForm.creditos"
+                          />
+                        </div>
+                      </td>
+                    </div>
+                  </tr>
+                </template>
+                <!-- LINHAS -->
+                <template v-if="CargasPGEM.length>0">
+                  <template v-for="t in [1,  2, 3, 4]">
+                    <template v-for="docente in Docentes">
+                      <tr
+                        v-for="carga in CargasPGEM"
+                        :key="'docente'+docente.id+'carga'+carga.id"
+                        v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
+                      >
+                        <template
+                          v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                        >
+                          <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                        <template
+                          v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                        >
+                          <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        </template>
+                      </tr>
+                    </template>
+                  </template>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
     </div>
   </div>
 </template>
+
+
 
 <script>
 import _ from "lodash";
@@ -302,8 +535,12 @@ export default {
       return this.$store.state.cargaPos.Deletar;
     },
 
-    CargasPGCC() {
+    CargasPos() {
       return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
+    },
+
+    CargasPGCC() {
+      return _.orderBy(_.filter(this.$store.state.cargaPos.Cargas,['programa', 'PGCC']), "trimestre");
     },
    
     CargasPGMC() {
@@ -311,7 +548,7 @@ export default {
     },
    
     CargasPGEM() {
-      return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
+      return _.orderBy(_.filter(this.$store.state.cargaPos.Cargas, ['programa', 'PGEM']), "trimestre");
     },
 
     isLoading() {
@@ -323,7 +560,7 @@ export default {
 <style scoped>
 .CargaPos {
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0;
 }
 .p-header {
@@ -397,17 +634,17 @@ export default {
   font-size: 12px !important;
 }
 .divTable {
-  overflow: hidden;
-  height: calc(100vh - 100px);
+  /* overflow: hidden; */
+  height: calc(100vh - 90px);
   border: #808080 solid 2px;
   width: max-content;
 }
 table {
   display: block;
   overflow-y: scroll;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: -webkit-calc(100vh - 90px);
+  height: -moz-calc(100vh - 90px);
+  height: calc(100vh - 90px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
