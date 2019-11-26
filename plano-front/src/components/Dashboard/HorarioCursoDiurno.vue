@@ -3,7 +3,7 @@
         <div>
             <template v-if="horarioVazio(Curso[0])">
                 <div class="col-12 item">
-                    <h5>1 Período</h5>
+                    <h5>1º Período</h5>
                     <horario-diurno :Turmas="Curso[0]"></horario-diurno>
 
                 </div>
@@ -12,7 +12,7 @@
         <div>
             <template v-if="horarioVazio(Curso[1])">
                 <div class="col-12 item">
-                    <h5>2 Período</h5>
+                    <h5>2º Período</h5>
                     <horario-diurno :Turmas="Curso[1]"></horario-diurno>
                 </div>
             </template>
@@ -20,7 +20,7 @@
         <div>
             <template v-if="horarioVazio(Curso[2])">
                 <div class="col-12 item">
-                    <h5>3 Período</h5>
+                    <h5>3º Período</h5>
                     <horario-diurno :Turmas="Curso[2]"></horario-diurno>
                 </div>
             </template>        
@@ -28,7 +28,7 @@
         <div>
             <template v-if="horarioVazio(Curso[3])">
                 <div class="col-12 item">
-                    <h5>4 Período</h5>
+                    <h5>4º Período</h5>
                     <horario-diurno :Turmas="Curso[3]"></horario-diurno>
                 </div>
             </template>
@@ -36,7 +36,7 @@
         <div>
             <template v-if="horarioVazio(Curso[4])">
                 <div class="col-12 item">
-                    <h5>5 Período</h5>
+                    <h5>5º Período</h5>
                     <horario-diurno :Turmas="Curso[4]"></horario-diurno>
                 </div>
             </template>
@@ -44,7 +44,7 @@
         <div>
             <template v-if="horarioVazio(Curso[5])">
                 <div class="col-12 item">
-                    <h5>6 Período</h5>
+                    <h5>6º Período</h5>
                     <horario-diurno :Turmas="Curso[5]"></horario-diurno>
                 </div>
             </template>
@@ -52,7 +52,7 @@
         <div>
             <template v-if="horarioVazio(Curso[6])">
                 <div class="col-12 item">
-                    <h5>7 Período</h5>
+                    <h5>7º Período</h5>
                     <horario-diurno :Turmas="Curso[6]"></horario-diurno>
                 </div>
             </template>
@@ -60,7 +60,7 @@
         <div>
             <template v-if="horarioVazio(Curso[7])">
                 <div class="col-12 item">
-                    <h5>8 Período</h5>
+                    <h5>8º Período</h5>
                     <horario-diurno :Turmas="Curso[7]"></horario-diurno>
                 </div>
             </template>
@@ -68,7 +68,7 @@
         <div>
             <template v-if="horarioVazio(Curso[8])">
                 <div class="col-12 item">
-                    <h5>9 Período</h5>
+                    <h5>9º Período</h5>
                     <horario-diurno :Turmas="Curso[8]"></horario-diurno>
                 </div>
             </template>
@@ -77,7 +77,7 @@
         <div>
             <template v-if="horarioVazio(Curso[9])">
                 <div class="col-12 item">
-                    <h5>10 Período</h5>
+                    <h5>10º Período</h5>
                     <horario-diurno :Turmas="Curso[9]"></horario-diurno>
                 </div>    
             </template>

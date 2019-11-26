@@ -164,7 +164,7 @@
             <template v-for="t in [1,  2, 3, 4]">
               <template v-for="docente in Docentes">
                 <tr
-                  v-for="carga in CargasPos"
+                  v-for="carga in CargasPGMC"
                   :key="'docente'+docente.id+'carga'+carga.id"
                   v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
                 >
@@ -302,7 +302,15 @@ export default {
       return this.$store.state.cargaPos.Deletar;
     },
 
-    CargasPos() {
+    CargasPGCC() {
+      return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
+    },
+   
+    CargasPGMC() {
+      return _.orderBy(_.filter(this.$store.state.cargaPos.Cargas, ['programa', 'PGMC']), "trimestre");
+    },
+   
+    CargasPGEM() {
       return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
     },
 

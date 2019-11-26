@@ -15,12 +15,12 @@
             <table class="table table-hover table-sm">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Código</th>
-                    <th scope="col" style="text-align: center">Carga Teórica</th>
-                    <th scope="col" style="text-align: center">Carga Prática</th>
-                    <th scope="col">Perfil</th>
-                    <th scope="col">EAD</th>
+                    <th scope="col"><p class="p-header">Nome</p></th>
+                    <th scope="col"><p class="p-header">Código</p></th>
+                    <th scope="col"><p class="p-header" style="text-align: center; width: 55px !important">C. Teórica</p></th>
+                    <th scope="col"><p class="p-header" style="text-align: center; width: 55px !important">C. Prática</p></th>
+                    <th scope="col"><p class="p-header">Perfil</p></th>
+                    <th scope="col"><p class="p-header">EAD</p></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -253,7 +253,7 @@
 </script>
 
 <style scoped>
-    table{height:80vh;max-width:900px !important;}
+    table{height:80vh;max-width:920px !important;}
     table th{
       position:-webkit-sticky;
       position: sticky;

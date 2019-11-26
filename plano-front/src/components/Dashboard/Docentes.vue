@@ -10,21 +10,21 @@
     <!-- Fim do Titulo -->
     <!-- Grid Esquerdo -->
     <div class="col">
-     <div style="overflow:hidden auto; position:relative; height: 82vh; width: 480px;">
+      <div class="divTable">
         <!-- Inicio da Tabela -->
         <table class="table table-hover table-sm">
         <thead class="thead-light">
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Apelido</th>
-          <th style="width: 40px"scope="col">Ativo</th>
+          <th scope="col"><p class="p-header">Nome</p></th>
+          <th scope="col"><p class="p-header">Apelido</p></th>
+          <th style="width: 40px"scope="col"><p class="p-header">Ativo</p></th>
         </tr>
         </thead>
         <tbody>
         <template v-if="Docentes.length > 0">
             <tr v-for="docente in Docentes" :key="docente.id" v-on:click.prevent="showDocentes(docente, DocentePerfis)">
-              <td style="width: 305px !important;">{{docente.nome}}</td>
-              <td style="width: 150px !important;">{{docente.apelido}}</td>
+              <td style="width: 260px !important; text-align: start;"><p>{{docente.nome}}</p></td>
+              <td style="width: 100px !important; text-align: start;"><p>{{docente.apelido}}</p></td>
               <td><b-form-checkbox disabled v-model="docente.ativo"></b-form-checkbox></td>
             </tr>
         </template>
@@ -37,7 +37,7 @@
         </tbody>
       </table>
       <!-- Fim da Tabela -->
-    </div>
+      </div>
     </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
@@ -304,79 +304,142 @@
       padding: 0;
       vertical-align: middle;
     }
+    
     td{
       font-size: 11px;
       padding: 0;
       height: 24px !important;
       vertical-align: middle;
     }
-    label{
-      font-size: 12px !important;
-    }
-    input[type="text"]{
-      height: 25px;
-      font-size: 11px;
-    }
-    input[type="checkbox"]{
-      height: 20px;
-      vertical-align: middle;
-    }
-    .h2{
-      padding-left: 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-    .cartao{
-      width: 330px !important;
-      height:auto !important;
-      top: -20px !important;
-      padding: 0 0 0 5px;
-    } 
-    .cartao-inteiro{
-      padding-right:15px;
-    }
-    .custom-control{
-      font-size: 11px;
-    }
-    .custom-control-inline{
-      margin-right: 0 !important;
-    }
-    .botao-estilo{
-        background-color: #faca4d !important;
-        border-color: #faca4d !important;
-        color: white;
-    }
 
-    .botao-estilo:hover{
-        background-color: #f8ac51 !important;
-        border-color: #f8ac51 !important;
-    }
+    /* Tabela Lucas */
     
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+.p-header {
+  padding: 0;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
+  height: 18px;
+} 
+.divTable {
+  overflow: hidden;
+  border: #808080 solid 2px;
+  height: max-content;
+  width: max-content;
+} 
+table {
+  display: block;
+  overflow: hidden scroll;
+  height: -webkit-calc(100vh - 100px);
+  height: -moz-calc(100vh - 100px);
+  height: calc(100vh - 100px);
+  font-size: 11px;
+  background-color: #f5f5f5;
+  margin: 0;
+} 
+tbody {
+  /*top: 23px;*/
+  max-height: 100%;
+  width: 100%;
+}
+table td {  
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 !important;
+
+} 
+
+table p {
+  margin-bottom: 0 !important;
+  text-align: left;
+} 
+tr thead {
+  display: block;
+} 
+thead th {
+  padding: 0 !important;
+  font-size: 14px;
+  text-align: center;
+  height: 18px !important;
+}
+table select {
+  height: 15px !important;
+  text-align: left;
+} 
+table input {
+  height: 18px !important;
+  text-align: center !important;
+} 
+/* Fim Tabela Lucas */
+
+
+label{
+  font-size: 12px !important;
+}
+input[type="text"]{
+  height: 25px;
+  font-size: 11px;
+}
+input[type="checkbox"]{
+  height: 20px;
+  vertical-align: middle;
+}
+.h2{
+  padding-left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.cartao{
+  width: 330px !important;
+  height:auto !important;
+  top: -20px !important;
+  padding: 0 0 0 5px;
+} 
+.cartao-inteiro{
+  padding-right:15px;
+}
+.custom-control{
+  font-size: 11px;
+}
+.custom-control-inline{
+  margin-right: 0 !important;
+}
+.botao-estilo{
+    background-color: #faca4d !important;
+    border-color: #faca4d !important;
+    color: white;
+}
+
+.botao-estilo:hover{
+    background-color: #f8ac51 !important;
+    border-color: #f8ac51 !important;
+}
+
+.botao-estilo:focus{
+    box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+}
+.btn {
+  height:25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  font-size:12px;
+  padding: 0 5px 0 5px;
+  max-width:65px;
+}
+.form-group {
+  margin-bottom: 13px !important;
+}
+.col-form-label{
+  padding-top:0;
+  padding-bottom:0;
+}
+
+@media screen and (max-width:767px) {
+    .cartao{
+      margin-right:auto !important;
+      top:0 !important;
     }
-    .btn {
-      height:25px;
-      min-width: -webkit-max-content;
-      min-width: -moz-max-content;
-      min-width: max-content;
-      font-size:12px;
-      padding: 0 5px 0 5px;
-      max-width:65px;
-    }
-    .form-group {
-      margin-bottom: 13px !important;
-    }
-    .col-form-label{
-      padding-top:0;
-      padding-bottom:0;
-    }
-   
-    @media screen and (max-width:767px) {
-        .cartao{
-          margin-right:auto !important;
-          top:0 !important;
-        }
-    }
+}
 
 </style>

@@ -16,7 +16,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -67,7 +67,7 @@
             </div>
             
             <div class="horario" v-if="horarioVazio(ativos1.CCD[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -119,7 +119,7 @@
             </div>
       
             <div class="horario" v-if="horarioVazio(ativos1.CCD[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -171,7 +171,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -223,7 +223,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -275,7 +275,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -327,7 +327,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -379,7 +379,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -430,7 +430,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -482,7 +482,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCD[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -540,7 +540,7 @@
                 </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -572,7 +572,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -604,7 +604,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -636,7 +636,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -668,7 +668,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -700,7 +700,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -732,7 +732,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -764,7 +764,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -796,7 +796,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -828,7 +828,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.CCN[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -866,7 +866,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -898,7 +898,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -930,7 +930,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -962,7 +962,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -994,7 +994,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1026,7 +1026,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1058,7 +1058,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1090,7 +1090,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1122,7 +1122,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1154,7 +1154,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.SI[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1192,7 +1192,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1243,7 +1243,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1295,7 +1295,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1347,7 +1347,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1398,7 +1398,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1450,7 +1450,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1501,7 +1501,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1553,7 +1553,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1604,7 +1604,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1656,7 +1656,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos1.EC[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1787,7 +1787,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1838,7 +1838,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1890,7 +1890,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1942,7 +1942,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -1994,7 +1994,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2046,7 +2046,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2098,7 +2098,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2150,7 +2150,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2201,7 +2201,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2253,7 +2253,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCD[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2310,7 +2310,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2342,7 +2342,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2374,7 +2374,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2406,7 +2406,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2438,7 +2438,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2470,7 +2470,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2502,7 +2502,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2534,7 +2534,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2566,7 +2566,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2598,7 +2598,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.CCN[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2636,7 +2636,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2668,7 +2668,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2700,7 +2700,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2732,7 +2732,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2764,7 +2764,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2796,7 +2796,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2828,7 +2828,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2860,7 +2860,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2892,7 +2892,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2924,7 +2924,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.SI[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -2962,7 +2962,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[0])">
-                <h5>1 Período</h5>
+                <h5>1º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3013,7 +3013,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[1])">
-                <h5>2 Período</h5>
+                <h5>2º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3065,7 +3065,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[2])">
-                <h5>3 Período</h5>
+                <h5>3º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3117,7 +3117,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[3])">
-                <h5>4 Período</h5>
+                <h5>4º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3169,7 +3169,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[4])">
-                <h5>5 Período</h5>
+                <h5>5º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3221,7 +3221,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[5])">
-                <h5>6 Período</h5>
+                <h5>6º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3273,7 +3273,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[6])">
-                <h5>7 Período</h5>
+                <h5>7º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3325,7 +3325,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[7])">
-                <h5>8 Período</h5>
+                <h5>8º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3376,7 +3376,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[8])">
-                <h5>9 Período</h5>
+                <h5>9º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>
@@ -3428,7 +3428,7 @@
             </div>
 
             <div class="horario" v-if="horarioVazio(ativos2.EC[9])">
-                <h5>10 Período</h5>
+                <h5>10º Período</h5>
                 <table class="tg tabela">
                     <tr>
                         <th class="tg-0lax">hora</th>

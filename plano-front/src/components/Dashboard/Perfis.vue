@@ -70,7 +70,7 @@
         <div class="form-group row">
           <label for="cor" class="col-sm-3 col-3 col-form-label texto-cartao" style="text-align: end;">Cor</label>
           <div class="col-lg-8 col-md-9 col-sm-9 col-9">
-            <input type="color" class="form-control" style="height:25px !important; padding:2px;" id="cor" v-model="perfilForm.cor">
+            <input type="color" class="form-control" style="height:25px !important; padding:1px;" id="cor" v-model="perfilForm.cor">
           </div>
         </div>
         <div class="form-group row">
