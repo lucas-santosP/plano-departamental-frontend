@@ -34,7 +34,7 @@
             <select
               id="gradeAtual"
               v-model="currentGrade"
-              v-on:change="findGrade()"
+              v-on:change="findGrade(), clearClick(), cleanGrade()"
               class="form-control form-control-sm selectMenor"
               style="width: 90px;"
             >
@@ -90,11 +90,14 @@
                           <td>
                             <template v-for="disciplina in Disciplinas">
                               <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                                <div
-                                  style="width: 400px; cursor:pointer"
-                                  :key="disciplina.nome"
-                                  v-on:click.prevent="showDisciplina(disciplinaGrade)"
-                                >{{disciplina.nome}}</div>
+                               
+                                  <div
+                                    style="width: 400px; cursor:pointer;"
+                                    :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
+                                    :key="disciplina.nome"
+                                    v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
+                                  >{{disciplina.nome}}</div>
+                                
                               </template>
                             </template>
                           </td>
@@ -203,6 +206,7 @@
                         value
                       >Nenhuma Disciplina Encontrada</option>
                       <option
+                        v-else
                         v-for="disciplina in Disciplinas"
                         :key="disciplina.id"
                         :value="disciplina.id"
@@ -248,6 +252,7 @@
                       type="button"
                       class="btn btn-danger mr-2 btn-sm"
                       v-on:click.prevent="deleteDisciplinaGrade"
+                      v-on:click="clearClick()"
                       :key="4"
                     >Excluir Disciplina</button>
 
@@ -255,6 +260,7 @@
                       type="button"
                       class="btn btn-secondary mr-2 btn-sm"
                       v-on:click.prevent="cleanGrade"
+                      v-on:click="clearClick()"
                       :key="2"
                     >Cancelar</button>
                   </div>
@@ -274,6 +280,7 @@
                       type="button"
                       class="btn btn-secondary btn-sm mr-2"
                       v-on:click.prevent="cleanGrade"
+                      v-on:click="clearClick()"
                       :key="2"
                     >Resetar</button>
                   </div>
@@ -317,11 +324,16 @@ export default {
       currentGrade: undefined,
       currentCurso: undefined,
       grades: [],
-      clickada: false
+      disciplinaClickada: "",
     };
   },
-
   methods: {
+    clickada(discip){
+      this.disciplinaClickada = discip;
+    },
+    clearClick(){
+      this.disciplinaClickada=""
+    },
     addGrade() {
       gradeService
         .create(this.gradeForm)
@@ -493,7 +505,9 @@ export default {
       return number % 2 === 0;
     }
   },
-
+watch: {
+  
+},
   computed: {
     Grades() {
       return this.$store.state.grade.Grades;
@@ -729,5 +743,9 @@ thead th {
   .espaco {
     height: 10px;
   }
+}
+.bg-custom{
+  background-color: #777777;
+  color:white;
 }
 </style>
