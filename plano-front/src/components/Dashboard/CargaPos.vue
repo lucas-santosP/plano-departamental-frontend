@@ -4,7 +4,7 @@
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Carga Pos</h1>
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
 
         <div
           class="form-group col-xl-10 col-md-9 col-sm-8 col-8 mb-0 pr-0"
@@ -23,30 +23,33 @@
             </div>
 
             <template v-if="isAdd">
-              <button
-                type="button"
-                class="btn btn-sm mt-1 mr-2 btn-success botao-estilo"
-                v-on:click.prevent="addCarga"
-              >Confirmar</button>
-              <button
-                type="button"
-                class="btn btn-sm mt-1 btn-danger"
-                v-on:click.prevent="toggleAdd"
-              >Cancelar</button>
+              <div style="display: flex">
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 mr-2 btn-success botao-estilo"
+                  v-on:click.prevent="addCarga"
+                >Confirmar</button>
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-danger"
+                  v-on:click.prevent="toggleAdd"
+                >Cancelar</button>
+              </div>
             </template>
 
             <template v-else>
-              <button
-                type="button"
-                class="btn btn-sm mt-1 mr-2 btn-success"
-                v-on:click.prevent="toggleAdd"
-              >Adicionar</button>
-              <button
-                type="button"
-                class="btn btn-sm mt-1 btn-danger botao-estilo2"
-                v-b-modal.modalConfirma
-              >Deletar</button>
-
+              <div style="display: flex"> 
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 mr-2 btn-success"
+                  v-on:click.prevent="toggleAdd"
+                >Adicionar</button>
+                <button
+                  type="button"
+                  class="btn btn-sm mt-1 btn-danger"
+                  v-b-modal.modalConfirma
+                >Deletar</button>
+              </div>
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                 <template v-for="carga in Deletar">
@@ -103,7 +106,7 @@
 
             <tbody>
               <template v-if="isAdd">
-                <tr>
+                <tr class="isAdd">
                   <div style="width: 330px;">
                     <td>
                       <div style="width:24px; height:40px"></div>
@@ -225,7 +228,7 @@
             </thead>
 
             <tbody>
-              <template v-if="isAdd">
+              <!-- <template v-if="isAdd">
                 <tr>
                   <div style="width: 330px;">
                     <td>
@@ -288,7 +291,7 @@
                     </td>
                   </div>
                 </tr>
-              </template>
+              </template> -->
               <!-- LINHAS -->
               <template v-if="CargasPGCC.length>0">
                 <template v-for="t in [1,  2, 3, 4]">
@@ -348,7 +351,7 @@
             </thead>
 
             <tbody>
-              <template v-if="isAdd">
+              <!-- <template v-if="isAdd">
                 <tr>
                   <div style="width: 330px;">
                     <td>
@@ -411,7 +414,7 @@
                     </td>
                   </div>
                 </tr>
-              </template>
+              </template> -->
               <!-- LINHAS -->
               <template v-if="CargasPGEM.length>0">
                 <template v-for="t in [1,  2, 3, 4]">
@@ -719,6 +722,12 @@ table input {
   height: 18px !important;
   text-align: center !important;
 }
+.isAdd{
+  background-color: rgb(150,150,150);
+}
+.isAdd:hover{
+  background-color: rgb(180,180,180);
+}
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
@@ -766,7 +775,11 @@ table input {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
-
+@media screen and (max-width: 1083px){
+  .divTable{
+    margin-bottom: 20px;
+  }
+}
 @-webkit-keyframes cubemove {
   25% {
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
