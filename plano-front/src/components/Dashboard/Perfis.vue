@@ -10,21 +10,33 @@
     </div>
       <div class="col">
       <!-- Inicio da Tabela -->
-      <div style="overflow: auto; position:relative; height: 82vh; max-width: 500px;">
-      <table class="table table-hover table-sm">
+      <div class="divTable">
+      <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Abreviação</th>
-          <th scope="col">Cor</th>
+          <div class="sticky" style="display: block; overflow: hidden; z-index:3">
+            <th scope="col">
+              <p style="" class="p-header">Nome</p>
+            </th>
+            <th scope="col">
+              <p style="width: 90px" class="p-header">Abreviação</p>
+            </th>
+            <th scope="col">
+              <p style="width: 34px;" class="p-header">Cor</p>
+            </th>
+          </div>
         </tr>
         </thead>
         <tbody>
         <template v-if="Perfis.length > 0">
           <tr v-for="perfil in Perfis" :key="perfil.id" v-on:click.prevent="showPerfil(perfil)">
-            <td style="width: 350px">{{perfil.nome}}</td>
-            <td>{{perfil.abreviacao}}</td>
-            <input type="color" style="width: 30px;padding:0;vertical-align:middle" v-model="perfil.cor">
+            <td style="width: 304px">{{perfil.nome}}</td>
+            <td style="width: 90px">{{perfil.abreviacao}}</td>
+            <td style="width: 34px">
+            <div style="padding-left: 2px;">
+              <input type="color" style="width: 30px;padding: 0;vertical-align:middle" v-model="perfil.cor">
+            </div>
+            </td>
           </tr>
         </template>
         <template v-else>
@@ -35,6 +47,7 @@
         </template>
         </tbody>
       </table>
+      <!-- </div> -->
       </div>
       <!-- Fim da Tabela -->
     </div>
@@ -42,16 +55,17 @@
     <!-- Grid Direito -->
      <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
-         <div class="card-body"style="padding:20px;">
-      <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
-        <template v-if="isEdit">
-          <h2>Editar Perfil</h2>
+        <div class="card-header">
+          <!-- <div
+              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"> -->
+            <template v-if="isEdit">
+              <h2 class="card-title">Editar Perfil</h2>
+            </template>
+            <template v-else>
+              <h2 class="card-title">Adicionar Perfil</h2>
         </template>
-        <template v-else>
-          <h2>Adicionar Perfil</h2>
-        </template>
-      </div>
+        </div>
+      <div class="card-body" style="padding:20px;">
       <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
       </b-alert>
       <form>
@@ -207,16 +221,21 @@ export default {
 </script>
 
 <style scoped>
-  table{height:80vh; width:500px !important;}
+  table{
+    /* height:80vh;  */
+    width:100% !important;
+    border-color: #dee2e6;
+  }
   table th{
     position:-webkit-sticky;
     position: sticky;
     top: 0;
     font-size: 11px;
+    border-color: #dee2e6;
   }
   td{font-size:11px;}
   h1{font-size:25px;}
-  h2{font-size:14px; font-weight:bold;padding-left: 10px;}
+  /* h2{font-size:14px; font-weight:bold;padding-left: 10px;} */
   .custom-control{font-size: 11px;}
   .texto-cartao{
     font-size:12px;
@@ -224,39 +243,113 @@ export default {
   }
   input[type="text"]{height:25px !important;font-size:11px;}
   .cartao{
-      width: 330px !important;
-      height:auto !important;
-      top: -20px !important;
-      padding: 0 0 0 5px;
+    width: 330px !important;
+    height:auto !important;
+    top: -20px !important;
+    padding: 0 0 0 0px;
   } 
   .cartao-inteiro{
-      padding-right:15px;
+    padding-right:15px;
   }
+  .card-title {
+    font-size: 16px;
+    font-weight: normal;
+    padding-left: 0;
+    margin: 0;
+    text-align: center;
+  }
+  /* Tabela Lucas */
+  .p-header {
+    padding: 0px 0 0px 0;
+    margin: 0;
+    font-size: 11px;
+    text-align: center;
+    height: 18px;
+  }
+  .divTable {
+    overflow: auto;
+    border: #808080 solid 2px;
+    height: max-content;
+    width: max-content;
+  }
+  table {
+    display: block;
+    overflow-y: auto;
+    /* height: -webkit-calc(100vh - 100px);
+    height: -moz-calc(100vh - 100px);
+    height: calc(100vh - 100px); */
+    font-size: 11px;
+    background-color: #f5f5f5;
+    margin: 0;
+  }
+  .table-bordered{
+    border: 1px solid #dee2e6;
+  }
+  tbody {
+    /*top: 23px;*/
+    max-height: 100%;
+    width: 100%;
+  }
+  table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 !important;
+  }
+  table tr{height: 23px;}
+  table p {
+    margin-bottom: 0;
+    text-align: center;
+  }
+  tr thead {
+    display: block;
+  }
+  thead th {
+    padding: 0 !important;
+    font-size: 14px;
+    text-align: center;
+    height: 18px !important;
+  }
+  table input {
+    height: 18px !important;
+    text-align: center !important;
+  }
+  .sticky {
+    display: block !important;
+    overflow: hidden !important;
+    height: 20px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    top: 0 !important;
+    z-index: 3 !important;
+  }
+  /* Fim Tabela Lucas */
+
   .btn {
-      height:25px;
-      min-width: -webkit-max-content;
-      min-width: -moz-max-content;
-      min-width: max-content;
-      font-size:12px;
-      padding: 0 5px 0 5px;
-      max-width:65px;
+    height:25px;
+    min-width: -webkit-max-content;
+    min-width: -moz-max-content;
+    min-width: max-content;
+    font-size:12px;
+    padding: 0 5px 0 5px;
+    max-width:65px;
   }
   .botao-estilo{
-      background-color: #faca4d !important;
-      border-color: #faca4d !important;
-      color: white;
+    background-color: #faca4d !important;
+    border-color: #faca4d !important;
+    color: white;
   }
 
   .botao-estilo:hover{
-      background-color: #f8ac51 !important;
-      border-color: #f8ac51 !important;
+    background-color: #f8ac51 !important;
+    border-color: #f8ac51 !important;
   }
   
   .botao-estilo:focus{
-      box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   }
   @media screen and (max-width: 992px) {
     .cartao{
+      margin-top: 20px;
       margin-left:auto !important;
       margin-right:auto !important;
     }

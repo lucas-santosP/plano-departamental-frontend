@@ -450,7 +450,7 @@ thead th {
   height: 18px !important;
 }
 table input {
-  height: 18px !important;
+  height: 11px !important;
   text-align: center !important;
 }
 .sticky {

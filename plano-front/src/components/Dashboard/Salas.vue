@@ -109,38 +109,42 @@
             <div class="row mb-1 mt-1 mx-0">
               <div class="form-group m-0 px-0">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
-                    v-on:click.prevent="editSala"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-danger mr-2 mb-2"
-                    v-on:click.prevent="deleteSala"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary mb-2"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex">
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
+                      v-on:click.prevent="editSala"
+                      :key="1"
+                    >Editar</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-danger mr-2 mb-2"
+                      v-on:click.prevent="deleteSala"
+                      :key="3"
+                    >Excluir</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-secondary mb-2"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    >Cancelar</button>
+                  </div>
                 </template>
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2"
-                    v-on:click.prevent="addSala"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary mb-2"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Resetar</button>
+                  <div style="display: flex">
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-success mr-2 mb-2"
+                      v-on:click.prevent="addSala"
+                      :key="1"
+                    >Adicionar</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-secondary mb-2"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    >Resetar</button>
+                  </div>
                 </template>
               </div>
             </div>
@@ -332,11 +336,12 @@ export default {
   text-align: center;
 }
 .card {
-  width: max-content;
+  width: 190px;
 }
 .card-body {
   font-size: 12px;
   padding-top: 15px;
+  padding-left: 14px !important;
 }
 
 select {
