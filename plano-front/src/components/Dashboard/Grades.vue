@@ -20,6 +20,7 @@
             <select
               id="cursoAtual"
               v-model="currentCurso"
+              v-on:change="clearClick(), cleanGrade()"
               class="form-control form-control-sm selectMaior"
             >
               <option value="4">Ciência da Computação Diurno</option>
