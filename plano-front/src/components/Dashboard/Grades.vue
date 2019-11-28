@@ -610,7 +610,7 @@ watch: {
   text-align: center;
 }
 .card {
-  width: 390px;
+  width: max-content;
 }
 .card-body {
   font-size: 12px;

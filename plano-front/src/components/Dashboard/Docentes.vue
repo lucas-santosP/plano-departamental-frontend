@@ -53,7 +53,6 @@
                         v-model="docente.ativo"
                         value
                       />
-
                       <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
                     </div>
                   </td>
@@ -451,9 +450,19 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
+table tbody tr div{
+  height:22px!important;
+}
 table input {
   height: 11px !important;
   text-align: center !important;
+}
+input[type="text"]{
+  height: 25px;
+  font-size: 11px;
+}
+input[type="checkbox"]{
+  margin-left: 0!important;
 }
 .sticky {
   display: block !important;
@@ -469,16 +478,6 @@ table input {
 label {
   font-size: 12px !important;
 }
-input[type="text"] {
-  height: 25px;
-  font-size: 11px;
-}
-/*
-input[type="checkbox"] {
-  height: 20px;
-  vertical-align: middle;
-}
-*/
 .card-title {
   font-size: 16px !important;
   font-weight: normal;
@@ -537,9 +536,5 @@ input[type="checkbox"] {
     margin-right: auto !important;
     top: 0 !important;
   }
-}
-.form-check-input {
-  /*position: unset!important;*/
-  margin-left: 0px !important;
 }
 </style>

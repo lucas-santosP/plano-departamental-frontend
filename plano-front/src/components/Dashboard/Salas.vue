@@ -15,9 +15,9 @@
       <table class="table table-hover table-sm table-bordered">
         <thead class="thead-light" style="z-index: 3;">
           <tr>
-            <div style="display: block; overflow: hidden; width: 139px; z-index:3" class="sticky">
+            <div style="display: block; overflow: hidden; width: 157px;" class="sticky">
               <th scope="col">
-                <p class="p-header" style="width: 62px">Nome</p>
+                <p class="p-header" style="width: 82px">Nome</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 72px">Laboratório</p>
@@ -33,14 +33,21 @@
               v-on:click.prevent="showSala(sala)"
               style="cursor:pointer"
             >
-              <div style="width: 139px">
+              <div style="width: 157px">
                 <td>
-                  <p style="width: 62px">{{sala.nome}}</p>
+                  <p style="width: 82px">{{sala.nome}}</p>
                 </td>
-                <td class="text-center" style="text-align:center">
-                  <div style="width: 72px">
-                    <b-form-checkbox style="padding-left:50px" disabled v-model="sala.laboratorio"></b-form-checkbox>
-                  </div>
+                <td>
+                    <div style="width: 72px">
+                      <input
+                        class="form-check-input position-static"
+                        disabled
+                        type="checkbox"
+                        v-model="sala.laboratorio"
+                        value
+                      />
+                      <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
+                    </div>
                 </td>
               </div>
             </tr>
@@ -296,12 +303,10 @@ export default {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
 }
-
 .botao-estilo:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
@@ -312,16 +317,13 @@ export default {
   border-color: #f0852e !important;
   color: white;
 }
-
 .botao-estilo2:hover {
   background-color: #e86c07 !important;
   border-color: #e86c07 !important;
 }
-
 .botao-estilo2:focus {
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -343,7 +345,6 @@ export default {
   padding-top: 15px;
   padding-left: 14px !important;
 }
-
 select {
   height: 25px !important;
   font-size: 11px !important;
@@ -388,6 +389,7 @@ input {
   padding-left: 15px;
   font-size: 12px !important;
 }
+/* Tabela Lucas */
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -434,44 +436,28 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table select {
-  height: 15px !important;
-  text-align: left;
-}
 table input {
-  height: 18px !important;
+  height: 11px !important;
   text-align: center !important;
 }
-
-/* APENAS NO FIREFOX */
-@-moz-document url-prefix() {
-  table select {
-    height: 15px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  table input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
+input[type="text"]{
+  height: 25px;
+  font-size: 11px;
+}
+input[type="checkbox"]{
+  margin-left: 0!important;
+}
+table tbody tr div{
+  height:22px!important;
 }
 .sticky {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+  display: block !important;
+  overflow: hidden !important;
+  height: 20px !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
 }
-
 @media screen and (max-width: 991px) {
   .cartao {
     margin-left: auto;
