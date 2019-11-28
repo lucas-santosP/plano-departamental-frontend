@@ -13,19 +13,13 @@
       <div class="divTable">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
-        <tr>
-          <div class="sticky" style="display: block; overflow: hidden; z-index:3">
-            <th scope="col">
-              <p style="" class="p-header">Nome</p>
-            </th>
-            <th scope="col">
-              <p style="width: 90px" class="p-header">Abreviação</p>
-            </th>
-            <th scope="col">
-              <p style="width: 34px;" class="p-header">Cor</p>
-            </th>
-          </div>
-        </tr>
+          <tr>
+            <div class="sticky" style="display: block; overflow: hidden; z-index:3">
+              <th scope="col"><p style="" class="p-header">Nome</p></th>
+              <th scope="col"><p style="width: 90px" class="p-header">Abreviação</p></th>
+              <th scope="col"><p style="width: 34px;" class="p-header">Cor</p></th>
+            </div>
+          </tr>
         </thead>
         <tbody>
         <template v-if="Perfis.length > 0">

@@ -77,17 +77,19 @@
 
     <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
-        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
-          <div
+        
+          <!-- <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
-          >
-            <template v-if="isEdit">
-              <h1 class="h2">Editar Docente</h1>
-            </template>
-            <template v-else>
-              <h1 class="h2">Adicionar Docente</h1>
-            </template>
-          </div>
+          > -->
+            <div class="card-header">
+              <template v-if="isEdit">
+                <h1 class="card-title">Editar Docente</h1>
+              </template>
+              <template v-else>
+                <h1 class="card-title">Adicionar Docente</h1>
+              </template>
+            </div>
+        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form style="overflow:hidden auto; max-height: 70vh">
             <div class="form-group row">
@@ -477,16 +479,18 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 */
-.h2 {
-  padding-left: 10px;
-  font-size: 14px;
-  font-weight: bold;
+.card-title {
+  font-size: 16px !important;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
 }
 .cartao {
   width: 330px !important;
   height: auto !important;
   top: -20px !important;
-  padding: 0 0 0 5px;
+  padding: 0;
 }
 .cartao-inteiro {
   padding-right: 15px;

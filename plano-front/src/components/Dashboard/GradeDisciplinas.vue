@@ -1,6 +1,6 @@
 <template>
     <div class="Grades Disciplinas" style="height: calc(100vh - 48px)" v-if="Admin">
-        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%">
+        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: auto; width: 100%; height: 45px">
             <h1 class="h2 col-11 titulo">Grades Disciplinas</h1>
             <div class="col-1">
                 <b-form-input v-model="novoAno" v-on:keyup.native.enter="runNovoAno" style="width:60px !important; height: 30px; float: right; position:relative; text-align: center"></b-form-input>

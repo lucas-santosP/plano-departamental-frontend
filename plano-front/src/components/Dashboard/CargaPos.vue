@@ -11,14 +11,16 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="form-control form-control-sm mt-1" v-model="periodos">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-            <div class="input-group-append mt-1 mr-4">
-              <div class="input-group-append">
-                <label class="input-group-text">Semestre</label>
+            <div style="display: flex">
+              <select class="form-control form-control-sm mt-1" v-model="periodos">
+                <option value="1">Primeiro</option>
+                <option value="2">Segundo</option>
+                <option value="3">Ambos</option>
+              </select>
+              <div class="input-group-append mt-1 mr-4">
+                <div class="input-group-append">
+                  <label class="input-group-text">Semestre</label>
+                </div>
               </div>
             </div>
 

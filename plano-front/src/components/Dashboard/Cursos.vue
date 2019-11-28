@@ -16,11 +16,11 @@
           <thead class="thead-light">
             <tr>
               <div style="display: block; overflow: hidden; width: 503px" class="sticky">
-                <th scope="col"><p class="p-header" style="width:300px!important;" >Nome</p></th>
-                <th scope="col"><p class="p-header" style="width:50px!important;" >Código</p></th>
-                <th scope="col"><p class="p-header" style="width:50px!important;" >Turno</p></th>
-                <th scope="col"><p class="p-header" style="width:44px!important;" >1º Sem.</p></th>
-                <th scope="col"><p class="p-header" style="width:44px!important;" >2º Sem.</p></th>
+                <th scope="col"><p class="p-header" style="width:300px!important;">Nome</p></th>
+                <th scope="col"><p class="p-header" style="width:50px!important;">Código</p></th>
+                <th scope="col"><p class="p-header" style="width:50px!important;">Turno</p></th>
+                <th scope="col"><p class="p-header" style="width:44px!important;">1º Sem.</p></th>
+                <th scope="col"><p class="p-header" style="width:44px!important;">2º Sem.</p></th>
                 <th scope="col">
                   <input style="width: 15px" type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
                 </th>
@@ -72,17 +72,19 @@
     <!-- Grid Direito -->
      <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto"style="max-width: 350px;">
-        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
-          <div
+          <!-- <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
-          >
+          > -->
+          <div class="card-header">
             <template v-if="isEdit">
-              <h1 style="font-size:14px; font-weight: bold; padding-left: 10px;">Editar Curso</h1>
+              <h1 class="card-title">Editar Curso</h1>
             </template>
             <template v-else>
-              <h1 style="font-size:14px; font-weight: bold; padding-left: 10px;">Adicionar Curso</h1>
+              <h1 class="card-title">Adicionar Curso</h1>
             </template>
           </div>
+       
+        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form>
             <div class="form-group row">
@@ -399,7 +401,7 @@ export default {
 
 .DashboardCursos {
   /* max-width: 100%; */
-  overflow: hidden;
+  overflow: auto;
   /* margin: 0; */
 }
 h1{font-size: 25px; font-weight: normal;}
@@ -432,6 +434,13 @@ h1{font-size: 25px; font-weight: normal;}
   padding-left: 0;
   margin: 0;
 }
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
 .custom-select {
   height: 26px !important;
   font-size: 12px !important;
@@ -456,7 +465,7 @@ h1{font-size: 25px; font-weight: normal;}
   height: 18px;
 }
 .divTable {
-  overflow: hidden;
+  overflow: auto;
   border: #808080 solid 2px;
   height: max-content;
   width: max-content;
@@ -464,6 +473,7 @@ h1{font-size: 25px; font-weight: normal;}
 table {
   display: block;
   overflow-y: scroll;
+  overflow-x: auto;
   height: -webkit-calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
@@ -559,7 +569,7 @@ input[type="checkbox"] {
 .cartao{
   width: 330px !important;
   height: auto !important;
-  padding: 0 0 0 5px;
+  padding: 0;
   margin-right: 20px !important;
   margin-left:auto;
   top: -20px !important;

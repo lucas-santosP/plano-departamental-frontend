@@ -12,53 +12,58 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="custom-select custom-select-sm mt-1" v-model="periodos">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-            <div class="input-group-append mt-1 mr-2">
-              <div class="input-group-append">
-                <label class="input-group-text">Semestre</label>
+            <div style="display: flex">
+              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+                <option value="1">Primeiro</option>
+                <option value="2">Segundo</option>
+                <option value="3">Ambos</option>
+              </select>
+              <div class="input-group-append mt-1 mr-2">
+                <div class="input-group-append">
+                  <label class="input-group-text">Semestre</label>
+                </div>
               </div>
+              <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis">Perfis</b-button>
             </div>
 
-            <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis">Perfis</b-button>
-
             <template v-if="isAdd">
-              <button
-                type="button"
-                class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
-                style="max-width:80px;"
-                v-on:click.prevent="toggleAdd"
-              >Cancelar</button>
-              <button
-                type="button"
-                class="btn mt-1 btn-sm btn-success col-1 botao-estilo"
-                style="max-width:80px;"
-                v-on:click.prevent="addTurma"
-              >Confirmar</button>
+              <div style="display: flex">
+                <button
+                  type="button"
+                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  style="max-width:80px;"
+                  v-on:click.prevent="toggleAdd"
+                >Cancelar</button>
+                <button
+                  type="button"
+                  class="btn mt-1 btn-sm btn-success col-1 botao-estilo"
+                  style="max-width:80px;"
+                  v-on:click.prevent="addTurma"
+                >Confirmar</button>
+              </div>
             </template>
 
             <template v-else>
-              <button
-                type="button"
-                class="btn mt-1 btn-sm btn-success col-1 mr-2"
-                style="max-width:80px;"
-                v-on:click.prevent="toggleAdd"
-              >Adicionar</button>
-              <button
-                type="button"
-                class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
-                style="max-width:80px;"
-                v-b-modal.modalConfirma
-              >Deletar</button>
-              <button
-                type="button"
-                class="btn mt-1 btn-sm btn-info col-1"
-                style="max-width: 65px;"
-                v-on:click.prevent="xlsx(Pedidos)"
-              >XLSX</button>
+              <div style="display: flex">
+                <button
+                  type="button"
+                  class="btn mt-1 btn-sm btn-success col-1 mr-2"
+                  style="max-width:80px;"
+                  v-on:click.prevent="toggleAdd"
+                >Adicionar</button>
+                <button
+                  type="button"
+                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  style="max-width:80px;"
+                  v-b-modal.modalConfirma
+                >Deletar</button>
+                <button
+                  type="button"
+                  class="btn mt-1 btn-sm btn-info col-1"
+                  style="max-width: 65px;"
+                  v-on:click.prevent="xlsx(Pedidos)"
+                >XLSX</button>
+              </div>
               <!-- Modals do deletar-->
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
