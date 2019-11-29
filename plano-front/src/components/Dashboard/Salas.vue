@@ -13,9 +13,9 @@
     <div class="divTable">
       <!-- Inicio da Tabela -->
       <table class="table table-hover table-sm table-bordered">
-        <thead class="thead-light" style="z-index: 3;">
+        <thead class="thead-light">
           <tr>
-            <div style="display: block; overflow: hidden; width: 157px;" class="sticky">
+            <div style="width: 157px;" class="sticky">
               <th scope="col">
                 <p class="p-header" style="width: 82px">Nome</p>
               </th>
@@ -30,24 +30,24 @@
             <tr
               v-for="sala in Salas"
               :key="sala.id"
-              v-on:click.prevent="showSala(sala)"
-              style="cursor:pointer"
-            >
-              <div style="width: 157px">
+              v-on:click.prevent="showSala(sala), clickada(sala.nome)"
+              style="cursor:pointer">
+              <div style="width: 157px" :class="{ 'bg-custom' : salaClickada === sala.nome}">
                 <td>
                   <p style="width: 82px">{{sala.nome}}</p>
                 </td>
-                <td>
-                    <div style="width: 72px">
-                      <input
-                        class="form-check-input position-static"
-                        disabled
-                        type="checkbox"
-                        v-model="sala.laboratorio"
-                        value
-                      />
-                      <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
-                    </div>
+
+                <td >
+                  <div style="width: 72px">
+                    <input
+                      class="form-check-input position-static"
+                      disabled
+                      type="checkbox"
+                      v-model="sala.laboratorio"
+                      value
+                    />
+                    <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
+                  </div>
                 </td>
               </div>
             </tr>
@@ -180,11 +180,18 @@ export default {
   data() {
     return {
       salaForm: _.clone(emptySala),
-      error: undefined
+      error: undefined,
+      salaClickada: "",
     };
   },
 
   methods: {
+    clickada(salaNome){
+      this.salaClickada = salaNome;
+    },
+    clearClick(){
+      this.salaClickada = "";
+    },
     addSala() {
       salaService
         .create(this.salaForm)
@@ -323,8 +330,8 @@ export default {
 }
 .botao-estilo2:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-     -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-          box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .titulo {
   font-size: 25px;
@@ -446,15 +453,15 @@ table input {
   height: 11px !important;
   text-align: center !important;
 }
-input[type="text"]{
+input[type="text"] {
   height: 25px;
   font-size: 11px;
 }
-input[type="checkbox"]{
-  margin-left: 0!important;
+input[type="checkbox"] {
+  margin-left: 0 !important;
 }
-table tbody tr div{
-  height:22px!important;
+table tbody tr div {
+  height: 22px !important;
 }
 .sticky {
   display: block !important;
@@ -463,11 +470,18 @@ table tbody tr div{
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
+  display: block!important;
+  overflow: hidden!important;
 }
 @media screen and (max-width: 991px) {
   .cartao {
     margin-left: auto;
     margin-right: auto;
   }
+}
+.bg-custom{
+  background-color: #777777;
+  color:white;
+  border:none;
 }
 </style>
