@@ -94,10 +94,7 @@
     <!-- Grid Direito -->
     <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
-        <div class="card-body" style="padding:20px; padding-bottom:0;">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
-          >
+          <div class="card-header">
             <template v-if="isEdit">
               <h2 class="card-title">Editar Disciplina</h2>
             </template>
@@ -196,10 +193,14 @@
                   <label
                     for="ead"
                     class="col-lg-12 col-md-12 col-sm-12 col-form-label ead-texto"
-                    style="padding-bottom: 0; padding-left: 20px;"
+                    style="padding-bottom: 0; padding-left: 20px; "
                   >
-                    <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead" />
-                    EAD
+                  <div class="row">
+                    <div>
+                        <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead" />
+                    </div>
+                        <div class="col" style="padding-top: 5px">EAD</div>
+                  </div>
                   </label>
                 </div>
               </div>
@@ -447,7 +448,7 @@ h1 {
   text-align: start;
   padding-left: 20px;
   line-height: 1.2;
-  padding-top: 5px;
+  padding-top: 0px;
   font-size: 12px;
 }
 .col-form-label {
@@ -525,6 +526,7 @@ input[type="text"] {
 }
 input[type="checkbox"] {
   margin-left: 0 !important;
+  vertical-align: bottom;
 }
 select {
   height: 25px !important;
