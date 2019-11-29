@@ -4,7 +4,7 @@
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
+        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
 
         <div
           class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"

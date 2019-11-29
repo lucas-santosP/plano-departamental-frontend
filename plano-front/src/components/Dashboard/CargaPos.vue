@@ -442,10 +442,6 @@ export default {
       return this.$store.state.cargaPos.Deletar;
     },
 
-    CargasPos() {
-      return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
-    },
-
     CargasPGCC() {
       return _.orderBy(
         _.filter(this.$store.state.cargaPos.Cargas, ["programa", "PGCC"]),
