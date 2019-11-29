@@ -16,7 +16,7 @@
                 <table class="table table-hover table-bordered table-sm">
                     <thead class="thead-light">
                     <tr>
-                        <div style="display: block; overflow: hidden; width: 687px;" class="sticky">  
+                        <div style="display: block; overflow: hidden; width: 687px;z-index: 3" class="sticky">  
                             <th scope="col"><p style="width: 300px;" class="p-header">Nome</p></th>
                             <th scope="col"><p style="width: 62px" class="p-header">Código</p></th>
                             <th scope="col"><p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p></th>
@@ -60,15 +60,16 @@
         <!-- Grid Direito -->
        <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
-        <div class="card-body" style="padding:20px; padding-bottom:0;">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
+            <div class="card-header">
                 <template v-if="isEdit">
-                    <h2>Editar Disciplina</h2>
+                    <h2 class="card-title">Editar Disciplina</h2>
                 </template>
                 <template v-else>
-                    <h2>Adicionar Disciplina</h2>
+                    <h2 class="card-title">Adicionar Disciplina</h2>
                 </template>
             </div>
+        <div class="card-body" style=" padding-bottom:0;">
+
             <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
             </b-alert>
             <form>
@@ -265,15 +266,21 @@
 .DashboardDisciplinas{
     max-width: 100%;
     overflow: hidden;
-    margin: 0;
+    /* margin: 0; */
 }
 h1{font-size: 25px; font-weight: normal;}
-h2{font-size:14px; font-weight:bold; padding-left:10px}
+.card-title {
+  font-size: 16px !important;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
 .cartao{
     width: 330px !important;
     height:auto !important;
     top: -20px !important;
-    padding: 0 0 0 5px;
+    padding: 0;
 } 
 .cartao-inteiro{
     padding-right:15px;
@@ -351,6 +358,7 @@ table {
   display: block;
   overflow-y: scroll;
   overflow-x: hidden;
+  max-width: 702px;
   height: -webkit-calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
@@ -381,16 +389,17 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table input {
-  height: 11px !important;
-  text-align: center !important;
-}
+
 input[type="text"]{
-  height: 25px;
+  height: 25px !important;
   font-size: 11px;
 }
 input[type="checkbox"]{
   margin-left: 0!important;
+}
+select{
+    height: 25px !important;
+    font-size: 11px;
 }
 table tbody tr div{
   height:22px!important;
@@ -404,7 +413,31 @@ table tbody tr div{
   top: 0 !important;
 }
 /* Fim Tabela Lucas */
-    
+
+/* Firefox */
+@-moz-document url-prefix() {
+  select {
+    height: 25px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  input {
+    height: 25px !important;
+    text-align: center;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+}
+
 
     @media screen and (max-width:767px) {
         .cartao{

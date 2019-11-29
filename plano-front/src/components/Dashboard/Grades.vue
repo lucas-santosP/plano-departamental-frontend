@@ -4,7 +4,7 @@
       class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo">Lista Disciplinas</h1>
+        <h1 class="titulo">Grades</h1>
       </div>
     </div>
 

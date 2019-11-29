@@ -5,7 +5,7 @@
       style="overflow: auto; width: 100%"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Plano</h1>
+        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela</h1>
 
         <div
           class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"
@@ -624,6 +624,29 @@ table select {
 table input {
   height: 18px !important;
   text-align: center !important;
+}
+/* Firefox */
+@-moz-document url-prefix() {
+  table select {
+    height: 15px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  table input {
+    height: 18px !important;
+    text-align: center;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
 }
 
 .cube1,
