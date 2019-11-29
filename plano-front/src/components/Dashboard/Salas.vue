@@ -322,7 +322,9 @@ export default {
   border-color: #e86c07 !important;
 }
 .botao-estilo2:focus {
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+     -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+          box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .titulo {
   font-size: 25px;
@@ -400,7 +402,11 @@ input {
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
