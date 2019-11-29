@@ -67,31 +67,31 @@
             <template v-for="professor in Professores">
               <template v-if="turmas(professor).length > 0">
                 <div style="width: 645px;" :key="professor.apelido">
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 130px">{{professor.apelido}}</div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 24px"></div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 80px"></div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 150px; height: 20px;"></div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 24px"></div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 120px"></div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 32px">{{creditos1(professor)}}</div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 32px">{{creditos2(professor)}}</div>
                   </td>
-                  <td style="background-color: #c7c8c9; font-weight: bold; border: none; color: black; ">
+                  <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 42px">{{creditos(professor)}}</div>
                   </td>
                 </div>
@@ -461,7 +461,7 @@ table input {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  table select {
+  select {
     height: 15px !important;
     text-align: left;
     box-sizing: border-box;
@@ -471,7 +471,7 @@ table input {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  table input {
+  input {
     height: 18px !important;
     text-align: center;
     box-sizing: border-box;
