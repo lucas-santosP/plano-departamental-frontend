@@ -428,7 +428,7 @@ table tbody tr div{
   }
   input {
     height: 25px !important;
-    text-align: center;
+    text-align: start;
     box-sizing: border-box;
 
     line-height: 8px;

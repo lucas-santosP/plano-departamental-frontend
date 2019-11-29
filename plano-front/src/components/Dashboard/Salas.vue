@@ -347,22 +347,6 @@ export default {
   padding-top: 15px;
   padding-left: 14px !important;
 }
-select {
-  height: 25px !important;
-  font-size: 11px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 100px;
-  max-width: 100px;
-  text-align: center;
-}
-.selectMenor {
-  min-width: 80px;
-  max-width: 80px;
-}
-.selectMaior {
-  min-width: 200px;
-  max-width: 200px;
-}
 input {
   height: 25px !important;
   padding: 0px 0px 0px 5px !important;
@@ -463,6 +447,19 @@ table tbody tr div{
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
+}
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+   input {
+    height: 25px !important;
+    text-align: start;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
 }
 @media screen and (max-width: 991px) {
   .cartao {

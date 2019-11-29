@@ -715,8 +715,8 @@ thead th {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  table select {
-    height: 15px !important;
+  select{
+    height: 25px !important;
     text-align: left;
     box-sizing: border-box;
 
@@ -725,9 +725,9 @@ thead th {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  table input {
-    height: 18px !important;
-    text-align: center;
+  input {
+    height: 25px !important;
+    text-align: start;
     box-sizing: border-box;
 
     line-height: 8px;
