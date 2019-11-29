@@ -149,8 +149,14 @@
             <div class="form-group row">
               <div class="col-sm-12" style="padding-left:45px;">
                 <label for="ativo" class="col-form-label">
-                  <input type="checkbox" id="ativo" value="1" v-model="docenteForm.ativo" />
-                  Ativo
+                  <div class="row">
+                    <div class="col" style="padding-right: 0;">
+                      <input type="checkbox" id="ativo" value="1" v-model="docenteForm.ativo" />
+                    </div>
+                    <div class="col" style="padding-left: 5px; padding-top: 3px">
+                      Ativo
+                    </div>
+                  </div>
                 </label>
               </div>
             </div>
