@@ -11,15 +11,14 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="col p-0">
       <!-- Inicio da Tabela -->
       <div class="divTable">
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light">
             <tr>
-              <div style="display: block; overflow: hidden; width: 535px;" class="sticky">
+              <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
                 <th scope="col">
-                  <p style="width:400px" class="p-header">Nome</p>
+                  <p style="width: 350px" class="p-header">Nome</p>
                 </th>
                 <th scope="col">
                   <p style="width: 90px" class="p-header">Abreviação</p>
@@ -33,9 +32,9 @@
           <tbody>
             <template v-if="Perfis.length > 0">
               <tr v-for="perfil in Perfis" :key="perfil.id" v-on:click.prevent="showPerfil(perfil)">
-                <div style="width: 535px">
+                <div style="width: 485px">
                   <td>
-                    <p style="width: 400px">{{perfil.nome}}</p>
+                    <p style="width: 350px">{{perfil.nome}}</p>
                   </td>
                   <td>
                     <p style="width: 90px">{{perfil.abreviacao}}</p>
@@ -64,7 +63,6 @@
         <!-- </div> -->
       </div>
       <!-- Fim da Tabela -->
-    </div>
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
@@ -395,10 +393,9 @@ input[type="text"] {
 }
 table {
   display: block;
-  overflow-y: scroll;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  overflow-y: hidden;
+  overflow-x: auto; 
+  height: auto;
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;

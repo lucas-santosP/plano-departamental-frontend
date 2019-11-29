@@ -16,7 +16,7 @@
                 <table class="table table-hover table-bordered table-sm">
                     <thead class="thead-light">
                     <tr>
-                        <div style="display: block; overflow: hidden; width: 687px;z-index: 3" class="sticky">  
+                        <div style="display: block; overflow: hidden; width: 685px;" class="sticky">  
                             <th scope="col"><p style="width: 300px;" class="p-header">Nome</p></th>
                             <th scope="col"><p style="width: 62px" class="p-header">Código</p></th>
                             <th scope="col"><p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p></th>
@@ -29,17 +29,23 @@
                     <tbody>
                     <template v-if="Disciplinas.length > 0">
                         <tr v-for="disciplina in Disciplinas" :key="disciplina.id" v-on:click.prevent="showDisciplina(disciplina)">
-                            <div style="width: 687px">
-                                <td><p style="width: 300px; text-align: start;">{{disciplina.nome}}</p></td>
+                            <div style="width: 685px">
+                                <td><p style="width: 300px;">{{disciplina.nome}}</p></td>
                                 <td><p style="width: 62px">{{disciplina.codigo}}</p></td>
-                                <td><p style="width: 30px; text-align: center">{{disciplina.cargaTeorica}}</p></td>
-                                <td><p style="width: 30px; text-align: center">{{disciplina.cargaPratica}}</p></td>
+                                <td><p style="width: 30px">{{disciplina.cargaTeorica}}</p></td>
+                                <td><p style="width: 30px">{{disciplina.cargaPratica}}</p></td>
                                 <template v-for="perfil in Perfis">
-                                    <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id"><p style="width: 230px; text-align: start; padding-left: 2px;">{{perfil.nome}}</p></td>
+                                    <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id"><p style="width: 230px;">{{perfil.nome}}</p></td>
                                 </template>
                                 <td>
-                                    <div style="width: 25px; padding-left: 4px">
-                                        <b-form-checkbox disabled v-model="disciplina.ead"></b-form-checkbox>
+                                    <div style="width: 25px;">
+                                        <input
+                                            class="form-check-input position-static"
+                                            disabled
+                                            type="checkbox"
+                                            v-model="disciplina.ead"
+                                            value
+                                            />
                                     </div>
                                 </td>
                             </div>
@@ -59,8 +65,9 @@
         <!-- Fim do Grid Esquerdo -->
         <!-- Grid Direito -->
        <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto"style="margin-right:20px; max-width: 350px;">
-            <div class="card-header">
+      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
+        <div class="card-body" style="padding:20px; padding-bottom:0;">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">
                 <template v-if="isEdit">
                     <h2 class="card-title">Editar Disciplina</h2>
                 </template>
@@ -379,6 +386,8 @@ table td {
 table p {
   margin-bottom: 0;
   text-align: center;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 tr thead {
   display: block;
