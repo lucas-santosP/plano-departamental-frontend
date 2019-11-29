@@ -80,7 +80,7 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-0 divTable" v-if="!isLoading">
+    <div class="p-0 divTable" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light sticky">
           <tr>
