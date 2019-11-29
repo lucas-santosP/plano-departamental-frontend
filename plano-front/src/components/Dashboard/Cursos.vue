@@ -526,7 +526,6 @@ table input {
     background-color: rgb(245, 245, 245);
   }
   input {
-    /* height: 18px !important; */
     text-align: center;
     box-sizing: border-box;
     line-height: 8px;

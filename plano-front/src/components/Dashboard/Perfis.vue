@@ -350,6 +350,28 @@ input[type="text"] {
     margin-right: auto !important;
   }
 }
+@-moz-document url-prefix() {
+  select {
+    height: 25px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  input {
+    height: 25px !important;
+    text-align: start;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+}
 
 /* Tabela Lucas */
 .p-header {
@@ -379,7 +401,6 @@ table {
   margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -407,15 +428,7 @@ table input {
   text-align: center !important;
   margin: 0;
 }
-/*
-input[type="text"]{
-  height: 25px;
-  font-size: 11px;
-}
-input[type="checkbox"]{
-  margin-left: 0!important;
-}
-*/
+
 table tbody tr div {
   height: 22px !important;
 }

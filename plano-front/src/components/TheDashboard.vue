@@ -111,11 +111,11 @@
                     <i class="fas fa-calendar-alt"></i> Horários
                   </router-link>
                 </li>
-                <li @click="show=false" class="nav-item">
+                <!-- <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'turmas' }" class="nav-link">
                     <i class="fas fa-bars"></i> Turmas
                   </router-link>
-                </li>
+                </li> -->
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">Relatórios</h6>
               <ul class="nav flex-column">
