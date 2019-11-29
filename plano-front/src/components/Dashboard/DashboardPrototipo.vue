@@ -12,7 +12,7 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <div style="display: flex">
+            
               <select class="custom-select custom-select-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis">Perfis</b-button>
-            </div>
+            
 
             <template v-if="isAdd">
               <div style="display: flex">
