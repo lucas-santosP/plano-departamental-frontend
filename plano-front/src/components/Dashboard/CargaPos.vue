@@ -11,7 +11,7 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <div style="display: flex">
+            
               <select class="form-control form-control-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
@@ -22,10 +22,10 @@
                   <label class="input-group-text">Semestre</label>
                 </div>
               </div>
-            </div>
+           
 
             <template v-if="isAdd">
-              <div style="display: flex">
+              
                 <button
                   type="button"
                   class="btn btn-sm mt-1 mr-2 btn-success botao-estilo"
@@ -36,11 +36,11 @@
                   class="btn btn-sm mt-1 btn-danger"
                   v-on:click.prevent="toggleAdd"
                 >Cancelar</button>
-              </div>
+              
             </template>
 
             <template v-else>
-              <div style="display: flex"> 
+               
                 <button
                   type="button"
                   class="btn btn-sm mt-1 mr-2 btn-success"
@@ -51,7 +51,7 @@
                   class="btn btn-sm mt-1 btn-danger"
                   v-b-modal.modalConfirma
                 >Deletar</button>
-              </div>
+              
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                 <template v-for="carga in Deletar">

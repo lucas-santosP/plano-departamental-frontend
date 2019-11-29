@@ -87,7 +87,7 @@
                 <label for="nome" class="col-form-label py-0">Nome</label>
                 <input
                   type="text"
-                  class="form-control form-control-sm"
+                  class="inputMenor form-control form-control-sm"
                   id="nome"
                   v-model="salaForm.nome"
                 />
@@ -113,10 +113,10 @@
               </div>
             </div>
 
-            <div class="row mb-1 mt-1 mx-0">
+            <div class="row mb-1 mt-1 mx-0" style="width: -webkit-max-content; width: -moz-max-content; width: max-content;">
               <div class="form-group m-0 px-0">
                 <template v-if="isEdit">
-                  <div style="display: flex">
+                  
                     <button
                       type="button"
                       class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
@@ -135,10 +135,10 @@
                       v-on:click.prevent="cleanSala"
                       :key="2"
                     >Cancelar</button>
-                  </div>
+                 
                 </template>
                 <template v-else>
-                  <div style="display: flex">
+                 
                     <button
                       type="button"
                       class="btn-sm btn btn-success mr-2 mb-2"
@@ -151,7 +151,7 @@
                       v-on:click.prevent="cleanSala"
                       :key="2"
                     >Resetar</button>
-                  </div>
+                  
                 </template>
               </div>
             </div>
@@ -347,7 +347,9 @@ export default {
   text-align: center;
 }
 .card {
-  width: 190px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 .card-body {
   font-size: 12px;
@@ -462,11 +464,13 @@ table tbody tr div {
    input {
     height: 25px !important;
     text-align: start;
-    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
 
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
+    -moz-border-radius: 2px;
+         border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
 }
@@ -480,5 +484,10 @@ table tbody tr div {
   background-color: #777777;
   color:white;
   border:none;
+}
+.inputMenor {
+  max-width: 90px;
+  min-width: 90px;
+  text-align: start;
 }
 </style>

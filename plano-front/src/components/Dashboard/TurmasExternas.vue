@@ -11,7 +11,7 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <div style="display: flex">
+           
               <select class="form-control form-control-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
@@ -22,7 +22,7 @@
                   <label class="input-group-text">Semestre</label>
                 </div>
               </div>
-            </div>
+          
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -736,26 +736,7 @@ table input {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  select {
-    height: 16px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
+ 
 }
 
 .sticky {
