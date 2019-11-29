@@ -8,42 +8,51 @@
                     <h1>Lista Disciplinas</h1>
                 </div>
             </div>
-            <!-- Inicio da Tabela -->
+        
+        <!-- Inicio da Tabela -->
             
-        <div class="col col-sm col-lg">
-            <div style="overflow:hidden auto; position:relative; height: 82vh;">
-            <table class="table table-hover table-sm">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col"><p class="p-header">Nome</p></th>
-                    <th scope="col"><p class="p-header">Código</p></th>
-                    <th scope="col"><p class="p-header" style="text-align: center; width: 55px !important">C. Teórica</p></th>
-                    <th scope="col"><p class="p-header" style="text-align: center; width: 55px !important">C. Prática</p></th>
-                    <th scope="col"><p class="p-header">Perfil</p></th>
-                    <th scope="col"><p class="p-header">EAD</p></th>
-                </tr>
-                </thead>
-                <tbody>
-                <template v-if="Disciplinas.length > 0">
-                    <tr v-for="disciplina in Disciplinas" :key="disciplina.id" v-on:click.prevent="showDisciplina(disciplina)">
-                        <td>{{disciplina.nome}}</td>
-                        <td>{{disciplina.codigo}}</td>
-                        <td style="text-align: center">{{disciplina.cargaTeorica}}</td>
-                        <td style="text-align:center">{{disciplina.cargaPratica}}</td>
-                        <template v-for="perfil in Perfis">
-                            <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id">{{perfil.nome}}</td>
-                        </template>
-                        <td><b-form-checkbox disabled v-model="disciplina.ead"></b-form-checkbox></td>
-                    </tr>
-                </template>
-                <template v-else>
+        <div class="col">
+            <div class="divTable">
+                <table class="table table-hover table-bordered table-sm">
+                    <thead class="thead-light">
                     <tr>
-                        <td colspan="3" class="text-center"><i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
-                        </td>
+                        <div style="display: block; overflow: hidden; width: 687px;" class="sticky">  
+                            <th scope="col"><p style="width: 300px;" class="p-header">Nome</p></th>
+                            <th scope="col"><p style="width: 62px" class="p-header">Código</p></th>
+                            <th scope="col"><p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p></th>
+                            <th scope="col"><p style="width: 30px;" class="p-header" title="Carga Prática">C. P.</p></th>
+                            <th scope="col"><p style="width: 230px" class="p-header">Perfil</p></th>
+                            <th scope="col"><p style="width: 25px" class="p-header">EAD</p></th>
+                        </div>
                     </tr>
-                </template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <template v-if="Disciplinas.length > 0">
+                        <tr v-for="disciplina in Disciplinas" :key="disciplina.id" v-on:click.prevent="showDisciplina(disciplina)">
+                            <div style="width: 687px">
+                                <td><p style="width: 300px; text-align: start;">{{disciplina.nome}}</p></td>
+                                <td><p style="width: 62px">{{disciplina.codigo}}</p></td>
+                                <td><p style="width: 30px; text-align: center">{{disciplina.cargaTeorica}}</p></td>
+                                <td><p style="width: 30px; text-align: center">{{disciplina.cargaPratica}}</p></td>
+                                <template v-for="perfil in Perfis">
+                                    <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id"><p style="width: 230px; text-align: start; padding-left: 2px;">{{perfil.nome}}</p></td>
+                                </template>
+                                <td>
+                                    <div style="width: 25px; padding-left: 4px">
+                                        <b-form-checkbox disabled v-model="disciplina.ead"></b-form-checkbox>
+                                    </div>
+                                </td>
+                            </div>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <tr>
+                            <td colspan="3" class="text-center"><i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
+                            </td>
+                        </tr>
+                    </template>
+                    </tbody>
+                </table>
             <!-- Fim da tabela -->
             </div>
         </div>
@@ -253,94 +262,162 @@
 </script>
 
 <style scoped>
-    table{height:80vh;max-width:920px !important;}
-    table th{
-      position:-webkit-sticky;
-      position: sticky;
-      top: 0;
-      z-index: 3;
-      font-size: 11px;
-      height: 20px !important;
-      padding: 0 0 0 5px !important;
-      vertical-align: middle;
-    }
-    td{font-size:11px}
-    h1{font-size: 25px; font-weight: normal;}
-    h2{font-size:14px; font-weight:bold; padding-left:10px}
-    input[type="text"],select[type="text"]{
-      height: 25px;
-      font-size: 11px;
-    }
-    input[type="checkbox"]{
-      height: 20px;
-      vertical-align: middle;
-    }
-    .cartao{
-      width: 330px !important;
-      height:auto !important;
-      top: -20px !important;
-      padding: 0 0 0 5px;
-    } 
-    .cartao-inteiro{
-      padding-right:15px;
-    }
-    .custom-control{
-      font-size: 11px;
-    }
-    .custom-control-inline{
-      margin-right: 0 !important;
-    }
-    .botao-estilo{
-    background-color: #f0852e !important;
-    border-color: #f0852e !important;
-    color: white;
-    }
+.DashboardDisciplinas{
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+h1{font-size: 25px; font-weight: normal;}
+h2{font-size:14px; font-weight:bold; padding-left:10px}
+.cartao{
+    width: 330px !important;
+    height:auto !important;
+    top: -20px !important;
+    padding: 0 0 0 5px;
+} 
+.cartao-inteiro{
+    padding-right:15px;
+}
+.custom-control{
+    font-size: 11px;
+}
+.custom-control-inline{
+    margin-right: 0 !important;
+}
+.botao-estilo{
+background-color: #f0852e !important;
+border-color: #f0852e !important;
+color: white;
+}
 
-    .botao-estilo:hover{
-    background-color: #e86c07 !important;
-    border-color: #e86c07 !important;
-    }
-   
-    .botao-estilo:focus{
-        box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-    }
-    .form-group {
-      margin-bottom: 15px !important;
-    }
-    .texto-cartao{
-        line-height:1.2;
-        padding-top: 5px !important;
-        padding-left: 20px;
-        font-size: 12px;
-        text-align: end;
-        
-    }
-    .ead-texto{
-        text-align:start;
-        padding-left:20px;
-        line-height:1.2;
-        padding-top: 5px;
-        font-size: 12px;
-    }
-    .col-form-label{
-      padding-top:0;
-      padding-bottom:0;
-    }
-    .btn {
-      height:25px;
-      min-width: -webkit-max-content;
-      min-width: -moz-max-content;
-      min-width: max-content;
-      font-size:12px;
-      padding: 0 5px 0 5px;
-      max-width:65px;
-    }
+.botao-estilo:hover{
+background-color: #e86c07 !important;
+border-color: #e86c07 !important;
+}
+
+.botao-estilo:focus{
+    box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+}
+.form-group {
+    margin-bottom: 15px !important;
+}
+.texto-cartao{
+    line-height:1.2;
+    padding-top: 5px !important;
+    padding-left: 20px;
+    font-size: 12px;
+    text-align: end;
+    
+}
+.ead-texto{
+    text-align:start;
+    padding-left:20px;
+    line-height:1.2;
+    padding-top: 5px;
+    font-size: 12px;
+}
+.col-form-label{
+    padding-top:0;
+    padding-bottom:0;
+}
+.btn {
+    height:25px;
+    min-width: -webkit-max-content;
+    min-width: -moz-max-content;
+    min-width: max-content;
+    font-size:12px;
+    padding: 0 5px 0 5px;
+    max-width:65px;
+}
+/* Tabela Lucas */
+.p-header {
+  padding: 0px 0 0px 0;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
+  height: 18px;
+}
+.divTable {
+  overflow: hidden;
+  border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+table {
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: -webkit-calc(100vh - 100px);
+  height: -moz-calc(100vh - 100px);
+  height: calc(100vh - 100px);
+  font-size: 11px;
+  background-color: #f5f5f5;
+  margin: 0;
+}
+tbody {
+  /*top: 23px;*/
+  max-height: 100%;
+  width: 100%;
+}
+table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 !important;
+}
+table p {
+  margin-bottom: 0;
+  text-align: center;
+}
+tr thead {
+  display: block;
+}
+thead th {
+  padding: 0 !important;
+  font-size: 14px;
+  text-align: center;
+  height: 18px !important;
+}
+table input {
+  height: 11px !important;
+  text-align: center !important;
+}
+input[type="text"]{
+  height: 25px;
+  font-size: 11px;
+}
+input[type="checkbox"]{
+  margin-left: 0!important;
+}
+table tbody tr div{
+  height:22px!important;
+}
+.sticky {
+  display: block !important;
+  overflow: hidden !important;
+  height: 20px !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+}
+/* Fim Tabela Lucas */
     
 
     @media screen and (max-width:767px) {
         .cartao{
           margin-right:auto !important;
-          top:0 !important;
+          top:10 !important;
+        }
+    }
+
+    @media screen and (max-width: 1247px){
+        .cartao-inteiro{
+            top: 10px;
+            margin-left: 15px !important;
+            margin-right: auto;
         }
     }
 </style>

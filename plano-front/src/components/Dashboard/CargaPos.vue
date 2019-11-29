@@ -230,70 +230,6 @@
             </thead>
 
             <tbody>
-              <!-- <template v-if="isAdd">
-                <tr>
-                  <div style="width: 330px;">
-                    <td>
-                      <div style="width:24px; height:40px"></div>
-                    </td>
-
-                    <td>
-                      <div style="width:24px;">
-                        <input
-                          type="text"
-                          style="width: 15px; text-align: center;"
-                          id="trimestre"
-                          v-model="cargaPosForm.trimestre"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 135px">
-                        <select
-                          type="text"
-                          style="width:130px"
-                          id="docente1"
-                          v-model="cargaPosForm.Docente"
-                        >
-                          <option
-                            v-if="Docentes.length===0"
-                            type="text"
-                            value
-                          >Nenhum Docente Encontrado</option>
-                          <option
-                            v-for="docente in Docentes"
-                            :key="docente.id"
-                            :value="docente.id"
-                          >{{docente.apelido}}</option>
-                        </select>
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 100px">
-                        <input
-                          type="text"
-                          style="width: 80px"
-                          id="programa"
-                          v-model="cargaPosForm.programa"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 40px">
-                        <input
-                          type="text"
-                          style="width: 25px"
-                          id="creditos"
-                          v-model="cargaPosForm.creditos"
-                        />
-                      </div>
-                    </td>
-                  </div>
-                </tr>
-              </template> -->
               <!-- LINHAS -->
               <template v-if="CargasPGCC.length>0">
                 <template v-for="t in [1,  2, 3, 4]">
@@ -353,70 +289,6 @@
             </thead>
 
             <tbody>
-              <!-- <template v-if="isAdd">
-                <tr>
-                  <div style="width: 330px;">
-                    <td>
-                      <div style="width:24px; height:40px"></div>
-                    </td>
-
-                    <td>
-                      <div style="width:24px;">
-                        <input
-                          type="text"
-                          style="width: 15px; text-align: center;"
-                          id="trimestre"
-                          v-model="cargaPosForm.trimestre"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 135px">
-                        <select
-                          type="text"
-                          style="width:130px"
-                          id="docente1"
-                          v-model="cargaPosForm.Docente"
-                        >
-                          <option
-                            v-if="Docentes.length===0"
-                            type="text"
-                            value
-                          >Nenhum Docente Encontrado</option>
-                          <option
-                            v-for="docente in Docentes"
-                            :key="docente.id"
-                            :value="docente.id"
-                          >{{docente.apelido}}</option>
-                        </select>
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 100px">
-                        <input
-                          type="text"
-                          style="width: 80px"
-                          id="programa"
-                          v-model="cargaPosForm.programa"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 40px">
-                        <input
-                          type="text"
-                          style="width: 25px"
-                          id="creditos"
-                          v-model="cargaPosForm.creditos"
-                        />
-                      </div>
-                    </td>
-                  </div>
-                </tr>
-              </template> -->
               <!-- LINHAS -->
               <template v-if="CargasPGEM.length>0">
                 <template v-for="t in [1,  2, 3, 4]">
@@ -678,7 +550,7 @@ export default {
   font-size: 12px !important;
 }
 .divTable {
-  /* overflow: hidden; */
+  /* overflow: auto; */
   height: max-content;
   border: #808080 solid 2px;
   width: max-content;
