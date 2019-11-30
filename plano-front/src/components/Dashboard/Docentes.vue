@@ -36,6 +36,8 @@
                 v-for="docente in Docentes"
                 :key="docente.id"
                 v-on:click.prevent="showDocentes(docente, DocentePerfis)"
+                :class="{'bg-custom':docenteClickado == docente.nome}"
+                style="cursor: pointer"
               >
                 <div style="width: 416px">
                   <td>
@@ -47,13 +49,11 @@
                   <td>
                     <div style="width: 42px">
                       <input
-                        class="form-check-input position-static"
-                        disabled
+                        class="form-check-input position-static noHover"
+                        v-on:click.prevent="showDocentes(docente, DocentePerfis)"
                         type="checkbox"
                         v-model="docente.ativo"
-                        value
                       />
-                      <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
                     </div>
                   </td>
                 </div>
@@ -76,18 +76,14 @@
 
     <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
-        
-          <!-- <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
-          > -->
-            <div class="card-header">
-              <template v-if="isEdit">
-                <h1 class="card-title">Editar Docente</h1>
-              </template>
-              <template v-else>
-                <h1 class="card-title">Adicionar Docente</h1>
-              </template>
-            </div>
+        <div class="card-header">
+          <template v-if="isEdit">
+            <h1 class="card-title">Editar Docente</h1>
+          </template>
+          <template v-else>
+            <h1 class="card-title">Adicionar Docente</h1>
+          </template>
+        </div>
         <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form style="overflow:hidden auto; max-height: 70vh">
@@ -153,9 +149,7 @@
                     <div class="col" style="padding-right: 0;">
                       <input type="checkbox" id="ativo" value="1" v-model="docenteForm.ativo" />
                     </div>
-                    <div class="col" style="padding-left: 5px; padding-top: 3px">
-                      Ativo
-                    </div>
+                    <div class="col" style="padding-left: 5px; padding-top: 3px">Ativo</div>
                   </div>
                 </label>
               </div>
@@ -232,7 +226,8 @@ export default {
       docenteForm: _.clone(emptyDocente),
       perfisAssociados: [],
       error: undefined,
-      docentePerfil: _.clone(emptyPerfil)
+      docentePerfil: _.clone(emptyPerfil),
+      docenteClickado: ""
     };
   },
 
@@ -301,6 +296,7 @@ export default {
     },
 
     showDocentes(docente, docentes) {
+      this.docenteClickado = docente.nome;
       this.cleanDocente();
       this.docenteForm = _.clone(docente);
       this.perfisAssociados = [];
@@ -420,7 +416,11 @@ export default {
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
@@ -456,19 +456,19 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table tbody tr div{
-  height:22px!important;
+table tbody tr div {
+  height: 22px !important;
 }
 table input {
   height: 11px !important;
   text-align: center !important;
 }
-input[type="text"]{
+input[type="text"] {
   height: 25px !important;
   font-size: 11px;
 }
-input[type="checkbox"]{
-  margin-left: 0!important;
+input[type="checkbox"] {
+  margin-left: 0 !important;
 }
 .sticky {
   display: block !important;
@@ -518,6 +518,8 @@ label {
 }
 
 .botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .btn {
@@ -536,7 +538,12 @@ label {
   padding-top: 0;
   padding-bottom: 0;
 }
-
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.noHover {
+  pointer-events: none;
+}
 @media screen and (max-width: 767px) {
   .cartao {
     margin-right: auto !important;

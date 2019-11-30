@@ -31,20 +31,21 @@
               v-for="sala in Salas"
               :key="sala.id"
               v-on:click.prevent="showSala(sala), clickada(sala.nome)"
-              style="cursor:pointer">
-              <div style="width: 157px" :class="{ 'bg-custom' : salaClickada === sala.nome}">
+              :class="{'bg-custom':salaClickada === sala.nome}"
+              style="cursor:pointer"
+            >
+              <div style="width: 157px">
                 <td>
                   <p style="width: 82px">{{sala.nome}}</p>
                 </td>
 
-                <td >
+                <td>
                   <div style="width: 72px">
                     <input
-                      class="form-check-input position-static"
-                      disabled
                       type="checkbox"
+                      class="form-check-input position-static noHover"
+                      v-on:click.prevent="showSala(sala), clickada(sala.nome)"
                       v-model="sala.laboratorio"
-                      value
                     />
                     <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
                   </div>
@@ -96,62 +97,57 @@
 
             <div class="row mb-2 mx-0">
               <div class="form-group m-0 px-0">
-                <div class="custom-control custom-checkbox">
+                <div class="form-check">
                   <input
                     type="checkbox"
                     id="laboratorio"
-                    class="custom-control-input"
+                    class="form-check-input position-static mr-1"
                     value="1"
                     v-model="salaForm.laboratorio"
                   />
-                  <label
-                    class="custom-control-label"
-                    for="laboratorio"
-                    style="padding-top:4px!important"
-                  >Laboratório</label>
+                  <label class="form-check-label" for="laboratorio">Laboratório</label>
                 </div>
               </div>
             </div>
 
-            <div class="row mb-1 mt-1 mx-0" style="width: -webkit-max-content; width: -moz-max-content; width: max-content;">
+            <div
+              class="row mb-1 mt-1 mx-0"
+              style="width: -webkit-max-content; width: -moz-max-content; width: max-content;"
+            >
               <div class="form-group m-0 px-0">
                 <template v-if="isEdit">
-                  
-                    <button
-                      type="button"
-                      class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
-                      v-on:click.prevent="editSala"
-                      :key="1"
-                    >Editar</button>
-                    <button
-                      type="button"
-                      class="btn-sm btn btn-danger mr-2 mb-2"
-                      v-on:click.prevent="deleteSala"
-                      :key="3"
-                    >Excluir</button>
-                    <button
-                      type="button"
-                      class="btn-sm btn btn-secondary mb-2"
-                      v-on:click.prevent="cleanSala"
-                      :key="2"
-                    >Cancelar</button>
-                 
+                  <button
+                    type="button"
+                    class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
+                    v-on:click.prevent="editSala"
+                    :key="1"
+                  >Editar</button>
+                  <button
+                    type="button"
+                    class="btn-sm btn btn-danger mr-2 mb-2"
+                    v-on:click.prevent="deleteSala"
+                    :key="3"
+                  >Excluir</button>
+                  <button
+                    type="button"
+                    class="btn-sm btn btn-secondary mb-2"
+                    v-on:click.prevent="cleanSala"
+                    :key="2"
+                  >Cancelar</button>
                 </template>
                 <template v-else>
-                 
-                    <button
-                      type="button"
-                      class="btn-sm btn btn-success mr-2 mb-2"
-                      v-on:click.prevent="addSala"
-                      :key="1"
-                    >Adicionar</button>
-                    <button
-                      type="button"
-                      class="btn-sm btn btn-secondary mb-2"
-                      v-on:click.prevent="cleanSala"
-                      :key="2"
-                    >Resetar</button>
-                  
+                  <button
+                    type="button"
+                    class="btn-sm btn btn-success mr-2 mb-2"
+                    v-on:click.prevent="addSala"
+                    :key="1"
+                  >Adicionar</button>
+                  <button
+                    type="button"
+                    class="btn-sm btn btn-secondary mb-2"
+                    v-on:click.prevent="cleanSala"
+                    :key="2"
+                  >Resetar</button>
                 </template>
               </div>
             </div>
@@ -181,15 +177,15 @@ export default {
     return {
       salaForm: _.clone(emptySala),
       error: undefined,
-      salaClickada: "",
+      salaClickada: ""
     };
   },
 
   methods: {
-    clickada(salaNome){
+    clickada(salaNome) {
       this.salaClickada = salaNome;
     },
-    clearClick(){
+    clearClick() {
       this.salaClickada = "";
     },
     addSala() {
@@ -251,6 +247,7 @@ export default {
     },
 
     cleanSala() {
+      this.clearClick();
       this.salaForm = _.clone(emptySala);
       this.error = undefined;
     },
@@ -356,12 +353,6 @@ export default {
   padding-top: 15px;
   padding-left: 14px !important;
 }
-input {
-  height: 25px !important;
-  padding: 0px 0px 0px 5px !important;
-  font-size: 11px !important;
-  text-align: left;
-}
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -384,6 +375,7 @@ input {
   padding-left: 15px;
   font-size: 12px !important;
 }
+
 /* Tabela Lucas */
 .p-header {
   padding: 0px 0 0px 0;
@@ -413,7 +405,6 @@ table {
   margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -435,19 +426,21 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table input {
-  height: 11px !important;
+table tbody tr div {
+  height: 22px !important;
+}
+
+input[type="checkbox"] {
+  height: 13px !important;
+  width: 13px !important;
   text-align: center !important;
+}
+table input[type="checkbox"] {
+  margin-left: 0 !important;
 }
 input[type="text"] {
   height: 25px;
   font-size: 11px;
-}
-input[type="checkbox"] {
-  margin-left: 0 !important;
-}
-table tbody tr div {
-  height: 22px !important;
 }
 .sticky {
   display: block !important;
@@ -456,21 +449,32 @@ table tbody tr div {
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
-  display: block!important;
-  overflow: hidden!important;
+  display: block !important;
+  overflow: hidden !important;
+}
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.inputMenor {
+  max-width: 90px;
+  min-width: 90px;
+  text-align: start;
+}
+.noHover {
+  pointer-events: none;
 }
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-   input {
+  input {
     height: 25px !important;
     text-align: start;
     -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    box-sizing: border-box;
 
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
     -moz-border-radius: 2px;
-         border-radius: 2px;
+    border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
 }
@@ -479,15 +483,5 @@ table tbody tr div {
     margin-left: auto;
     margin-right: auto;
   }
-}
-.bg-custom{
-  background-color: #777777;
-  color:white;
-  border:none;
-}
-.inputMenor {
-  max-width: 90px;
-  min-width: 90px;
-  text-align: start;
 }
 </style>

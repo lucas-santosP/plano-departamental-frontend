@@ -9,18 +9,15 @@
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
-
     <div class="row w-100 m-0" style="font-size:11px">
-      <!-- Grind esquerdo -->
       <div class="mr-2 px-0">
-        <!-- Inicio forms Curso e Grande -->
         <div class="form-row mx-0">
           <div class="mr-2">
             <label for="cursoAtual" class="col-form-label py-0">Curso</label>
             <select
               id="cursoAtual"
               v-model="currentCurso"
-              v-on:change="clearClick(), cleanGrade()"
+              v-on:change="clearClick(), cleanGrade(), currentGrade=undefined"
               class="form-control form-control-sm selectMaior"
             >
               <option value="4">Ciência da Computação Diurno</option>
@@ -50,12 +47,17 @@
           </div>
         </div>
         <!-- Final Forms Curso e Grande -->
+      </div>
+    </div>
 
-        <div class="w-100"></div>
+    <div class="row w-100"></div>
 
+    <div class="row w-100 m-0" style="font-size:11px">
+      <!-- Grind esquerdo -->
+      <div class="mr-2 px-0">
         <!-- Inicio da tabela -->
         <div class="divTable ml-0 mt-3 pl-0 pr-0">
-          <table class="table table-bordered table-hover">
+          <table class="table table-sm table-bordered table-hover">
             <thead class="thead-light">
               <tr>
                 <div
@@ -80,28 +82,29 @@
                       v-if="grade.id===currentGrade"
                       :key="grade.id+'grade'+disciplinaGrade.periodo+'periodo'"
                       v-on:click.prevent="showGrade(grade)"
-                      v-bind:class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
                     >
-                      <div :key="disciplinaGrade.periodo" style="width: 432px; font-size:12px;">
+                      <div
+                        :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
+                        :key="disciplinaGrade.periodo"
+                        style="width: 432px; font-size:11px;"
+                      >
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td>
-                            <div style="width:32px;">{{disciplinaGrade.periodo}}</div>
+                          <td style=" height:20px">
+                            <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
                           </td>
 
-                          <td>
-                            <template v-for="disciplina in Disciplinas">
-                              <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                               
-                                  <div
-                                    style="width: 400px; cursor:pointer;"
-                                    :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
-                                    :key="disciplina.nome"
-                                    v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
-                                  >{{disciplina.nome}}</div>
-                                
-                              </template>
+                          <template v-for="disciplina in Disciplinas">
+                            <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
+                              <td
+                                :key="disciplina.nome"
+                                :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
+                                style="cursor:pointer;"
+                                v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
+                              >
+                                <div class="p-0 m-0" style="width: 400px">{{disciplina.nome}}</div>
+                              </td>
                             </template>
-                          </td>
+                          </template>
                         </template>
                       </div>
                     </tr>
@@ -116,10 +119,8 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="mb-2" style="height:max-content;">
-        <div class="w-100 row espaco"></div>
+      <div class="mb-2 mt-3">
         <!-- Inicio card Edit -->
-
         <div class="card">
           <div class="card-header">
             <template v-if="isEdit">
@@ -300,23 +301,19 @@
 import _ from "lodash";
 import gradeService from "../../common/services/grade";
 import disciplinaGradeService from "../../common/services/disciplinaGrade";
-
 const emptyGrade = {
   id: undefined,
   periodoInicio: undefined,
   Curso: undefined,
   nome: undefined
 };
-
 const emptyDisciplinaGrade = {
   periodo: undefined,
   Disciplina: undefined,
   Grade: undefined
 };
-
 export default {
   name: "DashboardGrade",
-
   data() {
     return {
       gradeForm: _.clone(emptyGrade),
@@ -325,15 +322,15 @@ export default {
       currentGrade: undefined,
       currentCurso: undefined,
       grades: [],
-      disciplinaClickada: "",
+      disciplinaClickada: ""
     };
   },
   methods: {
-    clickada(discip){
+    clickada(discip) {
       this.disciplinaClickada = discip;
     },
-    clearClick(){
-      this.disciplinaClickada=""
+    clearClick() {
+      this.disciplinaClickada = "";
     },
     addGrade() {
       gradeService
@@ -355,7 +352,6 @@ export default {
           }
         });
     },
-
     editGrade() {
       gradeService
         .update(this.gradeForm.id, this.gradeForm)
@@ -375,7 +371,6 @@ export default {
           }
         });
     },
-
     deleteGrade() {
       gradeService
         .delete(this.gradeForm.id, this.gradeForm)
@@ -392,16 +387,13 @@ export default {
           this.error = "<b>Erro ao excluir Grade</b>";
         });
     },
-
     cleanGrade() {
       this.gradeForm = _.clone(emptyGrade);
       this.error = undefined;
     },
-
     cleanDisciplina() {
       this.disciplinaGradeForm = _.clone(emptyDisciplinaGrade);
     },
-
     showGrade(grade) {
       this.cleanGrade();
       this.gradeForm = _.clone(grade);
@@ -415,7 +407,6 @@ export default {
         }
       })();
     },
-
     findGrade() {
       var grade = _.find(this.$store.state.grade.Grades, [
         "id",
@@ -423,7 +414,6 @@ export default {
       ]);
       this.showGrade(grade);
     },
-
     addDisciplinaGrade() {
       disciplinaGradeService
         .create(this.disciplinaGradeForm)
@@ -444,7 +434,6 @@ export default {
           }
         });
     },
-
     editDisciplinaGrade() {
       disciplinaGradeService
         .update(
@@ -468,7 +457,6 @@ export default {
           }
         });
     },
-
     deleteDisciplinaGrade() {
       disciplinaGradeService
         .delete(
@@ -489,50 +477,40 @@ export default {
           this.error = "<b>Erro ao excluir Disciplina</b>";
         });
     },
-
     showDisciplina: function(disciplinaGrade) {
       this.cleanDisciplina;
       this.disciplinaGradeForm = _.clone(disciplinaGrade);
     },
-
     andConnector: function(grade, disciplina, disciplinaGrade) {
       return (
         grade.id === disciplinaGrade.Grade &&
         disciplina.id === disciplinaGrade.Disciplina
       );
     },
-
     isEven(number) {
       return number % 2 === 0;
     }
   },
-watch: {
-  
-},
+  watch: {},
   computed: {
     Grades() {
       return this.$store.state.grade.Grades;
     },
-
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-
     Disciplinas() {
       return _.sortBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
-
     DisciplinaGrades() {
       return _.sortBy(
         this.$store.state.disciplinaGrade.DisciplinaGrades,
         "periodo"
       );
     },
-
     isEdit() {
       return this.gradeForm.id !== undefined;
     },
-
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
@@ -550,12 +528,7 @@ watch: {
   overflow: hidden;
   margin: 0;
 }
-.even {
-  background-color: #d0f6fb;
-}
-.notEven {
-  background-color: #fff0d5;
-}
+
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -571,12 +544,10 @@ watch: {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
 }
-
 .botao-estilo:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
@@ -587,15 +558,15 @@ watch: {
   border-color: #f0852e !important;
   color: white;
 }
-
 .botao-estilo2:hover {
   background-color: #e86c07 !important;
   border-color: #e86c07 !important;
 }
 .botao-estilo2:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -610,6 +581,8 @@ watch: {
   text-align: center;
 }
 .card {
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 .card-body {
@@ -619,7 +592,6 @@ watch: {
 .col-form-label {
   padding-bottom: 0px;
 }
-
 select {
   height: 25px !important;
   font-size: 11px !important;
@@ -636,7 +608,6 @@ select {
   min-width: 200px;
   max-width: 200px;
 }
-
 input {
   height: 25px !important;
   padding: 0px 0px 0px 5px !important;
@@ -659,7 +630,6 @@ input {
   max-width: 350px;
   min-width: 350px;
 }
-
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -669,8 +639,12 @@ input {
 }
 .divTable {
   overflow: hidden !important;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
   height: max-content !important;
   border: #808080 solid 2px !important;
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
   width: max-content !important;
 }
 table {
@@ -712,31 +686,31 @@ thead th {
   position: -webkit-sticky;
   top: 0;
 }
-
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  select{
+  select {
     height: 25px !important;
     text-align: left;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(133, 133, 133);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
   input {
     height: 25px !important;
     text-align: start;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
 }
-
 .espaco {
   height: 58px;
 }
@@ -745,8 +719,14 @@ thead th {
     height: 10px;
   }
 }
-.bg-custom{
-  background-color: #777777;
-  color:white;
+.bg-custom {
+  background-color: rgb(0, 85, 175);
+  color: white;
+}
+.even {
+  background-color: rgba(0, 85, 175, 0.2);
+}
+.notEven {
+  background-color: rgba(237, 240, 211, 0.8);
 }
 </style>

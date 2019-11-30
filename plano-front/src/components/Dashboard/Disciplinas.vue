@@ -392,7 +392,7 @@ export default {
 .DashboardDisciplinas {
   max-width: 100%;
   overflow: hidden;
-  /* margin: 0; */
+  margin: 0;
 }
 h1 {
   font-size: 25px;
