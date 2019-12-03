@@ -1,24 +1,26 @@
 <template>
   <div class="TurmasExternas row pr-2" v-if="Admin">
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0" style="height: 45px"
     >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Tabela Externa</h1>
+      <div class="form-inline col-12 pl-0 mb-2 pr-1" style="height: 45px;">
+        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
 
         <div
-          class="form-group col-xl-10 col-md-9 col-sm-8 col-8 mb-0 pr-0"
+          class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="form-control form-control-sm mt-1" v-model="periodos">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-            <div class="input-group-append mt-1 mr-4">
-              <div class="input-group-append">
-                <label class="input-group-text">Semestre</label>
+            <div style="display: flex">
+              <select class="form-control form-control-sm mt-1" v-model="periodos">
+                <option value="1">Primeiro</option>
+                <option value="2">Segundo</option>
+                <option value="3">Ambos</option>
+              </select>
+              <div class="input-group-append mt-1 mr-4">
+                <div class="input-group-append">
+                  <label class="input-group-text">Semestre</label>
+                </div>
               </div>
             </div>
 
@@ -78,7 +80,7 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="p-0 divTable" v-if="!isLoading">
+    <div class="pl-0 divTable" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light sticky">
           <tr>
@@ -734,6 +736,26 @@ table input {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
+  select {
+    height: 16px !important;
+    text-align: left;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  input {
+    height: 18px !important;
+    text-align: center;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
 }
 
 .sticky {

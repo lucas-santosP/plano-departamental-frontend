@@ -1,14 +1,12 @@
 <template>
   <div class="DashboardSalas row" v-if="Admin">
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo">Lista Salas</h1>
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Lista Salas</h1>
       </div>
     </div>
-
     <div class="w-100 mb-2 border-bottom"></div>
+
 
     <div class="divTable">
       <!-- Inicio da Tabela -->
@@ -334,7 +332,6 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
 }
 .card-title {
   font-size: 16px;
@@ -353,12 +350,7 @@ export default {
   padding-top: 15px;
   padding-left: 14px !important;
 }
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0;
-}
+
 .custom-select {
   height: 26px !important;
   font-size: 12px !important;

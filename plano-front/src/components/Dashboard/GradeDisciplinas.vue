@@ -1,12 +1,15 @@
 <template>
     <div class="Grades Disciplinas" style="height: calc(100vh - 48px)" v-if="Admin">
-        <div class="d-flex center-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="overflow: hidden; width: 100%; height: 45px">
-            <h1 class="h2 col-11 titulo">Grades Disciplinas</h1>
-            <div class="col-1">
-                <b-form-input v-model="novoAno" v-on:keyup.native.enter="runNovoAno" style="width:60px !important; height: 30px; float: right; position:relative; text-align: center"></b-form-input>
+        <div class="col-12" style="padding-left: 0; height: 45px;">     
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3 " style="height: 45px;" >
+
+                <h1 class="col-11 titulo">Grades Disciplinas</h1>
+                    <div class="col-1">
+                        <b-form-input v-model="novoAno" v-on:keyup.native.enter="runNovoAno" style="width:60px !important; height: 30px; float: right; position:relative; text-align: center"></b-form-input>
+                    </div>
             </div>
         </div>
-
+        <div class="w-100 mb-2 border-bottom"></div>
         <div style="height: 80vh; overflow-y: scroll; overflow-x: auto;" ref = "mainTable">
             <table class="table table-hover table-sm">
                 <thead class="thead-light">

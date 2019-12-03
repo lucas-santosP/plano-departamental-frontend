@@ -1,16 +1,12 @@
 <template>
   <div class="DashboardPerfis row" v-if="Admin">
     <!-- Grid Esquerdo -->
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo">Lista Perfis</h1>
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Lista Perfis</h1>
       </div>
     </div>
-
     <div class="w-100 mb-2 border-bottom"></div>
-
       <!-- Inicio da Tabela -->
       <div class="divTable">
         <table class="table table-hover table-bordered table-sm">
@@ -60,7 +56,6 @@
             </template>
           </tbody>
         </table>
-        <!-- </div> -->
       </div>
       <!-- Fim da Tabela -->
     <!-- Fim do Grid Esquerdo -->
@@ -68,8 +63,6 @@
     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
       <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
         <div class="card-header">
-          <!-- <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom">-->
           <template v-if="isEdit">
             <h2 class="card-title">Editar Perfil</h2>
           </template>
@@ -307,7 +300,7 @@ input[type="text"] {
 .cartao {
   width: 330px !important;
   height: auto !important;
-  top: -20px !important;
+  top: -15px !important;
   padding: 0 0 0 0px;
 }
 .cartao-inteiro {
@@ -343,33 +336,16 @@ input[type="text"] {
 .botao-estilo:focus {
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
+.titulo{
+    font-size: 25px;
+    padding-left: 0px;
+    width: 100%;
+}
 @media screen and (max-width: 992px) {
   .cartao {
     margin-top: 20px;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-}
-@-moz-document url-prefix() {
-  select {
-    height: 25px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 25px !important;
-    text-align: start;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
   }
 }
 
@@ -441,10 +417,4 @@ table tbody tr div {
   top: 0 !important;
 }
 
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0;
-}
 </style>

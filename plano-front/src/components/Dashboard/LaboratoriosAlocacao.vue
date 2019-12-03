@@ -1,11 +1,13 @@
 <template>
     <div class="DashboardLaboratoriosAlocacao row">
         <div class="col-12">
-            <div
-                    class="titulo d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2" style="font-size:25px;font-weight:normal;padding-left:0;margin:0">Laboratórios - Alocação</h1>
-                    <button type="button" class="btn btn-success btn-sm col-sm-1 botao-estilo" v-on:click.prevent="pdf" style=""> Relatório </button>
-            </div>
+             <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Laboratórios - Alocação</h1>
+      </div>
+    </div>
+    <div class="w-100 mb-2 border-bottom"></div>
+
             
             <h6>1º SEMESTRE</h6>
             <div class="flex-container">
@@ -269,8 +271,10 @@
 </script>
 
 <style scoped>
-    .titulo{
-        height: 45px;
+   .titulo {
+        font-size: 25px;
+        font-weight: normal;
+        padding-left: 0;
     }
 
     h5{

@@ -1,15 +1,14 @@
 <template>
   <div class="DashboardDocentes row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
-      <div class="form-inline col-12 p-0 mb-2">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Lista Docentes</h1>
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Lista Docentes</h1>
       </div>
     </div>
-    <!-- Fim do Titulo -->
     <div class="w-100 mb-2 border-bottom"></div>
+    <!-- Fim do Titulo -->
+
     <!-- Grid Esquerdo -->
     <div class="col p-0">
       <div class="divTable">
@@ -403,7 +402,6 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
 }
 /* Tabela Lucas */
 .p-header {

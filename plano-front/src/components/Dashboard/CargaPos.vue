@@ -1,9 +1,10 @@
 <template>
   <div class="CargaPos row pr-2" style="font-size:11px;">
+
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0" style="height: 45px"
     >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1" style="height: 45px">
         <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
 
         <div

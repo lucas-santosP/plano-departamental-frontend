@@ -1,15 +1,15 @@
 <template>
-  <div class="DashboardCursos row" v-if="Admin">
-     <div class="col-12">
-                <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom" style="height: 45px;">
-                    <h1>Lista Cursos</h1>
-                </div>
+  <div class="DashboardCursos row pr-2" v-if="Admin">
+  <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Cursos</h1>
       </div>
+    </div>
+    <div class="w-100 mb-2 border-bottom"></div>
 	  <!-- <div class="w-100 mb-2 border-bottom"></div> -->
 
     <!-- Grid Esquerdo -->
-    <div class="col">
+    <div class="col pl-0">
       <!-- Inicio da Tabela -->
       <div class="divTable">
         <table class="table table-hover table-sm">
@@ -400,9 +400,9 @@ export default {
 <style scoped>
 
 .DashboardCursos {
-  /* max-width: 100%; */
+  max-width: 100%;
   overflow: auto;
-  /* margin: 0; */
+  margin: 0;
 }
 h1{font-size: 25px; font-weight: normal;}
 .btn {
@@ -432,7 +432,6 @@ h1{font-size: 25px; font-weight: normal;}
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
 }
 .card-title {
   font-size: 16px;

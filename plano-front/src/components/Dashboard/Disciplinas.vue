@@ -2,14 +2,12 @@
   <div class="DashboardDisciplinas row" style="overflow-y:hidden;" v-if="Admin">
     <!-- Grid Esquerdo -->
     <!-- Titulo -->
-    <div class="col-12">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-3 border-bottom"
-        style="height: 45px;"
-      >
-        <h1>Lista Disciplinas</h1>
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Lista Disciplinas</h1>
       </div>
     </div>
+    <div class="w-100 mb-2 border-bottom"></div>
 
     <!-- Inicio da Tabela -->
   
@@ -69,6 +67,7 @@
                       <input
                         class="form-check-input position-static"
                         disabled
+                        style="margin-top: 0"
                         type="checkbox"
                         v-model="disciplina.ead"
                         value
@@ -394,9 +393,11 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-h1 {
-  font-size: 25px;
-  font-weight: normal;
+
+.titulo{
+    font-size: 25px;
+    padding-left: 0px;
+    width: 100%;
 }
 .card-title {
   font-size: 16px !important;
@@ -408,7 +409,7 @@ h1 {
 .cartao {
   width: 330px !important;
   height: auto !important;
-  top: -20px !important;
+  top: -15px !important;
   padding: 0;
 }
 .cartao-inteiro {

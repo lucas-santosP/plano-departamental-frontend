@@ -1,10 +1,12 @@
 <template>
     <div class="DashboardHorariosResumo row">
         <div class="col-12">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="height:45px;">
-                <h1 style="font-size:25px; font-weight: normal;">Horários - Resumo</h1>
-                <button type="button" class="btn btn-success btn-sm col-sm-1 botao-estilo" v-on:click.prevent="pdf" style="margin-top: -12px"> Relatório </button>
+            <div class="col-12" style="padding-left: 0; height: 45px;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+                    <h1 class="col-12 titulo">Horários - Resumo</h1>
+                </div>
             </div>
+            <div class="w-100 mb-2 border-bottom"></div>
             <!-- ----------------------------------------------------------------------------------------------- -->
             <div class="title" style="text-align:center !important;">
                 <h3>1º SEMESTRE</h3>
@@ -5764,7 +5766,11 @@
         width:25px;
         border-radius: 15px;
     }
-
+    .titulo {
+        font-size: 25px;
+        font-weight: normal;
+        padding-left: 0;
+    }
     .periodo{
         display: inline;
         width: 72px;

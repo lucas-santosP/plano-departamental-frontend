@@ -1,10 +1,11 @@
 <template>
-	 <div class="DashboardHorarios row" v-if="Admin">
-		  <div class="col-12">
-				<div class="titulo d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					 <h1 class="h2" style="font-size:25px; font-weight:normal; padding-left:0; margin-left:0;">Lista Horários</h1>
-				</div>
-	 </div>
+	 <div class="DashboardHorarios row pr-2" v-if="Admin">
+		   <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Lista Horários</h1>
+      </div>
+    </div>
+    <div class="w-100 mb-2 border-bottom"></div>
 		  <div class="col">
 		<div class="tabelas" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);">
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
@@ -954,7 +955,11 @@
 </script>
 
 <style scoped>
-
+.DashboardHorarios {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
 	 /* .quant {
 		  margin: 10px;
 		  padding-left: 4.5px;
@@ -965,9 +970,11 @@
 		  width:25px;
 		  border-radius: 15px;
 	 } */
-	 .titulo{
-		  height: 45px;
-	 }
+	.titulo {
+		font-size: 25px;
+		font-weight: normal;
+		padding-left: 0;
+	}
 
 	 .periodo{
 		  display: inline;
