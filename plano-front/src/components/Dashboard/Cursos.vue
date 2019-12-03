@@ -1,12 +1,15 @@
 <template>
   <div class="DashboardCursos row pr-2" v-if="Admin">
-  <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
+        style="height: 45px;"
+      >
         <h1 class="col-12 titulo">Cursos</h1>
       </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
-	  <!-- <div class="w-100 mb-2 border-bottom"></div> -->
+    <!-- <div class="w-100 mb-2 border-bottom"></div> -->
 
     <!-- Grid Esquerdo -->
     <div class="col pl-0">
@@ -15,14 +18,29 @@
         <table class="table table-hover table-sm">
           <thead class="thead-light">
             <tr>
-              <div style="display: block; overflow: hidden; width: 503px" class="sticky">
-                <th scope="col"><p class="p-header" style="width:300px!important;">Nome</p></th>
-                <th scope="col"><p class="p-header" style="width:50px!important;">Código</p></th>
-                <th scope="col"><p class="p-header" style="width:50px!important;">Turno</p></th>
-                <th scope="col"><p class="p-header" style="width:44px!important;">1º Sem.</p></th>
-                <th scope="col"><p class="p-header" style="width:44px!important;">2º Sem.</p></th>
+              <div
+                style="display: block; overflow: hidden; width: 520px; height:20px !important"
+                class="sticky"
+              >
                 <th scope="col">
-                  <input style="width: 15px" type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
+                  <p class="p-header" style="width:300px!important;">Nome</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:50px!important;">Código</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:50px!important;">Turno</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:44px!important;">1º Sem.</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:44px!important;">2º Sem.</p>
+                </th>
+                <th scope="col">
+                  <div style="width: 32px">
+                    <input type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
+                  </div>
                 </th>
               </div>
             </tr>
@@ -31,25 +49,38 @@
           <tbody>
             <template v-if="Cursos.length > 0">
               <tr v-for="curso in Cursos" :key="curso.id" v-on:click.prevent="showCurso(curso)">
-                <div style="width: 503px">
-                  <td style="width: 300px; text-align: start">{{ curso.nome }}</td>
-                  <td style="width: 50px">{{ curso.codigo }}</td>
-                  <td style="width: 50px; text-align: start; padding-left: 2px !important">{{ curso.turno }}</td>
-                  <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
-                  <td style="width: 44px"
-                    v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3"
-                  >{{ curso.alunosEntrada }}</td>
-                  <td style="width: 44px"v-else>0</td>
-                  <td
-                    style="width: 44px" v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
-                  >{{ curso.alunosEntrada }}</td>
-                  <td style="width: 44px" v-else>0</td>
+                <div style="width: 520px">
                   <td>
-                    <input style="width: 15px"
-                      type="checkbox"
-                      v-model="CursosAtivos[curso.id]"
-                      v-on:click.prevent="toggleCurso(curso.id)"
-                    />
+                    <p style="width: 300px; text-align: start">{{ curso.nome }}</p>
+                  </td>
+                  <td>
+                    <p style="width: 50px">{{ curso.codigo}}</p>
+                  </td>
+                  <td>
+                    <p style="width: 50px;">{{ curso.turno }}</p>
+                  </td>
+                  <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
+                  <td v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3">
+                    <p style="width: 44px">{{ curso.alunosEntrada }}</p>
+                  </td>
+                  <td v-else>
+                    <p style="width: 44px">0</p>
+                  </td>
+                  <td v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3">
+                    <p style="width: 44px">{{ curso.alunosEntrada }}</p>
+                  </td>
+                  <td v-else>
+                    <p style="width: 44px">0</p>
+                  </td>
+                  <td>
+                    <div style="width:32px">
+                      <input
+                        style="width: 15px"
+                        type="checkbox"
+                        v-model="CursosAtivos[curso.id]"
+                        v-on:click.prevent="toggleCurso(curso.id)"
+                      />
+                    </div>
                   </td>
                 </div>
               </tr>
@@ -68,22 +99,22 @@
       </div>
     </div>
     <!-- Fim do Grid Esquerdo -->
-	 
+
     <!-- Grid Direito -->
-     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto"style="max-width: 350px;">
-          <!-- <div
+    <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+      <div class="col card cartao ml-auto" style="max-width: 350px;">
+        <!-- <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
-          > -->
-          <div class="card-header">
-            <template v-if="isEdit">
-              <h1 class="card-title">Editar Curso</h1>
-            </template>
-            <template v-else>
-              <h1 class="card-title">Adicionar Curso</h1>
-            </template>
-          </div>
-       
+        >-->
+        <div class="card-header">
+          <template v-if="isEdit">
+            <h1 class="card-title">Editar Curso</h1>
+          </template>
+          <template v-else>
+            <h1 class="card-title">Adicionar Curso</h1>
+          </template>
+        </div>
+
         <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form>
@@ -94,12 +125,7 @@
                 style="text-align: end; padding: 0"
               >Nome</label>
               <div class="col-9" style="padding-left: 10px;">
-                <input
-                  type="text"
-                  class="form-control "
-                  id="nome"
-                  v-model="cursoForm.nome"
-                />
+                <input type="text" class="form-control" id="nome" v-model="cursoForm.nome" />
               </div>
             </div>
             <div class="form-group row">
@@ -109,20 +135,16 @@
                 style="text-align: end; padding: 0"
               >Código</label>
               <div class="col-9" style="padding-left: 10px;">
-                <input
-                  type="text"
-                  class="form-control "
-                  id="codigo"
-                  v-model="cursoForm.codigo"
-                />
+                <input type="text" class="form-control" id="codigo" v-model="cursoForm.codigo" />
               </div>
             </div>
 
             <div class="form-group row">
-              <label 
-                for="alunosEntrada" 
+              <label
+                for="alunosEntrada"
                 class="col-form-label col-sm-3 col-3"
-                style="text-align: end; padding: 0">Alunos 1º semestre</label>
+                style="text-align: end; padding: 0"
+              >Alunos 1º semestre</label>
               <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
@@ -133,14 +155,15 @@
               </div>
             </div>
             <div class="form-group row">
-              <label 
-                for="alunosEntrada" 
+              <label
+                for="alunosEntrada"
                 class="col-form-label col-sm-3 col-3"
-                style="text-align: end; padding: 0">Alunos 2º semestre</label>
+                style="text-align: end; padding: 0"
+              >Alunos 2º semestre</label>
               <div class="col-9" style="padding-left: 10px;">
                 <input
                   type="text"
-                  class="form-control "
+                  class="form-control"
                   id="alunosEnrada"
                   v-model="cursoForm.alunosEntrada2"
                 />
@@ -398,13 +421,15 @@ export default {
 };
 </script>
 <style scoped>
-
 .DashboardCursos {
   max-width: 100%;
   overflow: auto;
   margin: 0;
 }
-h1{font-size: 25px; font-weight: normal;}
+h1 {
+  font-size: 25px;
+  font-weight: normal;
+}
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -481,7 +506,6 @@ table {
   margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -493,6 +517,8 @@ table td {
 table p {
   margin-bottom: 0;
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 tr thead {
   display: block;
@@ -507,9 +533,12 @@ table select {
   height: 15px !important;
   text-align: left;
 }
+
 table input {
-  height: 18px !important;
+  height: 12px !important;
   text-align: center !important;
+  margin: 0px;
+  margin-top: 4px;
 }
 
 /* APENAS NO FIREFOX */
@@ -537,7 +566,8 @@ table input {
 .sticky {
   position: sticky;
   position: -webkit-sticky;
-  top: 0;
+  top: 0px;
+  z-index: 10;
 }
 
 .radio {
@@ -556,27 +586,35 @@ table input {
 input[type="text"] {
   height: 25px !important;
   font-size: 11px;
-
 }
 
 input[type="radio"] {
   height: 13px !important;
 }
 
-.cartao{
+.cartao {
   width: 330px !important;
   height: auto !important;
   padding: 0;
   margin-right: 20px !important;
-  margin-left:auto;
+  margin-left: auto;
   top: -20px !important;
-
 }
- @media screen and (max-width: 992px) {
-        .cartao{
-          margin-right:auto !important;
-          top:0 !important;
-        }
-    }
-
+@media screen and (max-width: 992px) {
+  .cartao {
+    margin-right: auto !important;
+    top: 0 !important;
+  }
+}
+input[type="checkbox"] {
+  height: 13px !important;
+  width: 13px !important;
+  text-align: center !important;
+}
+table input[type="checkbox"] {
+  margin-left: 0 !important;
+}
+table th {
+  vertical-align: middle;
+}
 </style>
