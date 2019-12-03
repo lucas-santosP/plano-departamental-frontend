@@ -13,7 +13,7 @@
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
             
-              <select class="form-control form-control-sm mt-1" v-model="periodos">
+              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
                 <option value="3">Ambos</option>
@@ -26,7 +26,7 @@
            
 
             <template v-if="isAdd">
-              
+              <div style="display: flex">
                 <button
                   type="button"
                   class="btn btn-sm mt-1 mr-2 btn-success botao-estilo"
@@ -37,11 +37,11 @@
                   class="btn btn-sm mt-1 btn-danger"
                   v-on:click.prevent="toggleAdd"
                 >Cancelar</button>
-              
+              </div>
             </template>
 
             <template v-else>
-               
+              <div style="display: flex">
                 <button
                   type="button"
                   class="btn btn-sm mt-1 mr-2 btn-success"
@@ -52,7 +52,7 @@
                   class="btn btn-sm mt-1 btn-danger"
                   v-b-modal.modalConfirma
                 >Deletar</button>
-              
+              </div>
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
                 <template v-for="carga in Deletar">
@@ -492,6 +492,15 @@ export default {
   padding: 0 5px 0 5px;
   max-width: 65px;
 }
+.custom-select {
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: start;
+  font-size: 100% !important;
+}
+
 
 .botao-estilo {
   background-color: #0079fa !important;
@@ -602,7 +611,7 @@ table input {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  select {
+  /* select {
     height: 15px !important;
     text-align: left;
     box-sizing: border-box;
@@ -611,7 +620,7 @@ table input {
     border: 0.5px solid rgb(133, 133, 133);
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
-  }
+  } */
   input {
     height: 18px !important;
     text-align: center;

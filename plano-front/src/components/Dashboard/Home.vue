@@ -1,8 +1,11 @@
 <template>
   <div class="DashboardHome">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-0 pr-0 pl-0 pb-1 border-bottom">
-      <h1 class="h2 titulo">Dashboard</h1>
+    <div class="col-12" style="padding-left: 0; height: 45px;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+        <h1 class="col-12 titulo">Dashboard</h1>
+      </div>
     </div>
+    <div class="w-100 mb-2 border-bottom"></div>
 
     <!-- alert -->
     <div class="alert alert-light alerta mt-1" role="alert">
@@ -35,12 +38,6 @@
           <strong>
             <router-link :to="{ name: 'horarios' }">Horarios:</router-link>
           </strong> Página onde listam-se os horarios dos cursos do DCC, permitindo filtragem por semestres e cursos.
-        </li>
-        <li class="list-group-item">
-          <strong>
-            <router-link :to="{ name: 'turmas' }">Turmas:</router-link>
-          </strong> Onde localiza-se a listagem completa de todas as turmas de todas disciplinas oferecidas pelo DCC. Também permite a 
-          alteração de horarios, local e docentes. Contudo, recomenda-se fazer tais alterações pela Tabela principal.
         </li>
       </ul>
       
@@ -129,10 +126,9 @@ export default {
   overflow: auto;
 }
 .titulo{
-  font-size:16px;
-  font-weight: bold;
+  font-size:25px;
+  font-weight: normal;
   padding-left: 0;
-  margin:0;
 }
 
 .alerta {

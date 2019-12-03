@@ -554,14 +554,13 @@ table input {
 }
 
 input[type="text"] {
-  height: 25px;
+  height: 25px !important;
   font-size: 11px;
 
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-  height: 13px;
+input[type="radio"] {
+  height: 13px !important;
 }
 
 .cartao{

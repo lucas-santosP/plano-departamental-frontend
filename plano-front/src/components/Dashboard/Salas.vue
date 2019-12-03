@@ -431,7 +431,7 @@ table input[type="checkbox"] {
   margin-left: 0 !important;
 }
 input[type="text"] {
-  height: 25px;
+  height: 25px !important;
   font-size: 11px;
 }
 .sticky {

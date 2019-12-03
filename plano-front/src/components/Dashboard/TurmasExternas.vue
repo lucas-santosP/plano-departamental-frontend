@@ -11,8 +11,8 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <div style="display: flex">
-              <select class="form-control form-control-sm mt-1" v-model="periodos">
+            <!-- <div style="display: flex"> -->
+              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
                 <option value="3">Ambos</option>
@@ -22,7 +22,7 @@
                   <label class="input-group-text">Semestre</label>
                 </div>
               </div>
-            </div>
+            <!-- </div> -->
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -663,10 +663,17 @@ export default {
   padding-left: 0;
   margin: 0;
 }
-.form-control {
+/* .form-control {
   height: 25px !important;
   font-size: 12px !important;
   padding: 0px 0px 0px 10px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: start;
+} */
+.custom-select {
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
   min-width: 85px;
   max-width: 85px;
   text-align: start;
