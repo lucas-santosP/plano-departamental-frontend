@@ -94,8 +94,8 @@
 					 <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
 						  <form name="formPeriodo" id="formPeriodo" ref="formPrioso">
 								<div class="grade" >
-									 <label for="periodo" style="margin-right: 10px; font-size: 12px;">Semestre:</label>
-									 <b-form-select id="periodo" v-model="periodo" class="periodo" style="font-size: 11px; width: 80px; height:28px !important; position: relative;">
+									 <label for="periodo" style="margin-right: 10px; font-size: 11px">Semestre:</label>
+									 <b-form-select id="periodo" v-model="periodo" class="periodo" style="font-size: 75%; width: 80px; height:25px !important; position: relative; padding-top: 0.175rem">
 										  <option :value="1">1</option>
 										  <option :value="2">2</option>
 										  <option :value="3">Ambos</option>

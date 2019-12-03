@@ -666,9 +666,16 @@ export default {
   padding-left: 0;
   margin: 0;
 }
-.form-control {
+/* .form-control {
   height: 25px !important;
   font-size: 12px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: start;
+} */
+.custom-select {
+  height: 25px !important;
   padding: 0px 0px 0px 5px !important;
   min-width: 85px;
   max-width: 85px;
