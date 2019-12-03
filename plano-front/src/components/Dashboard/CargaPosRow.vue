@@ -91,7 +91,7 @@
         text-align: center;
         vertical-align:middle;
         padding: 0;
-        height:40px;
+        height:25px;
     }
     p {
         margin-bottom: 0;

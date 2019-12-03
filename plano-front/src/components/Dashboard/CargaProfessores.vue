@@ -19,12 +19,12 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="divTable pl-0" ref="carga">
-      <table class="table table-hover table-sm table-bordered">
+    <div class="divTable p-0" ref="carga">
+      <table class="table table-hover table-sm">
         <thead class="thead-light sticky">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: 645px; height:20px !important"
+              style="display: block; overflow: hidden; width: 788px; height:20px !important"
               class="sticky"
             >
               <th scope="col">
@@ -37,7 +37,7 @@
                 <p class="p-header" style="width: 80px">Cod</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 150px">Disciplina</p>
+                <p class="p-header" style="width: 300px">Disciplina</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 24px">T.</p>
@@ -70,7 +70,7 @@
           <template v-if="Professores.length > 0">
             <template v-for="professor in Professores">
               <template v-if="turmas(professor).length > 0">
-                <div style="width: 645px;" :key="professor.apelido">
+                <div style="width: 788px;" :key="professor.apelido">
                   <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 130px">{{professor.apelido}}</div>
                   </td>
@@ -81,7 +81,7 @@
                     <div style="width: 80px"></div>
                   </td>
                   <td style="background-color: #b6b8ba; color: white; ">
-                    <div style="width: 150px; height: 20px;"></div>
+                    <div style="width: 300px; height: 20px;"></div>
                   </td>
                   <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 24px"></div>
@@ -109,7 +109,7 @@
                   <template
                     v-if="turma.Disciplina===disciplina.id && (turma.Docente1===professor.id || turma.Docente2===professor.id)"
                   >
-                    <div style="width: 645px;">
+                    <div style="width: 788px;">
                       <td>
                         <div style="width: 130px"></div>
                       </td>
@@ -120,8 +120,8 @@
                         <div style="width: 80px">{{disciplina.codigo}}</div>
                       </td>
                       <td>
-                        <div style="width: 150px; text-algin:center">
-                          <p style="width: 150px;">{{disciplina.nome}}</p>
+                        <div style="width: 300px; text-algin:center">
+                          <p style="width: 300px;">{{disciplina.nome}}</p>
                         </div>
                       </td>
                       <td>
@@ -177,7 +177,7 @@
               <template v-for="carga in CargasPos">
                 <template v-if="carga.Docente===professor.id">
                   <tr :key="'cargaPos'+carga.id+'professor'+professor.id">
-                    <div style="width: 645px;">
+                    <div style="width: 788px;">
                       <td>
                         <div style="width: 130px"></div>
                       </td>
@@ -188,7 +188,7 @@
                         <div style="width: 80px"></div>
                       </td>
                       <td>
-                        <div style="width: 150px">Disciplina do {{carga.programa}}</div>
+                        <div style="width: 300px">Disciplina do {{carga.programa}}</div>
                       </td>
                       <td>
                         <div style="width: 24px"></div>

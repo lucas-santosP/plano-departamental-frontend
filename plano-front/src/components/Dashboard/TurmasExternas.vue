@@ -1,9 +1,9 @@
 <template>
   <div class="TurmasExternas row pr-2" v-if="Admin">
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0" style="height: 45px"
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
     >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1" style="height: 45px;">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
 
         <div
@@ -11,7 +11,7 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <div style="display: flex">
+         
               <select class="form-control form-control-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
@@ -22,7 +22,6 @@
                   <label class="input-group-text">Semestre</label>
                 </div>
               </div>
-            </div>
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -124,13 +123,17 @@
                     :target="'curso'+curso.id"
                     placement="bottom"
                     triggers="hover focus"
+                    
                   >
-                    <span
+                    <p
+                    style="font-size: 11px" class="p-0 m-0"
                       v-if="curso.semestreInicial==1 || curso.semestreInicial==3"
-                    >1º - {{curso.alunosEntrada}}</span>
-                    <span
+                    >1º - {{curso.alunosEntrada}}</p>
+                    <p
+                    style="font-size: 11px" class="p-0 m-0"
                       v-if="curso.semestreInicial==2 || curso.semestreInicial==3"
-                    >2º - {{curso.alunosEntrada}}</span>
+                    >2º - {{curso.alunosEntrada}}</p>
+                    <p style="font-size: 11px" class="p-0 m-0">{{curso.nome}}</p>
                   </b-popover>
                 </th>
               </template>
@@ -666,7 +669,7 @@ export default {
 .form-control {
   height: 25px !important;
   font-size: 12px !important;
-  padding: 0px 0px 0px 10px !important;
+  padding: 0px 0px 0px 5px !important;
   min-width: 85px;
   max-width: 85px;
   text-align: start;
