@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
-<!--  -->
+
     <div class="row w-100 m-0" style="font-size:11px">
       <div class="mr-2 px-0">
         <div class="form-row mx-0">
@@ -52,7 +52,7 @@
 
     <div class="row w-100 m-0" style="font-size:11px">
       <!-- Grind esquerdo -->
-      <div class="mr-2 px-0">
+      <div class="col mr-2 px-0">
         <!-- Inicio da tabela -->
         <div class="divTable ml-0 mt-3 pl-0 pr-0">
           <table class="table table-sm table-bordered table-hover">
@@ -117,7 +117,8 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="mb-2 mt-3">
+      
+      <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
         <!-- Inicio card Edit -->
         <div class="card">
           <div class="card-header">
