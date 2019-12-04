@@ -1,8 +1,6 @@
 <template>
   <div class="DashboardGrades row pr-2" v-if="Admin">
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Grades</h1>
       </div>
@@ -126,18 +124,12 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="div-card col-lg-5 col-md-6 col-sm-12 col-12 mt-3 mb-2 pl-0 ml-auto">
-        <!-- Inicio card Edit -->
-
+      <div class="div-card col-lg-5 col-md-6 col-sm-12 col-12 mt-3 mb-2 p-0 ml-auto">
+        <!-- Inicio cards -->
         <template v-if="showCard">
-          <div class="card ml-auto mr-2">
+          <div class="card ml-auto mr-4">
             <div class="card-header">
-              <template v-if="isEdit">
-                <h1 class="card-title">Editar Grade</h1>
-              </template>
-              <template v-else>
-                <h1 class="card-title">Adicionar Grade</h1>
-              </template>
+              <h1 class="card-title">Adicionar Grade</h1>
             </div>
 
             <div class="card-body">
@@ -222,12 +214,7 @@
         <template v-else-if="isEdit">
           <div class="card ml-auto mr-2">
             <div class="card-header">
-              <template v-if="isEdit">
-                <h1 class="card-title">Editar Grade</h1>
-              </template>
-              <template v-else>
-                <h1 class="card-title">Adicionar Grade</h1>
-              </template>
+              <h1 class="card-title">Editar Grade</h1>
             </div>
 
             <div class="card-body">
@@ -391,7 +378,7 @@
             </div>
           </div>
         </template>
-        <!-- Final card Edit -->
+        <!-- Final card -->
       </div>
     </div>
   </div>
@@ -655,22 +642,6 @@ export default {
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
-/*
-.btn-excluir{
-  color:black;
-  background-color: #f19999 !important;
-  border-color: #ec7171 !important;
-}
-.btn-excluir:hover {
-  color:white;
-  background-color: #be3636 !important;
-}
-.btn-excluir:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-*/
 .botao-estilo2 {
   background-color: #f0852e !important;
   border-color: #f0852e !important;
@@ -689,7 +660,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+  margin: 0!important;
 }
 .cartao-inteiro {
   margin-right: 15px;

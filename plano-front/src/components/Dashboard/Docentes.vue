@@ -1,8 +1,8 @@
 <template>
   <div class="DashboardDocentes row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Docentes</h1>
       </div>
     </div>
@@ -73,8 +73,8 @@
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
 
-    <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
+    <div class="col-lg-5 col-md-5 col-sm-12 col-12 mt-3 p-0 ml-auto">
+      <div class="col card cartao ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Editar Docente</h1>
@@ -402,6 +402,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0!important;
 }
 /* Tabela Lucas */
 .p-header {
@@ -489,14 +490,10 @@ label {
   margin: 0;
   text-align: center;
 }
-.cartao {
-  width: 330px !important;
+.card {
+  width: max-content !important;
   height: auto !important;
-  top: -20px !important;
   padding: 0;
-}
-.cartao-inteiro {
-  padding-right: 15px;
 }
 .custom-control {
   font-size: 11px;

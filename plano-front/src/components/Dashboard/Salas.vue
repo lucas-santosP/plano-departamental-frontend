@@ -1,12 +1,12 @@
 <template>
-  <div class="DashboardSalas row" v-if="Admin">
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+  <div class="DashboardSalas row pr-2" v-if="Admin">
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Salas</h1>
       </div>
     </div>
-    <div class="w-100 mb-2 border-bottom"></div>
 
+    <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="divTable">
       <!-- Inicio da Tabela -->
@@ -66,8 +66,8 @@
     </div>
 
     <!-- Grid Direito -->
-    <div class="col-lg-5 col-md-5 col-sm-5 col-6">
-      <div class="card ml-0 cartao">
+    <div class="div-card col-lg-5 col-md-5 col-sm-5 col-6 mb-2 ml-auto p-0">
+      <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Editar Sala</h1>
@@ -332,6 +332,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0;
 }
 .card-title {
   font-size: 16px;
@@ -448,8 +449,8 @@ input[type="text"] {
   background-color: #c8c8c8;
 }
 .inputMenor {
-  max-width: 90px;
-  min-width: 90px;
+  max-width: 100px;
+  min-width: 100px;
   text-align: start;
 }
 .noHover {
@@ -471,9 +472,9 @@ input[type="text"] {
   }
 }
 @media screen and (max-width: 991px) {
-  .cartao {
-    margin-left: auto;
-    margin-right: auto;
+  .card {
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 </style>
