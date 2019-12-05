@@ -192,42 +192,56 @@
             </div>
 
             <div class="form-group row">
-              <div class="col-sm-10">
+              <!-- <div class="col-sm-10"> -->
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn btn-warning m-2 botao-estilo"
-                    v-on:click.prevent="editCurso"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2"
-                    v-on:click.prevent="deleteCurso"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanCurso"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">  
+                    <!-- Editar -->
+                    <button
+                      type="button"
+                      class="editbtn"
+                      title="Editar"
+                      v-on:click.prevent="editCurso"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <!-- Excluir -->
+                    <button
+                      type="button"
+                      title="Deletar"
+                      class="delbtn"
+                      v-on:click.prevent="deleteCurso"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <!-- Cancelar -->
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanCurso"
+                      :key="2"
+                    ><i class="fas fa-ban"></i></button>
+                  </div>
                 </template>
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn btn-success m-2"
-                    v-on:click.prevent="addCurso"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanCurso"
-                    :key="2"
-                  >Resetar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">  
+                    <!-- Adicionar -->
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addCurso"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <!-- Resetar -->
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanCurso"
+                      :key="2"
+                    ><i class="fas fa-ban"></i></button>
+                  </div>
                 </template>
-              </div>
+              <!-- </div> -->
             </div>
           </form>
         </div>
@@ -616,5 +630,66 @@ table input[type="checkbox"] {
 }
 table th {
   vertical-align: middle;
+}
+/* Botoes */
+button{
+  padding: 0;
+  border: none;
+  background: none;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far{
+  font-size: 30px;
+}
+.addbtn{
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover{
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus{
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn{
+  background-color: white;
+  color: #cfcfc4;
+}
+.cancelbtn:hover{
+  color: #b8b4a8;
+}
+.cancelbtn:focus{
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn{
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover{
+  color: #ffb448;
+}
+.editbtn:focus{
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn{
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover{
+  color: #ff5f48;
+}
+.delbtn:focus{
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 </style>

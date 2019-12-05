@@ -10,9 +10,10 @@
         >
           <button
             type="button"
-            class="btn btn-sm btn-success ml-auto mt-1 botao-estilo"
+            class="relatbtn"
+            title="Relatório"
             v-on:click.prevent="pdf"
-          >Relatório</button>
+          ><i class="far fa-file-alt"></i></button>
         </div>
       </div>
     </div>
@@ -499,8 +500,8 @@ table input {
   padding-left: 0;
   margin: 0 !important;
 }
-
-.btn {
+/* Botoes */
+/* .btn {
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
@@ -508,18 +509,50 @@ table input {
   font-size: 12px;
   padding: 0 5px 0 5px;
   max-width: 65px;
+} */
+button{
+  padding: 0;
+  border: none;
+  background: none;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
+i.fas,
+i.far{
+  font-size: 25px;
+}
+.relatbtn {
+  background-color: white;
+  color: #0079fa !important;
 }
 
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
+.relatbtn:hover {
+  background-color: white;
+  color: #0055af;
 }
 
-.botao-estilo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 116, 0.5) !important;
+.relatbtn:focus {
+   color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
 }
+/* i.fas,
+i.far{
+  font-size: 35px;
+}
+.addbtn{
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover{
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus{
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+} */
 </style>
