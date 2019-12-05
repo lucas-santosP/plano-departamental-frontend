@@ -59,7 +59,7 @@
 
     <div class="row w-100 m-0" style="font-size:11px">
       <!-- Grind esquerdo -->
-      <div class="mr-2 px-0">
+      <div class="col mr-2 px-0">
         <!-- Inicio da tabela -->
         <div class="divTable ml-0 mt-3 pl-0 pr-0">
           <table class="table table-sm table-bordered table-hover">
