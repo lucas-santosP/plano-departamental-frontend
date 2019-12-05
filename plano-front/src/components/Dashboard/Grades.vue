@@ -94,7 +94,7 @@
                         style="width: 435px; font-size:11px;"
                       >
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td style=" height:20px">
+                          <td>
                             <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
                           </td>
 
@@ -106,7 +106,7 @@
                                 style="cursor:pointer;"
                                 v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
                               >
-                                <div class="p-0 m-0" style="width: 400px">{{disciplina.nome}}</div>
+                                <p style="width: 400px">{{disciplina.nome}}</p>
                               </td>
                             </template>
                           </template>
@@ -190,7 +190,7 @@
                     </select>
                   </div>
                 </div>
-                
+
                 <div class="row mb-0 mt-3 mx-0">
                   <div class="form-group m-0 col px-0">
                     <button
@@ -661,7 +661,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0!important;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px;

@@ -2,62 +2,70 @@
   <div class="DashboardPerfis row" v-if="Admin">
     <!-- Grid Esquerdo -->
     <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
+        style="height: 45px;"
+      >
         <h1 class="col-12 titulo">Lista Perfis</h1>
       </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
-      <!-- Inicio da Tabela -->
-      <div class="divTable">
-        <table class="table table-hover table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
-                <th scope="col">
-                  <p style="width: 350px" class="p-header">Nome</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 90px" class="p-header">Abreviação</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 40px;" class="p-header">Cor</p>
-                </th>
+    <!-- Inicio da Tabela -->
+    <div class="divTable">
+      <table class="table table-hover table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
+              <th scope="col">
+                <p style="width: 350px" class="p-header">Nome</p>
+              </th>
+              <th scope="col">
+                <p style="width: 90px" class="p-header">Abreviação</p>
+              </th>
+              <th scope="col">
+                <p style="width: 40px;" class="p-header">Cor</p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-if="Perfis.length > 0">
+            <tr
+              v-for="perfil in Perfis"
+              :key="perfil.id"
+              v-on:click.prevent="showPerfil(perfil), clickada(perfil.nome)"
+              :class="{'bg-custom' : perfilClickado === perfil.nome}"
+            >
+              <div style="width: 485px">
+                <td>
+                  <p style="width: 350px">{{perfil.nome}}</p>
+                </td>
+                <td>
+                  <p style="width: 90px">{{perfil.abreviacao}}</p>
+                </td>
+                <td>
+                  <div style="padding-left: 2px; width: 40px">
+                    <input
+                      type="color"
+                      style="width: 30px; padding: 0;vertical-align:middle; margin-top:2px"
+                      v-model="perfil.cor"
+                    />
+                  </div>
+                </td>
               </div>
             </tr>
-          </thead>
-          <tbody>
-            <template v-if="Perfis.length > 0">
-              <tr v-for="perfil in Perfis" :key="perfil.id" v-on:click.prevent="showPerfil(perfil)">
-                <div style="width: 485px">
-                  <td>
-                    <p style="width: 350px">{{perfil.nome}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 90px">{{perfil.abreviacao}}</p>
-                  </td>
-                  <td>
-                    <div style="padding-left: 2px; width: 40px">
-                      <input
-                        type="color"
-                        style="width: 30px; padding: 0;vertical-align:middle; margin-top:2px"
-                        v-model="perfil.cor"
-                      />
-                    </div>
-                  </td>
-                </div>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
-                <td colspan="2" class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhum perfil encontrado!
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
-      <!-- Fim da Tabela -->
+          </template>
+          <template v-else>
+            <tr>
+              <td colspan="2" class="text-center">
+                <i class="fas fa-exclamation-triangle"></i> Nenhum perfil encontrado!
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <!-- Fim da Tabela -->
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
     <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
@@ -177,11 +185,18 @@ export default {
   data() {
     return {
       perfilForm: _.clone(emptyPerfil),
-      error: undefined
+      error: undefined,
+      perfilClickado: ""
     };
   },
 
   methods: {
+    clickada(f_perfil) {
+      this.perfilClickado = f_perfil;
+    },
+    clearClick() {
+      this.perfilClickado = "";
+    },
     addPerfil() {
       perfilService
         .create(this.perfilForm)
@@ -241,6 +256,7 @@ export default {
     },
 
     cleanPerfil() {
+      this.clearClick();
       console.log(this.perfilForm.cor);
       this.perfilForm = _.clone(emptyPerfil);
       this.error = undefined;
@@ -336,10 +352,10 @@ input[type="text"] {
 .botao-estilo:focus {
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
-.titulo{
-    font-size: 25px;
-    padding-left: 0px;
-    width: 100%;
+.titulo {
+  font-size: 25px;
+  padding-left: 0px;
+  width: 100%;
 }
 @media screen and (max-width: 992px) {
   .cartao {
@@ -370,7 +386,7 @@ input[type="text"] {
 table {
   display: block;
   overflow-y: hidden;
-  overflow-x: auto; 
+  overflow-x: auto;
   height: auto;
   font-size: 11px;
   background-color: #f5f5f5;
@@ -416,5 +432,10 @@ table tbody tr div {
   position: -webkit-sticky !important;
   top: 0 !important;
 }
-
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
 </style>

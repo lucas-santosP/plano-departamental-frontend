@@ -446,9 +446,6 @@ input[type="text"] {
   display: block !important;
   overflow: hidden !important;
 }
-.bg-custom {
-  background-color: #c8c8c8;
-}
 .inputMenor {
   max-width: 100px;
   min-width: 100px;
@@ -457,6 +454,13 @@ input[type="text"] {
 .noHover {
   pointer-events: none;
 }
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
+
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   input {

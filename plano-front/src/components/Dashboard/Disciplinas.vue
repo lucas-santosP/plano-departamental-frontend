@@ -45,8 +45,8 @@
             <tr
               v-for="disciplina in Disciplinas"
               :key="disciplina.id"
-              v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.nome)"
-              :class="{'bg-custom' : disciplinaClickada === disciplina.nome}"
+              v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.codigo)"
+              :class="{'bg-custom' : disciplinaClickada === disciplina.codigo}"
             >
               <div style="width: 704px">
                 <td>
@@ -565,30 +565,7 @@ table tbody tr div {
     background-color: rgb(245, 245, 245);
   }
 }
-/*
-@media screen and (max-width: 767px) {
-  .div-card {
-    margin-right: auto !important;
-    top: 10 !important;
-  }
-}
 
-@media screen and (max-width: 1247px) {
-  .card {
-    top: 10px;
-    margin-left: 15px !important;
-    margin-right: auto;
-  }
-}
-*/
-@media screen and (max-width: 1095px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
-  .card {
-    margin-left: 0px !important;
-  }
-}
 .bg-custom {
   background-color: #c8c8c8;
 }
@@ -598,4 +575,14 @@ table tbody tr div {
 .noHover {
   pointer-events: none;
 }
+
+@media screen and (max-width: 1095px) {
+  .div-card {
+    margin-left: 0px !important;
+  }
+  .card {
+    margin-left: 0px !important;
+  }
+}
+
 </style>

@@ -533,12 +533,17 @@ label {
   padding-top: 0;
   padding-bottom: 0;
 }
+
 .bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
   background-color: #c8c8c8;
 }
 .noHover {
   pointer-events: none;
 }
+
 @media screen and (max-width: 767px) {
   .cartao {
     margin-right: auto !important;

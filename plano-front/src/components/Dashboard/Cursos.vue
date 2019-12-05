@@ -48,7 +48,12 @@
 
           <tbody>
             <template v-if="Cursos.length > 0">
-              <tr v-for="curso in Cursos" :key="curso.id" v-on:click.prevent="showCurso(curso)">
+              <tr
+                v-for="curso in Cursos"
+                :key="curso.id"
+                v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
+                :class="{'bg-custom':cursoClickado === curso.codigo}"
+              >
                 <div style="width: 520px">
                   <td>
                     <p style="width: 300px; text-align: start">{{ curso.nome }}</p>
@@ -264,7 +269,8 @@ export default {
   data() {
     return {
       cursoForm: _.clone(emptyCurso),
-      error: undefined
+      error: undefined,
+      cursoClickado : "",
     };
   },
   created() {
@@ -274,6 +280,12 @@ export default {
     this.selectAll = true;
   },
   methods: {
+    clickada(f_curso){
+      this.cursoClickado = f_curso;
+    },
+    clearClick(){
+      this.cursoClickado = "";
+    },
     toggleCurso(id) {
       var state = ls.get(`${id}`);
       this.$store.dispatch("toggleCurso", id);
@@ -392,6 +404,7 @@ export default {
         });
     },
     cleanCurso() {
+      this.clearClick();
       this.cursoForm = _.clone(emptyCurso);
       this.error = undefined;
     },
@@ -562,14 +575,12 @@ table input {
     background-color: rgb(245, 245, 245);
   }
 }
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
   top: 0px;
   z-index: 10;
 }
-
 .radio {
   font-size: 11px;
 }
@@ -591,7 +602,6 @@ input[type="text"] {
 input[type="radio"] {
   height: 13px !important;
 }
-
 .cartao {
   width: 330px !important;
   height: auto !important;
@@ -600,12 +610,7 @@ input[type="radio"] {
   margin-left: auto;
   top: -20px !important;
 }
-@media screen and (max-width: 992px) {
-  .cartao {
-    margin-right: auto !important;
-    top: 0 !important;
-  }
-}
+
 input[type="checkbox"] {
   height: 13px !important;
   width: 13px !important;
@@ -616,5 +621,18 @@ table input[type="checkbox"] {
 }
 table th {
   vertical-align: middle;
+}
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
+
+@media screen and (max-width: 992px) {
+  .cartao {
+    margin-right: auto !important;
+    top: 0 !important;
+  }
 }
 </style>
