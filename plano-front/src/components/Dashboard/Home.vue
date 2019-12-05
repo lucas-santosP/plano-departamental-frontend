@@ -1,7 +1,8 @@
 <template>
   <div class="DashboardHome">
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Dashboard</h1>
       </div>
     </div>
@@ -11,9 +12,9 @@
     <div class="alert alert-light alerta mt-1" role="alert">
       <p style="font-size:12px">
         Olá {{getUsuarioFirstName}}! Este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da Computação.
-        <br>Abaixo segue um resumo das funcionalidade de cada tela:
+        <br />Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
-      
+
       <!-- lista-1 -->
       <h3 class="lista-titulo">PLANO</h3>
       <ul class="listas list-group">
@@ -40,7 +41,7 @@
           </strong> Página onde listam-se os horarios dos cursos do DCC, permitindo filtragem por semestres e cursos.
         </li>
       </ul>
-      
+
       <!-- lista-2 -->
       <h3 class="lista-titulo">RELATÓRIOS</h3>
       <ul class="listas list-group">
@@ -62,7 +63,7 @@
         <li class="list-group-item">
           <strong>
             <router-link :to="{ name: 'gradeDisciplinas' }">Grades Disciplinas:</router-link>
-          </strong> Listagem das disciplinas do DCC, divididas de acordo com seus perfis. Mostra, além disso, quais semestres e períodos cada uma é ofertada nas grades dos cursos. 
+          </strong> Listagem das disciplinas do DCC, divididas de acordo com seus perfis. Mostra, além disso, quais semestres e períodos cada uma é ofertada nas grades dos cursos.
         </li>
       </ul>
 
@@ -100,9 +101,8 @@
             <router-link :to="{ name: 'salas' }">Salas:</router-link>
           </strong> Listagem de todas as salas registradas no sistema. Permite a adição de novas salas e laboratórios.
         </li>
-        <hr>
+        <hr />
       </ul>
-
     </div>
   </div>
 </template>
@@ -120,15 +120,16 @@ export default {
 </script>
 
 <style scoped>
-.DashboardHome{
-  max-height: calc(100vh - 38px);
-  display:block;
-  overflow: auto;
+.DashboardHome {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
 }
-.titulo{
-  font-size:25px;
+.titulo {
+  font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0 !important;
 }
 
 .alerta {
@@ -138,15 +139,15 @@ export default {
   padding: 0;
   margin-right: 1%;
   font-weight: normal;
-  color: black; 
-  padding-right:30px; 
+  color: black;
+  padding-right: 30px;
 }
 
 .listas {
   line-height: 30px;
   font-size: 12px;
   text-align: justify;
-  line-height:inherit;
+  line-height: inherit;
 }
 
 .lista-titulo {
@@ -154,6 +155,5 @@ export default {
   font-size: 14px;
   font-weight: 600;
   color: #3f3f3f;
-  
 }
 </style>

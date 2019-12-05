@@ -1,26 +1,22 @@
 <template>
   <div class="DashboardDisciplinas row" style="overflow-y:hidden;" v-if="Admin">
-    <!-- Grid Esquerdo -->
     <!-- Titulo -->
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
-        style="height: 45px;"
-      >
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Lista Disciplinas</h1>
       </div>
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
-
-    <!-- Inicio da Tabela -->
+    <!-- Grid Esquerdo -->
     <div class="divTable">
+      <!-- Inicio da Tabela -->
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
           <tr>
             <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
               <th scope="col">
-                <p style="width: 300px;" class="p-header" >Nome</p>
+                <p style="width: 300px;" class="p-header">Nome</p>
               </th>
               <th scope="col">
                 <p style="width: 82px;" class="p-header">Código</p>
@@ -395,8 +391,9 @@ export default {
 
 .titulo {
   font-size: 25px;
-  padding-left: 0px;
-  width: 100%;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px !important;
@@ -477,9 +474,9 @@ export default {
 table {
   display: block !important;
   overflow-y: scroll !important;
-  height: -webkit-calc(100vh - 150px);
-  height: -moz-calc(100vh - 150px);
-  height: calc(100vh - 150px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: #f5f5f5;
@@ -584,5 +581,4 @@ table tbody tr div {
     margin-left: 0px !important;
   }
 }
-
 </style>

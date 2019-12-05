@@ -1,10 +1,11 @@
 <template>
   <div class="DashboardTurmas row" v-if="Admin">
     <div class="col-7">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-      >
-        <h1 class="titulo">Lista Turmas</h1>
+      <!-- Titulo -->
+      <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+        <div class="form-inline col-12 pl-0 mb-1 pr-1">
+          <h1 class="col-12 titulo">Lista Turmas</h1>
+        </div>
       </div>
 
       <table class="table table-hover table-bordered table-sm">
@@ -585,7 +586,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+  margin: 0!important;
 }
 .p-header {
   padding: 0px 0 0px 0;

@@ -1,10 +1,8 @@
 <template>
   <div class="DashboardCursos row pr-2" v-if="Admin">
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
-        style="height: 45px;"
-      >
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Cursos</h1>
       </div>
     </div>
@@ -270,7 +268,7 @@ export default {
     return {
       cursoForm: _.clone(emptyCurso),
       error: undefined,
-      cursoClickado : "",
+      cursoClickado: ""
     };
   },
   created() {
@@ -280,10 +278,10 @@ export default {
     this.selectAll = true;
   },
   methods: {
-    clickada(f_curso){
+    clickada(f_curso) {
       this.cursoClickado = f_curso;
     },
-    clearClick(){
+    clearClick() {
       this.cursoClickado = "";
     },
     toggleCurso(id) {
@@ -470,6 +468,7 @@ h1 {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px;
@@ -511,9 +510,9 @@ table {
   display: block;
   overflow-y: scroll;
   overflow-x: auto;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;

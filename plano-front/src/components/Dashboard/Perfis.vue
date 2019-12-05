@@ -1,17 +1,16 @@
 <template>
   <div class="DashboardPerfis row" v-if="Admin">
-    <!-- Grid Esquerdo -->
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
-        style="height: 45px;"
-      >
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Lista Perfis</h1>
       </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
-    <!-- Inicio da Tabela -->
+
+    <!-- Grid Esquerdo -->
     <div class="divTable">
+      <!-- Inicio da Tabela -->
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light">
           <tr>
@@ -354,8 +353,9 @@ input[type="text"] {
 }
 .titulo {
   font-size: 25px;
-  padding-left: 0px;
-  width: 100%;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0 !important;
 }
 @media screen and (max-width: 992px) {
   .cartao {

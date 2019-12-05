@@ -1,10 +1,8 @@
 <template>
   <div class="CargaPos row pr-2" style="font-size:11px;">
-
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-    >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
 
         <div
@@ -12,17 +10,16 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            
-              <select class="form-control form-control-sm mt-1" v-model="periodos">
-                <option value="1">Primeiro</option>
-                <option value="2">Segundo</option>
-                <option value="3">Ambos</option>
-              </select>
-              <div class="input-group-append mt-1 mr-4">
-                <div class="input-group-append">
-                  <label class="input-group-text">Semestre</label>
-                </div>
+            <select class="form-control form-control-sm mt-1" v-model="periodos">
+              <option value="1">Primeiro</option>
+              <option value="2">Segundo</option>
+              <option value="3">Ambos</option>
+            </select>
+            <div class="input-group-append mt-1 mr-4">
+              <div class="input-group-append">
+                <label class="input-group-text">Semestre</label>
               </div>
+            </div>
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -500,7 +497,6 @@ export default {
   font-size: 100% !important;
 }
 
-
 .botao-estilo {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
@@ -563,9 +559,9 @@ export default {
 table {
   display: block;
   overflow-y: scroll;
-  height: -webkit-calc(100vh - 90px);
-  height: -moz-calc(100vh - 90px);
-  height: calc(100vh - 90px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
@@ -601,11 +597,11 @@ table input {
   height: 18px !important;
   text-align: center !important;
 }
-.isAdd{
-  background-color: rgb(150,150,150);
+.isAdd {
+  background-color: rgb(150, 150, 150);
 }
-.isAdd:hover{
-  background-color: rgb(180,180,180);
+.isAdd:hover {
+  background-color: rgb(180, 180, 180);
 }
 
 /* APENAS NO FIREFOX */
@@ -654,8 +650,8 @@ table input {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
-@media screen and (max-width: 1083px){
-  .divTable{
+@media screen and (max-width: 1083px) {
+  .divTable {
     margin-bottom: 20px;
   }
 }

@@ -1,7 +1,8 @@
 <template>
   <div class="DashboardGrades row pr-2" v-if="Admin">
+    <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Grades</h1>
       </div>
     </div>
