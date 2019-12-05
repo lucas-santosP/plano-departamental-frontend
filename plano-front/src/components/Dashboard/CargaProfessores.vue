@@ -1,22 +1,21 @@
 <template>
-  <div class="DashboardCargaProfessores row pr-2" style="overflow-y:auto">
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3" style="height: 45px;" >
-        <h1 class="col-11 titulo">Carga Professores</h1>
-        <button
-          type="button"
-          class="btn btn-sm ml-auto btn-success col-sm-1 botao-estilo"
-          v-on:click.prevent="pdf"
-        >Relatório</button>
+  <div class="DashboardCargaProfessores row pr-2">
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+        <h1 class="titulo col-7 col-sm-5 col-md-4 col-xl-2">Carga Professores</h1>
+
+        <div
+          class="form-group col-5 col-sm-7 col-md-8 col-xl-10 mb-0 pr-0"
+          style="justify-content: flex-end;"
+        >
+          <button
+            type="button"
+            class="btn btn-sm btn-success ml-auto mt-1 botao-estilo"
+            v-on:click.prevent="pdf"
+          >Relatório</button>
+        </div>
       </div>
     </div>
-    <!-- <div class="col-12" style="padding-left: 0; height: 45px;">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
-                    <h1 class="col-12 titulo">Horários - Resumo</h1>
-                </div>
-            </div>
-            <div class="w-100 mb-2 border-bottom"></div> -->
-
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="divTable p-0" ref="carga">
@@ -24,7 +23,7 @@
         <thead class="thead-light sticky">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: 788px; height:20px !important"
+              style="display: block; overflow: hidden; width: 785px; height:20px !important"
               class="sticky"
             >
               <th scope="col">
@@ -67,10 +66,11 @@
           </tr>
         </thead>
         <tbody>
+          <!--
           <template v-if="Professores.length > 0">
             <template v-for="professor in Professores">
               <template v-if="turmas(professor).length > 0">
-                <div style="width: 788px;" :key="professor.apelido">
+                <div style="width: 785px;" :key="professor.apelido">
                   <td style="background-color: #b6b8ba; color: white; ">
                     <div style="width: 130px">{{professor.apelido}}</div>
                   </td>
@@ -100,7 +100,7 @@
                   </td>
                 </div>
               </template>
-
+            
               <template v-for="turma in turmas(professor)">
                 <tr
                   v-for="disciplina in Disciplinas"
@@ -109,7 +109,7 @@
                   <template
                     v-if="turma.Disciplina===disciplina.id && (turma.Docente1===professor.id || turma.Docente2===professor.id)"
                   >
-                    <div style="width: 788px;">
+                    <div style="width: 785px;">
                       <td>
                         <div style="width: 130px"></div>
                       </td>
@@ -177,7 +177,7 @@
               <template v-for="carga in CargasPos">
                 <template v-if="carga.Docente===professor.id">
                   <tr :key="'cargaPos'+carga.id+'professor'+professor.id">
-                    <div style="width: 788px;">
+                    <div style="width: 785px;">
                       <td>
                         <div style="width: 130px"></div>
                       </td>
@@ -225,6 +225,7 @@
               </td>
             </tr>
           </template>
+          -->
         </tbody>
       </table>
     </div>
@@ -496,6 +497,7 @@ table input {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0 !important;
 }
 
 .btn {

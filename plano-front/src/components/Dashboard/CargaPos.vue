@@ -2,7 +2,7 @@
   <div class="CargaPos row pr-2" style="font-size:11px;">
 
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
     >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
@@ -13,7 +13,7 @@
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
             
-              <select class="custom-select custom-select-sm mt-1" v-model="periodos">
+              <select class="form-control form-control-sm mt-1" v-model="periodos">
                 <option value="1">Primeiro</option>
                 <option value="2">Segundo</option>
                 <option value="3">Ambos</option>

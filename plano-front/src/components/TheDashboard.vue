@@ -26,32 +26,38 @@
         <ul class="navbar-nav listaNavbarTop" style="flex-direction:row;">
           <li class="nav-item">
             <span class="navtopText nav-link" v-on:click="showModalUser">
-              <i class="iconsHide fas fa-user"></i> Usuário
+              <i class="icons-top mr-1 fas fa-user"></i>
+              <span class="text-nav-top">Usuário</span>
             </span>
           </li>
           <li class="nav-item">
             <span class="navtopText nav-link" v-on:click="showModalNovoPlano">
-              <i class="iconsHide fas fa-plus-square"></i> Novo
+              <i class="icons-top mr-1 fas fa-plus-square"></i>
+              <span class="text-nav-top">Novo</span>
             </span>
           </li>
           <li class="nav-item">
             <span class="navtopText nav-link" v-on:click="showModalLoad">
-              <i class="iconsHide fas fa-folder-open"></i> Carregar
+              <i class="icons-top mr-1 fas fa-folder-open"></i>
+              <span class="text-nav-top">Carregar</span>
             </span>
           </li>
           <li class="nav-item">
             <span class="navtopText nav-link" v-on:click="showModalSave">
-              <i class="iconsHide fas fa-file"></i> Salvar
+              <i class="icons-top mr-1 fas fa-file"></i>
+              <span class="text-nav-top">Salvar</span>
             </span>
           </li>
           <li class="nav-item">
             <span class="navtopText nav-link" v-on:click="showModalDownload">
-              <i class="iconsHide fas fa-save"></i> Download
+              <i class="icons-top mr-1 fas fa-save"></i>
+              <span class="text-nav-top">Download</span>
             </span>
           </li>
           <li class="nav-item">
             <router-link :to="{ name: 'logout' }" class="navtopText nav-link">
-              <i class="iconsHide fas fa-sign-out-alt"></i> Logout
+              <i class="icons-top mr-1 fas fa-sign-out-alt"></i>
+              <span class="text-nav-top">Logout</span>
             </router-link>
           </li>
         </ul>
@@ -115,7 +121,7 @@
                   <router-link :to="{ name: 'turmas' }" class="nav-link">
                     <i class="fas fa-bars"></i> Turmas
                   </router-link>
-                </li> -->
+                </li>-->
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">Relatórios</h6>
               <ul class="nav flex-column">
@@ -987,12 +993,14 @@ export default {
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+/*
 @media screen and(max-width: 400px) {
   .nav-link {
     font-size: 5px !important;
   }
 }
-@media screen and (max-width: 530px) {
+*/
+@media screen and (max-width: 425px) {
   [role="main"] {
     padding-top: 62px;
   }
@@ -1009,9 +1017,12 @@ export default {
   }
 }
 /* SUMIR ICONES DA NAVBAR TOP */
-@media screen and (max-width: 620px) {
-  .iconsHide {
+@media screen and (max-width: 640px) {
+  .text-nav-top {
     display: none;
+  }
+  .icons-top{
+    margin-right: 10px!important;
   }
 }
 </style>
