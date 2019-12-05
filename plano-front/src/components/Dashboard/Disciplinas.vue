@@ -3,250 +3,241 @@
     <!-- Grid Esquerdo -->
     <!-- Titulo -->
     <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
+        style="height: 45px;"
+      >
         <h1 class="col-12 titulo">Lista Disciplinas</h1>
       </div>
     </div>
+
     <div class="w-100 mb-2 border-bottom"></div>
 
     <!-- Inicio da Tabela -->
-  
-      <div class="divTable">
-        <table class="table table-hover table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <div style="display: block; overflow: hidden; width: 685px;" class="sticky">
-                <th scope="col">
-                  <p style="width: 300px;" class="p-header">Nome</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 62px" class="p-header">Código</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 30px;" class="p-header" title="Carga Prática">C. P.</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 230px" class="p-header">Perfil</p>
-                </th>
-                <th scope="col">
-                  <p style="width: 25px" class="p-header">EAD</p>
-                </th>
+    <div class="divTable">
+      <table class="table table-hover table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
+              <th scope="col">
+                <p style="width: 300px;" class="p-header" >Nome</p>
+              </th>
+              <th scope="col">
+                <p style="width: 82px;" class="p-header">Código</p>
+              </th>
+              <th scope="col">
+                <p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p>
+              </th>
+              <th scope="col">
+                <p style="width: 30px;" class="p-header" title="Carga Prática">C. P.</p>
+              </th>
+              <th scope="col">
+                <p style="width: 230px;" class="p-header">Perfil</p>
+              </th>
+              <th scope="col">
+                <p style="width: 25px" class="p-header">EAD</p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-if="Disciplinas.length > 0">
+            <tr
+              v-for="disciplina in Disciplinas"
+              :key="disciplina.id"
+              v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.nome)"
+              :class="{'bg-custom' : disciplinaClickada === disciplina.nome}"
+            >
+              <div style="width: 704px">
+                <td>
+                  <p style="width: 300px; text-align: start">{{disciplina.nome}}</p>
+                </td>
+                <td>
+                  <p style="width: 82px; text-align: start">{{disciplina.codigo}}</p>
+                </td>
+                <td>
+                  <p style="width: 30px">{{disciplina.cargaTeorica}}</p>
+                </td>
+                <td>
+                  <p style="width: 30px">{{disciplina.cargaPratica}}</p>
+                </td>
+                <template v-for="perfil in Perfis">
+                  <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id">
+                    <p style="width: 230px; text-align: start">{{perfil.nome}}</p>
+                  </td>
+                </template>
+                <td>
+                  <div style="width: 25px;">
+                    <input
+                      class="form-check-input position-static noHover"
+                      disabled
+                      style="margin-top: 0"
+                      type="checkbox"
+                      v-model="disciplina.ead"
+                      v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.nome)"
+                      value
+                    />
+                  </div>
+                </td>
               </div>
             </tr>
-          </thead>
-          <tbody>
-            <template v-if="Disciplinas.length > 0">
-              <tr
-                v-for="disciplina in Disciplinas"
-                :key="disciplina.id"
-                v-on:click.prevent="showDisciplina(disciplina)"
-              >
-                <div style="width: 685px">
-                  <td>
-                    <p style="width: 300px;">{{disciplina.nome}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 62px">{{disciplina.codigo}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 30px">{{disciplina.cargaTeorica}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 30px">{{disciplina.cargaPratica}}</p>
-                  </td>
-                  <template v-for="perfil in Perfis">
-                    <td v-if="perfil.id===disciplina.Perfil" :key="perfil.id">
-                      <p style="width: 230px;">{{perfil.nome}}</p>
-                    </td>
-                  </template>
-                  <td>
-                    <div style="width: 25px;">
-                      <input
-                        class="form-check-input position-static"
-                        disabled
-                        style="margin-top: 0"
-                        type="checkbox"
-                        v-model="disciplina.ead"
-                        value
-                      />
-                    </div>
-                  </td>
-                </div>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
-                <td colspan="3" class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <!-- Fim da tabela -->
-      </div>
+          </template>
+          <template v-else>
+            <tr>
+              <td colspan="3" class="text-center">
+                <i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina encontrada!
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <!-- Fim da tabela -->
+    </div>
 
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
-    <div class="cartao-inteiro col-lg-5 col-md-5 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
-          <div class="card-header">
-            <template v-if="isEdit">
-              <h2 class="card-title">Editar Disciplina</h2>
-            </template>
-            <template v-else>
-              <h2 class="card-title">Adicionar Disciplina</h2>
-            </template>
-          </div>
-          <div class="card-body" style=" padding-bottom:0;">
-            <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-            <form>
-              <div class="form-group row">
-                <label
-                  for="nome"
-                  class="col-3 col-sm-3 col-form-label texto-cartao"
-                  style="padding-bottom: 0;"
-                >Nome</label>
-                <div class="col-sm-9 col-9">
+    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
+      <div class="card ml-auto mr-3">
+        <div class="card-header">
+          <template v-if="isEdit">
+            <h2 class="card-title">Editar Disciplina</h2>
+          </template>
+          <template v-else>
+            <h2 class="card-title">Adicionar Disciplina</h2>
+          </template>
+        </div>
+
+        <div class="card-body">
+          <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+
+          <form>
+            <div class="row mb-1 mx-0">
+              <div class="form-group m-0 col px-0">
+                <label for="nome" class="col-form-label texto-cartao">Nome</label>
+                <input
+                  type="text"
+                  id="nome"
+                  class="form-control form-control-sm"
+                  style="width: 288px"
+                  v-model="disciplinaForm.nome"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-1 mx-0">
+              <div class="form-group m-0 col px-0">
+                <label for="codigo" class="col-form-label texto-cartao">Código</label>
+                <input
+                  type="text"
+                  id="codigo"
+                  class="form-control form-control-sm"
+                  style="width: 80px!important; text-align:center!important"
+                  v-model="disciplinaForm.codigo"
+                />
+              </div>
+              <div class="form-group m-0 col px-0 text-center">
+                <label for="cargaTeorica" class="col-form-label texto-cartao">Carga Teórica</label>
+                <input
+                  type="text"
+                  id="cargaTeorica"
+                  class="form-control form-control-sm m-auto"
+                  style="width: 40px!important; text-align:center!important"
+                  v-model="disciplinaForm.cargaTeorica"
+                />
+              </div>
+
+              <div class="form-group m-0 col px-0 text-center">
+                <label for="cargaPratica" class="col-form-label texto-cartao">Carga Prática</label>
+                <input
+                  type="text"
+                  id="cargaPratica"
+                  class="form-control form-control m-auto"
+                  style="width: 40px!important; text-align:center!important"
+                  v-model="disciplinaForm.cargaPratica"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-1 mx-0">
+              <div class="form-group m-0 col px-0">
+                <label for="perfil" class="col-form-label texto-cartao">Perfil</label>
+                <select
+                  type="text"
+                  id="perfil"
+                  class="form-control form-control"
+                  style="width: 288px"
+                  v-model="disciplinaForm.Perfil"
+                >
+                  <option v-if="Perfis.length===0" type="text" value>Nenhum Perfil Encontrado</option>
+                  <option
+                    v-for="perfil in Perfis"
+                    :key="perfil.id"
+                    :value="perfil.id"
+                  >{{perfil.nome}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group m-0 px-0">
+                <div class="form-check">
                   <input
-                    type="text"
-                    class="form-control form-control-sm col-lg-11 col-md-11 col-sm-12"
-                    id="nome"
-                    v-model="disciplinaForm.nome"
+                    type="checkbox"
+                    id="ead"
+                    value="1"
+                    class="form-check-input"
+                    style="margin-top: 2px"
+                    v-model="disciplinaForm.ead"
                   />
+                  <label for="ead" class="form-check-label">EAD</label>
                 </div>
               </div>
-              <div class="form-group row">
-                <label
-                  for="codigo"
-                  class="col-3 col-sm-3 col-form-label texto-cartao"
-                  style="padding-bottom: 0;"
-                >Código</label>
-                <div class="col-sm-9 col-9">
-                  <input
-                    type="text"
-                    class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11"
-                    id="codigo"
-                    v-model="disciplinaForm.codigo"
-                  />
-                </div>
+            </div>
+
+            <div class="row mb-0 mt-2 mx-0">
+              <div class="form-group m-0 col px-0">
+                <template v-if="isEdit">
+                  <button
+                    type="button"
+                    class="col-2 btn btn-sm btn-success mr-2 botao-estilo"
+                    v-on:click.prevent="editDisciplina"
+                    :key="1"
+                  >Editar</button>
+                  <button
+                    type="button"
+                    class="col-2 btn btn-sm btn-danger mr-2"
+                    v-on:click.prevent="deleteDisciplina"
+                    :key="3"
+                  >Excluir</button>
+                  <button
+                    type="button"
+                    class="col-2 btn btn-sm btn-secondary mr-2"
+                    v-on:click.prevent="cleanDisciplina"
+                    :key="3"
+                  >Cancelar</button>
+                </template>
+
+                <template v-else>
+                  <button
+                    type="button"
+                    class="col-2 btn btn-sm btn-success mr-2"
+                    v-on:click.prevent="addDisciplina"
+                    :key="1"
+                  >Adicionar</button>
+                  <button
+                    type="button"
+                    class="col-2 btn btn-sm btn-secondary mr-2"
+                    v-on:click.prevent="cleanDisciplina"
+                    :key="3"
+                  >Resetar</button>
+                </template>
               </div>
-              <div class="form-group row">
-                <label
-                  for="cargaTeorica"
-                  class="col-3 col-sm-3 col-form-label texto-cartao"
-                  style="padding-bottom: 0;"
-                >Carga Teórica</label>
-                <div class="col-sm-9 col-9">
-                  <input
-                    type="text"
-                    class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11"
-                    id="cargaTeorica"
-                    v-model="disciplinaForm.cargaTeorica"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label
-                  for="cargaPratica"
-                  class="col-3 col-sm-3 col-form-label texto-cartao"
-                  style="padding-bottom: 0;"
-                >Carga Prática</label>
-                <div class="col-sm-9 col-9">
-                  <input
-                    type="text"
-                    class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11"
-                    id="cargaPratica"
-                    v-model="disciplinaForm.cargaPratica"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label
-                  for="perfil"
-                  class="col-3 col-sm-3 col-form-label texto-cartao"
-                  style="padding-bottom: 0;"
-                >Perfil</label>
-                <div class="col-sm-9 col-9">
-                  <select
-                    type="text"
-                    class="form-control form-control-sm col-lg-11 col-md-11 col-sm-11"
-                    style="height:25px"
-                    id="perfil"
-                    v-model="disciplinaForm.Perfil"
-                  >
-                    <option v-if="Perfis.length===0" type="text" value>Nenhum Perfil Encontrado</option>
-                    <option
-                      v-for="perfil in Perfis"
-                      :key="perfil.id"
-                      :value="perfil.id"
-                    >{{perfil.nome}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col">
-                  <label
-                    for="ead"
-                    class="col-lg-12 col-md-12 col-sm-12 col-form-label ead-texto"
-                    style="padding-bottom: 0; padding-left: 20px; "
-                  >
-                  <div class="row">
-                    <div>
-                        <input type="checkbox" id="ead" value="1" v-model="disciplinaForm.ead" />
-                    </div>
-                        <div class="col" style="padding-top: 5px">EAD</div>
-                  </div>
-                  </label>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <template v-if="isEdit">
-                    <button
-                      type="button"
-                      class="col-2 btn btn-sm btn-success m-2 botao-estilo"
-                      v-on:click.prevent="editDisciplina"
-                      :key="1"
-                    >Editar</button>
-                    <button
-                      type="button"
-                      class="col-2 btn btn-sm btn-danger m-2"
-                      v-on:click.prevent="deleteDisciplina"
-                      :key="3"
-                    >Excluir</button>
-                    <button
-                      type="button"
-                      class="col-2 btn btn-sm btn-secondary m-2"
-                      v-on:click.prevent="cleanDisciplina"
-                      :key="3"
-                    >Cancelar</button>
-                  </template>
-                  <template v-else>
-                    <button
-                      type="button"
-                      class="col-2 btn btn-sm btn-success m-2"
-                      v-on:click.prevent="addDisciplina"
-                      :key="1"
-                    >Adicionar</button>
-                    <button
-                      type="button"
-                      class="col-2 btn btn-sm btn-secondary m-2"
-                      v-on:click.prevent="cleanDisciplina"
-                      :key="3"
-                    >Resetar</button>
-                  </template>
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-      <!-- Fim do Grid Direito -->
     </div>
+    <!-- Fim do Grid Direito -->
   </div>
 </template>
 
@@ -270,11 +261,18 @@ export default {
   data() {
     return {
       disciplinaForm: _.clone(emptyDisciplina),
-      error: undefined
+      error: undefined,
+      disciplinaClickada: ""
     };
   },
 
   methods: {
+    clickada(discip) {
+      this.disciplinaClickada = discip;
+    },
+    clearClick() {
+      this.disciplinaClickada = "";
+    },
     addDisciplina() {
       disciplinaService
         .create(this.disciplinaForm)
@@ -345,6 +343,7 @@ export default {
     },
 
     cleanDisciplina() {
+      this.clearClick();
       this.disciplinaForm = _.clone(emptyDisciplina);
       this.error = undefined;
     },
@@ -394,10 +393,10 @@ export default {
   margin: 0;
 }
 
-.titulo{
-    font-size: 25px;
-    padding-left: 0px;
-    width: 100%;
+.titulo {
+  font-size: 25px;
+  padding-left: 0px;
+  width: 100%;
 }
 .card-title {
   font-size: 16px !important;
@@ -406,20 +405,14 @@ export default {
   margin: 0;
   text-align: center;
 }
-.cartao {
-  width: 330px !important;
-  height: auto !important;
-  top: -15px !important;
-  padding: 0;
+.card {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
-.cartao-inteiro {
-  padding-right: 15px;
-}
-.custom-control {
-  font-size: 11px;
-}
-.custom-control-inline {
-  margin-right: 0 !important;
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
 }
 .botao-estilo {
   background-color: #f0852e !important;
@@ -440,10 +433,8 @@ export default {
 }
 .texto-cartao {
   line-height: 1.2;
-  padding-top: 5px !important;
-  padding-left: 20px;
   font-size: 12px;
-  text-align: end;
+  text-align: start;
 }
 .ead-texto {
   text-align: start;
@@ -474,29 +465,27 @@ export default {
   height: 18px;
 }
 .divTable {
-  overflow: hidden;
-  border: #808080 solid 2px;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  overflow: hidden !important;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+  border: #808080 solid 2px !important;
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
 }
 table {
-  display: block;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-width: 702px;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
-  font-size: 11px;
+  display: block !important;
+  overflow-y: scroll !important;
+  height: -webkit-calc(100vh - 150px);
+  height: -moz-calc(100vh - 150px);
+  height: calc(100vh - 150px);
+  font-size: 11px !important;
+  font-weight: normal !important;
   background-color: #f5f5f5;
-  margin: 0;
+  margin: 0 !important;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -523,15 +512,22 @@ thead th {
 
 input[type="text"] {
   height: 25px !important;
-  font-size: 11px;
+  font-size: 11px !important;
+  padding: 4px 8px 4px 8px !important;
 }
 input[type="checkbox"] {
+  height: 14px !important;
+  width: 14px !important;
+  text-align: center !important;
+}
+table input[type="checkbox"] {
   margin-left: 0 !important;
   vertical-align: bottom;
 }
 select {
   height: 25px !important;
-  font-size: 11px;
+  font-size: 11px !important;
+  padding: 4px 8px 4px 8px !important;
 }
 table tbody tr div {
   height: 22px !important;
@@ -569,19 +565,37 @@ table tbody tr div {
     background-color: rgb(245, 245, 245);
   }
 }
-
+/*
 @media screen and (max-width: 767px) {
-  .cartao {
+  .div-card {
     margin-right: auto !important;
     top: 10 !important;
   }
 }
 
 @media screen and (max-width: 1247px) {
-  .cartao-inteiro {
+  .card {
     top: 10px;
     margin-left: 15px !important;
     margin-right: auto;
   }
+}
+*/
+@media screen and (max-width: 1095px) {
+  .div-card {
+    margin-left: 0px !important;
+  }
+  .card {
+    margin-left: 0px !important;
+  }
+}
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
+.noHover {
+  pointer-events: none;
 }
 </style>

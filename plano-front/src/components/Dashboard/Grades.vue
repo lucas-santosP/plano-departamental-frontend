@@ -124,10 +124,10 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="div-card col-lg-5 col-md-6 col-sm-12 col-12 mt-3 mb-2 p-0 ml-auto">
+      <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12">
         <!-- Inicio cards -->
         <template v-if="showCard">
-          <div class="card ml-auto mr-4">
+          <div class="card ml-auto mr-3">
             <div class="card-header">
               <h1 class="card-title">Adicionar Grade</h1>
             </div>
@@ -190,6 +190,7 @@
                     </select>
                   </div>
                 </div>
+                
                 <div class="row mb-0 mt-3 mx-0">
                   <div class="form-group m-0 col px-0">
                     <button
@@ -662,9 +663,6 @@ export default {
   padding-left: 0;
   margin: 0!important;
 }
-.cartao-inteiro {
-  margin-right: 15px;
-}
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -803,17 +801,6 @@ thead th {
     background-color: rgb(245, 245, 245);
   }
 }
-.espaco {
-  height: 58px;
-}
-@media screen and (max-width: 943px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
-  .card {
-    margin-left: 0px !important;
-  }
-}
 .bg-custom {
   background-color: rgb(0, 85, 175);
   color: white;
@@ -823,5 +810,13 @@ thead th {
 }
 .notEven {
   background-color: rgba(237, 240, 211, 0.8);
+}
+@media screen and (max-width: 943px) {
+  .div-card {
+    margin-left: 0px !important;
+  }
+  .card {
+    margin-left: 0px !important;
+  }
 }
 </style>

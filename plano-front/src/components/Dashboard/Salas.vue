@@ -99,9 +99,10 @@
                   <input
                     type="checkbox"
                     id="laboratorio"
-                    class="form-check-input position-static mr-1"
-                    value="1"
+                    class="form-check-input"
+                    style="margin-top: 2px"
                     v-model="salaForm.laboratorio"
+                    value="1"
                   />
                   <label class="form-check-label" for="laboratorio">Laboratório</label>
                 </div>
@@ -424,8 +425,8 @@ table tbody tr div {
 }
 
 input[type="checkbox"] {
-  height: 13px !important;
-  width: 13px !important;
+  height: 14px !important;
+  width: 14px !important;
   text-align: center !important;
 }
 table input[type="checkbox"] {
