@@ -1,7 +1,8 @@
 <template>
   <div class="DashboardGrades row pr-2" v-if="Admin">
+    <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Grades</h1>
       </div>
     </div>
@@ -94,7 +95,7 @@
                         style="width: 435px; font-size:11px;"
                       >
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td style=" height:20px">
+                          <td>
                             <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
                           </td>
 
@@ -106,7 +107,7 @@
                                 style="cursor:pointer;"
                                 v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
                               >
-                                <div class="p-0 m-0" style="width: 400px">{{disciplina.nome}}</div>
+                                <p style="width: 400px">{{disciplina.nome}}</p>
                               </td>
                             </template>
                           </template>
@@ -124,10 +125,10 @@
       <!-- Fim Grind  -->
 
       <!-- Grind direito -->
-      <div class="div-card col-lg-5 col-md-6 col-sm-12 col-12 mt-3 mb-2 p-0 ml-auto">
+      <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12">
         <!-- Inicio cards -->
         <template v-if="showCard">
-          <div class="card ml-auto mr-4">
+          <div class="card ml-auto mr-3">
             <div class="card-header">
               <h1 class="card-title">Adicionar Grade</h1>
             </div>
@@ -190,6 +191,7 @@
                     </select>
                   </div>
                 </div>
+
                 <div class="row mb-0 mt-3 mx-0">
                   <div class="form-group m-0 col px-0">
                     <button
@@ -660,10 +662,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0!important;
-}
-.cartao-inteiro {
-  margin-right: 15px;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px;
@@ -803,17 +802,6 @@ thead th {
     background-color: rgb(245, 245, 245);
   }
 }
-.espaco {
-  height: 58px;
-}
-@media screen and (max-width: 943px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
-  .card {
-    margin-left: 0px !important;
-  }
-}
 .bg-custom {
   background-color: rgb(0, 85, 175);
   color: white;
@@ -823,5 +811,13 @@ thead th {
 }
 .notEven {
   background-color: rgba(237, 240, 211, 0.8);
+}
+@media screen and (max-width: 943px) {
+  .div-card {
+    margin-left: 0px !important;
+  }
+  .card {
+    margin-left: 0px !important;
+  }
 }
 </style>

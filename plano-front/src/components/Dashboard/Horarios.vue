@@ -1,11 +1,14 @@
 <template>
 	 <div class="DashboardHorarios row pr-2" v-if="Admin">
-		   <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3  " style="height: 45px;" >
+	<!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Lista Horários</h1>
       </div>
     </div>
+
     <div class="w-100 mb-2 border-bottom"></div>
+	 
 		  <div class="col">
 		<div class="tabelas" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);">
 <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
@@ -960,28 +963,20 @@
   overflow: hidden;
   margin: 0;
 }
-	 /* .quant {
-		  margin: 10px;
-		  padding-left: 4.5px;
-		  padding-right: 4.5px;
-		  padding-top: 0px;
-		  padding-bottom: 10.5px;
-		  height: 25px;
-		  width:25px;
-		  border-radius: 15px;
-	 } */
-	.titulo {
-		font-size: 25px;
-		font-weight: normal;
-		padding-left: 0;
-	}
 
-	 .periodo{
-		  display: inline;
-		  width: 72px;
-		  height: 24px;
-		  position:relative;
-	 }
+.titulo {
+  font-size: 25px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0 !important;
+}
+
+.periodo{
+	display: inline;
+	width: 72px;
+	height: 24px;
+	position:relative;
+}
 
 	 .relatorio {
 		  position:relative;

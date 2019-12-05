@@ -1,10 +1,8 @@
 <template>
   <div class="DashboardCursos row pr-2" v-if="Admin">
-    <div class="col-12" style="padding-left: 0; height: 45px;">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pl-0 pt-3 pb-2 mb-3"
-        style="height: 45px;"
-      >
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Cursos</h1>
       </div>
     </div>
@@ -48,7 +46,12 @@
 
           <tbody>
             <template v-if="Cursos.length > 0">
-              <tr v-for="curso in Cursos" :key="curso.id" v-on:click.prevent="showCurso(curso)">
+              <tr
+                v-for="curso in Cursos"
+                :key="curso.id"
+                v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
+                :class="{'bg-custom':cursoClickado === curso.codigo}"
+              >
                 <div style="width: 520px">
                   <td>
                     <p style="width: 300px; text-align: start">{{ curso.nome }}</p>
@@ -278,7 +281,8 @@ export default {
   data() {
     return {
       cursoForm: _.clone(emptyCurso),
-      error: undefined
+      error: undefined,
+      cursoClickado: ""
     };
   },
   created() {
@@ -288,6 +292,12 @@ export default {
     this.selectAll = true;
   },
   methods: {
+    clickada(f_curso) {
+      this.cursoClickado = f_curso;
+    },
+    clearClick() {
+      this.cursoClickado = "";
+    },
     toggleCurso(id) {
       var state = ls.get(`${id}`);
       this.$store.dispatch("toggleCurso", id);
@@ -406,6 +416,7 @@ export default {
         });
     },
     cleanCurso() {
+      this.clearClick();
       this.cursoForm = _.clone(emptyCurso);
       this.error = undefined;
     },
@@ -471,6 +482,7 @@ h1 {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px;
@@ -512,9 +524,9 @@ table {
   display: block;
   overflow-y: scroll;
   overflow-x: auto;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
@@ -576,14 +588,12 @@ table input {
     background-color: rgb(245, 245, 245);
   }
 }
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
   top: 0px;
   z-index: 10;
 }
-
 .radio {
   font-size: 11px;
 }
@@ -605,7 +615,6 @@ input[type="text"] {
 input[type="radio"] {
   height: 13px !important;
 }
-
 .cartao {
   width: 330px !important;
   height: auto !important;
@@ -614,12 +623,7 @@ input[type="radio"] {
   margin-left: auto;
   top: -20px !important;
 }
-@media screen and (max-width: 992px) {
-  .cartao {
-    margin-right: auto !important;
-    top: 0 !important;
-  }
-}
+
 input[type="checkbox"] {
   height: 13px !important;
   width: 13px !important;
@@ -631,6 +635,7 @@ table input[type="checkbox"] {
 table th {
   vertical-align: middle;
 }
+<<<<<<< HEAD
 /* Botoes */
 button{
   padding: 0;
@@ -691,5 +696,19 @@ i.far{
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
+=======
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
+
+@media screen and (max-width: 992px) {
+  .cartao {
+    margin-right: auto !important;
+    top: 0 !important;
+  }
+>>>>>>> 904f1b16911921f98d557610e0eef2416ed1f6e1
 }
 </style>

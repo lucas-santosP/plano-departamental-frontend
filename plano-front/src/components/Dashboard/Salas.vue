@@ -1,7 +1,8 @@
 <template>
   <div class="DashboardSalas row pr-2" v-if="Admin">
+    <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Lista Salas</h1>
       </div>
     </div>
@@ -99,9 +100,10 @@
                   <input
                     type="checkbox"
                     id="laboratorio"
-                    class="form-check-input position-static mr-1"
-                    value="1"
+                    class="form-check-input"
+                    style="margin-top: 2px"
                     v-model="salaForm.laboratorio"
+                    value="1"
                   />
                   <label class="form-check-label" for="laboratorio">Laboratório</label>
                 </div>
@@ -332,7 +334,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+  margin: 0 !important;
 }
 .card-title {
   font-size: 16px;
@@ -390,9 +392,9 @@ export default {
 table {
   display: block;
   overflow-y: scroll;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
@@ -424,8 +426,8 @@ table tbody tr div {
 }
 
 input[type="checkbox"] {
-  height: 13px !important;
-  width: 13px !important;
+  height: 14px !important;
+  width: 14px !important;
   text-align: center !important;
 }
 table input[type="checkbox"] {
@@ -445,9 +447,6 @@ input[type="text"] {
   display: block !important;
   overflow: hidden !important;
 }
-.bg-custom {
-  background-color: #c8c8c8;
-}
 .inputMenor {
   max-width: 100px;
   min-width: 100px;
@@ -456,6 +455,13 @@ input[type="text"] {
 .noHover {
   pointer-events: none;
 }
+.bg-custom {
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
+}
+
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   input {

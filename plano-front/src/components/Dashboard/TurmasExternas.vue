@@ -1,9 +1,8 @@
 <template>
   <div class="TurmasExternas row pr-2" v-if="Admin">
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap pt-0 pb-0 pr-0 pl-0 mb-0"
-    >
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <!-- Titulo -->
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
 
         <div
@@ -11,17 +10,16 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-         
-              <select class="form-control form-control-sm mt-1" v-model="periodos">
-                <option value="1">Primeiro</option>
-                <option value="2">Segundo</option>
-                <option value="3">Ambos</option>
-              </select>
-              <div class="input-group-append mt-1 mr-4">
-                <div class="input-group-append">
-                  <label class="input-group-text">Semestre</label>
-                </div>
+            <select class="form-control form-control-sm mt-1" v-model="periodos">
+              <option value="1">Primeiro</option>
+              <option value="2">Segundo</option>
+              <option value="3">Ambos</option>
+            </select>
+            <div class="input-group-append mt-1 mr-4">
+              <div class="input-group-append">
+                <label class="input-group-text">Semestre</label>
               </div>
+            </div>
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -123,14 +121,15 @@
                     :target="'curso'+curso.id"
                     placement="bottom"
                     triggers="hover focus"
-                    
                   >
                     <p
-                    style="font-size: 11px" class="p-0 m-0"
+                      style="font-size: 11px"
+                      class="p-0 m-0"
                       v-if="curso.semestreInicial==1 || curso.semestreInicial==3"
                     >1º - {{curso.alunosEntrada}}</p>
                     <p
-                    style="font-size: 11px" class="p-0 m-0"
+                      style="font-size: 11px"
+                      class="p-0 m-0"
                       v-if="curso.semestreInicial==2 || curso.semestreInicial==3"
                     >2º - {{curso.alunosEntrada}}</p>
                     <p style="font-size: 11px" class="p-0 m-0">{{curso.nome}}</p>
@@ -673,7 +672,7 @@ export default {
   min-width: 85px;
   max-width: 85px;
   text-align: start;
-} 
+}
 
 .input-group-text {
   max-width: 70px;
@@ -699,9 +698,9 @@ export default {
 table {
   display: block;
   overflow-y: scroll;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
