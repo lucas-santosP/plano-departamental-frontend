@@ -635,7 +635,6 @@ table input[type="checkbox"] {
 table th {
   vertical-align: middle;
 }
-<<<<<<< HEAD
 /* Botoes */
 button{
   padding: 0;
@@ -696,8 +695,8 @@ i.far{
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
-=======
-.bg-custom {
+}
+.bg-custom{
   background-color: #c8c8c8;
 }
 .bg-custom:hover {
@@ -709,6 +708,5 @@ i.far{
     margin-right: auto !important;
     top: 0 !important;
   }
->>>>>>> 904f1b16911921f98d557610e0eef2416ed1f6e1
 }
 </style>
