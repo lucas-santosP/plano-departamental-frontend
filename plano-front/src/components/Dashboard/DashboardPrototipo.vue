@@ -1,8 +1,8 @@
 <template>
-  <div class="DashboardPrototipo row pr-2" style="height:100%;" v-if="Admin">
+  <div class="DashboardPrototipo row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela</h1>
 
         <div
@@ -131,7 +131,7 @@
         </thead>
         <tbody>
           <template v-if="isAdd">
-            <tr>
+            <tr style="background-color:#c8c8c8;;">
               <novaturma></novaturma>
             </tr>
           </template>
@@ -491,7 +491,15 @@ export default {
   }
 };
 </script>
+
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.DashboardPrototipo {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -504,28 +512,27 @@ export default {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
 }
-
 .botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
-
 .botao-perfis {
   background-color: #0055af !important;
   border-color: #0055af !important;
   max-width: 60px;
 }
-
 .botao-perfis:hover {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-perfis:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
 
@@ -533,22 +540,8 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+  margin: 0 !important;
 }
-.selectForm {
-  height: 26px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-}
-
-.custom-select {
-  height: 25px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: start;
-}
-
 .input-group-text {
   max-width: 70px;
   min-width: 70px;
@@ -557,39 +550,41 @@ export default {
   padding-left: 15px;
   font-size: 12px !important;
 }
-
-.DashboardPrototipo {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
+.form-control {
+  height: 25px !important;
+  font-size: 12px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 80px;
+  max-width: 80px;
+  text-align: start;
 }
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
-  top: -1px;
-}
-
-.cursoGrande {
-  font-size: 7px !important;
+  top: 0;
 }
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
-
 tbody {
   /*top: 23px;*/
   max-height: 100%;
@@ -600,10 +595,6 @@ table td {
   vertical-align: middle;
   padding: 0 !important;
 }
-table p {
-  margin-bottom: 0;
-  text-align: center;
-}
 tr thead {
   display: block;
 }
@@ -612,37 +603,6 @@ thead th {
   font-size: 14px;
   text-align: center;
   height: 18px !important;
-}
-table select {
-  height: 15px !important;
-  text-align: left;
-}
-table input {
-  height: 18px !important;
-  text-align: center !important;
-}
-/* Firefox */
-@-moz-document url-prefix() {
-  table select {
-    height: 15px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  table input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
 }
 
 .cube1,
@@ -655,14 +615,16 @@ table input {
   left: 0;
 
   -webkit-animation: cubemove 1.8s infinite ease-in-out;
+  -moz-animation: cubemove 1.8s infinite ease-in-out;
+  -o-animation: cubemove 1.8s infinite ease-in-out;
   animation: cubemove 1.8s infinite ease-in-out;
 }
-
 .cube2 {
   -webkit-animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+  -o-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
-
 @-webkit-keyframes cubemove {
   25% {
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
@@ -678,26 +640,91 @@ table input {
     -webkit-transform: rotate(-360deg);
   }
 }
-
-@keyframes cubemove {
+@-moz-keyframes cubemove {
   25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
     transform: translateX(42px) rotate(-90deg) scale(0.5);
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
   }
   50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
     transform: translateX(42px) translateY(42px) rotate(-179deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
   }
   50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
     transform: translateX(42px) translateY(42px) rotate(-180deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
   }
   75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
       scale(0.5);
   }
   100% {
+    -moz-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@-o-keyframes cubemove {
+  25% {
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@keyframes cubemove {
+  25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
@@ -728,13 +755,5 @@ table input {
   -moz-box-pack: justify !important;
   -ms-flex-pack: justify !important;
   justify-content: space-between !important;
-}
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: start;
 }
 </style>

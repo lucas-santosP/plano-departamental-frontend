@@ -2,7 +2,7 @@
   <div class="DashboardSalas row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Salas</h1>
       </div>
     </div>
@@ -287,6 +287,8 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardSalas {
   max-width: 100%;
   overflow: hidden;
@@ -464,7 +466,7 @@ input[type="text"] {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  input {
+  table input {
     height: 25px !important;
     text-align: start;
     -moz-box-sizing: border-box;
@@ -477,6 +479,7 @@ input[type="text"] {
     background-color: rgb(245, 245, 245);
   }
 }
+
 @media screen and (max-width: 991px) {
   .card {
     margin-left: auto !important;

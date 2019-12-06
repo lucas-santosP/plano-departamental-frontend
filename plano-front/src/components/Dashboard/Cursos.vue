@@ -2,109 +2,109 @@
   <div class="DashboardCursos row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Cursos</h1>
       </div>
     </div>
+
     <div class="w-100 mb-2 border-bottom"></div>
-    <!-- <div class="w-100 mb-2 border-bottom"></div> -->
 
     <!-- Grid Esquerdo -->
-    <div class="col pl-0">
-      <!-- Inicio da Tabela -->
-      <div class="divTable">
-        <table class="table table-hover table-sm">
-          <thead class="thead-light">
-            <tr>
-              <div
-                style="display: block; overflow: hidden; width: 520px; height:20px !important"
-                class="sticky"
-              >
-                <th scope="col">
-                  <p class="p-header" style="width:300px!important;">Nome</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width:50px!important;">Código</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width:50px!important;">Turno</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width:44px!important;">1º Sem.</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width:44px!important;">2º Sem.</p>
-                </th>
-                <th scope="col">
-                  <div style="width: 32px">
-                    <input type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
+
+    <!-- Inicio da Tabela -->
+    <div class="divTable">
+      <table class="table table-hover table-sm">
+        <thead class="thead-light">
+          <tr>
+            <div
+              style="display: block; overflow: hidden; width: 520px; height:20px !important"
+              class="sticky"
+            >
+              <th scope="col">
+                <p class="p-header" style="width:300px!important;">Nome</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width:50px!important;">Código</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width:50px!important;">Turno</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width:44px!important;">1º Sem.</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width:44px!important;">2º Sem.</p>
+              </th>
+              <th scope="col">
+                <div style="width: 32px">
+                  <input type="checkbox" v-model="selectAll" v-on:click.prevent="toggleAllCursos" />
+                </div>
+              </th>
+            </div>
+          </tr>
+        </thead>
+
+        <tbody>
+          <template v-if="Cursos.length > 0">
+            <tr
+              v-for="curso in Cursos"
+              :key="curso.id"
+              v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
+              :class="{'bg-custom':cursoClickado === curso.codigo}"
+            >
+              <div style="width: 520px">
+                <td>
+                  <p style="width: 300px; text-align: start">{{ curso.nome }}</p>
+                </td>
+                <td>
+                  <p style="width: 50px">{{ curso.codigo}}</p>
+                </td>
+                <td>
+                  <p style="width: 50px;">{{ curso.turno }}</p>
+                </td>
+                <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
+                <td v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3">
+                  <p style="width: 44px">{{ curso.alunosEntrada }}</p>
+                </td>
+                <td v-else>
+                  <p style="width: 44px">0</p>
+                </td>
+                <td v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3">
+                  <p style="width: 44px">{{ curso.alunosEntrada }}</p>
+                </td>
+                <td v-else>
+                  <p style="width: 44px">0</p>
+                </td>
+                <td>
+                  <div style="width:32px">
+                    <input
+                      style="width: 15px"
+                      type="checkbox"
+                      v-model="CursosAtivos[curso.id]"
+                      v-on:click.prevent="toggleCurso(curso.id)"
+                    />
                   </div>
-                </th>
+                </td>
               </div>
             </tr>
-          </thead>
-
-          <tbody>
-            <template v-if="Cursos.length > 0">
-              <tr
-                v-for="curso in Cursos"
-                :key="curso.id"
-                v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
-                :class="{'bg-custom':cursoClickado === curso.codigo}"
-              >
-                <div style="width: 520px">
-                  <td>
-                    <p style="width: 300px; text-align: start">{{ curso.nome }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 50px">{{ curso.codigo}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 50px;">{{ curso.turno }}</p>
-                  </td>
-                  <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
-                  <td v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3">
-                    <p style="width: 44px">{{ curso.alunosEntrada }}</p>
-                  </td>
-                  <td v-else>
-                    <p style="width: 44px">0</p>
-                  </td>
-                  <td v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3">
-                    <p style="width: 44px">{{ curso.alunosEntrada }}</p>
-                  </td>
-                  <td v-else>
-                    <p style="width: 44px">0</p>
-                  </td>
-                  <td>
-                    <div style="width:32px">
-                      <input
-                        style="width: 15px"
-                        type="checkbox"
-                        v-model="CursosAtivos[curso.id]"
-                        v-on:click.prevent="toggleCurso(curso.id)"
-                      />
-                    </div>
-                  </td>
-                </div>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
-                <td colspan="2" class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhum curso
-                  encontrado!
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <!-- Fim da Tabela -->
-      </div>
+          </template>
+          <template v-else>
+            <tr>
+              <td colspan="2" class="text-center">
+                <i class="fas fa-exclamation-triangle"></i> Nenhum curso
+                encontrado!
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <!-- Fim da Tabela -->
     </div>
+
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
+    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-12 col-sm-12 col-12">
       <div class="col card cartao ml-auto" style="max-width: 350px;">
         <!-- <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
@@ -196,54 +196,64 @@
 
             <div class="form-group row">
               <!-- <div class="col-sm-10"> -->
-                <template v-if="isEdit">
-                  <div style="display: flex; margin-right: 0; margin-left: auto">  
-                    <!-- Editar -->
-                    <button
-                      type="button"
-                      class="editbtn"
-                      title="Editar"
-                      v-on:click.prevent="editCurso"
-                      :key="1"
-                    ><i class="fas fa-edit"></i></button>
-                    <!-- Excluir -->
-                    <button
-                      type="button"
-                      title="Deletar"
-                      class="delbtn"
-                      v-on:click.prevent="deleteCurso"
-                      :key="3"
-                    ><i class="far fa-trash-alt"></i></button>
-                    <!-- Cancelar -->
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanCurso"
-                      :key="2"
-                    ><i class="fas fa-ban"></i></button>
-                  </div>
-                </template>
-                <template v-else>
-                  <div style="display: flex; margin-right: 0; margin-left: auto">  
-                    <!-- Adicionar -->
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="addbtn"
-                      v-on:click.prevent="addCurso"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
-                    <!-- Resetar -->
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanCurso"
-                      :key="2"
-                    ><i class="fas fa-ban"></i></button>
-                  </div>
-                </template>
+              <template v-if="isEdit">
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <!-- Editar -->
+                  <button
+                    type="button"
+                    class="editbtn"
+                    title="Editar"
+                    v-on:click.prevent="editCurso"
+                    :key="1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <!-- Excluir -->
+                  <button
+                    type="button"
+                    title="Deletar"
+                    class="delbtn"
+                    v-on:click.prevent="deleteCurso"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <!-- Cancelar -->
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanCurso"
+                    :key="2"
+                  >
+                    <i class="fas fa-ban"></i>
+                  </button>
+                </div>
+              </template>
+              <template v-else>
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <!-- Adicionar -->
+                  <button
+                    type="button"
+                    title="Adicionar"
+                    class="addbtn"
+                    v-on:click.prevent="addCurso"
+                    :key="1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <!-- Resetar -->
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanCurso"
+                    :key="2"
+                  >
+                    <i class="fas fa-ban"></i>
+                  </button>
+                </div>
+              </template>
               <!-- </div> -->
             </div>
           </form>
@@ -253,6 +263,7 @@
     <!-- Fim do Grid Direito -->
   </div>
 </template>
+
 <script>
 import _ from "lodash";
 import cursoService from "../../common/services/curso";
@@ -445,7 +456,10 @@ export default {
   }
 };
 </script>
+
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardCursos {
   max-width: 100%;
   overflow: auto;
@@ -476,6 +490,8 @@ h1 {
 }
 
 .botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .titulo {
@@ -517,19 +533,23 @@ h1 {
 .divTable {
   overflow: auto;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
-  overflow-x: auto;
+  display: block !important;
+  overflow-y: scroll !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
 tbody {
   max-height: 100%;
@@ -572,18 +592,22 @@ table input {
   select {
     height: 15px !important;
     text-align: left;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 
     line-height: 8px;
     border: 0.5px solid rgb(133, 133, 133);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
   input {
     text-align: center;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
@@ -636,67 +660,69 @@ table th {
   vertical-align: middle;
 }
 /* Botoes */
-button{
+button {
   padding: 0;
   border: none;
   background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
 }
 i.fas,
-i.far{
+i.far {
   font-size: 30px;
 }
-.addbtn{
+.addbtn {
   background-color: white;
   color: #a0e7a0;
 }
-.addbtn:hover{
+.addbtn:hover {
   background-color: white;
   color: #77dd77;
 }
-.addbtn:focus{
+.addbtn:focus {
   color: #77dd77;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #2fbf53;
 }
-.cancelbtn{
+.cancelbtn {
   background-color: white;
   color: #cfcfc4;
 }
-.cancelbtn:hover{
+.cancelbtn:hover {
   color: #b8b4a8;
 }
-.cancelbtn:focus{
+.cancelbtn:focus {
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn{
+.editbtn {
   background-color: white;
   color: #ffbe61;
 }
-.editbtn:hover{
+.editbtn:hover {
   color: #ffb448;
 }
-.editbtn:focus{
+.editbtn:focus {
   color: #ffb448;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ffa548;
 }
-.delbtn{
+.delbtn {
   background-color: white;
   color: #ff817b;
 }
-.delbtn:hover{
+.delbtn:hover {
   color: #ff5f48;
 }
-.delbtn:focus{
+.delbtn:focus {
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
 }
-.bg-custom{
+.bg-custom {
   background-color: #c8c8c8;
 }
 .bg-custom:hover {

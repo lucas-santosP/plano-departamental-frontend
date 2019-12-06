@@ -2,7 +2,7 @@
   <div class="TurmasExternas row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
 
         <div
@@ -77,12 +77,13 @@
       <div class="cube2"></div>
     </div>
 
-    <div class="pl-0 divTable" v-if="!isLoading">
+    <!-- Inicio Tabela -->
+    <div class="p-0 divTable mb-2" v-if="!isLoading">
       <table class="table table-hover table-bordered table-sm">
         <thead class="thead-light sticky">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: 895px; height:20px !important"
+              style="display: block; overflow: hidden; width: ‭884‬px; height:20px !important"
               class="sticky"
             >
               <th scope="col">
@@ -143,8 +144,8 @@
         <tbody>
           <!-- Adição de turma-->
           <template v-if="isAdd">
-            <tr style="background-color:#cccccc;" class="stickyAdd">
-              <div style="width: 895px; height:38px;">
+            <tr style="background-color: #c8c8c8;;" class="stickyAdd">
+              <div style="width: ‭884‬px; height:41px; font-size:11px">
                 <td>
                   <div style="width:24px !important;">
                     <input
@@ -629,6 +630,8 @@ export default {
 </style>
 
 <style scoped>
+/* prefixed */
+
 .TurmasExternas {
   max-width: 100%;
   overflow: hidden;
@@ -647,12 +650,10 @@ export default {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
 }
-
 .botao-estilo:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
@@ -669,11 +670,10 @@ export default {
   height: 25px !important;
   font-size: 12px !important;
   padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
+  min-width: 80px;
+  max-width: 80px;
   text-align: start;
 }
-
 .input-group-text {
   max-width: 70px;
   min-width: 70px;
@@ -682,6 +682,7 @@ export default {
   padding-left: 15px;
   font-size: 12px !important;
 }
+
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -692,32 +693,28 @@ export default {
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
-}
-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 0 !important;
-}
-table p {
-  margin-bottom: 0;
-  text-align: center;
 }
 tr thead {
   display: block;
@@ -728,39 +725,23 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table select {
-  height: 15px !important;
-  text-align: left;
+table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  height: 40px;
+}
+table p {
+  margin-bottom: 0;
+  text-align: center;
 }
 table input {
-  height: 18px !important;
+  height: 18px;
   text-align: center !important;
 }
-
-/* APENAS NO FIREFOX */
-@-moz-document url-prefix() {
-  select {
-    height: 16px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
+table select {
+  height: 18px;
 }
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
@@ -769,7 +750,7 @@ table input {
 .stickyAdd {
   position: sticky;
   position: -webkit-sticky;
-  top: 20px;
+  top: 21px;
   display: fixed;
 }
 
@@ -794,6 +775,45 @@ table input {
   background: -webkit-linear-gradient(top, white, black);
   background: -moz-linear-gradient(top, white, black);
   background: -o-linear-gradient(top, white, black);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(white),
+    to(black)
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(white),
+    to(black)
+  );
   background: linear-gradient(to bottom, white, black);
+}
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+  select {
+    height: 18px !important;
+    text-align: left;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 8px;
+    border: 0.5px solid rgb(160, 160, 160);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  input {
+    height: 18px !important;
+    text-align: center;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 8px;
+    border: 0.5px solid rgb(160, 160, 160);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
 }
 </style>

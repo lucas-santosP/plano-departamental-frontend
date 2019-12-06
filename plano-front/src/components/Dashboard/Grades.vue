@@ -2,7 +2,7 @@
   <div class="DashboardGrades row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Grades</h1>
       </div>
     </div>
@@ -87,7 +87,6 @@
                     <tr
                       v-if="grade.id===currentGrade"
                       :key="grade.id+'grade'+disciplinaGrade.periodo+'periodo'"
-                      v-on:click.prevent="showGrade(grade)"
                     >
                       <div
                         :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
@@ -105,7 +104,7 @@
                                 :key="disciplina.nome"
                                 :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
                                 style="cursor:pointer;"
-                                v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
+                                v-on:click.prevent="showGrade(grade), showDisciplina(disciplinaGrade), clickada(disciplina.nome)"
                               >
                                 <p style="width: 400px">{{disciplina.nome}}</p>
                               </td>
@@ -741,13 +740,13 @@ input {
 table {
   display: block !important;
   overflow-y: scroll !important;
-  height: -webkit-calc(100vh - 150px);
-  height: -moz-calc(100vh - 150px);
-  height: calc(100vh - 150px);
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: #f5f5f5;
   margin: 0 !important;
+  height: -webkit-calc(100vh - 150px);
+  height: -moz-calc(100vh - 150px);
+  height: calc(100vh - 150px);
 }
 tbody {
   /*top: 23px;*/

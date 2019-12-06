@@ -2,19 +2,16 @@
   <div class="DashboardCargaProfessores row pr-2">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-7 col-sm-5 col-md-4 col-xl-2">Carga Professores</h1>
 
         <div
           class="form-group col-5 col-sm-7 col-md-8 col-xl-10 mb-0 pr-0"
           style="justify-content: flex-end;"
         >
-          <button
-            type="button"
-            class="relatbtn"
-            title="Relatório"
-            v-on:click.prevent="pdf"
-          ><i class="far fa-file-alt"></i></button>
+          <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
+            <i class="far fa-file-alt"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -404,6 +401,8 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed */
+
 .DashboardCargaProfessores {
   max-width: 100%;
   overflow: hidden;
@@ -419,7 +418,11 @@ export default {
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
@@ -433,7 +436,6 @@ table {
   margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -465,31 +467,6 @@ table input {
   height: 18px !important;
   text-align: center !important;
 }
-
-/* APENAS NO FIREFOX */
-@-moz-document url-prefix() {
-  select {
-    height: 15px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-}
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
@@ -511,18 +488,21 @@ table input {
   padding: 0 5px 0 5px;
   max-width: 65px;
 } */
-button{
+button {
   padding: 0;
   border: none;
   background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
   margin-top: 5px;
   margin-bottom: 0px;
 }
 i.fas,
-i.far{
+i.far {
   font-size: 25px;
+  cursor: pointer;
 }
 .relatbtn {
   background-color: white;
@@ -535,7 +515,7 @@ i.far{
 }
 
 .relatbtn:focus {
-   color: #77dd77;
+  color: #77dd77;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #2fbf53;
 }
@@ -556,4 +536,32 @@ i.far{
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #2fbf53;
 } */
+
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+  select {
+    height: 15px !important;
+    text-align: left;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  input {
+    height: 18px !important;
+    text-align: center;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+}
 </style>

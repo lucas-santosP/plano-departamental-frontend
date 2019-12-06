@@ -1,9 +1,9 @@
 <template>
-  <div class="DashboardTurmas row" v-if="Admin">
+  <div class="DashboardTurmas row pr-2" v-if="Admin">
     <div class="col-7">
       <!-- Titulo -->
       <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-        <div class="form-inline col-12 pl-0 mb-1 pr-1">
+        <div class="form-inline col-12 pl-0 mb-2 pr-1">
           <h1 class="col-12 titulo">Lista Turmas</h1>
         </div>
       </div>
@@ -586,7 +586,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0!important;
+  margin: 0 !important;
 }
 .p-header {
   padding: 0px 0 0px 0;

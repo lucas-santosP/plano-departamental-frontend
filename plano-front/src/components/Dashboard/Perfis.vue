@@ -1,8 +1,8 @@
 <template>
-  <div class="DashboardPerfis row" v-if="Admin">
+  <div class="DashboardPerfis row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Perfis</h1>
       </div>
     </div>
@@ -296,6 +296,8 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardPerfis {
   max-width: 100%;
   overflow: hidden;
@@ -349,6 +351,8 @@ input[type="text"] {
 }
 
 .botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .titulo {

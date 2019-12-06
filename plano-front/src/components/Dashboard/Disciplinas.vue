@@ -1,8 +1,8 @@
 <template>
-  <div class="DashboardDisciplinas row" style="overflow-y:hidden;" v-if="Admin">
+  <div class="DashboardDisciplinas row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Disciplinas</h1>
       </div>
     </div>
@@ -383,12 +383,13 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardDisciplinas {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
 }
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -416,13 +417,13 @@ export default {
   border-color: #f0852e !important;
   color: white;
 }
-
 .botao-estilo:hover {
   background-color: #e86c07 !important;
   border-color: #e86c07 !important;
 }
-
 .botao-estilo:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
 }
 .form-group {
@@ -432,13 +433,6 @@ export default {
   line-height: 1.2;
   font-size: 12px;
   text-align: start;
-}
-.ead-texto {
-  text-align: start;
-  padding-left: 20px;
-  line-height: 1.2;
-  padding-top: 0px;
-  font-size: 12px;
 }
 .col-form-label {
   padding-top: 0;
@@ -462,25 +456,26 @@ export default {
   height: 18px;
 }
 .divTable {
-  overflow: hidden !important;
-  height: -webkit-max-content !important;
-  height: -moz-max-content !important;
-  height: max-content !important;
-  border: #808080 solid 2px !important;
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
+  overflow: hidden;
+  border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 table {
   display: block !important;
   overflow-y: scroll !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
+  overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: #f5f5f5;
   margin: 0 !important;
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
 }
 tbody {
   max-height: 100%;
@@ -541,23 +536,25 @@ table tbody tr div {
 
 /* Firefox */
 @-moz-document url-prefix() {
-  select {
+  table select {
     height: 25px !important;
     text-align: left;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(133, 133, 133);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  input {
+  table input {
     height: 25px !important;
     text-align: start;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }

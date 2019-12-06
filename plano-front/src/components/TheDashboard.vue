@@ -186,8 +186,8 @@
         <main
           @click="show=false"
           role="main"
-          class="col-12 ml-auto pl-2 pr-0"
-          style="padding-right:0; overflow:hidden;"
+          class="col-12 pl-2 pr-0 pt-0 pl-0"
+          style="overflow-y:scroll;"
           v-if="!isLoading"
         >
           <router-view></router-view>
@@ -316,7 +316,6 @@
     </b-modal>
   </div>
 </template>
-
 
 <script>
 import { COMPONENT_LOADING, COMPONENT_LOADED } from "../vuex/mutation-types";
@@ -613,17 +612,23 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed */
+.TheDashboard {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
 .loading {
   cursor: progress;
 }
-
+/*=== side bar ===*/
 .sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding-top: 35px; /* Height of navbar */
+  padding-top: 32px; /* Height of navbar */
   padding-right: 0px;
   padding-left: 0px;
   max-width: 200px;
@@ -632,18 +637,7 @@ export default {
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   font-size: 0.875rem;
 }
-
-/*=== MY CODE ===*/
-.sidebar-sticky ::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
-}
-.sidebar-sticky::-webkit-scrollbar {
-  width: 6px;
-  background: #f4f4f4;
-}
-.sidebar-sticky::-webkit-scrollbar-thumb {
-  background: #666;
-}
+/* SCROLL BAR CUSTOM */
 .nav li a i {
   padding-left: 0.3em;
 }
@@ -676,7 +670,6 @@ export default {
   height: 30px;
   padding: 5px;
 }
-
 .container-fluid {
   max-width: 100%;
   margin: 0px;
@@ -684,52 +677,58 @@ export default {
   padding-left: 0px;
 }
 
-.navbar-toggler {
-  border: 0px;
-}
-
 .sidebar-sticky {
   position: relative;
   top: 0;
   padding-top: 0.5rem;
-  height: -webkit-calc(100vh - 35px);
-  height: -moz-calc(100vh - 35px);
-  height: calc(100vh - 35px);
+  height: -webkit-calc(100vh - 32px);
+  height: -moz-calc(100vh - 32px);
+  height: calc(100vh - 32px);
   padding-bottom: 1rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
-
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
     position: -webkit-sticky;
     position: sticky;
   }
 }
-
 .sidebar .nav-link {
   font-weight: 500;
   color: #333;
 }
-
 .sidebar .nav-link .fas {
   margin-right: 4px;
   color: #999;
 }
-
 .sidebar .nav-link:hover .fas,
 .sidebar .nav-link.active .fas {
   color: inherit;
 }
-
 .sidebar-heading {
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
 }
+.sidebar-sticky ::-webkit-scrollbar-track {
+  background-color: #f4f4f4;
+}
+.sidebar-sticky::-webkit-scrollbar {
+  width: 6px;
+  background: #f4f4f4;
+}
+.sidebar-sticky::-webkit-scrollbar-thumb {
+  background: #666;
+}
+/* ========= */
 
 [role="main"] {
-  padding-top: 32px; /* Space for fixed navbar */
+  margin-top: 32px; /* Space for fixed navbar */
+  overflow-y: auto !important;
+  height: -webkit-calc(100vh - 32px);
+  height: -moz-calc(100vh - 32px);
+  height: calc(100vh - 32px);
 }
 
 .navbar-brand {
@@ -1002,7 +1001,7 @@ export default {
 */
 @media screen and (max-width: 425px) {
   [role="main"] {
-    padding-top: 62px;
+    margin-top: 62px;
   }
   .sidebar {
     padding-top: 62px;
@@ -1021,8 +1020,8 @@ export default {
   .text-nav-top {
     display: none;
   }
-  .icons-top{
-    margin-right: 10px!important;
+  .icons-top {
+    margin-right: 10px !important;
   }
 }
 </style>
