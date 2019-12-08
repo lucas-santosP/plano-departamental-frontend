@@ -3,10 +3,10 @@
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela Externa</h1>
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Tabela Externa</h1>
 
         <div
-          class="form-group col-9 col-sm-10 col-md-10 col-xl-10 mb-0 pr-0"
+          class="form-group col-xl-10 col-md-9 col-sm-8 col-8 mb-0 pr-0"
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">

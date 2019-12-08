@@ -171,20 +171,24 @@
             <template v-if="CargasPGMC.length>0">
               <template v-for="t in [1,  2, 3, 4]">
                 <template v-for="docente in Docentes">
-                  <tr
-                    v-for="carga in CargasPGMC"
-                    :key="'docente'+docente.id+'carga'+carga.id"
-                    v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                  >
-                    <template
-                      v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
-                    >
-                      <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
-                    </template>
-                    <template
-                      v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
-                    >
-                      <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                  <tr v-for="carga in CargasPGMC" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
+                      <template
+                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'1docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
+                      <template
+                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'2docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
                     </template>
                   </tr>
                 </template>
@@ -223,20 +227,24 @@
             <template v-if="CargasPGCC.length>0">
               <template v-for="t in [1,  2, 3, 4]">
                 <template v-for="docente in Docentes">
-                  <tr
-                    v-for="carga in CargasPGCC"
-                    :key="'docente'+docente.id+'carga'+carga.id"
-                    v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                  >
-                    <template
-                      v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
-                    >
-                      <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
-                    </template>
-                    <template
-                      v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
-                    >
-                      <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                  <tr v-for="carga in CargasPGCC" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
+                      <template
+                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'1docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
+                      <template
+                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'2docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
                     </template>
                   </tr>
                 </template>
@@ -275,20 +283,24 @@
             <template v-if="CargasPGEM.length>0">
               <template v-for="t in [1,  2, 3, 4]">
                 <template v-for="docente in Docentes">
-                  <tr
-                    v-for="carga in CargasPGEM"
-                    :key="'docente'+docente.id+'carga'+carga.id"
-                    v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                  >
-                    <template
-                      v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
-                    >
-                      <cargadata :key="'1docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
-                    </template>
-                    <template
-                      v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
-                    >
-                      <cargadata :key="'2docente'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                  <tr v-for="carga in CargasPGEM" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
+                      <template
+                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'1docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
+                      <template
+                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
+                      >
+                        <cargadata
+                          :key="'2docente'+docente.id+'carga'+carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
+                      </template>
                     </template>
                   </tr>
                 </template>

@@ -110,31 +110,31 @@
               </div>
             </div>
 
-            <div
-              class="row mb-1 mt-1 mx-0"
-              style="width: -webkit-max-content; width: -moz-max-content; width: max-content;"
-            >
+            <div class="row mb-1 mt-1 mx-0">
               <div class="form-group m-0 px-0">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
-                    v-on:click.prevent="editSala"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-danger mr-2 mb-2"
-                    v-on:click.prevent="deleteSala"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary mb-2"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Cancelar</button>
+                  <div class="d-flex">
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
+                      v-on:click.prevent="editSala"
+                      :key="1"
+                    >Editar</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-danger mr-2 mb-2"
+                      v-on:click.prevent="deleteSala"
+                      :key="3"
+                    >Excluir</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn btn-secondary mb-2"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    >Cancelar</button>
+                  </div>
                 </template>
+
                 <template v-else>
                   <button
                     type="button"
@@ -349,6 +349,7 @@ export default {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  min-width: 150px;
 }
 .card-body {
   font-size: 12px;
