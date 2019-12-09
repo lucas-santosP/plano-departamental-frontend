@@ -68,7 +68,6 @@
           </tr>
         </thead>
         <tbody>
-          <!--
           <template v-if="Professores.length > 0">
             <template v-for="professor in Professores">
               <template v-if="turmas(professor).length > 0">
@@ -227,7 +226,6 @@
               </td>
             </tr>
           </template>
-          -->
         </tbody>
       </table>
     </div>
@@ -267,70 +265,44 @@ export default {
     creditos1(professor) {
       var c = 0;
       for (var t = 0; t < this.$store.state.turma.Turmas.length; t++) {
-        if (
-          this.$store.state.turma.Turmas[t].periodo === 1 &&
-          (this.$store.state.turma.Turmas[t].Docente1 === professor.id ||
-            this.$store.state.turma.Turmas[t].Docente2 === professor.id)
-        ) {
-          for (
-            var d = 0;
-            d < this.$store.state.disciplina.Disciplinas.length;
-            d++
-          ) {
-            if (
-              this.$store.state.disciplina.Disciplinas[d].id ===
-              this.$store.state.turma.Turmas[t].Disciplina
-            ) {
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaPratica,
-                10
-              );
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaTeorica,
-                10
-              );
+              if(this.$store.state.turma.Turmas[t].periodo===1 && (this.$store.state.turma.Turmas[t].Docente1===professor.id || this.$store.state.turma.Turmas[t].Docente2===professor.id)){
+                  for (var d = 0; d < this.$store.state.disciplina.Disciplinas.length; d++){
+                      if(this.$store.state.disciplina.Disciplinas[d].id===this.$store.state.turma.Turmas[t].Disciplina){
+                          if((this.$store.state.turma.Turmas[t].Docente1 > 0) && (this.$store.state.turma.Turmas[t].Docente2 > 0)) {
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica) / 2)
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica) / 2)
+                          }else{
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica)
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica)
+                          }
             }
           }
         }
+
       }
       for (var t = 0; t < this.$store.state.cargaPos.Cargas.length; t++) {
         if (this.$store.state.cargaPos.Cargas[t].Docente === professor.id) {
-          if (
-            this.$store.state.cargaPos.Cargas[t].trimestre == 1 ||
-            this.$store.state.cargaPos.Cargas[t].trimestre == 2
-          ) {
-            c += parseInt(this.$store.state.cargaPos.Cargas[t].creditos, 10);
+                  if(this.$store.state.cargaPos.Cargas[t].trimestre==1 || this.$store.state.cargaPos.Cargas[t].trimestre==2){
+                      c+= parseFloat(this.$store.state.cargaPos.Cargas[t].creditos)
+                  }
+              }
           }
-        }
-      }
       return c;
     },
 
     creditos2(professor) {
       var c = 0;
       for (var t = 0; t < this.$store.state.turma.Turmas.length; t++) {
-        if (
-          this.$store.state.turma.Turmas[t].periodo === 3 &&
-          (this.$store.state.turma.Turmas[t].Docente1 === professor.id ||
-            this.$store.state.turma.Turmas[t].Docente2 === professor.id)
-        ) {
-          for (
-            var d = 0;
-            d < this.$store.state.disciplina.Disciplinas.length;
-            d++
-          ) {
-            if (
-              this.$store.state.disciplina.Disciplinas[d].id ===
-              this.$store.state.turma.Turmas[t].Disciplina
-            ) {
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaPratica,
-                10
-              );
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaTeorica,
-                10
-              );
+              if(this.$store.state.turma.Turmas[t].periodo===3 && (this.$store.state.turma.Turmas[t].Docente1===professor.id || this.$store.state.turma.Turmas[t].Docente2===professor.id)){
+                  for (var d = 0; d < this.$store.state.disciplina.Disciplinas.length; d++){
+                      if(this.$store.state.disciplina.Disciplinas[d].id===this.$store.state.turma.Turmas[t].Disciplina){
+                          if((this.$store.state.turma.Turmas[t].Docente1 > 0) && (this.$store.state.turma.Turmas[t].Docente2 > 0)) {
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica) / 2)
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica) / 2)
+                          }else{
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica)
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica)
+                          }
             }
           }
         }
@@ -338,7 +310,7 @@ export default {
       for (var t = 0; t < this.$store.state.cargaPos.Cargas.length; t++) {
         if (this.$store.state.cargaPos.Cargas[t].Docente === professor.id) {
           if (this.$store.state.cargaPos.Cargas[t].trimestre == 3) {
-            c += parseInt(this.$store.state.cargaPos.Cargas[t].creditos, 10);
+                      c+= parseFloat(this.$store.state.cargaPos.Cargas[t].creditos)
           }
         }
       }
@@ -348,34 +320,24 @@ export default {
     creditos(professor) {
       var c = 0;
       for (var t = 0; t < this.$store.state.turma.Turmas.length; t++) {
-        if (
-          this.$store.state.turma.Turmas[t].Docente1 === professor.id ||
-          this.$store.state.turma.Turmas[t].Docente2 === professor.id
-        ) {
-          for (
-            var d = 0;
-            d < this.$store.state.disciplina.Disciplinas.length;
-            d++
-          ) {
-            if (
-              this.$store.state.disciplina.Disciplinas[d].id ===
-              this.$store.state.turma.Turmas[t].Disciplina
-            ) {
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaPratica,
-                10
-              );
-              c += parseInt(
-                this.$store.state.disciplina.Disciplinas[d].cargaTeorica,
-                10
-              );
+              if(this.$store.state.turma.Turmas[t].Docente1===professor.id || this.$store.state.turma.Turmas[t].Docente2===professor.id){
+                  for (var d = 0; d < this.$store.state.disciplina.Disciplinas.length; d++){
+                      if(this.$store.state.disciplina.Disciplinas[d].id===this.$store.state.turma.Turmas[t].Disciplina){
+                          if((this.$store.state.turma.Turmas[t].Docente1 > 0) && (this.$store.state.turma.Turmas[t].Docente2 > 0)) {
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica) / 2)
+                              c += (parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica) / 2)
+                          }else{
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaPratica)
+                              c += parseFloat(this.$store.state.disciplina.Disciplinas[d].cargaTeorica)
+                          }
             }
           }
         }
       }
       for (var t = 0; t < this.$store.state.cargaPos.Cargas.length; t++) {
         if (this.$store.state.cargaPos.Cargas[t].Docente === professor.id) {
-          c += parseInt(this.$store.state.cargaPos.Cargas[t].creditos, 10);
+                  c+= parseFloat(this.$store.state.cargaPos.Cargas[t].creditos)
+
         }
       }
       return c;

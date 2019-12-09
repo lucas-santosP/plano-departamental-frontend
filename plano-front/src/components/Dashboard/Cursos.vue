@@ -70,7 +70,7 @@
                     <p style="width: 44px">0</p>
                   </td>
                   <td v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3">
-                    <p style="width: 44px">{{ curso.alunosEntrada }}</p>
+                    <p style="width: 44px">{{ curso.alunosEntrada2 }}</p>
                   </td>
                   <td v-else>
                     <p style="width: 44px">0</p>

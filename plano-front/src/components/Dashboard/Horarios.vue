@@ -254,7 +254,7 @@
 					 var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades
 					 var turmas = _.filter(this.$store.state.turma.Turmas, ['periodo', 1])
 					 var turmasExternas = this.$store.state.turmaExterna.Turmas
-					 var anoAtual = this.$store.state.year
+                     var anoAtual = this.$store.state.plano.Plano[0].ano
 					 var semestreAtual = 1
 
 						  if(this.$store.state.curso.Cursos[0].semestreInicial==1){
@@ -294,7 +294,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 4])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
@@ -349,7 +356,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 1])
+                         pedidosExternos = []
+                         for (let t in this.$store.state.pedidoExterno.Pedidos){
+                             for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                 if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+                                     pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                 }
+                             }
+                         }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -403,7 +417,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 3])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -457,7 +478,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 2])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -528,7 +556,7 @@
 					 var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades
 					 var turmas = _.filter(this.$store.state.turma.Turmas, ['periodo', 3])
 					 var turmasExternas = this.$store.state.turmaExterna.Turmas
-					 var anoAtual = this.$store.state.year
+                     var anoAtual = this.$store.state.plano.Plano[0].ano
 					 var semestreAtual = 1
 
 					 if(this.$store.state.curso.Cursos[0].semestreInicial==1){
@@ -568,8 +596,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 4])
-
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                                for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                     if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+                                          pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                     }
+                                }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -623,7 +657,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 1])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -677,7 +718,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 3])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
@@ -731,7 +779,14 @@
 									 }
 								}
 						  }
-						  pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, ['Curso', 2])
+                          pedidosExternos = []
+                          for (let t in this.$store.state.pedidoExterno.Pedidos){
+                               for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+                                    if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+                                         pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+                                    }
+                               }
+                          }
 						  for (var i = 0; ((i < grades.length) && (inicio <= 10)); i++) {
 								//grade
 								grade = grades[i].id
