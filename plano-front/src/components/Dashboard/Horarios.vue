@@ -1,126 +1,146 @@
 <template>
-	 <div class="DashboardHorarios row pr-2" v-if="Admin">
-	<!-- Titulo -->
+  <div class="DashboardHorarios row pr-2" v-if="Admin">
+    <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Horários</h1>
       </div>
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
-	 
-		  <div class="col">
-		<div class="tabelas" style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);">
-<!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-				<template v-if="periodo===1 || periodo===3">
-					 <div class="col-12">
-					 <h3 style="font-weight: bold; font-size: 18px; text-align: center;">1º SEMESTRE</h3>
-					 </div>
-<!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-					 <template v-if="activeCCD">
-						  <h4>Ciência da Computação Diurno</h4>
-					 </template>
-					 <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
-<!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-					 <template v-if="activeCCN">
-						  <h4>Ciência da Computação Noturno
 
-						  </h4>
-					 </template>
+    <div class="col">
+      <div
+        class="tabelas"
+        style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);"
+      >
+        <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
+        <template v-if="periodo===1 || periodo===3">
+          <div class="col-12">
+            <h3 style="font-weight: bold; font-size: 18px; text-align: center;">1º SEMESTRE</h3>
+          </div>
+          <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
+          <template v-if="activeCCD">
+            <h4>Ciência da Computação Diurno</h4>
+          </template>
+          <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+          <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
+          <template v-if="activeCCN">
+            <h4>Ciência da Computação Noturno</h4>
+          </template>
 
-					 <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
-<!-- -------------------------------------------- SI ----------------------------------------- -->
-					 <template v-if="activeSI">
-						  <h4>Sistemas de Informação</h4>
-					 </template>
+          <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
+          <!-- -------------------------------------------- SI ----------------------------------------- -->
+          <template v-if="activeSI">
+            <h4>Sistemas de Informação</h4>
+          </template>
 
-					 <curso-noturno :Curso="ativos1.SI"></curso-noturno>
-<!-- -------------------------------------------- EC ----------------------------------------- -->
-					 <template v-if="activeEC">
-						  <h4>Engenharia Computacional</h4>
-					 </template>
+          <curso-noturno :Curso="ativos1.SI"></curso-noturno>
+          <!-- -------------------------------------------- EC ----------------------------------------- -->
+          <template v-if="activeEC">
+            <h4>Engenharia Computacional</h4>
+          </template>
 
-					 <curso-diurno :Curso="ativos1.EC"></curso-diurno>
-<!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-					 <template v-if="activeEletivas">
-						  <h4>Eletivas</h4>
-					 </template>
-					 <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
-				</template>
+          <curso-diurno :Curso="ativos1.EC"></curso-diurno>
+          <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
+          <template v-if="activeEletivas">
+            <h4>Eletivas</h4>
+          </template>
+          <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
+        </template>
 
-<!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-				<template v-if="periodo===2 || periodo===3">
-					 <h3 style="font-weight: bold; font-size: 18px; text-align: center;">2º SEMESTRE</h3>
-<!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-					 <template v-if="activeCCD">
-						  <h4>Ciência da Computação Diurno</h4>
-					 </template>
+        <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
+        <template v-if="periodo===2 || periodo===3">
+          <h3 style="font-weight: bold; font-size: 18px; text-align: center;">2º SEMESTRE</h3>
+          <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
+          <template v-if="activeCCD">
+            <h4>Ciência da Computação Diurno</h4>
+          </template>
 
-					 <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
-<!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-					 <template v-if="activeCCN">
-						  <h4>Ciência da Computação Noturno</h4>
-					 </template>
+          <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+          <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
+          <template v-if="activeCCN">
+            <h4>Ciência da Computação Noturno</h4>
+          </template>
 
-					 <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
-<!-- -------------------------------------------- SI ----------------------------------------- -->
-					 <template v-if="activeSI">
-						  <h4>Sistemas de Informação</h4>
-					 </template>
+          <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
+          <!-- -------------------------------------------- SI ----------------------------------------- -->
+          <template v-if="activeSI">
+            <h4>Sistemas de Informação</h4>
+          </template>
 
-					 <curso-noturno :Curso="ativos2.SI"></curso-noturno>
-<!-- -------------------------------------------- EC ----------------------------------------- -->
-					 <template v-if="activeEC">
-						  <h4>Engenharia Computacional</h4>
-					 </template>
+          <curso-noturno :Curso="ativos2.SI"></curso-noturno>
+          <!-- -------------------------------------------- EC ----------------------------------------- -->
+          <template v-if="activeEC">
+            <h4>Engenharia Computacional</h4>
+          </template>
 
-					 <curso-diurno :Curso="ativos2.EC"></curso-diurno>
-<!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-					 <template v-if="activeEletivas">
-						  <h4>Eletivas</h4>
-					 </template>
-					 <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
-				</template>
-<!-- ----------------------------------------------------------------------------------------------- -->
-		</div>
-		  </div>
-		  <!-- Grid Direito -->
-			<div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0">
-		<div class="col card cartao ml-auto mr-auto" style="top: 0px; margin-right: 20px; max-width: 350px;">
-		  <div class="card-body">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					 <h2 style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;">Definir Grades</h2>
-				</div>
-				<b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error">
-				</b-alert>
-				<form>
-					 <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
-						  <form name="formPeriodo" id="formPeriodo" ref="formPrioso">
-								<div class="grade" >
-									 <label for="periodo" style="margin-right: 10px; font-size: 11px">Semestre:</label>
-									 <b-form-select id="periodo" v-model="periodo" class="periodo" style="font-size: 75%; width: 80px; height:25px !important; position: relative; padding-top: 0.175rem">
-										  <option :value="1">1</option>
-										  <option :value="2">2</option>
-										  <option :value="3">Ambos</option>
-									 </b-form-select>
-									 <br/>
-								</div>
-						  </form>
-						  <div class="texto">
-								<b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
-								<b-form-checkbox-group v-model="cursos" stacked name="cursosCheck" :options="options" style="display: block;" v-on:change.capture="defineSelectAll">
-								</b-form-checkbox-group>
-						  </div>
-					 </div>
-					 <div>
-					 <b-button variant="success" v-on:click="createHorarios" class="col-1 btn-sm generate botao-estilo">Visualizar</b-button>
-					 </div>
-
-				</form>
-		  </div>
-		</div>
-			</div>
-	 </div>
+          <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+          <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
+          <template v-if="activeEletivas">
+            <h4>Eletivas</h4>
+          </template>
+          <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
+        </template>
+        <!-- ----------------------------------------------------------------------------------------------- -->
+      </div>
+    </div>
+    <!-- Grid Direito -->
+    <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0">
+      <div
+        class="card ml-auto mr-3"
+       
+      >
+        
+          <div class="card-header">
+            <h2 class="card-title">Definir Grades</h2>
+          </div>
+          <div class="card-body">
+          <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+          <form>
+            <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
+              <form name="formPeriodo" id="formPeriodo" ref="formPrioso">
+                <div class="grade">
+                  <label for="periodo" style="margin-right: 10px; font-size: 11px">Semestre:</label>
+                  <b-form-select
+                    id="periodo"
+                    v-model="periodo"
+                    class="periodo"
+                    style="font-size: 75%; width: 80px; height:25px !important; position: relative; padding-top: 0.175rem"
+                  >
+                    <option :value="1">1</option>
+                    <option :value="2">2</option>
+                    <option :value="3">Ambos</option>
+                  </b-form-select>
+                  <br />
+                </div>
+              </form>
+              <div class="texto">
+                <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
+                <b-form-checkbox-group
+                  v-model="cursos"
+                  stacked
+                  name="cursosCheck"
+                  :options="options"
+                  style="display: block;"
+                  v-on:change.capture="defineSelectAll"
+                ></b-form-checkbox-group>
+              </div>
+            </div>
+           
+          </form>
+           <div style="display: flex; margin-right: 0 !important; margin-left: auto !important">
+              <button
+                v-on:click="createHorarios"
+                title="Confirmar"
+                type="button"
+                class="addbtn"
+              ><i class="fas fa-check"></i></button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -921,10 +941,12 @@
 
 					 this.$store.commit('redefinirAtivas1', {Ativas2: this.ativos2})
 
+                    this.$store.commit("redefinirAtivas2", { Ativas: this.ativos2 });
 
 				}
 
-		  },
+     },
+
 
 		  computed: {
 
@@ -1010,15 +1032,32 @@
 				}
 		  }
 	 }
+
+
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardHorarios {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
 }
-
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+.card{
+  width: 250px;
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -1026,78 +1065,120 @@
   margin: 0 !important;
 }
 
-.periodo{
-	display: inline;
-	width: 72px;
-	height: 24px;
-	position:relative;
+.periodo {
+  display: inline;
+  width: 72px;
+  height: 24px;
+  position: relative;
 }
 
-	 .relatorio {
-		  position:relative;
-		  margin-top: 10px;
-	 }
+.relatorio {
+  position: relative;
+  margin-top: 10px;
+}
 
-	 td {
-		  width:91px !important;
-		  text-align: start !important;
-	 }
+td {
+  width: 91px !important;
+  text-align: start !important;
+}
 
-	 th{
-		  text-align:center !important;
-	 }
+th {
+  text-align: center !important;
+}
 
-	 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-	 .tg td{font-family:Arial, sans-serif;font-size:10px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-	 .tg th{font-family:Arial, sans-serif;font-size:10px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-	 .tg .tg-0lax{vertical-align:center}
-	 
-	 .btn {
-	 height:25px;
-	 min-width: -webkit-max-content;
-	 min-width: -moz-max-content;
-	 min-width: max-content;
-	 font-size:12px;
-	 padding: 0 5px 0 5px;
-	 max-width:65px;
-	 }
-	 .botao-estilo{
-		  background-color: #0079fa !important;
-		  border-color: #0079fa !important;
-		  min-width: max-content;
-		  max-width: max-content;
-	 }
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-color: #ccc;
+}
+.tg td {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: #ccc;
+  color: #333;
+  background-color: #fff;
+}
+.tg th {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: #ccc;
+  color: #333;
+  background-color: #f0f0f0;
+}
+.tg .tg-0lax {
+  vertical-align: center;
+}
 
-	 .botao-estilo:hover{
-		  background-color: #0055af !important;
-		  border-color: #0055af !important;
-	 }
-	 
-	 .botao-estilo:focus{
-		  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-	 }
-	 h4{
-		  text-align: start !important;
-		  margin-bottom: 20px;
-		  margin-top: 40px;
-		  font-size: 12px !important;
-		  font-weight: bold !important;
-	 }
-	 .texto{
-		  font-size: 12px;
-	 }
-	 .cartao{
-		  width: 300px;
-		  height:305px;
-	 }
-	 .card-body{
-		  padding-top: 10px;
-	 }
-	 option{
-		  font-size:11px; 
-		  box-sizing:border-box; 
-		  width: 25px;
-	 }
-	 
-	 
+/* .btn {
+  height: 25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  font-size: 12px;
+  padding: 0 5px 0 5px;
+  max-width: 65px;
+} */
+
+h4 {
+  text-align: start !important;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.texto {
+  font-size: 12px;
+}
+.cartao {
+  width: 300px;
+  height: 305px;
+}
+.card-body {
+  padding-top: 10px;
+}
+option {
+  font-size: 11px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 25px;
+}
 </style>

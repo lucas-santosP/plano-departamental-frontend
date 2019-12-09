@@ -2,7 +2,7 @@
   <div class="CargaPos row pr-2" style="font-size:11px;">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
 
         <div
@@ -25,14 +25,16 @@
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 mr-2 btn-success botao-estilo"
+                  title="Salvar"
+                  class="addbtn"
                   v-on:click.prevent="addCarga"
-                >Confirmar</button>
+                ><i class="fas fa-check"></i></button>
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-danger"
+                  title="Cancelar"
+                  class="cancelbtn"
                   v-on:click.prevent="toggleAdd"
-                >Cancelar</button>
+                ><i class="fas fa-times"></i></button>
               </div>
             </template>
 
@@ -40,14 +42,16 @@
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 mr-2 btn-success"
+                  title="Adicionar"
+                  class="addbtn"
                   v-on:click.prevent="toggleAdd"
-                >Adicionar</button>
+                ><i class="fas fa-plus"></i></button>
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-danger"
+                  title="Deletar"
+                  class="delbtn"
                   v-b-modal.modalConfirma
-                >Deletar</button>
+                ><i class="far fa-trash-alt"></i></button>
               </div>
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
@@ -69,7 +73,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+    <div class="w-100 mb-2 border-bottom" style="margin-top: -1px"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
@@ -77,106 +81,102 @@
     </div>
     <!-- Inicio Tabela 1 -->
 
-    <div class="row">
-      <div class="col">
-        <div class="pl-0 divTable" v-if="!isLoading">
-          <table class="table table-hover table-bordered table-sm">
-            <thead class="thead-light sticky">
-              <tr>
-                <div style="display: block; width: 330px;" class="sticky">
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;"></p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;">T.</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:135px!important;">Docente</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:100px!important;">Programa</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:40px!important;">C.</p>
-                  </th>
+    <div class="row p-0 m-0">
+      <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <table class="table table-hover table-bordered table-sm">
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="display: block; width: 330px;" class="sticky">
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;"></p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;">T.</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:135px!important;">Docente</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:100px!important;">Programa</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:40px!important;">C.</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+
+          <tbody>
+            <template v-if="isAdd">
+              <tr class="isAdd">
+                <div style="width: 330px;">
+                  <td>
+                    <div style="width:24px; height:40px"></div>
+                  </td>
+
+                  <td>
+                    <div style="width:24px;">
+                      <input
+                        type="text"
+                        style="width: 15px; text-align: center;"
+                        id="trimestre"
+                        v-model="cargaPosForm.trimestre"
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <div style="width: 135px">
+                      <select
+                        type="text"
+                        style="width:130px"
+                        id="docente1"
+                        v-model="cargaPosForm.Docente"
+                      >
+                        <option
+                          v-if="Docentes.length===0"
+                          type="text"
+                          value
+                        >Nenhum Docente Encontrado</option>
+                        <option
+                          v-for="docente in Docentes"
+                          :key="docente.id"
+                          :value="docente.id"
+                        >{{docente.apelido}}</option>
+                      </select>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div style="width: 100px">
+                      <input
+                        type="text"
+                        style="width: 80px"
+                        id="programa"
+                        v-model="cargaPosForm.programa"
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <div style="width: 40px">
+                      <input
+                        type="text"
+                        style="width: 25px"
+                        id="creditos"
+                        v-model="cargaPosForm.creditos"
+                      />
+                    </div>
+                  </td>
                 </div>
               </tr>
-            </thead>
-
-            <tbody>
-              <template v-if="isAdd">
-                <tr class="isAdd">
-                  <div style="width: 330px;">
-                    <td>
-                      <div style="width:24px; height:40px"></div>
-                    </td>
-
-                    <td>
-                      <div style="width:24px;">
-                        <input
-                          type="text"
-                          style="width: 15px; text-align: center;"
-                          id="trimestre"
-                          v-model="cargaPosForm.trimestre"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 135px">
-                        <select
-                          type="text"
-                          style="width:130px"
-                          id="docente1"
-                          v-model="cargaPosForm.Docente"
-                        >
-                          <option
-                            v-if="Docentes.length===0"
-                            type="text"
-                            value
-                          >Nenhum Docente Encontrado</option>
-                          <option
-                            v-for="docente in Docentes"
-                            :key="docente.id"
-                            :value="docente.id"
-                          >{{docente.apelido}}</option>
-                        </select>
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 100px">
-                        <input
-                          type="text"
-                          style="width: 80px"
-                          id="programa"
-                          v-model="cargaPosForm.programa"
-                        />
-                      </div>
-                    </td>
-
-                    <td>
-                      <div style="width: 40px">
-                        <input
-                          type="text"
-                          style="width: 25px"
-                          id="creditos"
-                          v-model="cargaPosForm.creditos"
-                        />
-                      </div>
-                    </td>
-                  </div>
-                </tr>
-              </template>
-              <!-- LINHAS -->
-              <template v-if="CargasPGMC.length>0">
-                <template v-for="t in [1,  2, 3, 4]">
-                  <template v-for="docente in Docentes">
-                    <tr
-                      v-for="carga in CargasPGMC"
-                      :key="'docente'+docente.id+'carga'+carga.id"
-                      v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                    >
+            </template>
+            <!-- LINHAS -->
+            <template v-if="CargasPGMC.length>0">
+              <template v-for="t in [1,  2, 3, 4]">
+                <template v-for="docente in Docentes">
+                  <tr v-for="carga in CargasPGMC" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -193,49 +193,46 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </tr>
-                  </template>
+                    </template>
+                  </tr>
                 </template>
               </template>
-            </tbody>
-          </table>
-        </div>
+            </template>
+          </tbody>
+        </table>
       </div>
-      <div class="col">
-        <div class="pl-0 divTable" v-if="!isLoading">
-          <table class="table table-hover table-bordered table-sm">
-            <thead class="thead-light sticky">
-              <tr>
-                <div style="display: block; width: 330px;" class="sticky">
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;"></p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;">T.</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:135px!important;">Docente</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:100px!important;">Programa</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:40px!important;">C.</p>
-                  </th>
-                </div>
-              </tr>
-            </thead>
 
-            <tbody>
-              <!-- LINHAS -->
-              <template v-if="CargasPGCC.length>0">
-                <template v-for="t in [1,  2, 3, 4]">
-                  <template v-for="docente in Docentes">
-                    <tr
-                      v-for="carga in CargasPGCC"
-                      :key="'docente'+docente.id+'carga'+carga.id"
-                      v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                    >
+      <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <table class="table table-hover table-bordered table-sm">
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="display: block; width: 330px;" class="sticky">
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;"></p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;">T.</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:135px!important;">Docente</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:100px!important;">Programa</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:40px!important;">C.</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- LINHAS -->
+            <template v-if="CargasPGCC.length>0">
+              <template v-for="t in [1,  2, 3, 4]">
+                <template v-for="docente in Docentes">
+                  <tr v-for="carga in CargasPGCC" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -252,49 +249,46 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </tr>
-                  </template>
+                    </template>
+                  </tr>
                 </template>
               </template>
-            </tbody>
-          </table>
-        </div>
+            </template>
+          </tbody>
+        </table>
       </div>
-      <div class="col">
-        <div class="pl-0 divTable" v-if="!isLoading">
-          <table class="table table-hover table-bordered table-sm">
-            <thead class="thead-light sticky">
-              <tr>
-                <div style="display: block; width: 330px;" class="sticky">
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;"></p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:24px!important;">T.</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:135px!important;">Docente</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:100px!important;">Programa</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width:40px!important;">C.</p>
-                  </th>
-                </div>
-              </tr>
-            </thead>
 
-            <tbody>
-              <!-- LINHAS -->
-              <template v-if="CargasPGEM.length>0">
-                <template v-for="t in [1,  2, 3, 4]">
-                  <template v-for="docente in Docentes">
-                    <tr
-                      v-for="carga in CargasPGEM"
-                      :key="'docente'+docente.id+'carga'+carga.id"
-                      v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))"
-                    >
+      <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <table class="table table-hover table-bordered table-sm">
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="display: block; width: 330px;" class="sticky">
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;"></p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:24px!important;">T.</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:135px!important;">Docente</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:100px!important;">Programa</p>
+                </th>
+                <th scope="col">
+                  <p class="p-header" style="width:40px!important;">C.</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- LINHAS -->
+            <template v-if="CargasPGEM.length>0">
+              <template v-for="t in [1,  2, 3, 4]">
+                <template v-for="docente in Docentes">
+                  <tr v-for="carga in CargasPGEM" :key="'docente'+docente.id+'carga'+carga.id+t">
+                    <template v-if="(carga.Docente === docente.id) && (carga.trimestre == (t))">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -311,19 +305,17 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </tr>
-                  </template>
+                    </template>
+                  </tr>
                 </template>
               </template>
-            </tbody>
-          </table>
-        </div>
+            </template>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </template>
-
-
 
 <script>
 import _ from "lodash";
@@ -466,18 +458,13 @@ export default {
   }
 };
 </script>
+
 <style scoped>
+/* prefixed */
 .CargaPos {
   max-width: 100%;
-  /* overflow: hidden; */
+  overflow: hidden;
   margin: 0;
-}
-.p-header {
-  padding: 0px 0 0px 0;
-  margin: 0;
-  font-size: 11px;
-  text-align: center;
-  height: 18px;
 }
 .btn {
   height: 25px;
@@ -488,32 +475,20 @@ export default {
   padding: 0 5px 0 5px;
   max-width: 65px;
 }
-.custom-select {
-  height: 25px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: start;
-  font-size: 100% !important;
-}
-
 .botao-estilo {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-estilo:hover {
   background-color: #0055af !important;
   border-color: #0055af !important;
 }
-
 .botao-estilo:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
-
-.botao-estilo2 {
+/* .botao-estilo2 {
   background-color: #f51616 !important;
   border-color: #f51616 !important;
 }
@@ -522,25 +497,40 @@ export default {
   background-color: #c91212 !important;
   border-color: #c91212 !important;
 }
-
 .botao-estilo2:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-}
+} */
+
 .titulo {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
   margin: 0;
 }
+.p-header {
+  padding: 0px 0 0px 0;
+  margin: 0;
+  font-size: 11px;
+  text-align: center;
+  height: 18px;
+}
+.custom-select {
+  height: 25px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 85px;
+  max-width: 85px;
+  text-align: start;
+  font-size: 100% !important;
+}
 .form-control {
   height: 25px !important;
   font-size: 12px !important;
   padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: center;
+  min-width: 80px;
+  max-width: 80px;
+  text-align: start;
 }
 .input-group-text {
   max-width: 70px;
@@ -551,23 +541,28 @@ export default {
   font-size: 12px !important;
 }
 .divTable {
-  /* overflow: auto; */
-  height: max-content;
+  overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -606,23 +601,25 @@ table input {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  /* select {
-    height: 15px !important;
+  table select {
+    height: 18px !important;
     text-align: left;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(133, 133, 133);
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
-  } */
-  input {
+  }
+
+  table input {
     height: 18px !important;
     text-align: center;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 
     line-height: 8px;
     border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
@@ -633,6 +630,60 @@ table input {
   top: 0px;
   z-index: 10;
 }
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
 .cube1,
 .cube2 {
   background-color: #333;
@@ -641,20 +692,18 @@ table input {
   position: absolute;
   top: 0;
   left: 0;
-
   -webkit-animation: cubemove 1.8s infinite ease-in-out;
+  -moz-animation: cubemove 1.8s infinite ease-in-out;
+  -o-animation: cubemove 1.8s infinite ease-in-out;
   animation: cubemove 1.8s infinite ease-in-out;
 }
-
 .cube2 {
   -webkit-animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+  -o-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
-@media screen and (max-width: 1083px) {
-  .divTable {
-    margin-bottom: 20px;
-  }
-}
+
 @-webkit-keyframes cubemove {
   25% {
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
@@ -671,25 +720,93 @@ table input {
   }
 }
 
-@keyframes cubemove {
+@-moz-keyframes cubemove {
   25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
     transform: translateX(42px) rotate(-90deg) scale(0.5);
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
   }
   50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
     transform: translateX(42px) translateY(42px) rotate(-179deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
   }
   50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
     transform: translateX(42px) translateY(42px) rotate(-180deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
   }
   75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
       scale(0.5);
   }
   100% {
+    -moz-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@-o-keyframes cubemove {
+  25% {
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+
+@keyframes cubemove {
+  25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }

@@ -1,8 +1,8 @@
 <template>
-  <div class="DashboardPrototipo row pr-2" style="height:100%;">
+  <div class="DashboardPrototipo row pr-2">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="titulo col-md-2 col-sm-2 col-xl-2 col-3">Tabela</h1>
 
         <div
@@ -20,22 +20,24 @@
                 <label class="input-group-text">Semestre</label>
               </div>
             </div>
-            <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis">Perfis</b-button>
+            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  title="Cancelar"
+                  class="cancelbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                >Cancelar</button>
+                ><i class="fas fa-times"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-success col-1 botao-estilo"
+                  title="Salvar"
+                  class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="addTurma"
-                >Confirmar</button>
+                ><i class="fas fa-check"></i></button>
               </div>
             </template>
 
@@ -43,22 +45,25 @@
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-success col-1 mr-2"
+                  title="Adicionar"
+                  class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                >Adicionar</button>
+                ><i class="fas fa-plus"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  title="Deletar"
+                  class="delbtn"
                   style="max-width:80px;"
                   v-b-modal.modalConfirma
-                >Deletar</button>
+                ><i class="far fa-trash-alt"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-info col-1"
+                  title="XLSX"
+                  class="relatbtn"
                   style="max-width: 65px;"
                   v-on:click.prevent="xlsx(Pedidos)"
-                >XLSX</button>
+                ><i class="far fa-file-alt"></i></button>
               </div>
               <!-- Modals do deletar-->
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -97,15 +102,16 @@
 
               <div slot="modal-footer">
                 <b-button
-                  class="botao-estilo mr-2"
+                  class="btn-azul mr-2"
                   variant="success"
                   @click="selectAll()"
                 >Selecionar Todos</b-button>
-                <b-button class="mr-4" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
+                <b-button class="btn-cinza mr-2" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
 
                 <b-button
-                  variant="sucess"
+                  variant="success"
                   @click="btnOK()"
+                  class="btn-verde mr-2"
                   style="padding-right:15px!important; padding-left:15px!important"
                 >OK</b-button>
               </div>
@@ -115,7 +121,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+    <div class="w-100 mb-2 border-bottom" style="margin-top: -3px"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
@@ -131,7 +137,7 @@
         </thead>
         <tbody>
           <template v-if="isAdd">
-            <tr>
+            <tr style="background-color:#c8c8c8;;">
               <novaturma></novaturma>
             </tr>
           </template>
@@ -491,7 +497,15 @@ export default {
   }
 };
 </script>
+
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.DashboardPrototipo {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -500,55 +514,66 @@ export default {
   font-size: 12px;
   padding: 0 5px 0 5px;
 }
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
+.btn-azul {
+  background-color: #9ab3ff !important;
+  border-color: #9ab3ff !important;
 }
-
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
+.btn-azul:hover {
+  background-color: #82a0ff !important;
+  border-color: #82a0ff !important;
 }
-
-.botao-estilo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+.btn-azul:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
 }
-
-.botao-perfis {
+.btn-cinza {
+  background-color: #c3c3c3 !important;
+  border-color: #c3c3c3!important;
+}
+.btn-cinza:hover {
+  background-color: #aaaaaa !important;
+  border-color: #aaaaaa !important;
+}
+.btn-cinza:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+}
+.btn-verde {
+  background-color: #a0e7a0 !important;
+  border-color: #a0e7a0 !important;
+}
+.btn-verde:hover {
+  background-color: #77dd77 !important;
+  border-color: #77dd77 !important;
+}
+.btn-verde:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+/* .botao-perfis {
   background-color: #0055af !important;
   border-color: #0055af !important;
   max-width: 60px;
 }
-
 .botao-perfis:hover {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
 }
-
 .botao-perfis:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+} */
 
 .titulo {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+  margin: 0 !important;
 }
-.selectForm {
-  height: 26px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-}
-
-.custom-select {
-  height: 25px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: start;
-}
-
 .input-group-text {
   max-width: 70px;
   min-width: 70px;
@@ -557,39 +582,41 @@ export default {
   padding-left: 15px;
   font-size: 12px !important;
 }
-
-.DashboardPrototipo {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
+.form-control {
+  height: 25px !important;
+  font-size: 12px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 80px;
+  max-width: 80px;
+  text-align: start;
 }
-
 .sticky {
   position: sticky;
   position: -webkit-sticky;
-  top: -1px;
-}
-
-.cursoGrande {
-  font-size: 7px !important;
+  top: 0;
 }
 .divTable {
   overflow: hidden;
   border: #808080 solid 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
-
 tbody {
   /*top: 23px;*/
   max-height: 100%;
@@ -600,10 +627,6 @@ table td {
   vertical-align: middle;
   padding: 0 !important;
 }
-table p {
-  margin-bottom: 0;
-  text-align: center;
-}
 tr thead {
   display: block;
 }
@@ -613,38 +636,77 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-table select {
-  height: 15px !important;
-  text-align: left;
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
 }
-table input {
-  height: 18px !important;
-  text-align: center !important;
+i.fas,
+i.far {
+  font-size: 25px;
 }
-/* Firefox */
-@-moz-document url-prefix() {
-  table select {
-    height: 15px !important;
-    text-align: left;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  table input {
-    height: 18px !important;
-    text-align: center;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  background-color: white;
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
 }
 
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+}
+
+.relatbtn:hover {
+  cursor: pointer;
+  color: #82a0ff !important;
+}
+
+.relatbtn:focus {
+  color: #82a0ff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #698dff;
+}
 .cube1,
 .cube2 {
   background-color: #333;
@@ -655,14 +717,16 @@ table input {
   left: 0;
 
   -webkit-animation: cubemove 1.8s infinite ease-in-out;
+  -moz-animation: cubemove 1.8s infinite ease-in-out;
+  -o-animation: cubemove 1.8s infinite ease-in-out;
   animation: cubemove 1.8s infinite ease-in-out;
 }
-
 .cube2 {
   -webkit-animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+  -o-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
-
 @-webkit-keyframes cubemove {
   25% {
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
@@ -678,26 +742,91 @@ table input {
     -webkit-transform: rotate(-360deg);
   }
 }
-
-@keyframes cubemove {
+@-moz-keyframes cubemove {
   25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
     transform: translateX(42px) rotate(-90deg) scale(0.5);
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
   }
   50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
     transform: translateX(42px) translateY(42px) rotate(-179deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
   }
   50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
     transform: translateX(42px) translateY(42px) rotate(-180deg);
     -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
   }
   75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
     -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
       scale(0.5);
   }
   100% {
+    -moz-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@-o-keyframes cubemove {
+  25% {
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@keyframes cubemove {
+  25% {
+    -moz-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -o-transform: translateX(42px) rotate(-90deg) scale(0.5);
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+    -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-179deg);
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    -moz-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -o-transform: translateX(42px) translateY(42px) rotate(-180deg);
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+    -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    -moz-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -o-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg)
+      scale(0.5);
+  }
+  100% {
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
@@ -728,13 +857,5 @@ table input {
   -moz-box-pack: justify !important;
   -ms-flex-pack: justify !important;
   justify-content: space-between !important;
-}
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: start;
 }
 </style>

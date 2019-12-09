@@ -2,7 +2,7 @@
   <div class="DashboardSalas row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Salas</h1>
       </div>
     </div>
@@ -110,46 +110,51 @@
               </div>
             </div>
 
-            <div
-              class="row mb-1 mt-1 mx-0"
-              style="width: -webkit-max-content; width: -moz-max-content; width: max-content;"
-            >
-              <div class="form-group m-0 px-0">
+            <div class="row mb-1 mt-1 mx-0">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
-                    v-on:click.prevent="editSala"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-danger mr-2 mb-2"
-                    v-on:click.prevent="deleteSala"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary mb-2"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Editar"
+                      class="editbtn"
+                      v-on:click.prevent="editSala"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <button
+                      type="button"
+                      title="Deletar"
+                      class="delbtn"
+                      v-on:click.prevent="deleteSala"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
+
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2"
-                    v-on:click.prevent="addSala"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary mb-2"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Resetar</button>
-                </template>
-              </div>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addSala"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                    </div>
+                  </template>
             </div>
           </form>
         </div>
@@ -287,6 +292,8 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardSalas {
   max-width: 100%;
   overflow: hidden;
@@ -347,6 +354,7 @@ export default {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  min-width: 164px;
 }
 .card-body {
   font-size: 12px;
@@ -448,7 +456,6 @@ input[type="text"] {
   overflow: hidden !important;
 }
 .inputMenor {
-  max-width: 100px;
   min-width: 100px;
   text-align: start;
 }
@@ -461,10 +468,76 @@ input[type="text"] {
 .bg-custom:hover {
   background-color: #c8c8c8;
 }
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 30px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  input {
+  table input {
     height: 25px !important;
     text-align: start;
     -moz-box-sizing: border-box;
@@ -477,6 +550,7 @@ input[type="text"] {
     background-color: rgb(245, 245, 245);
   }
 }
+
 @media screen and (max-width: 991px) {
   .card {
     margin-left: auto !important;

@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="TheDashboard"
-    style="max-width:100%; height:100%"
-    v-bind:class="{'loading' : isLoadingFile}"
-  >
+  <div class="TheDashboard" v-bind:class="{'loading' : isLoadingFile}">
     <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css" />
 
     <nav class="navbar navbar-dark bg-dark fixed-top shadow">
-      <div class="row w-100" style="margin:0">
+      <div class="row w-100 m-0">
         <router-link
           :to="{ name: 'dashboard' }"
           class="navbar-brand col-sm-3 col-md-2 col-2 mr-0"
@@ -25,37 +21,37 @@
 
         <ul class="navbar-nav listaNavbarTop" style="flex-direction:row;">
           <li class="nav-item">
-            <span class="navtopText nav-link" v-on:click="showModalUser">
+            <div class="div-nav-top nav-link" v-on:click="showModalUser">
               <i class="icons-top mr-1 fas fa-user"></i>
               <span class="text-nav-top">Usuário</span>
-            </span>
+            </div>
           </li>
           <li class="nav-item">
-            <span class="navtopText nav-link" v-on:click="showModalNovoPlano">
+            <div class="div-nav-top nav-link" v-on:click="showModalNovoPlano">
               <i class="icons-top mr-1 fas fa-plus-square"></i>
               <span class="text-nav-top">Novo</span>
-            </span>
+            </div>
           </li>
           <li class="nav-item">
-            <span class="navtopText nav-link" v-on:click="showModalLoad">
+            <div class="div-nav-top nav-link" v-on:click="showModalLoad">
               <i class="icons-top mr-1 fas fa-folder-open"></i>
               <span class="text-nav-top">Carregar</span>
-            </span>
+            </div>
           </li>
           <li class="nav-item">
-            <span class="navtopText nav-link" v-on:click="showModalSave">
+            <div class="div-nav-top nav-link" v-on:click="showModalSave">
               <i class="icons-top mr-1 fas fa-file"></i>
               <span class="text-nav-top">Salvar</span>
-            </span>
+            </div>
           </li>
           <li class="nav-item">
-            <span class="navtopText nav-link" v-on:click="showModalDownload">
+            <div class="div-nav-top nav-link" v-on:click="showModalDownload">
               <i class="icons-top mr-1 fas fa-save"></i>
               <span class="text-nav-top">Download</span>
-            </span>
+            </div>
           </li>
           <li class="nav-item">
-            <router-link :to="{ name: 'logout' }" class="navtopText nav-link">
+            <router-link :to="{ name: 'logout' }" class="div-nav-top nav-link">
               <i class="icons-top mr-1 fas fa-sign-out-alt"></i>
               <span class="text-nav-top">Logout</span>
             </router-link>
@@ -65,7 +61,8 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row" style="max-width:100%; height:100%; margin:0">
+      <div class="row m-0" style="max-width:100%; height:100%;">
+        <!-- TRANSIÇÃO SIDEBAR -->
         <transition
           name="custom-classes-transition"
           enter-active-class="animated slideInLeft sidebar-animated"
@@ -73,7 +70,7 @@
         >
           <nav
             v-if="show"
-            class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 d-block d-md-block bg-light sidebar"
+            class="sidebar col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 d-block d-md-block bg-light"
           >
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
@@ -83,6 +80,7 @@
                   </router-link>
                 </li>
               </ul>
+
               <h6
                 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
               >
@@ -147,7 +145,7 @@
                 </li>
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted" v-if="Admin">Gerenciar</h6>
-              <ul class="nav flex-column" v-if="Admin">
+              <ul class="nav flex-column mb-4" v-if="Admin">
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cursos' }" class="nav-link">
                     <i class="fas fa-graduation-cap"></i> Cursos
@@ -183,13 +181,7 @@
           </nav>
         </transition>
 
-        <main
-          @click="show=false"
-          role="main"
-          class="col-12 ml-auto pl-2 pr-0"
-          style="padding-right:0; overflow:hidden;"
-          v-if="!isLoading"
-        >
+        <main @click="show=false" role="main" class="col-12 pl-2 pr-0 pt-0 pl-0" v-if="!isLoading">
           <router-view></router-view>
         </main>
 
@@ -316,7 +308,6 @@
     </b-modal>
   </div>
 </template>
-
 
 <script>
 import { COMPONENT_LOADING, COMPONENT_LOADED } from "../vuex/mutation-types";
@@ -613,17 +604,24 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed */
+.TheDashboard {
+  max-width: 100% !important;
+  height: 100%;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
 .loading {
   cursor: progress;
 }
-
+/*=== side bar ===*/
 .sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding-top: 35px; /* Height of navbar */
+  margin-top: 30px; /* Height of navbar */
   padding-right: 0px;
   padding-left: 0px;
   max-width: 200px;
@@ -632,8 +630,73 @@ export default {
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   font-size: 0.875rem;
 }
-
-/*=== MY CODE ===*/
+.nav li a i {
+  padding-left: 0.3em;
+}
+.nav li {
+  /*
+  border-bottom: #fafafa 0px solid;
+  border-top: #fafafa 0px solid;
+  */
+  margin-top: 0.3px;
+  margin-bottom: 0.3px;
+}
+.nav li:hover {
+  background-color: #0079fa;
+  color: white;
+}
+.sidebar .nav-link:hover {
+  color: white;
+}
+.sidebar .nav-link.active:hover {
+  background-color: #0055af;
+}
+/* pagina ativa */
+.sidebar .nav-link.active {
+  background-color: #0055af;
+  color: white;
+  border-left: #0079fa 10px solid;
+}
+.nav-link {
+  font-size: 12px;
+  height: 30px;
+  padding: 5px;
+}
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  padding-top: 0.5rem;
+  height: -webkit-calc(100vh - 30px);
+  height: -moz-calc(100vh - 30px);
+  height: calc(100vh - 30px);
+  padding-bottom: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+.sidebar .nav-link .fas {
+  margin-right: 4px;
+  color: #999;
+}
+.sidebar .nav-link:hover .fas,
+.sidebar .nav-link.active .fas {
+  color: inherit;
+}
+.sidebar-heading {
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+/* SCROLL BAR CUSTOM */
 .sidebar-sticky ::-webkit-scrollbar-track {
   background-color: #f4f4f4;
 }
@@ -644,38 +707,7 @@ export default {
 .sidebar-sticky::-webkit-scrollbar-thumb {
   background: #666;
 }
-.nav li a i {
-  padding-left: 0.3em;
-}
-.nav li {
-  border-bottom: #fafafa 0.3px solid;
-  border-top: #fafafa 0.3px solid;
-}
-.nav li:hover {
-  background-color: #0079fa;
-  color: white;
-}
-.sidebar .nav-link:hover {
-  color: white;
-}
-.nav-item a :hover {
-  color: white;
-}
-.sidebar .nav-link.active:hover {
-  background-color: #0055af;
-}
-
-.sidebar .nav-link.active {
-  background-color: #0055af;
-  color: white;
-  border-left: #0079fa 10px solid;
-}
-
-.nav-link {
-  font-size: 12px;
-  height: 30px;
-  padding: 5px;
-}
+/* ========= */
 
 .container-fluid {
   max-width: 100%;
@@ -683,53 +715,12 @@ export default {
   padding-right: 0px;
   padding-left: 0px;
 }
-
-.navbar-toggler {
-  border: 0px;
-}
-
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  padding-top: 0.5rem;
-  height: -webkit-calc(100vh - 35px);
-  height: -moz-calc(100vh - 35px);
-  height: calc(100vh - 35px);
-  padding-bottom: 1rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-}
-
-.sidebar .nav-link {
-  font-weight: 500;
-  color: #333;
-}
-
-.sidebar .nav-link .fas {
-  margin-right: 4px;
-  color: #999;
-}
-
-.sidebar .nav-link:hover .fas,
-.sidebar .nav-link.active .fas {
-  color: inherit;
-}
-
-.sidebar-heading {
-  font-weight: bold;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-}
-
 [role="main"] {
-  padding-top: 32px; /* Space for fixed navbar */
+  margin-top: 32px; /* Space for fixed navbar */
+  overflow-y: auto !important;
+  height: -webkit-calc(100vh - 32px);
+  height: -moz-calc(100vh - 32px);
+  height: calc(100vh - 32px);
 }
 
 .navbar-brand {
@@ -765,7 +756,7 @@ export default {
   margin-left: auto;
   padding: 0;
 }
-.navtopText {
+.div-nav-top {
   margin-right: 5px;
   margin-left: 0px;
 }
@@ -993,19 +984,13 @@ export default {
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-/*
-@media screen and(max-width: 400px) {
-  .nav-link {
-    font-size: 5px !important;
-  }
-}
-*/
+
 @media screen and (max-width: 425px) {
   [role="main"] {
-    padding-top: 62px;
+    margin-top: 62px;
   }
   .sidebar {
-    padding-top: 62px;
+    margin-top: 62px;
   }
   .listaNavbarTop {
     margin-left: 0;
@@ -1021,8 +1006,8 @@ export default {
   .text-nav-top {
     display: none;
   }
-  .icons-top{
-    margin-right: 10px!important;
+  .icons-top {
+    margin-right: 10px !important;
   }
 }
 </style>

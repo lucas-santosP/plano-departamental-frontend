@@ -1,8 +1,8 @@
 <template>
   <div class="DashboardDocentes row pr-2" v-if="Admin">
     <!-- Titulo -->
-     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Lista Docentes</h1>
       </div>
     </div>
@@ -10,70 +10,70 @@
     <!-- Fim do Titulo -->
 
     <!-- Grid Esquerdo -->
-    <div class="col p-0">
-      <div class="divTable">
-        <!-- Inicio da Tabela -->
-        <table class="table table-hover table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <div style="width: 416px " class="sticky">
-                <th scope="col">
-                  <p class="p-header" style="width: 240px">Nome</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width: 130px">Apelido</p>
-                </th>
-                <th scope="col">
-                  <p class="p-header" style="width: 42px">Ativo</p>
-                </th>
+
+    <!-- Inicio da Tabela -->
+    <div class="p-0 divTable">
+      <table class="table table-hover table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <div style="width: 416px " class="sticky">
+              <th scope="col">
+                <p class="p-header" style="width: 240px">Nome</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width: 130px">Apelido</p>
+              </th>
+              <th scope="col">
+                <p class="p-header" style="width: 42px">Ativo</p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-if="Docentes.length > 0">
+            <tr
+              v-for="docente in Docentes"
+              :key="docente.id"
+              v-on:click.prevent="showDocentes(docente, DocentePerfis)"
+              :class="{'bg-custom':docenteClickado == docente.nome}"
+              style="cursor: pointer"
+            >
+              <div style="width: 416px">
+                <td>
+                  <p style="width: 240px">{{docente.nome}}</p>
+                </td>
+                <td>
+                  <p style="width: 130px">{{docente.apelido}}</p>
+                </td>
+                <td>
+                  <div style="width: 42px">
+                    <input
+                      class="form-check-input position-static noHover"
+                      v-on:click.prevent="showDocentes(docente, DocentePerfis)"
+                      type="checkbox"
+                      v-model="docente.ativo"
+                    />
+                  </div>
+                </td>
               </div>
             </tr>
-          </thead>
-          <tbody>
-            <template v-if="Docentes.length > 0">
-              <tr
-                v-for="docente in Docentes"
-                :key="docente.id"
-                v-on:click.prevent="showDocentes(docente, DocentePerfis)"
-                :class="{'bg-custom':docenteClickado == docente.nome}"
-                style="cursor: pointer"
-              >
-                <div style="width: 416px">
-                  <td>
-                    <p style="width: 240px">{{docente.nome}}</p>
-                  </td>
-                  <td>
-                    <p style="width: 130px">{{docente.apelido}}</p>
-                  </td>
-                  <td>
-                    <div style="width: 42px">
-                      <input
-                        class="form-check-input position-static noHover"
-                        v-on:click.prevent="showDocentes(docente, DocentePerfis)"
-                        type="checkbox"
-                        v-model="docente.ativo"
-                      />
-                    </div>
-                  </td>
-                </div>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
-                <td colspan="2" class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhum docente encontrado!
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <!-- Fim da Tabela -->
-      </div>
+          </template>
+          <template v-else>
+            <tr>
+              <td colspan="2" class="text-center">
+                <i class="fas fa-exclamation-triangle"></i> Nenhum docente encontrado!
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <!-- Fim da Tabela -->
     </div>
+
     <!-- Fim do Grid Esquerdo -->
     <!-- Grid Direito -->
 
-    <div class="col-lg-5 col-md-5 col-sm-12 col-12 mt-3 p-0 ml-auto">
+    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
       <div class="col card cartao ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
@@ -153,43 +153,50 @@
                 </label>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-10">
+            <div class="form-group row ">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 botao-estilo"
-                    v-on:click.prevent="editDocente"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2"
-                    v-on:click.prevent="deleteDocente"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanDocente"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Editar"
+                      class="editbtn"
+                      v-on:click.prevent="editDocente"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <button
+                      type="button"
+                      title="Deletar"
+                      class="delbtn"
+                      v-on:click.prevent="deleteDocente"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDocente"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn btn-success m-2"
-                    v-on:click.prevent="addDocente"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanDocente"
-                    :key="2"
-                  >Resetar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">  
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addDocente"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDocente"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
-              </div>
             </div>
           </form>
         </div>
@@ -385,6 +392,8 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardDocentes {
   max-width: 100%;
   overflow: hidden;
@@ -394,7 +403,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0!important;
+  margin: 0 !important;
 }
 /* Tabela Lucas */
 .p-header {
@@ -415,14 +424,16 @@ export default {
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: scroll;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: #f5f5f5;
+  margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
-  font-size: 11px;
-  background-color: #f5f5f5;
-  margin: 0;
 }
 tbody {
   /*top: 23px;*/
@@ -483,7 +494,10 @@ label {
   text-align: center;
 }
 .card {
-  width: max-content !important;
+  min-width: 235px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   height: auto !important;
   padding: 0;
 }
@@ -493,7 +507,7 @@ label {
 .custom-control-inline {
   margin-right: 0 !important;
 }
-.botao-estilo {
+/* .botao-estilo {
   background-color: #faca4d !important;
   border-color: #faca4d !important;
   color: white;
@@ -508,16 +522,7 @@ label {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
+} */
 .form-group {
   margin-bottom: 13px !important;
 }
@@ -535,11 +540,76 @@ label {
 .noHover {
   pointer-events: none;
 }
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 30px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
 
 @media screen and (max-width: 767px) {
   .cartao {
     margin-right: auto !important;
-    top: 0 !important;
   }
 }
 </style>

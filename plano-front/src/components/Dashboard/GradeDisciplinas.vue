@@ -2,7 +2,7 @@
   <div class="Grades Disciplinas" style="height: calc(100vh - 48px)" v-if="Admin">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-11 titulo">Grades Disciplinas</h1>
         <div class="col-1">
           <b-form-input
@@ -328,7 +328,6 @@
 }
 </script>
 <style scoped>
-
 .DashboardPrototipo {
   max-height: 90vh;
   max-width: 90vw;

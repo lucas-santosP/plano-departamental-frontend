@@ -1,13 +1,14 @@
 <template>
-  <div class="DashboardHorariosResumo row">
-    <div class="col-12">
+  <div class="DashboardHorariosResumo row pr-2">
       <!-- Titulo -->
-      <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-        <div class="form-inline col-12 pl-0 mb-1 pr-1">
+    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+      <div class="form-inline col-12 pl-0 mb-2 pr-1">
           <h1 class="col-12 titulo">Horários - Resumo</h1>
-        </div>
       </div>
+    </div>
+
       <div class="w-100 mb-2 border-bottom"></div>
+		<div class="col-12 p-0">
       <!-- ----------------------------------------------------------------------------------------------- -->
       <div class="title" style="text-align:center !important;">
         <h3>1º SEMESTRE</h3>
@@ -15492,6 +15493,13 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.DashboardHorariosResumo {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
 .quant {
   margin: 10px;
   padding-left: 4.5px;
@@ -15500,7 +15508,9 @@ export default {
   padding-bottom: 10.5px;
   height: 25px;
   width: 25px;
-  border-radius: 15px;
+  -webkit-border-radius: 15px;
+     -moz-border-radius: 15px;
+          border-radius: 15px;
 }
 .titulo {
   font-size: 25px;
@@ -15601,7 +15611,11 @@ th {
 .botao-estilo {
   background-color: #0079fa !important;
   border-color: #0079fa !important;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
   max-width: max-content;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
   min-width: max-content;
 }
 
@@ -15611,7 +15625,9 @@ th {
 }
 
 .botao-estilo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+     -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+          box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
 }
 h3 {
   font-weight: bold;
