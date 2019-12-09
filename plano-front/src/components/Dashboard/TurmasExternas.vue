@@ -25,29 +25,34 @@
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-success col-1 botao-estilo mr-2"
+                  title="Salvar"
+                  class="addbtn"
                   v-on:click.prevent="addTurma"
-                >Confirmar</button>
+                ><i class="fas fa-check"></i></button>
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                  title="Cancelar"
+                  class="cancelbtn"
                   v-on:click.prevent="toggleAdd"
-                >Cancelar</button>
+                ><i class="fas fa-times"></i>
+                </button>
               </div>
             </template>
             <template v-else>
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-success col-1 mr-2"
+                  title="Adicionar"
+                  class="addbtn"
                   v-on:click.prevent="toggleAdd"
-                >Adicionar</button>
+                ><i class="fas fa-plus"></i></button>
                 <button
                   type="button"
-                  class="btn btn-sm mt-1 btn-danger col-1 botao-estilo2"
+                  title="Deletar"
+                  class="delbtn"
                   style
                   v-b-modal.modalConfirma
-                >Deletar</button>
+                ><i class="far fa-trash-alt"></i></button>
               </div>
 
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -70,7 +75,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+    <div class="w-100 mb-2 border-bottom" style="margin-top: -3px"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
@@ -753,6 +758,62 @@ table select {
   top: 21px;
   display: fixed;
 }
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
+
 
 .example {
   display: -ms-grid;
