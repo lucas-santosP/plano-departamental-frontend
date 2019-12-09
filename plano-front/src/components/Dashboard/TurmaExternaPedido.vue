@@ -4,6 +4,7 @@
                v-on:change="editPedido(pedido)" v-on:focus="focusPedido" v-on:blur="blurPedido">
         <input v-else type="text" v-model="pedidoForm.vagasPeriodizadas" style="width: 32px; font-weight: bold;  background-color: #DCDCDC; text-align:center"
                v-on:change="editPedido(pedido)" v-on:focus="focusPedido" v-on:blur="blurPedido">
+        <br>
         <input v-if="pedidoForm.vagasNaoPeriodizadas == 0" type="text" v-model="pedidoForm.vagasNaoPeriodizadas" style="width: 32px; color:#DADADA; text-align:center"
                v-on:change="editPedido(pedido)" v-on:focus="focusPedido" v-on:blur="blurPedido">
         <input v-else type="text" v-model="pedidoForm.vagasNaoPeriodizadas" style="width: 32px; font-weight: bold; background-color: #DCDCDC; text-align:center"
