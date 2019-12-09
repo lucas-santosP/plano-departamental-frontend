@@ -83,7 +83,7 @@
             <div class="form-group row">
               <label
                 for="nome"
-                class="col-sm-3 col-3 col-form-label texto-cartao"
+                class="col-sm-3 col-3 col-form-label"
                 style="text-align: end;"
               >Nome</label>
               <div class="col-lg-8 col-md-9 col-sm-9 col-9">
@@ -93,7 +93,7 @@
             <div class="form-group row">
               <label
                 for="abreviacao"
-                class="col-sm-3 col-3 col-form-label texto-cartao"
+                class="col-sm-3 col-3 col-form-label"
                 style="text-align: end;"
               >Abreviação</label>
               <div class="col-lg-8 col-md-9 col-sm-9 col-9">
@@ -108,7 +108,7 @@
             <div class="form-group row">
               <label
                 for="cor"
-                class="col-sm-3 col-3 col-form-label texto-cartao"
+                class="col-sm-3 col-3 col-form-label"
                 style="text-align: end;"
               >Cor</label>
               <div class="col-lg-8 col-md-9 col-sm-9 col-9">
@@ -122,42 +122,49 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-sm-10">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 botao-estilo"
-                    v-on:click.prevent="editPerfil"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2"
-                    v-on:click.prevent="deletePerfil"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanPerfil"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Editar"
+                      class="editbtn"
+                      v-on:click.prevent="editPerfil"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <button
+                      type="button"
+                      title="Deletar"
+                      class="delbtn"
+                      v-on:click.prevent="deletePerfil"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanPerfil"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn btn-success m-2"
-                    v-on:click.prevent="addPerfil"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanPerfil"
-                    :key="2"
-                  >Resetar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addPerfil"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanPerfil"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
-              </div>
             </div>
           </form>
         </div>
@@ -306,22 +313,21 @@ export default {
 .custom-control {
   font-size: 11px;
 }
-.texto-cartao {
-  font-size: 12px;
-  padding: 0;
-}
 input[type="text"] {
   height: 25px !important;
   font-size: 11px;
 }
-.cartao {
-  width: 330px !important;
+.card {
+  min-width: 300px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   height: auto !important;
-  top: -15px !important;
-  padding: 0 0 0 0px;
+  padding: 0;
 }
-.cartao-inteiro {
-  padding-right: 15px;
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
 }
 .card-title {
   font-size: 16px;
@@ -330,30 +336,9 @@ input[type="text"] {
   margin: 0;
   text-align: center;
 }
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  background-color: #faca4d !important;
-  border-color: #faca4d !important;
-  color: white;
-}
-
-.botao-estilo:hover {
-  background-color: #f8ac51 !important;
-  border-color: #f8ac51 !important;
-}
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
+.col-form-label{
+  padding-left: 0;
+  padding-right: 0;
 }
 .titulo {
   font-size: 25px;
@@ -441,5 +426,71 @@ table tbody tr div {
 }
 .bg-custom:hover {
   background-color: #c8c8c8;
+}
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 30px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 </style>

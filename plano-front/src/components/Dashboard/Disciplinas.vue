@@ -191,43 +191,50 @@
             </div>
 
             <div class="row mb-0 mt-2 mx-0">
-              <div class="form-group m-0 col px-0">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="col-2 btn btn-sm btn-success mr-2 botao-estilo"
-                    v-on:click.prevent="editDisciplina"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="col-2 btn btn-sm btn-danger mr-2"
-                    v-on:click.prevent="deleteDisciplina"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="col-2 btn btn-sm btn-secondary mr-2"
-                    v-on:click.prevent="cleanDisciplina"
-                    :key="3"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Editar"
+                      class="editbtn"
+                      v-on:click.prevent="editDisciplina"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <button
+                      title="Deletar"
+                      type="button"
+                      class="delbtn"
+                      v-on:click.prevent="deleteDisciplina"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDisciplina"
+                      :key="3"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
 
                 <template v-else>
-                  <button
-                    type="button"
-                    class="col-2 btn btn-sm btn-success mr-2"
-                    v-on:click.prevent="addDisciplina"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="col-2 btn btn-sm btn-secondary mr-2"
-                    v-on:click.prevent="cleanDisciplina"
-                    :key="3"
-                  >Resetar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addDisciplina"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDisciplina"
+                      :key="3"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
-              </div>
             </div>
           </form>
         </div>
@@ -438,7 +445,7 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
 }
-.btn {
+/* .btn {
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
@@ -446,7 +453,7 @@ export default {
   font-size: 12px;
   padding: 0 5px 0 5px;
   max-width: 65px;
-}
+} */
 /* Tabela Lucas */
 .p-header {
   padding: 0px 0 0px 0;
@@ -568,6 +575,72 @@ table tbody tr div {
 }
 .noHover {
   pointer-events: none;
+}
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 30px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 
 @media screen and (max-width: 1095px) {
