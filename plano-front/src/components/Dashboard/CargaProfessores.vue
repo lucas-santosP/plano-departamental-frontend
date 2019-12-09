@@ -482,15 +482,6 @@ table input {
   margin: 0 !important;
 }
 /* Botoes */
-/* .btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-} */
 button {
   padding: 0;
   border: none;
@@ -509,36 +500,20 @@ i.far {
 }
 .relatbtn {
   background-color: white;
-  color: #0079fa !important;
+  color: #9ab3ff !important;
 }
 
 .relatbtn:hover {
-  background-color: white;
-  color: #0055af;
+  cursor: pointer;
+  color: #82a0ff !important;
 }
 
 .relatbtn:focus {
-  color: #77dd77;
+  color: #82a0ff;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
+  -webkit-text-stroke-color: #698dff;
 }
-/* i.fas,
-i.far{
-  font-size: 35px;
-}
-.addbtn{
-  background-color: white;
-  color: #a0e7a0;
-}
-.addbtn:hover{
-  background-color: white;
-  color: #77dd77;
-}
-.addbtn:focus{
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-} */
+
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {

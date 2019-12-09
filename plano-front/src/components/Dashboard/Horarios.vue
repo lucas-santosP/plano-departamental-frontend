@@ -88,17 +88,14 @@
     <!-- Grid Direito -->
     <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3 ml-auto pl-0">
       <div
-        class="col card cartao ml-auto mr-auto"
-        style="top: 0px; margin-right: 20px; max-width: 350px;"
+        class="card ml-auto mr-3"
+       
       >
-        <div class="card-body">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
-            <h2
-              style="font-size:14px; font-weight:bold; padding-left:0; margin-left:0;"
-            >Definir Grades</h2>
+        
+          <div class="card-header">
+            <h2 class="card-title">Definir Grades</h2>
           </div>
+          <div class="card-body">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
           <form>
             <div class="form-group row ml-auto mr-auto" style="display: block; padding-left: 30px;">
@@ -130,14 +127,16 @@
                 ></b-form-checkbox-group>
               </div>
             </div>
-            <div>
-              <b-button
-                variant="success"
-                v-on:click="createHorarios"
-                class="col-1 btn-sm generate botao-estilo"
-              >Visualizar</b-button>
-            </div>
+           
           </form>
+           <div style="display: flex; margin-right: 0 !important; margin-left: auto !important">
+              <button
+                v-on:click="createHorarios"
+                title="Confirmar"
+                type="button"
+                class="addbtn"
+              ><i class="fas fa-check"></i></button>
+            </div>
         </div>
       </div>
     </div>
@@ -1287,7 +1286,20 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+.card{
+  width: 250px;
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -1350,7 +1362,7 @@ th {
   vertical-align: center;
 }
 
-.btn {
+/* .btn {
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
@@ -1358,34 +1370,41 @@ th {
   font-size: 12px;
   padding: 0 5px 0 5px;
   max-width: 65px;
-}
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-}
+} */
 
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
 h4 {
   text-align: start !important;
   margin-bottom: 20px;
   margin-top: 40px;
   font-size: 12px !important;
   font-weight: bold !important;
+}
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
 }
 .texto {
   font-size: 12px;

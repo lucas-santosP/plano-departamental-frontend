@@ -153,43 +153,50 @@
                 </label>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-10">
+            <div class="form-group row ">
                 <template v-if="isEdit">
-                  <button
-                    type="button"
-                    class="btn btn-success m-2 botao-estilo"
-                    v-on:click.prevent="editDocente"
-                    :key="1"
-                  >Editar</button>
-                  <button
-                    type="button"
-                    class="btn btn-danger m-2"
-                    v-on:click.prevent="deleteDocente"
-                    :key="3"
-                  >Excluir</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanDocente"
-                    :key="2"
-                  >Cancelar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Editar"
+                      class="editbtn"
+                      v-on:click.prevent="editDocente"
+                      :key="1"
+                    ><i class="fas fa-edit"></i></button>
+                    <button
+                      type="button"
+                      title="Deletar"
+                      class="delbtn"
+                      v-on:click.prevent="deleteDocente"
+                      :key="3"
+                    ><i class="far fa-trash-alt"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDocente"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn btn-success m-2"
-                    v-on:click.prevent="addDocente"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary m-2"
-                    v-on:click.prevent="cleanDocente"
-                    :key="2"
-                  >Resetar</button>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">  
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addDocente"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanDocente"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                  </div>
                 </template>
-              </div>
             </div>
           </form>
         </div>
@@ -495,9 +502,10 @@ label {
   text-align: center;
 }
 .card {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
+  min-width: 235px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   height: auto !important;
   padding: 0;
 }
@@ -507,7 +515,7 @@ label {
 .custom-control-inline {
   margin-right: 0 !important;
 }
-.botao-estilo {
+/* .botao-estilo {
   background-color: #faca4d !important;
   border-color: #faca4d !important;
   color: white;
@@ -522,16 +530,7 @@ label {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
+} */
 .form-group {
   margin-bottom: 13px !important;
 }
@@ -548,6 +547,72 @@ label {
 }
 .noHover {
   pointer-events: none;
+}
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 30px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 
 @media screen and (max-width: 767px) {
