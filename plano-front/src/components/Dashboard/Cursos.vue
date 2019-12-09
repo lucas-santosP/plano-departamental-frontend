@@ -226,7 +226,7 @@
                     v-on:click.prevent="cleanCurso"
                     :key="2"
                   >
-                    <i class="fas fa-ban"></i>
+                    <i class="fas fa-times"></i>
                   </button>
                 </div>
               </template>
@@ -250,7 +250,7 @@
                     v-on:click.prevent="cleanCurso"
                     :key="2"
                   >
-                    <i class="fas fa-ban"></i>
+                    <i class="fas fa-times"></i>
                   </button>
                 </div>
               </template>

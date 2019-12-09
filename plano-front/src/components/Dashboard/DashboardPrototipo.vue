@@ -20,22 +20,24 @@
                 <label class="input-group-text">Semestre</label>
               </div>
             </div>
-            <b-button v-b-modal.modalPerfis class="btn mt-1 btn-sm col-1 mr-4 botao-perfis">Perfis</b-button>
+            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  title="Cancelar"
+                  class="cancelbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                >Cancelar</button>
+                ><i class="fas fa-times"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-success col-1 botao-estilo"
+                  title="Salvar"
+                  class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="addTurma"
-                >Confirmar</button>
+                ><i class="fas fa-check"></i></button>
               </div>
             </template>
 
@@ -43,22 +45,25 @@
               <div style="display: flex">
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-success col-1 mr-2"
+                  title="Adicionar"
+                  class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                >Adicionar</button>
+                ><i class="fas fa-plus"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-danger col-1 mr-2 botao-estilo2"
+                  title="Deletar"
+                  class="delbtn"
                   style="max-width:80px;"
                   v-b-modal.modalConfirma
-                >Deletar</button>
+                ><i class="far fa-trash-alt"></i></button>
                 <button
                   type="button"
-                  class="btn mt-1 btn-sm btn-info col-1"
+                  title="XLSX"
+                  class="relatbtn"
                   style="max-width: 65px;"
                   v-on:click.prevent="xlsx(Pedidos)"
-                >XLSX</button>
+                ><i class="far fa-file-alt"></i></button>
               </div>
               <!-- Modals do deletar-->
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -97,15 +102,16 @@
 
               <div slot="modal-footer">
                 <b-button
-                  class="botao-estilo mr-2"
+                  class="btn-azul mr-2"
                   variant="success"
                   @click="selectAll()"
                 >Selecionar Todos</b-button>
-                <b-button class="mr-4" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
+                <b-button class="btn-cinza mr-2" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
 
                 <b-button
-                  variant="sucess"
+                  variant="success"
                   @click="btnOK()"
+                  class="btn-verde mr-2"
                   style="padding-right:15px!important; padding-left:15px!important"
                 >OK</b-button>
               </div>
@@ -115,7 +121,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+    <div class="w-100 mb-2 border-bottom" style="margin-top: -3px"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
@@ -508,20 +514,46 @@ export default {
   font-size: 12px;
   padding: 0 5px 0 5px;
 }
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
+.btn-azul {
+  background-color: #9ab3ff !important;
+  border-color: #9ab3ff !important;
 }
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
+.btn-azul:hover {
+  background-color: #82a0ff !important;
+  border-color: #82a0ff !important;
 }
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
+.btn-azul:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
 }
-.botao-perfis {
+.btn-cinza {
+  background-color: #c3c3c3 !important;
+  border-color: #c3c3c3!important;
+}
+.btn-cinza:hover {
+  background-color: #aaaaaa !important;
+  border-color: #aaaaaa !important;
+}
+.btn-cinza:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+}
+.btn-verde {
+  background-color: #a0e7a0 !important;
+  border-color: #a0e7a0 !important;
+}
+.btn-verde:hover {
+  background-color: #77dd77 !important;
+  border-color: #77dd77 !important;
+}
+.btn-verde:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+/* .botao-perfis {
   background-color: #0055af !important;
   border-color: #0055af !important;
   max-width: 60px;
@@ -531,10 +563,10 @@ export default {
   border-color: #0079fa !important;
 }
 .botao-perfis:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+} */
 
 .titulo {
   font-size: 25px;
@@ -604,7 +636,77 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  background-color: white;
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
 
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
+}
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+}
+
+.relatbtn:hover {
+  cursor: pointer;
+  color: #82a0ff !important;
+}
+
+.relatbtn:focus {
+  color: #82a0ff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #698dff;
+}
 .cube1,
 .cube2 {
   background-color: #333;
