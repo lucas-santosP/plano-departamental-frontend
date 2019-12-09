@@ -480,7 +480,7 @@ button {
 }
 i.fas,
 i.far {
-  font-size: 30px;
+  font-size: 25px;
 }
 .addbtn {
   background-color: white;
