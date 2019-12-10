@@ -16,10 +16,10 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
               <th scope="col">
-                <p style="width: 300px;" class="p-header">Nome</p>
+                <p style="width: 300px;" @click="toggleOrderNome()" class="p-header">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p style="width: 82px;" class="p-header">Código</p>
+                <p style="width: 82px;" @click="toggleOrderCodigo()" class="p-header">Código<i v-if="ordenacao=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p>
@@ -273,11 +273,18 @@ export default {
     return {
       disciplinaForm: _.clone(emptyDisciplina),
       error: undefined,
-      disciplinaClickada: ""
+      disciplinaClickada: "",
+      ordenacao: 'nome'
     };
   },
 
   methods: {
+    toggleOrderNome() {
+      this.ordenacao = 'nome'
+    },
+    toggleOrderCodigo() {
+      this.ordenacao = 'codigo'
+    },
     clickada(discip) {
       this.disciplinaClickada = discip;
     },
@@ -367,7 +374,7 @@ export default {
 
   computed: {
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "codigo");
+      return _.orderBy(this.$store.state.disciplina.Disciplinas, this.ordenacao);
     },
 
     Perfis() {
