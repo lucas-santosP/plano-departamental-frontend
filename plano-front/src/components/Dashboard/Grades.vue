@@ -32,7 +32,7 @@
             <select
               id="gradeAtual"
               v-model="currentGrade"
-              v-on:change="findGrade(), clearClick(), cleanDisciplina(), showCard = !showCard"
+              v-on:change="findGrade(), clearClick(), cleanDisciplina()"
               class="form-control form-control-sm selectMenor"
             >
               <template v-for="grade in Grades">
@@ -119,7 +119,7 @@
           <!-- Final da tabela -->
         </div>
       </div>
-      <!-- Fim Grind  -->
+      <!-- Fim Grind esquerdo  -->
 
       <!-- Grind direito -->
       <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12">
@@ -127,7 +127,7 @@
         <template v-if="isEdit">
           <div class="card ml-auto mr-4">
             <div class="card-header">
-              <h1 class="card-title">Editar Grade e Disciplina</h1>
+              <h1 class="card-title">Editar Grade e Disciplinas</h1>
             </div>
 
             <div class="card-body">
@@ -514,12 +514,13 @@ export default {
 </script>
 
 <style scoped>
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
 .DashboardGrades {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
 }
-
 .btn {
   height: 25px;
   min-width: -webkit-max-content;
@@ -566,6 +567,7 @@ export default {
   padding-left: 0;
   margin: 0 !important;
 }
+/* ====== CARD ====== */
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -591,42 +593,43 @@ export default {
 select {
   height: 25px !important;
   font-size: 11px !important;
-  padding: 0px 0px 0px 5px !important;
+  padding: 0px 5px 0px 5px !important;
   min-width: 100px;
   max-width: 100px;
-  text-align: center;
 }
 .selectMenor {
   min-width: 80px;
   max-width: 80px;
+  text-align: start !important;
 }
 .selectMaior {
   min-width: 200px;
   max-width: 200px;
+  text-align: start !important;
 }
 input {
   height: 25px !important;
-  padding: 0px 0px 0px 5px !important;
+  padding: 0px 5px 0px 5px !important;
   font-size: 11px !important;
-  text-align: left;
+  text-align: start;
 }
 .inputMenor {
   max-width: 60px;
   min-width: 60px;
-  padding: 0px 0px 0px 0px !important;
   text-align: center;
 }
 .inputMenor2 {
   max-width: 40px;
   min-width: 40px;
-  padding: 0px 0px 0px 0px !important;
-  text-align: center;
   margin-right: 10px;
+  text-align: center;
 }
 .selectMaior2 {
   max-width: 300px;
   min-width: 300px;
+  text-align: start;
 }
+/* =================== */
 .p-header {
   padding: 0px 0 0px 0;
   margin: 0;
@@ -687,7 +690,7 @@ thead th {
 }
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  select {
+  /*select {
     height: 25px !important;
     text-align: left;
     -moz-box-sizing: border-box;
@@ -709,6 +712,7 @@ thead th {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
+	*/
 }
 .bg-custom {
   background-color: rgb(0, 85, 175);
@@ -720,6 +724,7 @@ thead th {
 .notEven {
   background-color: rgba(237, 240, 211, 0.8);
 }
+
 /* Botoes */
 button {
   padding: 0;
