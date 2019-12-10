@@ -18,10 +18,10 @@
           <tr>
             <div style="width: 416px " class="sticky">
               <th scope="col">
-                <p class="p-header" style="width: 240px">Nome</p>
+                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 130px">Apelido</p>
+                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">Apelido<i v-if="ordenacao=='apelido'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 42px">Ativo</p>
@@ -234,11 +234,19 @@ export default {
       perfisAssociados: [],
       error: undefined,
       docentePerfil: _.clone(emptyPerfil),
-      docenteClickado: ""
+      docenteClickado: "",
+      ordenacao: 'nome'
     };
   },
 
   methods: {
+   toggleOrdenacaoNome(){
+     this.ordenacao = 'nome'
+   },
+   toggleOrdenacaoApelido(){
+     this.ordenacao = 'apelido'
+   },
+
     addDocente() {
       docenteService
         .create(this.docenteForm)
@@ -366,7 +374,7 @@ export default {
 
   computed: {
     Docentes() {
-      return _.orderBy(this.$store.state.docente.Docentes, "nome");
+      return _.orderBy(this.$store.state.docente.Docentes, this.ordenacao);
     },
 
     Perfis() {
