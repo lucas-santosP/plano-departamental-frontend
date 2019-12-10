@@ -112,7 +112,6 @@
               </b-form-group>
 
               <div slot="modal-footer">
-<<<<<<< Updated upstream
                 <b-button
                   class="btn-azul mr-2"
                   variant="success"
@@ -130,23 +129,6 @@
                   class="btn-verde mr-2"
                   style="padding-right:15px!important; padding-left:15px!important"
                 >OK</b-button>
-=======
-                <div style="display: flex; margin-right: 30px;">
-                  <b-button
-                    class="btn-azul btn-df mr-2"
-                    variant="success"
-                    @click="selectAll()"
-                  >Selecionar Todos</b-button>
-                  <b-button class="btn-cinza btn-df mr-2" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
-
-                  <b-button
-                    variant="success"
-                    @click="btnOK()"
-                    class="btn-verde btn-df mr-2"
-                    style="padding-right:15px!important; padding-left:15px!important"
-                  >OK</b-button>
-                </div>
->>>>>>> Stashed changes
               </div>
             </b-modal>
 

@@ -25,7 +25,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -15526,8 +15526,6 @@ th {
 
 .horario {
   float: left;
-  padding-left: 20px;
-  padding-bottom: 20px;
 }
 
 .title {
@@ -15567,8 +15565,8 @@ th {
 }
 .tg th {
   font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-weight: normal;
+  font-size: 11px;
+  font-weight: bold;
   padding: 0px;
   border-style: solid;
   border-width: 1px;
@@ -15580,8 +15578,8 @@ th {
 }
 .tg .tg-0lax {
   vertical-align: center;
-  height: 18px;
-  width: 46px !important;
+  height: 22px;
+  width: 49px !important;
 }
 
 h3 {

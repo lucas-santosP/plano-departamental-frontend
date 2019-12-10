@@ -526,27 +526,10 @@ input[type="text"] {
   text-align: start;
   padding-top: 0 !important;
 }
-<<<<<<< Updated upstream
-select {
-  height: 25px !important;
-  font-size: 11px !important;
-  padding: 0px 0px 0px 5px !important;
-  width: 100px;
-}
-.selectMenor {
-  width: 80px;
-  text-align: start !important;
-}
-.selectMaior {
-  padding: 0px 0px 0px 5px !important;
-  width: 200px;
-  text-align: start !important;
-=======
 
-.form-group {
+/* .form-group {
   margin-bottom: 13px !important;
->>>>>>> Stashed changes
-}
+} */
 .selectMaior2 {
   width: 300px;
   text-align: start;
