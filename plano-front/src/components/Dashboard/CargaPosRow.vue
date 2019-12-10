@@ -4,7 +4,6 @@
       <div style="width: 24px">
         <input
           type="checkbox"
-          style="width:16px; height:14px"
           name="ativa"
           value="true"
           v-on:click="checkDelete(carga)"
@@ -145,6 +144,11 @@ input {
 }
 select {
   height: 18px;
+}
+input[type="checkbox"] {
+  width: 16px !important;
+  height: 14px !important;
+  margin-top: 4px !important;
 }
 @-moz-document url-prefix() {
   select {

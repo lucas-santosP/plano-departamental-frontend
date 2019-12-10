@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="col-12 titulo">Lista Disciplinas</h1>
+        <h1 class="col-12 titulo">Disciplinas</h1>
       </div>
     </div>
 
@@ -65,9 +65,7 @@
                 <td>
                   <div style="width: 25px;">
                     <input
-                      class="form-check-input position-static noHover"
-                      disabled
-                      style="margin-top: 0"
+                      class="noHover"
                       type="checkbox"
                       v-model="disciplina.ead"
                       v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.nome)"
@@ -109,7 +107,7 @@
           <form>
             <div class="row mb-1 mx-0">
               <div class="form-group m-0 col px-0">
-                <label for="nome" class="col-form-label texto-cartao">Nome</label>
+                <label for="nome" class="col-form-label">Nome</label>
                 <input
                   type="text"
                   id="nome"
@@ -122,7 +120,7 @@
 
             <div class="row mb-1 mx-0">
               <div class="form-group m-0 col px-0">
-                <label for="codigo" class="col-form-label texto-cartao">Código</label>
+                <label for="codigo" class="col-form-label">Código</label>
                 <input
                   type="text"
                   id="codigo"
@@ -132,7 +130,7 @@
                 />
               </div>
               <div class="form-group m-0 col px-0 text-center">
-                <label for="cargaTeorica" class="col-form-label texto-cartao">Carga Teórica</label>
+                <label for="cargaTeorica" class="col-form-label">Carga Teórica</label>
                 <input
                   type="text"
                   id="cargaTeorica"
@@ -143,7 +141,7 @@
               </div>
 
               <div class="form-group m-0 col px-0 text-center">
-                <label for="cargaPratica" class="col-form-label texto-cartao">Carga Prática</label>
+                <label for="cargaPratica" class="col-form-label">Carga Prática</label>
                 <input
                   type="text"
                   id="cargaPratica"
@@ -156,7 +154,7 @@
 
             <div class="row mb-1 mx-0">
               <div class="form-group m-0 col px-0">
-                <label for="perfil" class="col-form-label texto-cartao">Perfil</label>
+                <label for="perfil" class="col-form-label">Perfil</label>
                 <select
                   type="text"
                   id="perfil"
@@ -429,14 +427,13 @@ export default {
 .form-group {
   margin-bottom: 15px !important;
 }
-.texto-cartao {
+.card label {
   line-height: 1.2;
   font-size: 12px;
   text-align: start;
 }
 .col-form-label {
   padding-top: 0;
-  padding-bottom: 0;
 }
 .btn {
   height: 25px;
@@ -508,13 +505,13 @@ input[type="text"] {
   padding: 4px 8px 4px 8px !important;
 }
 input[type="checkbox"] {
+  width: 16px !important;
   height: 14px !important;
-  width: 14px !important;
   text-align: center !important;
 }
 table input[type="checkbox"] {
   margin-left: 0 !important;
-  vertical-align: bottom;
+  margin-top: 4px !important;
 }
 select {
   height: 25px !important;

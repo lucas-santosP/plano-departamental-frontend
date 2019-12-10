@@ -23,18 +23,17 @@
 
             <template v-if="isAdd">
               <div style="display: flex">
-                <button
-                  type="button"
-                  title="Salvar"
-                  class="addbtn"
-                  v-on:click.prevent="addCarga"
-                ><i class="fas fa-check"></i></button>
+                <button type="button" title="Salvar" class="addbtn" v-on:click.prevent="addCarga">
+                  <i class="fas fa-check"></i>
+                </button>
                 <button
                   type="button"
                   title="Cancelar"
                   class="cancelbtn"
                   v-on:click.prevent="toggleAdd"
-                ><i class="fas fa-times"></i></button>
+                >
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
             </template>
 
@@ -45,13 +44,12 @@
                   title="Adicionar"
                   class="addbtn"
                   v-on:click.prevent="toggleAdd"
-                ><i class="fas fa-plus"></i></button>
-                <button
-                  type="button"
-                  title="Deletar"
-                  class="delbtn"
-                  v-b-modal.modalConfirma
-                ><i class="far fa-trash-alt"></i></button>
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+                <button type="button" title="Deletar" class="delbtn" v-b-modal.modalConfirma>
+                  <i class="far fa-trash-alt"></i>
+                </button>
               </div>
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
                 <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
@@ -83,6 +81,11 @@
 
     <div class="row p-0 m-0">
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
+          <b>PGMC</b>
+          - Total de créditos: {{CreditoTotal_PGMC}}
+        </div>
+
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light sticky">
             <tr>
@@ -203,6 +206,11 @@
       </div>
 
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
+          <b>PGCC</b>
+          - Total de créditos: {{CreditoTotal_PGCC}}
+        </div>
+
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light sticky">
             <tr>
@@ -259,6 +267,11 @@
       </div>
 
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
+        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
+          <b>PGEM</b>
+          - Total de créditos: {{CreditoTotal_PGEM}}
+        </div>
+
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light sticky">
             <tr>
@@ -420,6 +433,70 @@ export default {
   },
 
   computed: {
+    CreditoTotal_PGMC: function() {
+      let total = 0;
+
+      for (var t = 1; t <= 4; t++) {
+        for (let k = 0; k < this.Docentes.length; k++) {
+          for (let i = 0; i < this.CargasPGMC.length; i++) {
+            if (
+              this.CargasPGMC[i].Docente === this.Docentes[k].id &&
+              this.CargasPGMC[i].trimestre == t &&
+              ((this.CargasPGMC[i].trimestre == 1 ||
+                this.CargasPGMC[i].trimestre == 2 ||
+                this.CargasPGMC[i].trimestre == 3) &&
+                (this.periodos == 1 || this.periodos == 3))
+            ) {
+              total += this.CargasPGMC[i].creditos;
+            }
+          }
+        }
+      }
+      return total;
+    },
+    CreditoTotal_PGCC: function() {
+      let total = 0;
+
+      for (var t = 1; t <= 4; t++) {
+        for (let k = 0; k < this.Docentes.length; k++) {
+          for (let i = 0; i < this.CargasPGCC.length; i++) {
+            if (
+              this.CargasPGCC[i].Docente === this.Docentes[k].id &&
+              this.CargasPGCC[i].trimestre == t &&
+              ((this.CargasPGCC[i].trimestre == 1 ||
+                this.CargasPGCC[i].trimestre == 2 ||
+                this.CargasPGCC[i].trimestre == 3) &&
+                (this.periodos == 1 || this.periodos == 3))
+            ) {
+              total += this.CargasPGCC[i].creditos;
+            }
+          }
+        }
+      }
+      return total;
+    },
+    CreditoTotal_PGEM: function() {
+      let total = 0;
+
+      for (var t = 1; t <= 4; t++) {
+        for (let k = 0; k < this.Docentes.length; k++) {
+          for (let i = 0; i < this.CargasPGEM.length; i++) {
+            if (
+              this.CargasPGEM[i].Docente === this.Docentes[k].id &&
+              this.CargasPGEM[i].trimestre == t &&
+              ((this.CargasPGEM[i].trimestre == 1 ||
+                this.CargasPGEM[i].trimestre == 2 ||
+                this.CargasPGEM[i].trimestre == 3) &&
+                (this.periodos == 1 || this.periodos == 3))
+            ) {
+              total += this.CargasPGEM[i].creditos;
+            }
+          }
+        }
+      }
+      return total;
+    },
+
     Docentes() {
       return _.orderBy(
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
@@ -558,9 +635,9 @@ table {
   font-weight: normal !important;
   background-color: #f5f5f5;
   margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
+  height: -webkit-calc(100vh - 120px);
+  height: -moz-calc(100vh - 120px);
+  height: calc(100vh - 120px);
 }
 tbody {
   max-height: 100%;

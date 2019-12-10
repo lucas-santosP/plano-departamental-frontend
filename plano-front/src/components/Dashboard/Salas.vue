@@ -42,11 +42,10 @@
                   <div style="width: 72px">
                     <input
                       type="checkbox"
-                      class="form-check-input position-static noHover"
+                      class="noHover"
                       v-on:click.prevent="showSala(sala), clickada(sala.nome)"
                       v-model="sala.laboratorio"
                     />
-                    <!--<b-form-checkbox style="margin-left:5px; display:block" disabled v-model="docente.ativo"></b-form-checkbox>-->
                   </div>
                 </td>
               </div>
@@ -83,8 +82,8 @@
 
           <form>
             <div class="row mb-2 mx-0">
-              <div class="form-group m-0 px-0">
-                <label for="nome" class="col-form-label py-0">Nome</label>
+              <div class="form-group col m-0 px-0">
+                <label for="nome" class="col-form-label">Nome</label>
                 <input
                   type="text"
                   class="inputMenor form-control form-control-sm"
@@ -94,8 +93,8 @@
               </div>
             </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 px-0">
+            <div class="row mb-2 mt-3 mx-0">
+              <div class="form-group col m-0 px-0">
                 <div class="form-check">
                   <input
                     type="checkbox"
@@ -110,25 +109,25 @@
               </div>
             </div>
 
-            <div class="row mb-1 mt-1 mx-0">
-              <div class="form-group m-0 px-0">
+            <div class="row mb-0 mt-3 mx-0">
+              <div class="form-group col m-0 px-0">
                 <template v-if="isEdit">
                   <div class="d-flex">
                     <button
                       type="button"
-                      class="btn-sm btn btn-success mr-2 mb-2 botao-estilo"
+                      class="btn-sm btn btn-success mr-2 botao-estilo"
                       v-on:click.prevent="editSala"
                       :key="1"
                     >Editar</button>
                     <button
                       type="button"
-                      class="btn-sm btn btn-danger mr-2 mb-2"
+                      class="btn-sm btn btn-danger mr-2"
                       v-on:click.prevent="deleteSala"
                       :key="3"
                     >Excluir</button>
                     <button
                       type="button"
-                      class="btn-sm btn btn-secondary mb-2"
+                      class="btn-sm btn btn-secondary"
                       v-on:click.prevent="cleanSala"
                       :key="2"
                     >Cancelar</button>
@@ -138,13 +137,13 @@
                 <template v-else>
                   <button
                     type="button"
-                    class="btn-sm btn btn-success mr-2 mb-2"
+                    class="btn-sm btn btn-success mr-2"
                     v-on:click.prevent="addSala"
                     :key="1"
                   >Adicionar</button>
                   <button
                     type="button"
-                    class="btn-sm btn btn-secondary mb-2"
+                    class="btn-sm btn btn-secondary"
                     v-on:click.prevent="cleanSala"
                     :key="2"
                   >Resetar</button>
@@ -429,12 +428,13 @@ table tbody tr div {
 }
 
 input[type="checkbox"] {
+  width: 16px !important;
   height: 14px !important;
-  width: 14px !important;
   text-align: center !important;
 }
 table input[type="checkbox"] {
   margin-left: 0 !important;
+  margin-top: 4px !important;
 }
 input[type="text"] {
   height: 25px !important;
@@ -455,6 +455,13 @@ input[type="text"] {
   min-width: 100px;
   text-align: start;
 }
+.card label {
+  line-height: 1.2;
+  font-size: 12px;
+  text-align: start;
+  padding-top: 0 !important;
+}
+
 .noHover {
   pointer-events: none;
 }
