@@ -119,13 +119,13 @@
             </div>
 
             <div class="row mb-1 mx-0">
-              <div class="form-group m-0 col px-0">
+              <div class="form-group m-0 col px-0 text-center">
                 <label for="codigo" class="col-form-label">Código</label>
                 <input
                   type="text"
                   id="codigo"
-                  class="form-control form-control-sm"
-                  style="width: 80px!important; text-align:center!important"
+                  class="form-control form-control-sm m-auto"
+                  style="width: 85px!important; text-align:center!important"
                   v-model="disciplinaForm.codigo"
                 />
               </div>
@@ -189,50 +189,60 @@
             </div>
 
             <div class="row mb-0 mt-2 mx-0">
-                <template v-if="isEdit">
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Editar"
-                      class="editbtn"
-                      v-on:click.prevent="editDisciplina"
-                      :key="1"
-                    ><i class="fas fa-edit"></i></button>
-                    <button
-                      title="Deletar"
-                      type="button"
-                      class="delbtn"
-                      v-on:click.prevent="deleteDisciplina"
-                      :key="3"
-                    ><i class="far fa-trash-alt"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanDisciplina"
-                      :key="3"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
+              <template v-if="isEdit">
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Editar"
+                    class="editbtn"
+                    v-on:click.prevent="editDisciplina"
+                    :key="1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    title="Deletar"
+                    type="button"
+                    class="delbtn"
+                    v-on:click.prevent="deleteDisciplina"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanDisciplina"
+                    :key="3"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
 
-                <template v-else>
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="addbtn"
-                      v-on:click.prevent="addDisciplina"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanDisciplina"
-                      :key="3"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
+              <template v-else>
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Adicionar"
+                    class="addbtn"
+                    v-on:click.prevent="addDisciplina"
+                    :key="1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanDisciplina"
+                    :key="3"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
             </div>
           </form>
         </div>

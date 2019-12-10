@@ -20,7 +20,9 @@
                 <label class="input-group-text">Semestre</label>
               </div>
             </div>
-            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn">
+              <i class="fas fa-list-ul"></i>
+            </b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -30,14 +32,18 @@
                   class="cancelbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                ><i class="fas fa-times"></i></button>
+                >
+                  <i class="fas fa-times"></i>
+                </button>
                 <button
                   type="button"
                   title="Salvar"
                   class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="addTurma"
-                ><i class="fas fa-check"></i></button>
+                >
+                  <i class="fas fa-check"></i>
+                </button>
               </div>
             </template>
 
@@ -49,21 +55,27 @@
                   class="addbtn"
                   style="max-width:80px;"
                   v-on:click.prevent="toggleAdd"
-                ><i class="fas fa-plus"></i></button>
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
                 <button
                   type="button"
                   title="Deletar"
                   class="delbtn"
                   style="max-width:80px;"
                   v-b-modal.modalConfirma
-                ><i class="far fa-trash-alt"></i></button>
+                >
+                  <i class="far fa-trash-alt"></i>
+                </button>
                 <button
                   type="button"
                   title="XLSX"
                   class="relatbtn"
                   style="max-width: 65px;"
                   v-on:click.prevent="xlsx(Pedidos)"
-                ><i class="far fa-file-alt"></i></button>
+                >
+                  <i class="far fa-file-alt"></i>
+                </button>
               </div>
               <!-- Modals do deletar-->
               <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -86,7 +98,7 @@
 
             <!-- Modals do botão perfis slot="modal-footer" -->
             <b-modal id="modalPerfis" ref="PerfisModal" scrollable title="Selecione os perfis">
-              <b-form-group class style="margin-top:-10px; font-size:14px;">
+              <b-form-group style="margin-top:-10px; font-size:14px;">
                 <b-form-checkbox-group
                   id="checkboxGroupPerfis"
                   v-model="PerfisSelecionados"
@@ -106,7 +118,11 @@
                   variant="success"
                   @click="selectAll()"
                 >Selecionar Todos</b-button>
-                <b-button class="btn-cinza mr-2" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
+                <b-button
+                  class="btn-cinza mr-2"
+                  variant="secondary"
+                  @click="selectNone()"
+                >Desmarcar Todos</b-button>
 
                 <b-button
                   variant="success"
@@ -529,7 +545,7 @@ export default {
 }
 .btn-cinza {
   background-color: #c3c3c3 !important;
-  border-color: #c3c3c3!important;
+  border-color: #c3c3c3 !important;
 }
 .btn-cinza:hover {
   background-color: #aaaaaa !important;

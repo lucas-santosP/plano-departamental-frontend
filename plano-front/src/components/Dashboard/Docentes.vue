@@ -69,12 +69,11 @@
       </table>
       <!-- Fim da Tabela -->
     </div>
-
     <!-- Fim do Grid Esquerdo -->
-    <!-- Grid Direito -->
 
+    <!-- Grid Direito -->
     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
-      <div class="col card cartao ml-auto mr-4">
+      <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Editar Docente</h1>
@@ -83,66 +82,58 @@
             <h1 class="card-title">Adicionar Docente</h1>
           </template>
         </div>
-        <div class="card-body" style="padding:20px; overflow-y:auto; overflow-x:hidden;">
+
+        <div class="card-body">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-          <form style="overflow:hidden auto; max-height: 70vh">
-            <div class="form-group row">
-              <label
-                for="nome"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end;padding:0"
-              >Nome</label>
-              <div
-                class="col-lg-8 col-md-9 col-sm-9 col-9"
-                style="margin-top:auto;margin-bottom:auto;"
-              >
+
+          <form style="overflow:hidden auto;">
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 mr-4 px-0">
+                <label for="nome" class="col-form-label">Nome</label>
                 <input
                   type="text"
-                  class="form-control col-lg-12 col-md-12 col-sm-12"
+                  class="inputMaior form-control form-control-sm"
                   id="nome"
                   v-model="docenteForm.nome"
                 />
               </div>
             </div>
-            <div class="form-group row">
-              <label
-                for="apelido"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end; padding:0"
-              >Apelido</label>
-              <div
-                class="col-lg-8 col-md-9 col-sm-9 col-9"
-                style="margin-top:auto;margin-bottom:auto;"
-              >
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 mr-4 px-0">
+                <label for="apelido" class="col-form-label">Apelido</label>
                 <input
                   type="text"
-                  class="form-control col-lg-12 col-md-12 col-sm-12"
                   id="apelido"
                   v-model="docenteForm.apelido"
+                  class="form-control form-control-sm"
+                  style="width: 120px!important"
                 />
               </div>
             </div>
-            <div class="form-group row">
-              <label
-                for="perfis"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end;padding:0"
-              >Perfis</label>
-              <template v-if="docenteForm.id!=undefined">
-                <div class="col-sm-9" id="perfis">
-                  <b-form-checkbox-group stacked v-model="perfisAssociados">
-                    <b-form-checkbox
-                      v-for="perfil in Perfis"
-                      :key="perfil.id+'ID'+perfil.nome+'nome'"
-                      :value="perfil.id"
-                      v-on:change="managePerfil(perfil.id)"
-                    >{{perfil.nome}}</b-form-checkbox>
-                  </b-form-checkbox-group>
-                </div>
-              </template>
+
+            <div class="border-bottom my-2"></div>
+            <div class="row mb-4 mx-0">
+              <div class="form-group col m-0 mr-4 px-0" style="height: 260px">
+                <label for="perfis" class="col-form-label">Perfis</label>
+
+                <b-form-checkbox-group
+                  stacked
+                  v-model="perfisAssociados"
+                  style="overflow-y: scroll; height: 250px; font-size:11px;"
+                >
+                  <b-form-checkbox
+                    v-for="perfil in Perfis"
+                    :key="perfil.id+'ID'+perfil.nome+'nome'"
+                    :value="perfil.id"
+                    v-on:change="managePerfil(perfil.id)"
+                  >{{perfil.nome}}</b-form-checkbox>
+                </b-form-checkbox-group>
+              </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-12" style="padding-left:45px;">
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 mr-4 px-0">
                 <label for="ativo" class="col-form-label">
                   <div class="row">
                     <div class="col" style="padding-right: 0;">
@@ -153,50 +144,60 @@
                 </label>
               </div>
             </div>
-            <div class="form-group row ">
-                <template v-if="isEdit">
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Editar"
-                      class="editbtn"
-                      v-on:click.prevent="editDocente"
-                      :key="1"
-                    ><i class="fas fa-edit"></i></button>
-                    <button
-                      type="button"
-                      title="Deletar"
-                      class="delbtn"
-                      v-on:click.prevent="deleteDocente"
-                      :key="3"
-                    ><i class="far fa-trash-alt"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanDocente"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
-                <template v-else>
-                  <div style="display: flex; margin-right: 0; margin-left: auto">  
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="addbtn"
-                      v-on:click.prevent="addDocente"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanDocente"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
+            <div class="form-group row">
+              <template v-if="isEdit">
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Editar"
+                    class="editbtn"
+                    v-on:click.prevent="editDocente"
+                    :key="1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Deletar"
+                    class="delbtn"
+                    v-on:click.prevent="deleteDocente"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanDocente"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
+              <template v-else>
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Adicionar"
+                    class="addbtn"
+                    v-on:click.prevent="addDocente"
+                    :key="1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanDocente"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
             </div>
           </form>
         </div>
@@ -448,6 +449,8 @@ table td {
 table p {
   margin-bottom: 0;
   text-align: center;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 tr thead {
   display: block;
@@ -470,7 +473,17 @@ input[type="text"] {
   font-size: 11px;
 }
 input[type="checkbox"] {
+  width: 16px !important;
+  height: 14px !important;
+  text-align: center !important;
+}
+table input[type="checkbox"] {
   margin-left: 0 !important;
+  margin-top: 4px !important;
+}
+input[type="text"] {
+  height: 25px !important;
+  font-size: 11px;
 }
 .sticky {
   display: block !important;
@@ -483,54 +496,68 @@ input[type="checkbox"] {
 }
 /* Fim Tabela Lucas */
 
-label {
-  font-size: 12px !important;
-}
+/* ====== CARD ====== */
 .card-title {
-  font-size: 16px !important;
+  font-size: 16px;
   font-weight: normal;
   padding-left: 0;
   margin: 0;
   text-align: center;
 }
 .card {
-  min-width: 235px;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  height: auto !important;
-  padding: 0;
 }
-.custom-control {
-  font-size: 11px;
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
 }
-.custom-control-inline {
-  margin-right: 0 !important;
+.card label {
+  line-height: 1.2;
+  font-size: 12px;
+  text-align: start;
+  padding-top: 0 !important;
 }
-/* .botao-estilo {
-  background-color: #faca4d !important;
-  border-color: #faca4d !important;
-  color: white;
+select {
+  height: 25px !important;
+  font-size: 11px !important;
+  padding: 0px 0px 0px 5px !important;
+  width: 100px;
 }
-
-.botao-estilo:hover {
-  background-color: #f8ac51 !important;
-  border-color: #f8ac51 !important;
+.selectMenor {
+  width: 80px;
+  text-align: start !important;
 }
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-} */
-.form-group {
-  margin-bottom: 13px !important;
+.selectMaior {
+  padding: 0px 0px 0px 5px !important;
+  width: 200px;
+  text-align: start !important;
 }
-.col-form-label {
-  padding-top: 0;
-  padding-bottom: 0;
+.selectMaior2 {
+  width: 300px;
+  text-align: start;
 }
-
+input {
+  height: 25px !important;
+  padding: 0px 5px 0px 5px !important;
+  font-size: 11px !important;
+  text-align: start;
+}
+.inputMenor {
+  width: 60px;
+  text-align: center;
+}
+.inputMenor2 {
+  width: 40px;
+  margin-right: 10px;
+  text-align: center;
+}
+.inputMaior {
+  width: 220px;
+  text-align: start;
+}
+/* =================== */
 .bg-custom {
   background-color: #c8c8c8;
 }
@@ -540,6 +567,7 @@ label {
 .noHover {
   pointer-events: none;
 }
+
 /* Botoes */
 button {
   padding: 0;
