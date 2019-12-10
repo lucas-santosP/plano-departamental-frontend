@@ -18,10 +18,10 @@
           <tr>
             <div style="width: 416px " class="sticky">
               <th scope="col">
-                <p class="p-header" style="width: 240px">Nome</p>
+                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 130px">Apelido</p>
+                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">Apelido<i v-if="ordenacao=='apelido'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 42px">Ativo</p>
@@ -258,11 +258,19 @@ export default {
       perfisAssociados: [],
       error: undefined,
       docentePerfil: _.clone(emptyPerfil),
-      docenteClickado: ""
+      docenteClickado: "",
+      ordenacao: 'nome'
     };
   },
 
   methods: {
+   toggleOrdenacaoNome(){
+     this.ordenacao = 'nome'
+   },
+   toggleOrdenacaoApelido(){
+     this.ordenacao = 'apelido'
+   },
+
     addDocente() {
       docenteService
         .create(this.docenteForm)
@@ -390,7 +398,7 @@ export default {
 
   computed: {
     Docentes() {
-      return _.orderBy(this.$store.state.docente.Docentes, "nome");
+      return _.orderBy(this.$store.state.docente.Docentes, this.ordenacao);
     },
 
     Perfis() {
@@ -461,7 +469,6 @@ table {
   height: calc(100vh - 95px);
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -543,6 +550,10 @@ input[type="text"] {
   text-align: start;
   padding-top: 0 !important;
 }
+.selectMaior2 {
+  width: 300px;
+  text-align: start;
+}
 input {
   height: 25px !important;
   padding: 0px 5px 0px 5px !important;
@@ -582,6 +593,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

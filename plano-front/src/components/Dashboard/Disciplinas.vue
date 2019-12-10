@@ -16,10 +16,10 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
               <th scope="col">
-                <p style="width: 300px;" class="p-header">Nome</p>
+                <p style="width: 300px;" @click="toggleOrderNome()" class="p-header">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p style="width: 82px;" class="p-header">Código</p>
+                <p style="width: 82px;" @click="toggleOrderCodigo()" class="p-header">Código<i v-if="ordenacao=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p>
@@ -273,11 +273,18 @@ export default {
     return {
       disciplinaForm: _.clone(emptyDisciplina),
       error: undefined,
-      disciplinaClickada: ""
+      disciplinaClickada: "",
+      ordenacao: 'nome'
     };
   },
 
   methods: {
+    toggleOrderNome() {
+      this.ordenacao = 'nome'
+    },
+    toggleOrderCodigo() {
+      this.ordenacao = 'codigo'
+    },
     clickada(discip) {
       this.disciplinaClickada = discip;
     },
@@ -367,7 +374,7 @@ export default {
 
   computed: {
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "codigo");
+      return _.orderBy(this.$store.state.disciplina.Disciplinas, this.ordenacao);
     },
 
     Perfis() {
@@ -419,20 +426,7 @@ export default {
   font-size: 12px;
   padding-top: 15px;
 }
-.botao-estilo {
-  background-color: #f0852e !important;
-  border-color: #f0852e !important;
-  color: white;
-}
-.botao-estilo:hover {
-  background-color: #e86c07 !important;
-  border-color: #e86c07 !important;
-}
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
+
 .form-group {
   margin-bottom: 15px !important;
 }
@@ -444,15 +438,6 @@ export default {
 .col-form-label {
   padding-top: 0;
 }
-/* .btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-} */
 /* Tabela Lucas */
 .p-header {
   padding: 0px 0 0px 0;
@@ -584,6 +569,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

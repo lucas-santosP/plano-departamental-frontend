@@ -1,27 +1,33 @@
 <template>
   <div id="loginForm" class="text-center">
-    <form class="form-signin" v-on:submit.prevent="doLogin">
-      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-      <b-alert :show="Boolean(error)" variant="danger" dismissible>{{error}}</b-alert>
-      <label for="login" class="sr-only">Usuário</label>
-      <input
-        v-focus
-        type="text"
-        id="login"
-        class="form-control"
-        placeholder="Usuário"
-        v-model.trim="form.login"
-      />
-      <label for="senha" class="sr-only">Senha</label>
-      <input
-        type="password"
-        id="senha"
-        class="form-control"
-        placeholder="Senha"
-        v-model.trim="form.senha"
-      />
-      <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Entrar</button>
-    </form>
+    <div class="card ml-auto mr-auto"> 
+        <div class="card-header">
+          <h1 class="card-title">Login</h1>
+        </div>
+      <div class="card-body">
+        <form class="form-signin" v-on:submit.prevent="doLogin">
+          <b-alert :show="Boolean(error)" variant="danger" dismissible>{{error}}</b-alert>
+          <label for="login" class="sr-only">Usuário</label>
+          <input
+            v-focus
+            type="text"
+            id="login"
+            class="form-control"
+            placeholder="Usuário"
+            v-model.trim="form.login"
+          />
+          <label for="senha" class="sr-only">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            class="form-control"
+            placeholder="Senha"
+            v-model.trim="form.senha"
+          />
+          <button class="btn btn-sm btn-block mt-3" type="submit">Entrar</button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -113,7 +119,7 @@ export default {
   box-sizing: border-box;
   height: auto;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .form-signin .form-control:focus {
@@ -121,22 +127,60 @@ export default {
 }
 
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
-  -webkit-border-bottom-right-radius: 0;
+  margin-bottom: 10px;
+  /* -webkit-border-bottom-right-radius: 0;
   -moz-border-radius-bottomright: 0;
   border-bottom-right-radius: 0;
   -webkit-border-bottom-left-radius: 0;
   -moz-border-radius-bottomleft: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0; */
 }
 
 .form-signin input[type="password"] {
   margin-bottom: 10px;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-left-radius: 0;
-  -webkit-border-top-right-radius: 0;
-  -moz-border-radius-topright: 0;
-  border-top-right-radius: 0;
+  /* -webkit-border-top-left-radius: 0; */
+  /* -moz-border-radius-topleft: 0; */
+  /* border-top-left-radius: 0; */
+  /* -webkit-border-top-right-radius: 0; */
+  /* -moz-border-radius-topright: 0; */
+  /* border-top-right-radius: 0; */
+}
+input{
+  height: 28px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.07);
+}
+.card{
+  border: none;
+  box-shadow: 0 10px 20px rgba(49, 68, 177, 0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 5px;
+}
+.card-header{
+  min-height: 50px;
+  max-height: 50px;
+  background-color: #c4e7f377;
+  border-color: rgb(196, 225, 238);
+}
+.card-title{
+  font-size: 22px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.card-body{
+  background-color: #faf8f8;
+}
+.btn{
+  background-color: rgb(157, 224, 255);
+  border-radius: 15px;
+  color: #262626;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+} 
+.btn:hover{
+  background-color:rgb(82, 193, 245);
+  border-color:rgb(82, 193, 245);
+  box-shadow: 0px 15px 20px rgba(68, 83, 102, 0.4);
+  transform: translateY(-3px);
 }
 </style>

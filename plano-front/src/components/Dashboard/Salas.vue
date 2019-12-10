@@ -308,44 +308,7 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-}
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-.botao-estilo2 {
-  background-color: #f0852e !important;
-  border-color: #f0852e !important;
-  color: white;
-}
-.botao-estilo2:hover {
-  background-color: #e86c07 !important;
-  border-color: #e86c07 !important;
-}
-.botao-estilo2:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
+
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -364,6 +327,7 @@ export default {
   width: -moz-max-content;
   width: max-content;
   min-width: 164px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15); /*sugestão sombra*/
 }
 .card-body {
   font-size: 12px;
@@ -415,6 +379,7 @@ table {
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
+  
 }
 tbody {
   max-height: 100%;
@@ -494,6 +459,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

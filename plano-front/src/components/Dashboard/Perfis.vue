@@ -16,10 +16,10 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
               <th scope="col">
-                <p style="width: 350px" class="p-header">Nome</p>
+                <p style="width: 350px" @click="toggleOrderNome" class="p-header">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p style="width: 90px" class="p-header">Abreviação</p>
+                <p style="width: 90px" @click="toggleOrderAbreviacao" class="p-header">Abreviação<i v-if="ordenacao=='abreviacao'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p style="width: 40px;" class="p-header">Cor</p>
@@ -199,11 +199,25 @@ export default {
     return {
       perfilForm: _.clone(emptyPerfil),
       error: undefined,
-      perfilClickado: ""
+      perfilClickado: "",
+      ordenacao: ''
     };
   },
 
   methods: {
+    toggleOrderNome() {
+      if(this.ordenacao == 'nome')
+        this.ordenacao = ''
+      else
+        this.ordenacao = 'nome'
+    },
+    toggleOrderAbreviacao() {
+      if(this.ordenacao == 'abreviacao')
+        this.ordenacao = ''
+      else
+        this.ordenacao = 'abreviacao'
+    },
+
     clickada(f_perfil) {
       this.perfilClickado = f_perfil;
     },
@@ -291,7 +305,7 @@ export default {
 
   computed: {
     Perfis() {
-      return this.$store.state.perfil.Perfis;
+      return _.orderBy(this.$store.state.perfil.Perfis, this.ordenacao);
     },
 
     isEdit() {
@@ -455,6 +469,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

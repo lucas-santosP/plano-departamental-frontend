@@ -456,6 +456,8 @@ button {
   margin-right: 15px;
   margin-top: 5px;
   margin-bottom: 0px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

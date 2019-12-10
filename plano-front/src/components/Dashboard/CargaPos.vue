@@ -551,42 +551,6 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-/* .botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-}
-
-.botao-estilo2:hover {
-  background-color: #c91212 !important;
-  border-color: #c91212 !important;
-}
-.botao-estilo2:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-} */
 
 .titulo {
   font-size: 25px;
@@ -724,6 +688,7 @@ button {
   height: max-content;
   margin-right: 15px;
   margin-top: 5px;
+  transition: all 0.3s ease 0s;
 }
 i.fas,
 i.far {

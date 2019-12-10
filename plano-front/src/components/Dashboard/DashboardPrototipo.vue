@@ -20,9 +20,9 @@
                 <label class="input-group-text">Semestre</label>
               </div>
             </div>
-            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn">
-              <i class="fas fa-list-ul"></i>
-            </b-button>
+
+            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalCursos title="Cursos" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -102,7 +102,6 @@
                 <b-form-checkbox-group
                   id="checkboxGroupPerfis"
                   v-model="PerfisSelecionados"
-                  :options="options"
                 >
                   <b-form-checkbox
                     v-for="perfil in Perfis"
@@ -132,6 +131,46 @@
                 >OK</b-button>
               </div>
             </b-modal>
+
+            <!-- Modals do botão cursos slot="modal-footer" -->
+            <b-modal id="modalCursos" style="max-height:80vh;" ref="CursosModal" scrollable title="Selecione os Cursos">
+              <b-form-group class style="margin-top:-10px; font-size:14px;">
+                  <table style="max-height:50%; overflow:auto">
+                    <tr>
+                      <th></th>
+                      <th style="text-align:center" @click="ToggleCodigoOrdering()">Código<i v-if="ordenacaoCurso=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></b-button></th>
+                      <th style="text-align:center" @click="ToggleNomeOrdering()">Nome<i v-if="ordenacaoCurso=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></b-button></th>
+                    </tr>
+                    <tr v-for="curso in Cursos" :key="'cursoMd'+curso.id">
+                      <td style="padding:0;broder:0;margin:0">
+                        <input type="checkbox"
+                               v-model="CursosSelecionados"
+                               :value="curso"
+                        >
+                      </td>
+                      <td>{{curso.codigo}}</td>
+                      <td>{{curso.nome}}</td>
+                    </tr>
+                  </table>
+              </b-form-group>
+
+              <div slot="modal-footer">
+                <b-button
+                        class="btn-azul mr-2"
+                        variant="success"
+                        @click="selectAllCursos()"
+                >Selecionar Todos</b-button>
+                <b-button class="btn-cinza mr-2" variant="secondary" @click="selectNoneCursos()">Desmarcar Todos</b-button>
+
+                <b-button
+                        variant="success"
+                        @click="btnOKCursos()"
+                        class="btn-verde mr-2"
+                        style="padding-right:15px!important; padding-left:15px!important"
+                >OK</b-button>
+              </div>
+            </b-modal>
+
           </div>
         </div>
       </div>
@@ -148,7 +187,7 @@
       <table class="table table-bordered table-hover table-sm">
         <thead class="thead-light sticky">
           <tr>
-            <turmaheader></turmaheader>
+            <turmaheader v-bind:cursos="CursosAtivados"></turmaheader>
           </tr>
         </thead>
         <tbody>
@@ -166,7 +205,7 @@
                 v-bind:style="{backgroundColor: perfil.cor}"
               >
                 <template v-if="turma.periodo==1 && (periodos == 1 || periodos==3)">
-                  <turmadata ref="turma" v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                  <turmadata ref="turma" v-bind:turma="turma" v-bind:perfil="perfil" v-bind:cursos="CursosAtivados"></turmadata>
                 </template>
               </tr>
             </template>
@@ -177,7 +216,7 @@
                 v-bind:style="{backgroundColor: perfil.cor}"
               >
                 <template v-if="turma.periodo==3 && (periodos==2 || periodos==3)">
-                  <turmadata ref="turma" v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                  <turmadata ref="turma" v-bind:turma="turma" v-bind:perfil="perfil" v-bind:cursos="CursosAtivados"></turmadata>
                 </template>
               </tr>
             </template>
@@ -227,7 +266,10 @@ export default {
       semestre: 1,
       periodos: 3,
       PerfisSelecionados: [],
-      PerfisAtivados: []
+      CursosSelecionados: [],
+      PerfisAtivados: [],
+      CursosAtivados: [],
+      ordenacaoCurso: 'posicao',
     };
   },
 
@@ -265,6 +307,20 @@ export default {
   },
 
   methods: {
+    ToggleCodigoOrdering () {
+      if(this.ordenacaoCurso === 'codigo')
+        this.ordenacaoCurso = 'posicao'
+      else
+        this.ordenacaoCurso = 'codigo'
+    },
+
+    ToggleNomeOrdering () {
+      if(this.ordenacaoCurso === 'nome')
+        this.ordenacaoCurso = 'posicao'
+      else
+        this.ordenacaoCurso = 'nome'
+    },
+
     btnOK() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.PerfisAtivados = [...this.PerfisSelecionados];
@@ -278,6 +334,22 @@ export default {
 
     selectNone() {
       this.PerfisSelecionados = [];
+    },
+
+    btnOKCursos() {
+      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
+      this.CursosAtivados = [...this.CursosSelecionados];
+      this.CursosAtivados = _.orderBy(this.CursosAtivados, this.ordenacaoCurso)
+      this.$refs.CursosModal.hide();
+    },
+    selectAllCursos() {
+      if (this.CursosSelecionados != []) this.CursosSelecionados = [];
+      for (var i = 0; i < this.$store.state.curso.Cursos.length; i++)
+        this.CursosSelecionados.push(this.$store.state.curso.Cursos[i]);
+    },
+
+    selectNoneCursos() {
+      this.CursosSelecionados = [];
     },
 
     xlsx: function(pedidos) {
@@ -454,7 +526,7 @@ export default {
 
   computed: {
     Cursos() {
-      return _.orderBy(this.$store.state.curso.Cursos, "posicao");
+      return _.orderBy(this.$store.state.curso.Cursos, this.ordenacaoCurso);
     },
 
     CursosAtivos() {
@@ -522,12 +594,15 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.btn {
+.btn-df{
+  font-size: 12px;
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-size: 12px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
   padding: 0 5px 0 5px;
 }
 .btn-azul {
@@ -569,21 +644,6 @@ export default {
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
 }
-/* .botao-perfis {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-  max-width: 60px;
-}
-.botao-perfis:hover {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-.botao-perfis:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-} */
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -634,7 +694,6 @@ table {
   height: calc(100vh - 95px);
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -662,6 +721,7 @@ button {
   height: max-content;
   margin-right: 15px;
   margin-top: 5px;
+  transition: all 0.3s ease 0s;
 }
 i.fas,
 i.far {

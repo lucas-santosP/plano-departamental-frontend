@@ -532,35 +532,6 @@ export default {
   font-size: 12px;
   padding: 0 5px 0 5px;
 }
-/*
-.btn-salvar {
-  color: black;
-  background-color: #bde0ff !important;
-  border-color: #3396ff !important;
-}
-.btn-salvar:hover {
-  color: white;
-  background-color: #3396ff !important;
-}
-.btn-salvar:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-.botao-estilo2 {
-  background-color: #f0852e !important;
-  border-color: #f0852e !important;
-  color: white;
-}
-.botao-estilo2:hover {
-  background-color: #e86c07 !important;
-  border-color: #e86c07 !important;
-}
-.botao-estilo2:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-} */
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -659,7 +630,6 @@ table {
   height: calc(100vh - 150px);
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -731,11 +701,12 @@ thead th {
 button {
   padding: 0;
   border: none;
-  /* background: none; */
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

@@ -25,7 +25,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -15500,18 +15500,7 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.quant {
-  margin: 10px;
-  padding-left: 4.5px;
-  padding-right: 4.5px;
-  padding-top: 0px;
-  padding-bottom: 10.5px;
-  height: 25px;
-  width: 25px;
-  -webkit-border-radius: 15px;
-     -moz-border-radius: 15px;
-          border-radius: 15px;
-}
+
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -15523,11 +15512,6 @@ export default {
   width: 72px;
   height: 24px;
   position: relative;
-}
-
-.relatorio {
-  position: relative;
-  margin-top: 10px;
 }
 
 td {
@@ -15542,8 +15526,6 @@ th {
 
 .horario {
   float: left;
-  padding-left: 20px;
-  padding-bottom: 20px;
 }
 
 .title {
@@ -15583,8 +15565,8 @@ th {
 }
 .tg th {
   font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-weight: normal;
+  font-size: 11px;
+  font-weight: bold;
   padding: 0px;
   border-style: solid;
   border-width: 1px;
@@ -15596,39 +15578,10 @@ th {
 }
 .tg .tg-0lax {
   vertical-align: center;
-  height: 18px;
-  width: 46px !important;
-}
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
+  height: 22px;
+  width: 49px !important;
 }
 
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-     -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-          box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
 h3 {
   font-weight: bold;
   font-size: 20px;

@@ -642,29 +642,6 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -768,6 +745,7 @@ button {
   height: max-content;
   margin-right: 15px;
   margin-top: 5px;
+  transition: all 0.3s ease 0s;
 }
 i.fas,
 i.far {
@@ -815,7 +793,7 @@ i.far {
 }
 
 
-.example {
+/* .example {
   display: -ms-grid;
   display: grid;
   -webkit-transition: all 0.5s;
@@ -851,7 +829,7 @@ i.far {
     to(black)
   );
   background: linear-gradient(to bottom, white, black);
-}
+} */
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   select {
