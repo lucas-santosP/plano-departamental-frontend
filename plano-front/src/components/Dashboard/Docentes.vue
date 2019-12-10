@@ -40,7 +40,7 @@
             >
               <div style="width: 416px">
                 <td>
-                  <p style="width: 240px">{{docente.nome}}</p>
+                  <p style="width: 240px; text-align: start!important">{{docente.nome}}</p>
                 </td>
                 <td>
                   <p style="width: 130px">{{docente.apelido}}</p>
@@ -72,7 +72,7 @@
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
+    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
       <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
@@ -86,7 +86,7 @@
         <div class="card-body">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
 
-          <form style="overflow:hidden auto;">
+          <form>
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 mr-4 px-0">
                 <label for="nome" class="col-form-label">Nome</label>
@@ -110,17 +110,52 @@
                   style="width: 120px!important"
                 />
               </div>
+
+              <div class="form-group col m-0 mr-4 px-0">
+                <div class="form-check" style="margin-top:28px">
+                  <input
+                    type="checkbox"
+                    id="ativo"
+                    value="1"
+                    v-model="docenteForm.ativo"
+                    class="form-check-input my-auto"
+                    style="margin-top: 2px"
+                  />
+                  <label for="ativo" class="form-check-label">Ativo</label>
+                </div>
+              </div>
             </div>
 
             <div class="border-bottom my-2"></div>
-            <div class="row mb-4 mx-0">
-              <div class="form-group col m-0 mr-4 px-0" style="height: 260px">
-                <label for="perfis" class="col-form-label">Perfis</label>
-
+            <div class="row mb-3 mx-0">
+              <div
+                class="form-group col m-0 px-0 border border-secondary"
+                style="height: 250px"
+              >
+                <div
+                  class="alert p-1 alert-secondary m-0 text-center rounded-0 w-100"
+                  role="alert"
+                >Perfis:</div>
+                <div class="px-2 py-1" style="height: 218px!important; overflow-y: scroll">
+                  <template v-for="perfil in Perfis">
+                    <div :key="perfil.nome+perfil.id" class="form-check w-100 mb-1 p-0">
+                      <input
+                        id="checkPerfis"
+                        type="checkbox"
+                        :value="perfil.id"
+                        v-model="perfisAssociados"
+                        v-on:change="managePerfil(perfil.id)"
+                        class="form-check-input position-static m-0"
+                      />
+                      <label for="checkPerfis" class="col-form-label p-0">{{perfil.nome}}</label>
+                    </div>
+                  </template>
+                </div>
+                <!--
                 <b-form-checkbox-group
                   stacked
                   v-model="perfisAssociados"
-                  style="overflow-y: scroll; height: 250px; font-size:11px;"
+                  style="overflow-y: scroll; height: 185px; font-size:11px;"
                 >
                   <b-form-checkbox
                     v-for="perfil in Perfis"
@@ -129,21 +164,10 @@
                     v-on:change="managePerfil(perfil.id)"
                   >{{perfil.nome}}</b-form-checkbox>
                 </b-form-checkbox-group>
+                -->
               </div>
             </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 mr-4 px-0">
-                <label for="ativo" class="col-form-label">
-                  <div class="row">
-                    <div class="col" style="padding-right: 0;">
-                      <input type="checkbox" id="ativo" value="1" v-model="docenteForm.ativo" />
-                    </div>
-                    <div class="col" style="padding-left: 5px; padding-top: 3px">Ativo</div>
-                  </div>
-                </label>
-              </div>
-            </div>
             <div class="form-group row">
               <template v-if="isEdit">
                 <div style="display: flex; margin-right: 0; margin-left: auto">
@@ -483,7 +507,7 @@ table input[type="checkbox"] {
 }
 input[type="text"] {
   height: 25px !important;
-  font-size: 11px;
+  font-size: 12px;
 }
 .sticky {
   display: block !important;
@@ -519,29 +543,10 @@ input[type="text"] {
   text-align: start;
   padding-top: 0 !important;
 }
-select {
-  height: 25px !important;
-  font-size: 11px !important;
-  padding: 0px 0px 0px 5px !important;
-  width: 100px;
-}
-.selectMenor {
-  width: 80px;
-  text-align: start !important;
-}
-.selectMaior {
-  padding: 0px 0px 0px 5px !important;
-  width: 200px;
-  text-align: start !important;
-}
-.selectMaior2 {
-  width: 300px;
-  text-align: start;
-}
 input {
   height: 25px !important;
   padding: 0px 5px 0px 5px !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   text-align: start;
 }
 .inputMenor {

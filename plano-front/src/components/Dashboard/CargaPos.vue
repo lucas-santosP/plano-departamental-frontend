@@ -81,9 +81,16 @@
 
     <div class="row p-0 m-0">
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
-          <b>PGMC</b>
-          - Total de créditos: {{CreditoTotal_PGMC}}
+        <div class="alert p-0 alert-dark m-0 text-center rounded-0" role="alert">
+          <div class="row m-0">
+            <p class="col px-1 alert-p m-0">
+              <b>PGMC</b>
+            </p>
+
+            <p class="p-header">{{CreditoTotal_PGMC}}</p>
+            <!--<p class="col-2 px-1 m-0 text-left">{{CreditoTotal_PGMC}}</p>
+            -->
+          </div>
         </div>
 
         <table class="table table-hover table-bordered table-sm">
@@ -104,6 +111,7 @@
                 </th>
                 <th scope="col">
                   <p class="p-header" style="width:40px!important;">C.</p>
+                  
                 </th>
               </div>
             </tr>
@@ -619,7 +627,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: rgba(0,0,0,0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -887,5 +895,11 @@ i.far {
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
+}
+.alert-p {
+  padding: 0;
+}
+.alert{
+  background-color: rgba(0,0,0,0.125)!important;
 }
 </style>

@@ -715,8 +715,10 @@ thead th {
 	*/
 }
 .bg-custom {
-  background-color: rgb(0, 85, 175);
-  color: white;
+  background-color: #c8c8c8;
+}
+.bg-custom:hover {
+  background-color: #c8c8c8;
 }
 .even {
   background-color: rgba(0, 85, 175, 0.2);

@@ -37,7 +37,7 @@
             >
               <div style="width: 485px">
                 <td>
-                  <p style="width: 350px">{{perfil.nome}}</p>
+                  <p style="width: 350px; text-align: start">{{perfil.nome}}</p>
                 </td>
                 <td>
                   <p style="width: 90px">{{perfil.abreviacao}}</p>
@@ -63,12 +63,13 @@
           </template>
         </tbody>
       </table>
+      <!-- Fim da Tabela -->
     </div>
-    <!-- Fim da Tabela -->
     <!-- Fim do Grid Esquerdo -->
+
     <!-- Grid Direito -->
-    <div class="cartao-inteiro col-lg-5 col-md-12 col-sm-12 col-12 mt-3 pl-0 ml-auto">
-      <div class="col card cartao ml-auto" style="margin-right:20px; max-width: 350px;">
+    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-12 col-sm-12 col-12">
+      <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
             <h2 class="card-title">Editar Perfil</h2>
@@ -77,94 +78,100 @@
             <h2 class="card-title">Adicionar Perfil</h2>
           </template>
         </div>
-        <div class="card-body" style="padding:20px;">
+
+        <div class="card-body">
           <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+
           <form>
-            <div class="form-group row">
-              <label
-                for="nome"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end;"
-              >Nome</label>
-              <div class="col-lg-8 col-md-9 col-sm-9 col-9">
-                <input type="text" class="form-control" id="nome" v-model="perfilForm.nome" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label
-                for="abreviacao"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end;"
-              >Abreviação</label>
-              <div class="col-lg-8 col-md-9 col-sm-9 col-9">
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 mr-4 px-0">
+                <label for="nome" class="col-form-label">Nome</label>
                 <input
                   type="text"
-                  class="form-control"
+                  class="inputMaior form-control form-control-sm"
+                  id="nome"
+                  v-model="perfilForm.nome"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 mr-4 px-0">
+                <label for="abreviacao" class="col-form-label">Abreviação</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  style="width:100px"
                   id="abreviacao"
                   v-model="perfilForm.abreviacao"
                 />
               </div>
-            </div>
-            <div class="form-group row">
-              <label
-                for="cor"
-                class="col-sm-3 col-3 col-form-label"
-                style="text-align: end;"
-              >Cor</label>
-              <div class="col-lg-8 col-md-9 col-sm-9 col-9">
+              <div class="form-group col m-0 mr-4 px-0">
+                <label for="cor" class="col-form-label">Cor</label>
                 <input
                   type="color"
-                  class="form-control"
-                  style="height:25px !important; padding:1px;"
+                  class="inputMenor form-control form-control-sm"
                   id="cor"
                   v-model="perfilForm.cor"
                 />
               </div>
             </div>
+
+
             <div class="form-group row">
-                <template v-if="isEdit">
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Editar"
-                      class="editbtn"
-                      v-on:click.prevent="editPerfil"
-                      :key="1"
-                    ><i class="fas fa-edit"></i></button>
-                    <button
-                      type="button"
-                      title="Deletar"
-                      class="delbtn"
-                      v-on:click.prevent="deletePerfil"
-                      :key="3"
-                    ><i class="far fa-trash-alt"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanPerfil"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
-                <template v-else>
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="addbtn"
-                      v-on:click.prevent="addPerfil"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanPerfil"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
+              <template v-if="isEdit">
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Editar"
+                    class="editbtn"
+                    v-on:click.prevent="editPerfil"
+                    :key="1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Deletar"
+                    class="delbtn"
+                    v-on:click.prevent="deletePerfil"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanPerfil"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
+              <template v-else>
+                <div style="display: flex; margin-right: 0; margin-left: auto">
+                  <button
+                    type="button"
+                    title="Adicionar"
+                    class="addbtn"
+                    v-on:click.prevent="addPerfil"
+                    :key="1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanPerfil"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
             </div>
           </form>
         </div>
@@ -310,48 +317,15 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.custom-control {
-  font-size: 11px;
-}
-input[type="text"] {
-  height: 25px !important;
-  font-size: 11px;
-}
-.card {
-  min-width: 300px;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  height: auto !important;
-  padding: 0;
-}
-.card-body {
-  font-size: 12px;
-  padding-top: 15px;
-}
-.card-title {
-  font-size: 16px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0;
-  text-align: center;
-}
-.col-form-label{
-  padding-left: 0;
-  padding-right: 0;
-}
 .titulo {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
   margin: 0 !important;
 }
-@media screen and (max-width: 992px) {
-  .cartao {
-    margin-top: 20px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
+input[type="text"] {
+  height: 25px !important;
+  font-size: 11px;
 }
 
 /* Tabela Lucas */
@@ -393,6 +367,8 @@ table td {
 table p {
   margin-bottom: 0;
   text-align: center;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 tr thead {
   display: block;
@@ -403,13 +379,11 @@ thead th {
   text-align: center;
   height: 18px !important;
 }
-
 table input {
   height: 18px !important;
   text-align: center !important;
   margin: 0;
 }
-
 table tbody tr div {
   height: 22px !important;
 }
@@ -427,6 +401,51 @@ table tbody tr div {
 .bg-custom:hover {
   background-color: #c8c8c8;
 }
+
+/* ====== CARD ====== */
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+.card {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
+.card label {
+  line-height: 1.2;
+  font-size: 12px;
+  text-align: start;
+  padding-top: 0 !important;
+}
+input {
+  height: 25px !important;
+  padding: 0px 5px 0px 5px !important;
+  font-size: 12px !important;
+  text-align: start;
+}
+.inputMenor {
+  width: 60px;
+  text-align: center;
+}
+.inputMenor2 {
+  width: 40px;
+  margin-right: 10px;
+  text-align: center;
+}
+.inputMaior {
+  width: 220px;
+  text-align: start;
+}
+/* =================== */
+
 /* Botoes */
 button {
   padding: 0;
