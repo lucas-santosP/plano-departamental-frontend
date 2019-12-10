@@ -109,51 +109,61 @@
               </div>
             </div>
 
-            <div class="row mb-1 mt-1 mx-0">
-                <template v-if="isEdit">
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Editar"
-                      class="editbtn"
-                      v-on:click.prevent="editSala"
-                      :key="1"
-                    ><i class="fas fa-edit"></i></button>
-                    <button
-                      type="button"
-                      title="Deletar"
-                      class="delbtn"
-                      v-on:click.prevent="deleteSala"
-                      :key="3"
-                    ><i class="far fa-trash-alt"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanSala"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                  </div>
-                </template>
+            <div class="row mb-0 mt-3 mx-0">
+              <template v-if="isEdit">
+                <div class="d-flex mr-0 ml-auto">
+                  <button
+                    type="button"
+                    title="Editar"
+                    class="editbtn"
+                    v-on:click.prevent="editSala"
+                    :key="1"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Deletar"
+                    class="delbtn"
+                    v-on:click.prevent="deleteSala"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanSala"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
 
-                <template v-else>
-                  <div style="display: flex; margin-right: 0; margin-left: auto">
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="addbtn"
-                      v-on:click.prevent="addSala"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
-                      v-on:click.prevent="cleanSala"
-                      :key="2"
-                    ><i class="fas fa-times"></i></button>
-                    </div>
-                  </template>
+              <template v-else>
+                <div class="d-flex mr-0 ml-auto">
+                  <button
+                    type="button"
+                    title="Adicionar"
+                    class="addbtn"
+                    v-on:click.prevent="addSala"
+                    :key="1"
+                  >
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Cancelar"
+                    class="cancelbtn"
+                    v-on:click.prevent="cleanSala"
+                    :key="2"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </template>
             </div>
           </form>
         </div>
