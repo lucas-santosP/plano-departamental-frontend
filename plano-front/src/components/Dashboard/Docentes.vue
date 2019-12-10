@@ -314,14 +314,6 @@ export default {
           this.perfisAssociados.push(docentes[i].Perfil);
         }
       }
-      (function smoothscroll() {
-        var currentScroll =
-          document.documentElement.scrollTop || document.body.scrollTop;
-        if (currentScroll > 0) {
-          window.requestAnimationFrame(smoothscroll);
-          window.scrollTo(0, currentScroll - currentScroll / 5);
-        }
-      })();
     },
 
     addPerfil(perfil) {
@@ -560,7 +552,7 @@ button {
 }
 i.fas,
 i.far {
-  font-size: 30px;
+  font-size: 25px;
 }
 .addbtn {
   background-color: white;

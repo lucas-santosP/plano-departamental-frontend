@@ -28,11 +28,13 @@
 
     <td>
       <div style="width:70px;">
-        <template v-for="disciplina in Disciplinas">
-          <template v-if="disciplina.id===turma.Disciplina">
-            <p :key="disciplina.id" style="width:70px;">{{disciplina.codigo}}</p>
-          </template>
-        </template>
+        <select type="text" style="width:70px;" id="disciplina" v-model="turma.Disciplina"
+          v-on:change="editTurma(turma)">
+          <option v-if="DisciplinasCod.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
+          <option v-for="disciplina in DisciplinasCod" :key="disciplina.id" :value="disciplina.id">
+            {{disciplina.codigo}}
+          </option>
+        </select>
       </div>
     </td>
 
@@ -154,155 +156,168 @@
     <td>
       <div style="width:32px">
         <p style="32px; font-weight: bold;">{{totalPedidos()}}</p>
+        <p style="width: 32px; padding:0; border:0; margin:0;">{{totalPedidosPeriodizados()}}+{{totalPedidosNaoPeriodizados()}}</p>
       </div>
     </td>
-
+        
     <template v-for="curso in Cursos">
-      <td :key="curso.id">
-        <template v-for="pedido in Pedidos">
+      <td>
+        <template v-for="(pedido, index) in Pedidos">
           <template v-if="pedido.Curso===curso.id">
-            <div style="width:32px;" :key="pedido">
-              <input
-                type="text"
-                v-model="pedido.vagasPeriodizadas"
-                style="width: 25px; height:15px; margin-top:1px; margin-bottom:1px"
-                v-on:change="editPedido(pedido)"
-              />
-              <input
-                type="text"
-                v-model="pedido.vagasNaoPeriodizadas"
-                style="width: 25px; height:15px;"
-                v-on:change="editPedido(pedido)"
-              />
-            </div>
+            <turmaExternaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaExternaPedido>
           </template>
         </template>
       </td>
     </template>
+
   </div>
 </template>
 <script>
-import _ from "lodash";
-import turmaExternaService from "../../common/services/turmaExterna";
-import pedidoExternoService from "../../common/services/pedidoExterno";
+import _ from 'lodash'
+import turmaExternaPedido from './TurmaExternaPedido.vue'
+import turmaExternaService from '../../common/services/turmaExterna'
+import pedidoExternoService from '../../common/services/pedidoExterno'
 
 export default {
-  name: "TurmaRow",
-  props: {
-    turma: Object,
-    perfil: Object
-  },
-
-  data() {
-    return {
-      ativo: false,
-      valorAtual: undefined
-    };
-  },
-
-  methods: {
-    totalPedidos() {
-      var t = 0;
-      var id = this.turma.id;
-      var pedidos = _.filter(this.$store.state.pedidoExterno.Pedidos, function(
-        p
-      ) {
-        return p.Turma == id;
-      });
-      for (var p = 0; p < pedidos.length; p++) {
-        t += parseInt(pedidos[p].vagasPeriodizadas, 10);
-        t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
-      }
-      return t;
+    name: "TurmaRow",
+    props: {
+        turma: Object,
+        perfil: Object
     },
 
-    editTurma(turma) {
-      if (turma.Horario1 === "") turma.Horario1 = null;
+    components: {
+        turmaExternaPedido
+    },
 
-      if (turma.Horario2 === "") turma.Horario2 = null;
+    data() {
+        return {
+            ativo: false,
+            valorAtual: undefined
+        };
+    },
 
-      if (turma.Sala1 === "") turma.Sala111 = null;
+    methods: {
 
-      if (turma.Sala2 === "") turma.Sala2 = null;
-      console.log(turma);
+        totalPedidos() {
+            var t = 0
+            var pedidos = this.$store.state.pedidoExterno.Pedidos[this.turma.id]
+            for (var p = 0; p < pedidos.length; p++) {
+                t += parseInt(pedidos[p].vagasPeriodizadas, 10)
+                t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10)
+            }
+            return t
+        },
 
-      turmaExternaService
-        .update(turma.id, turma)
-        .then(response => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success"
-          });
+        totalPedidosPeriodizados() {
+            var t = 0
+            var pedidos = this.$store.state.pedidoExterno.Pedidos[this.turma.id]
+            for (var p = 0; p < pedidos.length; p++) {
+                t += parseInt(pedidos[p].vagasPeriodizadas, 10)
+            }
+            return t
+        },
+
+        totalPedidosNaoPeriodizados() {
+            var t = 0
+            var pedidos = this.$store.state.pedidoExterno.Pedidos[this.turma.id]
+            for (var p = 0; p < pedidos.length; p++) {
+                t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10)
+            }
+            return t
+        },
+
+        editTurma(turma) {
+            if (turma.Horario1 === "") turma.Horario1 = null;
+
+            if (turma.Horario2 === "") turma.Horario2 = null;
+
+            if (turma.Sala1 === "") turma.Sala111 = null;
+
+            if (turma.Sala2 === "") turma.Sala2 = null;
+
+            if (turma.turno1 === "") turma.turno1 = null
+
+            if (turma.turno1 === "EAD") {
+                turma.Horario1 = 31
+                if (turma.Horario2 > 0)
+                    turma.Horario2 = null
+            }
+
+            console.log(turma);
+
+            turmaExternaService.update(turma.id, turma).then((response) => {
+                this.$notify({
+                group: 'general',
+                title: `Sucesso!`,
+                text: `A Turma ${response.Turma.letra} foi atualizada!`,
+                type: 'success'
+            })
+        }).
+            catch(error => {
+                this.error = '<b>Erro ao atualizar Turma</b>'
+            if (error.response.data.fullMessage) {
+                this.error += '<br/>' + error.response.data.fullMessage.replace('\n', '<br/>')
+            }
         })
-        .catch(error => {
-          this.error = "<b>Erro ao atualizar Turma</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
-    checkDelete(turma) {
-      this.$store.commit("checkDeleteExterno", { Turma: turma });
-      console.log(this.$store.state.turmaExterna.Deletar);
-    },
+        },
 
-    editPedido(pedido) {
-      pedidoExternoService
-        .update(pedido.Curso, pedido.Turma, pedido)
-        .then(response => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `O pedido foi atualizado!`,
-            type: "success"
-          });
+        checkDelete(turma) {
+            this.$store.commit('checkDeleteExterno', {Turma: turma})
+            console.log(this.$store.state.turmaExterna.Deletar)
+        },
+
+        editPedido(pedido) {
+            pedidoExternoService.update(pedido.Curso, pedido.Turma, pedido).then((response) => {
+                this.$notify({
+                group: 'general',
+                title: `Sucesso!`,
+                text: `O pedido foi atualizado!`,
+                type: 'success'
+            })
+        }).
+            catch(error => {
+                this.error = '<b>Erro ao atualizar Pedido</b>'
+            if (error.response.data.fullMessage) {
+                this.error += '<br/>' + error.response.data.fullMessage.replace('\n', '<br/>')
+            }
         })
-        .catch(error => {
-          this.error = "<b>Erro ao atualizar Pedido</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
+        }
+    },
+
+    computed: {
+        Cursos() {
+            return _.slice(this.$store.state.curso.Cursos, 0, 4)
+        },
+
+        Disciplinas() {
+            return _.orderBy(_.filter(this.$store.state.disciplina.Disciplinas, function (d) {
+                return d.Perfil == 13
+            }), 'nome')
+        },
+
+        DisciplinasCod() {
+            return _.orderBy(_.filter(this.$store.state.disciplina.Disciplinas, function (d) {
+                return d.Perfil == 13
+            }), 'codigo')
+        },
+
+        Horarios() {
+            return _.orderBy(this.$store.state.horario.Horarios, 'horario')
+        },
+
+        Pedidos() {
+            return this.$store.state.pedidoExterno.Pedidos[this.turma.id]
+        },
+
+        Salas() {
+            return _.orderBy(this.$store.state.sala.Salas, "nome");
+        },
+
+        Perfis() {
+            return _.orderBy(this.$store.state.perfil.Perfis, "nome");
+        },
     }
-  },
-  computed: {
-    Cursos() {
-      return _.slice(this.$store.state.curso.Cursos, 0, 4);
-    },
-
-    Disciplinas() {
-      return _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13;
-        }),
-        "nome"
-      );
-    },
-
-    Horarios() {
-      return _.orderBy(this.$store.state.horario.Horarios, "horario");
-    },
-
-    Salas() {
-      return _.orderBy(this.$store.state.sala.Salas, "nome");
-    },
-
-    Perfis() {
-      return _.orderBy(this.$store.state.perfil.Perfis, "nome");
-    },
-
-    Pedidos() {
-      var t = this.turma.id;
-      return _.filter(this.$store.state.pedidoExterno.Pedidos, function(p) {
-        return p.Turma == t;
-      });
-    }
-  }
-};
+}
 </script>
 
 <style scoped>

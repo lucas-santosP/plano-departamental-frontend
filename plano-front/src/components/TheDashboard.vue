@@ -90,13 +90,13 @@
                   {{year}}
                 </a>
               </h6>
-              <ul class="nav flex-column mb-2" v-if="Admin">
+              <ul class="nav flex-column mb-2">
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage">
                     <i class="fas fa-clipboard"></i> Tabela
                   </router-link>
                 </li>
-                <li @click="show=false" class="nav-item">
+                <li v-if="Admin" @click="show=false" class="nav-item">
                   <router-link
                     :to="{ name: 'turmasExternas' }"
                     class="nav-link"
@@ -105,17 +105,17 @@
                     <i class="fas fa-clipboard"></i> Tabela Externa
                   </router-link>
                 </li>
-                <li @click="show=false" class="nav-item">
+                <li v-if="Admin" @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cargaPos' }" class="nav-link" v-on:click="loadPage">
                     <i class="fas fa-clipboard"></i> Creditação Pós
                   </router-link>
                 </li>
-                <li @click="show=false" class="nav-item">
+                <li v-if="Admin" @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'horarios' }" class="nav-link">
                     <i class="fas fa-calendar-alt"></i> Horários
                   </router-link>
                 </li>
-                <!-- <li @click="show=false" class="nav-item">
+                <!--<li v-if="Admin" @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'turmas' }" class="nav-link">
                     <i class="fas fa-bars"></i> Turmas
                   </router-link>

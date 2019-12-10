@@ -109,46 +109,51 @@
               </div>
             </div>
 
-            <div class="row mb-0 mt-3 mx-0">
-              <div class="form-group col m-0 px-0">
+            <div class="row mb-1 mt-1 mx-0">
                 <template v-if="isEdit">
-                  <div class="d-flex">
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
                     <button
                       type="button"
-                      class="btn-sm btn btn-success mr-2 botao-estilo"
+                      title="Editar"
+                      class="editbtn"
                       v-on:click.prevent="editSala"
                       :key="1"
-                    >Editar</button>
+                    ><i class="fas fa-edit"></i></button>
                     <button
                       type="button"
-                      class="btn-sm btn btn-danger mr-2"
+                      title="Deletar"
+                      class="delbtn"
                       v-on:click.prevent="deleteSala"
                       :key="3"
-                    >Excluir</button>
+                    ><i class="far fa-trash-alt"></i></button>
                     <button
                       type="button"
-                      class="btn-sm btn btn-secondary"
+                      title="Cancelar"
+                      class="cancelbtn"
                       v-on:click.prevent="cleanSala"
                       :key="2"
-                    >Cancelar</button>
+                    ><i class="fas fa-times"></i></button>
                   </div>
                 </template>
 
                 <template v-else>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-success mr-2"
-                    v-on:click.prevent="addSala"
-                    :key="1"
-                  >Adicionar</button>
-                  <button
-                    type="button"
-                    class="btn-sm btn btn-secondary"
-                    v-on:click.prevent="cleanSala"
-                    :key="2"
-                  >Resetar</button>
-                </template>
-              </div>
+                  <div style="display: flex; margin-right: 0; margin-left: auto">
+                    <button
+                      type="button"
+                      title="Adicionar"
+                      class="addbtn"
+                      v-on:click.prevent="addSala"
+                      :key="1"
+                    ><i class="fas fa-plus"></i></button>
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="cleanSala"
+                      :key="2"
+                    ><i class="fas fa-times"></i></button>
+                    </div>
+                  </template>
             </div>
           </form>
         </div>
@@ -348,7 +353,7 @@ export default {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  min-width: 150px;
+  min-width: 164px;
 }
 .card-body {
   font-size: 12px;
@@ -451,7 +456,6 @@ input[type="text"] {
   overflow: hidden !important;
 }
 .inputMenor {
-  max-width: 100px;
   min-width: 100px;
   text-align: start;
 }
@@ -470,6 +474,72 @@ input[type="text"] {
 }
 .bg-custom:hover {
   background-color: #c8c8c8;
+}
+/* Botoes */
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.cancelbtn {
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  cursor: pointer;
+  color: #b8b4a8;
+}
+.cancelbtn:focus {
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+.editbtn {
+  background-color: white;
+  color: #ffbe61;
+}
+.editbtn:hover {
+  cursor: pointer;
+  color: #ffb448;
+}
+.editbtn:focus {
+  color: #ffb448;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ffa548;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  cursor: pointer;
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 
 /* APENAS NO FIREFOX */

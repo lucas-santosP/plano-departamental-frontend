@@ -137,7 +137,7 @@
                       style="font-size: 11px"
                       class="p-0 m-0"
                       v-if="curso.semestreInicial==2 || curso.semestreInicial==3"
-                    >2º - {{curso.alunosEntrada}}</p>
+                    >2º - {{curso.alunosEntrada2}}</p>
                     <p style="font-size: 11px" class="p-0 m-0">{{curso.nome}}</p>
                   </b-popover>
                 </th>

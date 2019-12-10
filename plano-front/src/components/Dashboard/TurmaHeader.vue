@@ -1,4 +1,5 @@
 <template>
+
   <div style="display:block; overflow: hidden" class="sticky">
     <th scope="col">
       <p style="width:24px !important;">S.</p>
@@ -53,7 +54,7 @@
           <p
             style="font-size: 11px"
             v-if="curso.semestreInicial==2 || curso.semestreInicial==3"
-          >2º - {{curso.alunosEntrada}}</p>
+          >2º - {{curso.alunosEntrada2}}</p>
           <p style="font-size: 11px">{{curso.nome}}</p>
         </b-popover>
       </template>
