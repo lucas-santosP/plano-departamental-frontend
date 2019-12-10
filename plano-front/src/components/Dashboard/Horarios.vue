@@ -129,7 +129,7 @@
             </div>
            
           </form>
-           <div style="display: flex; margin-right: 0 !important; margin-left: auto !important">
+           <div style="float: right">
               <button
                 v-on:click="createHorarios"
                 title="Confirmar"
@@ -1056,7 +1056,7 @@
 }
 .card-body {
   font-size: 12px;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 .titulo {
   font-size: 25px;
@@ -1070,11 +1070,6 @@
   width: 72px;
   height: 24px;
   position: relative;
-}
-
-.relatorio {
-  position: relative;
-  margin-top: 10px;
 }
 
 td {
@@ -1120,16 +1115,6 @@ th {
   vertical-align: center;
 }
 
-/* .btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-} */
-
 h4 {
   text-align: start !important;
   margin-bottom: 20px;
@@ -1145,6 +1130,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {
@@ -1167,13 +1154,7 @@ i.far {
 .texto {
   font-size: 12px;
 }
-.cartao {
-  width: 300px;
-  height: 305px;
-}
-.card-body {
-  padding-top: 10px;
-}
+
 option {
   font-size: 11px;
   -webkit-box-sizing: border-box;

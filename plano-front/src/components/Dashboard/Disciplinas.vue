@@ -426,20 +426,7 @@ export default {
   font-size: 12px;
   padding-top: 15px;
 }
-.botao-estilo {
-  background-color: #f0852e !important;
-  border-color: #f0852e !important;
-  color: white;
-}
-.botao-estilo:hover {
-  background-color: #e86c07 !important;
-  border-color: #e86c07 !important;
-}
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
+
 .form-group {
   margin-bottom: 15px !important;
 }
@@ -451,15 +438,6 @@ export default {
 .col-form-label {
   padding-top: 0;
 }
-/* .btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-} */
 /* Tabela Lucas */
 .p-header {
   padding: 0px 0 0px 0;
@@ -591,6 +569,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

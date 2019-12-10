@@ -298,7 +298,6 @@ h5 {
   margin-top: 15px;
 }
 h6 {
-  margin-top: 15px;
   font-weight: bold;
   font-size: 20px;
   text-align: center;
@@ -370,48 +369,7 @@ th {
   vertical-align: center;
   height: 18px;
 }
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  margin-top: -8px;
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-}
-
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-
 @media screen and (max-width: 575px) {
-  .botao-estilo {
-    min-width: -webkit-max-content;
-    min-width: -moz-max-content;
-    min-width: max-content;
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-    float: right;
-  }
   .lab-num {
     font-size: 22px !important;
   }

@@ -478,35 +478,7 @@ export default {
   overflow: auto;
   margin: 0;
 }
-h1 {
-  font-size: 25px;
-  font-weight: normal;
-}
-.btn {
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  font-size: 12px;
-  padding: 0 5px 0 5px;
-  max-width: 65px;
-}
-.botao-estilo {
-  background-color: #faca4d !important;
-  border-color: #faca4d !important;
-  color: white;
-}
 
-.botao-estilo:hover {
-  background-color: #f8ac51 !important;
-  border-color: #f8ac51 !important;
-}
-
-.botao-estilo:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(194, 146, 84, 0.5) !important;
-}
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -681,6 +653,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

@@ -445,7 +445,6 @@ table {
   height: calc(100vh - 95px);
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -527,6 +526,7 @@ input[type="text"] {
   text-align: start;
   padding-top: 0 !important;
 }
+<<<<<<< Updated upstream
 select {
   height: 25px !important;
   font-size: 11px !important;
@@ -541,6 +541,11 @@ select {
   padding: 0px 0px 0px 5px !important;
   width: 200px;
   text-align: start !important;
+=======
+
+.form-group {
+  margin-bottom: 13px !important;
+>>>>>>> Stashed changes
 }
 .selectMaior2 {
   width: 300px;
@@ -585,6 +590,8 @@ button {
   height: -moz-max-content;
   height: max-content;
   margin-right: 15px;
+  transition: all 0.3s ease 0s;
+
 }
 i.fas,
 i.far {

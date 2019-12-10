@@ -555,33 +555,6 @@ export default {
 </script>
 
 <style scoped>
-.botao-estilo {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-
-.botao-estilo:hover {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-}
-
-.botao-estilo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 136, 166, 0.5) !important;
-}
-
-.botao-estilo2 {
-  background-color: #f51616 !important;
-  border-color: #f51616 !important;
-}
-
-.botao-estilo2:hover {
-  background-color: #c91212 !important;
-  border-color: #c91212 !important;
-}
-
-.botao-estilo2:focus {
-  box-shadow: 0 0 0 0.2rem rgba(250, 110, 110, 0.5) !important;
-}
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -606,7 +579,6 @@ table {
   margin: 0;
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }

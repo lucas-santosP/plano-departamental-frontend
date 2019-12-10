@@ -118,10 +118,4 @@
         vertical-align:center;
         height: 18px;
     }
-    /* .flex-container{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-    } */
 </style>

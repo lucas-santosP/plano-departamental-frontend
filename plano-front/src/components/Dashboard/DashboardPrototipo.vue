@@ -112,6 +112,7 @@
               </b-form-group>
 
               <div slot="modal-footer">
+<<<<<<< Updated upstream
                 <b-button
                   class="btn-azul mr-2"
                   variant="success"
@@ -129,6 +130,23 @@
                   class="btn-verde mr-2"
                   style="padding-right:15px!important; padding-left:15px!important"
                 >OK</b-button>
+=======
+                <div style="display: flex; margin-right: 30px;">
+                  <b-button
+                    class="btn-azul btn-df mr-2"
+                    variant="success"
+                    @click="selectAll()"
+                  >Selecionar Todos</b-button>
+                  <b-button class="btn-cinza btn-df mr-2" variant="secondary" @click="selectNone()">Desmarcar Todos</b-button>
+
+                  <b-button
+                    variant="success"
+                    @click="btnOK()"
+                    class="btn-verde btn-df mr-2"
+                    style="padding-right:15px!important; padding-left:15px!important"
+                  >OK</b-button>
+                </div>
+>>>>>>> Stashed changes
               </div>
             </b-modal>
 
@@ -594,12 +612,15 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.btn {
+.btn-df{
+  font-size: 12px;
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
-  font-size: 12px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
   padding: 0 5px 0 5px;
 }
 .btn-azul {
@@ -641,21 +662,6 @@ export default {
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
 }
-/* .botao-perfis {
-  background-color: #0055af !important;
-  border-color: #0055af !important;
-  max-width: 60px;
-}
-.botao-perfis:hover {
-  background-color: #0079fa !important;
-  border-color: #0079fa !important;
-}
-.botao-perfis:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-} */
-
 .titulo {
   font-size: 25px;
   font-weight: normal;
@@ -706,7 +712,6 @@ table {
   height: calc(100vh - 95px);
 }
 tbody {
-  /*top: 23px;*/
   max-height: 100%;
   width: 100%;
 }
@@ -734,6 +739,7 @@ button {
   height: max-content;
   margin-right: 15px;
   margin-top: 5px;
+  transition: all 0.3s ease 0s;
 }
 i.fas,
 i.far {

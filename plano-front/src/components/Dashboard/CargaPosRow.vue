@@ -115,12 +115,6 @@ export default {
         "apelido"
       );
     }
-    // // Meu codigo
-    // Programa:function(){
-    //     return this.programa.filter((carga.programa)=>{
-    //         return carga.programa.match(this.search)
-    //     }
-    // },
   }
 };
 </script>
