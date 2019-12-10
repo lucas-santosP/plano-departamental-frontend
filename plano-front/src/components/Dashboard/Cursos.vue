@@ -21,10 +21,10 @@
               class="sticky"
             >
               <th scope="col">
-                <p class="p-header" style="width:300px!important;">Nome</p>
+                <p class="p-header" @click="toggleOrderNome()" style="width:300px!important;">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:50px!important;">Código</p>
+                <p class="p-header" @click="toggleOrderCod()" style="width:50px!important;">Código<i v-if="ordenacao=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:50px!important;">Turno</p>
@@ -293,7 +293,8 @@ export default {
     return {
       cursoForm: _.clone(emptyCurso),
       error: undefined,
-      cursoClickado: ""
+      cursoClickado: "",
+      ordenacao: 'posicao'
     };
   },
   created() {
@@ -303,6 +304,18 @@ export default {
     this.selectAll = true;
   },
   methods: {
+    toggleOrderCod () {
+        if(this.ordenacao == 'codigo')
+            this.ordenacao = 'posicao'
+        else
+            this.ordenacao = 'codigo'
+    },
+    toggleOrderNome () {
+        if(this.ordenacao == 'nome')
+            this.ordenacao = 'posicao'
+        else
+            this.ordenacao = 'nome'
+    },
     clickada(f_curso) {
       this.cursoClickado = f_curso;
     },
@@ -438,7 +451,7 @@ export default {
   },
   computed: {
     Cursos() {
-      return this.$store.state.curso.Cursos;
+      return _.orderBy(this.$store.state.curso.Cursos, this.ordenacao);
     },
     CursosAtivos() {
       return this.$store.state.curso.Ativos;

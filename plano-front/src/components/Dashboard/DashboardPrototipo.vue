@@ -138,7 +138,7 @@
                   <table style="max-height:50%; overflow:auto">
                     <tr>
                       <th></th>
-                      <th style="text-align:center" @click="ToggleCodigoOrdering()">Código<i v-if="ordenacaoCurso=='cod'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></b-button></th>
+                      <th style="text-align:center" @click="ToggleCodigoOrdering()">Código<i v-if="ordenacaoCurso=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></b-button></th>
                       <th style="text-align:center" @click="ToggleNomeOrdering()">Nome<i v-if="ordenacaoCurso=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></b-button></th>
                     </tr>
                     <tr v-for="curso in Cursos" :key="'cursoMd'+curso.id">
@@ -269,8 +269,7 @@ export default {
       CursosSelecionados: [],
       PerfisAtivados: [],
       CursosAtivados: [],
-      ordenacaoCurso: 'pos',
-      ordenacao: 'posicao'
+      ordenacaoCurso: 'posicao',
     };
   },
 
@@ -309,25 +308,17 @@ export default {
 
   methods: {
     ToggleCodigoOrdering () {
-      if(this.ordenacaoCurso === 'cod') {
-        this.ordenacaoCurso = 'pos'
-        this.Cursos = 'posicao'
-      }
-      else {
-        this.ordenacaoCurso = 'cod'
-        this.Cursos = 'codigo'
-      }
+      if(this.ordenacaoCurso === 'codigo')
+        this.ordenacaoCurso = 'posicao'
+      else
+        this.ordenacaoCurso = 'codigo'
     },
 
     ToggleNomeOrdering () {
-      if(this.ordenacaoCurso === 'nome') {
-        this.ordenacaoCurso = 'pos'
-        this.Cursos = 'posicao'
-      }
-      else {
+      if(this.ordenacaoCurso === 'nome')
+        this.ordenacaoCurso = 'posicao'
+      else
         this.ordenacaoCurso = 'nome'
-        this.Cursos = 'nome'
-      }
     },
 
     btnOK() {
@@ -348,7 +339,7 @@ export default {
     btnOKCursos() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.CursosAtivados = [...this.CursosSelecionados];
-      this.CursosAtivados = _.orderBy(this.CursosAtivados, this.ordenacao)
+      this.CursosAtivados = _.orderBy(this.CursosAtivados, this.ordenacaoCurso)
       this.$refs.CursosModal.hide();
     },
     selectAllCursos() {
@@ -534,15 +525,8 @@ export default {
   },
 
   computed: {
-    Cursos: {
-        get: function () {
-            return _.orderBy(this.$store.state.curso.Cursos, this.ordenacao);
-        },
-
-        set: function (ordem) {
-            this.ordenacao = ordem
-        }
-
+    Cursos() {
+      return _.orderBy(this.$store.state.curso.Cursos, this.ordenacaoCurso);
     },
 
     CursosAtivos() {
