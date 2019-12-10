@@ -46,11 +46,8 @@
           </div>
 
           <div class="col-3">
-            
-            <button
-              class="btn btn-sm btn-info mt-3"
-              @click="showCard = !showCard"
-            >{{showCard ? "Cancelar":"Adicionar Grade"}}</button>
+            <!-- fazer um modal pra adicionar nova grade -->
+            <button class="btn btn-sm btn-success mt-3">Nova Grade</button>
           </div>
         </div>
         <!-- Final Forms Curso e Grande -->
@@ -130,31 +127,14 @@
         <template v-if="isEdit">
           <div class="card ml-auto mr-2">
             <div class="card-header">
-              <h1 class="card-title">Editar Disciplina</h1>
+              <h1 class="card-title">Editar Grade e Disciplina</h1>
             </div>
 
             <div class="card-body">
               <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
 
               <form>
-                <div class="form-group mb-1">
-                  <button
-                    type="button"
-                    title="Salvar Grade"
-                    class="addbtn"
-                    v-on:click.prevent="editGrade"
-                    :key="1"
-                  ><i class="fas fa-check"></i></button>
-                  <button
-                    type="button"
-                    title="Excluir Grade"
-                    class="delbtn"
-                    v-on:click.prevent="deleteGrade"
-                    :key="3"
-                  ><i class="far fa-trash-alt"></i></button>
-                </div>
-
-                <div class="row mb-1 mx-0">
+                <div class="row mb-2 mx-0">
                   <div class="form-group m-0 mr-4 px-0">
                     <label for="nome" class="col-form-label">Nome</label>
                     <input
@@ -176,7 +156,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-1 mx-0">
+                <div class="row mb-2 mx-0">
                   <div class="form-group m-0 col px-0">
                     <label for="curso" class="col-form-label">Curso</label>
                     <select
@@ -194,30 +174,120 @@
                   </div>
                 </div>
 
+                <div class="form-group mb-2">
+                  <button
+                    type="button"
+                    title="Salvar Grade"
+                    class="addbtn"
+                    v-on:click.prevent="editGrade"
+                    :key="1"
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button
+                    type="button"
+                    title="Excluir Grade"
+                    class="delbtn"
+                    v-on:click.prevent="deleteGrade"
+                    :key="3"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </div>
+
+                <div class="w-100 border-bottom mb-2"></div>
+
+                <div class="row mb-2 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="disciplina" class="mr-2 col-form-label">Disciplina</label>
+                    <select
+                      type="text"
+                      class="selectMaior2 form-control form-control-sm"
+                      id="disciplina"
+                      v-model="disciplinaGradeForm.Disciplina"
+                    >
+                      <option
+                        v-if="Disciplinas.length===0"
+                        type="text"
+                        value
+                      >Nenhuma Disciplina Encontrada</option>
+                      <option
+                        v-else
+                        v-for="disciplina in Disciplinas"
+                        :key="disciplina.id"
+                        :value="disciplina.id"
+                      >{{disciplina.nome}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-2 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="periodoDisciplina" class="col-form-label">Período</label>
+
+                    <div style="display: flex">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm inputMenor2"
+                        aria-describedby="button-edit-periodo"
+                        id="periodoDisciplina"
+                        v-model="disciplinaGradeForm.periodo"
+                      />
+
+                      <button
+                        type="button"
+                        title="Editar Período"
+                        class="editbtn"
+                        style="margin-top: -1px"
+                        v-on:click.prevent="editDisciplinaGrade"
+                        :key="4"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="row mb-0 mt-3 mx-0">
                   <div style="display: flex; margin-right: 0; margin-left: auto">
                     <button
                       type="button"
-                      title="Adicionar"
+                      title="Adicionar à Grade"
                       class="addbtn"
-                      v-on:click.prevent="addGrade"
-                      :key="1"
-                    ><i class="fas fa-plus"></i></button>
+                      v-on:click.prevent="addDisciplinaGrade"
+                      :key="4"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      title="Deletar Disciplina"
+                      class="delbtn"
+                      v-on:click.prevent="deleteDisciplinaGrade"
+                      v-on:click="clearClick()"
+                      :key="4"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+
                     <button
                       type="button"
                       title="Cancelar"
                       class="cancelbtn"
-                      v-on:click.prevent="cleanGrade"
+                      v-on:click.prevent="cleanDisciplina"
                       v-on:click="clearClick()"
                       :key="2"
-                    ><i class="fas fa-times"></i></button>
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
         </template>
-        <template v-else-if="isEdit">
+        <template v-if="asdas">
           <div class="card ml-auto mr-2">
             <div class="card-header">
               <h1 class="card-title">Editar Grade</h1>
@@ -234,14 +304,18 @@
                     class="addbtn"
                     v-on:click.prevent="editGrade"
                     :key="1"
-                  ><i class="fas fa-check"></i></button>
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
                   <button
                     type="button"
                     title="Excluir"
                     class="delbtn"
                     v-on:click.prevent="deleteGrade"
                     :key="3"
-                  ><i class="far fa-trash-alt"></i></button>
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
                 </div>
 
                 <div class="row mb-1 mx-0">
@@ -323,15 +397,17 @@
                           id="periodoDisciplina"
                           v-model="disciplinaGradeForm.periodo"
                         />
-                        
-                          <button
-                            type="button"
-                            title="Editar Período"
-                            class="editbtn"
-                            style="margin-top: -1px"
-                            v-on:click.prevent="editDisciplinaGrade"
-                            :key="4"
-                          ><i class="fas fa-edit"></i></button>
+
+                        <button
+                          type="button"
+                          title="Editar Período"
+                          class="editbtn"
+                          style="margin-top: -1px"
+                          v-on:click.prevent="editDisciplinaGrade"
+                          :key="4"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -344,7 +420,9 @@
                         class="addbtn"
                         v-on:click.prevent="addDisciplinaGrade"
                         :key="4"
-                      ><i class="fas fa-plus"></i></button>
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
 
                       <button
                         type="button"
@@ -353,7 +431,9 @@
                         v-on:click.prevent="deleteDisciplinaGrade"
                         v-on:click="clearClick()"
                         :key="4"
-                      ><i class="far fa-trash-alt"></i></button>
+                      >
+                        <i class="far fa-trash-alt"></i>
+                      </button>
 
                       <button
                         type="button"
@@ -362,7 +442,9 @@
                         v-on:click.prevent="cleanDisciplina"
                         v-on:click="clearClick()"
                         :key="2"
-                      ><i class="fas fa-times"></i></button>
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
                     </div>
                   </div>
                 </template>
@@ -601,7 +683,7 @@ export default {
   margin: 0;
 }
 
-/* .btn {
+.btn {
   height: 25px;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
@@ -612,6 +694,7 @@ export default {
   font-size: 12px;
   padding: 0 5px 0 5px;
 }
+/*
 .btn-salvar {
   color: black;
   background-color: #bde0ff !important;
