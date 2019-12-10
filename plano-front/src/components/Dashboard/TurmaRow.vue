@@ -114,14 +114,12 @@
         </div>
     </td>
 
-    <template v-for="curso in Cursos">
-      <template v-if="CursosAtivos[curso.id]">
+    <template v-for="curso in cursos">
         <td :key="curso.id">
           <template v-for="(pedido, index) in Pedidos" v-if="pedido.Curso===curso.id">
             <turmaPedido :key="index" v-bind:index="index" v-bind:turma="turma"></turmaPedido>
           </template>
         </td>
-      </template>
     </template>
   </div>
 </template>
@@ -149,7 +147,8 @@ export default {
   name: "TurmaRow",
   props: {
     turma: Object,
-    perfil: Object
+    perfil: Object,
+    cursos: Array
   },
 
   data() {

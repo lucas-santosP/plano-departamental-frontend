@@ -31,8 +31,7 @@
     <th scope="col">
       <p style="width:32px !important;">Total</p>
     </th>
-    <template v-for="curso in Cursos">
-      <template v-if="CursosAtivos[curso.id]">
+    <template v-for="curso in cursos">
         <th :key="curso.id" :id="'curso'+curso.id">
           <p
             v-bind:class="{'cursoGrande':big(curso.codigo)}"
@@ -57,7 +56,6 @@
           >2º - {{curso.alunosEntrada2}}</p>
           <p style="font-size: 11px">{{curso.nome}}</p>
         </b-popover>
-      </template>
     </template>
   </div>
 </template>
@@ -67,6 +65,10 @@ import _ from "lodash";
 export default {
   name: "TurmaHeader",
 
+  props: {
+    cursos: Array
+  },
+
   methods: {
     big(nome) {
       if (nome.length > 4) return true;
@@ -74,15 +76,6 @@ export default {
     }
   },
 
-  computed: {
-    Cursos() {
-      return _.orderBy(this.$store.state.curso.Cursos, "posicao");
-    },
-
-    CursosAtivos() {
-      return this.$store.state.curso.Ativos;
-    }
-  }
 };
 </script>
 
