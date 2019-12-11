@@ -376,7 +376,7 @@ table {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
   font-size: 11px;
-  background-color: #f5f1f148;
+  background-color: white;
   margin: 0;
   
 }

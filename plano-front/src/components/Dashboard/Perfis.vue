@@ -365,7 +365,7 @@ table {
   overflow-x: auto;
   height: auto;
   font-size: 11px;
-  background-color: #f5f1f148;
+  background-color: white;
   margin: 0;
 }
 tbody {
