@@ -11,7 +11,7 @@
     <!-- Grid Esquerdo -->
     <div class="divTable">
       <!-- Inicio da Tabela -->
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
             <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
@@ -449,7 +449,6 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -463,7 +462,7 @@ table {
   overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);

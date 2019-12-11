@@ -11,7 +11,7 @@
 
     <div class="divTable">
       <!-- Inicio da Tabela -->
-      <table class="table table-hover table-sm table-bordered">
+      <table class="table table-hover table-sm border">
         <thead class="thead-light">
           <tr>
             <div style="width: 157px;" class="sticky">
@@ -362,7 +362,6 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -377,7 +376,7 @@ table {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
   font-size: 11px;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0;
   
 }

@@ -13,7 +13,7 @@
 
     <!-- Inicio da Tabela -->
     <div class="p-0 divTable">
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover table-sm">
         <thead class="thead-light">
           <tr>
             <div style="width: 416px " class="sticky">
@@ -24,7 +24,7 @@
                 <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">Apelido<i v-if="ordenacao=='apelido'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 42px">Ativo</p>
+                <p class="p-header" style="width: 45px">Ativo</p>
               </th>
             </div>
           </tr>
@@ -46,7 +46,7 @@
                   <p style="width: 130px">{{docente.apelido}}</p>
                 </td>
                 <td>
-                  <div style="width: 42px">
+                  <div style="width: 45px">
                     <input
                       class="form-check-input position-static noHover"
                       v-on:click.prevent="showDocentes(docente, DocentePerfis)"
@@ -129,8 +129,8 @@
             <div class="border-bottom my-2"></div>
             <div class="row mb-3 mx-0">
               <div
-                class="form-group col m-0 px-0 border border-secondary"
-                style="height: 250px"
+                class="form-group col m-0 px-0 border"
+                style="height: 250px; border-color: rgba(0,0,0,0.125);"
               >
                 <div
                   class="alert p-1 alert-secondary m-0 text-center rounded-0 w-100"
@@ -448,7 +448,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: 1px solid rgba(0,0,0,0.125);
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -462,7 +462,7 @@ table {
   overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);

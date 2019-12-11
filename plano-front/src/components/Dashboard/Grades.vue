@@ -60,8 +60,8 @@
       <!-- Grind esquerdo -->
       <div class="col mr-2 px-0">
         <!-- Inicio da tabela -->
-        <div class="divTable ml-0 mt-3 pl-0 pr-0">
-          <table class="table table-sm table-bordered table-hover">
+        <div class="divTable ml-0 mt-3 pl-0 pr-0 border">
+          <table class="table table-sm table-hover">
             <thead class="thead-light">
               <tr>
                 <div
@@ -72,7 +72,7 @@
                     <p class="p-header" style="width: 32px">P.</p>
                   </th>
                   <th scope="col">
-                    <p class="p-header" style="width: 400px">Disciplina</p>
+                    <p class="p-header" style="width: 403px">Disciplina</p>
                   </th>
                 </div>
               </tr>
@@ -614,17 +614,17 @@ input {
   height: -webkit-max-content !important;
   height: -moz-max-content !important;
   height: max-content !important;
-  border: #808080 solid 2px !important;
   width: -webkit-max-content !important;
   width: -moz-max-content !important;
   width: max-content !important;
 }
 table {
   display: block !important;
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0 !important;
   height: -webkit-calc(100vh - 150px);
   height: -moz-calc(100vh - 150px);

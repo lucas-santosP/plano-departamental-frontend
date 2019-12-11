@@ -11,7 +11,7 @@
     <!-- Grid Esquerdo -->
     <div class="divTable">
       <!-- Inicio da Tabela -->
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
             <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
@@ -22,7 +22,7 @@
                 <p style="width: 90px" @click="toggleOrderAbreviacao" class="p-header">Abreviação<i v-if="ordenacao=='abreviacao'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
-                <p style="width: 40px;" class="p-header">Cor</p>
+                <p style="width: 42px;" class="p-header">Cor</p>
               </th>
             </div>
           </tr>
@@ -43,7 +43,7 @@
                   <p style="width: 90px">{{perfil.abreviacao}}</p>
                 </td>
                 <td>
-                  <div style="padding-left: 2px; width: 40px">
+                  <div style="padding-left: 2px; width: 42px">
                     <input
                       type="color"
                       style="width: 30px; padding: 0;vertical-align:middle; margin-top:2px"
@@ -352,7 +352,6 @@ input[type="text"] {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -366,7 +365,7 @@ table {
   overflow-x: auto;
   height: auto;
   font-size: 11px;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0;
 }
 tbody {

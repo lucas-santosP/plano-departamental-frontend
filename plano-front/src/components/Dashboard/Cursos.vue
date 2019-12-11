@@ -518,7 +518,7 @@ export default {
 }
 .divTable {
   overflow: auto;
-  border: #808080 solid 2px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -531,7 +531,7 @@ table {
   overflow-y: scroll !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: #f5f1f148;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
