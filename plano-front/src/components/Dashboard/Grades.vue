@@ -46,9 +46,83 @@
           </div>
 
           <div class="col-3">
-            <!-- fazer um modal pra adicionar nova grade -->
-            <button class="btn btn-sm btn-success mt-3">Adicionar Nova Grade</button>
+            <button
+              type="button"
+              title="Nova Grade"
+              class="addbtn mt-3"
+              v-b-modal.modalNovaGrade
+              v-on:click.prevent="cleanNewGrade()"
+            >
+              <i class="fas fa-plus"></i>
+            </button>
           </div>
+
+          <b-modal
+            id="modalNovaGrade"
+            ref="modalGrade"
+            scrollable
+            title="Nova Grade"
+            style="font-size:12px!important;"
+            size="sm"
+          >
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 px-0">
+                <label for="nome" class="col-form-label">Nome</label>
+                <input
+                  type="text"
+                  class="inputMenor form-control form-control-sm"
+                  id="nome"
+                  v-model="gradeNewForm.nome"
+                />
+              </div>
+
+              <div class="form-group col m-0 px-0">
+                <label for="periodoInicio" class="col-form-label">Período de Início</label>
+                <input
+                  type="text"
+                  class="inputMenor form-control form-control-sm col"
+                  id="periodoInicio"
+                  v-model="gradeNewForm.periodoInicio"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 px-0">
+                <label for="curso" class="col-form-label">Curso</label>
+                <select
+                  type="text"
+                  class="form-control form-control-sm selectMaior"
+                  id="curso"
+                  v-model="gradeNewForm.Curso"
+                >
+                  <option value="4">Ciência da Computação Diurno</option>
+                  <option value="1">Ciência da Computação Noturno</option>
+                  <option value="3">Sistemas de Informação</option>
+                  <option value="2">Engenharia Computacional</option>
+                </select>
+              </div>
+            </div>
+
+            <div slot="modal-footer">
+              <button
+                type="button"
+                title="Adicionar Grade"
+                class="addbtn"
+                v-on:click.prevent=" addGrade(), btnOkModal()"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                type="button"
+                title="Cancelar"
+                class="cancelbtn"
+                v-on:click.prevent="cleanNewGrade()"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </b-modal>
         </div>
         <!-- Final Forms Curso e Grande -->
       </div>
@@ -315,6 +389,7 @@ export default {
   data() {
     return {
       gradeForm: _.clone(emptyGrade),
+      gradeNewForm: _.clone(emptyGrade),
       disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
       error: undefined,
       currentGrade: undefined,
@@ -325,6 +400,10 @@ export default {
     };
   },
   methods: {
+    btnOkModal() {
+      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
+      this.$refs.modalGrade.hide();
+    },
     clickada(discip) {
       this.disciplinaClickada = discip;
     },
@@ -332,6 +411,7 @@ export default {
       this.disciplinaClickada = "";
     },
     addGrade() {
+      this.gradeForm = this.gradeNewForm;
       gradeService
         .create(this.gradeForm)
         .then(response => {
@@ -390,8 +470,12 @@ export default {
       this.gradeForm = _.clone(emptyGrade);
       this.error = undefined;
     },
+    cleanNewGrade() {
+      this.gradeNewForm = _.clone(emptyGrade);
+    },
     cleanDisciplina() {
-      this.disciplinaGradeForm = _.clone(emptyDisciplinaGrade);
+      this.disciplinaGradeForm.periodo = undefined;
+      this.disciplinaGradeForm.Disciplina = undefined;
     },
     showGrade(grade) {
       this.cleanGrade();
@@ -403,9 +487,11 @@ export default {
         "id",
         this.currentGrade
       ]);
+
       this.showGrade(grade);
     },
     addDisciplinaGrade() {
+      console.log(this.disciplinaGradeForm);
       disciplinaGradeService
         .create(this.disciplinaGradeForm)
         .then(response => {
@@ -567,6 +653,7 @@ select {
   padding: 0px 5px 0px 5px !important;
   min-width: 100px;
   max-width: 100px;
+  text-align: center;
 }
 .selectMenor {
   min-width: 80px;
@@ -706,7 +793,6 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
-
 }
 i.fas,
 i.far {
@@ -772,5 +858,19 @@ i.far {
   .card {
     margin-left: 0px !important;
   }
+}
+.modal-header {
+  background-color: rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+header {
+  text-align: center;
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
 }
 </style>

@@ -634,12 +634,8 @@ export default {
   padding-left: 0.3em;
 }
 .nav li {
-  /*
-  border-bottom: #fafafa 0px solid;
-  border-top: #fafafa 0px solid;
-  */
-  margin-top: 0.3px;
-  margin-bottom: 0.3px;
+  border-bottom: #fafafa 0.3px solid;
+  border-top: #fafafa 0.3px solid;
 }
 .nav li:hover {
   background-color: #0079fa;

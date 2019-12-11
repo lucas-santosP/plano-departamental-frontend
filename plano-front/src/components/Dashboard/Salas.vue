@@ -66,15 +66,10 @@
     </div>
 
     <!-- Grid Direito -->
-    <div class="div-card col-lg-5 col-md-5 col-sm-5 col-6 mb-2 ml-auto p-0">
+    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-5 col-sm-5 col-6">
       <div class="card ml-auto mr-4">
         <div class="card-header">
-          <template v-if="isEdit">
-            <h1 class="card-title">Editar Sala</h1>
-          </template>
-          <template v-else>
-            <h1 class="card-title">Adicionar Sala</h1>
-          </template>
+          <h1 class="card-title">Editar Sala</h1>
         </div>
 
         <div class="card-body">
@@ -110,8 +105,8 @@
             </div>
 
             <div class="row mb-0 mt-3 mx-0">
-              <template v-if="isEdit">
-                <div class="d-flex mr-0 ml-auto">
+              <div class="d-flex mr-0 ml-auto">
+                <template v-if="isEdit">
                   <button
                     type="button"
                     title="Editar"
@@ -139,11 +134,9 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
+                </template>
 
-              <template v-else>
-                <div class="d-flex mr-0 ml-auto">
+                <template v-else>
                   <button
                     type="button"
                     title="Adicionar"
@@ -162,8 +155,8 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
+                </template>
+              </div>
             </div>
           </form>
         </div>
@@ -362,7 +355,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: rgba(0, 0, 0, 0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -379,7 +372,6 @@ table {
   font-size: 11px;
   background-color: #f5f5f5;
   margin: 0;
-  
 }
 tbody {
   max-height: 100%;
@@ -460,7 +452,6 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
-
 }
 i.fas,
 i.far {

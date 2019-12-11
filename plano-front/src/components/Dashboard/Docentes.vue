@@ -18,10 +18,24 @@
           <tr>
             <div style="width: 416px " class="sticky">
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px">
+                  Nome
+                  <i
+                    v-if="ordenacao=='nome'"
+                    style="font-size:0.6rem"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">Apelido<i v-if="ordenacao=='apelido'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">
+                  Apelido
+                  <i
+                    v-if="ordenacao=='apelido'"
+                    style="font-size:0.6rem"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 42px">Ativo</p>
@@ -128,10 +142,7 @@
 
             <div class="border-bottom my-2"></div>
             <div class="row mb-3 mx-0">
-              <div
-                class="form-group col m-0 px-0 border border-secondary"
-                style="height: 250px"
-              >
+              <div class="form-group col m-0 px-0 border border-secondary" style="height: 250px">
                 <div
                   class="alert p-1 alert-secondary m-0 text-center rounded-0 w-100"
                   role="alert"
@@ -259,17 +270,17 @@ export default {
       error: undefined,
       docentePerfil: _.clone(emptyPerfil),
       docenteClickado: "",
-      ordenacao: 'nome'
+      ordenacao: "nome"
     };
   },
 
   methods: {
-   toggleOrdenacaoNome(){
-     this.ordenacao = 'nome'
-   },
-   toggleOrdenacaoApelido(){
-     this.ordenacao = 'apelido'
-   },
+    toggleOrdenacaoNome() {
+      this.ordenacao = "nome";
+    },
+    toggleOrdenacaoApelido() {
+      this.ordenacao = "apelido";
+    },
 
     addDocente() {
       docenteService
@@ -448,7 +459,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: rgba(0, 0, 0, 0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -594,7 +605,6 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
-
 }
 i.fas,
 i.far {

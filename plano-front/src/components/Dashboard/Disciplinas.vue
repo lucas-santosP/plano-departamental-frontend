@@ -16,10 +16,32 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
               <th scope="col">
-                <p style="width: 300px;" @click="toggleOrderNome()" class="p-header">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p
+                  @click="toggleOrderNome()"
+                  style="width: 300px; cursor: pointer; text-algin: start!important"
+                  class="p-header"
+                >
+                  Nome
+                  <i
+                    v-if="ordenacao=='nome'"
+                    style="font-size:0.6rem; text-align:right"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
-                <p style="width: 82px;" @click="toggleOrderCodigo()" class="p-header">Código<i v-if="ordenacao=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p
+                  style="width: 82px; cursor: pointer;"
+                  @click="toggleOrderCodigo()"
+                  class="p-header"
+                >
+                  Código
+                  <i
+                    v-if="ordenacao=='codigo'"
+                    style="font-size:0.6rem"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
                 <p style="width: 30px;" class="p-header" title="Carga Teórica">C. T.</p>
@@ -93,12 +115,7 @@
     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
       <div class="card ml-auto mr-3">
         <div class="card-header">
-          <template v-if="isEdit">
-            <h2 class="card-title">Editar Disciplina</h2>
-          </template>
-          <template v-else>
-            <h2 class="card-title">Adicionar Disciplina</h2>
-          </template>
+          <h2 class="card-title">Disciplina</h2>
         </div>
 
         <div class="card-body">
@@ -129,6 +146,7 @@
                   v-model="disciplinaForm.codigo"
                 />
               </div>
+
               <div class="form-group m-0 col px-0 text-center">
                 <label for="cargaTeorica" class="col-form-label">Carga Teórica</label>
                 <input
@@ -172,8 +190,8 @@
               </div>
             </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 px-0">
+            <div class="row mb-2 mt-3 mx-0">
+              <div class="form-group col m-0 px-0">
                 <div class="form-check">
                   <input
                     type="checkbox"
@@ -188,9 +206,9 @@
               </div>
             </div>
 
-            <div class="row mb-0 mt-2 mx-0">
-              <template v-if="isEdit">
-                <div style="display: flex; margin-right: 0; margin-left: auto">
+            <div class="row mb-0 mt-3 mx-0">
+              <div class="d-flex mr-0 ml-auto">
+                <template v-if="isEdit">
                   <button
                     type="button"
                     title="Editar"
@@ -218,11 +236,9 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
+                </template>
 
-              <template v-else>
-                <div style="display: flex; margin-right: 0; margin-left: auto">
+                <template v-else>
                   <button
                     type="button"
                     title="Adicionar"
@@ -241,8 +257,8 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
+                </template>
+              </div>
             </div>
           </form>
         </div>
@@ -274,16 +290,16 @@ export default {
       disciplinaForm: _.clone(emptyDisciplina),
       error: undefined,
       disciplinaClickada: "",
-      ordenacao: 'nome'
+      ordenacao: "nome"
     };
   },
 
   methods: {
     toggleOrderNome() {
-      this.ordenacao = 'nome'
+      this.ordenacao = "nome";
     },
     toggleOrderCodigo() {
-      this.ordenacao = 'codigo'
+      this.ordenacao = "codigo";
     },
     clickada(discip) {
       this.disciplinaClickada = discip;
@@ -374,7 +390,10 @@ export default {
 
   computed: {
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, this.ordenacao);
+      return _.orderBy(
+        this.$store.state.disciplina.Disciplinas,
+        this.ordenacao
+      );
     },
 
     Perfis() {
@@ -448,7 +467,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: rgba(0, 0, 0, 0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -570,7 +589,6 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
-
 }
 i.fas,
 i.far {

@@ -16,10 +16,24 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
               <th scope="col">
-                <p style="width: 350px" @click="toggleOrderNome" class="p-header">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p style="width: 350px" @click="toggleOrderNome" class="p-header">
+                  Nome
+                  <i
+                    v-if="ordenacao=='nome'"
+                    style="font-size:0.6rem"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
-                <p style="width: 90px" @click="toggleOrderAbreviacao" class="p-header">Abreviação<i v-if="ordenacao=='abreviacao'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p style="width: 90px" @click="toggleOrderAbreviacao" class="p-header">
+                  Abreviação
+                  <i
+                    v-if="ordenacao=='abreviacao'"
+                    style="font-size:0.6rem"
+                    class="fas fa-arrow-down fa-sm"
+                  ></i>
+                </p>
               </th>
               <th scope="col">
                 <p style="width: 40px;" class="p-header">Cor</p>
@@ -71,12 +85,7 @@
     <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-12 col-sm-12 col-12">
       <div class="card ml-auto mr-4">
         <div class="card-header">
-          <template v-if="isEdit">
-            <h2 class="card-title">Editar Perfil</h2>
-          </template>
-          <template v-else>
-            <h2 class="card-title">Adicionar Perfil</h2>
-          </template>
+          <h2 class="card-title">Perfil</h2>
         </div>
 
         <div class="card-body">
@@ -117,10 +126,9 @@
               </div>
             </div>
 
-
-            <div class="form-group row">
-              <template v-if="isEdit">
-                <div style="display: flex; margin-right: 0; margin-left: auto">
+            <div class="row mb-0 mt-3 mx-0">
+              <div class="d-flex mr-0 ml-auto">
+                <template v-if="isEdit">
                   <button
                     type="button"
                     title="Editar"
@@ -148,10 +156,8 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
-              <template v-else>
-                <div style="display: flex; margin-right: 0; margin-left: auto">
+                </template>
+                <template v-else>
                   <button
                     type="button"
                     title="Adicionar"
@@ -170,8 +176,8 @@
                   >
                     <i class="fas fa-times"></i>
                   </button>
-                </div>
-              </template>
+                </template>
+              </div>
             </div>
           </form>
         </div>
@@ -200,22 +206,18 @@ export default {
       perfilForm: _.clone(emptyPerfil),
       error: undefined,
       perfilClickado: "",
-      ordenacao: ''
+      ordenacao: ""
     };
   },
 
   methods: {
     toggleOrderNome() {
-      if(this.ordenacao == 'nome')
-        this.ordenacao = ''
-      else
-        this.ordenacao = 'nome'
+      if (this.ordenacao == "nome") this.ordenacao = "";
+      else this.ordenacao = "nome";
     },
     toggleOrderAbreviacao() {
-      if(this.ordenacao == 'abreviacao')
-        this.ordenacao = ''
-      else
-        this.ordenacao = 'abreviacao'
+      if (this.ordenacao == "abreviacao") this.ordenacao = "";
+      else this.ordenacao = "abreviacao";
     },
 
     clickada(f_perfil) {
@@ -352,7 +354,7 @@ input[type="text"] {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
+  border: rgba(0, 0, 0, 0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -470,7 +472,6 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
-
 }
 i.fas,
 i.far {

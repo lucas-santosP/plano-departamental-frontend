@@ -10,14 +10,18 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="form-control form-control-sm mt-1" v-model="periodos">
+            <select
+              class="form-control form-control-sm mt-1"
+              v-model="periodos"
+              v-on:change="CreditoTotal_PGMC, CreditoTotal_PGCC, CreditoTotal_PGEM"
+            >
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
             </select>
             <div class="input-group-append mt-1 mr-4">
               <div class="input-group-append">
-                <label class="input-group-text">Semestre</label>
+                <label class="input-group-text">Trimestre</label>
               </div>
             </div>
 
@@ -81,15 +85,13 @@
 
     <div class="row p-0 m-0">
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert p-0 alert-dark m-0 text-center rounded-0" role="alert">
+        <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col px-1 alert-p m-0">
-              <b>PGMC</b>
-            </p>
-
-            <p class="p-header">{{CreditoTotal_PGMC}}</p>
-            <!--<p class="col-2 px-1 m-0 text-left">{{CreditoTotal_PGMC}}</p>
-            -->
+            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGMC</p>
+            <p class="p-0 m-0 border" style="width:58px" id="credsPGMC">{{CreditoTotal_PGMC}}</p>
+            <b-popover target="credsPGMC" placement="bottom" triggers="hover focus">
+              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
+            </b-popover>
           </div>
         </div>
 
@@ -111,7 +113,6 @@
                 </th>
                 <th scope="col">
                   <p class="p-header" style="width:40px!important;">C.</p>
-                  
                 </th>
               </div>
             </tr>
@@ -122,14 +123,14 @@
               <tr class="isAdd">
                 <div style="width: 330px;">
                   <td>
-                    <div style="width:24px; height:40px"></div>
+                    <div style="width:24px; height:25px"></div>
                   </td>
 
                   <td>
                     <div style="width:24px;">
                       <input
                         type="text"
-                        style="width: 15px; text-align: center;"
+                        style="width: 20px; height:16px;"
                         id="trimestre"
                         v-model="cargaPosForm.trimestre"
                       />
@@ -214,9 +215,15 @@
       </div>
 
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
-          <b>PGCC</b>
-          - Total de créditos: {{CreditoTotal_PGCC}}
+        <div class="alert p-0 alert-dark m-0 text-center rounded-0" role="alert">
+          <div class="row m-0">
+            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGCC</p>
+            <p class="p-0 m-0 border" style="width:58px" id="credsPGCC">{{CreditoTotal_PGCC}}</p>
+
+            <b-popover target="credsPGCC" placement="bottom" triggers="hover focus">
+              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
+            </b-popover>
+          </div>
         </div>
 
         <table class="table table-hover table-bordered table-sm">
@@ -275,9 +282,14 @@
       </div>
 
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert p-1 alert-dark m-0 text-center rounded-0" role="alert">
-          <b>PGEM</b>
-          - Total de créditos: {{CreditoTotal_PGEM}}
+        <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
+          <div class="row m-0">
+            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGEM</p>
+            <p class="p-0 m-0 border" style="width:58px" id="credsPGEM">{{CreditoTotal_PGEM}}</p>
+            <b-popover target="credsPGEM" placement="bottom" triggers="hover focus">
+              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
+            </b-popover>
+          </div>
         </div>
 
         <table class="table table-hover table-bordered table-sm">
@@ -447,15 +459,33 @@ export default {
       for (var t = 1; t <= 4; t++) {
         for (let k = 0; k < this.Docentes.length; k++) {
           for (let i = 0; i < this.CargasPGMC.length; i++) {
-            if (
-              this.CargasPGMC[i].Docente === this.Docentes[k].id &&
-              this.CargasPGMC[i].trimestre == t &&
-              ((this.CargasPGMC[i].trimestre == 1 ||
-                this.CargasPGMC[i].trimestre == 2 ||
-                this.CargasPGMC[i].trimestre == 3) &&
-                (this.periodos == 1 || this.periodos == 3))
-            ) {
-              total += this.CargasPGMC[i].creditos;
+            if (this.periodos == 1) {
+              if (
+                this.CargasPGMC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGMC[i].trimestre == t &&
+                (this.CargasPGMC[i].trimestre == 1 ||
+                  this.CargasPGMC[i].trimestre == 2)
+              ) {
+                total += this.CargasPGMC[i].creditos;
+              }
+            } else if (this.periodos == 2) {
+              if (
+                this.CargasPGMC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGMC[i].trimestre == t &&
+                this.CargasPGMC[i].trimestre == 3
+              ) {
+                total += this.CargasPGMC[i].creditos;
+              }
+            } else if (this.periodos == 3) {
+              if (
+                this.CargasPGMC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGMC[i].trimestre == t &&
+                (this.CargasPGCC[i].trimestre == 1 ||
+                  this.CargasPGCC[i].trimestre == 2 ||
+                  this.CargasPGCC[i].trimestre == 3)
+              ) {
+                total += this.CargasPGMC[i].creditos;
+              }
             }
           }
         }
@@ -468,15 +498,33 @@ export default {
       for (var t = 1; t <= 4; t++) {
         for (let k = 0; k < this.Docentes.length; k++) {
           for (let i = 0; i < this.CargasPGCC.length; i++) {
-            if (
-              this.CargasPGCC[i].Docente === this.Docentes[k].id &&
-              this.CargasPGCC[i].trimestre == t &&
-              ((this.CargasPGCC[i].trimestre == 1 ||
-                this.CargasPGCC[i].trimestre == 2 ||
-                this.CargasPGCC[i].trimestre == 3) &&
-                (this.periodos == 1 || this.periodos == 3))
-            ) {
-              total += this.CargasPGCC[i].creditos;
+            if (this.periodos == 1) {
+              if (
+                this.CargasPGCC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGCC[i].trimestre == t &&
+                (this.CargasPGCC[i].trimestre == 1 ||
+                  this.CargasPGCC[i].trimestre == 2)
+              ) {
+                total += this.CargasPGCC[i].creditos;
+              }
+            } else if (this.periodos == 2) {
+              if (
+                this.CargasPGCC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGCC[i].trimestre == t &&
+                this.CargasPGCC[i].trimestre == 3
+              ) {
+                total += this.CargasPGCC[i].creditos;
+              }
+            } else if (this.periodos == 3) {
+              if (
+                this.CargasPGCC[i].Docente === this.Docentes[k].id &&
+                this.CargasPGCC[i].trimestre == t &&
+                (this.CargasPGCC[i].trimestre == 1 ||
+                  this.CargasPGCC[i].trimestre == 2 ||
+                  this.CargasPGCC[i].trimestre == 3)
+              ) {
+                total += this.CargasPGCC[i].creditos;
+              }
             }
           }
         }
@@ -489,15 +537,33 @@ export default {
       for (var t = 1; t <= 4; t++) {
         for (let k = 0; k < this.Docentes.length; k++) {
           for (let i = 0; i < this.CargasPGEM.length; i++) {
-            if (
-              this.CargasPGEM[i].Docente === this.Docentes[k].id &&
-              this.CargasPGEM[i].trimestre == t &&
-              ((this.CargasPGEM[i].trimestre == 1 ||
-                this.CargasPGEM[i].trimestre == 2 ||
-                this.CargasPGEM[i].trimestre == 3) &&
-                (this.periodos == 1 || this.periodos == 3))
-            ) {
-              total += this.CargasPGEM[i].creditos;
+            if (this.periodos == 1) {
+              if (
+                this.CargasPGEM[i].Docente === this.Docentes[k].id &&
+                this.CargasPGEM[i].trimestre == t &&
+                (this.CargasPGEM[i].trimestre == 1 ||
+                  this.CargasPGEM[i].trimestre == 2)
+              ) {
+                total += this.CargasPGEM[i].creditos;
+              }
+            } else if (this.periodos == 2) {
+              if (
+                this.CargasPGEM[i].Docente === this.Docentes[k].id &&
+                this.CargasPGEM[i].trimestre == t &&
+                this.CargasPGEM[i].trimestre == 3
+              ) {
+                total += this.CargasPGEM[i].creditos;
+              }
+            } else if (this.periodos == 3) {
+              if (
+                this.CargasPGEM[i].Docente === this.Docentes[k].id &&
+                this.CargasPGEM[i].trimestre == t &&
+                (this.CargasPGCC[i].trimestre == 1 ||
+                  this.CargasPGCC[i].trimestre == 2 ||
+                  this.CargasPGCC[i].trimestre == 3)
+              ) {
+                total += this.CargasPGEM[i].creditos;
+              }
             }
           }
         }
@@ -591,7 +657,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: rgba(0,0,0,0.125) solid 1px;
+  border: rgba(0, 0, 0, 0.125) solid 1px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -607,9 +673,9 @@ table {
   font-weight: normal !important;
   background-color: #f5f5f5;
   margin: 0 !important;
-  height: -webkit-calc(100vh - 120px);
-  height: -moz-calc(100vh - 120px);
-  height: calc(100vh - 120px);
+  height: -webkit-calc(100vh - 110px);
+  height: -moz-calc(100vh - 110px);
+  height: calc(100vh - 110px);
 }
 tbody {
   max-height: 100%;
@@ -619,10 +685,13 @@ table td {
   text-align: center;
   vertical-align: middle;
   padding: 0 !important;
+  height: 25px;
 }
 table p {
   margin-bottom: 0;
   text-align: center;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 tr thead {
   display: block;
@@ -634,7 +703,7 @@ thead th {
   height: 18px !important;
 }
 table select {
-  height: 15px !important;
+  height: 18px !important;
   text-align: left;
 }
 table input {
@@ -642,10 +711,10 @@ table input {
   text-align: center !important;
 }
 .isAdd {
-  background-color: rgb(150, 150, 150);
+  background-color: rgba(0, 0, 0, 0.125);
 }
 .isAdd:hover {
-  background-color: rgb(180, 180, 180);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* APENAS NO FIREFOX */
@@ -864,7 +933,8 @@ i.far {
 .alert-p {
   padding: 0;
 }
-.alert{
-  background-color: rgba(0,0,0,0.125)!important;
+.alert {
+  background-color: #e9ecef !important;
+  border: none;
 }
 </style>
