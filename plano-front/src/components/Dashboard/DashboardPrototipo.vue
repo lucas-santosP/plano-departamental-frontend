@@ -21,20 +21,11 @@
               </div>
             </div>
 
-            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
-            <b-button v-b-modal.modalCursos title="Cursos" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn"><i class="fas fa-filter"></i></b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
-                <button
-                  type="button"
-                  title="Cancelar"
-                  class="cancelbtn"
-                  style="max-width:80px;"
-                  v-on:click.prevent="toggleAdd"
-                >
-                  <i class="fas fa-times"></i>
-                </button>
                 <button
                   type="button"
                   title="Salvar"
@@ -44,6 +35,16 @@
                 >
                   <i class="fas fa-check"></i>
                 </button>
+                <button
+                  type="button"
+                  title="Cancelar"
+                  class="cancelbtn"
+                  style="max-width:80px;"
+                  v-on:click.prevent="toggleAdd"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              
               </div>
             </template>
 

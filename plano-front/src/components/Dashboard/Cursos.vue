@@ -111,10 +111,10 @@
         >-->
         <div class="card-header">
           <template v-if="isEdit">
-            <h1 class="card-title">Editar Curso</h1>
+            <h1 class="card-title">Curso</h1>
           </template>
           <template v-else>
-            <h1 class="card-title">Adicionar Curso</h1>
+            <h1 class="card-title">Curso</h1>
           </template>
         </div>
 
@@ -201,12 +201,12 @@
                   <!-- Editar -->
                   <button
                     type="button"
-                    class="editbtn"
-                    title="Editar"
+                    class="addbtn"
+                    title="Salvar"
                     v-on:click.prevent="editCurso"
                     :key="1"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-check"></i>
                   </button>
                   <!-- Excluir -->
                   <button
@@ -485,6 +485,7 @@ export default {
   padding-left: 0;
   margin: 0 !important;
 }
+
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -624,13 +625,14 @@ input[type="text"] {
 input[type="radio"] {
   height: 13px !important;
 }
-.cartao {
+.card {
   width: 330px !important;
   height: auto !important;
   padding: 0;
   margin-right: 20px !important;
   margin-left: auto;
   top: -20px !important;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 
 input[type="checkbox"] {
@@ -685,18 +687,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;

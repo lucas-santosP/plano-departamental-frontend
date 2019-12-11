@@ -238,13 +238,13 @@
 
                       <button
                         type="button"
-                        title="Editar Período"
-                        class="editbtn"
+                        title="Salvar"
+                        class="addbtn"
                         style="margin-top: -1px"
                         v-on:click.prevent="editDisciplinaGrade"
                         :key="4"
                       >
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-check"></i>
                       </button>
                     </div>
                   </div>
@@ -550,6 +550,7 @@ export default {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
@@ -739,19 +740,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  cursor: pointer;
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;

@@ -72,10 +72,10 @@
       <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
-            <h2 class="card-title">Editar Perfil</h2>
+            <h2 class="card-title">Perfil</h2>
           </template>
           <template v-else>
-            <h2 class="card-title">Adicionar Perfil</h2>
+            <h2 class="card-title">Perfil</h2>
           </template>
         </div>
 
@@ -123,12 +123,12 @@
                 <div style="display: flex; margin-right: 0; margin-left: auto">
                   <button
                     type="button"
-                    title="Editar"
-                    class="editbtn"
+                    title="Salvar"
+                    class="addbtn"
                     v-on:click.prevent="editPerfil"
                     :key="1"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-check"></i>
                   </button>
                   <button
                     type="button"
@@ -428,6 +428,7 @@ table tbody tr div {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
@@ -502,19 +503,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  cursor: pointer;
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;

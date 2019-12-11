@@ -1053,6 +1053,7 @@
 }
 .card{
   width: 250px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
