@@ -14616,10 +14616,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        4
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       console.log(grades.length);
 
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
@@ -14701,10 +14705,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        1
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -14784,10 +14792,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        3
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -14867,10 +14879,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        2
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15035,10 +15051,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        4
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       console.log(grades.length);
 
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
@@ -15120,10 +15140,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        1
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15203,10 +15227,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        3
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15286,10 +15314,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        2
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
