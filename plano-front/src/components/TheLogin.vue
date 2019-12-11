@@ -128,22 +128,10 @@ export default {
 
 .form-signin input[type="text"] {
   margin-bottom: 10px;
-  /* -webkit-border-bottom-right-radius: 0;
-  -moz-border-radius-bottomright: 0;
-  border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -moz-border-radius-bottomleft: 0;
-  border-bottom-left-radius: 0; */
 }
 
 .form-signin input[type="password"] {
   margin-bottom: 10px;
-  /* -webkit-border-top-left-radius: 0; */
-  /* -moz-border-radius-topleft: 0; */
-  /* border-top-left-radius: 0; */
-  /* -webkit-border-top-right-radius: 0; */
-  /* -moz-border-radius-topright: 0; */
-  /* border-top-right-radius: 0; */
 }
 input{
   height: 28px !important;
@@ -157,8 +145,8 @@ input{
 .card-header{
   min-height: 50px;
   max-height: 50px;
-  background-color: #c4e7f377;
-  border-color: rgb(196, 225, 238);
+  background-color:#DCDCDC;
+  border-color: rgb(209, 209, 209);
 }
 .card-title{
   font-size: 22px;
@@ -166,10 +154,10 @@ input{
   text-transform: uppercase;
 }
 .card-body{
-  background-color: #faf8f8;
+  background-color:#faf8f8;
 }
 .btn{
-  background-color: rgb(157, 224, 255);
+  background-color:#C0C0C0;
   border-radius: 15px;
   color: #262626;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
@@ -178,8 +166,8 @@ input{
   outline: none;
 } 
 .btn:hover{
-  background-color:rgb(82, 193, 245);
-  border-color:rgb(82, 193, 245);
+  background-color:#808080;
+  border-color:#808080;
   box-shadow: 0px 15px 20px rgba(68, 83, 102, 0.4);
   transform: translateY(-3px);
 }
