@@ -24,6 +24,12 @@
             <h4>Ciência da Computação Diurno</h4>
           </template>
           <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+		   <!-- -------------------------------------------- EC ----------------------------------------- -->
+          <template v-if="activeEC">
+            <h4>Engenharia Computacional</h4>
+          </template>
+
+          <curso-diurno :Curso="ativos1.EC"></curso-diurno>
           <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
           <template v-if="activeCCN">
             <h4>Ciência da Computação Noturno</h4>
@@ -36,12 +42,7 @@
           </template>
 
           <curso-noturno :Curso="ativos1.SI"></curso-noturno>
-          <!-- -------------------------------------------- EC ----------------------------------------- -->
-          <template v-if="activeEC">
-            <h4>Engenharia Computacional</h4>
-          </template>
-
-          <curso-diurno :Curso="ativos1.EC"></curso-diurno>
+         
           <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
           <template v-if="activeEletivas">
             <h4>Eletivas</h4>
@@ -58,6 +59,12 @@
           </template>
 
           <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+		   <!-- -------------------------------------------- EC ----------------------------------------- -->
+          <template v-if="activeEC">
+            <h4>Engenharia Computacional</h4>
+          </template>
+
+          <curso-diurno :Curso="ativos2.EC"></curso-diurno>
           <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
           <template v-if="activeCCN">
             <h4>Ciência da Computação Noturno</h4>
@@ -70,12 +77,7 @@
           </template>
 
           <curso-noturno :Curso="ativos2.SI"></curso-noturno>
-          <!-- -------------------------------------------- EC ----------------------------------------- -->
-          <template v-if="activeEC">
-            <h4>Engenharia Computacional</h4>
-          </template>
-
-          <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+         
           <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
           <template v-if="activeEletivas">
             <h4>Eletivas</h4>
@@ -1053,6 +1055,7 @@
 }
 .card{
   width: 250px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
@@ -1117,8 +1120,6 @@ th {
 
 h4 {
   text-align: start !important;
-  margin-bottom: 20px;
-  margin-top: 40px;
   font-size: 12px !important;
   font-weight: bold !important;
 }

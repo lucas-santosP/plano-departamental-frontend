@@ -13,7 +13,7 @@
 
     <!-- Inicio da Tabela -->
     <div class="p-0 divTable">
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover table-sm">
         <thead class="thead-light">
           <tr>
             <div style="width: 416px " class="sticky">
@@ -38,7 +38,7 @@
                 </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 42px">Ativo</p>
+                <p class="p-header" style="width: 45px">Ativo</p>
               </th>
             </div>
           </tr>
@@ -60,7 +60,7 @@
                   <p style="width: 130px">{{docente.apelido}}</p>
                 </td>
                 <td>
-                  <div style="width: 42px">
+                  <div style="width: 45px">
                     <input
                       class="form-check-input position-static noHover"
                       v-on:click.prevent="showDocentes(docente, DocentePerfis)"
@@ -90,10 +90,10 @@
       <div class="card ml-auto mr-4">
         <div class="card-header">
           <template v-if="isEdit">
-            <h1 class="card-title">Editar Docente</h1>
+            <h1 class="card-title">Docente</h1>
           </template>
           <template v-else>
-            <h1 class="card-title">Adicionar Docente</h1>
+            <h1 class="card-title">Docente</h1>
           </template>
         </div>
 
@@ -142,7 +142,10 @@
 
             <div class="border-bottom my-2"></div>
             <div class="row mb-3 mx-0">
-              <div class="form-group col m-0 px-0 border border-secondary" style="height: 250px">
+              <div
+                class="form-group col m-0 px-0 border"
+                style="height: 250px; border-color: rgba(0,0,0,0.125);"
+              >
                 <div
                   class="alert p-1 alert-secondary m-0 text-center rounded-0 w-100"
                   role="alert"
@@ -184,12 +187,12 @@
                 <div style="display: flex; margin-right: 0; margin-left: auto">
                   <button
                     type="button"
-                    title="Editar"
-                    class="editbtn"
+                    title="Salvar"
+                    class="addbtn"
                     v-on:click.prevent="editDocente"
                     :key="1"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-check"></i>
                   </button>
                   <button
                     type="button"
@@ -459,7 +462,7 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: rgba(0, 0, 0, 0.125) solid 1px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -473,7 +476,7 @@ table {
   overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);
@@ -550,6 +553,7 @@ input[type="text"] {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
@@ -636,19 +640,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  cursor: pointer;
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;

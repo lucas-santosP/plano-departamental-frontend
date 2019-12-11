@@ -21,20 +21,11 @@
               </div>
             </div>
 
-            <b-button v-b-modal.modalPerfis title="Perfis" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
-            <b-button v-b-modal.modalCursos title="Cursos" class="relatbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn"><i class="fas fa-list-ul"></i></b-button>
+            <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn"><i class="fas fa-filter"></i></b-button>
 
             <template v-if="isAdd">
               <div style="display: flex">
-                <button
-                  type="button"
-                  title="Cancelar"
-                  class="cancelbtn"
-                  style="max-width:80px;"
-                  v-on:click.prevent="toggleAdd"
-                >
-                  <i class="fas fa-times"></i>
-                </button>
                 <button
                   type="button"
                   title="Salvar"
@@ -44,6 +35,16 @@
                 >
                   <i class="fas fa-check"></i>
                 </button>
+                <button
+                  type="button"
+                  title="Cancelar"
+                  class="cancelbtn"
+                  style="max-width:80px;"
+                  v-on:click.prevent="toggleAdd"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              
               </div>
             </template>
 
@@ -671,9 +672,11 @@ export default {
   position: -webkit-sticky;
   top: 0;
 }
+.table-bordered thead th{
+  border: none;
+}
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -687,7 +690,7 @@ table {
   overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);

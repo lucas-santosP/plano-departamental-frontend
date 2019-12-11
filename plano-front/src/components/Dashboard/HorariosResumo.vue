@@ -8,7 +8,7 @@
     </div>
 
       <div class="w-100 mb-2 border-bottom"></div>
-		<div class="col-12 p-0">
+		<div class="col-12 p-0" style="padding-left: 15px !important;">
       <!-- ----------------------------------------------------------------------------------------------- -->
       <div class="title" style="text-align:center !important;">
         <h3>1º SEMESTRE</h3>
@@ -34,13 +34,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[0]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -48,7 +48,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -56,7 +56,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -64,7 +64,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -72,19 +72,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[0]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -92,7 +92,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -100,7 +100,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -108,7 +108,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -116,19 +116,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[0]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -136,7 +136,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -144,7 +144,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -152,7 +152,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -160,19 +160,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[0]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -180,7 +180,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -188,7 +188,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -196,7 +196,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -204,7 +204,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -215,7 +215,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -224,13 +224,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[1]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -238,7 +238,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -246,7 +246,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -254,7 +254,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -262,19 +262,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[1]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -282,7 +282,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -290,7 +290,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -298,7 +298,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -306,19 +306,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[1]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -326,7 +326,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -334,7 +334,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -342,7 +342,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -350,19 +350,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[1]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -370,7 +370,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -378,7 +378,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -386,7 +386,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -394,7 +394,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -405,7 +405,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -414,13 +414,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[2]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -428,7 +428,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -436,7 +436,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -444,7 +444,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -452,19 +452,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[2]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -472,7 +472,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -480,7 +480,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -488,7 +488,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -496,19 +496,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[2]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -516,7 +516,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -524,7 +524,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -532,7 +532,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -540,19 +540,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[2]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -560,7 +560,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -568,7 +568,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -576,7 +576,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -584,7 +584,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -595,7 +595,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -604,13 +604,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[3]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -618,7 +618,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -626,7 +626,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -634,7 +634,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -642,19 +642,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[3]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -662,7 +662,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -670,7 +670,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -678,7 +678,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -686,19 +686,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[3]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -706,7 +706,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -714,7 +714,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -722,7 +722,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -730,19 +730,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[3]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -750,7 +750,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -758,7 +758,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -766,7 +766,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -774,7 +774,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -785,7 +785,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -794,13 +794,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[4]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -808,7 +808,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -816,7 +816,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -824,7 +824,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -832,19 +832,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[4]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -852,7 +852,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -860,7 +860,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -868,7 +868,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -876,19 +876,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[4]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -896,7 +896,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -904,7 +904,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -912,7 +912,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -920,19 +920,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[4]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -940,7 +940,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -948,7 +948,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -956,7 +956,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -964,7 +964,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -975,7 +975,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -984,13 +984,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[5]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -998,7 +998,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1006,7 +1006,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1014,7 +1014,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1022,19 +1022,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[5]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1042,7 +1042,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1050,7 +1050,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1058,7 +1058,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1066,19 +1066,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[5]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1086,7 +1086,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1094,7 +1094,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1102,7 +1102,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1110,19 +1110,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[5]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1130,7 +1130,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1138,7 +1138,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1146,7 +1146,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1154,7 +1154,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -1165,7 +1165,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -1174,13 +1174,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[6]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1188,7 +1188,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1196,7 +1196,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1204,7 +1204,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1212,19 +1212,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[6]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1232,7 +1232,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1240,7 +1240,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1248,7 +1248,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1256,19 +1256,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[6]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1276,7 +1276,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1284,7 +1284,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1292,7 +1292,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1300,19 +1300,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[6]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1320,7 +1320,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1328,7 +1328,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1336,7 +1336,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1344,7 +1344,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -1355,7 +1355,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -1364,13 +1364,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[7]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1378,7 +1378,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1386,7 +1386,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1394,7 +1394,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1402,19 +1402,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[7]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1422,7 +1422,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1430,7 +1430,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1438,7 +1438,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1446,19 +1446,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[7]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1466,7 +1466,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1474,7 +1474,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1482,7 +1482,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1490,19 +1490,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[7]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1510,7 +1510,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1518,7 +1518,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1526,7 +1526,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1534,7 +1534,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -1545,7 +1545,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -1554,13 +1554,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[8]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1568,7 +1568,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1576,7 +1576,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1584,7 +1584,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1592,19 +1592,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[8]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1612,7 +1612,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1620,7 +1620,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1628,7 +1628,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1636,19 +1636,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[8]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1656,7 +1656,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1664,7 +1664,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1672,7 +1672,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1680,19 +1680,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[8]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1700,7 +1700,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1708,7 +1708,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1716,7 +1716,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1724,7 +1724,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -1735,7 +1735,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -1744,13 +1744,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[9]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1758,7 +1758,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1766,7 +1766,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1774,7 +1774,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1782,19 +1782,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[9]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1802,7 +1802,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1810,7 +1810,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1818,7 +1818,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1826,19 +1826,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[9]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1846,7 +1846,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1854,7 +1854,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1862,7 +1862,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1870,19 +1870,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCD[9]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1890,7 +1890,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1898,7 +1898,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1906,7 +1906,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1914,13 +1914,1919 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
         </table>
       </div>
       <br />
+      <!------------------------------------------------- EC ------------------------------------------------->
+      <div class="title">
+        <h4>
+          <span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span>
+        </h4>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[0])">
+        <h5>1º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[1])">
+        <h5>2º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[2])">
+        <h5>3º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[3])">
+        <h5>4º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>EC
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[4])">
+        <h5>5º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[5])">
+        <h5>6º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>EC
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[6])">
+        <h5>7º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[7])">
+        <h5>8º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[8])">
+        <h5>9º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos1.EC[9])">
+        <h5>10º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
       <div class="title">
@@ -1933,7 +3839,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -1942,13 +3848,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[0]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1956,7 +3862,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1964,7 +3870,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1972,7 +3878,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -1980,19 +3886,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[0]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2000,7 +3906,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2008,7 +3914,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2016,7 +3922,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2024,7 +3930,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2035,7 +3941,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2044,13 +3950,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[1]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2058,7 +3964,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2066,7 +3972,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2074,7 +3980,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2082,19 +3988,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[1]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2102,7 +4008,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2110,7 +4016,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2118,7 +4024,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2126,7 +4032,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2137,7 +4043,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2146,13 +4052,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[2]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2160,7 +4066,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2168,7 +4074,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2176,7 +4082,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2184,19 +4090,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[2]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2204,7 +4110,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2212,7 +4118,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2220,7 +4126,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2228,7 +4134,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2239,7 +4145,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2248,13 +4154,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[3]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2262,7 +4168,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2270,7 +4176,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2278,7 +4184,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2286,19 +4192,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[3]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2306,7 +4212,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2314,7 +4220,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2322,7 +4228,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2330,7 +4236,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2341,7 +4247,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2350,13 +4256,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[4]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2364,7 +4270,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2372,7 +4278,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2380,7 +4286,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2388,19 +4294,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[4]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2408,7 +4314,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2416,7 +4322,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2424,7 +4330,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2432,7 +4338,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2443,7 +4349,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2452,13 +4358,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[5]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2466,7 +4372,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2474,7 +4380,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2482,7 +4388,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2490,19 +4396,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[5]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2510,7 +4416,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2518,7 +4424,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2526,7 +4432,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2534,7 +4440,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2545,7 +4451,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2554,13 +4460,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[6]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2568,7 +4474,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2576,7 +4482,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2584,7 +4490,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2592,19 +4498,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[6]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2612,7 +4518,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2620,7 +4526,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2628,7 +4534,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2636,7 +4542,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2647,7 +4553,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2656,13 +4562,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[7]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2670,7 +4576,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2678,7 +4584,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2686,7 +4592,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2694,19 +4600,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[7]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2714,7 +4620,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2722,7 +4628,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2730,7 +4636,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2738,7 +4644,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2749,7 +4655,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2758,13 +4664,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[8]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2772,7 +4678,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2780,7 +4686,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2788,7 +4694,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2796,19 +4702,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[8]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2816,7 +4722,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2824,7 +4730,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2832,7 +4738,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2840,7 +4746,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2851,7 +4757,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2860,13 +4766,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[9]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2874,7 +4780,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2882,7 +4788,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2890,7 +4796,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2898,19 +4804,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.CCN[9]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2918,7 +4824,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2926,7 +4832,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2934,7 +4840,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2942,7 +4848,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -2961,7 +4867,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -2970,13 +4876,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[0]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2984,7 +4890,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -2992,7 +4898,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3000,7 +4906,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3008,19 +4914,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[0]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3028,7 +4934,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3036,7 +4942,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3044,7 +4950,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3052,7 +4958,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3063,7 +4969,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3072,13 +4978,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[1]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3086,7 +4992,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3094,7 +5000,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3102,7 +5008,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3110,19 +5016,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[1]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3130,7 +5036,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3138,7 +5044,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3146,7 +5052,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3154,7 +5060,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3165,7 +5071,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3174,13 +5080,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[2]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3188,7 +5094,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3196,7 +5102,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3204,7 +5110,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3212,19 +5118,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[2]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3232,7 +5138,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3240,7 +5146,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3248,7 +5154,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3256,7 +5162,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3267,7 +5173,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3276,13 +5182,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[3]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3290,7 +5196,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3298,7 +5204,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3306,7 +5212,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3314,19 +5220,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[3]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3334,7 +5240,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3342,7 +5248,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3350,7 +5256,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3358,7 +5264,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3369,7 +5275,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3378,13 +5284,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[4]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3392,7 +5298,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3400,7 +5306,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3408,7 +5314,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3416,19 +5322,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[4]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3436,7 +5342,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3444,7 +5350,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3452,7 +5358,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3460,7 +5366,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3471,7 +5377,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3480,13 +5386,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[5]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3494,7 +5400,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3502,7 +5408,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3510,7 +5416,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3518,19 +5424,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[5]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3538,7 +5444,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3546,7 +5452,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3554,7 +5460,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3562,7 +5468,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3573,7 +5479,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3582,13 +5488,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[6]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3596,7 +5502,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3604,7 +5510,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3612,7 +5518,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3620,19 +5526,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[6]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3640,7 +5546,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3648,7 +5554,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3656,7 +5562,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3664,7 +5570,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3675,7 +5581,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3684,13 +5590,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[7]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3698,7 +5604,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3706,7 +5612,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3714,7 +5620,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3722,19 +5628,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[7]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3742,7 +5648,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3750,7 +5656,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3758,7 +5664,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3766,7 +5672,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3777,7 +5683,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3786,13 +5692,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[8]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3800,7 +5706,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3808,7 +5714,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3816,7 +5722,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3824,19 +5730,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[8]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3844,7 +5750,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3852,7 +5758,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3860,7 +5766,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3868,7 +5774,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -3879,7 +5785,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -3888,13 +5794,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[9]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3902,7 +5808,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3910,7 +5816,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3918,7 +5824,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3926,19 +5832,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.SI[9]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3946,7 +5852,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3954,7 +5860,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3962,7 +5868,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -3970,1920 +5876,16 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
         </table>
       </div>
 
-      <!-- -------------------------------------------- EC ----------------------------------------- -->
+     
 
-      <div class="title">
-        <h4>
-          <span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span>
-        </h4>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[0])">
-        <h5>1º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[0]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[1])">
-        <h5>2º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[1]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[2])">
-        <h5>3º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[2]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[3])">
-        <h5>4º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>EC
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[3]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[4])">
-        <h5>5º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[4]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[5])">
-        <h5>6º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>EC
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[5]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[6])">
-        <h5>7º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[6]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[7])">
-        <h5>8º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[7]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[8])">
-        <h5>9º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[8]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos1.EC[9])">
-        <h5>10º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos1.EC[9]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
+      
       <div class="title">
         <h4>
           <span style=" border-bottom: 1px solid #cccccc">Eletivas</span>
@@ -5893,7 +5895,7 @@
       <div class="horario" v-if="horarioVazio(ativos1.Eletivas)">
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -5902,13 +5904,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5916,7 +5918,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5924,7 +5926,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5932,7 +5934,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5940,19 +5942,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5960,7 +5962,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}    </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5968,7 +5970,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5976,7 +5978,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -5984,19 +5986,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6004,7 +6006,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6012,7 +6014,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6020,7 +6022,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6028,27 +6030,28 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
+            
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 10)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6056,7 +6059,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6064,7 +6067,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6072,19 +6075,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6092,7 +6095,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6100,7 +6103,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6108,7 +6111,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6116,19 +6119,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos1.Eletivas" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6136,7 +6139,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6144,7 +6147,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6152,7 +6155,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6160,7 +6163,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -6181,7 +6184,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -6190,13 +6193,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[0]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6204,7 +6207,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6212,7 +6215,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6220,7 +6223,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6228,19 +6231,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[0]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6248,7 +6251,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6256,7 +6259,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6264,7 +6267,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6272,19 +6275,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[0]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6292,7 +6295,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6300,7 +6303,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6308,7 +6311,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6316,19 +6319,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[0]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6336,7 +6339,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6344,7 +6347,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6352,7 +6355,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6360,7 +6363,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -6371,7 +6374,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -6380,13 +6383,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[1]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6394,7 +6397,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6402,7 +6405,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6410,7 +6413,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6418,19 +6421,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[1]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6438,7 +6441,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6446,7 +6449,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6454,7 +6457,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6462,19 +6465,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[1]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6482,7 +6485,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6490,7 +6493,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6498,7 +6501,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6506,19 +6509,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[1]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6526,7 +6529,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6534,7 +6537,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6542,7 +6545,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6550,7 +6553,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -6561,7 +6564,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -6570,13 +6573,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[2]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6584,7 +6587,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6592,7 +6595,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6600,7 +6603,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6608,19 +6611,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[2]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6628,7 +6631,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6636,7 +6639,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6644,7 +6647,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6652,19 +6655,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[2]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6672,7 +6675,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6680,7 +6683,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6688,7 +6691,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6696,19 +6699,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[2]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6716,7 +6719,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6724,7 +6727,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6732,7 +6735,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6740,7 +6743,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -6751,7 +6754,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -6760,13 +6763,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[3]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6774,7 +6777,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6782,7 +6785,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6790,7 +6793,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6798,19 +6801,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[3]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6818,7 +6821,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6826,7 +6829,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6834,7 +6837,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6842,19 +6845,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[3]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6862,7 +6865,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6870,7 +6873,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6878,7 +6881,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6886,19 +6889,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[3]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6906,7 +6909,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6914,7 +6917,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6922,7 +6925,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6930,7 +6933,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -6941,7 +6944,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -6950,13 +6953,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[4]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6964,7 +6967,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6972,7 +6975,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6980,7 +6983,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -6988,19 +6991,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[4]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7008,7 +7011,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7016,7 +7019,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7024,7 +7027,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7032,19 +7035,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[4]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7052,7 +7055,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7060,7 +7063,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7068,7 +7071,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7076,19 +7079,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[4]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7096,7 +7099,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7104,7 +7107,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7112,7 +7115,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7120,7 +7123,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -7131,7 +7134,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -7140,13 +7143,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[5]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7154,7 +7157,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7162,7 +7165,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7170,7 +7173,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7178,19 +7181,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[5]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7198,7 +7201,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7206,7 +7209,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7214,7 +7217,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7222,19 +7225,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[5]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7242,7 +7245,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7250,7 +7253,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7258,7 +7261,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7266,19 +7269,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[5]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7286,7 +7289,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7294,7 +7297,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7302,7 +7305,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7310,7 +7313,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -7321,7 +7324,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -7330,13 +7333,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[6]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7344,7 +7347,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7352,7 +7355,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7360,7 +7363,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7368,19 +7371,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[6]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7388,7 +7391,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7396,7 +7399,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7404,7 +7407,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7412,19 +7415,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[6]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7432,7 +7435,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7440,7 +7443,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7448,7 +7451,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7456,19 +7459,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[6]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7476,7 +7479,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7484,7 +7487,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7492,7 +7495,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7500,7 +7503,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -7511,7 +7514,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -7520,13 +7523,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[7]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7534,7 +7537,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7542,7 +7545,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7550,7 +7553,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7558,19 +7561,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[7]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7578,7 +7581,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7586,7 +7589,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7594,7 +7597,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7602,19 +7605,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[7]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7622,7 +7625,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7630,7 +7633,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7638,7 +7641,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7646,19 +7649,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[7]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7666,7 +7669,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7674,7 +7677,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7682,7 +7685,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7690,7 +7693,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -7701,7 +7704,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -7710,13 +7713,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[8]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7724,7 +7727,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7732,7 +7735,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7740,7 +7743,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7748,19 +7751,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[8]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7768,7 +7771,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7776,7 +7779,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7784,7 +7787,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7792,19 +7795,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[8]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7812,7 +7815,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7820,7 +7823,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7828,7 +7831,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7836,19 +7839,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[8]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7856,7 +7859,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7864,7 +7867,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7872,7 +7875,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7880,7 +7883,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -7891,7 +7894,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -7900,13 +7903,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[9]" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7914,7 +7917,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7922,7 +7925,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7930,7 +7933,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7938,19 +7941,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[9]" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7958,7 +7961,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7966,7 +7969,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7974,7 +7977,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -7982,19 +7985,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[9]" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8002,7 +8005,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8010,7 +8013,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8018,7 +8021,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8026,19 +8029,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCD[9]" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8046,7 +8049,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8054,7 +8057,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8062,7 +8065,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8070,13 +8073,1921 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+        
+        <!---------------------------------------- EC ---------------------------------------->
+        
+      <div class="title title-hide">
+        <h4>
+          <span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span>
+        </h4>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[0])">
+        <h5>1º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
         </table>
       </div>
 
+      <div class="horario" v-if="horarioVazio(ativos2.EC[1])">
+        <h5>2º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[2])">
+        <h5>3º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[3])">
+        <h5>4º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[4])">
+        <h5>5º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[5])">
+        <h5>6º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[6])">
+        <h5>7º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[7])">
+        <h5>8º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[8])">
+        <h5>9º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="horario" v-if="horarioVazio(ativos2.EC[9])">
+        <h5>10º Período</h5>
+        <table class="tg tabela">
+          <tr>
+            <th class="tg-0lax">Horário</th>
+            <th class="tg-0lax">Seg</th>
+            <th class="tg-0lax">Ter</th>
+            <th class="tg-0lax">Qua</th>
+            <th class="tg-0lax">Qui</th>
+            <th class="tg-0lax">Sex</th>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">08-10</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 1)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 7)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 13)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 19)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 25)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">10-12</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 2)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 8)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 14)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 20)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 26)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">14-16</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 3)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 9)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 15)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 21)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 27)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="tg-0lax tg-hor">16-18</td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 4)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 10)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 16)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 22)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+            <td class="tg-0lax">
+              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 28)">
+                <template
+                  v-for="disciplina in Disciplinas"
+                  v-if="turma.Disciplina === disciplina.id"
+                >{{disciplina.codigo}}  </template>
+              </template>
+            </td>
+          </tr>
+        </table>
+      </div>
+     
       <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
       <div class="title title-hide">
         <h4>
@@ -8088,7 +9999,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8097,13 +10008,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[0]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8111,7 +10022,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8119,7 +10030,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8127,7 +10038,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8135,19 +10046,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[0]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8155,7 +10066,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8163,7 +10074,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8171,7 +10082,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8179,7 +10090,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8190,7 +10101,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8199,13 +10110,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[1]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8213,7 +10124,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8221,7 +10132,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8229,7 +10140,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8237,19 +10148,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[1]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8257,7 +10168,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8265,7 +10176,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8273,7 +10184,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8281,7 +10192,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8292,7 +10203,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8301,13 +10212,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[2]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8315,7 +10226,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8323,7 +10234,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8331,7 +10242,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8339,19 +10250,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[2]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8359,7 +10270,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8367,7 +10278,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8375,7 +10286,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8383,7 +10294,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8394,7 +10305,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8403,13 +10314,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[3]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8417,7 +10328,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8425,7 +10336,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8433,7 +10344,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8441,19 +10352,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[3]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8461,7 +10372,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8469,7 +10380,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8477,7 +10388,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8485,7 +10396,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8496,7 +10407,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8505,13 +10416,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[4]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8519,7 +10430,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8527,7 +10438,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8535,7 +10446,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8543,19 +10454,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[4]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8563,7 +10474,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8571,7 +10482,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8579,7 +10490,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8587,7 +10498,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8598,7 +10509,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8607,13 +10518,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[5]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8621,7 +10532,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8629,7 +10540,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8637,7 +10548,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8645,19 +10556,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[5]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8665,7 +10576,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8673,7 +10584,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8681,7 +10592,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8689,7 +10600,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8700,7 +10611,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8709,13 +10620,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[6]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8723,7 +10634,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8731,7 +10642,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8739,7 +10650,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8747,19 +10658,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[6]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8767,7 +10678,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8775,7 +10686,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8783,7 +10694,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8791,7 +10702,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8802,7 +10713,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8811,13 +10722,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[7]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8825,7 +10736,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8833,7 +10744,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8841,7 +10752,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8849,19 +10760,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[7]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8869,7 +10780,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8877,7 +10788,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8885,7 +10796,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8893,7 +10804,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -8904,7 +10815,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -8913,13 +10824,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[8]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8927,7 +10838,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8935,7 +10846,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8943,7 +10854,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8951,19 +10862,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[8]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8971,7 +10882,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8979,7 +10890,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8987,7 +10898,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -8995,7 +10906,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9006,7 +10917,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9015,13 +10926,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[9]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9029,7 +10940,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9037,7 +10948,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9045,7 +10956,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9053,19 +10964,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.CCN[9]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9073,7 +10984,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9081,7 +10992,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9089,7 +11000,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9097,7 +11008,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9116,7 +11027,7 @@
         <h5>1º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9125,13 +11036,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[0]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9139,7 +11050,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9147,7 +11058,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9155,7 +11066,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9163,19 +11074,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[0]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9183,7 +11094,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9191,7 +11102,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9199,7 +11110,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9207,7 +11118,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9218,7 +11129,7 @@
         <h5>2º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9227,13 +11138,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[1]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9241,7 +11152,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9249,7 +11160,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9257,7 +11168,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9265,19 +11176,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[1]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9285,7 +11196,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9293,7 +11204,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9301,7 +11212,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9309,7 +11220,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9320,7 +11231,7 @@
         <h5>3º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9329,13 +11240,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[2]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9343,7 +11254,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9351,7 +11262,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9359,7 +11270,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9367,19 +11278,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[2]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9387,7 +11298,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9395,7 +11306,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9403,7 +11314,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9411,7 +11322,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9422,7 +11333,7 @@
         <h5>4º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9431,13 +11342,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[3]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9445,7 +11356,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9453,7 +11364,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9461,7 +11372,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9469,19 +11380,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[3]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9489,7 +11400,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9497,7 +11408,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9505,7 +11416,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9513,7 +11424,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9524,7 +11435,7 @@
         <h5>5º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9533,13 +11444,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[4]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9547,7 +11458,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9555,7 +11466,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9563,7 +11474,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9571,19 +11482,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[4]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9591,7 +11502,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9599,7 +11510,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9607,7 +11518,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9615,7 +11526,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9626,7 +11537,7 @@
         <h5>6º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9635,13 +11546,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[5]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9649,7 +11560,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9657,7 +11568,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9665,7 +11576,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9673,19 +11584,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[5]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9693,7 +11604,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9701,7 +11612,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9709,7 +11620,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9717,7 +11628,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9728,7 +11639,7 @@
         <h5>7º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9737,13 +11648,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[6]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9751,7 +11662,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9759,7 +11670,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9767,7 +11678,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9775,19 +11686,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[6]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9795,7 +11706,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9803,7 +11714,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9811,7 +11722,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9819,7 +11730,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9830,7 +11741,7 @@
         <h5>8º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9839,13 +11750,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[7]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9853,7 +11764,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9861,7 +11772,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9869,7 +11780,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9877,19 +11788,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[7]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9897,7 +11808,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9905,7 +11816,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9913,7 +11824,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9921,7 +11832,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -9932,7 +11843,7 @@
         <h5>9º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -9941,13 +11852,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[8]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9955,7 +11866,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9963,7 +11874,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9971,7 +11882,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9979,19 +11890,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[8]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -9999,7 +11910,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10007,7 +11918,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10015,7 +11926,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10023,7 +11934,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -10034,7 +11945,7 @@
         <h5>10º Período</h5>
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -10043,13 +11954,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[9]" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10057,7 +11968,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10065,7 +11976,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10073,7 +11984,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10081,19 +11992,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[9]" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10101,7 +12012,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10109,7 +12020,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -10117,1938 +12028,33 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
+            
             <td class="tg-0lax">
               <template v-for="turma in ativos2.SI[9]" v-if="checkTurmaHorario(turma, 30)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
         </table>
       </div>
 
-      <!-- -------------------------------------------- EC ----------------------------------------- -->
-
+      
       <div class="title title-hide">
-        <h4>
-          <span style=" border-bottom: 1px solid #cccccc">Engenharia Computacional</span>
-        </h4>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[0])">
-        <h5>1º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[0]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[1])">
-        <h5>2º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[1]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[2])">
-        <h5>3º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[2]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[3])">
-        <h5>4º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[3]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[4])">
-        <h5>5º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[4]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[5])">
-        <h5>6º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[5]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[6])">
-        <h5>7º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[6]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[7])">
-        <h5>8º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[7]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[8])">
-        <h5>9º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[8]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="horario" v-if="horarioVazio(ativos2.EC[9])">
-        <h5>10º Período</h5>
-        <table class="tg tabela">
-          <tr>
-            <th class="tg-0lax">hora</th>
-            <th class="tg-0lax">Seg</th>
-            <th class="tg-0lax">Ter</th>
-            <th class="tg-0lax">Qua</th>
-            <th class="tg-0lax">Qui</th>
-            <th class="tg-0lax">Sex</th>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">08-10</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 1)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 7)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 13)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 19)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 25)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">10-12</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 2)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 8)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 14)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 20)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 26)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">14-16</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 3)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 9)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 15)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 21)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 27)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="tg-0lax">16-18</td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 4)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 10)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 16)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 22)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-            <td class="tg-0lax">
-              <template v-for="turma in ativos2.EC[9]" v-if="checkTurmaHorario(turma, 28)">
-                <template
-                  v-for="disciplina in Disciplinas"
-                  v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
-              </template>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="title title-hide">
-        <h4>
-          <span style=" border-bottom: 1px solid #cccccc">Eletivas</span>
-        </h4>
-      </div>
+          <h4>
+            <span style=" border-bottom: 1px solid #cccccc">Eletivas</span>
+          </h4>
+        </div>
 
       <div class="horario" v-if="horarioVazio(ativos2.Eletivas)">
         <table class="tg tabela">
           <tr>
-            <th class="tg-0lax">hora</th>
+            <th class="tg-0lax">Horário</th>
             <th class="tg-0lax">Seg</th>
             <th class="tg-0lax">Ter</th>
             <th class="tg-0lax">Qua</th>
@@ -12057,13 +12063,13 @@
           </tr>
 
           <tr>
-            <td class="tg-0lax">08-10</td>
+            <td class="tg-0lax tg-hor">08-10</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 1)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12071,7 +12077,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12079,7 +12085,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12087,7 +12093,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12095,19 +12101,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">10-12</td>
+            <td class="tg-0lax tg-hor">10-12</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 2)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12115,7 +12121,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12123,7 +12129,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12131,7 +12137,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12139,19 +12145,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">14-16</td>
+            <td class="tg-0lax tg-hor">14-16</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 3)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12159,7 +12165,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12167,7 +12173,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12175,7 +12181,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12183,19 +12189,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">16-18</td>
+            <td class="tg-0lax tg-hor">16-18</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 4)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12203,7 +12209,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12211,7 +12217,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12219,7 +12225,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12227,19 +12233,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 5)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12247,7 +12253,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12255,7 +12261,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12263,7 +12269,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12271,19 +12277,19 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
 
           <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax">
               <template v-for="turma in ativos2.Eletivas" v-if="checkTurmaHorario(turma, 6)">
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12291,7 +12297,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12299,7 +12305,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12307,7 +12313,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
             <td class="tg-0lax">
@@ -12315,7 +12321,7 @@
                 <template
                   v-for="disciplina in Disciplinas"
                   v-if="turma.Disciplina === disciplina.id"
-                >{{disciplina.codigo}}</template>
+                >{{disciplina.codigo}}  </template>
               </template>
             </td>
           </tr>
@@ -14610,10 +14616,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        4
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       console.log(grades.length);
 
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
@@ -14695,10 +14705,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        1
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -14778,10 +14792,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        3
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -14861,10 +14879,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        2
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15029,10 +15051,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        4
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===4){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       console.log(grades.length);
 
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
@@ -15114,10 +15140,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        1
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===1){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15197,10 +15227,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        3
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===3){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15280,10 +15314,14 @@ export default {
           }
         }
       }
-      pedidosExternos = _.filter(this.$store.state.pedidoExterno.Pedidos, [
-        "Curso",
-        2
-      ]);
+      pedidosExternos = pedidosExternos = []
+      for (let t in this.$store.state.pedidoExterno.Pedidos){
+        for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]){
+          if(this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso===2){
+            pedidosExternos.push(this.$store.state.pedidoExterno.Pedidos[t][pedido])
+          }
+        }
+      }
       for (var i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
@@ -15514,16 +15552,6 @@ export default {
   position: relative;
 }
 
-td {
-  width: 91px !important;
-  text-align: center !important;
-}
-
-th {
-  width: 91px !important;
-  text-align: center !important;
-}
-
 .horario {
   float: left;
 }
@@ -15535,14 +15563,6 @@ th {
   text-align: start !important;
 }
 
-td {
-  width: 65px !important;
-  text-align: center !important;
-}
-
-th {
-  text-align: center !important;
-}
 
 .tg {
   border-collapse: collapse;
@@ -15558,12 +15578,13 @@ th {
   border-style: solid;
   border-width: 1px;
   overflow: hidden;
-  word-break: normal;
+  word-break: break-word;
   border-color: rgba(189, 189, 189, 0.644);
   color: #333;
   background-color: #fff;
 }
-.tg th {
+.tg th, 
+.tg-hor {
   font-family: Arial, sans-serif;
   font-size: 11px;
   font-weight: bold;
@@ -15574,10 +15595,11 @@ th {
   word-break: normal;
   border-color: rgba(189, 189, 189, 0.623);
   color: #333;
-  background-color: #e9ecef;
+  background-color: #e9ecef !important;
 }
 .tg .tg-0lax {
   vertical-align: center;
+  text-align: center;
   height: 22px;
   width: 49px !important;
 }
@@ -15602,7 +15624,7 @@ h5 {
 @media screen and (min-width: 576px) {
   .title {
     text-align: start !important;
-    padding-left: 20px !important;
+    
   }
 }
 @media screen and (max-width: 575px) {

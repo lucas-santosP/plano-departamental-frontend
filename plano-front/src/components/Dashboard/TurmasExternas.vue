@@ -540,7 +540,7 @@ export default {
     Disciplinas() {
       return _.orderBy(
         _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13;
+          return (d.Perfil == 13 || d.Perfil == 15);
         }),
         "nome"
       );
@@ -548,7 +548,7 @@ export default {
     DisciplinasCod() {
       return _.orderBy(
         _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13;
+          return (d.Perfil == 13 || d.Perfil == 15);
         }),
         "codigo"
       );
@@ -674,7 +674,6 @@ export default {
 }
 .divTable {
   overflow: hidden;
-  border: #808080 solid 2px;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -688,7 +687,7 @@ table {
   overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0 !important;
   height: -webkit-calc(100vh - 95px);
   height: -moz-calc(100vh - 95px);

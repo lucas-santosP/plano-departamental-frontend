@@ -11,7 +11,7 @@
     <!-- Grid Esquerdo -->
     <div class="divTable">
       <!-- Inicio da Tabela -->
-      <table class="table table-hover table-bordered table-sm">
+      <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
             <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
@@ -36,7 +36,7 @@
                 </p>
               </th>
               <th scope="col">
-                <p style="width: 40px;" class="p-header">Cor</p>
+                <p style="width: 42px;" class="p-header">Cor</p>
               </th>
             </div>
           </tr>
@@ -57,7 +57,7 @@
                   <p style="width: 90px">{{perfil.abreviacao}}</p>
                 </td>
                 <td>
-                  <div style="padding-left: 2px; width: 40px">
+                  <div style="padding-left: 2px; width: 42px">
                     <input
                       type="color"
                       style="width: 30px; padding: 0;vertical-align:middle; margin-top:2px"
@@ -131,12 +131,12 @@
                 <template v-if="isEdit">
                   <button
                     type="button"
-                    title="Editar"
-                    class="editbtn"
+                    title="Salvar"
+                    class="addbtn"
                     v-on:click.prevent="editPerfil"
                     :key="1"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-check"></i>
                   </button>
                   <button
                     type="button"
@@ -368,7 +368,7 @@ table {
   overflow-x: auto;
   height: auto;
   font-size: 11px;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0;
 }
 tbody {
@@ -430,6 +430,7 @@ table tbody tr div {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {
   font-size: 12px;
@@ -503,19 +504,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  cursor: pointer;
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;

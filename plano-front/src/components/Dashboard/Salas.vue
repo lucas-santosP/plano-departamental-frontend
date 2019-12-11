@@ -11,7 +11,7 @@
 
     <div class="divTable">
       <!-- Inicio da Tabela -->
-      <table class="table table-hover table-sm table-bordered">
+      <table class="table table-hover table-sm border">
         <thead class="thead-light">
           <tr>
             <div style="width: 157px;" class="sticky">
@@ -109,12 +109,12 @@
                 <template v-if="isEdit">
                   <button
                     type="button"
-                    title="Editar"
-                    class="editbtn"
+                    title="Salvar"
+                    class="addbtn"
                     v-on:click.prevent="editSala"
                     :key="1"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-check"></i>
                   </button>
                   <button
                     type="button"
@@ -370,7 +370,7 @@ table {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
   font-size: 11px;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0;
 }
 tbody {
@@ -483,19 +483,7 @@ i.far {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
 }
-.editbtn {
-  background-color: white;
-  color: #ffbe61;
-}
-.editbtn:hover {
-  cursor: pointer;
-  color: #ffb448;
-}
-.editbtn:focus {
-  color: #ffb448;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ffa548;
-}
+
 .delbtn {
   background-color: white;
   color: #ff817b;
