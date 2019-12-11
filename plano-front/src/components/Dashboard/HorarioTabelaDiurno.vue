@@ -10,7 +10,7 @@
             </tr>
 
             <tr>
-                <td class="tg-0lax">08-10</td>
+                <td class="tg-0lax tg-hor">08-10</td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 1)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 7)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 13)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -19,7 +19,7 @@
             </tr>
 
             <tr>
-                <td class="tg-0lax">10-12</td>
+                <td class="tg-0lax tg-hor">10-12</td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 2)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 8)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 14)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -28,7 +28,7 @@
             </tr>
 
             <tr>
-                <td class="tg-0lax">14-16</td>
+                <td class="tg-0lax tg-hor">14-16</td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 3)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 9)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 15)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -37,7 +37,7 @@
             </tr>
 
             <tr>
-                <td class="tg-0lax">16-18</td>
+                <td class="tg-0lax tg-hor">16-18</td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 4)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 10)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
                 <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 16)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -101,10 +101,11 @@
         color:#333;
         background-color:#fff;
     }
-    .tg th{
+    .tg th,
+    .tg-hor {
         font-family:Arial, sans-serif;
-        font-size:10px;
-        font-weight:normal;
+        font-size:11px;
+        font-weight:bold;
         padding:0px;
         border-style:solid;
         border-width:1px;
@@ -112,7 +113,7 @@
         word-break:normal;
         border-color:rgba(189, 189, 189, 0.623);
         color:#333;
-        background-color:#e9ecef;
+        background-color:#e9ecef !important;
     }
     .tg .tg-0lax{
         vertical-align:center;
