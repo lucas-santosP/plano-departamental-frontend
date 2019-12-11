@@ -10,7 +10,7 @@
         </tr>
 
         <tr>
-            <td class="tg-0lax">19-21</td>
+            <td class="tg-0lax tg-hor">19-21</td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 5)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 11)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 17)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -19,7 +19,7 @@
         </tr>
 
         <tr>
-            <td class="tg-0lax">21-23</td>
+            <td class="tg-0lax tg-hor">21-23</td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 6)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 12)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
             <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 18)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
@@ -82,10 +82,11 @@
         color:#333;
         background-color:#fff;
     }
-    .tg th{
+    .tg th,
+    .tg-hor{
         font-family:Arial, sans-serif;
-        font-size:10px;
-        font-weight:normal;
+        font-size:11px;
+        font-weight:bold;
         padding:0px;
         border-style:solid;
         border-width:1px;
@@ -93,7 +94,7 @@
         word-break:normal;
         border-color:rgba(189, 189, 189, 0.623);
         color:#333;
-        background-color:#e9ecef;
+        background-color:#e9ecef !important;
     }
     .tg .tg-0lax{
         vertical-align:center;
