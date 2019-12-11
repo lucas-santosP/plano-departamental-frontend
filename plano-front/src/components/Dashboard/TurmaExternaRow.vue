@@ -28,13 +28,11 @@
 
     <td>
       <div style="width:70px;">
-        <select type="text" style="width:70px;" id="disciplina" v-model="turma.Disciplina"
-          v-on:change="editTurma(turma)">
-          <option v-if="DisciplinasCod.length===0" type="text" value="">Nenhuma Disciplina Encontrada</option>
-          <option v-for="disciplina in DisciplinasCod" :key="disciplina.id" :value="disciplina.id">
+        <template type="text" style="width:70px;" v-for="disciplina in DisciplinasCod">
+          <template v-if="disciplina.id ===  turma.Disciplina">
             {{disciplina.codigo}}
-          </option>
-        </select>
+          </template>
+        </template>
       </div>
     </td>
 
@@ -291,13 +289,13 @@ export default {
 
         Disciplinas() {
             return _.orderBy(_.filter(this.$store.state.disciplina.Disciplinas, function (d) {
-                return d.Perfil == 13
+                return (d.Perfil == 13 || d.Perfil == 15)
             }), 'nome')
         },
 
         DisciplinasCod() {
             return _.orderBy(_.filter(this.$store.state.disciplina.Disciplinas, function (d) {
-                return d.Perfil == 13
+                return (d.Perfil == 13 || d.Perfil == 15)
             }), 'codigo')
         },
 

@@ -540,7 +540,7 @@ export default {
     Disciplinas() {
       return _.orderBy(
         _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13;
+          return (d.Perfil == 13 || d.Perfil == 15);
         }),
         "nome"
       );
@@ -548,7 +548,7 @@ export default {
     DisciplinasCod() {
       return _.orderBy(
         _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13;
+          return (d.Perfil == 13 || d.Perfil == 15);
         }),
         "codigo"
       );
