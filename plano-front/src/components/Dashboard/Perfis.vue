@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="col-12 titulo">Lista Perfis</h1>
+        <h1 class="col-12 titulo">Perfis</h1>
       </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
@@ -16,7 +16,12 @@
           <tr>
             <div style="display: block; overflow: hidden; width: 482px;" class="sticky">
               <th scope="col">
-                <p style="width: 350px; text-align: start; padding-left: 5px" title="Clique para ordenar por nome" @click="toggleOrderNome" class="p-header">
+                <p
+                  style="width: 350px; text-align:start"
+                  title="Clique para ordenar por nome"
+                  @click="toggleOrderNome"
+                  class="p-header clickable-header"
+                >
                   Nome
                   <i
                     v-if="ordenacao=='nome'"
@@ -26,7 +31,12 @@
                 </p>
               </th>
               <th scope="col">
-                <p style="width: 90px" title="Clique para ordenar por abreviação" @click="toggleOrderAbreviacao" class="p-header">
+                <p
+                  style="width: 90px;"
+                  title="Clique para ordenar por abreviação"
+                  @click="toggleOrderAbreviacao"
+                  class="p-header clickable-header"
+                >
                   Abreviação
                   <i
                     v-if="ordenacao=='abreviacao'"
@@ -93,7 +103,7 @@
 
           <form>
             <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 mr-4 px-0">
+              <div class="form-group col m-0 px-0">
                 <label for="nome" class="col-form-label">Nome</label>
                 <input
                   type="text"
@@ -339,10 +349,6 @@ export default {
   padding-left: 0;
   margin: 0 !important;
 }
-input[type="text"] {
-  height: 25px !important;
-  font-size: 11px;
-}
 
 /* Tabela Lucas */
 .p-header {
@@ -363,13 +369,14 @@ input[type="text"] {
   width: max-content;
 }
 table {
-  display: block;
-  overflow-y: hidden;
-  overflow-x: auto;
-  height: auto;
-  font-size: 11px;
+  display: block !important;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
   background-color: white;
-  margin: 0;
+  margin: 0 !important;
+  height: auto!important;
 }
 tbody {
   max-height: 100%;
@@ -402,6 +409,12 @@ table input {
 }
 table tbody tr div {
   height: 22px !important;
+}
+input[type="color"] {
+  background-color: rgb(243, 243, 243);
+}
+table input[type="color"] {
+  padding: 0px 1px 0px 1px !important;
 }
 .sticky {
   display: block !important;
@@ -442,11 +455,16 @@ table tbody tr div {
   text-align: start;
   padding-top: 0 !important;
 }
-input {
+input[type="text"] {
   height: 25px !important;
   padding: 0px 5px 0px 5px !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   text-align: start;
+}
+.card input[type="color"] {
+  padding: 0px 2px 0px 2px !important;
+  font-size: 11px !important;
+  height: 25px !important;
 }
 .inputMenor {
   width: 60px;
@@ -458,8 +476,12 @@ input {
   text-align: center;
 }
 .inputMaior {
-  width: 220px;
+  width: 240px;
   text-align: start;
+}
+.clickable-header {
+  cursor: pointer;
+  padding-left: 5px;
 }
 /* =================== */
 

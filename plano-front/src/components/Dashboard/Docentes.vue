@@ -18,7 +18,12 @@
           <tr>
             <div style="width: 416px " class="sticky">
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px; text-align: start; padding-left: 5px" title="Clique para ordenar por nome">
+                <p
+                  @click="toggleOrdenacaoNome()"
+                  title="Clique para ordenar por nome"
+                  class="p-header clickable-header"
+                  style="width: 240px; text-align: start;"
+                >
                   Nome
                   <i
                     v-if="ordenacao=='nome'"
@@ -28,7 +33,12 @@
                 </p>
               </th>
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px" title="Clique para ordenar por apelido">
+                <p
+                  @click="toggleOrdenacaoApelido()"
+                  title="Clique para ordenar por apelido"
+                  class="p-header clickable-header"
+                  style="width: 130px"
+                >
                   Apelido
                   <i
                     v-if="ordenacao=='apelido'"
@@ -513,10 +523,6 @@ table input {
   height: 11px !important;
   text-align: center !important;
 }
-input[type="text"] {
-  height: 25px !important;
-  font-size: 11px;
-}
 input[type="checkbox"] {
   width: 16px !important;
   height: 14px !important;
@@ -528,7 +534,7 @@ table input[type="checkbox"] {
 }
 input[type="text"] {
   height: 25px !important;
-  font-size: 12px;
+  font-size: 11px!important;
 }
 .sticky {
   display: block !important;
@@ -572,7 +578,7 @@ input[type="text"] {
 input {
   height: 25px !important;
   padding: 0px 5px 0px 5px !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   text-align: start;
 }
 .inputMenor {
@@ -588,6 +594,11 @@ input {
   width: 220px;
   text-align: start;
 }
+.clickable-header {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
 /* =================== */
 .bg-custom {
   background-color: #c8c8c8;

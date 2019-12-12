@@ -38,7 +38,7 @@
               <template v-for="grade in Grades">
                 <option
                   v-if="grade.Curso == currentCurso"
-                  :key="grade.nome"
+                  :key="grade.Curso"
                   :value="grade.id"
                 >{{grade.nome}}</option>
               </template>
@@ -157,16 +157,14 @@
                 <template v-for="grade in Grades">
                   <template v-for="disciplinaGrade in DisciplinaGrades">
                     <tr
+                      :key="disciplinaGrade+grade.periodo"
                       v-if="grade.id===currentGrade"
-                      :key="grade.id+'grade'+disciplinaGrade.periodo+'periodo'"
                     >
                       <div
-                        :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
-                        :key="disciplinaGrade.periodo"
                         style="width: 435px; font-size:11px;"
                       >
                         <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td>
+                          <td :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">
                             <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
                           </td>
 
@@ -205,8 +203,6 @@
             </div>
 
             <div class="card-body">
-              <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-
               <form>
                 <div class="row mb-2 mx-0">
                   <div class="form-group col m-0 mr-4 px-0">
@@ -273,21 +269,18 @@
               </form>
             </div>
           </div>
-        </template>
+    
         <!-- Final card -->
       
       <!-- DISCIPLINAS -->
     
         <!-- Inicio card -->
-        <template v-if="isEdit">
           <div class="card ml-auto mr-4" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;">
             <div class="card-header">
               <h1 class="card-title">Disciplinas</h1>
             </div>
 
             <div class="card-body">
-              <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-
               <form>
                 <!-- Edição de disciplina -->
                 <div class="row mb-2 mx-0">
@@ -307,7 +300,7 @@
                       <option
                         v-else
                         v-for="disciplina in Disciplinas"
-                        :key="disciplina.id"
+                        :key="disciplina.nome"
                         :value="disciplina.id"
                       >{{disciplina.nome}}</option>
                     </select>
@@ -318,7 +311,7 @@
                   <div class="form-group m-0 col px-0">
                     <label for="periodoDisciplina" class="col-form-label">Período</label>
 
-                    <div style="display: flex">
+                    <div class="d-flex">
                       <input
                         type="text"
                         class="form-control form-control-sm inputMenor2"
@@ -357,8 +350,7 @@
                       type="button"
                       title="Deletar Disciplina"
                       class="delbtn"
-                      v-on:click.prevent="deleteDisciplinaGrade"
-                      v-on:click="clearClick()"
+                      v-on:click.prevent="deleteDisciplinaGrade(), clearClick()"
                       :key="4"
                     >
                       <i class="far fa-trash-alt"></i>
@@ -368,8 +360,7 @@
                       type="button"
                       title="Cancelar"
                       class="cancelbtn"
-                      v-on:click.prevent="cleanDisciplina"
-                      v-on:click="clearClick()"
+                      v-on:click.prevent="cleanDisciplina(),clearClick()"
                       :key="2"
                     >
                       <i class="fas fa-times"></i>
@@ -443,10 +434,12 @@ export default {
         })
         .catch(error => {
           this.error = "<b>Erro ao criar Grade</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          });
         });
     },
     editGrade() {
@@ -462,10 +455,12 @@ export default {
         })
         .catch(error => {
           this.error = "<b>Erro ao atualizar Grade</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          });
         });
     },
     deleteGrade() {
@@ -477,11 +472,17 @@ export default {
             group: "general",
             title: `Sucesso!`,
             text: `A Grade ${response.Grade.nome} foi excluída!`,
-            type: "success"
+            type: "warn"
           });
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Grade</b>";
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          });
         });
     },
     cleanGrade() {
@@ -509,7 +510,6 @@ export default {
       this.showGrade(grade);
     },
     addDisciplinaGrade() {
-      console.log(this.disciplinaGradeForm);
       disciplinaGradeService
         .create(this.disciplinaGradeForm)
         .then(response => {
@@ -523,10 +523,12 @@ export default {
         })
         .catch(error => {
           this.error = "<b>Erro ao incluir Disciplina</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          },);
         });
     },
     editDisciplinaGrade() {
@@ -546,10 +548,12 @@ export default {
         })
         .catch(error => {
           this.error = "<b>Erro ao atualizar Disciplina</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          });
         });
     },
     deleteDisciplinaGrade() {
@@ -560,17 +564,23 @@ export default {
           this.disciplinaGradeForm
         )
         .then(response => {
-          this.cleanGrade();
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Disciplina ${response.Disciplina} foi excluída!`,
-            type: "success"
+            type: "warn"
           });
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Disciplina</b>";
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: 'error'
+          });
         });
+        //this.cleanDisciplina();
     },
     showDisciplina: function(disciplinaGrade) {
       this.cleanDisciplina;
@@ -604,7 +614,7 @@ export default {
       );
     },
     isEdit() {
-      return this.gradeForm.id !== undefined;
+      return this.currentGrade !== undefined;
     },
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) {
