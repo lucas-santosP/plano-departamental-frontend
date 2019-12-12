@@ -16,7 +16,7 @@
       <table class="table table-hover table-sm">
         <thead class="thead-light">
           <tr>
-            <div style="width: 416px " class="sticky">
+            <div style="width: 415px " class="sticky">
               <th scope="col">
                 <p
                   @click="toggleOrdenacaoNome()"
@@ -62,7 +62,7 @@
               :class="{'bg-custom':docenteClickado == docente.nome}"
               style="cursor: pointer"
             >
-              <div style="width: 416px">
+              <div style="width: 415px">
                 <td>
                   <p style="width: 240px; text-align: start!important">{{docente.nome}}</p>
                 </td>

@@ -139,7 +139,7 @@
             <thead class="thead-light">
               <tr>
                 <div
-                  style="display: block; overflow: hidden; width: 435px; height:20px !important"
+                  style="display: block; overflow: hidden; width: 434px; height:20px !important"
                   class="sticky"
                 >
                   <th scope="col">
@@ -805,10 +805,10 @@ thead th {
   background-color: #c8c8c8;
 }
 .even {
-  background-color: rgba(0, 85, 175, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .notEven {
-  background-color: rgba(237, 240, 211, 0.8);
+  background-color: white;
 }
 
 /* Botoes */
@@ -865,6 +865,9 @@ i.far {
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
+}
+.div-card{
+  top:-25px;
 }
 @media screen and (max-width: 943px) {
   .div-card {
