@@ -438,6 +438,9 @@ export default {
   margin: 0;
   text-align: center;
 }
+.div-card{
+  top: -15px;
+}
 .card {
   width: -webkit-max-content;
   width: -moz-max-content;

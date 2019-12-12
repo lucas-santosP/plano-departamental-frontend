@@ -717,7 +717,7 @@ table p {
   text-align: center;
 }
 table input {
-  height: 18px;
+  height: 18px !important;
   text-align: center !important;
 }
 table select {

@@ -394,7 +394,7 @@ table {
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
   font-size: 11px;
-  background-color: #f5f5f5;
+  background-color: white;
   margin: 0;
 }
 tbody {
@@ -512,7 +512,7 @@ i.far {
   }
 }
 .prof-td {
-  background-color: rgba(0, 85, 175, 0.2);
+  background-color: rgba(0, 0, 0, 0.089);
   color: black;
 }
 </style>

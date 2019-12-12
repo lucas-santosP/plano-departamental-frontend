@@ -631,7 +631,7 @@ input[type="radio"] {
   padding: 0;
   margin-right: 20px !important;
   margin-left: auto;
-  top: -20px !important;
+  top: -15px !important;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 
