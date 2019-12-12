@@ -21,7 +21,7 @@
               class="sticky"
             >
               <th scope="col">
-                <p class="p-header" @click="toggleOrderNome()" style="width:300px!important;">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
+                <p class="p-header" @click="toggleOrderNome()" style="width:300px!important; text-align: start !important; padding-left: 5px;">Nome<i v-if="ordenacao=='nome'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>
               </th>
               <th scope="col">
                 <p class="p-header" @click="toggleOrderCod()" style="width:50px!important;">Código<i v-if="ordenacao=='codigo'" style="font-size:0.6rem" class="fas fa-arrow-down fa-sm"></i></p>

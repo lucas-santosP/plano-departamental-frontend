@@ -14,9 +14,9 @@
       <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
-            <div style="display: block; overflow: hidden; width: 485px;" class="sticky">
+            <div style="display: block; overflow: hidden; width: 482px;" class="sticky">
               <th scope="col">
-                <p style="width: 350px" @click="toggleOrderNome" class="p-header">
+                <p style="width: 350px; text-align: start; padding-left: 5px" title="Clique para ordenar por nome" @click="toggleOrderNome" class="p-header">
                   Nome
                   <i
                     v-if="ordenacao=='nome'"
@@ -26,7 +26,7 @@
                 </p>
               </th>
               <th scope="col">
-                <p style="width: 90px" @click="toggleOrderAbreviacao" class="p-header">
+                <p style="width: 90px" title="Clique para ordenar por abreviação" @click="toggleOrderAbreviacao" class="p-header">
                   Abreviação
                   <i
                     v-if="ordenacao=='abreviacao'"
@@ -49,7 +49,7 @@
               v-on:click.prevent="showPerfil(perfil), clickada(perfil.nome)"
               :class="{'bg-custom' : perfilClickado === perfil.nome}"
             >
-              <div style="width: 485px">
+              <div style="width: 482px">
                 <td>
                   <p style="width: 350px; text-align: start">{{perfil.nome}}</p>
                 </td>

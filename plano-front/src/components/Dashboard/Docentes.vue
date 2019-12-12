@@ -18,7 +18,7 @@
           <tr>
             <div style="width: 416px " class="sticky">
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px">
+                <p class="p-header" @click="toggleOrdenacaoNome()" style="width: 240px; text-align: start; padding-left: 5px" title="Clique para ordenar por nome">
                   Nome
                   <i
                     v-if="ordenacao=='nome'"
@@ -28,7 +28,7 @@
                 </p>
               </th>
               <th scope="col">
-                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px">
+                <p class="p-header" @click="toggleOrdenacaoApelido()" style="width: 130px" title="Clique para ordenar por apelido">
                   Apelido
                   <i
                     v-if="ordenacao=='apelido'"

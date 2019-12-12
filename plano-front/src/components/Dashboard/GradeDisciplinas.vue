@@ -15,7 +15,7 @@
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
     <div style="height: 80vh; overflow-y: scroll; overflow-x: auto;" ref="mainTable">
-      <table class="table table-hover table-sm">
+      <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
             <th scope="col" style="width: 72px;">

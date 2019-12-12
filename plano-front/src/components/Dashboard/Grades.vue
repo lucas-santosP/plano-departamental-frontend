@@ -196,12 +196,12 @@
       <!-- Fim Grind esquerdo  -->
 
       <!-- Grind direito -->
-      <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12">
+      <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12" >
         <!-- Inicio card -->
         <template v-if="isEdit">
-          <div class="card ml-auto mr-4">
+          <div class="card ml-auto mr-4" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0">
             <div class="card-header">
-              <h1 class="card-title">Editar Grade e Disciplinas</h1>
+              <h1 class="card-title">Grade</h1>
             </div>
 
             <div class="card-body">
@@ -270,8 +270,25 @@
                     </button>
                   </div>
                 </div>
+              </form>
+            </div>
+          </div>
+        </template>
+        <!-- Final card -->
+      
+      <!-- DISCIPLINAS -->
+    
+        <!-- Inicio card -->
+        <template v-if="isEdit">
+          <div class="card ml-auto mr-4" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;">
+            <div class="card-header">
+              <h1 class="card-title">Disciplinas</h1>
+            </div>
 
-                <div class="w-100 border-bottom mb-2 mt-2"></div>
+            <div class="card-body">
+              <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
+
+              <form>
                 <!-- Edição de disciplina -->
                 <div class="row mb-2 mx-0">
                   <div class="form-group m-0 col px-0">
@@ -365,6 +382,7 @@
         </template>
         <!-- Final card -->
       </div>
+      <!-- FIM DA REPETIÇÃO -->
     </div>
   </div>
 </template>
@@ -633,9 +651,7 @@ export default {
   text-align: center;
 }
 .card {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  width: 342px;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-body {

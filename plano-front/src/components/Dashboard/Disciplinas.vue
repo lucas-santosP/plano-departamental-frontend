@@ -14,12 +14,13 @@
       <table class="table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
-            <div style="display: block; overflow: hidden; width: 704px;" class="sticky">
+            <div style="display: block; overflow: hidden; width: 697px;" class="sticky">
               <th scope="col">
                 <p
                   @click="toggleOrderNome()"
-                  style="width: 300px; cursor: pointer; text-algin: start!important"
+                  style="width: 300px; cursor: pointer; text-align: start !important; padding-left: 5px;"
                   class="p-header"
+                  title="Clique para ordenar por nome"
                 >
                   Nome
                   <i
@@ -34,6 +35,7 @@
                   style="width: 82px; cursor: pointer;"
                   @click="toggleOrderCodigo()"
                   class="p-header"
+                  title="Clique para ordenar por código"
                 >
                   Código
                   <i
@@ -66,7 +68,7 @@
               v-on:click.prevent="showDisciplina(disciplina), clickada(disciplina.codigo)"
               :class="{'bg-custom' : disciplinaClickada === disciplina.codigo}"
             >
-              <div style="width: 704px">
+              <div style="width:697px">
                 <td>
                   <p style="width: 300px; text-align: start">{{disciplina.nome}}</p>
                 </td>

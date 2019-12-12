@@ -19,7 +19,7 @@
                 <p class="p-header" style="width: 82px">Nome</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 72px">Laboratório</p>
+                <p class="p-header" style="width: 75px">Laboratório</p>
               </th>
             </div>
           </tr>
@@ -39,7 +39,7 @@
                 </td>
 
                 <td>
-                  <div style="width: 72px">
+                  <div style="width: 75px">
                     <input
                       type="checkbox"
                       class="noHover"
@@ -69,7 +69,7 @@
     <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-5 col-sm-5 col-6">
       <div class="card ml-auto mr-4">
         <div class="card-header">
-          <h1 class="card-title">Editar Sala</h1>
+          <h1 class="card-title">Sala</h1>
         </div>
 
         <div class="card-body">
