@@ -160,9 +160,10 @@
 					 error: undefined,
 					 options: [
 						  {text: "CC Diurno", value:1},
-						  {text: "CC Noturno", value:2},
-						  {text: "SI", value:3},
 						  {text: "Eng. Comp.", value:4},
+						  {text: "CC Noturno", value:2},
+						  {text: "Sis. Informação", value:3},
+						  
 						  {text: "Eletivas", value:5}
 					 ],
 					 evenCCN:"false",
