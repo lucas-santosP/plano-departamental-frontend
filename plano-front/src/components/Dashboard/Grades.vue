@@ -172,7 +172,7 @@
                             <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
                               <td
                                 :key="disciplina.nome"
-                                :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
+                                :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven', { 'bg-custom': disciplinaClickada===disciplina.nome}]"
                                 style="cursor:pointer;"
                                 v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome), showGrade(grade)"
                               >
