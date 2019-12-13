@@ -1,7 +1,9 @@
 <template>
   <div class="DashboardCursos row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+    >
       <div class="form-inline col-12 pl-0 mb-2 pr-1">
         <h1 class="col-12 titulo">Cursos</h1>
       </div>
@@ -64,7 +66,7 @@
           <template v-if="Cursos.length > 0">
             <tr
               v-for="curso in Cursos"
-              :key="curso.nome"
+              :key="curso"
               v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
               :class="{'bg-custom':cursoClickado === curso.codigo}"
             >
@@ -111,7 +113,7 @@
 
     <!-- Grid Direito -->
     <div class="div-card p-0 mt-3 mb-2 col-lg-4 col-md-12 col-sm-12 col-12">
-      <div class="card mr-3">
+      <div class="card mr-3 ml-auto">
         <div class="card-header">
           <h1 class="card-title">Curso</h1>
         </div>
