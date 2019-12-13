@@ -461,8 +461,6 @@ select {
   height: 25px !important;
   font-size: 11px !important;
   padding: 0px 5px 0px 5px !important;
-  min-width: 100px;
-  max-width: 100px;
   text-align: center;
 }
 .selectMenor {
