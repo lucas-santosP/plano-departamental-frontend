@@ -10,16 +10,17 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
-            <select class="form-control form-control-sm mt-1" v-model="periodos">
+            <div class="input-group-append mt-1 ">
+              <div class="input-group-append">
+                <label class="input-group-text">Semestre:</label>
+              </div>
+            </div>
+            <select class="form-control form-control-sm mt-1 mr-5" v-model="periodos">
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
             </select>
-            <div class="input-group-append mt-1 mr-4">
-              <div class="input-group-append">
-                <label class="input-group-text">Semestre</label>
-              </div>
-            </div>
+            
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -655,6 +656,7 @@ export default {
   min-width: 80px;
   max-width: 80px;
   text-align: start;
+  border-radius: 3px !important;
 }
 .input-group-text {
   max-width: 70px;
@@ -663,6 +665,8 @@ export default {
   margin-left: -5px;
   padding-left: 15px;
   font-size: 12px !important;
+  background-color: white;
+  border: none;
 }
 
 .p-header {

@@ -10,8 +10,13 @@
           style="justify-content: flex-end;"
         >
           <div class="input-group mr-0 ml-auto mb-0 mt-0">
+             <div class="input-group-append mt-1">
+              <div class="input-group-append">
+                <label class="input-group-text">Trimestre:</label>
+              </div>
+            </div>
             <select
-              class="form-control form-control-sm mt-1"
+              class="form-control form-control-sm mt-1 mr-5"
               v-model="periodos"
               v-on:change="CreditoTotal_PGMC, CreditoTotal_PGCC, CreditoTotal_PGEM"
             >
@@ -19,11 +24,7 @@
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
             </select>
-            <div class="input-group-append mt-1 mr-4">
-              <div class="input-group-append">
-                <label class="input-group-text">Trimestre</label>
-              </div>
-            </div>
+           
 
             <template v-if="isAdd">
               <div style="display: flex">
@@ -646,6 +647,7 @@ export default {
   min-width: 80px;
   max-width: 80px;
   text-align: start;
+  border-radius: 3px !important;
 }
 .input-group-text {
   max-width: 70px;
@@ -654,6 +656,8 @@ export default {
   margin-left: -5px;
   padding-left: 15px;
   font-size: 12px !important;
+  background-color: white;
+  border: none;
 }
 .divTable {
   overflow: hidden;
