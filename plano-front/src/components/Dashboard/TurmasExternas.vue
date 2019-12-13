@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom" style="margin-top: -3px"></div>
+    <div class="w-100 mb-2 border-bottom"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>

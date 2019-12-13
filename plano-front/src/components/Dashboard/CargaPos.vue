@@ -2,8 +2,8 @@
   <div class="CargaPos row pr-2" style="font-size:11px;">
     <!-- Titulo -->
     <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Creditação Pós</h1>
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4" style="height:34px;">Creditação Pós</h1>
 
         <div
           class="form-group col-xl-10 col-md-9 col-sm-8 col-8 mb-0 pr-0"
@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div class="w-100 mb-2 border-bottom" style="margin-top: -1px"></div>
+    <div class="w-100 mb-2 border-bottom"></div>
 
     <div id="loading" v-if="isLoading">
       <div class="cube1"></div>
