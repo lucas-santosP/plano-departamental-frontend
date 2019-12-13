@@ -110,8 +110,8 @@
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
-      <div class="card ml-auto mr-3">
+    <div class="div-card p-0 mt-3 mb-2 col-lg-4 col-md-12 col-sm-12 col-12">
+      <div class="card mr-3">
         <div class="card-header">
           <h1 class="card-title">Curso</h1>
         </div>
@@ -143,24 +143,26 @@
             </div>
 
             <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 mr-4 px-0">
-                <label for="alunosEntrada" class="col-form-label">Alunos 1º semestre</label>
+              <div class="form-group col-6 m-0 px-0">
+                <label for="alunosEntrada" class="col-form-label">Alunos 1º Sem.</label>
                 <input
                   type="text"
                   class="form-control form-control-sm"
                   id="alunosEnrada"
+                  style="width: 70px;"
                   v-model="cursoForm.alunosEntrada"
                 />
               </div>
-            </div>
+            <!-- </div> -->
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 mr-4 px-0">
-                <label for="alunosEntrada" class="col-form-label">Alunos 2º semestre</label>
+            <!-- <div class="row mb-2 mx-0"> -->
+              <div class="form-group col-6 m-0 px-0">
+                <label for="alunosEntrada" class="col-form-label">Alunos 2º Sem.</label>
                 <input
                   type="text"
                   class="form-control form-control-sm"
                   id="alunosEnrada"
+                  style="width: 70px;"
                   v-model="cursoForm.alunosEntrada2"
                 />
               </div>
@@ -560,6 +562,9 @@ table tbody tr div {
 }
 
 /* ====== CARD ====== */
+.div-card{
+  margin-left: auto !important;
+}
 .card-title {
   font-size: 16px !important;
   font-weight: normal;
@@ -572,6 +577,7 @@ table tbody tr div {
   width: -moz-max-content;
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
 }
 .card-body {
   font-size: 12px;
@@ -688,9 +694,14 @@ i.far {
 }
 
 @media screen and (max-width: 992px) {
-  .cartao {
+  .div-card {
+    margin-left: 0 !important;
     margin-right: auto !important;
     top: 0 !important;
+  }
+  .card{
+    margin-left: 0 !important;
+    margin-right: auto !important;
   }
 }
 </style>
