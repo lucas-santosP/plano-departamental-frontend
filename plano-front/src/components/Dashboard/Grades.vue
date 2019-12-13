@@ -1,8 +1,11 @@
 <template>
   <div class="DashboardGrades row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height:38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Grades</h1>
       </div>
     </div>
@@ -10,9 +13,9 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="row w-100 m-0" style="font-size:11px">
-      <div class="col-12 mr-2 px-0">
+      <div class="col-lg-7 col-md-6 col-sm-12 col-12 m-0 px-0">
         <div class="form-row mx-0">
-          <div class="mr-2">
+          <div class="mr-3">
             <label for="cursoAtual" class="col-form-label py-0">Curso</label>
             <select
               id="cursoAtual"
@@ -27,7 +30,7 @@
             </select>
           </div>
 
-          <div class="col-lg-1 col-md-2 col-sm-2 col-3">
+          <div class="mr-3">
             <label for="gradeAtual" class="col-form-label py-0">Grade</label>
             <select
               id="gradeAtual"
@@ -45,13 +48,13 @@
             </select>
           </div>
 
-          <div class="col-3">
+          <div class="mr-3">
             <button
               type="button"
               title="Nova Grade"
               class="addbtn mt-3"
-              v-b-modal.modalNovaGrade
               v-on:click.prevent="cleanNewGrade()"
+              v-b-modal.modalNovaGrade
             >
               <i class="fas fa-plus"></i>
             </button>
@@ -125,79 +128,77 @@
           </b-modal>
         </div>
         <!-- Final Forms Curso e Grande -->
-      </div>
-    </div>
 
-    <div class="row w-100"></div>
+        <div class="row w-100"></div>
 
-    <div class="row w-100 m-0" style="font-size:11px">
-      <!-- Grind esquerdo -->
-      <div class="col mr-2 px-0">
-        <!-- Inicio da tabela -->
-        <div class="divTable ml-0 mt-3 pl-0 pr-0 border">
-          <table class="table table-sm table-hover">
-            <thead class="thead-light">
-              <tr>
-                <div
-                  style="display: block; overflow: hidden; width: 434px; height:20px !important"
-                  class="sticky"
-                >
-                  <th scope="col">
-                    <p class="p-header" style="width: 32px">P.</p>
-                  </th>
-                  <th scope="col">
-                    <p class="p-header" style="width: 403px">Disciplina</p>
-                  </th>
-                </div>
-              </tr>
-            </thead>
-
-            <tbody>
-              <template v-if="currentGrade!=undefined">
-                <template v-for="grade in Grades">
-                  <template v-for="disciplinaGrade in DisciplinaGrades">
-                    <tr
-                      :key="disciplinaGrade+grade.periodo"
-                      v-if="grade.id===currentGrade"
+        <div class="row w-100 m-0" style="font-size:11px">
+          <!-- Grind esquerdo -->
+          <div class="col mr-2 px-0">
+            <!-- Inicio da tabela -->
+            <div class="divTable ml-0 mt-3 pl-0 pr-0 border">
+              <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <div
+                      style="display: block; overflow: hidden; width: 432px; height:20px !important"
+                      class="sticky"
                     >
-                      <div
-                        style="width: 435px; font-size:11px;"
-                      >
-                        <template v-if="disciplinaGrade.Grade===grade.id">
-                          <td :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">
-                            <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
-                          </td>
+                      <th scope="col">
+                        <p class="p-header" style="width: 32px">P.</p>
+                      </th>
+                      <th scope="col">
+                        <p class="p-header" style="width: 403px">Disciplina</p>
+                      </th>
+                    </div>
+                  </tr>
+                </thead>
 
-                          <template v-for="disciplina in Disciplinas">
-                            <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
-                              <td
-                                :key="disciplina.nome"
-                                :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
-                                style="cursor:pointer;"
-                                v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome), showGrade(grade)"
-                              >
-                                <p style="width: 400px; text-align: start;">{{disciplina.nome}}</p>
+                <tbody>
+                  <template v-if="currentGrade!=undefined">
+                    <template v-for="grade in Grades">
+                      <template v-for="disciplinaGrade in DisciplinaGrades">
+                        <tr :key="disciplinaGrade+grade.periodo" v-if="grade.id===currentGrade">
+                          <div style="width: 432px; font-size:11px;">
+                            <template v-if="disciplinaGrade.Grade===grade.id">
+                              <td :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']">
+                                <p style="width:32px;">{{disciplinaGrade.periodo}}</p>
                               </td>
+
+                              <template v-for="disciplina in Disciplinas">
+                                <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
+                                  <td
+                                    :key="disciplina.nome"
+                                    :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
+                                    style="cursor:pointer;"
+                                    v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome), showGrade(grade)"
+                                  >
+                                    <p style="width: 400px; text-align: start;">{{disciplina.nome}}</p>
+                                  </td>
+                                </template>
+                              </template>
                             </template>
-                          </template>
-                        </template>
-                      </div>
-                    </tr>
+                          </div>
+                        </tr>
+                      </template>
+                    </template>
                   </template>
-                </template>
-              </template>
-            </tbody>
-          </table>
-          <!-- Final da tabela -->
+                </tbody>
+              </table>
+              <!-- Final da tabela -->
+            </div>
+          </div>
         </div>
       </div>
       <!-- Fim Grind esquerdo  -->
 
       <!-- Grind direito -->
-      <div class="div-card p-0 mt-3 mb-2 col-lg-5 col-md-6 col-sm-12 col-12" >
+      <div class="div-card p-0 mt-0 mb-2 col-lg-5 col-md-6 col-sm-12 col-12">
         <!-- Inicio card -->
         <template v-if="isEdit">
-          <div class="card mr-4" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+          <div
+            class="card mr-3 ml-auto"
+            style="border-bottom-left-radius: 0; border-bottom-right-radius: 0"
+          >
             <div class="card-header">
               <h1 class="card-title">Grade</h1>
             </div>
@@ -269,13 +270,16 @@
               </form>
             </div>
           </div>
-    
-        <!-- Final card -->
-      
-      <!-- DISCIPLINAS -->
-    
-        <!-- Inicio card -->
-          <div class="card ml-auto mr-4" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;">
+
+          <!-- Final card -->
+
+          <!-- DISCIPLINAS -->
+
+          <!-- Inicio card -->
+          <div
+            class="card mr-3 ml-auto"
+            style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;"
+          >
             <div class="card-header">
               <h1 class="card-title">Disciplinas</h1>
             </div>
@@ -438,7 +442,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
+            type: "error"
           });
         });
     },
@@ -459,7 +463,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
+            type: "error"
           });
         });
     },
@@ -481,7 +485,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
+            type: "error"
           });
         });
     },
@@ -527,8 +531,8 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
-          },);
+            type: "error"
+          });
         });
     },
     editDisciplinaGrade() {
@@ -552,7 +556,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
+            type: "error"
           });
         });
     },
@@ -577,10 +581,10 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: 'error'
+            type: "error"
           });
         });
-        //this.cleanDisciplina();
+      //this.cleanDisciplina();
     },
     showDisciplina: function(disciplinaGrade) {
       this.cleanDisciplina;
@@ -653,7 +657,7 @@ export default {
   margin: 0 !important;
 }
 /* ====== CARD ====== */
-.div-card{
+.div-card {
   margin-left: auto;
 }
 .card-title {
@@ -809,7 +813,7 @@ thead th {
   background-color: #c8c8c8;
 }
 .even {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.08);
 }
 .notEven {
   background-color: white;
@@ -870,14 +874,12 @@ i.far {
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
 }
-.div-card{
-  top:-25px;
-}
-@media screen and (max-width: 943px) {
+@media screen and (max-width: 818px) {
   .div-card {
     margin-left: 0px !important;
+    margin-right: 50px !important;
+    margin-top: 20px !important;
     top: 0 !important;
-
   }
   .card {
     margin-left: 0px !important;

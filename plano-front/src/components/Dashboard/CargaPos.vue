@@ -88,10 +88,11 @@
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
             <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGMC</p>
-            <p class="p-0 m-0 border" style="width:58px" id="credsPGMC">{{CreditoTotal_PGMC}}</p>
-            <b-popover target="credsPGMC" placement="bottom" triggers="hover focus">
-              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
-            </b-popover>
+            <p
+              class="p-0 m-0 border"
+              style="width:58px; cursor: default!important"
+              title="Total de creditos"
+            >{{CreditoTotal_PGMC}}</p>
           </div>
         </div>
 
@@ -218,11 +219,11 @@
         <div class="alert p-0 alert-dark m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
             <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGCC</p>
-            <p class="p-0 m-0 border" style="width:58px" id="credsPGCC">{{CreditoTotal_PGCC}}</p>
-
-            <b-popover target="credsPGCC" placement="bottom" triggers="hover focus">
-              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
-            </b-popover>
+            <p
+              class="p-0 m-0 border"
+              style="width:58px; cursor: default!important"
+              title="Total de creditos"
+            >{{CreditoTotal_PGCC}}</p>
           </div>
         </div>
 
@@ -284,11 +285,12 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGEM</p>
-            <p class="p-0 m-0 border" style="width:58px" id="credsPGEM">{{CreditoTotal_PGEM}}</p>
-            <b-popover target="credsPGEM" placement="bottom" triggers="hover focus">
-              <p style="font-size: 11px" class="p-1 m-0">Total de creditos</p>
-            </b-popover>
+            <p class="col p-0 alert-p m-0 border" style="font-weight: bold;">PGEM</p>
+            <p
+              class="p-0 m-0 border"
+              style="width:58px; cursor: default!important"
+              title="Total de creditos"
+            >{{CreditoTotal_PGEM}}</p>
           </div>
         </div>
 

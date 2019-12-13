@@ -1,8 +1,11 @@
 <template>
   <div class="DashboardDocentes row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height:38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Lista Docentes</h1>
       </div>
     </div>
@@ -96,8 +99,8 @@
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-0 mb-2 col-lg-5 col-md-5 col-sm-12 col-12">
-      <div class="card mr-4">
+    <div class="div-card p-0 mt-0 mb-2 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="card mr-4 ml-auto">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Docente</h1>
@@ -670,14 +673,14 @@ i.far {
   -webkit-text-stroke-color: #ff4e34;
 }
 
-@media screen and (max-width: 767px) {
-  .div-card {
-    margin-left: 0 !important;
-    margin-right: auto !important;
+@media screen and (max-width: 849px) {
+.div-card {
+    margin-left: 0px !important;
+    margin-top: 20px!important;
+    top: 0 !important;
   }
-  .card{
-    margin-left: 0 !important;
-    margin-right: auto !important;
+  .card {
+    margin-left: 0px !important;
   }
 }
 </style>

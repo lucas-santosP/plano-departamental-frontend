@@ -1,8 +1,11 @@
 <template>
   <div class="DashboardDisciplinas row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height:38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-12 titulo">Disciplinas</h1>
       </div>
     </div>
@@ -138,48 +141,48 @@
             </div>
 
             <div class="row mb-2 mx-0">
-              <div class="form-group m-0 col px-0 text-center">
+              <div class="form-group m-0 col px-0">
                 <label for="codigo" class="col-form-label">Código</label>
                 <input
                   type="text"
                   id="codigo"
-                  class="form-control form-control-sm m-auto"
+                  class="form-control form-control-sm"
                   style="width: 85px!important; text-align:center!important"
                   v-model="disciplinaForm.codigo"
                 />
               </div>
-
-              <div class="form-group m-0 col px-0 text-center">
+            </div>
+            <div class="row mb-2 mx-0">
+              <div class="form-group m-0 col px-0">
                 <label for="cargaTeorica" class="col-form-label">Carga Teórica</label>
                 <input
                   type="text"
                   id="cargaTeorica"
-                  class="form-control form-control-sm m-auto"
-                  style="width: 40px!important; text-align:center!important"
+                  class="form-control form-control-sm"
+                  style="width: 70px!important; text-align:center!important"
                   v-model="disciplinaForm.cargaTeorica"
                 />
               </div>
 
-              <div class="form-group m-0 col px-0 text-center">
+              <div class="form-group m-0 col px-0">
                 <label for="cargaPratica" class="col-form-label">Carga Prática</label>
                 <input
                   type="text"
                   id="cargaPratica"
-                  class="form-control form-control m-auto"
-                  style="width: 40px!important; text-align:center!important"
+                  class="form-control form-control-sm"
+                  style="width: 70px!important; text-align:center!important"
                   v-model="disciplinaForm.cargaPratica"
                 />
               </div>
             </div>
-
             <div class="row mb-2 mx-0">
               <div class="form-group m-0 col px-0">
                 <label for="perfil" class="col-form-label">Perfil</label>
                 <select
                   type="text"
                   id="perfil"
-                  class="form-control form-control"
-                  style="width: 288px"
+                  class="form-control form-control-sm"
+                  style="width: 288px!important"
                   v-model="disciplinaForm.Perfil"
                 >
                   <option v-if="Perfis.length===0" type="text" value>Nenhum Perfil Encontrado</option>
@@ -440,7 +443,7 @@ export default {
   margin: 0;
   text-align: center;
 }
-.div-card{
+.div-card {
   top: -15px;
 }
 .card {

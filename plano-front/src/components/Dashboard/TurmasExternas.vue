@@ -1,8 +1,11 @@
 <template>
   <div class="TurmasExternas row pr-2" v-if="Admin">
     <!-- Titulo -->
-    <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-      <div class="form-inline col-12 pl-0 mb-2 pr-1">
+    <div
+      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height:38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-4">Tabela Externa</h1>
 
         <div
@@ -646,7 +649,7 @@ export default {
   font-size: 25px;
   font-weight: normal;
   padding-left: 0;
-  margin: 0;
+ margin: 0 !important;
 }
 .form-control {
   height: 25px !important;
@@ -831,7 +834,7 @@ i.far {
 } */
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  select {
+  table select {
     height: 18px !important;
     text-align: left;
     -moz-box-sizing: border-box;
@@ -842,7 +845,7 @@ i.far {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  input {
+  table input {
     height: 18px !important;
     text-align: center;
     -moz-box-sizing: border-box;
