@@ -194,10 +194,10 @@
       <!-- Fim Grind esquerdo  -->
 
       <!-- Grind direito -->
-      <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-5 col-md-6 col-sm-12 col-12" >
+      <div class="div-card p-0 mt-3 mb-2 col-lg-5 col-md-6 col-sm-12 col-12" >
         <!-- Inicio card -->
         <template v-if="isEdit">
-          <div class="card ml-auto mr-4" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+          <div class="card mr-4" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0">
             <div class="card-header">
               <h1 class="card-title">Grade</h1>
             </div>
@@ -653,6 +653,9 @@ export default {
   margin: 0 !important;
 }
 /* ====== CARD ====== */
+.div-card{
+  margin-left: auto;
+}
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -663,6 +666,7 @@ export default {
 .card {
   width: 342px;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
 }
 .card-body {
   font-size: 12px;
@@ -872,6 +876,8 @@ i.far {
 @media screen and (max-width: 943px) {
   .div-card {
     margin-left: 0px !important;
+    top: 0 !important;
+
   }
   .card {
     margin-left: 0px !important;

@@ -92,7 +92,7 @@
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-12 col-sm-12 col-12">
+    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
       <div class="card ml-auto mr-4">
         <div class="card-header">
           <h2 class="card-title">Perfil</h2>
@@ -432,6 +432,9 @@ table input[type="color"] {
 }
 
 /* ====== CARD ====== */
+.div-card{
+  margin-left: auto;
+}
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -444,6 +447,7 @@ table input[type="color"] {
   width: -moz-max-content;
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
 }
 .card-body {
   font-size: 12px;
@@ -539,5 +543,15 @@ i.far {
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
+}
+@media screen and (max-width: 849px){
+  .div-card{
+    margin-left: 0 !important;
+    top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .card{
+    margin-left: 0 !important;
+  }
 }
 </style>

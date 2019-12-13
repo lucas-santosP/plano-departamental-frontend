@@ -96,8 +96,8 @@
     <!-- Fim do Grid Esquerdo -->
 
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-0 mb-2 ml-auto col-lg-5 col-md-5 col-sm-12 col-12">
-      <div class="card ml-auto mr-4">
+    <div class="div-card p-0 mt-0 mb-2 col-lg-5 col-md-5 col-sm-12 col-12">
+      <div class="card mr-4">
         <div class="card-header">
           <template v-if="isEdit">
             <h1 class="card-title">Docente</h1>
@@ -548,6 +548,9 @@ input[type="text"] {
 /* Fim Tabela Lucas */
 
 /* ====== CARD ====== */
+.div-card{
+  margin-left: auto;
+}
 .card-title {
   font-size: 16px;
   font-weight: normal;
@@ -560,6 +563,7 @@ input[type="text"] {
   width: -moz-max-content;
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
 }
 .card-body {
   font-size: 12px;
@@ -667,7 +671,12 @@ i.far {
 }
 
 @media screen and (max-width: 767px) {
-  .cartao {
+  .div-card {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+  .card{
+    margin-left: 0 !important;
     margin-right: auto !important;
   }
 }
