@@ -49,8 +49,8 @@
                 <p style="text-align: center">{{disciplina.codigo}}</p>
                 <p />
               </td>
-              <td style="border-style: solid; border-width: 1px; border-color: whitesmoke;">
-                <p>{{disciplina.nome}}</p>
+              <td style="border-style: solid; border-width: 1px; border-color: whitesmoke; "> 
+                <p style="text-align: start !important; padding-left: 10px;">{{disciplina.nome}}</p>
               </td>
               <td style="border-style: solid; border-width: 1px; border-color: whitesmoke;">
                 <p style=" text-align: center">
