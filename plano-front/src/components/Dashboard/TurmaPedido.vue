@@ -106,12 +106,6 @@
     }
 </script>
 <style scoped>  
-    td {
-        text-align: center;
-        vertical-align:middle;
-        padding: 0;
-        height:40px;
-    }
     input{
         width: 28px!important;
         height: 20px!important;
