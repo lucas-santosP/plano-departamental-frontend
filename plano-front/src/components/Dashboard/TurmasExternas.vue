@@ -96,22 +96,22 @@
               class="sticky"
             >
               <th scope="col">
-                <p class="p-header" style="width:24px !important;">S.</p>
+                <p class="p-header" style="width:24px !important;" title="Semestre">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:70px !important;">Cod</p>
+                <p class="p-header" style="width:70px !important;" title="Código">Cod</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:330px !important">Disciplina</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:18px !important;">C.</p>
+                <p class="p-header" style="width:18px !important;" title="Créditos">C.</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:40px !important;">Turma</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:68px !important;">Turno</p>
+                <p class="p-header" style="width:68px !important;" title="Total de vagas">Turno</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:72px !important;">Horário</p>
@@ -752,6 +752,7 @@ button {
   margin-right: 15px;
   margin-top: 5px;
   transition: all 0.3s ease 0s;
+  cursor: pointer;
 }
 i.fas,
 i.far {
@@ -763,7 +764,6 @@ i.far {
 }
 .addbtn:hover {
   background-color: white;
-  cursor: pointer;
   color: #77dd77;
 }
 .addbtn:focus {
@@ -775,7 +775,6 @@ i.far {
   color: #cfcfc4;
 }
 .cancelbtn:hover {
-  cursor: pointer;
   color: #b8b4a8;
 }
 .cancelbtn:focus {
@@ -789,7 +788,6 @@ i.far {
   color: #ff817b;
 }
 .delbtn:hover {
-  cursor: pointer;
   color: #ff5f48;
 }
 .delbtn:focus {

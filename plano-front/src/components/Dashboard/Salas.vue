@@ -70,14 +70,12 @@
 
     <!-- Grid Direito -->
     <div class="div-card p-0 mt-0 mb-2 col-lg-5 col-md-5 col-sm-5 col-6">
-      <div class="card mr-4">
+      <div class="card mr-3">
         <div class="card-header">
           <h1 class="card-title">Sala</h1>
         </div>
 
         <div class="card-body">
-          <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-
           <form>
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
@@ -216,6 +214,12 @@ export default {
             this.error +=
               "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
           }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 
@@ -236,6 +240,12 @@ export default {
             this.error +=
               "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
           }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 
@@ -248,11 +258,17 @@ export default {
             group: "general",
             title: `Sucesso!`,
             text: `A Sala ${response.Sala.nome} foi excluída!`,
-            type: "success"
+            type: "warn"
           });
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Sala</b>";
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 

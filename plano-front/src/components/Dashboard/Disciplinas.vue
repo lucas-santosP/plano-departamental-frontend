@@ -55,7 +55,7 @@
                 <p style="width: 30px;" class="p-header" title="Carga Prática">C. P.</p>
               </th>
               <th scope="col">
-                <p style="width: 230px;" class="p-header">Perfil</p>
+                <p style="width: 230px;text-align: start" class="p-header">Perfil</p>
               </th>
               <th scope="col">
                 <p style="width: 28px" class="p-header">EAD</p>
@@ -124,8 +124,6 @@
         </div>
 
         <div class="card-body">
-          <b-alert :show="Boolean(error)" variant="danger" dismissible v-html="error"></b-alert>
-
           <form>
             <div class="row mb-2 mx-0">
               <div class="form-group m-0 col px-0">
@@ -341,6 +339,12 @@ export default {
                 this.error += "<br/>Disciplina já existe";
             }
           }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 
@@ -361,6 +365,12 @@ export default {
             this.error +=
               "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
           }
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 
@@ -378,6 +388,12 @@ export default {
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Disciplina</b>";
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: this.error,
+            type: "error"
+          });
         });
     },
 
@@ -502,7 +518,7 @@ input {
 
 /* Tabela Lucas */
 .p-header {
-  padding: 0px 0 0px 0;
+  padding: 0 5px 0 5px;
   margin: 0;
   font-size: 11px;
   text-align: center;
@@ -544,6 +560,7 @@ table p {
   text-align: center;
   padding-right: 5px;
   padding-left: 5px;
+  font-size: 11px !important;
 }
 tr thead {
   display: block;
