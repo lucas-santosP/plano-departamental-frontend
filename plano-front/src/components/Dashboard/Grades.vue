@@ -842,6 +842,7 @@ button {
   height: max-content;
   margin-right: 15px;
   transition: all 0.3s ease 0s;
+  cursor: pointer;
 }
 i.fas,
 i.far {
@@ -853,7 +854,6 @@ i.far {
 }
 .addbtn:hover {
   background-color: white;
-  cursor: pointer;
   color: #77dd77;
 }
 .addbtn:focus {
@@ -866,7 +866,6 @@ i.far {
   color: #cfcfc4;
 }
 .cancelbtn:hover {
-  cursor: pointer;
   color: #b8b4a8;
 }
 .cancelbtn:focus {
@@ -880,7 +879,6 @@ i.far {
   color: #ff817b;
 }
 .delbtn:hover {
-  cursor: pointer;
   color: #ff5f48;
 }
 .delbtn:focus {
