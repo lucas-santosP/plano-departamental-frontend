@@ -299,8 +299,10 @@
           <!-- LINHAS DA TABELA -->
           <template v-if="Turmas.length>0">
             <template v-for="perfil in Perfis">
+              <template v-for="disciplina in DisciplinasCod">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
+                v-if="turma.Disciplina === disciplina.id"
                 :key="turma.id"
                 v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
@@ -310,10 +312,13 @@
                   <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
                 </template>
               </tr>
+              </template>
             </template>
             <template v-for="perfil in Perfis">
+              <template v-for="disciplina in DisciplinasCod">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
+                v-if="turma.Disciplina === disciplina.id"
                 :key="turma.id"
                 v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
@@ -323,6 +328,7 @@
                   <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
                 </template>
               </tr>
+              </template>
             </template>
           </template>
         </tbody>
