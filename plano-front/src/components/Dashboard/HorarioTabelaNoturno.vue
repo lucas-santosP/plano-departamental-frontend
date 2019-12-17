@@ -11,20 +11,20 @@
 
         <tr>
             <td class="tg-0lax tg-hor">19-21</td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 5)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 11)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 17)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 23)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 29)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 5)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 11)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 17)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 23)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 29)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
         </tr>
 
         <tr>
             <td class="tg-0lax tg-hor">21-23</td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 6)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 12)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 18)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 24)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
-            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 30)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id">{{disciplina.codigo}}   </template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 6)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 12)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 18)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 24)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
+            <td class="tg-0lax"><template v-for="turma in Turmas" v-if="checkTurmaHorario(turma, 30)"><template v-for="disciplina in Disciplinas" v-if="turma.Disciplina === disciplina.id"><div v-b-popover.hover.top="disciplina.nome">{{disciplina.codigo}}</div></template></template></td>
         </tr>
     </table>
 </template>
