@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <template v-if="horarioVazio(Eletivas)">
+  <div class="periodo">
+    <div class="horario" v-if="horarioVazio(Eletivas)">
       <table class="tg">
         <tr>
           <th class="tg-0lax">Horário</th>
@@ -188,6 +188,94 @@
         </tr>
 
         <tr>
+          <td class="tg-0lax tg-hor">17-19</td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 32)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 34)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 36)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 38)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 40)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tg-0lax tg-hor">18-20</td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 33)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 35)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 37)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 39)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+          <td class="tg-0lax">
+            <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 41)">
+              <template
+                      v-for="disciplina in Disciplinas"
+                      v-if="turma.Disciplina === disciplina.id"
+              >{{disciplina.codigo}}  </template>
+            </template>
+          </td>
+        </tr>
+
+        <tr>
           <td class="tg-0lax tg-hor">19-21</td>
           <td class="tg-0lax">
             <template v-for="turma in Eletivas" v-if="checkTurmaHorario(turma, 5)">
@@ -275,7 +363,7 @@
           </td>
         </tr>
       </table>
-    </template>
+    </div>
   </div>
 </template>
 <script>
@@ -307,50 +395,60 @@ export default {
 };
 </script>
 <style scoped>
-td {
-  width: 60px !important;
-  text-align: center !important;
-}
+  h5 {
+    font-size: 12px;
+    font-weight: normal;
+  }
+  .horario {
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-th {
-  height: 20px !important;
-  text-align: center !important;
-}
+  .periodo {
+    display: inline;
+    width: 72px;
+    height: 24px;
+    position: relative;
+  }
 
-.tg {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-color: #ccc;
-  margin-bottom: 20px;
-}
-.tg td {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  padding: 0px;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: normal;
-  border-color: rgba(189, 189, 189, 0.644);
-  color: #333;
-  background-color: #fff;
-}
-.tg th,
-.tg-hor {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 0px;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: normal;
-  border-color: rgba(189, 189, 189, 0.623);
-  color: #333;
-  background-color: #e9ecef !important;
-}
-.tg .tg-0lax {
-  vertical-align: center;
-  height: 18px;
-}
+  .tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: #ccc;
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+  .tg td {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    padding: 0px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: break-word;
+    border-color: rgba(189, 189, 189, 0.644);
+    color: #333;
+    background-color: #fff;
+  }
+  .tg th,
+  .tg-hor {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+    border-color: rgba(189, 189, 189, 0.623);
+    color: #333;
+    background-color: #e9ecef !important;
+  }
+  .tg .tg-0lax {
+    vertical-align: center;
+    text-align: center;
+    height: 22px;
+    width: 49px !important;
+  }
 </style>

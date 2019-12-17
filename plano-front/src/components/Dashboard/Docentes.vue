@@ -263,7 +263,7 @@ const emptyDocente = {
 };
 
 const emptyPerfil = {
-  Doncente: undefined,
+  Docente: undefined,
   Perfil: undefined
 };
 
@@ -388,13 +388,14 @@ export default {
     addPerfil(perfil) {
       this.docentePerfil.Docente = this.docenteForm.id;
       this.docentePerfil.Perfil = perfil;
+      let perfilData = _.find(this.$store.state.perfil.Perfis, ['id', perfil])
       docentePerfilService
         .create(this.docentePerfil)
         .then(response => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `O Perfil ${response.Perfil} foi associado ao Docente ${this.docenteForm.apelido}!`,
+            text: `O Perfil ${perfilData.nome} foi associado ao Docente ${this.docenteForm.apelido}!`,
             type: "success"
           });
         })
@@ -414,13 +415,14 @@ export default {
     },
 
     deletePerfil(perfil) {
+      let perfilData = _.find(this.$store.state.perfil.Perfis, ['id', perfil])
       docentePerfilService
         .delete(this.docenteForm.id, perfil)
         .then(response => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `O Perfil ${response.Perfil} foi exluído do Docente ${this.docenteForm.apelido}!`,
+            text: `O Perfil ${perfilData.nome} foi exluído do Docente ${this.docenteForm.apelido}!`,
             type: "success"
           });
         })
@@ -437,9 +439,9 @@ export default {
 
     managePerfil(perfil) {
       if (_.indexOf(this.perfisAssociados, perfil) === -1) {
-        this.addPerfil(perfil);
-      } else {
         this.deletePerfil(perfil);
+      } else {
+        this.addPerfil(perfil);
       }
     }
   },
