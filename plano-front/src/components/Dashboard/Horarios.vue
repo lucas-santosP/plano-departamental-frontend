@@ -18,7 +18,7 @@
         style="overflow-y: auto; overflow-x: hidden; height: calc(100vh - 100px);"
       >
         <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-        <template v-if="periodo===1 || periodo===3">
+        <template v-if="periodo==1 || periodo==3">
           <div class="col-12">
             <h3 style="font-weight: bold; font-size: 18px; text-align: center;">1º SEMESTRE</h3>
           </div>
@@ -54,7 +54,8 @@
         </template>
 
         <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-        <template v-if="periodo===2 || periodo===3">
+        <template v-if="periodo==2 || periodo==3">
+          <br v-if="periodo==3"/>
           <h3 style="font-weight: bold; font-size: 18px; text-align: center;">2º SEMESTRE</h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
@@ -106,7 +107,7 @@
                 <label class="input-group-text">Semestre:</label>
               </div>
             </div>
-            <select class="form-control form-control-sm mt-1 mr-5" v-model="periodos">
+            <select class="form-control form-control-sm mt-1 mr-5" v-model="periodo">
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
