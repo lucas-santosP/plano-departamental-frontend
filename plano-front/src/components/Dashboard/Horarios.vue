@@ -99,30 +99,54 @@
             <div class="row mb-2 mx-0">
 							<div class="form-group col m-0 px-0">
 								<div class="input-group mr-0 ml-auto mb-0 mt-0 p-0">
-									<div class="input-group-prepend">				
-											<label class="input-group-text">Semestre</label>
-									</div>
-									<select class="form-control form-control-sm" v-model="periodos">
+									
+									<select class="form-control form-control-sm" v-model="periodo">
 										<option value="1">Primeiro</option>
 										<option value="2">Segundo</option>
 										<option value="3">Ambos</option>
 									</select>
+									<div class="input-group-append">				
+											<label class="input-group-text">Semestre</label>
+									</div>
 								</div>
 							</div>
             </div>
 
               <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
-								<h5 class="w-100" style="font-size: 14px;">Turnos:</h5>
+								<div
+                  class="form-group col m-0 px-0 border rounded-top"
+                  style="width: 180px!important"
+                >
+								<div
+                    role="alert"
+                    class="alert p-1 alert-secondary m-0 text-center w-100 rounded-0"
+									>Turnos	
+								</div>
+									<div class="px-2 py-1 w-100">
+										<b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
+									<b-form-checkbox-group
+										stacked
+										v-model="cursos"
+										name="cursosCheck"
+										:options="options"
+										v-on:change.capture="defineSelectAll"
+										style="display: block;"
+									></b-form-checkbox-group>
+									</div>
+
+									<!--
                 <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
                 <b-form-checkbox-group
-                  v-model="cursos"
                   stacked
+                  v-model="cursos"
                   name="cursosCheck"
                   :options="options"
-                  style="display: block;"
                   v-on:change.capture="defineSelectAll"
+                  style="display: block;"
                 ></b-form-checkbox-group>
+								-->
+              </div>
               </div>
             </div>
            
@@ -197,6 +221,7 @@
 
 		  methods: {
 				defineSelectAll() {
+					
 				  if(this.cursos.length === 5){
 						this.selectAll = true
 				  }else{
@@ -1134,6 +1159,9 @@ h4 {
   padding-top: 0 !important;
 }
 */
+.card label {
+	margin: 0;
+}
 .selectMaior2 {
   width: 300px;
   text-align: start;
