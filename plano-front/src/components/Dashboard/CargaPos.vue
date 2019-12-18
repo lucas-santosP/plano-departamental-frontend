@@ -195,8 +195,8 @@
             <template v-if="CargasPGMC.length>0">
               <template v-for="t in vetorPeriodosPGMC">
                 <template v-for="docente in Docentes">
-                  <tr v-for="carga in CargasPGMC" :key="'docente'+docente.id+'carga'+carga.id+t">
-                    <template v-if="checkPGMC(carga, docente, t)">
+                  <template v-for="carga in CargasPGMC">
+                    <tr v-if="checkPGMC(carga, docente, t)" :key="'docente'+docente.id+'carga'+carga.id+t">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -213,8 +213,8 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </template>
-                  </tr>
+                    </tr>
+                  </template>
                 </template>
               </template>
             </template>
@@ -270,8 +270,8 @@
             <template v-if="CargasPGCC.length>0">
               <template v-for="t in vetorPeriodosPGCC">
                 <template v-for="docente in Docentes">
-                  <tr v-for="carga in CargasPGCC" :key="'docente'+docente.id+'carga'+carga.id+t">
-                    <template v-if="checkPGCC(carga, docente, t)">
+                  <template v-for="carga in CargasPGCC">
+                    <tr v-if="checkPGCC(carga, docente, t)" :key="'docente'+docente.id+'carga'+carga.id+t">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -288,8 +288,8 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </template>
-                  </tr>
+                    </tr>
+                  </template>
                 </template>
               </template>
             </template>
@@ -345,8 +345,8 @@
             <template v-if="CargasPGEM.length>0">
               <template v-for="t in vetorPeriodosPGEM">
                 <template v-for="docente in Docentes">
-                  <tr v-for="carga in CargasPGEM" :key="'docente'+docente.id+'carga'+carga.id+t">
-                    <template v-if="checkPGEM(carga, docente, t)">
+                  <template v-for="carga in CargasPGEM">
+                    <tr v-if="checkPGEM(carga, docente, t)" :key="'docente'+docente.id+'carga'+carga.id+t">
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
@@ -363,8 +363,8 @@
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
-                    </template>
-                  </tr>
+                    </tr>
+                  </template>
                 </template>
               </template>
             </template>
