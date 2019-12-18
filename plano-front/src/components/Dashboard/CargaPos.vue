@@ -88,16 +88,17 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGMC</p>
+            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold">PGMC</p>
             <p
-              class="p-0 m-0 border"
-              style="width:58px; cursor: default!important"
+              class="m-0 border"
+              style="width:42px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGMC}}</p>
+            <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
 
-        <table class="table table-hover table-bordered table-sm">
+        <table class="table table-hover table-bordered table-sm" ref="tablePGMC">
           <thead class="thead-light sticky">
             <tr>
               <div style="display: block; width: 330px;" class="sticky">
@@ -227,12 +228,13 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert p-0 alert-dark m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border" style="font-weight: bold">PGCC</p>
+            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold">PGCC</p>
             <p
               class="p-0 m-0 border"
-              style="width:58px; cursor: default!important"
+              style="width:42px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGCC}}</p>
+            <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
 
@@ -302,12 +304,13 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border" style="font-weight: bold;">PGEM</p>
+            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold;">PGEM</p>
             <p
               class="p-0 m-0 border"
-              style="width:58px; cursor: default!important"
+              style="width:42px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGEM}}</p>
+            <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
 
@@ -407,20 +410,22 @@ export default {
       vetorPeriodosPGEM: [1, 2, 3, 4],
       ordenacaoAtualPGMC:'periodo',
       ordenacaoAtualPGCC:'periodo',
-      ordenacaoAtualPGEM:'periodo'
+      ordenacaoAtualPGEM:'periodo',
+      scrollsize: undefined
     };
   },
 
   components: {
     cargadata
   },
-  /*
-        mounted () {
-            this.$store.commit('emptyDelete')
-            console.log(this.$store.state.turma.Deletar)
-            this.$store.commit(COMPONENT_LOADED)
-        },
-        */
+
+  mounted () {
+    this.scrollsize = {
+        width: (this.$refs.tablePGMC.offsetWidth - this.$refs.tablePGMC.clientWidth) + 'px'
+    }
+    console.log(this.scrollsize)
+  },
+
 
   methods: {
     toggleOrdenacaoPGMC(){
