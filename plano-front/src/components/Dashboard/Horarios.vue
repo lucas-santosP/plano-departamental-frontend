@@ -113,6 +113,7 @@
 
               <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
+								<h5 class="w-100" style="font-size: 14px;">Turnos:</h5>
                 <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
                 <b-form-checkbox-group
                   v-model="cursos"
