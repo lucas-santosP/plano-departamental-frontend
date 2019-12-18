@@ -99,7 +99,6 @@
             <div class="row mb-2 mx-0">
 							<div class="form-group col m-0 px-0">
 								<div class="input-group mr-0 ml-auto mb-0 mt-0 p-0">
-									
 									<select class="form-control form-control-sm" v-model="periodo">
 										<option value="1">Primeiro</option>
 										<option value="2">Segundo</option>
