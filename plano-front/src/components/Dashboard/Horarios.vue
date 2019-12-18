@@ -97,19 +97,17 @@
           <div class="card-body">
           <form>
             <div class="row mb-2 mx-0">
-              <div class="input-group col m-0 px-0">
-
-             	 <div class="input-group-append mt-1">
-              <div class="input-group-append">
-                <label class="input-group-text">Semestre:</label>
-              </div>
-            </div>
-            <select class="form-control form-control-sm mt-1 mr-5" v-model="periodo">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-              
+							<div class="form-group col m-0 px-0">
+								<div class="input-group mr-0 ml-auto mb-0 mt-0 p-0">
+									<div class="input-group-prepend">				
+											<label class="input-group-text">Semestre</label>
+									</div>
+									<select class="form-control form-control-sm" v-model="periodos">
+										<option value="1">Primeiro</option>
+										<option value="2">Segundo</option>
+										<option value="3">Ambos</option>
+									</select>
+								</div>
 							</div>
             </div>
 
@@ -1127,12 +1125,14 @@ h4 {
   font-size: 12px;
   padding-top: 15px;
 }
+/*
 .card label {
   line-height: 1.2;
   font-size: 12px;
   text-align: start;
   padding-top: 0 !important;
 }
+*/
 .selectMaior2 {
   width: 300px;
   text-align: start;
@@ -1156,26 +1156,6 @@ input {
   width: 250px;
   text-align: start;
 }
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 80px;
-  max-width: 80px;
-  text-align: start;
-  border-radius: 3px !important;
-}
-.input-group-text {
-  max-width: 70px;
-  min-width: 70px;
-  height: 25px !important;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
-  background-color: white;
-  border: none;
-}
-
 
 button {
   padding: 0;
@@ -1208,11 +1188,52 @@ i.far {
 .texto {
   font-size: 12px;
 }
+/*
 option {
   font-size: 11px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 25px;
+}
+*/
+.input-group-text {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 0;
+  /*===*/
+  max-width: 70px;
+  min-width: 70px;
+  height: 25px !important;
+  margin-left: -5px;
+  padding-left: 15px;
+  font-size: 12px !important;
+}
+.form-control {
+  height: 25px !important;
+  font-size: 12px !important;
+  padding: 0px 0px 0px 5px !important;
+  min-width: 80px;
+  max-width: 80px;
+  text-align: start;
+}
+.form-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+.form-inline .input-group,
+.form-inline {
+  width: auto;
 }
 </style>
