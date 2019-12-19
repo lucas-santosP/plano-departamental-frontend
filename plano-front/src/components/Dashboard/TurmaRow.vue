@@ -292,7 +292,6 @@ export default {
     notifyHorarioDocente(horario, docente){
         let h = (horario === 1 ? _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario1]) : _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario2]))
         let d = (docente === 1 ? _.find(this.$store.state.docente.Docentes, ['id', this.turmaForm.Docente1]) : _.find(this.$store.state.docente.Docentes, ['id', this.turmaForm.Docente2]))
-        console.log([horario, _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario1]), _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario2])])
         let text =  `Conflito no horário ${h.horario} com o docente ${d.apelido}`
         this.$notify({
             group: "general",
