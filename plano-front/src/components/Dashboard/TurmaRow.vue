@@ -292,7 +292,7 @@ export default {
     notifyHorarioDocente(horario, docente){
         let h = (horario === 1 ? _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario1]) : _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario2]))
         let d = (docente === 1 ? _.find(this.$store.state.docente.Docentes, ['id', this.turmaForm.Docente1]) : _.find(this.$store.state.docente.Docentes, ['id', this.turmaForm.Docente2]))
-
+        console.log([horario, _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario1]), _.find(this.$store.state.horario.Horarios, ['id', this.turmaForm.Horario2])])
         let text =  `Conflito no horário ${h.horario} com o docente ${d.apelido}`
         this.$notify({
             group: "general",
@@ -451,9 +451,9 @@ export default {
             let h1, h2
             if(horario === 1) {
                 h1 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario1 === t.Horario1))
-                h2 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario1 === t.Horario2))
+                h2 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario1 === t.Horario2))
             } else {
-                h1 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario2 === t.Horario1))
+                h1 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario2 === t.Horario1))
                 h2 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario2 === t.Horario2))
             }
             let d1, d2
@@ -697,9 +697,9 @@ export default {
               let h1, h2
               if(horario === 1) {
                   h1 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario1 === t.Horario1))
-                  h2 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario1 === t.Horario2))
+                  h2 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario1 === t.Horario2))
               } else {
-                  h1 = (!(_.isNull(this.turmaForm.Horario1)) && (this.turmaForm.Horario2 === t.Horario1))
+                  h1 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario2 === t.Horario1))
                   h2 = (!(_.isNull(this.turmaForm.Horario2)) && (this.turmaForm.Horario2 === t.Horario2))
               }
               let d1, d2
