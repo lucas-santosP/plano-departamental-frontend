@@ -29,10 +29,10 @@
           <tr>
             <div class="sticky" style="width: max-content">
               <th scope="col">
-                <p class="p-header" style="width: 90px;">Código</p>
+                <p class="p-header" style="width: 100px;">Código</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 500px; text-align:start">Disciplina</p>
+                <p class="p-header" style="width: 380px; text-align:start">Disciplina</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 165px;">76A</p>
@@ -58,10 +58,10 @@
             >
               <div style="width: max-content">
                 <td>
-                  <p style="width: 90px">{{disciplina.codigo}}</p>
+                  <p style="width: 100px">{{disciplina.codigo}}</p>
                 </td>
                 <td>
-                  <p style="width:500px; text-align:start">{{disciplina.nome}}</p>
+                  <p style="width:380px; text-align:start">{{disciplina.nome}}</p>
                 </td>
                 <td>
                   <p style="width:165px;">

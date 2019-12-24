@@ -519,8 +519,7 @@ export default {
 }
 table {
   display: block !important;
-  overflow-y: scroll !important;
-  overflow-x: auto !important;
+  overflow: hidden !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;
