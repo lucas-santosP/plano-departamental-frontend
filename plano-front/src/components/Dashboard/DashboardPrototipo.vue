@@ -287,8 +287,8 @@
             <tr v-for="curso in Cursos" :key="'cursoMd'+curso.id">
               <div style="width: max-content">
                 <td style="padding:0;broder:0;margin:0">
-                  <div style="width: 25px; height:">
-                    <input type="checkbox" v-model="CursosSelecionados" :value="curso" />
+                  <div style="width: 25px; margin: 0 auto!important">
+                    <b-form-checkbox type="checkbox" v-model="CursosSelecionados" :value="curso"></b-form-checkbox>
                   </div>
                 </td>
                 <td>
