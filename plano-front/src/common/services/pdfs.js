@@ -504,7 +504,20 @@ export default {
     turmas(professor){
         return _.orderBy(_.filter(store.state.turma.Turmas,(turma) => {
             return (turma.Docente1===professor.id || turma.Docente2===professor.id)
-        }), 'periodo')
+        }), ['periodo', 'Disciplina', 'letra'])
+    },
+
+    turmasSemAlocacao(){
+
+    },turmasSemAlocacao() {
+        return _.orderBy(
+            _.filter(store.state.turma.Turmas, turma => {
+                return (
+                    turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
+                );
+            }),
+            ['periodo', 'Disciplina', 'letra']
+        );
     },
 
     pos(professor){
@@ -680,6 +693,84 @@ export default {
                         colSpan: 2
                     }, '', '', '', {text:c1, alignment: 'center'}, {text:c2, alignment: 'center'}])
                 }
+            }
+        }
+        let turmasSemAlocacao = this.turmasSemAlocacao()
+        if(turmasSemAlocacao.length > 0){
+            tables.push({
+                columns: [{
+                    text: "SEM ALOCAÇÃO",
+                    bold: true
+                }], margin: [0, 10, 0, 10]
+            })
+            tables.push({
+                style: 'tableExample',
+                table: {
+                    widths: [8, 68, '*', 18, 104, 24, 24],
+                    headerRows: 1,
+                    color: '#426',
+                    body: [
+                        [{text: 'S', bold: true}, {
+                            text: 'Disciplina',
+                            colSpan: 2,
+                            bold: true
+                        }, '', {text: 'T', alignment: 'center', bold: true}, {
+                            text: 'Horário',
+                            alignment: 'center',
+                            bold: true
+                        }, {text: 'C1', bold: true}, {text: 'C2', bold: true}],
+                    ]
+                }
+            })
+            for (var j = 0; j < turmasSemAlocacao.length; j++) {
+                var disciplina = undefined
+                var horario1 = undefined
+                var horario2 = undefined
+                var c1 = 0
+                var c2 = 0
+                for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
+                    if (turmasSemAlocacao[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
+                        disciplina = store.state.disciplina.Disciplinas[k]
+                    }
+                }
+                for (var l = 0; l < store.state.horario.Horarios.length; l++) {
+                    if (turmasSemAlocacao[j].Horario1 === store.state.horario.Horarios[l].id) {
+                        horario1 = store.state.horario.Horarios[l]
+                    }
+                }
+
+                for (var m = 0; m < store.state.horario.Horarios.length; m++) {
+                    if (turmasSemAlocacao[j].Horario2 === store.state.horario.Horarios[m].id) {
+                        horario2 = store.state.horario.Horarios[m]
+                    }
+                }
+                if(horario1===undefined && horario2===undefined){
+                    horarioTotal = ''
+                }else if (horario2 === undefined) {
+                    var horarioTotal = horario1.horario
+                } else if (horario1 === undefined) {
+                    var horarioTotal = horario2.horario
+                }else{
+                    var horarioTotal = horario1.horario + '/' + horario2.horario
+                }
+                if (turmasSemAlocacao[j].periodo == 1) {
+                    if((turmasSemAlocacao[j].Docente1 > 0) && (turmasSemAlocacao[j].Docente2 > 0))
+                        c1 = (disciplina.cargaTeorica + disciplina.cargaPratica)/2
+                    else
+                        c1 = disciplina.cargaTeorica + disciplina.cargaPratica
+                } else {
+                    if((turmasSemAlocacao[j].Docente1 > 0) && (turmasSemAlocacao[j].Docente2 > 0))
+                        c2 = (disciplina.cargaTeorica + disciplina.cargaPratica)/2
+                    else
+                        c2 = disciplina.cargaTeorica + disciplina.cargaPratica
+                }
+                tables[1 + 2 * (i - vazio)].table.body.push([{text:turmasSemAlocacao[j].periodo, alignment: 'center'}, {
+                    text: disciplina.codigo,
+                    alignment: 'center'
+                }, disciplina.nome, {text: turmasSemAlocacao[j].letra, alignment: 'center'}, {
+                    text: horarioTotal,
+                    alignment: 'center'
+                }, {text:c1, alignment: 'center'}, {text:c2, alignment: 'center'}])
             }
         }
 
