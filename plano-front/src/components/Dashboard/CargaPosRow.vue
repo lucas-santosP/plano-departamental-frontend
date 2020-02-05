@@ -13,7 +13,9 @@
     </td>
 
     <td>
-      <div style="width: 24px">
+      <p style="width: 24px">{{carga.trimestre}}</p>
+      <!--
+      <div >
         <input
           type="text"
           style="width: 20px; height:16px;"
@@ -22,9 +24,16 @@
           v-on:blur="editCarga(carga)"
         />
       </div>
+      -->
     </td>
 
     <td>
+      <div style="width: 135px">
+        <template v-for="docente in Docentes">
+          <p :key="docente.id" v-if="carga.Docente == docente.id">{{docente.apelido}}</p>
+        </template>
+      </div>
+      <!--
       <div style="width: 135px">
         <select
           type="text"
@@ -41,6 +50,7 @@
           >{{docente.apelido}}</option>
         </select>
       </div>
+      -->
     </td>
 
     <td>
@@ -123,14 +133,14 @@ export default {
 /* prefixed */
 
 td {
-  text-align: center!important;
-  vertical-align: middle!important;
-  padding: 0!important;
-  height: 25px!important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding: 0 !important;
+  height: 25px !important;
 }
 p {
-  margin-bottom: 0!important;
-  text-align: center!important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
 }
 input {
   height: 18px;
