@@ -28,7 +28,7 @@
           </div>
 
           <div class="d-flex p-0 m-0 mt-1">
-            <template v-if="isAdd">
+            <!-- <template v-if="isAdd">
               <button
                 type="button"
                 title="Salvar"
@@ -68,7 +68,7 @@
               >
                 <i class="far fa-trash-alt"></i>
               </button>
-            </template>
+            </template> -->
           </div>
         </div>
       </div>
@@ -80,9 +80,10 @@
       <div class="cube1"></div>
       <div class="cube2"></div>
     </div>
-    <!-- Inicio Tabela 1 -->
+   
 
     <div class="row p-0 m-0">
+      <!-- Inicio Tabela 1 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
@@ -151,18 +152,16 @@
                         type="text"
                         style="width:130px"
                         id="docente1"
-                        v-model="cargaPosForm.Docente"
+                        
                       >
                         <option
-                          v-if="Docentes.length===0"
+                         
                           type="text"
                           value
-                        >Nenhum Docente Encontrado</option>
-                        <option
-                          v-for="docente in Docentes"
-                          :key="docente.id"
-                          :value="docente.id"
-                        >{{docente.apelido}}</option>
+                        >Nenhum Programa Encontrado</option>
+                        <option>
+
+                        </option>
                       </select>
                     </div>
                   </td>
@@ -225,6 +224,7 @@
         </table>
       </div>
 
+      <!-- Inicio Tabela 2 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
@@ -302,7 +302,7 @@
           </tbody>
         </table>
       </div>
-
+      <!-- Inicio Tabela 3 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
@@ -380,6 +380,145 @@
           </tbody>
         </table>
       </div>
+      <!-- Card de Adição -->
+     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="card ml-auto mr-3">
+          <div class="card-header">
+            <h2 class="card-title">Adição</h2>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-4">
+                  <div class="row mb-2 mx-0">
+                    <div class="m-0 col px-0">
+                      <label for="trimestre" class="col-form-label">Trimestre</label>
+                      <div style="width:24px;">
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            style="width: 24px; height:16px;"
+                            id="trimestre"
+                            v-model="cargaPosForm.trimestre"
+                          />
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col-8">
+                  <div class="row mb-2 mx-0">
+                    <div class="m-0 col px-0">
+                      <label for="docente" class="col-form-label">Docente</label>
+
+                        <select
+                              type="text"
+                              class="form-control form-control-sm"
+                              style="width:130px !important"
+                              id="docente1"
+                              v-model="cargaPosForm.Docente"
+                            >
+                              <option
+                                v-if="Docentes.length===0"
+                                type="text"
+                                value
+                              >Nenhum Docente Encontrado</option>
+                              <option
+                                v-for="docente in Docentes"
+                                :key="docente.id"
+                                :value="docente.id"
+                              >{{docente.apelido}}</option>
+                          </select>
+                    </div>
+                  </div>
+              </div>
+
+                <div class="col-4">
+                  <div class="row mb-2 mx-0">
+                    <div class="m-0 col px-0">
+                      <label for="programa" class="col-form-label">Programa</label>
+                      <div style="width:24px;">
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          style="width: 80px"
+                          id="programa"
+                          v-model="cargaPosForm.programa"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row mb-2 mx-0">
+                    <div class="m-0 col px-0">
+                    <label for="creditos" class="col-form-label">Créditos</label>
+                      <div style="width:30px;"> 
+                        <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              style="width: 28px"
+                              id="creditos"
+                              v-model="cargaPosForm.creditos"
+                          />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-0 mt-3 mx-0">
+              <div class="d-flex mr-0 ml-auto">
+                <template v-if="isAdd">
+              <button
+                type="button"
+                title="Salvar"
+                class="addbtn"
+                v-on:click.prevent="addCarga"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                type="button"
+                title="Cancelar"
+                class="cancelbtn"
+                v-on:click.prevent="toggleAdd"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </template>
+
+            <template v-else>
+              <button
+                type="button"
+                title="Adicionar"
+                class="addbtn"
+                v-on:click.prevent="toggleAdd"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                type="button"
+                title="Deletar"
+                class="delbtn"
+                v-b-modal.modalConfirma
+                style="max-width:80px;"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </template>
+              </div>
+            </div>
+              
+            </form>
+          </div>
+          
+        </div>
+     </div>
     </div>
     <!-- modal -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -800,7 +939,43 @@ table input {
 .isAdd:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-
+/* CARD */
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+.div-card {
+  top: -15px;
+}
+.card {
+  width: 320px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+}
+.card label {
+  line-height: 1.2;
+  font-size: 12px;
+  text-align: center !important;
+  padding-top: 0 !important;
+}
+select {
+  height: 25px !important;
+  font-size: 11px !important;
+  padding: 0px 5px 0px 5px !important;
+  text-align: center;
+}
+input {
+  height: 25px !important;
+  padding: 0px 5px 0px 5px !important;
+  font-size: 11px !important;
+  text-align: start;
+}
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   table select {
@@ -1034,14 +1209,13 @@ i.far {
   padding-left: 15px;
   font-size: 12px !important;
 }
-.form-control {
+ .form-control {
   height: 25px !important;
   font-size: 12px !important;
   padding: 2px 5px 0px 5px !important;
-  min-width: 80px;
-  max-width: 80px;
+  min-width: 30px;
   text-align: start;
-}
+} 
 .form-group {
   display: -ms-flexbox;
   display: flex;
