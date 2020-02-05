@@ -87,10 +87,10 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold">PGMC</p>
+            <p class="p-0 alert-p m-0 border border-right-0" style="font-weight: bold; width: 187px;">PGMC</p>
             <p
               class="m-0 border"
-              style="width:42px; cursor: default!important"
+              style="width:32px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGMC}}</p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
@@ -100,7 +100,7 @@
         <table class="table table-hover table-bordered table-sm" ref="tablePGMC">
           <thead class="thead-light sticky">
             <tr>
-              <div style="display: block; width: 328px;" class="sticky">
+              <div style="display: block; width: 198px;" class="sticky">
                 <th scope="col">
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
@@ -117,11 +117,11 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <th scope="col">
+                <!-- <th scope="col">
                   <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>
+                </th> -->
                 <th scope="col">
-                  <p class="p-header" style="width:40px!important;">C.</p>
+                  <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
               </div>
             </tr>
@@ -228,10 +228,10 @@
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
           <div class="row m-0">
-            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold">PGCC</p>
+            <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold; width: 187px;">PGCC</p>
             <p
               class="m-0 border"
-              style="width:42px; cursor: default!important"
+              style="width:32px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGCC}}</p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
@@ -241,7 +241,7 @@
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light sticky">
             <tr>
-              <div style="display: block; width: 328px;" class="sticky">
+              <div style="display: block; width: 198px;" class="sticky">
                 <th scope="col">
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
@@ -258,11 +258,11 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <th scope="col">
+                <!-- <th scope="col">
                   <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>
+                </th> -->
                 <th scope="col">
-                  <p class="p-header" style="width:40px!important;">C.</p>
+                  <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
               </div>
             </tr>
@@ -309,7 +309,7 @@
             <p class="col p-0 alert-p m-0 border border-right-0" style="font-weight: bold;">PGEM</p>
             <p
               class="m-0 border"
-              style="width:42px; cursor: default!important"
+              style="width:32px; cursor: default!important"
               title="Total de creditos"
             >{{CreditoTotal_PGEM}}</p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
@@ -319,7 +319,7 @@
         <table class="table table-hover table-bordered table-sm">
           <thead class="thead-light sticky">
             <tr>
-              <div style="display: block; width: 328px;" class="sticky">
+              <div style="display: block; width: 198px;" class="sticky">
                 <th scope="col">
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
@@ -336,11 +336,11 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <th scope="col">
+                <!-- <th scope="col">
                   <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>
+                </th> -->
                 <th scope="col">
-                  <p class="p-header" style="width:40px!important;">C.</p>
+                  <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
               </div>
             </tr>
@@ -380,8 +380,9 @@
           </tbody>
         </table>
       </div>
-      <!-- Card de Adição -->
-     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
+    </div>
+     <!-- Card de Adição -->
+    <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
         <div class="card ml-auto mr-3">
           <div class="card-header">
             <h2 class="card-title">Adição</h2>
@@ -519,7 +520,6 @@
           
         </div>
      </div>
-    </div>
     <!-- modal -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
       <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>

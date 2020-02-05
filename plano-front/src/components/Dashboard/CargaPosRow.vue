@@ -1,5 +1,5 @@
 <template>
-  <div class="cargarow" style="width: 330px; font-size:11px">
+  <div class="cargarow" style="width: 218px !important; font-size:11px">
     <td>
       <div style="width: 24px">
         <input
@@ -53,7 +53,8 @@
       -->
     </td>
 
-    <td>
+    <!-- <td>
+      <p style="width: 80px">{{carga.programa}}</p>
       <div style="width: 100px;">
         <input
           type="text"
@@ -61,10 +62,11 @@
           v-model="carga.programa"
           v-on:blur="editCarga(carga)"
         />
-      </div>
-    </td>
+      </div> 
+    </td> -->
     <td>
-      <div style="width: 40px">
+      <p style="width: 30px">{{carga.creditos}}</p>
+      <!-- <div style="width: 40px">
         <input
           type="text"
           style="width: 25px"
@@ -72,7 +74,7 @@
           v-model="carga.creditos"
           v-on:blur="editCarga(carga)"
         />
-      </div>
+      </div> -->
     </td>
   </div>
 </template>
