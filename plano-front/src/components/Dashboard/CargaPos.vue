@@ -28,46 +28,15 @@
           </div>
 
           <div class="d-flex p-0 m-0 mt-1">
-            <!-- <template v-if="isAdd">
-              <button
-                type="button"
-                title="Salvar"
-                class="addbtn"
-                v-on:click.prevent="addCarga"
-                style="max-width:80px;"
-              >
-                <i class="fas fa-check"></i>
-              </button>
-              <button
-                type="button"
-                title="Cancelar"
-                class="cancelbtn"
-                v-on:click.prevent="toggleAdd"
-                style="max-width:80px;"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
-            <template v-else>
-              <button
-                type="button"
-                title="Adicionar"
-                class="addbtn"
-                v-on:click.prevent="toggleAdd"
-                style="max-width:80px;"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
-              <button
-                type="button"
-                title="Deletar"
-                class="delbtn"
-                v-b-modal.modalConfirma
-                style="max-width:80px;"
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-            </template>-->
+            <button
+              type="button"
+              title="Deletar selecionados"
+              class="delbtn"
+              v-b-modal.modalConfirma
+              style="max-width:80px;"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -118,9 +87,6 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <!-- <th scope="col">
-                  <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>-->
                 <th scope="col">
                   <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
@@ -202,9 +168,6 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <!-- <th scope="col">
-                  <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>-->
                 <th scope="col">
                   <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
@@ -282,9 +245,6 @@
                 <th scope="col">
                   <p class="p-header" style="width:135px!important;">Docente</p>
                 </th>
-                <!-- <th scope="col">
-                  <p class="p-header" style="width:100px!important;">Programa</p>
-                </th>-->
                 <th scope="col">
                   <p class="p-header" style="width:30px!important;">C.</p>
                 </th>
@@ -474,17 +434,22 @@
     </div>
     <!-- modal -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-      <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
-      <template v-for="carga in Deletar">
-        <template v-for="docente in Docentes">
-          <template v-if="docente.id===carga.Docente">
-            <p :key="'carga'+carga.id+'docente'+docente.id">
-              Docente:{{docente.apelido}}
-              <br />
-              Programa:{{carga.programa}}
-              <br />
-              Trimestre:{{carga.trimestre}}
-            </p>
+      <template v-if="Deletar.length === 0">
+        <p class="my-4">Nenhuma carga selecionada!</p>
+      </template>
+      <template v-else>
+        <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
+        <template v-for="carga in Deletar">
+          <template v-for="docente in Docentes">
+            <template v-if="docente.id===carga.Docente">
+              <p :key="'carga'+carga.id+'docente'+docente.id">
+                Docente:{{docente.apelido}}
+                <br />
+                Programa:{{carga.programa}}
+                <br />
+                Trimestre:{{carga.trimestre}}
+              </p>
+            </template>
           </template>
         </template>
       </template>
@@ -646,6 +611,7 @@ export default {
             text: `A Carga ${response.CargaPos.programa} foi excluída!`,
             type: "success"
           });
+          this.cleanCarga();
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Carga</b>";
