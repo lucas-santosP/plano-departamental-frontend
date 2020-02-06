@@ -204,17 +204,18 @@
       <!-- Grind direito -->
       <div class="div-card p-0 mt-0 mb-2 col-lg-5 col-md-6 col-sm-12 col-12">
         <!-- Inicio card Grade -->
-        <template v-if="isEdit">
-          <div
-            class="card mr-3 ml-auto"
-            style="border-bottom-left-radius: 0; border-bottom-right-radius: 0"
-          >
-            <div class="card-header">
-              <h1 class="card-title">Grade</h1>
-            </div>
 
-            <div class="card-body">
-              <form>
+        <div
+          class="card mr-3 ml-auto"
+          style="border-bottom-left-radius: 0; border-bottom-right-radius: 0"
+        >
+          <div class="card-header">
+            <h1 class="card-title">Grade</h1>
+          </div>
+
+          <div class="card-body">
+            <form>
+              <template v-if="isEdit">
                 <div class="row mb-2 mx-0">
                   <div class="form-group col m-0 mr-4 px-0">
                     <label for="nome" class="col-form-label">Nome</label>
@@ -277,23 +278,72 @@
                     </button>
                   </div>
                 </div>
-              </form>
-            </div>
+              </template>
+              <template v-else>
+                <div class="row mb-2 mx-0">
+                  <div class="form-group col m-0 mr-4 px-0">
+                    <label for="nome" class="col-form-label">Nome</label>
+                    <input
+                      type="text"
+                      class="inputMenor form-control form-control-sm"
+                      id="nome"
+                      disabled
+                    />
+                  </div>
+
+                  <div class="form-group col m-0 px-0">
+                    <label for="periodoInicio" class="col-form-label">Período de Início</label>
+                    <input
+                      type="text"
+                      class="inputMenor form-control form-control-sm col"
+                      id="periodoInicio"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-2 mx-0">
+                  <div class="form-group col m-0 px-0">
+                    <label for="curso" class="col-form-label">Curso</label>
+                    <select
+                      type="text"
+                      style="text-align:center;"
+                      class="form-control form-control-sm selectMaior"
+                      id="curso"
+                      disabled
+                    ></select>
+                  </div>
+                </div>
+
+                <div class="row mb-0 mt-3 mx-0">
+                  <div class="d-flex mr-0 ml-auto">
+                    <button type="button" title="Salvar Grade" class="addbtn" disabled :key="1">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button type="button" title="Excluir Grade" class="delbtn" disabled :key="3">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </form>
           </div>
-          <!-- Final card Grade -->
+        </div>
+        <!-- Final card Grade -->
 
-          <!-- Inicio card Disciplina -->
-          <div
-            class="card mr-3 ml-auto"
-            style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;"
-          >
-            <div class="card-header">
-              <h1 class="card-title">Disciplinas</h1>
-            </div>
+        <!-- Inicio card Disciplina -->
+        <div
+          class="card mr-3 ml-auto"
+          style="border-top-left-radius: 0; border-top-right-radius: 0; margin-top: -1px;"
+        >
+          <div class="card-header">
+            <h1 class="card-title">Disciplinas</h1>
+          </div>
 
-            <div class="card-body">
-              <form>
-                <!-- Edição de disciplina -->
+          <div class="card-body">
+            <form>
+              <!-- Edição de disciplina -->
+              <template v-if="isEdit">
                 <div class="row mb-2 mx-0">
                   <div class="form-group m-0 col px-0">
                     <label for="disciplina" class="mr-2 col-form-label">Disciplina</label>
@@ -378,10 +428,80 @@
                     </button>
                   </div>
                 </div>
-              </form>
-            </div>
+              </template>
+
+              <template v-else>
+                <div class="row mb-2 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="disciplina" class="mr-2 col-form-label">Disciplina</label>
+                    <select
+                      type="text"
+                      class="selectMaior2 form-control form-control-sm"
+                      id="disciplina"
+                      disabled
+                    ></select>
+                  </div>
+                </div>
+
+                <div class="row mb-2 mx-0">
+                  <div class="form-group m-0 col px-0">
+                    <label for="periodoDisciplina" class="col-form-label">Período</label>
+
+                    <div class="d-flex">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm inputMenor2"
+                        aria-describedby="button-edit-periodo"
+                        id="periodoDisciplina"
+                        disabled
+                      />
+
+                      <button
+                        type="button"
+                        title="Salvar"
+                        class="addbtn"
+                        style="margin-top: -1px"
+                        disabled
+                        :key="4"
+                      >
+                        <i class="fas fa-check"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-0 mt-3 mx-0">
+                  <div class="d-flex mr-0 ml-auto">
+                    <button
+                      type="button"
+                      title="Adicionar à Grade"
+                      class="addbtn"
+                      disabled
+                      :key="4"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      title="Deletar Disciplina"
+                      class="delbtn"
+                      disabled
+                      :key="4"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+
+                    <button type="button" title="Cancelar" class="cancelbtn" disabled :key="2">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </form>
           </div>
-        </template>
+        </div>
+
         <!-- Final card -->
       </div>
       <!-- FIM DA REPETIÇÃO -->
@@ -438,7 +558,7 @@ export default {
             text: `A Grade ${response.Grade.nome} foi criada!`,
             type: "success"
           });
-          this.$refs.modalGrade.hide();//esconde o modal
+          this.$refs.modalGrade.hide(); //esconde o modal
         })
         .catch(error => {
           this.error = "<b>Erro ao criar Grade</b>";
