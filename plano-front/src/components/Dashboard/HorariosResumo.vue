@@ -3415,6 +3415,11 @@ export default {
   text-align: start !important;
 }
 
+i.fas,
+i.far {
+  font-size: 25px;
+}
+
 .relatbtn {
   background-color: white;
   color: #9ab3ff !important;
