@@ -15,7 +15,7 @@
     <div class="col-12">
       <h6>1º SEMESTRE</h6>
       <div class="flex-container">
-        <div v-for="lab in Laboratorios" :key="lab.nome">
+        <div class="tablab"v-for="lab in Laboratorios" :key="lab.nome">
           <h5 class="lab-num">{{lab.nome}}</h5>
           <div class="row m-0">
             <table class="tg">
@@ -108,7 +108,7 @@
       <h6>2º SEMESTRE</h6>
 
       <div class="flex-container">
-        <div v-for="lab in Laboratorios">
+        <div class="tablab" v-for="lab in Laboratorios">
           <h5 class="lab-num">{{lab.nome}}</h5>
           <div class="row m-0">
               <table class="tg">
@@ -332,6 +332,12 @@ h5 {
   text-align: center;
   margin-top: 15px;
 }
+@media screen and (min-width: 1378px){
+  table{
+    margin-left: auto; 
+    margin-right: auto;
+  }  
+}
 h6 {
   font-weight: bold;
   font-size: 20px;
@@ -369,6 +375,9 @@ th {
   flex-wrap: wrap;
 }
 
+.tablab{
+  flex-basis: 30%;
+}
 .tg {
   border-collapse: collapse;
   border-spacing: 0;
