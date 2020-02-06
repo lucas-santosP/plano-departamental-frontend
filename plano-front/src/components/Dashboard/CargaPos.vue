@@ -623,7 +623,7 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Carga ${response.Turma.programa} foi atualizada!`,
+            text: `A Carga ${response.CargaPos.programa} foi atualizada!`,
             type: "success"
           });
         })

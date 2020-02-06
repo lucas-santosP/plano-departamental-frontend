@@ -69,7 +69,11 @@ export default {
         var seg = '', ter = '', qua = '', qui = '', sex = ''
         tables.push({text: "1º Semestre", bold:true, margin:[0, 10, 0, 10], fontSize:20})
         for(let i = 0; i < laboratorios.length; i++) {
-            tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18})
+            if(i % 3 === 0 && i !== 0){
+                tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18, pageBreak:'before'})
+            }else{
+                tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18})
+            }
             tables.push({
                 table: {
                     widths: ['*', '*', '*', '*', '*', '*'],
@@ -314,9 +318,13 @@ export default {
             }
         }
         console.log("ok2")
-        tables.push({text: "2º Semestre", bold:true, margin:[0, 10, 0, 10], fontSize:20})
+        tables.push({text: "2º Semestre", bold:true, margin:[0, 10, 0, 10], fontSize:20, pageBreak:'before'})
         for(let i = 0; i < laboratorios.length; i++){
-            tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18})
+            if(i % 3 === 0 && i !== 0){
+                tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18, pageBreak:'before'})
+            }else{
+                tables.push({text: laboratorios[i].nome, bold: true, margin: [0, 10, 0, 10], fontSize: 18})
+            }
             tables.push({
                 table: {
                     widths: ['*', '*', '*', '*', '*', '*'],
