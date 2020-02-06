@@ -129,58 +129,6 @@
           </thead>
 
           <tbody>
-            <!-- <template v-if="isAdd">
-              <tr>
-                <div style="width: 328px;" class="isAdd">
-                  <td>
-                    <div style="width:24px"></div>
-                  </td>
-
-                  <td>
-                    <div style="width:24px;">
-                      <input
-                        type="text"
-                        style="width: 20px; height:16px;"
-                        id="trimestre"
-                        v-model="cargaPosForm.trimestre"
-                      />
-                    </div>
-                  </td>
-
-                  <td>
-                    <div style="width: 135px">
-                      <select type="text" style="width:130px" id="docente1">
-                        <option type="text" value>Nenhum Programa Encontrado</option>
-                        <option></option>
-                      </select>
-                    </div>
-                  </td>
-
-                  <td>
-                    <div style="width: 100px">
-                      <input
-                        type="text"
-                        style="width: 80px"
-                        id="programa"
-                        v-model="cargaPosForm.programa"
-                      />
-                    </div>
-                  </td>
-
-                  <td>
-                    <div style="width: 40px">
-                      <input
-                        type="text"
-                        style="width: 25px"
-                        id="creditos"
-                        v-model="cargaPosForm.creditos"
-                      />
-                    </div>
-                  </td>
-                </div>
-              </tr>
-            </template>
-            -->
             <!-- LINHAS -->
             <template v-if="CargasPGMC.length>0">
               <template v-for="t in vetorPeriodosPGMC">
@@ -440,16 +388,9 @@
                       id="programa"
                       v-model="cargaPosForm.programa"
                     >
-                      <option type="text" value="PGEM">PGEM</option>
+                      <option type="text" value="PGEM">PGMC</option>
                       <option type="text" value="PGCC">PGCC</option>
-                      <option type="text" value="PGMC">PGMC</option>
-                      <!-- <input
-                        type="text"
-                        class="form-control form-control-sm"
-                        style="width: 80px"
-                        id="programa"
-                        v-model="cargaPosForm.programa"
-                      />-->
+                      <option type="text" value="PGMC">PGEM</option>
                     </select>
                   </div>
                 </div>
