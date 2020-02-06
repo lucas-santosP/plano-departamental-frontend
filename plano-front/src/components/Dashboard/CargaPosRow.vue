@@ -63,7 +63,7 @@
           v-on:blur="editCarga(carga)"
         />
       </div> 
-    </td> -->
+    </td>-->
     <td>
       <p style="width: 30px">{{carga.creditos}}</p>
       <!-- <div style="width: 40px">
@@ -74,7 +74,7 @@
           v-model="carga.creditos"
           v-on:blur="editCarga(carga)"
         />
-      </div> -->
+      </div>-->
     </td>
   </div>
 </template>
@@ -96,25 +96,6 @@ export default {
   },
 
   methods: {
-    editCarga(carga) {
-      cargaPosService
-        .update(carga.id, carga)
-        .then(response => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Carga ${response.Turma.programa} foi atualizada!`,
-            type: "success"
-          });
-        })
-        .catch(error => {
-          this.error = "<b>Erro ao atualizar Carga</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
     checkDelete(carga) {
       this.$store.commit("checkDeleteCarga", { CargaPos: carga });
       console.log(this.$store.state.cargaPos.Deletar);
