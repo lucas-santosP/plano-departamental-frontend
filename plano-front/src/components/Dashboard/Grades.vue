@@ -317,10 +317,22 @@
 
                 <div class="row mb-0 mt-3 mx-0">
                   <div class="d-flex mr-0 ml-auto">
-                    <button type="button" title="Salvar Grade" class="addbtn" disabled :key="1">
+                    <button
+                      type="button"
+                      title="Salvar Grade"
+                      class="addbtn"
+                      v-on:click.prevent="AvisoDisabled()"
+                      :key="1"
+                    >
                       <i class="fas fa-check"></i>
                     </button>
-                    <button type="button" title="Excluir Grade" class="delbtn" disabled :key="3">
+                    <button
+                      type="button"
+                      title="Excluir Grade"
+                      class="delbtn"
+                      v-on:click.prevent="AvisoDisabled()"
+                      :key="3"
+                    >
                       <i class="far fa-trash-alt"></i>
                     </button>
                   </div>
@@ -461,7 +473,7 @@
                         title="Salvar"
                         class="addbtn"
                         style="margin-top: -1px"
-                        disabled
+                        v-on:click.prevent="AvisoDisabled()"
                         :key="4"
                       >
                         <i class="fas fa-check"></i>
@@ -476,7 +488,7 @@
                       type="button"
                       title="Adicionar à Grade"
                       class="addbtn"
-                      disabled
+                      v-on:click.prevent="AvisoDisabled()"
                       :key="4"
                     >
                       <i class="fas fa-plus"></i>
@@ -486,13 +498,19 @@
                       type="button"
                       title="Deletar Disciplina"
                       class="delbtn"
-                      disabled
+                      v-on:click.prevent="AvisoDisabled()"
                       :key="4"
                     >
                       <i class="far fa-trash-alt"></i>
                     </button>
 
-                    <button type="button" title="Cancelar" class="cancelbtn" disabled :key="2">
+                    <button
+                      type="button"
+                      title="Cancelar"
+                      class="cancelbtn"
+                      v-on:click.prevent="AvisoDisabled()"
+                      :key="2"
+                    >
                       <i class="fas fa-times"></i>
                     </button>
                   </div>
@@ -573,6 +591,14 @@ export default {
             type: "error"
           });
         });
+    },
+    AvisoDisabled() {
+      this.$notify({
+        group: "general",
+        title: `Erro!`,
+        text: "Selecione uma grade!",
+        type: "error"
+      });
     },
     editGrade() {
       gradeService
