@@ -388,9 +388,9 @@
                       id="programa"
                       v-model="cargaPosForm.programa"
                     >
-                      <option type="text" value="PGEM">PGMC</option>
+                      <option type="text" value="PGMC">PGMC</option>
                       <option type="text" value="PGCC">PGCC</option>
-                      <option type="text" value="PGMC">PGEM</option>
+                      <option type="text" value="PGEM">PGEM</option>
                     </select>
                   </div>
                 </div>
