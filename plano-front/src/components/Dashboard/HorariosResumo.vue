@@ -11,11 +11,12 @@
     </div>
 
       <div class="w-100 mb-2 border-bottom"></div>
-		<div class="col-12 p-0" style="padding-left: 15px !important;">
+		<div class="col-12 p-0 marg" style="padding-left: 15px !important;">
       <!-- ----------------------------------------------------------------------------------------------- -->
       <div class="title" style="text-align:center !important;">
         <h3>1º SEMESTRE</h3>
       </div>
+      
       <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
       <div class="title">
@@ -23,9 +24,8 @@
           <span style=" border-bottom: 1px solid #cccccc">Ciência da Computação Diurno</span>
         </h4>
       </div>
-
+    
       <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
-
       <!------------------------------------------------- EC ------------------------------------------------->
       <div class="title">
         <h4>
@@ -3370,4 +3370,5 @@ h5 {
     text-align: center !important;
   }
 }
+
 </style>

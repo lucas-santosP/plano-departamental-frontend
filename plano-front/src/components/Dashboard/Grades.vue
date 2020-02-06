@@ -130,7 +130,6 @@
         <!-- Final Forms Curso e Grande -->
 
         <div class="row w-100"></div>
-
         <div class="row w-100 m-0" style="font-size:11px">
           <!-- Grind esquerdo -->
           <!-- Inicio da tabela -->
