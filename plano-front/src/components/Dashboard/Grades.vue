@@ -170,7 +170,7 @@
                               <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
                                 <td
                                   :key="disciplina.codigo"
-                                  v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome), showGrade(grade)"
+                                  v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.id), showGrade(grade)"
                                   :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
                                   style="cursor:pointer;"
                                 >
@@ -180,7 +180,7 @@
                                   :key="disciplina.nome"
                                   :class="{ 'bg-custom': disciplinaClickada===disciplina.nome}"
                                   style="cursor:pointer;"
-                                  v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.nome), showGrade(grade)"
+                                  v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.id), showGrade(grade)"
                                 >
                                   <p style="width: 400px; text-align: start;">{{disciplina.nome}}</p>
                                 </td>
@@ -271,7 +271,7 @@
                       title="Excluir Grade"
                       class="delbtn"
                       v-on:click.prevent="deleteGrade"
-                      :key="3"
+                      :key="2"
                     >
                       <i class="far fa-trash-alt"></i>
                     </button>
@@ -321,7 +321,7 @@
                       title="Salvar Grade"
                       class="addbtn"
                       v-on:click.prevent="AvisoDisabled()"
-                      :key="1"
+                      :key="3999"
                     >
                       <i class="fas fa-check"></i>
                     </button>
@@ -330,7 +330,7 @@
                       title="Excluir Grade"
                       class="delbtn"
                       v-on:click.prevent="AvisoDisabled()"
-                      :key="3"
+                      :key="4"
                     >
                       <i class="far fa-trash-alt"></i>
                     </button>
@@ -398,7 +398,7 @@
                         class="addbtn"
                         style="margin-top: -1px"
                         v-on:click.prevent="editDisciplinaGrade"
-                        :key="4"
+                        :key="5"
                       >
                         <i class="fas fa-check"></i>
                       </button>
@@ -408,22 +408,24 @@
 
                 <div class="row mb-0 mt-3 mx-0">
                   <div class="d-flex mr-0 ml-auto">
-                    <button
-                      type="button"
-                      title="Adicionar à Grade"
-                      class="addbtn"
-                      v-on:click.prevent="addDisciplinaGrade"
-                      :key="4"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <template v-if="disciplinaClickada !== disciplinaGradeForm.Disciplina">
+                      <button
+                        type="button"
+                        title="Adicionar à Grade"
+                        class="addbtn"
+                        v-on:click.prevent="addDisciplinaGrade"
+                        :key="6"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </template>
 
                     <button
                       type="button"
                       title="Deletar Disciplina"
                       class="delbtn"
                       v-on:click.prevent="deleteDisciplinaGrade(), clearClick()"
-                      :key="4"
+                      :key="7"
                     >
                       <i class="far fa-trash-alt"></i>
                     </button>
@@ -433,7 +435,7 @@
                       title="Cancelar"
                       class="cancelbtn"
                       v-on:click.prevent="cleanDisciplina(),clearClick()"
-                      :key="2"
+                      :key="8"
                     >
                       <i class="fas fa-times"></i>
                     </button>
@@ -441,6 +443,7 @@
                 </div>
               </template>
 
+              <!-- botões desabilitados -->
               <template v-else>
                 <div class="row mb-2 mx-0">
                   <div class="form-group m-0 col px-0">
@@ -473,7 +476,7 @@
                         class="addbtn"
                         style="margin-top: -1px"
                         v-on:click.prevent="AvisoDisabled()"
-                        :key="4"
+                        :key="9"
                       >
                         <i class="fas fa-check"></i>
                       </button>
@@ -488,7 +491,7 @@
                       title="Adicionar à Grade"
                       class="addbtn"
                       v-on:click.prevent="AvisoDisabled()"
-                      :key="4"
+                      :key="10"
                     >
                       <i class="fas fa-plus"></i>
                     </button>
@@ -498,7 +501,7 @@
                       title="Deletar Disciplina"
                       class="delbtn"
                       v-on:click.prevent="AvisoDisabled()"
-                      :key="4"
+                      :key="11"
                     >
                       <i class="far fa-trash-alt"></i>
                     </button>
@@ -508,7 +511,7 @@
                       title="Cancelar"
                       class="cancelbtn"
                       v-on:click.prevent="AvisoDisabled()"
-                      :key="2"
+                      :key="12"
                     >
                       <i class="fas fa-times"></i>
                     </button>
