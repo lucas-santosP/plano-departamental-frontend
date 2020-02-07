@@ -18,7 +18,7 @@
       <div class="w-100 mb-2 border-bottom"></div>
 		<div class="col-12 p-0 marg" style="padding-left: 15px !important;">
       <!-- ----------------------------------------------------------------------------------------------- -->
-      <div class="title" style="text-align:center !important;">
+      <div class="title" style="text-align:center !important;max-width: 1278px !important;">
         <h3>1º SEMESTRE</h3>
       </div>
       
