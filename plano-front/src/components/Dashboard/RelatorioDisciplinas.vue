@@ -140,9 +140,7 @@
 
 <script>
     import _ from "lodash";
-    import jsPDF from "jspdf";
     import pdfs from "../../common/services/pdfs";
-    import html2canvas from "html2canvas";
     export default {
         name: "DashboardRelatorioDisciplinas",
 
@@ -154,7 +152,7 @@
 
         methods: {
             pdf() {
-                /*---------*/
+                pdfs.pdfRelatorioDisciplinas()
             },
 
             toggleOrderNome() {
