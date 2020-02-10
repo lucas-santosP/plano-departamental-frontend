@@ -29,7 +29,7 @@
                             class="sticky"
                     >
                         <th scope="col">
-                            <p class="p-header" style="width: 80px;"
+                            <p class="p-header clickable-header" style="width: 80px;"
                                @click="toggleOrderCodigo()"
                                title="Clique para ordenar por código">Cod.
                                 <i
@@ -205,7 +205,7 @@
 <style scoped>
     /* prefixed */
 
-    .DashboardCargaProfessores {
+    .DashboardRelatorioDisciplinas {
         max-width: 100%;
         overflow: hidden;
         margin: 0;
@@ -351,4 +351,7 @@
         background-color: rgba(0, 0, 0, 0.089);
         color: black;
     }
+    .clickable-header:hover {
+        cursor: pointer;
+     }
 </style>
