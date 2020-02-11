@@ -37,6 +37,10 @@
             >
               <i class="far fa-trash-alt"></i>
             </button>
+
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+                <i class="fas fa-question"></i>
+              </b-button>
           </div>
         </div>
       </div>
@@ -75,7 +79,7 @@
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;" @click="toggleOrdenacaoPGMC">
+                  <p class="p-header" style="width:24px!important; cursor: pointer;" @click="toggleOrdenacaoPGMC">
                     T.
                     <i
                       v-if="ordenacaoAtualPGMC==='periodo'"
@@ -150,7 +154,7 @@
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;" @click="toggleOrdenacaoPGCC">
+                  <p class="p-header" style="width:24px!important; cursor: pointer" @click="toggleOrdenacaoPGCC">
                     T.
                     <i
                       v-if="ordenacaoAtualPGCC==='periodo'"
@@ -228,7 +232,7 @@
                   <p class="p-header" style="width:24px!important;"></p>
                 </th>
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;" @click="toggleOrdenacaoPGEM">
+                  <p class="p-header" style="width:24px!important; cursor: pointer" @click="toggleOrdenacaoPGEM">
                     T.
                     <i
                       v-if="ordenacaoAtualPGEM==='periodo'"
@@ -289,7 +293,7 @@
     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
       <div class="card ml-auto mr-3">
         <div class="card-header">
-          <h2 class="card-title">Adição</h2>
+          <h2 class="card-title">Creditação Pós</h2>
         </div>
         <div class="card-body">
           <form>
@@ -460,6 +464,30 @@
         <br />
         Trimestre:{{cargaPosForm.trimestre}}
       </p>
+    </b-modal>
+
+    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      
+      <div class="modal-body">
+        <ul class="listas list-group"> 
+          <li class="list-group-item">
+            <strong>Para adicionar docentes à Tabela:</strong> Preencha o cartão à direita. Após concluído, clique em Adicionar (+) ou em Cancelar (X).
+          </li>
+          <li class="list-group-item">
+            <strong>Para editar docentes da Tabela:</strong> Na tabela, clique no docente que deseja alterar. No cartão à direita faça as mudanças desejadas e, 
+            em seguida, clique em Salvar (&#10003;) ou em Cancelar (X).
+          </li>
+          <li class="list-group-item">
+            <strong>Para deletar docentes da Tabela:</strong> Marque o(s) docente(s) que deseja deletar através da caixa de seleção à esquerda e em seguida clique em Deletar Selecionados(&#128465;) e confirme no botão OK.
+          </li>
+          <li class="list-group-item">
+            <strong>Para alterar ordenação:</strong> Clique em T. no cabeçalho de cada tabela para alternar a ordenação entre alfabética e por trimestre.
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none">
+      </div>
     </b-modal>
   </div>
 </template>
@@ -967,6 +995,14 @@ input {
   top: 0px;
   z-index: 10;
 }
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong{color:#007bff}
 button {
   padding: 0;
   border: none;
@@ -1018,6 +1054,21 @@ i.far {
   color: #ff5f48;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
+}
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+}
+.relatbtn:hover {
+  color: #82a0ff !important;
+  background-color: white;
+}
+
+.relatbtn:focus {
+  color: #82a0ff;
+  background-color: white;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #698dff;
 }
 .cube1,
 .cube2 {
