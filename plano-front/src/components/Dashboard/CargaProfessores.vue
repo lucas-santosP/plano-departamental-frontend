@@ -437,7 +437,7 @@ export default {
 
     btnOK() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.DocentesAtivados = [...this.DocentesSelecionados];
+      this.DocentesAtivados = [..._.orderBy(this.DocentesSelecionados, 'apelido')];
       this.$refs.DocentesModal.hide();
     },
 
