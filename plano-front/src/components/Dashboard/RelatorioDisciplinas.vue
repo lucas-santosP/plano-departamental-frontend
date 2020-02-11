@@ -241,9 +241,11 @@
             },
 
             toggleOrderNome() {
+                this.DisciplinasAtivados = _.orderBy(this.DisciplinasAtivados, 'nome')
                 this.ordenacao = "nome";
             },
             toggleOrderCodigo() {
+                this.DisciplinasAtivados = _.orderBy(this.DisciplinasAtivados, 'codigo')
                 this.ordenacao = "codigo";
             },
 
