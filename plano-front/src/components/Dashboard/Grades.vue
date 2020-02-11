@@ -7,17 +7,16 @@
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="col-xl-2 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">Grades</h1>
-      
-          <div
-            class="form-group col-xl-10 col-md-8 col-sm-7 col-5 mb-0 p-0"
-            style="justify-content: flex-end!important;"
-          >
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn p-0">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
-          
+
+        <div
+          class="form-group col-xl-10 col-md-8 col-sm-7 col-5 mb-0 p-0"
+          style="justify-content: flex-end!important;"
+        >
+          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn p-0">
+            <i class="fas fa-question"></i>
+          </b-button>
         </div>
+      </div>
     </div>
     <div class="w-100 mb-2 border-bottom"></div>
 
@@ -533,9 +532,8 @@
     </div>
     <!-- MODAL DE AJUDA -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
-      
       <div class="modal-body">
-        <ul class="listas list-group"> 
+        <ul class="listas list-group">
           <li class="list-group-item">
             <strong>lelele</strong> lalala
           </li>
@@ -551,8 +549,7 @@
         </ul>
       </div>
 
-      <div slot="modal-footer" style="display: none">
-      </div>
+      <div slot="modal-footer" style="display: none"></div>
     </b-modal>
   </div>
 </template>
@@ -818,9 +815,6 @@ export default {
         "periodo"
       );
     },
-    isEdit() {
-      return this.currentGrade !== undefined;
-    },
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
@@ -1032,7 +1026,9 @@ table tbody tr:hover {
   line-height: inherit;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
-strong{color:#007bff}
+strong {
+  color: #007bff;
+}
 /* Botoes */
 button {
   padding: 0;
