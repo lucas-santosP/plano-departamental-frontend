@@ -226,7 +226,7 @@
                     type="button"
                     class="delbtn"
                     v-on:click.prevent="deleteDisciplina"
-                    :key="3"
+                    :key="2"
                   >
                     <i class="far fa-trash-alt"></i>
                   </button>

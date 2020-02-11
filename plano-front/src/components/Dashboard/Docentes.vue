@@ -60,7 +60,7 @@
           <template v-if="Docentes.length > 0">
             <tr
               v-for="docente in Docentes"
-              :key="docente.id"
+              :key="'docente-id'+docente.id"
               v-on:click.prevent="showDocentes(docente, DocentePerfis)"
               :class="{'bg-custom':docenteClickado == docente.nome}"
               style="cursor: pointer"
@@ -175,12 +175,11 @@
                       </div>
                     </tr>
                     <tbody>
-                      <tr v-for="perfil in Perfis" :key="perfil">
+                      <tr v-for="perfil in Perfis" :key="'perfil-id'+perfil.id">
                         <div style="width: 300px">
                           <td style="padding:0;broder:0;margin:0!important">
                             <div style="width:25px;">
                               <input
-                                id="checkPerfis"
                                 type="checkbox"
                                 :value="perfil.id"
                                 v-model="perfisAssociados"
@@ -217,7 +216,7 @@
                     title="Deletar"
                     class="delbtn"
                     v-on:click.prevent="deleteDocente"
-                    :key="3"
+                    :key="2"
                   >
                     <i class="far fa-trash-alt"></i>
                   </button>
@@ -226,7 +225,7 @@
                     title="Cancelar"
                     class="cancelbtn"
                     v-on:click="clearClick(), cleanDocente()"
-                    :key="2"
+                    :key="3"
                   >
                     <i class="fas fa-times"></i>
                   </button>
@@ -248,7 +247,7 @@
                     title="Cancelar"
                     class="cancelbtn"
                     v-on:click.prevent="cleanDocente"
-                    :key="2"
+                    :key="3"
                   >
                     <i class="fas fa-times"></i>
                   </button>
@@ -314,7 +313,7 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `O Docente ${response.Docente.nome} foi criada!`,
+            text: `Docente ${response.Docente.nome} foi criada!`,
             type: "success"
           });
         })
@@ -340,7 +339,7 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Docente ${response.Docente.nome} foi atualizada!`,
+            text: `Docente ${response.Docente.nome} foi atualizada!`,
             type: "success"
           });
         })
@@ -367,7 +366,7 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Docente ${response.Docente.nome} foi excluída!`,
+            text: `Docente ${response.Docente.nome} foi excluída!`,
             type: "warn"
           });
         })

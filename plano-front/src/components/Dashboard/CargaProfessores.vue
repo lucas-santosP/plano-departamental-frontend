@@ -224,7 +224,7 @@
             </template>
             <template v-if="turmasSemAlocacao().length > 0">
               <template v-if="turmasSemAlocacao().length > 0">
-                <div class="linhas" style="width: ‭845‬px;" :key="semAlocacao">
+                <div class="linhas" style="width: ‭845‬px;" :key="'semAlocacao'">
                   <td class="prof-td">
                     <div style="width: 130px">SEM ALOCAÇÃO</div>
                   </td>

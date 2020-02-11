@@ -111,7 +111,7 @@
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="turma.id"
+                :key="'turma id'+turma.id"
                 v-bind:style="{backgroundColor: perfil.cor}"
               >
                 <template v-if="turma.periodo==1 && (periodos == 1 || periodos==3)">
@@ -127,7 +127,7 @@
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="turma.id"
+                :key="'2-turma id '+turma.id"
                 v-bind:style="{backgroundColor: perfil.cor}"
               >
                 <template v-if="turma.periodo==3 && (periodos==2 || periodos==3)">
@@ -181,7 +181,7 @@
             </div>
           </tr>
           <tbody>
-            <tr v-for="perfil in Perfis" :key="perfil">
+            <tr v-for="perfil in Perfis" :key="'perfil id'+perfil.id">
               <div style="width: max-content">
                 <td style="padding:0;broder:0;margin:0!important;">
                   <div style="width:25px;">

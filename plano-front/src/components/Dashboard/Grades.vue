@@ -20,7 +20,7 @@
             <select
               id="cursoAtual"
               v-model="currentCurso"
-              v-on:change="clearClick(), cleanGrade(), currentGrade=undefined"
+              v-on:change="clearClick(), cleanGrade(), selectingGrade()"
               class="form-control form-control-sm selectMaior"
             >
               <option value="4">Ciência da Computação Diurno</option>
@@ -31,21 +31,28 @@
           </div>
 
           <div class="mr-3">
-            <label for="gradeAtual" class="col-form-label py-0">Grade</label>
-            <select
-              id="gradeAtual"
-              v-model="currentGrade"
-              v-on:change="findGrade(), clearClick(), cleanDisciplina()"
-              class="form-control form-control-sm selectMenor"
-            >
-              <template v-for="grade in Grades">
-                <option
-                  v-if="grade.Curso == currentCurso"
-                  :key="grade.id+'-'+grade.Curso"
-                  :value="grade.id"
-                >{{grade.nome}}</option>
-              </template>
-            </select>
+            <template v-if="curso_selected">
+              <label for="gradeAtual" class="col-form-label py-0">Grade</label>
+              <select
+                id="gradeAtual"
+                v-model="currentGrade"
+                v-on:change="findGrade(), cleanDisciplina(), grade_selected=true"
+                class="form-control form-control-sm selectMenor"
+              >
+                <template v-for="grade in Grades">
+                  <option
+                    v-if="grade.Curso == currentCurso"
+                    :key="'grade-id'+grade.id"
+                    :value="grade.id"
+                  >{{grade.nome}}</option>
+                </template>
+              </select>
+            </template>
+
+            <template v-else>
+              <label for="gradeAtual" class="col-form-label py-0">Grade</label>
+              <select id="gradeAtual" disabled class="form-control form-control-sm selectMenor"></select>
+            </template>
           </div>
 
           <div class="mr-3">
@@ -152,11 +159,11 @@
               </thead>
 
               <tbody>
-                <template v-if="currentGrade!=undefined">
+                <template v-if="grade_selected">
                   <template v-for="grade in Grades">
                     <template v-for="disciplinaGrade in DisciplinaGrades">
                       <tr
-                        :key="disciplinaGrade+'-'+grade.periodo"
+                        :key="disciplinaGrade.Disciplina+'-'+disciplinaGrade.Grade+'-'+grade.id"
                         v-if="grade.id===currentGrade"
                         :class="[isEven(disciplinaGrade.periodo)? 'even':'notEven']"
                       >
@@ -169,7 +176,7 @@
                             <template v-for="disciplina in Disciplinas">
                               <template v-if="andConnector(grade, disciplina, disciplinaGrade)">
                                 <td
-                                  :key="disciplina.codigo+'-'+disciplina.nome"
+                                  :key="'disciplina-codigo'+disciplina.codigo"
                                   v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.id, disciplina.nome), showGrade(grade)"
                                   :class="{ 'bg-custom': disciplinaClickada===disciplina.id}"
                                   style="cursor:pointer;"
@@ -177,7 +184,7 @@
                                   <p style="width: 70px">{{disciplina.codigo}}</p>
                                 </td>
                                 <td
-                                  :key="disciplina.nome+'-'+disciplina.codigo"
+                                  :key="'2-disciplina-codigo'+disciplina.codigoo"
                                   v-on:click.prevent="showDisciplina(disciplinaGrade), clickada(disciplina.id, disciplina.nome), showGrade(grade)"
                                   :class="{ 'bg-custom': disciplinaClickada===disciplina.id}"
                                   style="cursor:pointer;"
@@ -215,7 +222,7 @@
 
           <div class="card-body">
             <form>
-              <template v-if="isEdit">
+              <template v-if="grade_selected">
                 <div class="row mb-2 mx-0">
                   <div class="form-group col m-0 mr-4 px-0">
                     <label for="nome" class="col-form-label">Nome</label>
@@ -351,7 +358,7 @@
           <div class="card-body">
             <form>
               <!-- Edição de disciplina -->
-              <template v-if="isEdit">
+              <template v-if="grade_selected">
                 <div class="row mb-2 mx-0">
                   <div class="form-group m-0 col px-0">
                     <label for="disciplina" class="mr-2 col-form-label">Disciplina</label>
@@ -370,7 +377,7 @@
                       <option
                         v-else
                         v-for="disciplina in Disciplinas"
-                        :key="disciplina.id+'-'+disciplina.nome+'-'+disciplina.codigo"
+                        :key="'2-grade-id'+disciplina.id+'-'+disciplina.codigo"
                         :value="disciplina.id"
                       >{{disciplina.nome}}</option>
                     </select>
@@ -429,14 +436,13 @@
                       type="button"
                       title="Cancelar"
                       class="cancelbtn"
-                      v-on:click.prevent="cleanDisciplina(),clearClick()"
+                      v-on:click.prevent="cleanDisciplina()"
                     >
                       <i class="fas fa-times"></i>
                     </button>
                   </div>
                 </div>
               </template>
-
               <!-- botões desabilitados -->
               <template v-else>
                 <div class="row mb-2 mx-0">
@@ -544,6 +550,8 @@ export default {
       error: undefined,
       currentGrade: undefined,
       currentCurso: undefined,
+      curso_selected: false,
+      grade_selected: false,
       grades: [],
       disciplinaClickada: "",
       showCard: false,
@@ -554,6 +562,10 @@ export default {
     clickada(ID, nome) {
       this.disciplinaClickada = ID;
       this.nomeAtual = nome;
+    },
+    selectingGrade() {
+      this.curso_selected = true; //Curso foi selecionado
+      this.grade_selected = false; //Grade ainda não foi selecionada
     },
     clearClick() {
       this.disciplinaClickada = "";
@@ -646,6 +658,7 @@ export default {
       this.gradeNewForm = _.clone(emptyGrade);
     },
     cleanDisciplina() {
+      this.clearClick();
       this.disciplinaGradeForm.periodo = undefined;
       this.disciplinaGradeForm.Disciplina = undefined;
     },

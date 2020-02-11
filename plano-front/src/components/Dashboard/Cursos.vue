@@ -54,10 +54,18 @@
                 <p class="p-header" style="width:52px!important;">Turno</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:52px!important;" title="Entrada de alunos 1º Semestre">1º Sem.</p>
+                <p
+                  class="p-header"
+                  style="width:52px!important;"
+                  title="Entrada de alunos 1º Semestre"
+                >1º Sem.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:52px!important;" title="Entrada de alunos 2º Semestre">2º Sem.</p>
+                <p
+                  class="p-header"
+                  style="width:52px!important;"
+                  title="Entrada de alunos 2º Semestre"
+                >2º Sem.</p>
               </th>
             </div>
           </tr>
@@ -67,7 +75,7 @@
           <template v-if="Cursos.length > 0">
             <tr
               v-for="curso in Cursos"
-              :key="curso"
+              :key="'curso codigo'+curso.codigo"
               v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
               :class="{'bg-custom':cursoClickado === curso.codigo}"
               style="cursor: pointer;"
@@ -220,7 +228,7 @@
                     title="Deletar"
                     class="delbtn"
                     v-on:click.prevent="deleteCurso"
-                    :key="3"
+                    :key="2"
                   >
                     <i class="far fa-trash-alt"></i>
                   </button>
@@ -230,7 +238,7 @@
                     title="Cancelar"
                     class="cancelbtn"
                     v-on:click.prevent="cleanCurso"
-                    :key="2"
+                    :key="3"
                   >
                     <i class="fas fa-times"></i>
                   </button>
