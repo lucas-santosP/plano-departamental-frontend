@@ -256,11 +256,11 @@
               </template>
               <template v-for="turma in turmasSemAlocacao()">
                 <tr
-                        v-for="disciplina in Disciplinas"
-                        :key="'turma'+turma.id+'disciplina'+disciplina.id+'semAlocacao'"
+                  v-for="disciplina in Disciplinas"
+                  :key="'turma'+turma.id+'disciplina'+disciplina.id+'semAlocacao'"
                 >
                   <template
-                          v-if="turma.Disciplina===disciplina.id && (turma.Docente1==null && turma.Docente2==null)"
+                    v-if="turma.Disciplina===disciplina.id && (turma.Docente1==null && turma.Docente2==null)"
                   >
                     <div class="linhas" style="width: ‭845‬px;">
                       <td>
@@ -285,8 +285,8 @@
                               {{horario.horario}}
                               <template v-for="horario in Horarios">
                                 <span
-                                        :key="horario.id"
-                                        v-if="horario.id===turma.Horario2"
+                                  :key="horario.id"
+                                  v-if="horario.id===turma.Horario2"
                                 >/ {{horario.horario}}</span>
                               </template>
                             </p>
@@ -297,7 +297,7 @@
                       <td v-if="turma.periodo===1">
                         <div style="width: 32px">
                           <p
-                                  v-if="(turma.Docente1 > 0) && (turma.Docente2 > 0)"
+                            v-if="(turma.Docente1 > 0) && (turma.Docente2 > 0)"
                           >{{(disciplina.cargaTeorica + disciplina.cargaPratica)/2}}</p>
 
                           <p v-else>{{disciplina.cargaTeorica + disciplina.cargaPratica}}</p>
@@ -311,7 +311,7 @@
                       <td v-if="turma.periodo===3">
                         <div style="width: 32px">
                           <p
-                                  v-if="(turma.Docente1 > 0) && (turma.Docente2 > 0)"
+                            v-if="(turma.Docente1 > 0) && (turma.Docente2 > 0)"
                           >{{(disciplina.cargaTeorica + disciplina.cargaPratica)/2}}</p>
                           <p v-else>{{disciplina.cargaTeorica + disciplina.cargaPratica}}</p>
                         </div>
@@ -353,7 +353,7 @@ export default {
   methods: {
     pdf() {
       pdfs.pdfCargaProfessores();
-      console.log(this.turmasSemAlocacao())
+      console.log(this.turmasSemAlocacao());
     },
 
     turmas(professor) {
@@ -363,19 +363,21 @@ export default {
             turma.Docente1 === professor.id || turma.Docente2 === professor.id
           );
         }),
-        ['periodo', 'Disciplina', 'letra']
+        ["periodo", "Disciplina", "letra"]
       );
     },
 
     turmasSemAlocacao() {
-        return _.orderBy(
-            _.filter(this.$store.state.turma.Turmas, turma => {
-                return (
-                    turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
-                );
-            }),
-            ['periodo', 'Disciplina', 'letra']
-        );
+      return _.orderBy(
+        _.filter(this.$store.state.turma.Turmas, turma => {
+          return (
+            turma.Docente1 == null &&
+            turma.Docente2 == null &&
+            turma.Disciplina != null
+          );
+        }),
+        ["periodo", "Disciplina", "letra"]
+      );
     },
 
     pos(professor) {
