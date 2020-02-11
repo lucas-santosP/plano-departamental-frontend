@@ -90,7 +90,7 @@
                   {{year}}
                 </a>
               </h6>
-              <ul class="nav flex-column mb-2">
+              <ul class="nav flex-column mb-2" v-if="Admin">
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'pedidos' }" class="nav-link" v-on:click="loadPage">
                     <i class="fas fa-clipboard"></i> Tabela
@@ -126,6 +126,11 @@
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'cargaProfessores' }" class="nav-link">
                     <i class="fas fa-clipboard"></i> Carga Professores
+                  </router-link>
+                </li>
+                <li @click="show=false" class="nav-item">
+                  <router-link :to="{ name: 'relatorioDisciplinas' }" class="nav-link">
+                    <i class="fas fa-clipboard"></i> Plano Departamental
                   </router-link>
                 </li>
                 <li @click="show=false" class="nav-item">
