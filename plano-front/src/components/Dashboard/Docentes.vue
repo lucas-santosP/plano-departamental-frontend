@@ -206,36 +206,13 @@
                       </tr>
                     </tbody>
                   </table>
-
-                  <!-- 
-                  
-                  <div
-                    class="alert p-1 alert-secondary m-0 text-center w-100 rounded-0 rounded-top"
-                    role="alert"
-                  >Perfis:</div>
-                  <div class="px-2 py-1" style="height: 220px!important; overflow-y: scroll">
-                    <template v-for="perfil in Perfis">
-                      <div :key="perfil.nome+perfil.id" class="form-check w-100 mb-1 p-0">
-                        <input
-                          id="checkPerfis"
-                          type="checkbox"
-                          :value="perfil.id"
-                          v-model="perfisAssociados"
-                          v-on:change="managePerfil(perfil.id)"
-                          class="form-check-input position-static m-0"
-                        />
-                        <label for="checkPerfis" class="col-form-label p-0">{{perfil.nome}}</label>
-                      </div>
-                    </template>
-                  </div>
-                  -->
                 </div>
               </div>
             </template>
 
             <div class="form-group row">
               <template v-if="isEdit">
-                <div style="display: flex; margin-right: 0; margin-left: auto">
+                <div class="d-flex mr-0 ml-auto">
                   <button
                     type="button"
                     title="Salvar"
@@ -705,8 +682,8 @@ input {
   cursor: pointer;
   padding-left: 5px;
 }
-
 /* =================== */
+
 .bg-custom {
   background-color: #c8c8c8;
 }

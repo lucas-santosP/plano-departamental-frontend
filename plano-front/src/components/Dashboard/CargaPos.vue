@@ -1,5 +1,5 @@
 <template>
-  <div class="CargaPos row pr-2">
+  <div class="CargaPos row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
@@ -106,25 +106,19 @@
                   <template v-for="carga in CargasPGMC">
                     <tr
                       v-if="checkPGMC(carga, docente, t)"
-                      :key="'docente'+docente.id+'carga'+carga.id+t"
+                      :key="'MC-docente'+docente.id+'carga'+carga.id+t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
                       :class="{'bg-custom':linhaClickada == carga.id}"
                     >
                       <template
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
-                        <cargadata
-                          :key="'1docente'+docente.id+'carga'+carga.id"
-                          v-bind:carga="carga"
-                        ></cargadata>
+                        <cargadata :key="'1-MC'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
                       </template>
                       <template
                         v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
                       >
-                        <cargadata
-                          :key="'2docente'+docente.id+'carga'+carga.id"
-                          v-bind:carga="carga"
-                        ></cargadata>
+                        <cargadata :key="'2-MC'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
                       </template>
                     </tr>
                   </template>
@@ -187,7 +181,7 @@
                   <template v-for="carga in CargasPGCC">
                     <tr
                       v-if="checkPGCC(carga, docente, t)"
-                      :key="'docente'+docente.id+'carga'+carga.id+t"
+                      :key="'CC-docente'+docente.id+'carga'+carga.id+t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
                       :class="{'bg-custom':linhaClickada == carga.id}"
                     >
@@ -195,7 +189,7 @@
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
                         <cargadata
-                          :key="'1docente'+docente.id+'carga'+carga.id"
+                          :key="'CC-docente'+docente.id+'carga'+carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -203,7 +197,7 @@
                         v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
                       >
                         <cargadata
-                          :key="'2docente'+docente.id+'carga'+carga.id"
+                          :key="'CC-docente'+docente.id+'carga'+carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -215,6 +209,7 @@
           </tbody>
         </table>
       </div>
+
       <!-- Inicio Tabela 3 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
         <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
@@ -264,7 +259,7 @@
                   <template v-for="carga in CargasPGEM">
                     <tr
                       v-if="checkPGEM(carga, docente, t)"
-                      :key="'docente'+docente.id+'carga'+carga.id+t"
+                      :key="'EM-docente'+docente.id+'carga'+carga.id+t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
                       :class="{'bg-custom':linhaClickada == carga.id}"
                     >
@@ -272,7 +267,7 @@
                         v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (periodos == 1 || periodos == 3))"
                       >
                         <cargadata
-                          :key="'1docente'+docente.id+'carga'+carga.id"
+                          :key="'EM-docente'+docente.id+'carga'+carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -280,7 +275,7 @@
                         v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (periodos == 2 || periodos == 3))"
                       >
                         <cargadata
-                          :key="'2docente'+docente.id+'carga'+carga.id"
+                          :key="'EM-docente'+docente.id+'carga'+carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -293,6 +288,7 @@
         </table>
       </div>
     </div>
+
     <!-- Card de Adição -->
     <div class="div-card p-0 mt-3 mb-2 ml-auto col-lg-4 col-md-12 col-sm-12 col-12">
       <div class="card ml-auto mr-3">
@@ -333,7 +329,7 @@
                       <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
                       <option
                         v-for="docente in Docentes"
-                        :key="docente.id"
+                        :key="'id docente'+docente.id"
                         :value="docente.id"
                       >{{docente.apelido}}</option>
                     </select>
@@ -446,7 +442,7 @@
         <template v-for="carga in Deletar">
           <template v-for="docente in Docentes">
             <template v-if="docente.id===carga.Docente">
-              <p :key="'carga'+carga.id+'docente'+docente.id">
+              <p :key="'carga id'+carga.id+'docente'+docente.id">
                 Docente:{{docente.apelido}}
                 <br />
                 Programa:{{carga.programa}}
@@ -546,7 +542,6 @@ export default {
         this.$refs.tablePGMC.clientWidth +
         "px"
     };
-    console.log(this.scrollsize);
   },
 
   methods: {
@@ -658,8 +653,6 @@ export default {
       cargaPosService
         .create(this.cargaPosForm)
         .then(response => {
-          console.log(response.CargaPos);
-          console.log(this.$store.state.cargaPos.Cargas);
           this.trimestre = response.CargaPos.trimestre;
           this.programa = response.CargaPos.programa;
           this.cleanCarga();
@@ -841,6 +834,14 @@ export default {
 
     isLoading() {
       return this.$store.state.isLoading;
+    },
+
+    Admin() {
+      if (this.$store.state.auth.Usuario.admin === 1) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };

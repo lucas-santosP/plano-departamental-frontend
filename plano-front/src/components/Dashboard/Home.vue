@@ -18,7 +18,7 @@
         <br />Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3" v-if="Admin">
           <!-- lista-1 -->
           <h3 class="lista-titulo">PLANO</h3>
           <ul class="listas list-group">
@@ -72,7 +72,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3" v-if="Admin">
           <!-- lista-3 -->
           <h3 class="lista-titulo">GERENCIAR</h3>
           <ul class="listas list-group">
@@ -121,6 +121,13 @@ export default {
   name: "DashboardHome",
 
   computed: {
+    Admin() {
+      if (this.$store.state.auth.Usuario.admin === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     ...mapGetters(["getUsuarioFirstName"])
   }
 };
