@@ -182,18 +182,6 @@
                     </tbody>
                 </table>
             </div>
-            <!--
-            <b-form-group style="margin-top:-10px; font-size:12px;">
-              <b-form-checkbox-group id="checkboxGroupPerfis" v-model="PerfisSelecionados">
-                <b-form-checkbox
-                  size="sm"
-                  v-for="perfil in Perfis"
-                  :key="'perfil'+perfil.id"
-                  :value="perfil"
-                >{{perfil.nome}}</b-form-checkbox>
-              </b-form-checkbox-group>
-            </b-form-group>
-            -->
 
             <div slot="modal-footer" style="display: flex; margin-right: 10px !important;">
                 <b-button
