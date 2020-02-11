@@ -6,10 +6,19 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-12 titulo">Grades</h1>
-      </div>
+        <h1 class="col-xl-2 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">Grades</h1>
+      
+          <div
+            class="form-group col-xl-10 col-md-8 col-sm-7 col-5 mb-0 p-0"
+            style="justify-content: flex-end!important;"
+          >
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn p-0">
+              <i class="fas fa-question"></i>
+            </b-button>
+          </div>
+          
+        </div>
     </div>
-
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="row w-100 m-0" style="font-size:11px">
@@ -516,6 +525,29 @@
       </div>
       <!-- FIM DA REPETIÇÃO -->
     </div>
+    <!-- MODAL DE AJUDA -->
+    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      
+      <div class="modal-body">
+        <ul class="listas list-group"> 
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong>lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none">
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -980,7 +1012,14 @@ thead th {
 table tbody tr:hover {
   background-color: #c8c8c8;
 }
-
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong{color:#007bff}
 /* Botoes */
 button {
   padding: 0;
@@ -1034,6 +1073,23 @@ i.far {
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ff4e34;
 }
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+}
+
+.relatbtn:hover {
+  color: #82a0ff !important;
+  background-color: white;
+}
+
+.relatbtn:focus {
+  color: #82a0ff;
+  background-color: white;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #698dff;
+}
+
 @media screen and (max-width: 900px) {
   .div-card {
     margin-left: 0px !important;

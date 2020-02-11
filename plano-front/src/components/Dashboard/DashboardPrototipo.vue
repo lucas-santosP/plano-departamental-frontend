@@ -81,7 +81,11 @@
                 <i class="far fa-file-alt"></i>
               </button>
             </template>
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+                <i class="fas fa-question"></i>
+              </b-button>
           </div>
+          
         </div>
       </div>
     </div>
@@ -141,11 +145,37 @@
               </tr>
             </template>
           </template>
+          
         </tbody>
       </table>
     </div>
 
-    <!--============ Modals ==============-->
+    <!-- ============ Modals ============== -->
+    <!-- Modal de Ajuda -->
+    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      
+      <div class="modal-body">
+        <ul class="listas list-group"> 
+          <li class="list-group-item">
+            <strong>Para exibir conteúdo na Tabela:</strong> Comece selecionando o(s) semestre(s) desejado(s). Em seguida, clique em Perfil e marque quais deseja mostrar, depois clique em OK. 
+            Logo após, escolha os cursos que quer ver, confirmando novamente a seleção em OK. 
+          </li>
+          <li class="list-group-item">
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar (+), em seguida, preencha a nova linha que surgirá na tabela. Após concluido, clique em Salvar (&#10003;)
+            ou em Cancelar (X).
+          </li>
+          <li class="list-group-item">
+            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar através da caixa de seleção à esquerda e em seguida clique em Deletar (&#128465;) e confirme no botão OK.
+          </li>
+          <li class="list-group-item">
+            <strong>Para gerar relatório:</strong> Clique no botão XLSX e aguarde para fazer download do relatório.
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none; margin-right: 10px !important;">
+      </div>
+    </b-modal>
     <!-- Modals do deletar-->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
       <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
@@ -683,7 +713,14 @@ export default {
 
 <style scoped>
 /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong{color:#007bff}
 .DashboardPrototipo {
   max-width: 100%;
   overflow: hidden;
@@ -817,7 +854,7 @@ th {
 button {
   padding: 0;
   border: none;
-  background: none;
+  background: white;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -851,10 +888,12 @@ i.far {
   color: #cfcfc4;
 }
 .cancelbtn:hover {
+  background-color: white;
   color: #b8b4a8;
 }
 
 .cancelbtn:focus {
+  background-color: white;
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
@@ -881,10 +920,12 @@ i.far {
 
 .relatbtn:hover {
   color: #82a0ff !important;
+  background-color: white;
 }
 
 .relatbtn:focus {
   color: #82a0ff;
+  background-color: white;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #698dff;
 }

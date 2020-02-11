@@ -2,24 +2,32 @@
     <div class="DashboardRelatorioDisciplinas row pr-2">
         <!-- Titulo -->
         <div
-                class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-                style="height:38px;"
+      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height:38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+        <h1 class="titulo col-9 col-sm-6 col-md-4 col-lg-4 px-0 pr-1">Plano Departamental</h1>
+
+        <div
+          class="form-group col-3 col-sm-6 col-md-8 col-lg-8 mb-0 p-0"
+          style="justify-content: flex-end!important;"
         >
-            <div class="form-inline col-12 pl-0 mb-1 pr-1">
-                <h1 class="titulo col-7 col-sm-5 col-md-4 col-xl-2">Plano Departamental</h1>
+          <div class="input-group ml-auto mb-0 mt-0 p-0">
+            <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
+                <i class="far fa-file-alt"></i>
+            </button>
 
-                <div
-                        class="form-group col-5 col-sm-7 col-md-8 col-xl-10 mb-0 pr-0"
-                        style="justify-content: flex-end;"
-                >
-                    <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
-                        <i class="far fa-file-alt"></i>
-                    </button>
-                </div>
-            </div>
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+                <i class="fas fa-question"></i>
+              </b-button>
+          </div>
+          
         </div>
-        <div class="w-100 mb-2 border-bottom"></div>
+      </div>
+    </div>
 
+    <div class="w-100 mb-2 border-bottom"></div>
+        
         <div class="divTable p-0" ref="carga">
             <table class="table table-hover border table-sm">
                 <thead class="thead-light sticky">
@@ -135,6 +143,30 @@
                 </tbody>
             </table>
         </div>
+        
+        <!-- MODAL DE AJUDA -->
+    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      
+      <div class="modal-body">
+        <ul class="listas list-group"> 
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong>lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none">
+      </div>
+    </b-modal>
     </div>
 </template>
 
@@ -285,6 +317,14 @@
         padding-left: 0;
         margin: 0 !important;
     }
+    .listas {
+        line-height: 30px;
+        font-size: 12px;
+        text-align: justify;
+        line-height: inherit;
+        box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+    }
+    strong{color:#007bff}
     /* Botoes */
     button {
         padding: 0;
@@ -304,18 +344,20 @@
         font-size: 25px;
     }
     .relatbtn {
-        background-color: white;
-        color: #9ab3ff !important;
+    background-color: white;
+    color: #9ab3ff !important;
     }
 
     .relatbtn:hover {
-        color: #82a0ff !important;
+    color: #82a0ff !important;
+    background-color: white;
     }
 
     .relatbtn:focus {
-        color: #82a0ff;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: #698dff;
+    color: #82a0ff;
+    background-color: white;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: #698dff;
     }
 
     /* APENAS NO FIREFOX */

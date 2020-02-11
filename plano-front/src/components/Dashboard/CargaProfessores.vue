@@ -15,6 +15,10 @@
           <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
             <i class="far fa-file-alt"></i>
           </button>
+
+          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+                <i class="fas fa-question"></i>
+          </b-button>
         </div>
       </div>
     </div>
@@ -339,6 +343,30 @@
         </tbody>
       </table>
     </div>
+
+  <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      
+      <div class="modal-body">
+        <ul class="listas list-group"> 
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong>lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none">
+      </div>
+    </b-modal>
+
   </div>
 </template>
 
@@ -643,6 +671,14 @@ table input {
   padding-left: 0;
   margin: 0 !important;
 }
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong{color:#007bff}
 /* Botoes */
 button {
   padding: 0;
@@ -668,10 +704,12 @@ i.far {
 
 .relatbtn:hover {
   color: #82a0ff !important;
+  background-color: white;
 }
 
 .relatbtn:focus {
   color: #82a0ff;
+  background-color: white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #698dff;
 }
