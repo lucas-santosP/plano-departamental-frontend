@@ -310,7 +310,9 @@
 
         computed: {
             Disciplinas() {
-                return _.orderBy(this.$store.state.disciplina.Disciplinas, this.ordenacao);
+                return _.orderBy(_.filter(this.$store.state.disciplina.Disciplinas, function(d) {
+                    return d.Perfil !== 13 && d.Perfil !== 15;
+                }), this.ordenacao);
             },
             Horarios() {
                 return this.$store.state.horario.Horarios;
