@@ -1132,11 +1132,6 @@ export default {
       LaboratoriosAtivados: []
     };
   },
-  created: function() {
-    console.log(this.$store.state.sala.Salas);
-    console.log(_.filter(this.$store.state.sala.Salas, ["laboratorio", true]));
-  },
-
   methods: {
     btnOK() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado

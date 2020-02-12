@@ -349,7 +349,6 @@ export default {
 
     cleanPerfil() {
       this.clearClick();
-      console.log(this.perfilForm.cor);
       this.perfilForm = _.clone(emptyPerfil);
       this.error = undefined;
     },
