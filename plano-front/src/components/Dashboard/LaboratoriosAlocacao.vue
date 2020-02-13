@@ -13,7 +13,7 @@
           class="form-group col-xl-9 col-md-8 col-sm-7 col-5 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
-          <b-button v-b-modal.modalLaboratorios title="Laboratorios" class="cancelbtn">
+          <b-button v-b-modal.modalLaboratorios title="Laboratórios" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
           </b-button>
 
@@ -1038,16 +1038,11 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para exibir conteúdo na tela: </strong> Clique em Laboratórios e selecione o(s) laboratório(s) que deseja 
+            ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-            <strong>lelele</strong>lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
+              <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
           </li>
         </ul>
       </div>
@@ -1441,10 +1436,12 @@ i.far {
   color: #cfcfc4;
 }
 .cancelbtn:hover {
+  background-color: white;
   color: #b8b4a8;
 }
 
 .cancelbtn:focus {
+  background-color: white;
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;

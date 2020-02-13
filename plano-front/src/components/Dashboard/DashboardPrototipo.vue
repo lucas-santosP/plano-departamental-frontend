@@ -155,17 +155,21 @@
         <ul class="listas list-group">
           <li class="list-group-item">
             <strong>Para exibir conteúdo na Tabela:</strong> Comece selecionando o(s) semestre(s) desejado(s). Em seguida, clique em Perfil e marque quais deseja mostrar, depois clique em OK.
-            Logo após, escolha os cursos que quer ver, confirmando novamente a seleção em OK.
+            Logo após, escolha os cursos que quer ver, confirmando a seleção em OK.
           </li>
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar (+), em seguida, preencha a nova linha que surgirá na tabela. Após concluido, clique em Salvar (&#10003;)
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar (+), em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar (&#10003;)
+  
             ou em Cancelar (X).
+          </li>
+          <li class="list-group-item">
+            <strong>Para editar disciplinas da Tabela: </strong>Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente. 
           </li>
           <li class="list-group-item">
             <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar através da caixa de seleção à esquerda e em seguida clique em Deletar (&#128465;) e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão XLSX e aguarde para fazer download do relatório.
+            <strong>Para gerar relatório:</strong> Clique no botão XLSX e aguarde para fazer <font style='font-style:italic;'>download</font> do relatório.
           </li>
         </ul>
       </div>
