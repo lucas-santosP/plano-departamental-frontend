@@ -13,7 +13,7 @@
           class="form-group col-xl-9 col-md-8 col-sm-7 col-5 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
-          <b-button v-b-modal.modalLaboratorios title="Laboratorios" class="cancelbtn">
+          <b-button v-b-modal.modalLaboratorios title="Laboratórios" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
           </b-button>
 
@@ -1042,7 +1042,7 @@
             ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-              <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer download do mesmo.
+              <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
           </li>
         </ul>
       </div>

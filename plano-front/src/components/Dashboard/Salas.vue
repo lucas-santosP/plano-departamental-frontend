@@ -81,7 +81,7 @@
       <div class="modal-body">
         <ul class="listas list-group"> 
           <li class="list-group-item">
-            <strong>Para adicionar sala: </strong> Com o cartão a direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
+            <strong>Para adicionar sala: </strong> Com o cartão à direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
           </li>
           <li class="list-group-item">
             <strong>Para editar ou deletar uma sala: </strong>Na tabela, clique na sala que deseja alterar. Logo após, no cartão à direita, 

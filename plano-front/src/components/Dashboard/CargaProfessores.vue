@@ -356,7 +356,7 @@
             ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-             <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer download do mesmo.
+             <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
           </li>
         </ul>
       </div>
@@ -893,10 +893,12 @@ i.far {
   color: #cfcfc4;
 }
 .cancelbtn:hover {
+  background-color: white;
   color: #b8b4a8;
 }
 
 .cancelbtn:focus {
+  background-color: white;
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;

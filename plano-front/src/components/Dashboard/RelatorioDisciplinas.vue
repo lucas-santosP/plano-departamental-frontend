@@ -158,10 +158,10 @@
             ver, em seguida confirme em OK. Caso queira ver todas basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer download do mesmo.
+            <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
           </li>
           <li class="list-group-item">
-            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho de cada tabela para ordenar por código, ou em Nome para ordenar por ordem alfabética. 
+            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho da tabela para ordenar por código, ou em Nome para ordenar por ordem alfabética. 
           </li>
         </ul>
       </div>

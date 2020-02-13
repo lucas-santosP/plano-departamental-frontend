@@ -212,7 +212,7 @@
       <div class="modal-body">
         <ul class="listas list-group"> 
           <li class="list-group-item">
-            <strong>Para adicionar perfis: </strong> Com o cartão a direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
+            <strong>Para adicionar perfis: </strong> Com o cartão à direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
           </li>
           <li class="list-group-item">
              <strong>Para editar ou deletar um perfil: </strong>Na tabela, clique no perfil que deseja alterar. Logo após, no cartão à direita, 
