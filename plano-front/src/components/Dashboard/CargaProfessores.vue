@@ -352,16 +352,11 @@
       <div class="modal-body">
         <ul class="listas list-group"> 
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para exibir conteúdo na Tabela: </strong> Clique em Docentes e selecione o(s) professor(es) que deseja 
+            ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-            <strong>lelele</strong>lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
+             <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer download do mesmo.
           </li>
         </ul>
       </div>
