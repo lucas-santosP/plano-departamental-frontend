@@ -154,16 +154,14 @@
       <div class="modal-body">
         <ul class="listas list-group"> 
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para exibir conteúdo na Tabela: </strong> Clique em Disciplinas e selecione a(s) disciplina(s) que deseja 
+            ver, em seguida confirme em OK. Caso queira ver todas basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-            <strong>lelele</strong>lalala
+            <strong>Para gerar relatório:</strong> Clique no botão Relatório e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
           </li>
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho da tabela para ordenar por código, ou em Nome para ordenar por ordem alfabética. 
           </li>
         </ul>
       </div>
@@ -551,10 +549,12 @@
         color: #cfcfc4;
     }
     .cancelbtn:hover {
+        background-color: white;
         color: #b8b4a8;
     }
 
     .cancelbtn:focus {
+        background-color: white;
         color: #b8b8a8;
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: #ada89a;
