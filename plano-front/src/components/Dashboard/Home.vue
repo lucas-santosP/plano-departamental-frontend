@@ -124,6 +124,9 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "DashboardHome",
+  created() {
+      console.log(this.$store)
+  },
 
   computed: {
     Admin() {
