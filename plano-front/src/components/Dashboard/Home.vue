@@ -98,7 +98,7 @@
             </li>
             <li class="list-group-item">
               <strong>
-                <router-link :to="{ name: 'gradeEdit' }">Disciplinas na Grades:</router-link>
+                <router-link :to="{ name: 'gradeEdit' }">Disciplinas na Grade:</router-link>
               </strong> Onde encontram-se as as disciplinas de cada grade do DCC atuais e antigas que ainda estão em atividade, e permite a alteração ou adição de novas disciplinas.        </li>
             <li class="list-group-item">
               <strong>
