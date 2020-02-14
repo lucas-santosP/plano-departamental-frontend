@@ -168,7 +168,7 @@
                 </li>
                 <li @click="show=false" class="nav-item">
                   <router-link :to="{ name: 'gradeEdit' }" class="nav-link">
-                    <i class="fas fa-sitemap"></i> Editar Grades
+                    <i class="fas fa-sitemap"></i> Disciplinas na Grade
                   </router-link>
                 </li>
                 <li @click="show=false" class="nav-item">

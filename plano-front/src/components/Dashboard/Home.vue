@@ -98,6 +98,10 @@
             </li>
             <li class="list-group-item">
               <strong>
+                <router-link :to="{ name: 'gradeEdit' }">Disciplinas na Grades:</router-link>
+              </strong> Onde encontram-se as as disciplinas de cada grade do DCC atuais e antigas que ainda estão em atividade, e permite a alteração ou adição de novas disciplinas.        </li>
+            <li class="list-group-item">
+              <strong>
                 <router-link :to="{ name: 'perfis' }">Perfis:</router-link>
               </strong> Onde encontram-se os perfis definidos para cada disciplina nas tabelas, permitindo também a adição e alteração de perfis, seus nomes e as cores destinadas a eles.
             </li>
