@@ -186,6 +186,11 @@
                     <i class="fas fa-clipboard"></i>Salas
                   </router-link>
                 </li>
+                <li @click="show=false" class="nav-item">
+                  <router-link :to="{ name: 'history' }" class="nav-link">
+                    <i class="fas fa-clipboard"></i>Logs
+                  </router-link>
+                </li>
               </ul>
             </div>
           </nav>
