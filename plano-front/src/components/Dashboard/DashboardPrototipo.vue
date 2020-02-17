@@ -159,17 +159,17 @@
           </li>
           <li class="list-group-item">
             <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar (+), em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar (&#10003;)
-  
             ou em Cancelar (X).
           </li>
           <li class="list-group-item">
-            <strong>Para editar disciplinas da Tabela: </strong>Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente. 
+            <strong>Para editar disciplinas da Tabela:</strong>Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente.
           </li>
           <li class="list-group-item">
             <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar através da caixa de seleção à esquerda e em seguida clique em Deletar (&#128465;) e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão XLSX e aguarde para fazer <font style='font-style:italic;'>download</font> do relatório.
+            <strong>Para gerar relatório:</strong> Clique no botão XLSX e aguarde para fazer
+            <font style="font-style:italic;">download</font> do relatório.
           </li>
         </ul>
       </div>
@@ -244,17 +244,19 @@
       </b-form-group>
       -->
 
-      <div slot="modal-footer" style="display: flex; margin-right: 10px !important;">
-        <b-button
-          class="btn-azul btn-df mr-2"
-          variant="success"
-          @click="selectAll()"
-        >Selecionar Todos</b-button>
-        <b-button
-          class="btn-cinza btn-df mr-2"
-          variant="secondary"
-          @click="selectNone()"
-        >Desmarcar Todos</b-button>
+      <div slot="modal-footer" class="w-100" style="display: flex; margin-right: 10px !important;">
+        <div class="row m-0 w-100">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAll()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="selectNone()"
+          >Desmarcar Todos</b-button>
+        </div>
         <b-button
           variant="success"
           @click="btnOK()"
