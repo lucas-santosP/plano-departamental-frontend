@@ -279,7 +279,7 @@
       </b-form-group>
       -->
 
-      <div slot="modal-footer" class="w-100" style="display: flex; margin-right: 10px !important;">
+      <div slot="modal-footer" class="w-100 ml-2" style="display: flex;">
         <div class="row m-0 w-100">
           <b-button
             class="btn-azul btn-df mr-2"
@@ -299,6 +299,8 @@
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
       </div>
+      
+      
     </b-modal>
 
     <!-- Modals do botão cursos slot="modal-footer" -->
@@ -369,18 +371,19 @@
         </table>
       </div>
 
-      <div slot="modal-footer" style="display: flex; margin-right: 10px !important;">
-        <b-button
-          class="btn-azul btn-df mr-2"
-          variant="success"
-          @click="selectAllCursos()"
-        >Selecionar Todos</b-button>
-        <b-button
-          class="btn-cinza btn-df mr-2"
-          variant="secondary"
-          @click="selectNoneCursos()"
-        >Desmarcar Todos</b-button>
-
+      <div slot="modal-footer" class="w-100 mr-2" style="display: flex; width: 100%;">
+        <div class="row ml-2 w-100">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAllCursos()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="selectNoneCursos()"
+          >Desmarcar Todos</b-button>
+        </div>
         <b-button
           variant="success"
           @click="btnOKCursos()"
@@ -749,6 +752,10 @@ export default {
 
 <style scoped>
 /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+.modal-footer{
+  display: flex !important;
+  justify-content: start !important;
+}
 .listas {
   line-height: 30px;
   font-size: 12px;
@@ -834,7 +841,8 @@ strong {
   border: none;
 }
 .divTable {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -856,7 +864,8 @@ strong {
 }
 .modal-table {
   display: block !important;
-  overflow: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;
