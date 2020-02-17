@@ -464,14 +464,26 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para adicionar docentes à Tabela:</strong> Preencha o cartão à direita. Após concluído, clique em Adicionar (+) ou em Cancelar (X).
+            <strong>Para adicionar docentes à Tabela:</strong> Preencha o cartão à direita. Após concluído, 
+            clique em Adicionar 
+            <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
+             ou em Cancelar 
+             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
+             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar docentes da Tabela:</strong> Na tabela, clique no docente que deseja alterar. No cartão à direita faça as mudanças desejadas e,
-            em seguida, clique em Salvar (&#10003;) ou em Cancelar (X).
+            <strong>Para editar docentes da Tabela:</strong> Na tabela, clique no docente que deseja alterar. 
+            No cartão à direita faça as mudanças desejadas e, em seguida, clique em Salvar 
+            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
+             ou em Cancelar 
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>             
+             .
           </li>
           <li class="list-group-item">
-            <strong>Para deletar docentes da Tabela:</strong> Marque o(s) docente(s) que deseja deletar através da caixa de seleção à esquerda e em seguida clique em Deletar Selecionados(&#128465;) e confirme no botão OK.
+            <strong>Para deletar docentes da Tabela:</strong> Marque o(s) docente(s) que deseja deletar através 
+            da caixa de seleção à esquerda e em seguida clique em Deletar Selecionados
+            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
+             e confirme no botão OK.
           </li>
           <li class="list-group-item">
             <strong>Para alterar ordenação:</strong> Clique em T. no cabeçalho de cada tabela para alternar a ordenação entre alfabética e por trimestre.

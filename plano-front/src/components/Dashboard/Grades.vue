@@ -264,18 +264,20 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para adicionar grades:</strong> Com o cartão a direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
+            <strong>Para adicionar grades:</strong> Com o cartão a direita em branco, preencha-o. Em seguida, 
+            clique em Adicionar <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>.
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar uma grade:</strong>Na tabela, clique na grade que deseja alterar. Logo após,
-            no cartão à direita, altere as informações que desejar e clique em Salvar
-            <!-- (&#10003;) -->
+            <strong>Para editar ou deletar uma grade:</strong> Na tabela, clique na grade que deseja alterar.
+             Logo após, no cartão à direita, altere as informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou, para excluí-la,
-            clique em Deletar (&#128465;).
+            clique em Deletar 
+            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
+            .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à direita, clique em Cancelar (X).
+            <strong>Para deixar o cartão em branco:</strong> No cartão, à direita, clique em Cancelar <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>.
           </li>
         </ul>
       </div>
