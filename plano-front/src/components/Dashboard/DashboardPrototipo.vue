@@ -155,35 +155,56 @@
         <ul class="listas list-group">
           <li class="list-group-item">
             <strong>Para exibir conteúdo na Tabela:</strong> Comece selecionando o(s) semestre(s) desejado(s). Em seguida,
-             clique em Perfil 
-             <i class="fas fa-list-ul cancelbtn px-1" style="font-size: 12px"></i>
-             e marque quais deseja mostrar, depois clique em OK.
-            Logo após, escolha os Cursos 
-            <i class="fas fa-graduation-cap cancelbtn px-1" style="font-size: 12px"></i>
+            clique em Perfil
+            <i
+              class="fas fa-list-ul cancelbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            e marque quais deseja mostrar, depois clique em OK.
+            Logo após, escolha os Cursos
+            <i
+              class="fas fa-graduation-cap cancelbtn px-1"
+              style="font-size: 12px"
+            ></i>
             que quer ver, confirmando a seleção em OK.
           </li>
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar 
+            <<<<<<< HEAD
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar (+), em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar (&#10003;)
+            ou em Cancelar (X).
+            =======
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
             , em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar
-            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
-             ou em Cancelar 
-            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
-             .
+            <i
+              class="fas fa-check addbtn px-1"
+              style="font-size:12px"
+            ></i>
+            ou em Cancelar
+            <i
+              class="fas fa-times cancelbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            .
+            >>>>>>> 61d631b304f32197853a171366e1114bbde01b1d
           </li>
           <li class="list-group-item">
-            <strong>Para editar disciplinas da Tabela: </strong>Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente. 
+            <strong>Para editar disciplinas da Tabela:</strong>Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente.
           </li>
           <li class="list-group-item">
-            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar 
-            através da caixa de seleção à esquerda e em seguida clique em Deletar 
-            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
-             e confirme no botão OK.
+            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar
+            através da caixa de seleção à esquerda e em seguida clique em Deletar
+            <i
+              class="far fa-trash-alt delbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão XLSX 
+            <strong>Para gerar relatório:</strong> Clique no botão XLSX
             <i class="far fa-file-alt relatbtn px-1" style="font-size: 12px"></i>
-            e aguarde para fazer <font style='font-style:italic;'>download</font> do relatório.
+            e aguarde para fazer
+            <font style="font-style:italic;">download</font> do relatório.
           </li>
         </ul>
       </div>
@@ -258,16 +279,27 @@
       </b-form-group>
       -->
 
+<<<<<<< HEAD
       <div slot="modal-footer" class="d-flex">
           <b-button
             class="btn-azul btn-df mr-2 pull-left"
             variant="success"
             @click="selectAll()"
            >Selecionar Todos</b-button>
+=======
+      <div slot="modal-footer" class="w-100" style="display: flex; margin-right: 10px !important;">
+        <div class="row m-0 w-100">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAll()"
+          >Selecionar Todos</b-button>
+>>>>>>> 851275b634881902a3bb778e40860a0d27596617
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNone()"
+<<<<<<< HEAD
            >Desmarcar Todos</b-button>
             <b-button
               variant="success"
@@ -275,6 +307,16 @@
               class="btn-verde btn-df mr-2"
               style="padding-right:15px!important; padding-left:15px!important;"
             >OK</b-button>
+=======
+          >Desmarcar Todos</b-button>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOK()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+        >OK</b-button>
+>>>>>>> 851275b634881902a3bb778e40860a0d27596617
       </div>
       
       
