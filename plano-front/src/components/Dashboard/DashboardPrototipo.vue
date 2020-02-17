@@ -279,35 +279,17 @@
       </b-form-group>
       -->
 
-<<<<<<< HEAD
-      <div slot="modal-footer" class="d-flex">
-          <b-button
-            class="btn-azul btn-df mr-2 pull-left"
-            variant="success"
-            @click="selectAll()"
-           >Selecionar Todos</b-button>
-=======
-      <div slot="modal-footer" class="w-100" style="display: flex; margin-right: 10px !important;">
+      <div slot="modal-footer" class="w-100 ml-2" style="display: flex;">
         <div class="row m-0 w-100">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAll()"
           >Selecionar Todos</b-button>
->>>>>>> 851275b634881902a3bb778e40860a0d27596617
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNone()"
-<<<<<<< HEAD
-           >Desmarcar Todos</b-button>
-            <b-button
-              variant="success"
-              @click="btnOK()"
-              class="btn-verde btn-df mr-2"
-              style="padding-right:15px!important; padding-left:15px!important;"
-            >OK</b-button>
-=======
           >Desmarcar Todos</b-button>
         </div>
         <b-button
@@ -316,7 +298,6 @@
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
->>>>>>> 851275b634881902a3bb778e40860a0d27596617
       </div>
       
       
@@ -860,7 +841,8 @@ strong {
   border: none;
 }
 .divTable {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -882,7 +864,8 @@ strong {
 }
 .modal-table {
   display: block !important;
-  overflow: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;
