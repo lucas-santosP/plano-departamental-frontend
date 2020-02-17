@@ -279,8 +279,8 @@
           </li>
         </ul>
       </div>
-
-      <div slot="modal-footer" style="display: none"></div>
+      <div slot="modal-footer" style="display: none"></div>=======
+      <div slot="modal-footer" style="display: none"></div>>>>>>>> 61d631b304f32197853a171366e1114bbde01b1d
     </b-modal>
   </div>
 </template>
@@ -1570,7 +1570,68 @@ input {
   text-align: start;
 }
 
-.input-group-text {
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong {
+  color: #007bff;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+}
+
+.relatbtn:hover {
+  color: #82a0ff !important;
+  background-color: white;
+}
+
+.relatbtn:focus {
+  color: #82a0ff;
+  background-color: white;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #698dff;
+}
+.texto {
+  font-size: 12px;
+}
+>>>>>>>61d631b304f32197853a171366e1114bbde01b1d .input-group-text {
   display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;

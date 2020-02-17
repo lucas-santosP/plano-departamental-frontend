@@ -300,16 +300,25 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tabela:</strong> Comece selecionando o curso desejado. Em seguida, selecione a grade que quer visualizar.
+            <strong>Para exibir conteúdo na tabela:</strong> Comece selecionando o curso desejado. Em seguida, selecione 
+            a grade que quer visualizar.
           </li>
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Grade</strong> Com o cartão a direita em branco, preencha-o. Em seguida, clique em Adicionar (+).
+            <strong>Para adicionar disciplinas à Grade:</strong> Com o cartão a direita em branco, preencha-o. Em seguida, 
+            clique em Adicionar <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>.
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar uma disciplina:</strong>Na tabela, clique na disciplina que deseja modificar. Logo após, no cartão à direita, altere as informações que desejar e clique em Salvar (&#10003;) ou, para excluí-la, clique em Deletar (&#128465;).
+            <strong>Para editar ou deletar uma disciplina:</strong> Na tabela, clique na disciplina que deseja modificar. 
+            Logo após, no cartão à direita, altere as informações que desejar e clique em Salvar 
+            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
+             ou, para excluí-la, clique em Deletar 
+             <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
+             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à direita, clique em Cancelar (X).
+            <strong>Para deixar o cartão em branco:</strong> No cartão, à direita, clique em Cancelar 
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
+            .
           </li>
         </ul>
       </div>

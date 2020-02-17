@@ -264,16 +264,16 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para gerar relatório:</strong> Clique no botão Relatório
+            <i
+              class="far fa-file-alt relatbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            e aguarde para fazer download do mesmo.
           </li>
           <li class="list-group-item">
-            <strong>lelele</strong>lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Observação:</strong> Ao passar o mouse por cima do código de uma matéria em qualquer tabela
+            será mostrado o nome da mesma e, se aplicável, o professor alocado para tal.
           </li>
         </ul>
       </div>
@@ -3637,7 +3637,6 @@ i.far {
 .relatbtn {
   background-color: white;
   color: #9ab3ff !important;
-  float: right;
 }
 .relatbtn:hover {
   color: #82a0ff !important;
