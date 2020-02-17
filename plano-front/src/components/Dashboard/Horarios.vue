@@ -6,7 +6,35 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-12 titulo">Lista Horários</h1>
+        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-3 px-0 pr-1">Horários</h1>
+
+        <div
+          class="form-group col-xl-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
+          style="justify-content: flex-end!important;"
+        >
+          <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
+            <select class="form-control form-control-sm" v-model="periodo">
+              <option value="1">Primeiro</option>
+              <option value="2">Segundo</option>
+              <option value="3">Ambos</option>
+            </select>
+            <div class="input-group-append">
+              <label class="input-group-text">Semestre</label>
+            </div>
+          </div>
+
+          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+            <i class="fas fa-question"></i>
+          </b-button>
+
+          <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
+            <i class="far fa-file-alt"></i>
+          </button>
+
+          <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
+            <i class="fas fa-graduation-cap"></i>
+          </b-button>
+        </div>
       </div>
     </div>
 
@@ -91,8 +119,9 @@
         <!-- ----------------------------------------------------------------------------------------------- -->
       </div>
     </div>
+
     <!-- Grid Direito -->
-    <div class="div-card p-0 mt-0 mb-2 col-lg-6 col-md-6 col-sm-12 col-12">
+    <!-- <div class="div-card p-0 mt-0 mb-2 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card ml-auto mr-3">
         <div class="card-header">
           <h1 class="card-title">Definir Grades</h1>
@@ -124,18 +153,21 @@
                     <tr class="thead-light">
                       <div class="sticky border" style="width:max-contet;">
                         <th scope="col" class="border-0 p-header" style="width:25px">
-                          <input
-                            type="checkbox"
-                            v-model="selectAll"
-                            v-on:change="toggleAll"
-                          />
+                          <input type="checkbox" v-model="selectAll" v-on:change="toggleAll" />
                         </th>
-                        <th scope="col" class="border-0 p-header" style="width:140px; text-align:start!important">Cursos</th>
+                        <th
+                          scope="col"
+                          class="border-0 p-header"
+                          style="width:140px; text-align:start!important"
+                        >Cursos</th>
                       </div>
                     </tr>
 
                     <tbody>
-                      <tr v-for="curso in options" :key="'curso-id-'+curso.id+curso.nome+'-'+curso.value">
+                      <tr
+                        v-for="curso in options"
+                        :key="'curso-id-'+curso.id+curso.nome+'-'+curso.value"
+                      >
                         <div style="width: max-contet">
                           <td style="padding:0;broder:0;margin:0!important">
                             <div style="width:25px;">
@@ -156,18 +188,6 @@
                     </tbody>
                   </table>
                 </div>
-
-                <!--
-                <b-form-checkbox v-model="selectAll" v-on:change="toggleAll">Selecionar Tudo</b-form-checkbox>
-                <b-form-checkbox-group
-                  stacked
-                  v-model="cursos"
-                  name="cursosCheck"
-                  :options="options"
-                  v-on:change.capture="defineSelectAll"
-                  style="display: block;"
-                ></b-form-checkbox-group>
-                -->
               </div>
             </div>
 
@@ -181,7 +201,87 @@
           </form>
         </div>
       </div>
-    </div>
+    </div>-->
+
+    <b-modal id="modalCursos" ref="modalCursos" scrollable title="Selecione os Cursos">
+      <div
+        class="form-group col m-0 p-0 border"
+        style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
+      >
+        <table class="table table-sm modal-table" style="max-height: 392px !important;">
+          <tr>
+            <div style="width: max-content; font-size: 11px!important">
+              <th class="border-0">
+                <p style="width:55px" class="p-header">Código</p>
+              </th>
+              <th class="border-0">
+                <p class="p-header" style="width: 424px; text-align:start">Nome</p>
+              </th>
+            </div>
+          </tr>
+          <tbody>
+            <!-- v-for em tr -->
+            <tr v-for="curso in options_Cursos" :key="'curso-id-'+curso.value">
+              <div style="width: max-content">
+                <td style="padding:0;broder:0;margin:0!important;">
+                  <div style="width:55px;">
+                    <input
+                      type="checkbox"
+                      v-model="CursosSelecionados"
+                      :value="curso.value"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:424px; text-align:start">{{curso.nome}}</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div slot="modal-footer" style="display: flex; margin-right: 10px !important;">
+        <!-- <b-button
+          class="btn-azul btn-df mr-2"
+          variant="success"
+          @click="selectAll()"
+        >Selecionar Todos</b-button>
+        <b-button
+          class="btn-cinza btn-df mr-2"
+          variant="secondary"
+          @click="selectNone()"
+        >Desmarcar Todos</b-button>
+        <b-button
+          variant="success"
+          @click="btnOK()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+        >OK</b-button>-->
+      </div>
+    </b-modal>
+
+    <!-- Modal de Ajuda -->
+    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+      <div class="modal-body">
+        <ul class="listas list-group">
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong>lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+          <li class="list-group-item">
+            <strong>lelele</strong> lalala
+          </li>
+        </ul>
+      </div>
+
+      <div slot="modal-footer" style="display: none"></div>
+    </b-modal>
   </div>
 </template>
 
@@ -198,13 +298,12 @@ export default {
     return {
       cursos: [],
       error: undefined,
-      options: [
-        { text: "CC Diurno", value: 1 },
-        { text: "Eng. Comp.", value: 4 },
-        { text: "CC Noturno", value: 2 },
-        { text: "Sis. Informação", value: 3 },
-
-        { text: "Eletivas", value: 5 }
+      options_Cursos: [
+        { nome: "Ciência da Computação Diurno", value: 1, codigo: "65C" },
+        { nome: "Eng. da Computação", value: 4, codigo: "65B" },
+        { nome: "Ciência da Computação Noturno", value: 2, codigo: "35A" },
+        { nome: "Sistemas de Informação", value: 3, codigo: "76A" },
+        { nome: "Eletivas", value: 5, codigo: "" }
       ],
       evenCCN: "false",
       evenCCD: "false",
@@ -1471,40 +1570,6 @@ input {
   text-align: start;
 }
 
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-right: 15px;
-  -webkit-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-}
-i.fas,
-i.far {
-  font-size: 25px;
-}
-.addbtn {
-  background-color: white;
-  color: #a0e7a0;
-}
-.addbtn:hover {
-  background-color: white;
-  color: #77dd77;
-}
-.addbtn:focus {
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-}
-.texto {
-  font-size: 12px;
-}
 .input-group-text {
   display: -ms-flexbox;
   display: -webkit-box;
@@ -1574,7 +1639,96 @@ i.far {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
 }
-table {
+
+.listas {
+  line-height: 30px;
+  font-size: 12px;
+  text-align: justify;
+  line-height: inherit;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+}
+strong {
+  color: #007bff;
+}
+i.fas,
+i.far {
+  font-size: 25px;
+}
+
+.relatbtn {
+  background-color: white;
+  color: #9ab3ff !important;
+  float: right;
+}
+.relatbtn:hover {
+  color: #82a0ff !important;
+  background-color: white;
+}
+.relatbtn:focus {
+  color: #82a0ff;
+  background-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #698dff;
+}
+
+.addbtn {
+  background-color: white;
+  color: #a0e7a0;
+}
+.addbtn:hover {
+  background-color: white;
+  color: #77dd77;
+}
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
+}
+
+.cancelbtn {
+  background-color: white;
+  color: #cfcfc4;
+}
+.cancelbtn:hover {
+  background-color: white;
+  color: #b8b4a8;
+}
+
+.cancelbtn:focus {
+  background-color: white;
+  color: #b8b8a8;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #ada89a;
+}
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center !important;
+}
+h4 {
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+h5 {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.modal-table {
   display: block !important;
   overflow: auto !important;
   font-size: 11px !important;
@@ -1591,7 +1745,6 @@ table td {
   vertical-align: middle !important;
   padding: 0 !important;
   font-size: 10px !important;
-  height: 20px;
 }
 tr thead {
   display: block;
@@ -1600,32 +1753,13 @@ th {
   padding: 0 !important;
   font-size: 14px;
   text-align: center !important;
-  height: 20px !important;
-  vertical-align: middle !important;
+  height: 18px !important;
 }
 .p-header {
   padding: 0 5px 0 5px !important;
   margin: 0 !important;
   font-size: 11px !important;
   text-align: center;
-}
-table p {
-  margin-bottom: 0 !important;
-  text-align: center;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-  font-size: 10px !important;
-}
-table input[type="checkbox"] {
-  height: 13px !important;
-  margin-left: 0 !important;
-  margin-top: 3.5px !important;
-}
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
+  height: 18px;
 }
 </style>
