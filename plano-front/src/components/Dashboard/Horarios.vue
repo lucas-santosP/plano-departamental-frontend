@@ -255,8 +255,8 @@
           </tbody>
         </table>
       </div>
-      <div slot="modal-footer" class="w-100" style="display: flex; margin-right: 10px !important;">
-        <div class="row m-0 w-100">
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex">
+        <div class="row ml-2 w-100">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
