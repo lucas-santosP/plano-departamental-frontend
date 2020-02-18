@@ -210,22 +210,29 @@
       </div>
     </div>-->
 
-    <b-modal id="modalCursos" ref="modalCursos" scrollable title="Selecione os Cursos">
+    <b-modal id="modalCursos" 
+            class="mw-100"
+            style="width: max-content" 
+            ref="modalCursos" 
+            scrollable title="Selecione os Cursos"
+            :size="'sm'"
+            >
       <div
         class="col m-0 p-0 border"
-        style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
+        style="width:max-content; border-color: rgba(0,0,0,0.125);"
+        
       >
         <table class="table table-sm modal-table">
           <tr>
             <div style="font-size: 11px!important">
               <th class="border-0">
-                <p style="width:25px" class="p-header"></p>
+                <p style="width:20px" class="p-header"></p>
               </th>
               <th class="border-0">
-                <p style="width:55px" class="p-header">Código</p>
+                <p style="width:40px" class="p-header">Cód.</p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 370px; text-align:start">Nome</p>
+                <p class="p-header" style="width: 200px; text-align:start">Nome</p>
               </th>
             </div>
           </tr>
@@ -234,7 +241,7 @@
             <tr v-for="curso in options_Cursos" :key="'curso-id-'+curso.value">
               <div style="width: max-content">
                 <td>
-                  <div style="width:25px;">
+                  <div style="width:20px;">
                     <input
                       type="checkbox"
                       :value="curso.value"
@@ -245,10 +252,10 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:55px; text-align:center">{{curso.codigo.toUpperCase()}}</p>
+                  <p style="width:40px; text-align:center">{{curso.codigo.toUpperCase()}}</p>
                 </td>
                 <td>
-                  <p style="width:370px; text-align:start">{{curso.nome}}</p>
+                  <p style="width:200px; text-align:start">{{curso.nome}}</p>
                 </td>
               </div>
             </tr>
