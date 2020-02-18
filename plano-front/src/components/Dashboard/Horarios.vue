@@ -2,18 +2,22 @@
   <div class="DashboardHorarios row pr-2" v-if="Admin">
     <!-- Titulo -->
     <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-3 px-0 pr-1">Horários</h1>
+        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários</h1>
 
         <div
-          class="form-group col-xl-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
+          class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
-            <select class="form-control form-control-sm" v-model="periodo">
+            <select
+              class="form-control form-control-sm"
+              v-model="periodo"
+              v-on:change="createHorarios"
+            >
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
               <option value="3">Ambos</option>
@@ -22,34 +26,37 @@
               <label class="input-group-text">Semestre</label>
             </div>
           </div>
+          <div class="d-flex">
+            <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
+              <i class="fas fa-graduation-cap"></i>
+            </b-button>
 
-          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-            <i class="fas fa-question"></i>
-          </b-button>
+            <!-- v-on:click.prevent="pdf" -->
+            <button type="button" class="relatbtn" title="Relatório">
+              <i class="far fa-file-alt"></i>
+            </button>
 
-          <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
-            <i class="far fa-file-alt"></i>
-          </button>
-
-          <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
-            <i class="fas fa-graduation-cap"></i>
-          </b-button>
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+              <i class="fas fa-question"></i>
+            </b-button>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="col p-0 pl-1 m-0">
-      <div class="tabelas">
+    <div class="p-0 m-0 w-100">
+      <div class="tabelas p-0" style="margin-right: -8px!important;">
         <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-        <template v-if="periodo==1 || periodo==3">
+        <template v-if="(criando) && periodo==1 || periodo==3">
           <h3
             class="title"
             style="font-weight: bold; font-size: 18px; text-align: center !important;"
           >1º SEMESTRE</h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
+            <!-- passar o nome do curso pra dentro da tabela -->
             <h4>Ciência da Computação Diurno</h4>
           </template>
           <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
@@ -80,10 +87,10 @@
         </template>
 
         <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-        <template v-if="periodo==2 || periodo==3">
+        <template v-if="(criando) && periodo==2 || periodo==3">
           <h3
             class="title"
-            style="font-weight: bold; font-size: 18px; text-align: center;"
+            style="font-weight: bold; font-size: 18px; text-align: center !important;"
           >2º SEMESTRE</h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
@@ -203,19 +210,29 @@
       </div>
     </div>-->
 
-    <b-modal id="modalCursos" ref="modalCursos" scrollable title="Selecione os Cursos">
+    <b-modal id="modalCursos" 
+            class="mw-100"
+            style="width: max-content" 
+            ref="modalCursos" 
+            scrollable title="Selecione os Cursos"
+            :size="'sm'"
+            >
       <div
-        class="form-group col m-0 p-0 border"
-        style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
+        class="col m-0 p-0 border"
+        style="width:max-content; border-color: rgba(0,0,0,0.125);"
+        
       >
-        <table class="table table-sm modal-table" style="max-height: 392px !important;">
+        <table class="table table-sm modal-table">
           <tr>
-            <div style="width: max-content; font-size: 11px!important">
+            <div style="font-size: 11px!important">
               <th class="border-0">
-                <p style="width:55px" class="p-header">Código</p>
+                <p style="width:20px" class="p-header"></p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 424px; text-align:start">Nome</p>
+                <p style="width:40px" class="p-header">Cód.</p>
+              </th>
+              <th class="border-0">
+                <p class="p-header" style="width: 200px; text-align:start">Nome</p>
               </th>
             </div>
           </tr>
@@ -223,64 +240,67 @@
             <!-- v-for em tr -->
             <tr v-for="curso in options_Cursos" :key="'curso-id-'+curso.value">
               <div style="width: max-content">
-                <td style="padding:0;broder:0;margin:0!important;">
-                  <div style="width:55px;">
+                <td>
+                  <div style="width:20px;">
                     <input
                       type="checkbox"
-                      v-model="CursosSelecionados"
                       :value="curso.value"
+                      v-on:change.capture="defineSelectAll"
+                      v-model="cursos"
                       class="form-check-input position-static m-0"
                     />
                   </div>
                 </td>
                 <td>
-                  <p style="width:424px; text-align:start">{{curso.nome}}</p>
+                  <p style="width:40px; text-align:center">{{curso.codigo.toUpperCase()}}</p>
+                </td>
+                <td>
+                  <p style="width:200px; text-align:start">{{curso.nome}}</p>
                 </td>
               </div>
             </tr>
           </tbody>
         </table>
       </div>
-      <div slot="modal-footer" style="display: flex; margin-right: 10px !important;">
-        <!-- <b-button
-          class="btn-azul btn-df mr-2"
-          variant="success"
-          @click="selectAll()"
-        >Selecionar Todos</b-button>
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex">
+        <div class="row ml-2 w-100">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="toggleAll()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="distoggleAll()"
+          >Desmarcar Todos</b-button>
+        </div>
         <b-button
-          class="btn-cinza btn-df mr-2"
-          variant="secondary"
-          @click="selectNone()"
-        >Desmarcar Todos</b-button>
-        <b-button
           variant="success"
-          @click="btnOK()"
+          v-on:click="createHorarios()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>-->
+        >OK</b-button>
       </div>
     </b-modal>
 
-    <!-- Modal de Ajuda -->
+    <!-- MODAL AJUDA -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong>lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
-          </li>
-          <li class="list-group-item">
-            <strong>lelele</strong> lalala
+            <strong>Para exibir conteúdo na tela:</strong> No cartão à direita, selecione o(s) semestre(s), em
+            seguida o(s) curso(s) que deseja ver e clique em Confirmar
+            <i
+              class="fas fa-check addbtn px-1"
+              style="font-size:12px"
+            ></i>
+            .
           </li>
         </ul>
       </div>
-      <div slot="modal-footer" style="display: none"></div>=======
-      <div slot="modal-footer" style="display: none"></div>>>>>>>> 61d631b304f32197853a171366e1114bbde01b1d
+
+      <div slot="modal-footer" style="display: none"></div>
     </b-modal>
   </div>
 </template>
@@ -299,11 +319,11 @@ export default {
       cursos: [],
       error: undefined,
       options_Cursos: [
-        { nome: "Ciência da Computação Diurno", value: 1, codigo: "65C" },
-        { nome: "Eng. da Computação", value: 4, codigo: "65B" },
-        { nome: "Ciência da Computação Noturno", value: 2, codigo: "35A" },
-        { nome: "Sistemas de Informação", value: 3, codigo: "76A" },
-        { nome: "Eletivas", value: 5, codigo: "" }
+        { nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO", value: 1, codigo: "65C" },
+        { nome: "ENGENHARIA DA COMPUTAÇÃO", value: 4, codigo: "65B" },
+        { nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO", value: 2, codigo: "35A" },
+        { nome: "SISTEMAS DE INFORMAÇÃO", value: 3, codigo: "76A" },
+        { nome: "ELETIVAS", value: 5, codigo: "-" }
       ],
       evenCCN: "false",
       evenCCD: "false",
@@ -326,7 +346,8 @@ export default {
         Eletivas: []
       },
       selectAll: false,
-      periodo: 1
+      periodo: 1,
+      criando: false
     };
   },
 
@@ -345,14 +366,14 @@ export default {
       }
     },
 
-    toggleAll() {
-      if (this.cursos.length === 5) {
+    distoggleAll() {
+      if (this.cursos.length !== 0) {
         this.cursos = [];
-      } else {
-        this.cursos = [1, 2, 3, 4, 5];
       }
     },
-
+    toggleAll() {
+      if (this.cursos.length !== 5) this.cursos = [1, 2, 3, 4, 5];
+    },
     isEven(number) {
       if (number % 2 === 0) return "true";
       else return "false";
@@ -390,6 +411,7 @@ export default {
       } else return false;
     },
     createHorarios: function() {
+      this.criando = true;
       var periodoSelecionado = parseInt(this.periodo, 10);
       this.emptyTurmas();
       if (periodoSelecionado === 1) {
@@ -400,6 +422,7 @@ export default {
         this.createHorarios1();
         this.createHorarios2();
       }
+      this.$refs.modalCursos.hide();
     },
 
     createHorarios1: function() {
@@ -1511,127 +1534,21 @@ h4 {
   text-align: start !important;
 }
 
-/* ====== CARD ====== */
-.div-card {
-  margin-left: auto;
+h3 {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center !important;
 }
-.card-title {
-  font-size: 16px;
+h4 {
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+h5 {
+  font-size: 12px;
   font-weight: normal;
-  padding-left: 0;
-  margin: 0;
-  text-align: center;
-}
-.card {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  -webkit-box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-  margin-left: auto;
-}
-.card-body {
-  font-size: 12px;
-  padding-top: 15px;
-}
-/*
-.card label {
-  line-height: 1.2;
-  font-size: 12px;
-  text-align: start;
-  padding-top: 0 !important;
-}
-*/
-.card label {
-  margin: 0;
-}
-.selectMaior2 {
-  width: 300px;
-  text-align: start;
-}
-input {
-  height: 25px !important;
-  padding: 0px 5px 0px 5px !important;
-  font-size: 11px !important;
-  text-align: start;
-}
-.inputMenor {
-  width: 60px;
-  text-align: center;
-}
-.inputMenor2 {
-  width: 40px;
-  margin-right: 10px;
-  text-align: center;
-}
-.inputMaior {
-  width: 250px;
-  text-align: start;
 }
 
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-right: 15px;
-  -webkit-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-}
-i.fas,
-i.far {
-  font-size: 25px;
-}
-.addbtn {
-  background-color: white;
-  color: #a0e7a0;
-}
-.addbtn:hover {
-  background-color: white;
-  color: #77dd77;
-}
-.addbtn:focus {
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  color: #82a0ff !important;
-  background-color: white;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: #698dff;
-}
-.texto {
-  font-size: 12px;
-}
->>>>>>>61d631b304f32197853a171366e1114bbde01b1d .input-group-text {
+.input-group-text {
   display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1664,31 +1581,6 @@ i.far {
   max-width: 100px;
   text-align: start;
 }
-.form-group {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-  -moz-box-flex: 0;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-flow: row wrap;
-  -moz-box-orient: horizontal;
-  -moz-box-direction: normal;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
 .form-inline .input-group,
 .form-inline {
   width: auto;
@@ -1696,9 +1588,9 @@ i.far {
 .tabelas {
   overflow-y: auto;
   overflow-x: hidden;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
+  height: -webkit-calc(100vh - 85px);
+  height: -moz-calc(100vh - 85px);
+  height: calc(100vh - 85px);
 }
 
 .listas {
@@ -1775,20 +1667,6 @@ button {
   cursor: pointer;
 }
 
-h3 {
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center !important;
-}
-h4 {
-  font-size: 12px !important;
-  font-weight: bold !important;
-}
-h5 {
-  font-size: 12px;
-  font-weight: normal;
-}
-
 .modal-table {
   display: block !important;
   overflow: auto !important;
@@ -1822,5 +1700,109 @@ th {
   font-size: 11px !important;
   text-align: center;
   height: 18px;
+}
+table p {
+  margin-bottom: 0 !important;
+  text-align: center;
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+  font-size: 10px !important;
+}
+table input[type="checkbox"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+}
+
+.clickable-header {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.form-control {
+  height: 25px !important;
+  font-size: 12px !important;
+  padding: 2px 5px 0px 5px !important;
+  min-width: 80px;
+  max-width: 80px;
+  text-align: start;
+}
+.form-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+.form-inline .input-group,
+.form-inline {
+  width: auto;
+}
+
+/* BOTOÕES MODALS */
+
+.btn-df {
+  font-size: 12px;
+  height: 25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  padding: 0 5px 0 5px;
+}
+.btn-azul {
+  background-color: #718de0 !important;
+  border-color: #9ab3ff !important;
+}
+.btn-azul:hover {
+  background-color: rgb(74, 101, 190) !important;
+  border-color: #82a0ff !important;
+}
+
+.btn-azul:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+
+.btn-cinza {
+  background-color: #999999 !important;
+  border-color: #c3c3c3 !important;
+}
+.btn-cinza:hover {
+  background-color: #747474 !important;
+  border-color: #aaaaaa !important;
+}
+
+.btn-cinza:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+}
+.btn-verde {
+  background-color: #70b670 !important;
+  border-color: #a0e7a0 !important;
+}
+.btn-verde:hover {
+  background-color: #4c8a4c !important;
+  border-color: #77dd77 !important;
+}
+
+.btn-verde:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+/*  */
+
+@media screen and (max-width: 430px) {
+  .div-titulo {
+    height: 70px !important;
+  }
 }
 </style>
