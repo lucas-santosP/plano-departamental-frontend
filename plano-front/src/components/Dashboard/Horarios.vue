@@ -16,7 +16,6 @@
             <select
               class="form-control form-control-sm"
               v-model="periodo"
-              v-on:change="createHorarios"
             >
               <option value="1">Primeiro</option>
               <option value="2">Segundo</option>
@@ -58,32 +57,33 @@
           <template v-if="activeCCD">
             <!-- passar o nome do curso pra dentro da tabela -->
             <h4>Ciência da Computação Diurno</h4>
-          </template>
+
           <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+          </template>
           <!-- -------------------------------------------- EC ----------------------------------------- -->
           <template v-if="activeEC">
             <h4>Engenharia Computacional</h4>
-          </template>
 
           <curso-diurno :Curso="ativos1.EC"></curso-diurno>
+          </template>
           <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
           <template v-if="activeCCN">
             <h4>Ciência da Computação Noturno</h4>
-          </template>
 
           <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
+          </template>
           <!-- -------------------------------------------- SI ----------------------------------------- -->
           <template v-if="activeSI">
             <h4>Sistemas de Informação</h4>
-          </template>
 
           <curso-noturno :Curso="ativos1.SI"></curso-noturno>
-
+          </template>
           <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
           <template v-if="activeEletivas">
             <h4>Eletivas</h4>
-          </template>
           <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
+          </template>
+
         </template>
 
         <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
@@ -95,33 +95,33 @@
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
             <h4>Ciência da Computação Diurno</h4>
-          </template>
 
           <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+          </template>
           <!-- -------------------------------------------- EC ----------------------------------------- -->
           <template v-if="activeEC">
             <h4>Engenharia Computacional</h4>
-          </template>
 
           <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+          </template>
           <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
           <template v-if="activeCCN">
             <h4>Ciência da Computação Noturno</h4>
-          </template>
 
           <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
+          </template>
           <!-- -------------------------------------------- SI ----------------------------------------- -->
           <template v-if="activeSI">
             <h4>Sistemas de Informação</h4>
-          </template>
 
           <curso-noturno :Curso="ativos2.SI"></curso-noturno>
-
+          </template>
           <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
           <template v-if="activeEletivas">
             <h4>Eletivas</h4>
-          </template>
           <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
+          </template>
+
         </template>
         <!-- ----------------------------------------------------------------------------------------------- -->
       </div>
@@ -161,7 +161,7 @@
                       type="checkbox"
                       :value="curso.value"
                       v-on:change.capture="defineSelectAll"
-                      v-model="cursos"
+                      v-model="cursosSelecionados"
                       class="form-check-input position-static m-0"
                     />
                   </div>
@@ -192,7 +192,7 @@
         </div>
         <b-button
           variant="success"
-          v-on:click="createHorarios()"
+          v-on:click="okBtn()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
@@ -232,6 +232,7 @@ export default {
   data() {
     return {
       cursos: [],
+      cursosSelecionados: [],
       error: undefined,
       options_Cursos: [
         { nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO", value: 1, codigo: "65C" },
@@ -277,7 +278,7 @@ export default {
 
   methods: {
     defineSelectAll() {
-      if (this.cursos.length === 5) {
+      if (this.cursosSelecionados.length === 5) {
         this.selectAll = true;
       } else {
         this.selectAll = false;
@@ -285,16 +286,21 @@ export default {
     },
 
     distoggleAll() {
-      if (this.cursos.length !== 0) {
-        this.cursos = [];
+      if (this.cursosSelecionados.length !== 0) {
+        this.cursosSelecionados = [];
       }
     },
     toggleAll() {
-      if (this.cursos.length !== 5) this.cursos = [1, 2, 3, 4, 5];
+      if (this.cursosSelecionados.length !== 5) this.cursosSelecionados = [1, 2, 3, 4, 5];
     },
     isEven(number) {
       if (number % 2 === 0) return "true";
       else return "false";
+    },
+
+    okBtn() {
+      this.cursos = [...this.cursosSelecionados]
+      this.$refs.modalCursos.hide();
     },
 
     emptyTurmas() {
@@ -328,20 +334,7 @@ export default {
         return true;
       } else return false;
     },
-    createHorarios: function() {
-      var periodoSelecionado = parseInt(this.periodo, 10);
-      this.emptyTurmas();
-      if (periodoSelecionado === 1) {
-        this.createHorarios1();
-      } else if (periodoSelecionado === 2) {
-        this.createHorarios2();
-      } else {
-        this.createHorarios1();
-        this.createHorarios2();
-      }
-      this.$refs.modalCursos.hide();
-    },
-
+    
     createHorarios1: function() {
       var grade;
       var grades;
