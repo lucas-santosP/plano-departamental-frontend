@@ -380,12 +380,12 @@
       >
         <table class="table table-sm modal-table border " style="max-height: 302px !important;  overflow-x: hidden !important;">
           <tr>
-            <div style="width: max-content; font-size: 11px!important">
-              <th class="border-0">
-                <p style="width:25px" class="p-header"></p>
+            <div class="p-0" style="width: max-content; font-size: 11px!important; height: 18px">
+              <th class="border-0 p-0">
+                <p style="width:30px; height: 18px !important;" class="p-header"></p>
               </th>
-              <th class="border-0">
-                <p class="p-header" style="width: 220px; text-align:start">Nome</p>
+              <th class="border-0 p-0">
+                <p class="p-header" style="width: 225px; text-align:start; height: 18px !important">Nome</p>
               </th>
             </div>
           </tr>
@@ -393,7 +393,7 @@
           <tr v-for="docente in Professores" :key="`docente${docente.id}`">
             <div style="width: max-content">
               <td style="padding:0;broder:0;margin:0!important;">
-                <div style="width:25px;">
+                <div style="width:30px; height: 22px !important;">
                   <input
                           type="checkbox"
                           v-model="DocentesSelecionados"
@@ -403,7 +403,7 @@
                 </div>
               </td>
               <td>
-                <p style="width:220px; text-align:start">{{docente.apelido}}</p>
+                <p style="width:225px; text-align:start">{{docente.apelido}}</p>
               </td>
             </div>
           </tr>
@@ -716,19 +716,21 @@ tbody {
 }
 table td {
   text-align: center;
-  vertical-align: middle;
+  vertical-align: middle !important;
   padding: 0 !important;
-  
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 /* .linhas {
   border-top: 1px solid #dee2e6;
 } */
 table p {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   text-align: center;
   padding-left: 2px;
   padding-right: 2px;
 }
+
 /* texto maiusculo */
 .toUpperCase {
   text-transform: uppercase;

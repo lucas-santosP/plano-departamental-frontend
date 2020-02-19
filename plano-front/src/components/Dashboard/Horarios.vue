@@ -129,7 +129,7 @@
       <div class="col m-0 p-0 border" style="width:max-content; border-color: rgba(0,0,0,0.125);">
         <table class="table table-sm modal-table">
           <tr>
-            <div style="font-size: 11px!important">
+            <div style="font-size: 11px!important; height: 18px !important">
               <th class="border-0">
                 <p style="width:20px" class="p-header"></p>
               </th>
@@ -144,7 +144,7 @@
           <tbody>
             <!-- v-for em tr -->
             <tr v-for="curso in options_Cursos" :key="'curso-id-' + curso.value">
-              <div style="width: max-content">
+              <div style="width: max-content; height: 22px !important">
                 <td>
                   <div style="width:20px;">
                     <input
@@ -157,10 +157,10 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:40px; text-align:center">{{ curso.codigo.toUpperCase() }}</p>
+                  <p style="width:40px; text-align:center;">{{ curso.codigo.toUpperCase() }}</p>
                 </td>
                 <td>
-                  <p style="width:200px; text-align:start">{{ curso.nome }}</p>
+                  <p style="width:200px; text-align:start;">{{ curso.nome }}</p>
                 </td>
               </div>
             </tr>
@@ -183,7 +183,7 @@
         <b-button
           variant="success"
           v-on:click="okBtn()"
-          class="btn-verde btn-df mr-0"
+          class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
       </div>
@@ -4729,7 +4729,7 @@ th {
   margin: 0 !important;
   font-size: 11px !important;
   text-align: center;
-  height: 18px;
+  height: 18px !important;
 }
 
 table p {
@@ -4743,6 +4743,7 @@ table p {
 table input[type="checkbox"] {
   margin-left: 0 !important;
   margin-top: 4px !important;
+  margin-bottom: auto !important;
 }
 
 .clickable-header {
