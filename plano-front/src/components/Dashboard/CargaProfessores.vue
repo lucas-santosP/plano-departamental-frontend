@@ -412,7 +412,7 @@
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100">
+        <div class="w-100 d-flex">
           <b-button
                   class="btn-azul btn-df mr-2"
                   variant="success"

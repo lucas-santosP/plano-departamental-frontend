@@ -368,11 +368,10 @@
         text-align: center;
         vertical-align: middle;
         padding: 0 !important;
-        border: none;
     }
-    .linhas {
+    /* .linhas {
         border-top: 1px solid #dee2e6;
-    }
+    } */
     table p {
         margin-bottom: 0;
         text-align: center;
