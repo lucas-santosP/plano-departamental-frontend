@@ -6,9 +6,12 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-9 col-md-4 col-sm-5 col-5 px-0 pr-1">Horários - Cursos</h1>
+        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">
+          Horários - Cursos
+        </h1>
+
         <div
-          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
+          class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
@@ -27,7 +30,12 @@
             </b-button>
 
             <!--  -->
-            <button type="button" class="relatbtn" v-on:click.prevent="pdf" title="Relatório">
+            <button
+              type="button"
+              class="relatbtn"
+              v-on:click.prevent="pdf"
+              title="Relatório"
+            >
               <i class="far fa-file-alt"></i>
             </button>
 
@@ -44,8 +52,15 @@
     <div class="p-0 m-0 w-100">
       <div class="tabelas p-0" style="margin-right: -8px!important;">
         <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-        <template v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)">
-          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
+        <template
+          v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)"
+        >
+          <h3
+            class="title px-2"
+            style="background-color: rgba(0, 0, 0, 0.089);"
+          >
+            1º SEMESTRE
+          </h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
             <!-- passar o nome do curso pra dentro da tabela -->
@@ -79,8 +94,12 @@
         </template>
 
         <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-        <template v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)">
-          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
+        <template
+          v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)"
+        >
+          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">
+            2º SEMESTRE
+          </h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
             <h4>Ciência da Computação Diurno</h4>
@@ -124,10 +143,13 @@
       title="Selecione os Cursos"
       :size="'sm'"
     >
-      <div class="col m-0 p-0 border" style="width:max-content; border-color: rgba(0,0,0,0.125);">
+      <div
+        class="col m-0 p-0 border"
+        style="width:max-content; border-color: rgba(0,0,0,0.125);"
+      >
         <table class="table table-sm modal-table">
           <tr>
-            <div style="font-size: 11px!important">
+            <div style="font-size: 11px!important; height: 18px !important">
               <th class="border-0">
                 <p style="width:20px" class="p-header"></p>
               </th>
@@ -135,14 +157,19 @@
                 <p style="width:40px" class="p-header">Cód.</p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 200px; text-align:start">Nome</p>
+                <p class="p-header" style="width: 200px; text-align:start">
+                  Nome
+                </p>
               </th>
             </div>
           </tr>
           <tbody>
             <!-- v-for em tr -->
-            <tr v-for="curso in options_Cursos" :key="'curso-id-' + curso.value">
-              <div style="width: max-content">
+            <tr
+              v-for="curso in options_Cursos"
+              :key="'curso-id-' + curso.value"
+            >
+              <div style="width: max-content; height: 22px !important">
                 <td>
                   <div style="width:20px;">
                     <input
@@ -155,10 +182,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:40px; text-align:center">{{ curso.codigo.toUpperCase() }}</p>
+                  <p style="width:40px; text-align:center;">
+                    {{ curso.codigo.toUpperCase() }}
+                  </p>
                 </td>
                 <td>
-                  <p style="width:200px; text-align:start">{{ curso.nome }}</p>
+                  <p style="width:200px; text-align:start;">{{ curso.nome }}</p>
                 </td>
               </div>
             </tr>
@@ -171,19 +200,22 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="toggleAll()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="distoggleAll()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           v-on:click="okBtn()"
-          class="btn-verde btn-df mr-0"
+          class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
@@ -4735,7 +4767,7 @@ th {
   margin: 0 !important;
   font-size: 11px !important;
   text-align: center;
-  height: 18px;
+  height: 18px !important;
 }
 
 table p {
@@ -4749,6 +4781,7 @@ table p {
 table input[type="checkbox"] {
   margin-left: 0 !important;
   margin-top: 4px !important;
+  margin-bottom: auto !important;
 }
 
 .clickable-header {
@@ -4846,7 +4879,7 @@ table input[type="checkbox"] {
 
 /*  */
 
-@media screen and (max-width: 499px) {
+@media screen and (max-width: 430px) {
   .div-titulo {
     height: 70px !important;
   }
