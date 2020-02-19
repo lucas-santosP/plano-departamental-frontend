@@ -369,19 +369,23 @@
     </b-modal>
 
     <!-- Modals do botão para escolher docentes -->
-    <b-modal id="modalDocentes" ref="DocentesModal" scrollable title="Selecione os docentes">
+    <b-modal id="modalDocentes" 
+            ref="DocentesModal" 
+            scrollable title="Selecione os docentes"
+            :size="'sm'"
+            >
       <div
               class="form-group col m-0 p-0 border"
               style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
       >
-        <table class="table table-sm modal-table" style="max-height: 392px !important; overflow-x: hidden">
+        <table class="table table-sm modal-table  " style="max-height: 392px !important;  overflow-x: hidden !important;">
           <tr>
             <div style="width: max-content; font-size: 11px!important">
               <th class="border-0">
                 <p style="width:25px" class="p-header"></p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 250px; text-align:start">Nome</p>
+                <p class="p-header" style="width: 220px; text-align:start">Nome</p>
               </th>
             </div>
           </tr>
@@ -399,7 +403,7 @@
                 </div>
               </td>
               <td>
-                <p style="width:250px; text-align:start">{{docente.apelido}}</p>
+                <p style="width:220px; text-align:start">{{docente.apelido}}</p>
               </td>
             </div>
           </tr>
@@ -408,7 +412,7 @@
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 ml-2">
+        <div class="w-100">
           <b-button
                   class="btn-azul btn-df mr-2"
                   variant="success"
@@ -746,10 +750,14 @@ table input {
   height: 18px !important;
   text-align: center !important;
 }
+table input[type="checkbox"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+}
 .modal-table {
   display: block !important;
   overflow: auto !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   font-weight: normal !important;
   background-color: white;
   margin: 0 !important;
