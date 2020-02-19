@@ -6,9 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários - Cursos</h1>
+        <h1 class="titulo col-xl-3 col-lg-9 col-md-4 col-sm-5 col-5 px-0 pr-1">Horários - Cursos</h1>
         <div
-          class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
+          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
@@ -4846,7 +4846,7 @@ table input[type="checkbox"] {
 
 /*  */
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 499px) {
   .div-titulo {
     height: 70px !important;
   }
