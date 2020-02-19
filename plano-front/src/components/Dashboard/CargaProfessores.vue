@@ -375,10 +375,10 @@
             :size="'sm'"
             >
       <div
-              class="form-group col m-0 p-0 border"
-              style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
+              class="form-group col m-0 p-0"
+              style="height: 302px; width:max-content; border-color: rgba(0,0,0,0.125);"
       >
-        <table class="table table-sm modal-table  " style="max-height: 392px !important;  overflow-x: hidden !important;">
+        <table class="table table-sm modal-table border " style="max-height: 302px !important;  overflow-x: hidden !important;">
           <tr>
             <div style="width: max-content; font-size: 11px!important">
               <th class="border-0">
