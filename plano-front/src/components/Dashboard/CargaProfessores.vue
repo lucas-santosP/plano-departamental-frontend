@@ -382,10 +382,10 @@
           <tr>
             <div class="p-0" style="width: max-content; font-size: 11px!important; height: 18px">
               <th class="border-0 p-0">
-                <p style="width:25px; height: 18px !important;" class="p-header"></p>
+                <p style="width:30px; height: 18px !important;" class="p-header"></p>
               </th>
               <th class="border-0 p-0">
-                <p class="p-header" style="width: 220px; text-align:start; height: 18px !important">Nome</p>
+                <p class="p-header" style="width: 225px; text-align:start; height: 18px !important">Nome</p>
               </th>
             </div>
           </tr>
@@ -393,7 +393,7 @@
           <tr v-for="docente in Professores" :key="`docente${docente.id}`">
             <div style="width: max-content">
               <td style="padding:0;broder:0;margin:0!important;">
-                <div style="width:25px; height: 22px !important;">
+                <div style="width:30px; height: 22px !important;">
                   <input
                           type="checkbox"
                           v-model="DocentesSelecionados"
@@ -403,7 +403,7 @@
                 </div>
               </td>
               <td>
-                <p style="width:220px; text-align:start">{{docente.apelido}}</p>
+                <p style="width:225px; text-align:start">{{docente.apelido}}</p>
               </td>
             </div>
           </tr>
