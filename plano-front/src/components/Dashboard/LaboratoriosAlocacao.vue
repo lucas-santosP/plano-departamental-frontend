@@ -7,10 +7,12 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-xl-3 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">Horários - Laboratórios</h1>
+        <h1
+          class="titulo col-xl-3 col-lg-9 col-md-4 col-sm-5 col-5 px-0 pr-1"
+        >Horários - Laboratórios</h1>
 
         <div
-          class="form-group col-xl-9 col-md-8 col-sm-7 col-5 mb-0 p-0"
+          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <b-button v-b-modal.modalLaboratorios title="Laboratórios" class="cancelbtn">
