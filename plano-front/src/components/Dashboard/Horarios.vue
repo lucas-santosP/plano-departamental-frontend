@@ -6,7 +6,7 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-9 col-md-4 col-sm-5 col-5 px-0 pr-1">Horários - Cursos</h1>
+        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-0 pr-1">Horários - Cursos</h1>
         <div
           class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
@@ -21,7 +21,7 @@
               <label class="input-group-text">Semestre</label>
             </div>
           </div>
-          <div class="d-flex">
+          <div class="d-flex p-0 m-0">
             <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
               <i class="fas fa-graduation-cap"></i>
             </b-button>
@@ -41,78 +41,80 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="p-0 m-0 w-100">
-      <div class="tabelas p-0" style="margin-right: -8px!important;">
-        <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-        <template v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)">
-          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
-          <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-          <template v-if="activeCCD">
-            <!-- passar o nome do curso pra dentro da tabela -->
-            <h4>Ciência da Computação Diurno</h4>
+    <div class="p-0 w-100 col-12">
+      <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
+      <template v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)">
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
+        <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
-            <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
-          </template>
-          <!-- -------------------------------------------- EC ----------------------------------------- -->
-          <template v-if="activeEC">
-            <h4>Engenharia Computacional</h4>
-
-            <curso-diurno :Curso="ativos1.EC"></curso-diurno>
-          </template>
-          <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-          <template v-if="activeCCN">
-            <h4>Ciência da Computação Noturno</h4>
-
-            <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
-          </template>
-          <!-- -------------------------------------------- SI ----------------------------------------- -->
-          <template v-if="activeSI">
-            <h4>Sistemas de Informação</h4>
-
-            <curso-noturno :Curso="ativos1.SI"></curso-noturno>
-          </template>
-          <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-          <template v-if="activeEletivas">
-            <h4>Eletivas</h4>
-            <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
-          </template>
+        <template v-if="activeCCD">
+          <!-- passar o nome do curso pra dentro da tabela -->
+          <h4>Ciência da Computação Diurno</h4>
+          <!-- Para centralizar a tabela:
+            <div class="flex-container">
+              <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+          </div>-->
+          <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
         </template>
+        <!-- -------------------------------------------- EC ----------------------------------------- -->
+        <template v-if="activeEC">
+          <h4>Engenharia Computacional</h4>
 
-        <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-        <template v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)">
-          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
-          <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-          <template v-if="activeCCD">
-            <h4>Ciência da Computação Diurno</h4>
-
-            <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
-          </template>
-          <!-- -------------------------------------------- EC ----------------------------------------- -->
-          <template v-if="activeEC">
-            <h4>Engenharia Computacional</h4>
-
-            <curso-diurno :Curso="ativos2.EC"></curso-diurno>
-          </template>
-          <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-          <template v-if="activeCCN">
-            <h4>Ciência da Computação Noturno</h4>
-
-            <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
-          </template>
-          <!-- -------------------------------------------- SI ----------------------------------------- -->
-          <template v-if="activeSI">
-            <h4>Sistemas de Informação</h4>
-
-            <curso-noturno :Curso="ativos2.SI"></curso-noturno>
-          </template>
-          <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-          <template v-if="activeEletivas">
-            <h4>Eletivas</h4>
-            <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
-          </template>
+          <curso-diurno :Curso="ativos1.EC"></curso-diurno>
         </template>
-        <!-- ----------------------------------------------------------------------------------------------- -->
-      </div>
+        <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
+        <template v-if="activeCCN">
+          <h4>Ciência da Computação Noturno</h4>
+
+          <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
+        </template>
+        <!-- -------------------------------------------- SI ----------------------------------------- -->
+        <template v-if="activeSI">
+          <h4>Sistemas de Informação</h4>
+
+          <curso-noturno :Curso="ativos1.SI"></curso-noturno>
+        </template>
+        <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
+        <template v-if="activeEletivas">
+          <h4>Eletivas</h4>
+          <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
+        </template>
+      </template>
+
+      <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
+      <template v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)">
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
+        <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
+        <template v-if="activeCCD">
+          <h4>Ciência da Computação Diurno</h4>
+
+          <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+        </template>
+        <!-- -------------------------------------------- EC ----------------------------------------- -->
+        <template v-if="activeEC">
+          <h4>Engenharia Computacional</h4>
+
+          <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+        </template>
+        <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
+        <template v-if="activeCCN">
+          <h4>Ciência da Computação Noturno</h4>
+
+          <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
+        </template>
+        <!-- -------------------------------------------- SI ----------------------------------------- -->
+        <template v-if="activeSI">
+          <h4>Sistemas de Informação</h4>
+
+          <curso-noturno :Curso="ativos2.SI"></curso-noturno>
+        </template>
+        <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
+        <template v-if="activeEletivas">
+          <h4>Eletivas</h4>
+          <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
+        </template>
+      </template>
+      <!-- ----------------------------------------------------------------------------------------------- -->
     </div>
 
     <b-modal
@@ -4598,22 +4600,14 @@ h5 {
   height: 25px !important;
   font-size: 12px !important;
   padding: 0px 0px 0px 5px !important;
-  min-width: 100px;
-  max-width: 100px;
+  min-width: 80px !important;
+  max-width: 80px !important;
   text-align: start;
 }
 
 .form-inline .input-group,
 .form-inline {
   width: auto;
-}
-
-.tabelas {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: -webkit-calc(100vh - 85px);
-  height: -moz-calc(100vh - 85px);
-  height: calc(100vh - 85px);
 }
 
 .listas {
@@ -4651,6 +4645,19 @@ i.far {
   -webkit-text-stroke-color: #698dff;
 }
 
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  margin-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
 .addbtn {
   background-color: white;
   color: #a0e7a0;
@@ -4684,20 +4691,6 @@ i.far {
   -webkit-text-stroke-color: #ada89a;
 }
 
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  margin-right: 15px;
-  margin-top: 5px;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-}
-
 .modal-table {
   display: block !important;
   overflow: auto !important;
@@ -4717,6 +4710,7 @@ table td {
   vertical-align: middle !important;
   padding: 0 !important;
   font-size: 10px !important;
+  height: 22px !important;
 }
 
 tr thead {
@@ -4756,15 +4750,6 @@ table input[type="checkbox"] {
   padding-left: 5px;
 }
 
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 2px 5px 0px 5px !important;
-  min-width: 80px;
-  max-width: 80px;
-  text-align: start;
-}
-
 .form-group {
   display: -ms-flexbox;
   display: flex;
@@ -4783,7 +4768,6 @@ table input[type="checkbox"] {
 }
 
 /* BOTOÕES MODALS */
-
 .btn-df {
   font-size: 12px;
   height: 25px;
