@@ -6,7 +6,6 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários</h1>
         <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários - Cursos</h1>
         <div
           class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
