@@ -6,9 +6,7 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">
-          Horários
-        </h1>
+        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários</h1>
 
         <div
           class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
@@ -30,12 +28,7 @@
             </b-button>
 
             <!--  -->
-            <button
-              type="button"
-              class="relatbtn"
-              v-on:click.prevent="pdf"
-              title="Relatório"
-            >
+            <button type="button" class="relatbtn" v-on:click.prevent="pdf" title="Relatório">
               <i class="far fa-file-alt"></i>
             </button>
 
@@ -52,15 +45,8 @@
     <div class="p-0 m-0 w-100">
       <div class="tabelas p-0" style="margin-right: -8px!important;">
         <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-        <template
-          v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)"
-        >
-          <h3
-            class="title px-2"
-            style="background-color: rgba(0, 0, 0, 0.089);"
-          >
-            1º SEMESTRE
-          </h3>
+        <template v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)">
+          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
             <!-- passar o nome do curso pra dentro da tabela -->
@@ -94,12 +80,8 @@
         </template>
 
         <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-        <template
-          v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)"
-        >
-          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">
-            2º SEMESTRE
-          </h3>
+        <template v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)">
+          <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
           <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
           <template v-if="activeCCD">
             <h4>Ciência da Computação Diurno</h4>
@@ -143,10 +125,7 @@
       title="Selecione os Cursos"
       :size="'sm'"
     >
-      <div
-        class="col m-0 p-0 border"
-        style="width:max-content; border-color: rgba(0,0,0,0.125);"
-      >
+      <div class="col m-0 p-0 border" style="width:max-content; border-color: rgba(0,0,0,0.125);">
         <table class="table table-sm modal-table">
           <tr>
             <div style="font-size: 11px!important">
@@ -157,18 +136,13 @@
                 <p style="width:40px" class="p-header">Cód.</p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 200px; text-align:start">
-                  Nome
-                </p>
+                <p class="p-header" style="width: 200px; text-align:start">Nome</p>
               </th>
             </div>
           </tr>
           <tbody>
             <!-- v-for em tr -->
-            <tr
-              v-for="curso in options_Cursos"
-              :key="'curso-id-' + curso.value"
-            >
+            <tr v-for="curso in options_Cursos" :key="'curso-id-' + curso.value">
               <div style="width: max-content">
                 <td>
                   <div style="width:20px;">
@@ -182,9 +156,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:40px; text-align:center">
-                    {{ curso.codigo.toUpperCase() }}
-                  </p>
+                  <p style="width:40px; text-align:center">{{ curso.codigo.toUpperCase() }}</p>
                 </td>
                 <td>
                   <p style="width:200px; text-align:start">{{ curso.nome }}</p>
@@ -200,22 +172,19 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="toggleAll()"
-            >Selecionar Todos</b-button
-          >
+          >Selecionar Todos</b-button>
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="distoggleAll()"
-            >Desmarcar Todos</b-button
-          >
+          >Desmarcar Todos</b-button>
         </div>
         <b-button
           variant="success"
           v-on:click="okBtn()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-df mr-0"
           style="padding-right:15px!important; padding-left:15px!important;"
-          >OK</b-button
-        >
+        >OK</b-button>
       </div>
     </b-modal>
 
@@ -227,7 +196,10 @@
             <strong>Para exibir conteúdo na tela:</strong> No cartão à direita,
             selecione o(s) semestre(s), em seguida o(s) curso(s) que deseja ver
             e clique em Confirmar
-            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
+            <i
+              class="fas fa-check addbtn px-1"
+              style="font-size:12px"
+            ></i>
             .
           </li>
         </ul>

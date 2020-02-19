@@ -1038,15 +1038,19 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tela: </strong> Clique em Laboratórios
+            <strong>Para exibir conteúdo na tela:</strong> Clique em Laboratórios
             <i class="fas fa-list-ul cancelbtn px-1" style="font-size: 12px"></i>
-             e selecione o(s) laboratório(s) que deseja 
+            e selecione o(s) laboratório(s) que deseja
             ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-              <strong>Para gerar relatório:</strong> Clique no botão Relatório
-              <i class="far fa-file-alt relatbtn px-1" style="font-size: 12px"></i>
-               e aguarde para fazer <font style='font-style:italic;'>download</font> do mesmo.
+            <strong>Para gerar relatório:</strong> Clique no botão Relatório
+            <i
+              class="far fa-file-alt relatbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            e aguarde para fazer
+            <font style="font-style:italic;">download</font> do mesmo.
           </li>
         </ul>
       </div>
@@ -1099,7 +1103,7 @@
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 ml-2 d-flex">
+        <div class="w-100 m-0 d-flex">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
@@ -1114,7 +1118,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-df mr-0"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
       </div>
@@ -1342,7 +1346,7 @@ th {
 }
 
 p {
-  margin:0px;
+  margin: 0px;
 }
 
 .center-row {
