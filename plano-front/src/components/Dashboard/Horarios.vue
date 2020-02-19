@@ -7,7 +7,7 @@
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários</h1>
-
+        <h1 class="titulo col-xl-2 col-md-2 col-sm-2 col-4 px-0 pr-1">Horários - Cursos</h1>
         <div
           class="form-group col-xl-10 col-md-10 col-sm-10 col-8 mb-0 p-0"
           style="justify-content: flex-end!important;"
@@ -193,14 +193,9 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tela:</strong> No cartão à direita,
-            selecione o(s) semestre(s), em seguida o(s) curso(s) que deseja ver
-            e clique em Confirmar
-            <i
-              class="fas fa-check addbtn px-1"
-              style="font-size:12px"
-            ></i>
-            .
+            <strong>Para exibir conteúdo na tela:</strong> Clique em Cursos
+            <i class="fas fa-graduation-cap cancelbtn" style="font-size: 12px"></i>
+            e selecione quais deseja visualizar, em seguida confirme em OK.
           </li>
         </ul>
       </div>

@@ -7,7 +7,7 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-xl-3 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">Laboratórios - Alocação</h1>
+        <h1 class="col-xl-3 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">Horários - Laboratórios</h1>
 
         <div
           class="form-group col-xl-9 col-md-8 col-sm-7 col-5 mb-0 p-0"
@@ -1057,7 +1057,7 @@
 
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
-    <!-- Modals do botão para escolher disciplinas -->
+    <!-- Modals do botão para escolher laboratorio -->
     <b-modal
       id="modalLaboratorios"
       ref="LaboratoriosModal"
@@ -1083,7 +1083,7 @@
           <tbody>
             <tr v-for="laboratorio in Laboratorios" :key="`laboratorio${laboratorio.id}`">
               <div style="width: max-content">
-                <td style="padding:0;broder:0;margin:0 auto !important;">
+                <td style="padding:0;margin:0 auto !important;">
                   <div style="width:25px; height: 100%; margin:0 auto">
                     <input
                       type="checkbox"

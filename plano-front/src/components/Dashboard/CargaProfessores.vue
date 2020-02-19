@@ -374,14 +374,14 @@
               class="form-group col m-0 p-0 border"
               style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
       >
-        <table class="table table-sm modal-table" style="max-height: 392px !important;">
+        <table class="table table-sm modal-table" style="max-height: 392px !important; overflow-x: hidden">
           <tr>
             <div style="width: max-content; font-size: 11px!important">
               <th class="border-0">
                 <p style="width:25px" class="p-header"></p>
               </th>
               <th class="border-0">
-                <p class="p-header" style="width: 424px; text-align:start">Nome</p>
+                <p class="p-header" style="width: 250px; text-align:start">Nome</p>
               </th>
             </div>
           </tr>
@@ -399,7 +399,7 @@
                 </div>
               </td>
               <td>
-                <p style="width:424px; text-align:start">{{docente.apelido}}</p>
+                <p style="width:250px; text-align:start">{{docente.apelido}}</p>
               </td>
             </div>
           </tr>
@@ -714,11 +714,11 @@ table td {
   text-align: center;
   vertical-align: middle;
   padding: 0 !important;
-  border: none;
+  
 }
-.linhas {
+/* .linhas {
   border-top: 1px solid #dee2e6;
-}
+} */
 table p {
   margin-bottom: 0;
   text-align: center;
@@ -745,6 +745,14 @@ table select {
 table input {
   height: 18px !important;
   text-align: center !important;
+}
+.modal-table {
+  display: block !important;
+  overflow: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: white;
+  margin: 0 !important;
 }
 .sticky {
   position: sticky;
