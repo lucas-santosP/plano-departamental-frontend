@@ -222,13 +222,37 @@
                                 <p style="width:25px" class="p-header"></p>
                             </th>
                             <th class="border-0 p-0">
-                                <p class="p-header" style="width: 80px; text-align:start">Cod.</p>
+                                <p class="p-header clickable-header" style="width: 80px; text-align: start;"
+                                   @click="toggleOrderCodigo()"
+                                   title="Clique para ordenar por código">Cod.
+                                    <i
+                                            v-if="ordenacao=='codigo'"
+                                            style="font-size:0.6rem; text-align:right"
+                                            class="fas fa-arrow-down fa-sm"
+                                    ></i>
+                                </p>
                             </th>
                             <th class="border-0 p-0">
-                                <p class="p-header" style="width: 277px; text-align:start">Nome</p>
+                                <p class="p-header clickable-header" style="width: 277px; text-align: start;"
+                                   @click="toggleOrderNome()"
+                                   title="Clique para ordenar por nome">Nome
+                                    <i
+                                            v-if="ordenacao=='nome'"
+                                            style="font-size:0.6rem; text-align:right"
+                                            class="fas fa-arrow-down fa-sm"
+                                    ></i>
+                                </p>
                             </th>
+
                             <th class="border-0 p-0">
-                                <p class="p-header" style="width: 65px; text-align:start">Perfil</p>
+                                <p class="p-header clickable-header" style="width: 65px; text-align: start;"
+                                   @click="toggleOrderPerfil()"
+                                   title="Clique para ordenar por nome">Perfil
+                                    <i
+                                            v-if="Array.isArray(ordenacao)"
+                                            style="font-size:0.6rem; text-align:right"
+                                            class="fas fa-arrow-down fa-sm"
+                                    ></i></p>
                             </th>
                         </div>
                     </tr>
