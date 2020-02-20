@@ -1,7 +1,6 @@
 <template>
   <div class="DashboardLaboratoriosAlocacao row pr-2">
     <!-- Titulo -->
-
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
       style="height:38px;"
@@ -40,26 +39,7 @@
         </div>
       </div>
     </div>
-
     <div class="w-100 mb-2 border-bottom"></div>
-
-    <!-- <div class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0">
-        <div class="form-inline col-12 col-sm-6 col-md-5 col-xl-3 pl-0 mb-2 pr-1">
-          <h1 class="col-9 titulo">Laboratórios - Alocação</h1>
-        </div>
-          <div class="col-3 p-0">
-            <b-button v-b-modal.modalLaboratorios title="Laboratorios" class="cancelbtn">
-              <i class="fas fa-list-ul"></i>
-            </b-button>
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-            <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
-              <i class="far fa-file-alt"></i>
-            </button>
-          </div>
-        </div>
-    <div class="w-100 mb-2 border-bottom"></div>-->
 
     <div class="col-12 p-0 w-100">
       <template v-if="LaboratoriosAtivados.length != 0 && (periodo == 1 || periodo == 3)">
@@ -554,7 +534,6 @@
           </div>
         </div>
       </template>
-
       <template v-if="LaboratoriosAtivados.length != 0 && (periodo == 2 || periodo == 3)">
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">2º SEMESTRE</h3>
         <div class="flex-container">
@@ -1071,9 +1050,9 @@
           </li>
         </ul>
       </div>
-
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
+
     <!-- Modals do botão para escolher laboratorio -->
     <b-modal
       id="modalLaboratorios"
@@ -1119,6 +1098,7 @@
         </table>
       </div>
 
+      <!-- MODAL AJUDA -->
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100 m-0 d-flex">
           <b-button
