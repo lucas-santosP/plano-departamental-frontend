@@ -17,11 +17,11 @@
               <label class="input-group-text">Ano</label>
             </div>
           </div>
-          <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
-            <i class="fas fa-graduation-cap"></i>
-          </b-button>
           <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
+          </b-button>
+          <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
+            <i class="fas fa-graduation-cap"></i>
           </b-button>
           <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn mt-1">
             <i class="fas fa-question"></i>
@@ -44,16 +44,16 @@
                 <p class="p-header" style="width: 380px; text-align:start">Disciplina</p>
               </th>
               <th scope="col" v-if="activeSI">
-                <p class="p-header" style="width: 165px;" title="Sistemas de informação">76A</p>
+                <p class="p-header" style="width: 150px;" title="Sistemas de informação">76A</p>
               </th>
               <th scope="col" v-if="activeCCN">
-                <p class="p-header" style="width: 165px;" title="Ciência da Computação Noturno">35A</p>
+                <p class="p-header" style="width: 150px;" title="Ciência da Computação Noturno">35A</p>
               </th>
               <th scope="col" v-if="activeCCD">
-                <p class="p-header" style="width: 165px;" title="Ciência da Computação Noturno">65C</p>
+                <p class="p-header" style="width: 150px;" title="Ciência da Computação Noturno">65C</p>
               </th>
               <th scope="col" v-if="activeEC">
-                <p class="p-header" style="width: 165px;" title="Engenharia da Computação">65B</p>
+                <p class="p-header" style="width: 150px;" title="Engenharia da Computação">65B</p>
               </th>
             </div>
           </tr>
@@ -74,7 +74,7 @@
                 </td>
                 <!-- 76A-  -->
                 <td v-if="activeSI">
-                  <p style="width:165px;">
+                  <p style="width:150px;">
                     <template v-if="disciplinasGrades[disciplina.id][2][0].length !== 0">
                       <template
                         v-for="d in disciplinasGrades[disciplina.id][2][0]"
@@ -89,7 +89,7 @@
                 </td>
                 <!-- 35A-  -->
                 <td v-if="activeCCN">
-                  <p style="width: 165px">
+                  <p style="width: 150px">
                     <template v-if="disciplinasGrades[disciplina.id][0][0].length !== 0">
                       <template
                         v-for="d in disciplinasGrades[disciplina.id][0][0]"
@@ -104,7 +104,7 @@
                 </td>
                 <!-- 65C -->
                 <td v-if="activeCCD">
-                  <p style="width: 165px">
+                  <p style="width: 150px">
                     <template v-if="disciplinasGrades[disciplina.id][3][0].length !== 0">
                       <template
                         v-for="d in disciplinasGrades[disciplina.id][3][0]"
@@ -119,7 +119,7 @@
                 </td>
                 <!-- 65B -->
                 <td v-if="activeEC">
-                  <p style="width: 165px">
+                  <p style="width: 150px">
                     <template v-if="disciplinasGrades[disciplina.id][1][0].length !== 0">
                       <template
                         v-for="d in disciplinasGrades[disciplina.id][1][0]"
