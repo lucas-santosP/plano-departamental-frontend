@@ -20,6 +20,9 @@
           <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
             <i class="fas fa-graduation-cap"></i>
           </b-button>
+          <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn">
+            <i class="fas fa-list-ul"></i>
+          </b-button>
           <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn mt-1">
             <i class="fas fa-question"></i>
           </b-button>
@@ -56,7 +59,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="perfil in Perfis">
+          <template v-for="perfil in PerfisAtivados">
             <tr
               v-for="disciplina in inPerfil(perfil, Disciplinas)"
               :key="disciplina.id"
@@ -194,17 +197,17 @@
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
-            @click="toggleAll()"
+            @click="selectAllCursos()"
           >Selecionar Todos</b-button>
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
-            @click="distoggleAll()"
+            @click="selectNoneCursos()"
           >Desmarcar Todos</b-button>
         </div>
         <b-button
           variant="success"
-          v-on:click="okBtn()"
+          v-on:click="btnOkCursos()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
@@ -228,8 +231,67 @@
           </li>
         </ul>
       </div>
-
       <div slot="modal-footer" style="display: none"></div>
+    </b-modal>
+
+    <!-- Modals do botão perfis slot="modal-footer" -->
+    <b-modal id="modalPerfis" ref="PerfisModal" scrollable title="Selecione os perfis">
+      <div
+        class="div-modal-table col m-0 p-0 border"
+        style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
+      >
+        <table class="table table-sm modal-table" style="max-height: 392px !important;">
+          <tr>
+            <div style="width: max-content; font-size: 11px!important">
+              <th class="border-0">
+                <p style="width:25px" class="p-header"></p>
+              </th>
+              <th class="border-0">
+                <p class="p-header" style="width: 424px; text-align:start">Nome</p>
+              </th>
+            </div>
+          </tr>
+          <tbody>
+            <tr v-for="perfil in Perfis" :key="'perfil-id'+perfil.id">
+              <div style="width: max-content">
+                <td style="padding:0;broder:0;margin:0!important;">
+                  <div style="width:25px;">
+                    <input
+                      type="checkbox"
+                      v-model="PerfisSelecionados"
+                      :value="perfil"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:424px; text-align:start">{{perfil.nome}}</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+        <div class="row ml-2 w-100">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAllPerfis()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="selectNonePerfis()"
+          >Desmarcar Todos</b-button>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOkPerfis()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+        >OK</b-button>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -258,6 +320,8 @@ export default {
         3: [], //SI
         4: [] //CCD
       },
+      PerfisSelecionados: [],
+      PerfisAtivados: [],
       cursos: [],
       cursosSelecionados: [],
       options_Cursos: [
@@ -293,61 +357,36 @@ export default {
   },
 
   methods: {
-    verificaDisciplinaNoCurso(ID) {
-      const discplinaSI = this.disciplinasGrades[ID][2][0].length !== 0;
-      const discplinaCCN = this.disciplinasGrades[ID][0][0].length !== 0;
-      const discplinaCCD = this.disciplinasGrades[ID][3][0].length !== 0;
-      const discplinaEC = this.disciplinasGrades[ID][1][0].length !== 0;
-      if (
-        this.activeSI &&
-        discplinaSI &&
-        !(this.activeCCN && discplinaCCN) &&
-        !(this.activeCCD && discplinaCCD) &&
-        !(this.activeEC && discplinaEC)
-      ) {
-        this.showCurso = "SI";
-      } else if (
-        this.activeCCN &&
-        discplinaCCN &&
-        !(this.activeSI && discplinaSI) &&
-        !(this.activeCCD && discplinaCCD) &&
-        !(this.activeEC && discplinaEC)
-      ) {
-        this.showCurso = "CCN";
-      } else if (
-        this.activeCCD &&
-        discplinaCCD &&
-        !(this.activeCCN && discplinaCCN) &&
-        !(this.activeSI && discplinaSI) &&
-        !(this.activeEC && discplinaEC)
-      ) {
-        this.showCurso = "CCD";
-      } else if (
-        this.activeEC &&
-        discplinaEC &&
-        !(this.activeCCN && discplinaCCN) &&
-        !(this.activeCCD && discplinaCCD) &&
-        !(this.activeSI && discplinaSI)
-      ) {
-        this.showCurso = "EC";
-      } else {
-        this.showCurso = "todas";
-      }
-      return true;
+    //PERFIS SELECTIONS
+    btnOkPerfis() {
+      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
+      this.PerfisAtivados = [...this.PerfisSelecionados];
+      this.$refs.PerfisModal.hide();
     },
-    distoggleAll() {
+    selectAllPerfis() {
+      if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
+      for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
+        this.PerfisSelecionados.push(this.$store.state.perfil.Perfis[i]);
+    },
+
+    selectNonePerfis() {
+      this.PerfisSelecionados = [];
+    },
+    //CURSOS SELECTIONS
+    selectNoneCursos() {
       if (this.cursosSelecionados.length !== 0) {
         this.cursosSelecionados = [];
       }
     },
-    toggleAll() {
+    selectAllCursos() {
       if (this.cursosSelecionados.length !== 5)
         this.cursosSelecionados = [1, 2, 3, 4, 5];
     },
-    okBtn() {
+    btnOkCursos() {
       this.cursos = [...this.cursosSelecionados];
       this.$refs.modalCursos.hide();
     },
+
     inPerfil: function(perfil, disciplinas) {
       //Verifica se uma disciplina faz parte de um perfil
       return disciplinas.filter(function(disciplina) {
@@ -571,6 +610,9 @@ export default {
       return _.orderBy(this.$store.state.curso.Cursos, "posicao");
     },
 
+    Perfis() {
+      return this.$store.state.perfil.Perfis;
+    },
     CursosAtivos() {
       return this.$store.state.curso.Ativos;
     },
@@ -592,10 +634,6 @@ export default {
 
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
-    },
-
-    Perfis() {
-      return this.$store.state.perfil.Perfis;
     },
 
     Turmas() {
