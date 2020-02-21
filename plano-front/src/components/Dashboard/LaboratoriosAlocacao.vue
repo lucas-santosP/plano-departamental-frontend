@@ -7,10 +7,10 @@
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1
-          class="titulo col-xl-3 col-lg-4 col-md-5 col-sm-6 col-6 px-0 pr-1"
+          class="titulo col-xl-3 col-lg-4 col-md-5 col-sm-6 col-5 px-0 pr-1"
         >Horários - Laborátorios</h1>
         <div
-          class="form-group col-xl-9 col-lg-8 col-md-7 col-sm-6 col-6 mb-0 p-0"
+          class="form-group col-xl-9 col-lg-8 col-md-7 col-sm-6 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="input-group mr-3 ml-auto my-0 p-0">
@@ -1515,7 +1515,7 @@ i.far {
   text-align: start !important;
 }
 /* =========================== */
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 575px) {
   .div-titulo {
     height: 70px !important;
   }

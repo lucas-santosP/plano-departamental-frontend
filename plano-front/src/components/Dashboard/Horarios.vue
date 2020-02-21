@@ -4530,7 +4530,6 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-
 .titulo {
   font-size: 25px;
   font-weight: normal;

@@ -6,9 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-4 col-sm-5 col-7 px-0 pr-1">Grades Disciplinas</h1>
+        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6 px-0 pr-1">Grades Disciplinas</h1>
         <div
-          class="form-group col-xl-10 col-md-8 col-sm-7 col-5 mb-0 p-0"
+          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-6 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
@@ -17,15 +17,17 @@
               <label class="input-group-text">Ano</label>
             </div>
           </div>
-          <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn">
-            <i class="fas fa-list-ul"></i>
-          </b-button>
-          <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
-            <i class="fas fa-graduation-cap"></i>
-          </b-button>
-          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn mt-1">
-            <i class="fas fa-question"></i>
-          </b-button>
+          <div class="d-flex">
+            <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn">
+              <i class="fas fa-list-ul"></i>
+            </b-button>
+            <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
+              <i class="fas fa-graduation-cap"></i>
+            </b-button>
+            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn mt-1">
+              <i class="fas fa-question"></i>
+            </b-button>
+          </div>
         </div>
       </div>
     </div>
@@ -792,19 +794,17 @@ input[type="text"] {
   justify-content: center;
   margin-bottom: 0;
   /*===*/
-  max-width: 70px;
-  min-width: 70px;
+  max-width: 50px;
+  min-width: 50px;
   height: 25px !important;
   margin-left: -5px;
   padding-left: 15px;
   font-size: 12px !important;
 }
-
 .form-inline .input-group,
 .form-inline {
   width: auto;
 }
-
 .form-group {
   display: -ms-flexbox;
   display: flex;
@@ -816,7 +816,6 @@ input[type="text"] {
   align-items: center;
   margin-bottom: 0;
 }
-
 .form-control {
   height: 25px !important;
   font-size: 12px !important;
@@ -998,7 +997,7 @@ i.far {
   margin-bottom: auto !important;
 }
 
-@media screen and (max-width: 384px) {
+@media screen and (max-width: 519px) {
   .div-titulo {
     height: 70px !important;
   }
