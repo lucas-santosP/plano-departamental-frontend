@@ -212,3 +212,4 @@ plano-back/data.zip
 plano-back/tabelaPrincipal.xlsx
 .idea/alteracao-plano.iml
 .idea/codeStyles/codeStyleConfig.xml
+plano-back/public/*
