@@ -14,7 +14,7 @@
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
             <input type="text" class="form-control form-control-sm" v-model="novoAno" />
             <div class="input-group-append">
-              <label class="input-group-text">Ano</label>
+              <label class="input-group-text" v-on:click="runNovoAno()">Ano</label>
             </div>
           </div>
           <div class="d-flex">
@@ -393,10 +393,11 @@ export default {
 
     runNovoAno: function() {
       //executa runAll, modificando o ano
-      console.log("novo Ano");
       if (this.ano != this.novoAno) {
         this.ano = this.novoAno;
         this.runAll();
+        this.novoAno = 0;
+        this.novoAno = this.ano;
       }
     },
 
@@ -504,6 +505,7 @@ export default {
           }
         }
       });
+
     },
 
     get2Periodo: function() {
@@ -584,6 +586,7 @@ export default {
           }
         }
       });
+
     }
   },
 
