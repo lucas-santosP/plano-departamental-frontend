@@ -42,35 +42,39 @@
 
         <template v-if="activeCCD">
           <!-- passar o nome do curso pra dentro da tabela -->
-          <h4>Ciência da Computação Diurno</h4>
-          <!-- Para centralizar a tabela:
-            <div class="flex-container">
-              <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
-          </div>-->
-          <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+          <!-- Para centralizar a tabela: -->
+          <div class="flex-container">
+            <h4>Ciência da Computação Diurno</h4>
+            <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
+          </div>
         </template>
         <!-- -------------------------------------------- EC ----------------------------------------- -->
         <template v-if="activeEC">
-          <h4>Engenharia Computacional</h4>
-
-          <curso-diurno :Curso="ativos1.EC"></curso-diurno>
+          <div class="flex-container">
+            <h4>Engenharia Computacional</h4>
+            <curso-diurno :Curso="ativos1.EC"></curso-diurno>
+          </div>
         </template>
         <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
         <template v-if="activeCCN">
-          <h4>Ciência da Computação Noturno</h4>
-
-          <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
+          <div class="flex-container">
+            <h4>Ciência da Computação Noturno</h4>
+            <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
+          </div>
         </template>
         <!-- -------------------------------------------- SI ----------------------------------------- -->
         <template v-if="activeSI">
-          <h4>Sistemas de Informação</h4>
-
-          <curso-noturno :Curso="ativos1.SI"></curso-noturno>
+          <div class="flex-container">
+            <h4>Sistemas de Informação</h4>
+            <curso-noturno :Curso="ativos1.SI"></curso-noturno>
+          </div>
         </template>
         <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
         <template v-if="activeEletivas">
-          <h4>Eletivas</h4>
-          <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
+          <div class="flex-container">
+            <h4>Eletivas</h4>
+            <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
+          </div>
         </template>
       </template>
 
@@ -79,32 +83,38 @@
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
         <template v-if="activeCCD">
-          <h4>Ciência da Computação Diurno</h4>
-
-          <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+          <div class="flex-container">
+            <h4>Ciência da Computação Diurno</h4>
+            <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
+          </div>
         </template>
         <!-- -------------------------------------------- EC ----------------------------------------- -->
         <template v-if="activeEC">
-          <h4>Engenharia Computacional</h4>
-
-          <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+          <div class="flex-container">
+            <h4>Engenharia Computacional</h4>
+            <curso-diurno :Curso="ativos2.EC"></curso-diurno>
+          </div>
         </template>
         <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
         <template v-if="activeCCN">
-          <h4>Ciência da Computação Noturno</h4>
-
-          <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
+          <div class="flex-container">
+            <h4>Ciência da Computação Noturno</h4>
+            <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
+          </div>
         </template>
         <!-- -------------------------------------------- SI ----------------------------------------- -->
         <template v-if="activeSI">
-          <h4>Sistemas de Informação</h4>
-
-          <curso-noturno :Curso="ativos2.SI"></curso-noturno>
+          <div class="flex-container">
+            <h4>Sistemas de Informação</h4>
+            <curso-noturno :Curso="ativos2.SI"></curso-noturno>
+          </div>
         </template>
         <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
         <template v-if="activeEletivas">
-          <h4>Eletivas</h4>
-          <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
+          <div class="flex-container">
+            <h4>Eletivas</h4>
+            <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
+          </div>
         </template>
       </template>
       <!-- ----------------------------------------------------------------------------------------------- -->
@@ -4631,6 +4641,7 @@ export default {
 }
 
 h4 {
+  width: 100%;
   text-align: start !important;
   font-size: 12px !important;
   font-weight: bold !important;
@@ -4649,11 +4660,6 @@ h3 {
   font-weight: bold;
   font-size: 20px;
   text-align: center !important;
-}
-
-h4 {
-  font-size: 12px !important;
-  font-weight: bold !important;
 }
 
 h5 {
@@ -4816,6 +4822,28 @@ button {
   cursor: pointer;
 }
 
+.flex-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -moz-box-orient: horizontal;
+  -moz-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  -moz-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
 .form-group {
   display: -ms-flexbox;
   display: flex;
@@ -4832,8 +4860,6 @@ button {
 .form-inline {
   width: auto;
 }
-
-/*  */
 
 @media screen and (max-width: 499px) {
   .div-titulo {
