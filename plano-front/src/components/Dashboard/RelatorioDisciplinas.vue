@@ -15,10 +15,10 @@
           <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
             <i class="fas fa-calendar-alt"></i>
           </b-button>
+          <b-button v-b-modal.modalDisciplinas title="Disciplinas" class="cancelbtn">
+            <i class="fas fa-list-ul"></i>
+          </b-button>
           <div class="d-flex">
-            <b-button v-b-modal.modalDisciplinas title="Disciplinas" class="cancelbtn">
-              <i class="fas fa-list-ul"></i>
-            </b-button>
             <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
               <i class="far fa-file-alt"></i>
             </button>
@@ -101,12 +101,12 @@
               </th>
 
               <th scope="col" v-if="semestreAtual===1" title="Vagas do 1º semestre">
-                <p class="p-header" style="width: 70px">Vagas 1º S.</p>
+                <p class="p-header" style="width: 70px">Vagas</p>
               </th>
               <th scope="col" v-if="semestreAtual===2" title="Vagas do 2º semestre">
-                <p class="p-header" style="width: 70px">Vagas 2º S.</p>
+                <p class="p-header" style="width: 70px">Vagas</p>
               </th>
-              <th scope="col" v-if="semestreAtual===3" title="Vagas do primeiro e segundo semestre">
+              <th scope="col" v-if="semestreAtual===3" title="Vagas do 1º e 2º semestre">
                 <p class="p-header" style="width: 70px">Vagas</p>
               </th>
             </div>
@@ -219,7 +219,13 @@
       </table>
     </div>
 
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+    <b-modal
+      id="modalSemestre"
+      ref="modalSemestre"
+      size="md"
+      title="Selecione os semestres"
+      scrollable
+    >
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-bordered table-sm modal-table"
@@ -237,7 +243,7 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 432px; text-align: start;"
+                    style="width: 435px; text-align: start;"
                   >Semestre Letivo</p>
                 </th>
               </div>
@@ -256,7 +262,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:432px; text-align:start">Primeiro semestre</p>
+                  <p style="width:435px; text-align:start">Primeiro semestre</p>
                 </td>
               </div>
             </tr>
@@ -272,7 +278,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:432px; text-align:start">Segundo semestre</p>
+                  <p style="width:435px; text-align:start">Segundo semestre</p>
                 </td>
               </div>
             </tr>
@@ -337,9 +343,9 @@
       size="lg"
       title="Selecione as disciplinas"
     >
-      <div class="col m-0 p-0" style="width:max-content; border-color: rgba(0,0,0,0.125);">
+      <div class="col m-0 p-0" style="width:max-content;">
         <table
-          class="table table-bordered table-sm modal-table"
+          class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
           <thead class="thead-light">
@@ -400,6 +406,7 @@
               </div>
             </tr>
           </thead>
+
           <tbody>
             <tr v-for="disciplina in Disciplinas" :key="`disciplina${disciplina.id}`">
               <div style="width: max-content">
@@ -429,7 +436,7 @@
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 ml-2">
+        <div class="row ml-0 w-100">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
@@ -728,11 +735,15 @@ button {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-  margin-right: 15px;
-  margin-top: 5px;
+  width: 32px !important;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 0px;
+  line-height: 50%;
   margin-bottom: 0px;
   transition: all 0.3s ease 0s;
   cursor: pointer;
+  text-align: center !important;
 }
 i.fas,
 i.far {
@@ -878,8 +889,8 @@ i.far {
   padding: 0 !important;
   text-align: center !important;
   height: 18px !important;
-  border-bottom: 0;
-  border-top: 0;
+  border-bottom: 0 !important;
+  border-top: 0 !important;
 }
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
@@ -892,6 +903,7 @@ i.far {
   width: 100%;
 }
 .modal-table td {
+  border-bottom: 0;
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;

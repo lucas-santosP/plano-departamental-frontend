@@ -11,16 +11,9 @@
           class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
-          <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
-            <select class="form-control form-control-sm" v-model="periodo">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-            <div class="input-group-append">
-              <label class="input-group-text">Semestre</label>
-            </div>
-          </div>
+          <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
+            <i class="fas fa-calendar-alt"></i>
+          </b-button>
           <div class="d-flex p-0 m-0">
             <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
               <i class="fas fa-graduation-cap"></i>
@@ -43,7 +36,7 @@
 
     <div class="p-0 w-100 col-12">
       <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-      <template v-if="this.cursos.length != 0 && (periodo == 1 || periodo == 3)">
+      <template v-if="this.cursos.length != 0 && (semestreAtual == 1 || semestreAtual == 3)">
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
@@ -82,7 +75,7 @@
       </template>
 
       <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-      <template v-if="this.cursos.length != 0 && (periodo == 2 || periodo == 3)">
+      <template v-if="this.cursos.length != 0 && (semestreAtual == 2 || semestreAtual == 3)">
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
         <template v-if="activeCCD">
@@ -117,35 +110,36 @@
       <!-- ----------------------------------------------------------------------------------------------- -->
     </div>
 
-    <b-modal
-      id="modalCursos"
-      ref="modalCursos"
-      title="Selecione os Cursos"
-      class="mw-100"
-      size="md"
-      scrollable
-    >
-      <div class="col m-0 p-0 border" style="width:max-content; border-color: rgba(0,0,0,0.125);">
-        <table class="table table-sm modal-table">
-          <tr>
-            <div style="font-size: 11px!important; height: 18px !important">
-              <th class="border-0">
-                <p style="width:25px" class="p-header"></p>
-              </th>
-              <th class="border-0">
-                <p style="width:50px" class="p-header">Cód.</p>
-              </th>
-              <th class="border-0">
-                <p class="p-header" style="width: 385px; text-align:start">Nome</p>
-              </th>
-            </div>
-          </tr>
+    <b-modal id="modalCursos" ref="modalCursos" title="Selecione os Cursos" size="md" scrollable>
+      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+        <table
+          class="table table-sm modal-table table-bordered"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p style="width:50px" class="p-header">Cód.</p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 372px; text-align:start">Nome</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
           <tbody>
             <!-- v-for em tr -->
             <tr v-for="curso in options_Cursos" :key="'curso-id-' + curso.value">
               <div style="width: max-content; height: 22px !important">
                 <td>
-                  <div style="width:25px;">
+                  <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
                       :value="curso.value"
@@ -155,16 +149,17 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:start;">{{ curso.codigo.toUpperCase() }}</p>
+                  <p style="width:50px; text-align:start;">{{ curso.codigo }}</p>
                 </td>
                 <td>
-                  <p style="width:385px; text-align:start;">{{ curso.nome }}</p>
+                  <p style="width:372px; text-align:start;">{{ curso.nome }}</p>
                 </td>
               </div>
             </tr>
           </tbody>
         </table>
       </div>
+
       <div slot="modal-footer" class="w-100 m-0" style="display: flex">
         <div class="row ml-0 w-100">
           <b-button
@@ -181,6 +176,91 @@
         <b-button
           variant="success"
           v-on:click="okBtn()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+        >OK</b-button>
+      </div>
+    </b-modal>
+
+    <!-- MODAL SEMESTRE -->
+    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+        <table
+          class="table table-bordered table-sm modal-table"
+          style="max-height: 392px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p
+                    class="p-header clickable-header"
+                    style="width: 435px; text-align: start;"
+                  >Semestre Letivo</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_1Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_2Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+        <div class="w-100 ml-2">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAllSemestre()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="selectNoneSemestre()"
+          >Desmarcar Todos</b-button>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOKSemestre()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
         >OK</b-button>
@@ -242,7 +322,7 @@ export default {
         {
           nome: "ELETIVAS",
           value: 5,
-          codigo: "-"
+          codigo: ""
         }
       ],
       evenCCN: "false",
@@ -266,7 +346,9 @@ export default {
         Eletivas: []
       },
       selectAll: false,
-      periodo: 3
+      semestre_1Ativo: true,
+      semestre_2Ativo: true,
+      semestreAtual: 3
     };
   },
 
@@ -281,6 +363,26 @@ export default {
   },
 
   methods: {
+    btnOKSemestre() {
+      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
+        this.semestreAtual = 1;
+      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+        this.semestreAtual = 2;
+      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
+        this.semestreAtual = 3;
+      } else {
+        this.semestreAtual = undefined;
+      }
+      this.$refs.modalSemestre.hide();
+    },
+    selectAllSemestre() {
+      this.semestre_1Ativo = true;
+      this.semestre_2Ativo = true;
+    },
+    selectNoneSemestre() {
+      this.semestre_1Ativo = false;
+      this.semestre_2Ativo = false;
+    },
     defineSelectAll() {
       if (this.cursosSelecionados.length === 5) {
         this.selectAll = true;
@@ -4559,42 +4661,7 @@ h5 {
   font-weight: normal;
 }
 
-.input-group-text {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: flex;
-  -ms-flex-align: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  justify-content: center;
-  margin-bottom: 0;
-  /*===*/
-  max-width: 70px;
-  min-width: 70px;
-  height: 25px !important;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
-}
-
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 80px !important;
-  max-width: 80px !important;
-  text-align: start;
-}
-
-.form-inline .input-group,
+.form-inline,
 .form-inline {
   width: auto;
 }
@@ -4702,11 +4769,15 @@ button {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-  margin-right: 15px;
-  margin-top: 5px;
+  width: 32px !important;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 0px;
+  line-height: 50%;
   margin-bottom: 0px;
   transition: all 0.3s ease 0s;
   cursor: pointer;
+  text-align: center !important;
 }
 .addbtn {
   background-color: white;
@@ -4741,6 +4812,34 @@ button {
   -webkit-text-stroke-color: #ada89a;
 }
 
+.clickable-header {
+  cursor: pointer;
+}
+
+.form-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.form-inline,
+.form-inline {
+  width: auto;
+}
+
+/*  */
+
+@media screen and (max-width: 499px) {
+  .div-titulo {
+    height: 70px !important;
+  }
+}
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
@@ -4757,6 +4856,8 @@ button {
   padding: 0 !important;
   text-align: center !important;
   height: 18px !important;
+  border-bottom: 0 !important;
+  border-top: 0 !important;
 }
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
@@ -4769,14 +4870,17 @@ button {
   width: 100%;
 }
 .modal-table td {
+  border-bottom: 0;
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;
-  height: 22px !important;
+  margin: 0 !important;
+  /* height: 22px !important; */
 }
 .modal-table p {
   margin: 0 !important;
   text-align: center;
+  padding: 0 !important;
   padding-right: 5px !important;
   padding-left: 5px !important;
 }
@@ -4786,34 +4890,4 @@ button {
   margin-bottom: auto !important;
 }
 /* FIM MODAL TABLE */
-
-.clickable-header {
-  cursor: pointer;
-  padding-left: 5px;
-}
-
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-
-.form-inline .input-group,
-.form-inline {
-  width: auto;
-}
-
-/*  */
-
-@media screen and (max-width: 499px) {
-  .div-titulo {
-    height: 70px !important;
-  }
-}
 </style>
