@@ -183,19 +183,19 @@
                           </template>
                         </div>
                       </td>
-                      <td v-if="semestreAtual==1">
+                      <td v-if="semestreAtual==1" v-on:click="selecionaTurma(turma)">
                         <p
                           v-if="turma.periodo == 1 || turma.periodo == 2"
                           style="width: 70px;"
                         >{{vagasTurma(turma, 1)}}</p>
                       </td>
-                      <td v-if="semestreAtual==2">
+                      <td v-if="semestreAtual==2" v-on:click="selecionaTurma(turma)">
                         <p
                           v-if="turma.periodo == 3 || turma.periodo == 4"
                           style="width: 70px;"
                         >{{vagasTurma(turma, 2)}}</p>
                       </td>
-                      <td v-if="semestreAtual==3">
+                      <td v-if="semestreAtual==3" v-on:click="selecionaTurma(turma)">
                         <p
                           v-if="turma.periodo == 1 || turma.periodo == 2"
                           style="width: 70px;"
@@ -465,7 +465,8 @@ export default {
       DisciplinasAtivados: [],
       semestre_1Ativo: true,
       semestre_2Ativo: true,
-      semestreAtual: 3
+      semestreAtual: 3,
+      turmaSelecionada: undefined
     };
   },
 
@@ -595,6 +596,17 @@ export default {
       } else {
         return `${d1.apelido} / ${d2.apelido}`;
       }
+    },
+
+    selecionaTurma(turma){
+        this.turmaSelecionada = turma
+        for(let i = 0; i < this.VagasTurmaSelecionada.length; i++){
+            console.log({nome: this.curso(this.VagasTurmaSelecionada[i]).nome, codigo: this.curso(this.VagasTurmaSelecionada[i]).codigo, vagasPeriodizadas: this.VagasTurmaSelecionada[i].vagasPeriodizadas, vagasNaoPeriodizadas: this.VagasTurmaSelecionada[i].vagasNaoPeriodizadas})
+        }
+    },
+
+    curso(pedido){
+        return _.find(this.$store.state.curso.Cursos, {'id': pedido.Curso})
     }
   },
 
@@ -607,6 +619,11 @@ export default {
         this.ordenacao
       );
     },
+
+    VagasTurmaSelecionada() {
+        return _.filter(this.$store.state.pedido.Pedidos[this.turmaSelecionada.id], function (p) { return (p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0)})
+    },
+
     Horarios() {
       return this.$store.state.horario.Horarios;
     }
