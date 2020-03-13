@@ -44,35 +44,35 @@
           <!-- passar o nome do curso pra dentro da tabela -->
           <!-- Para centralizar a tabela: -->
           <div class="flex-container">
-            <h4>Ciência da Computação Diurno</h4>
+            <h4 class="pl-1">Ciência da Computação Diurno</h4>
             <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
           </div>
         </template>
         <!-- -------------------------------------------- EC ----------------------------------------- -->
         <template v-if="activeEC">
           <div class="flex-container">
-            <h4>Engenharia Computacional</h4>
+            <h4 class="pl-1">Engenharia Computacional</h4>
             <curso-diurno :Curso="ativos1.EC"></curso-diurno>
           </div>
         </template>
         <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
         <template v-if="activeCCN">
           <div class="flex-container">
-            <h4>Ciência da Computação Noturno</h4>
+            <h4 class="pl-1">Ciência da Computação Noturno</h4>
             <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
           </div>
         </template>
         <!-- -------------------------------------------- SI ----------------------------------------- -->
         <template v-if="activeSI">
           <div class="flex-container">
-            <h4>Sistemas de Informação</h4>
+            <h4 class="pl-1">Sistemas de Informação</h4>
             <curso-noturno :Curso="ativos1.SI"></curso-noturno>
           </div>
         </template>
         <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
         <template v-if="activeEletivas">
           <div class="flex-container">
-            <h4>Eletivas</h4>
+            <h4 class="pl-1">Eletivas</h4>
             <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
           </div>
         </template>
@@ -84,35 +84,35 @@
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
         <template v-if="activeCCD">
           <div class="flex-container">
-            <h4>Ciência da Computação Diurno</h4>
+            <h4 class="pl-1">Ciência da Computação Diurno</h4>
             <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
           </div>
         </template>
         <!-- -------------------------------------------- EC ----------------------------------------- -->
         <template v-if="activeEC">
           <div class="flex-container">
-            <h4>Engenharia Computacional</h4>
+            <h4 class="pl-1">Engenharia Computacional</h4>
             <curso-diurno :Curso="ativos2.EC"></curso-diurno>
           </div>
         </template>
         <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
         <template v-if="activeCCN">
           <div class="flex-container">
-            <h4>Ciência da Computação Noturno</h4>
+            <h4 class="pl-1">Ciência da Computação Noturno</h4>
             <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
           </div>
         </template>
         <!-- -------------------------------------------- SI ----------------------------------------- -->
         <template v-if="activeSI">
           <div class="flex-container">
-            <h4>Sistemas de Informação</h4>
+            <h4 class="pl-1">Sistemas de Informação</h4>
             <curso-noturno :Curso="ativos2.SI"></curso-noturno>
           </div>
         </template>
         <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
         <template v-if="activeEletivas">
           <div class="flex-container">
-            <h4>Eletivas</h4>
+            <h4 class="pl-1">Eletivas</h4>
             <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
           </div>
         </template>

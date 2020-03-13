@@ -1,70 +1,70 @@
 <template>
-  <div class="row marg w-100 p-0">
+  <div class="row marg w-100 pl-1">
     <template v-if="horarioVazio(Curso[0])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>1º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[0]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[1])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>2º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[1]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[2])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>3º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[2]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[3])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>4º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[3]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[4])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>5º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[4]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[5])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>6º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[5]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[6])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>7º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[6]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[7])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>8º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[7]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[8])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>9º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[8]"></horario-diurno>
       </div>
     </template>
 
     <template v-if="horarioVazio(Curso[9])">
-      <div class="periodo col p-0">
+      <div class="div-table col p-0">
         <h5>10º Período</h5>
         <horario-diurno class="horario" :Turmas="Curso[9]"></horario-diurno>
       </div>
@@ -107,14 +107,19 @@ h5 {
   margin-left: auto;
   margin-right: auto;
 }
-.periodo {
+.div-table {
   display: inline;
   position: relative;
 }
 /* Para quebrar de 2 em 2 */
-@media screen and (max-width: 1265px) and (min-width: 1016px) {
+@media screen and (max-width: 1250px) and (min-width: 1106px) {
   .marg {
-    margin-right: 350px !important;
+    margin-right: 25% !important;
+  }
+}
+@media screen and (max-width: 1105px) and (min-width: 944px) {
+  .marg {
+    margin-right: 15% !important;
   }
 }
 </style>

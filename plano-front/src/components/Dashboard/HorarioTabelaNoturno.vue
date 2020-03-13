@@ -166,6 +166,7 @@ export default {
   border-collapse: collapse;
   border-spacing: 0;
   border-color: #ccc;
+  margin-right: 5px !important;
   margin-bottom: 20px !important;
 }
 .tg td {
@@ -201,9 +202,9 @@ export default {
   min-width: 50px !important;
 }
 td p {
-  min-width: 50px !important;
-  padding-right: 2px !important;
-  padding-left: 2px !important;
+  min-width: 48px !important;
+  padding-right: 1px !important;
+  padding-left: 1px !important;
   margin: 0 !important;
 }
 .popoverText {
