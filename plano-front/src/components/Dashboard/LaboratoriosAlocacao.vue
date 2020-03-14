@@ -6,9 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1
-          class="titulo col-xl-3 col-lg-4 col-md-5 col-sm-6 col-5 px-0 pr-1"
-        >Horários - Laborátorios</h1>
+        <h1 class="titulo col-xl-3 col-lg-4 col-md-5 col-sm-6 col-5 px-0 pr-1">
+          Horários - Laborátorios
+        </h1>
         <div
           class="form-group col-xl-9 col-lg-8 col-md-7 col-sm-6 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
@@ -16,11 +16,20 @@
           <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
             <i class="fas fa-calendar-alt"></i>
           </b-button>
-          <b-button v-b-modal.modalLaboratorios title="Laboratórios" class="cancelbtn">
+          <b-button
+            v-b-modal.modalLaboratorios
+            title="Laboratórios"
+            class="cancelbtn"
+          >
             <i class="fas fa-list-ul" style="padding-left: 6.5px"></i>
           </b-button>
           <div class="d-flex p-0 m-0">
-            <button type="button" class="relatbtn" title="Relatório" v-on:click.prevent="pdf">
+            <button
+              type="button"
+              class="relatbtn"
+              title="Relatório"
+              v-on:click.prevent="pdf"
+            >
               <i class="far fa-file-alt"></i>
             </button>
 
@@ -35,21 +44,30 @@
 
     <div class="col-12 p-0 w-100">
       <template
-        v-if="LaboratoriosAtivados.length != 0 && (semestreAtual == 1 || semestreAtual == 3)"
+        v-if="
+          LaboratoriosAtivados.length != 0 &&
+            (semestreAtual == 1 || semestreAtual == 3)
+        "
       >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
+          1º SEMESTRE
+        </h3>
         <div class="flex-container">
-          <div class="tablab" v-for="lab in LaboratoriosAtivados" :key="'2-lab-id'+lab.id">
-            <h5 class="lab-num">{{lab.nome}}</h5>
-            <div class="row m-0">
+          <div class="row marg w-100 pl-1">
+            <div
+              class="div-table col p-0"
+              v-for="lab in LaboratoriosAtivados"
+              :key="'2-lab-id' + lab.id"
+            >
+              <h5>{{ lab.nome }}</h5>
               <table class="tg">
                 <tr>
-                  <th class="tg-0lax">Horário</th>
-                  <th class="tg-0lax">Seg</th>
-                  <th class="tg-0lax">Ter</th>
-                  <th class="tg-0lax">Qua</th>
-                  <th class="tg-0lax">Qui</th>
-                  <th class="tg-0lax">Sex</th>
+                  <th class="tg-0lax tg-dia">Horário</th>
+                  <th class="tg-0lax tg-dia">Seg</th>
+                  <th class="tg-0lax tg-dia">Ter</th>
+                  <th class="tg-0lax tg-dia">Qua</th>
+                  <th class="tg-0lax tg-dia">Qui</th>
+                  <th class="tg-0lax tg-dia">Sex</th>
                 </tr>
 
                 <tr>
@@ -57,61 +75,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 1, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 1, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 7, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 7, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 13, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 13, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 19, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 19, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 25, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 25, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -121,61 +179,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 2, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 2, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 8, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 8, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 14, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 14, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 20, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 20, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 26, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 26, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -185,61 +283,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 3, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 3, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 9, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 9, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 15, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 15, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 21, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 21, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 27, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 27, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -249,61 +387,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 4, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 4, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 10, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 10, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 16, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 16, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 22, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 22, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 28, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 28, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -313,61 +491,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 32, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 32, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 34, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 34, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 36, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 36, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 38, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 38, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 40, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 40, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -377,61 +595,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 33, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 33, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 35, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 35, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 37, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 37, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 39, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 39, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 41, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 41, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -441,61 +699,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 5, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 5, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 11, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 11, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 17, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 17, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 23, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 23, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 29, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 29, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -505,61 +803,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 6, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 6, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 12, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 12, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 18, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 18, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 24, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 24, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas1"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 30, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 30, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -568,14 +906,25 @@
           </div>
         </div>
       </template>
+
       <template
-        v-if="LaboratoriosAtivados.length != 0 && (semestreAtual == 2 || semestreAtual == 3)"
+        v-if="
+          LaboratoriosAtivados.length != 0 &&
+            (semestreAtual == 2 || semestreAtual == 3)
+        "
       >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">2º SEMESTRE</h3>
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
+          2º SEMESTRE
+        </h3>
         <div class="flex-container">
-          <div class="tablab" :key="'2-lab-id'+lab.id" v-for="lab in LaboratoriosAtivados">
-            <h5 class="lab-num">{{lab.nome}}</h5>
-            <div class="row m-0">
+          <div class="row marg w-100 pl-1">
+            <div
+              class="div-table col p-0"
+              v-for="lab in LaboratoriosAtivados"
+              :key="'2-lab-id' + lab.id"
+            >
+              <h5>{{lab.nome}}</h5>
+
               <table class="tg">
                 <tr>
                   <th class="tg-0lax">Horário</th>
@@ -591,61 +940,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 1, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 1, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 7, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 7, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 13, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 13, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 19, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 19, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 25, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 25, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -655,61 +1044,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 2, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 2, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 8, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 8, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 14, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 14, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 20, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 20, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 26, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 26, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -719,61 +1148,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 3, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 3, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 9, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 9, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 15, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 15, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 21, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 21, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 27, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 27, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -783,61 +1252,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 4, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 4, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 10, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 10, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 16, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 16, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 22, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 22, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 28, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 28, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -847,61 +1356,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 32, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 32, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 34, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 34, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 36, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 36, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 38, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 38, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 40, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 40, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -911,61 +1460,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 33, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 33, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 35, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 35, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 37, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 37, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 39, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 39, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 41, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 41, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -975,61 +1564,101 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 5, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 5, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 11, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 11, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 17, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 17, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 23, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 23, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 29, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 29, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
@@ -1039,73 +1668,117 @@
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 6, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 6, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 12, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 12, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 18, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 18, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 24, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 24, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                   <td class="tg-0lax">
                     <template
                       v-for="turma in Turmas2"
-                      v-if="(turma.Sala1 === lab.id || turma.Sala2 === lab.id) && checkTurmaHorario(turma, 30, lab.id)"
+                      v-if="
+                        (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
+                          checkTurmaHorario(turma, 30, lab.id)
+                      "
                     >
-                      <div
+                      <p
                         v-for="disciplina in Disciplinas"
                         v-if="turma.Disciplina === disciplina.id"
-                        v-b-popover.html.hover.top="{customClass: 'popoverText', content:disciplina.nome  + ' <br> ' + docente(turma)}"
-                      >{{disciplina.codigo}} {{turma.letra}}</div>
+                        v-b-popover.html.hover.top="{
+                          customClass: 'popoverText',
+                          content: disciplina.nome + ' <br> ' + docente(turma)
+                        }"
+                      >
+                        {{ disciplina.codigo }} {{ turma.letra }}
+                      </p>
                     </template>
                   </td>
                 </tr>
               </table>
-              <br />
             </div>
           </div>
         </div>
       </template>
     </div>
 
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+    <b-modal
+      id="modalSemestre"
+      ref="modalSemestre"
+      scrollable
+      title="Selecione os semestres"
+    >
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-bordered table-sm modal-table"
@@ -1124,7 +1797,9 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 435px; text-align: start;"
-                  >Semestre Letivo</p>
+                  >
+                    Semestre Letivo
+                  </p>
                 </th>
               </div>
             </tr>
@@ -1172,19 +1847,22 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAllSemestre()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNoneSemestre()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOKSemestre()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
     <!-- Modals do botão para escolher laboratorio -->
@@ -1210,13 +1888,18 @@
                   <p style="width:25px !important" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 435px; text-align:start">Nome</p>
+                  <p class="p-header" style="width: 435px; text-align:start">
+                    Nome
+                  </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="laboratorio in Laboratorios" :key="`laboratorio${laboratorio.id}`">
+            <tr
+              v-for="laboratorio in Laboratorios"
+              :key="`laboratorio${laboratorio.id}`"
+            >
               <div style="width: max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -1229,7 +1912,9 @@
                   </div>
                 </td>
                 <td>
-                  <p class="center-row" style="width:435px; text-align:start">{{laboratorio.nome}}</p>
+                  <p class="center-row" style="width:435px; text-align:start">
+                    {{ laboratorio.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -1242,19 +1927,22 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAll()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNone()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOK()"
           class="btn-verde btn-df mr-0"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
@@ -1263,10 +1951,14 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tela:</strong> Clique em Laboratórios
-            <i class="fas fa-list-ul cancelbtn px-1" style="font-size: 12px"></i>
-            e selecione o(s) laboratório(s) que deseja
-            ver, em seguida confirme em OK. Caso queira ver todos basta clicar em Selecionar Todos.
+            <strong>Para exibir conteúdo na tela:</strong> Clique em
+            Laboratórios
+            <i
+              class="fas fa-list-ul cancelbtn px-1"
+              style="font-size: 12px"
+            ></i>
+            e selecione o(s) laboratório(s) que deseja ver, em seguida confirme
+            em OK. Caso queira ver todos basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão Relatório
@@ -1430,7 +2122,9 @@ export default {
 
 <style scoped>
 /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
+.row {
+  margin: 0 !important;
+}
 .DashboardLaboratoriosAlocacao {
   max-width: 100%;
   overflow: hidden;
@@ -1462,32 +2156,10 @@ strong {
 }
 
 h5 {
+  width: max-content !important;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: bold !important;
   text-align: center;
-  margin-top: 15px;
-}
-@media screen and (min-width: 1378px) {
-  table {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-h6 {
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-}
-td.tg-0lax {
-  width: 66px !important;
-}
-
-td {
-  text-align: center !important;
-}
-
-th {
-  text-align: center !important;
 }
 
 .flex-container {
@@ -1513,27 +2185,12 @@ th {
   flex-wrap: wrap;
 }
 
-.tablab {
-  flex-basis: 30%;
-}
-
-.table {
-  margin: 0px;
-}
-
-p {
-  margin: 0px;
-}
-
-.center-row {
-  font-size: 10px;
-}
-
 .tg {
   border-collapse: collapse;
   border-spacing: 0;
   border-color: #ccc;
-  margin-bottom: 20px;
+  margin-right: 5px !important;
+  margin-bottom: 20px !important;
 }
 .tg td {
   font-family: Arial, sans-serif;
@@ -1542,7 +2199,7 @@ p {
   border-style: solid;
   border-width: 1px;
   overflow: hidden;
-  word-break: normal;
+  word-break: break-word;
   border-color: rgba(189, 189, 189, 0.644);
   color: #333;
   background-color: #fff;
@@ -1560,13 +2217,45 @@ p {
   border-color: rgba(189, 189, 189, 0.623);
   color: #333;
   background-color: #e9ecef !important;
+  min-width: 50px!important;
 }
 .tg .tg-0lax {
   vertical-align: center;
+  text-align: center;
   height: 22px;
+  min-width: 66px;
 }
-/* ====== BOTÕES ====== */
 
+.tg td p {
+  min-width: 64px !important;
+  padding-right: 1px !important;
+  padding-left: 1px !important;
+  margin: 0 !important;
+}
+.tg td div {
+  min-width: 62px !important;
+  padding-right: 1px !important;
+  padding-left: 1px !important;
+  margin: 0 !important;
+}
+ @media screen and (min-width: 1570px) and (max-width: 1741px) {
+  .marg {
+    margin-right: 10% !important;
+  }
+}
+@media screen and (min-width: 1741px) and (max-width: 1905px) {
+  .marg {
+    margin-right: 18% !important;
+  }
+}
+@media screen and (min-width: 1906px) and (max-width: 1965px) {
+  .marg {
+    margin-right: 22% !important;
+  }
+}
+
+
+/* ====== BOTÕES ====== */
 button {
   padding: 0;
   border: none;
@@ -1753,5 +2442,9 @@ i.far {
 .popoverText {
   font-family: Arial, sans-serif;
   font-size: 11px;
+}
+.div-table {
+  display: inline;
+  position: relative;
 }
 </style>

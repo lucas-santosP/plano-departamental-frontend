@@ -6,7 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 px-0 pr-1">Tabela</h1>
+        <h1 class="titulo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 px-0 pr-1">
+          Tabela
+        </h1>
 
         <div
           class="form-group col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
@@ -15,30 +17,47 @@
           <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
             <i class="fas fa-calendar-alt"></i>
           </b-button>
+          <!--
           <b-button v-b-modal.modalPerfis title="Perfis" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
           </b-button>
           <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
             <i class="fas fa-graduation-cap"></i>
-          </b-button>
+          </b-button> -->
           <div class="d-flex">
             <template v-if="isAdd">
-              <b-button title="Salvar" class="addbtn" v-on:click.prevent="addTurma">
+              <b-button
+                title="Salvar"
+                class="addbtn"
+                v-on:click.prevent="addTurma"
+              >
                 <i class="fas fa-check"></i>
               </b-button>
-              <b-button title="Cancelar" class="cancelbtn" v-on:click.prevent="toggleAdd">
+              <b-button
+                title="Cancelar"
+                class="cancelbtn"
+                v-on:click.prevent="toggleAdd"
+              >
                 <i class="fas fa-times"></i>
               </b-button>
             </template>
 
             <template v-else>
-              <b-button title="Adicionar" class="addbtn" v-on:click.prevent="toggleAdd">
+              <b-button
+                title="Adicionar"
+                class="addbtn"
+                v-on:click.prevent="toggleAdd"
+              >
                 <i class="fas fa-plus"></i>
               </b-button>
               <b-button title="Deletar" class="delbtn" v-b-modal.modalConfirma>
                 <i class="far fa-trash-alt"></i>
               </b-button>
-              <b-button title="XLSX" class="relatbtn" v-on:click.prevent="xlsx(Pedidos)">
+              <b-button
+                title="XLSX"
+                class="relatbtn"
+                v-on:click.prevent="xlsx(Pedidos)"
+              >
                 <i class="far fa-file-alt"></i>
               </b-button>
             </template>
@@ -71,14 +90,19 @@
             </tr>
           </template>
 
-          <template v-if="Turmas.length>0">
+          <template v-if="Turmas.length > 0">
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="'turma id'+turma.id"
-                v-bind:style="{backgroundColor: perfil.cor}"
+                :key="'turma id' + turma.id"
+                v-bind:style="{ backgroundColor: perfil.cor }"
               >
-                <template v-if="turma.periodo==1 && (semestreAtual == 1 || semestreAtual==3)">
+                <template
+                  v-if="
+                    turma.periodo == 1 &&
+                      (semestreAtual == 1 || semestreAtual == 3)
+                  "
+                >
                   <turmadata
                     ref="turma"
                     v-bind:turma="turma"
@@ -91,10 +115,15 @@
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="'2-turma id '+turma.id"
-                v-bind:style="{backgroundColor: perfil.cor}"
+                :key="'2-turma id ' + turma.id"
+                v-bind:style="{ backgroundColor: perfil.cor }"
               >
-                <template v-if="turma.periodo==3 && (semestreAtual==2 || semestreAtual==3)">
+                <template
+                  v-if="
+                    turma.periodo == 3 &&
+                      (semestreAtual == 2 || semestreAtual == 3)
+                  "
+                >
                   <turmadata
                     ref="turma"
                     v-bind:turma="turma"
@@ -116,11 +145,14 @@
       <template v-if="Deletar.length > 0">
         <template v-for="turma in Deletar">
           <template v-for="disciplina in Disciplinas">
-            <template v-if="disciplina.id===turma.Disciplina">
-              <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">
-                Disciplina:{{disciplina.codigo}}
+            <template v-if="disciplina.id === turma.Disciplina">
+              <p
+                :key="'disciplina' + disciplina.id + 'turma' + turma.id"
+                style="width:80px"
+              >
+                Disciplina:{{ disciplina.codigo }}
                 <br />
-                Turma:{{turma.letra}}
+                Turma:{{ turma.letra }}
               </p>
             </template>
           </template>
@@ -129,9 +161,59 @@
     </b-modal>
 
     <!-- MODAL SEMESTRE -->
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
-      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+    <b-modal
+      id="modalSemestre"
+      ref="modalSemestre"
+      scrollable
+      title="Selecione os semestres"
+    >
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
+        <ul
+          class="nav nav-tabs card-header-tabs m-0"
+          style="font-size: 11px!important;height: 30px;"
+        >
+          <li class="nav-item" @click="nav_ativo = 'semestre'">
+            <a
+              class="nav-link border border-right-0"
+              :class="[
+                {
+                  active: nav_ativo == 'semestre'
+                },
+                'clickable'
+              ]"
+              >Semestre</a
+            >
+          </li>
+          <li class="nav-item" @click="nav_ativo = 'perfis'">
+            <a
+              class="nav-link border border-right-0"
+              :class="[
+                {
+                  active: nav_ativo == 'perfis'
+                },
+                'clickable'
+              ]"
+              >Perfis</a
+            >
+          </li>
+          <li class="nav-item" @click="nav_ativo = 'cursos'">
+            <a
+              class="nav-link border"
+              :class="[
+                {
+                  active: nav_ativo == 'cursos'
+                },
+                'clickable'
+              ]"
+              >Cursos</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col m-0 p-0" style="width:max-content;height: 450px!important;">
+        <!-- TABLE SEMESTRE -->
         <table
+          v-if="nav_ativo == 'semestre'"
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
@@ -148,7 +230,9 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 435px; text-align: start;"
-                  >Semestre Letivo</p>
+                  >
+                    Semestre Letivo
+                  </p>
                 </th>
               </div>
             </tr>
@@ -189,51 +273,31 @@
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 ml-2">
-          <b-button
-            class="btn-azul btn-df mr-2"
-            variant="success"
-            @click="selectAllSemestre()"
-          >Selecionar Todos</b-button>
-          <b-button
-            class="btn-cinza btn-df mr-2"
-            variant="secondary"
-            @click="selectNoneSemestre()"
-          >Desmarcar Todos</b-button>
-        </div>
-        <b-button
-          variant="success"
-          @click="btnOKSemestre()"
-          class="btn-verde btn-df mr-2"
-          style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
-      </div>
-    </b-modal>
-
-    <!-- MODAL PERFIS -->
-    <b-modal id="modalPerfis" ref="PerfisModal" size="md" scrollable title="Selecione os perfis">
-      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+        <!-- TABLE PERFIS -->
         <table
+          v-else-if="nav_ativo == 'perfis'"
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
           <thead class="thead-light">
             <tr>
-              <div style="width: max-content; height: 18px !important;" class="sticky">
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
                 <th>
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 424px; text-align:start">Nome</p>
+                  <p class="p-header" style="width: 435px; text-align:start">
+                    Nome
+                  </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="perfil in Perfis" :key="'perfil-id'+perfil.id">
+            <tr v-for="perfil in Perfis" :key="'perfil-id' + perfil.id">
               <div style="width: max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -246,7 +310,183 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:424px; text-align:start">{{perfil.nome}}</p>
+                  <p style="width:435px; text-align:start">{{ perfil.nome }}</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+        <!-- TABLE CURSOS -->
+        <table
+          v-else
+          class="table table-sm modal-table table-bordered"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th
+                  class="clickable-header"
+                  style="text-align:center;"
+                  @click="ToggleCodigoOrdering()"
+                >
+                  <p style="width:50px; text-align:center" class="p-header">
+                    Cód.
+                    <i
+                      v-if="ordenacaoCurso == 'codigo'"
+                      style="font-size:0.6rem"
+                      class="fas fa-arrow-down fa-sm"
+                    ></i>
+                  </p>
+                </th>
+                <th class="clickable-header" @click="ToggleNomeOrdering()">
+                  <p style="width:384px; text-align: start" class="p-header">
+                    Nome
+                    <i
+                      v-if="ordenacaoCurso == 'nome'"
+                      style="font-size:0.6rem"
+                      class="fas fa-arrow-down fa-sm"
+                    ></i>
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="curso in Cursos" :key="'cursoMd' + curso.id">
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      v-model="CursosSelecionados"
+                      :value="curso"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width: 50px">{{ curso.codigo }}</p>
+                </td>
+                <td>
+                  <p style="width:384px; text-align: start;">
+                    {{ curso.nome }}
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+        <div class="w-100">
+          <template v-if="nav_ativo == 'semestre'">
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllSemestre()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNoneSemestre()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+
+          <template v-else-if="nav_ativo == 'perfis'">
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllPerfis()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNonePerfis()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+
+          <template v-else>
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllCursos()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNoneCursos()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOK()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+          >OK</b-button
+        >
+      </div>
+    </b-modal>
+
+    <!-- MODAL PERFIS -->
+    <b-modal
+      id="modalPerfis"
+      ref="PerfisModal"
+      size="md"
+      scrollable
+      title="Selecione os perfis"
+    >
+      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+        <table
+          class="table table-sm modal-table table-bordered"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important;"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 424px; text-align:start">
+                    Nome
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="perfil in Perfis" :key="'perfil-id' + perfil.id">
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      v-model="PerfisSelecionados"
+                      :value="perfil"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:424px; text-align:start">{{ perfil.nome }}</p>
                 </td>
               </div>
             </tr>
@@ -271,25 +511,34 @@
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
-            @click="selectAll()"
-          >Selecionar Todos</b-button>
+            @click="selectAllPerfis()"
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
-            @click="selectNone()"
-          >Desmarcar Todos</b-button>
+            @click="selectNonePerfis()"
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOK()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
     <!-- MODAL CURSOS -->
-    <b-modal id="modalCursos" size="md" ref="CursosModal" scrollable title="Selecione os Cursos">
+    <b-modal
+      id="modalCursos"
+      size="md"
+      ref="CursosModal"
+      scrollable
+      title="Selecione os Cursos"
+    >
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-sm modal-table table-bordered"
@@ -312,17 +561,17 @@
                   <p style="width:50px; text-align:center" class="p-header">
                     Cód.
                     <i
-                      v-if="ordenacaoCurso=='codigo'"
+                      v-if="ordenacaoCurso == 'codigo'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                   </p>
                 </th>
                 <th class="clickable-header" @click="ToggleNomeOrdering()">
-                  <p style="width:370px; text-align: start" class="p-header">
+                  <p style="width:380px; text-align: start" class="p-header">
                     Nome
                     <i
-                      v-if="ordenacaoCurso=='nome'"
+                      v-if="ordenacaoCurso == 'nome'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -332,7 +581,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="curso in Cursos" :key="'cursoMd'+curso.id">
+            <tr v-for="curso in Cursos" :key="'cursoMd' + curso.id">
               <div style="width: max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -345,10 +594,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width: 50px">{{curso.codigo}}</p>
+                  <p style="width: 50px">{{ curso.codigo }}</p>
                 </td>
                 <td>
-                  <p style="width:370px; text-align: start;">{{curso.nome}}</p>
+                  <p style="width:380px; text-align: start;">
+                    {{ curso.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -356,25 +607,32 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex; width: 100%;">
+      <div
+        slot="modal-footer"
+        class="w-100 m-0"
+        style="display: flex; width: 100%;"
+      >
         <div class="row ml-2 w-100">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAllCursos()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNoneCursos()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOKCursos()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
@@ -383,14 +641,14 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na Tabela:</strong> Comece selecionando o(s) semestre(s) desejado(s). Em seguida,
-            clique em Perfil
+            <strong>Para exibir conteúdo na Tabela:</strong> Comece selecionando
+            o(s) semestre(s) desejado(s). Em seguida, clique em Perfil
             <i
               class="fas fa-list-ul cancelbtn px-1"
               style="font-size: 12px"
             ></i>
-            e marque quais deseja mostrar, depois clique em OK.
-            Logo após, escolha os Cursos
+            e marque quais deseja mostrar, depois clique em OK. Logo após,
+            escolha os Cursos
             <i
               class="fas fa-graduation-cap cancelbtn px-1"
               style="font-size: 12px"
@@ -398,46 +656,49 @@
             que quer ver, confirmando a seleção em OK.
           </li>
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em
+            Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
-            , em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar
-            <i
-              class="fas fa-check addbtn px-1"
-              style="font-size:12px"
-            ></i>
+            , em seguida, preencha a nova linha que surgirá na tabela. Após
+            concluído, clique em Salvar
+            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou em Cancelar
-            <i
-              class="fas fa-times cancelbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar disciplinas da Tabela:</strong> Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente.
+            <strong>Para editar disciplinas da Tabela:</strong> Faça as
+            alterações necessárias diretamente na tabela e o sistema irá salvar
+            automaticamente.
           </li>
           <li class="list-group-item">
-            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar
-            através da caixa de seleção à esquerda e em seguida clique em Deletar
-            <i
-              class="far fa-trash-alt delbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s)
+            disciplina(s) que deseja deletar através da caixa de seleção à
+            esquerda e em seguida clique em Deletar
+            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão XLSX
-            <i class="far fa-file-alt relatbtn px-1" style="font-size: 12px"></i>
+            <i
+              class="far fa-file-alt relatbtn px-1"
+              style="font-size: 12px"
+            ></i>
             e aguarde para fazer
             <font style="font-style:italic;">download</font> do relatório.
           </li>
           <li class="list-group-item">
-            <strong>Observações:</strong> Em cada coluna de cursos a disciplina adicionada permite a inclusão em dois espaços, sendo acima
-            destinado para alunos na grade, e abaixo para alunos repetentes.
+            <strong>Observações:</strong> Em cada coluna de cursos a disciplina
+            adicionada permite a inclusão em dois espaços, sendo acima destinado
+            para alunos na grade, e abaixo para alunos repetentes.
           </li>
         </ul>
       </div>
 
-      <div slot="modal-footer" style="display: none; margin-right: 10px !important;"></div>
+      <div
+        slot="modal-footer"
+        style="display: none; margin-right: 10px !important;"
+      ></div>
     </b-modal>
   </div>
 </template>
@@ -486,7 +747,8 @@ export default {
       ordenacaoCurso: "posicao",
       semestre_1Ativo: true,
       semestre_2Ativo: true,
-      semestreAtual: 3
+      semestreAtual: 3,
+      nav_ativo: "semestre"
     };
   },
 
@@ -524,6 +786,11 @@ export default {
   },
 
   methods: {
+    btnOK() {
+      this.btnOKSemestre();
+      this.btnOKPerfis();
+      this.btnOKCursos();
+    },
     btnOKSemestre() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) {
         this.semestreAtual = 1;
@@ -544,31 +811,19 @@ export default {
       this.semestre_1Ativo = false;
       this.semestre_2Ativo = false;
     },
-    ToggleCodigoOrdering() {
-      if (this.ordenacaoCurso === "codigo") this.ordenacaoCurso = "posicao";
-      else this.ordenacaoCurso = "codigo";
-    },
-
-    ToggleNomeOrdering() {
-      if (this.ordenacaoCurso === "nome") this.ordenacaoCurso = "posicao";
-      else this.ordenacaoCurso = "nome";
-    },
-
-    btnOK() {
+    btnOKPerfis() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.PerfisAtivados = [...this.PerfisSelecionados];
       this.$refs.PerfisModal.hide();
     },
-    selectAll() {
+    selectAllPerfis() {
       if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
       for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
         this.PerfisSelecionados.push(this.$store.state.perfil.Perfis[i]);
     },
-
-    selectNone() {
+    selectNonePerfis() {
       this.PerfisSelecionados = [];
     },
-
     btnOKCursos() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.CursosAtivados = [...this.CursosSelecionados];
@@ -580,11 +835,18 @@ export default {
       for (var i = 0; i < this.$store.state.curso.Cursos.length; i++)
         this.CursosSelecionados.push(this.$store.state.curso.Cursos[i]);
     },
-
     selectNoneCursos() {
       this.CursosSelecionados = [];
     },
+    ToggleCodigoOrdering() {
+      if (this.ordenacaoCurso === "codigo") this.ordenacaoCurso = "posicao";
+      else this.ordenacaoCurso = "codigo";
+    },
 
+    ToggleNomeOrdering() {
+      if (this.ordenacaoCurso === "nome") this.ordenacaoCurso = "posicao";
+      else this.ordenacaoCurso = "nome";
+    },
     xlsx: function(pedidos) {
       xlsx
         .downloadTable({
@@ -920,7 +1182,7 @@ i.far {
   font-size: 25px;
 }
 .addbtn {
-  background-color: white;
+  background-color: white!important;
   color: #a0e7a0;
 }
 
@@ -936,7 +1198,7 @@ i.far {
 }
 
 .cancelbtn {
-  background-color: white;
+  background-color: white!important;
   color: #cfcfc4;
 }
 
@@ -953,7 +1215,7 @@ i.far {
 }
 
 .delbtn {
-  background-color: white;
+  background-color: white!important;
   color: #ff817b;
 }
 
@@ -968,7 +1230,7 @@ i.far {
 }
 
 .relatbtn {
-  background-color: white;
+  background-color: white!important;
   color: #9ab3ff !important;
 }
 
@@ -1076,7 +1338,8 @@ i.far {
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
-  overflow: auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   font-size: 10px !important;
   font-weight: normal !important;
   background-color: white;
@@ -1123,13 +1386,23 @@ i.far {
   margin-bottom: auto !important;
 }
 /* FIM MODAL TABLE */
+.nav-link {
+  color: #007bff !important;
+}
+.clickable{
+  cursor: pointer;
+}
+.active {
+  background-color: #e9ecef!important;
+  color: #495057 !important;
+  cursor: default;
+}
 
 @media screen and (max-width: 536px) {
   .div-titulo {
     height: 70px !important;
   }
 }
-
 .cube1,
 .cube2 {
   background-color: #333;
@@ -1274,4 +1547,5 @@ i.far {
     -webkit-transform: rotate(-360deg);
   }
 }
+
 </style>

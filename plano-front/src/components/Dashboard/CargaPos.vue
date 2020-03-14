@@ -1222,6 +1222,7 @@ i.far {
   -webkit-text-stroke-color: #2fbf53;
 }
 .cancelbtn {
+  background-color: white!important;
   color: #cfcfc4;
 }
 .cancelbtn:hover {

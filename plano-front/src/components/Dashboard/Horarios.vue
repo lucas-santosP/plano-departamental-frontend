@@ -6,7 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-0 pr-1">Horários - Cursos</h1>
+        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-0 pr-1">
+          Horários - Cursos
+        </h1>
         <div
           class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
@@ -15,12 +17,17 @@
             <i class="fas fa-calendar-alt"></i>
           </b-button>
           <div class="d-flex p-0 m-0">
-            <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
+            <!-- <b-button v-b-modal.modalCursos title="Cursos" class="cancelbtn">
               <i class="fas fa-graduation-cap"></i>
-            </b-button>
+            </b-button> -->
 
             <!--  -->
-            <button type="button" class="relatbtn" v-on:click.prevent="pdf" title="Relatório">
+            <button
+              type="button"
+              class="relatbtn"
+              v-on:click.prevent="pdf"
+              title="Relatório"
+            >
               <i class="far fa-file-alt"></i>
             </button>
 
@@ -36,8 +43,14 @@
 
     <div class="p-0 w-100 col-12">
       <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-      <template v-if="this.cursos.length != 0 && (semestreAtual == 1 || semestreAtual == 3)">
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">1º SEMESTRE</h3>
+      <template
+        v-if="
+          this.cursos.length != 0 && (semestreAtual == 1 || semestreAtual == 3)
+        "
+      >
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
+          1º SEMESTRE
+        </h3>
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
 
         <template v-if="activeCCD">
@@ -79,8 +92,14 @@
       </template>
 
       <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-      <template v-if="this.cursos.length != 0 && (semestreAtual == 2 || semestreAtual == 3)">
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">2º SEMESTRE</h3>
+      <template
+        v-if="
+          this.cursos.length != 0 && (semestreAtual == 2 || semestreAtual == 3)
+        "
+      >
+        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089)">
+          2º SEMESTRE
+        </h3>
         <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
         <template v-if="activeCCD">
           <div class="flex-container">
@@ -120,7 +139,13 @@
       <!-- ----------------------------------------------------------------------------------------------- -->
     </div>
 
-    <b-modal id="modalCursos" ref="modalCursos" title="Selecione os Cursos" size="md" scrollable>
+    <b-modal
+      id="modalCursos"
+      ref="modalCursos"
+      title="Selecione os Cursos"
+      size="md"
+      scrollable
+    >
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-sm modal-table table-bordered"
@@ -136,17 +161,24 @@
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p style="width:50px; text-align:center" class="p-header">Cód.</p>
+                  <p style="width:50px; text-align:center" class="p-header">
+                    Cód.
+                  </p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 372px; text-align:start">Nome</p>
+                  <p class="p-header" style="width: 384px; text-align:start">
+                    Nome
+                  </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
             <!-- v-for em tr -->
-            <tr v-for="curso in options_Cursos" :key="'curso-id-' + curso.value">
+            <tr
+              v-for="curso in options_Cursos"
+              :key="'curso-id-' + curso.value"
+            >
               <div style="width: max-content; height: 22px !important">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -159,10 +191,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:center;">{{ curso.codigo }}</p>
+                  <p style="width:50px; text-align:center;">
+                    {{ curso.codigo }}
+                  </p>
                 </td>
                 <td>
-                  <p style="width:372px; text-align:start;">{{ curso.nome }}</p>
+                  <p style="width:384px; text-align:start;">{{ curso.nome }}</p>
                 </td>
               </div>
             </tr>
@@ -176,26 +210,69 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="toggleAll()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="distoggleAll()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           v-on:click="okBtn()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
     <!-- MODAL SEMESTRE -->
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
-      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+    <b-modal
+      id="modalSemestre"
+      ref="modalSemestre"
+      scrollable
+      title="Selecione os semestres"
+    >
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
+        <ul
+          class="nav nav-tabs card-header-tabs m-0"
+          style="font-size: 11px!important;height: 30px;"
+        >
+          <li class="nav-item" @click="nav_ativo = 'semestre'">
+            <a
+              class="nav-link border border-right-0"
+              :class="[
+                {
+                  active: nav_ativo == 'semestre'
+                },
+                'clickable'
+              ]"
+              >Semestre</a
+            >
+          </li>
+          <li class="nav-item" @click="nav_ativo = 'cursos'">
+            <a
+              class="nav-link border"
+              :class="[
+                {
+                  active: nav_ativo == 'cursos'
+                },
+                'clickable'
+              ]"
+              >Cursos</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="col m-0 p-0"
+        style="width:max-content;height: 450px!important;"
+      >
         <table
+          v-if="nav_ativo == 'semestre'"
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
@@ -209,10 +286,9 @@
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p
-                    class="p-header clickable-header"
-                    style="width: 435px; text-align: start;"
-                  >Semestre Letivo</p>
+                  <p class="p-header" style="width: 435px; text-align: start;">
+                    Semestre Letivo
+                  </p>
                 </th>
               </div>
             </tr>
@@ -231,7 +307,9 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                  <p style="width:435px; text-align:start">
+                    Primeiro semestre
+                  </p>
                 </td>
               </div>
             </tr>
@@ -247,7 +325,68 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                  <p style="width:435px; text-align:start">
+                    Segundo semestre
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+
+        <table
+          v-else
+          class="table table-sm modal-table table-bordered"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p style="width:50px; text-align:center" class="p-header">
+                    Cód.
+                  </p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 384px; text-align:start">
+                    Nome
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- v-for em tr -->
+            <tr
+              v-for="curso in options_Cursos"
+              :key="'curso-id-' + curso.value"
+            >
+              <div style="width: max-content; height: 22px !important">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      :value="curso.value"
+                      v-model="cursosSelecionados"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:50px; text-align:center;">
+                    {{ curso.codigo }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width:384px; text-align:start;">
+                    {{ curso.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -257,23 +396,43 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100 ml-2">
-          <b-button
-            class="btn-azul btn-df mr-2"
-            variant="success"
-            @click="selectAllSemestre()"
-          >Selecionar Todos</b-button>
-          <b-button
-            class="btn-cinza btn-df mr-2"
-            variant="secondary"
-            @click="selectNoneSemestre()"
-          >Desmarcar Todos</b-button>
+          <template v-if="nav_ativo == 'semestre'">
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllSemestre()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNoneSemestre()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+          <template v-else>
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="toggleAll()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="distoggleAll()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
         </div>
+
         <b-button
           variant="success"
-          @click="btnOKSemestre()"
+          @click="okBtn()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
@@ -283,7 +442,10 @@
         <ul class="listas list-group">
           <li class="list-group-item">
             <strong>Para exibir conteúdo na tela:</strong> Clique em Cursos
-            <i class="fas fa-graduation-cap cancelbtn" style="font-size: 12px"></i>
+            <i
+              class="fas fa-graduation-cap cancelbtn"
+              style="font-size: 12px"
+            ></i>
             e selecione quais deseja visualizar, em seguida confirme em OK.
           </li>
         </ul>
@@ -358,7 +520,8 @@ export default {
       selectAll: false,
       semestre_1Ativo: true,
       semestre_2Ativo: true,
-      semestreAtual: 3
+      semestreAtual: 3,
+      nav_ativo: "semestre"
     };
   },
 
@@ -416,6 +579,7 @@ export default {
     },
 
     okBtn() {
+      this.btnOKSemestre();
       this.cursos = [...this.cursosSelecionados];
       this.$refs.modalCursos.hide();
     },
@@ -4662,11 +4826,6 @@ h3 {
   text-align: center !important;
 }
 
-h5 {
-  font-size: 12px;
-  font-weight: normal;
-}
-
 .form-inline,
 .form-inline {
   width: auto;
@@ -4888,6 +5047,9 @@ button {
 .modal-table tr thead {
   display: block;
 }
+.clickable {
+  cursor: pointer;
+}
 .modal-table th {
   padding: 0 !important;
   text-align: center !important;
@@ -4926,4 +5088,21 @@ button {
   margin-bottom: auto !important;
 }
 /* FIM MODAL TABLE */
+
+.nav-link {
+  color: #007bff !important;
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none;
+}
+.clickable {
+  cursor: pointer;
+}
+.active {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: default;
+}
 </style>

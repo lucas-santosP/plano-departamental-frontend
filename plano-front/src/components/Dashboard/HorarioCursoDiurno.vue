@@ -94,8 +94,6 @@ export default {
 </script>
 <style scoped>
 .row {
-  display: flex;
-  justify-content: center;
   margin: 0 !important;
 }
 h5 {
