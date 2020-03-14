@@ -12,17 +12,11 @@
           class="form-group col-xl-10 col-md-9 col-sm-8 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
-          <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
-            <select class="form-control form-control-sm" v-model="periodos">
-              <option value="1">Primeiro</option>
-              <option value="2">Segundo</option>
-              <option value="3">Ambos</option>
-            </select>
-            <div class="input-group-append">
-              <label class="input-group-text">Semestre</label>
-            </div>
-          </div>
-          <div class="d-flex p-0 m-0 mt-1">
+          <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
+            <i class="fas fa-calendar-alt"></i>
+          </b-button>
+
+          <div class="d-flex p-0 m-0">
             <template v-if="isAdd">
               <button type="button" title="Salvar" class="addbtn" v-on:click.prevent="addTurma">
                 <i class="fas fa-check"></i>
@@ -62,8 +56,8 @@
 
     <!-- Inicio Tabela -->
     <div class="p-0 divTable mb-2" v-if="!isLoading">
-      <table class="table table-hover table-bordered table-sm">
-        <thead class="thead-light sticky">
+      <table class="table main-table table-hover table-bordered table-sm">
+        <thead class="thead-light">
           <tr>
             <div
               style="display: block; overflow: hidden; width: ‭884‬px; height:20px !important"
@@ -291,7 +285,7 @@
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                     'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
                 >
-                  <template v-if="turma.periodo==1 && (periodos == 1 || periodos==3)">
+                  <template v-if="turma.periodo==1 && (semestreAtual == 1 || semestreAtual==3)">
                     <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
                   </template>
                 </tr>
@@ -307,7 +301,7 @@
                     'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
                     'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
                 >
-                  <template v-if="turma.periodo==3 && (periodos==2 || periodos==3)">
+                  <template v-if="turma.periodo==3 && (semestreAtual==2 || semestreAtual==3)">
                     <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
                   </template>
                 </tr>
@@ -318,6 +312,7 @@
       </table>
     </div>
 
+    <!-- MODAL CONFIRMA -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
       <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
       <template v-for="turma in Deletar">
@@ -332,6 +327,7 @@
         </template>
       </template>
     </b-modal>
+    <!-- MODAL AJUDA -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
       <div class="modal-body">
         <ul class="listas list-group">
@@ -372,6 +368,90 @@
 
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
+    <!-- MODAL SEMESTRE -->
+    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+      <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
+        <table
+          class="table table-bordered table-sm modal-table"
+          style="max-height: 392px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p
+                    class="p-header clickable-header"
+                    style="width: 435px; text-align: start;"
+                  >Semestre Letivo</p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_1Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_2Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+        <div class="w-100 ml-2">
+          <b-button
+            class="btn-azul btn-df mr-2"
+            variant="success"
+            @click="selectAllSemestre()"
+          >Selecionar Todos</b-button>
+          <b-button
+            class="btn-cinza btn-df mr-2"
+            variant="secondary"
+            @click="selectNoneSemestre()"
+          >Desmarcar Todos</b-button>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOKSemestre()"
+          class="btn-verde btn-df mr-2"
+          style="padding-right:15px!important; padding-left:15px!important;"
+        >OK</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -405,22 +485,43 @@ export default {
       turmaForm: _.clone(emptyTurma),
       error: undefined,
       isAdd: false,
-      atual: undefined,
       semestre: 1,
-      periodos: 3
+      semestre_1Ativo: true,
+      semestre_2Ativo: true,
+      semestreAtual: 3
     };
   },
   components: {
     turmadata
   },
   /*
-        mounted () {
-            this.$store.commit('emptyDelete')
-            console.log(this.$store.state.turma.Deletar)
-            this.$store.commit(COMPONENT_LOADED)
+    mounted () {
+      this.$store.commit('emptyDelete')
+      console.log(this.$store.state.turma.Deletar)
+      this.$store.commit(COMPONENT_LOADED)
         },
         */
   methods: {
+    btnOKSemestre() {
+      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
+        this.semestreAtual = 1;
+      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+        this.semestreAtual = 2;
+      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
+        this.semestreAtual = 3;
+      } else {
+        this.semestreAtual = 3;
+      }
+      this.$refs.modalSemestre.hide();
+    },
+    selectAllSemestre() {
+      this.semestre_1Ativo = true;
+      this.semestre_2Ativo = true;
+    },
+    selectNoneSemestre() {
+      this.semestre_1Ativo = false;
+      this.semestre_2Ativo = false;
+    },
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (keyCode < 48 || keyCode > 57) {
@@ -520,10 +621,10 @@ export default {
             pedidoExternoService
               .create(pedido)
               .then(response => {
-                console.log(response.Pedido);
+                // console.log(response.Pedido);
               })
               .catch(error => {
-                console.log("erro ao criar pedido: " + error);
+                // console.log("erro ao criar pedido: " + error);
               });
           }
           this.cleanTurma();
@@ -719,7 +820,7 @@ export default {
   width: -moz-max-content;
   width: max-content;
 }
-table {
+.main-table {
   display: block !important;
   overflow-y: scroll !important;
   overflow-x: auto !important;
@@ -731,40 +832,45 @@ table {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
 }
-tbody {
+.main-table tbody {
   max-height: 100%;
   width: 100%;
 }
-tr thead {
+.main-table tr thead {
   display: block;
 }
-thead th {
+.main-table thead th {
   padding: 0 !important;
   font-size: 14px;
   text-align: center;
   height: 18px !important;
 }
-table td {
+.main-table td {
   text-align: center;
   vertical-align: middle;
   padding: 0;
   height: 40px;
 }
-table p {
+.main-table p {
   margin-bottom: 0;
   text-align: center;
 }
-table input {
+.main-table input {
   height: 18px !important;
   text-align: center !important;
 }
-table select {
+.main-table select {
   height: 18px;
 }
 .sticky {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
 }
 .stickyAdd {
   position: sticky;
@@ -780,10 +886,15 @@ button {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-  margin-right: 15px;
+  width: 32px !important;
+  margin-left: 4px;
+  margin-right: 4px;
   margin-top: 0px;
+  line-height: 50%;
+  margin-bottom: 0px;
   transition: all 0.3s ease 0s;
   cursor: pointer;
+  text-align: center !important;
 }
 i.fas,
 i.far {
@@ -853,46 +964,69 @@ strong {
   -webkit-text-stroke-color: #698dff;
 }
 
-/* .example {
-  display: -ms-grid;
-  display: grid;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(white),
-    to(black)
-  );
-  background: -webkit-linear-gradient(top, white, black);
-  background: -moz-linear-gradient(top, white, black);
-  background: -o-linear-gradient(top, white, black);
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(white),
-    to(black)
-  );
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(white),
-    to(black)
-  );
-  background: linear-gradient(to bottom, white, black);
-} */
+.btn-df {
+  font-size: 12px;
+  height: 25px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  padding: 0 5px 0 5px;
+}
+
+.btn-azul {
+  background-color: #718de0 !important;
+  border-color: #9ab3ff !important;
+}
+
+.btn-azul:hover {
+  background-color: rgb(74, 101, 190) !important;
+  border-color: #82a0ff !important;
+}
+
+.btn-azul:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+
+.btn-cinza {
+  background-color: #999999 !important;
+  border-color: #c3c3c3 !important;
+}
+
+.btn-cinza:hover {
+  background-color: #747474 !important;
+  border-color: #aaaaaa !important;
+}
+
+.btn-cinza:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
+}
+
+.btn-verde {
+  background-color: #70b670 !important;
+  border-color: #a0e7a0 !important;
+}
+
+.btn-verde:hover {
+  background-color: #4c8a4c !important;
+  border-color: #77dd77 !important;
+}
+
+.btn-verde:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
+}
+
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  table select {
+  .main-table select {
     height: 18px !important;
     text-align: left;
     -moz-box-sizing: border-box;
@@ -903,7 +1037,7 @@ strong {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
-  table input {
+  .main-table input {
     height: 18px !important;
     text-align: center;
     -moz-box-sizing: border-box;
@@ -915,46 +1049,60 @@ strong {
     background-color: rgb(245, 245, 245);
   }
 }
-
-.input-group-text {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-bottom: 0;
-  /*===*/
-  max-width: 70px;
-  min-width: 70px;
-  height: 25px !important;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
-}
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 5px !important;
-  min-width: 80px;
-  max-width: 80px;
-  text-align: start;
-}
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-.form-inline .input-group,
 .form-inline {
   width: auto;
 }
+
+/* ==== MODAL TABLE ==== */
+.modal-table {
+  display: block !important;
+  overflow: auto !important;
+  font-size: 10px !important;
+  font-weight: normal !important;
+  background-color: white;
+  margin: 0 !important;
+}
+.modal-table tr thead {
+  display: block;
+}
+.modal-table th {
+  padding: 0 !important;
+  text-align: center !important;
+  height: 18px !important;
+  border-bottom: 0 !important;
+  border-top: 0 !important;
+}
+.modal-table .p-header {
+  padding: 0px 5px 0px 5px !important;
+  margin: 0 !important;
+  text-align: start;
+  height: 18px !important;
+}
+.modal-table tbody {
+  max-height: 100%;
+  width: 100%;
+}
+.modal-table td {
+  border-bottom: 0;
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  /* height: 22px !important; */
+}
+.modal-table p {
+  margin: 0 !important;
+  text-align: center;
+  padding: 0 !important;
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+.modal-table input[type="checkbox"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+  margin-bottom: auto !important;
+}
+/* FIM MODAL TABLE */
 @media screen and (max-width: 429px) {
   .div-titulo {
     height: 70px !important;

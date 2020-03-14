@@ -136,7 +136,7 @@
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p style="width:50px" class="p-header">Cód.</p>
+                  <p style="width:50px; text-align:center" class="p-header">Cód.</p>
                 </th>
                 <th>
                   <p class="p-header" style="width: 372px; text-align:start">Nome</p>
@@ -159,7 +159,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:start;">{{ curso.codigo }}</p>
+                  <p style="width:50px; text-align:center;">{{ curso.codigo }}</p>
                 </td>
                 <td>
                   <p style="width:372px; text-align:start;">{{ curso.nome }}</p>
@@ -493,7 +493,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 4) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -511,7 +511,7 @@ export default {
         }
       }
 
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -538,16 +538,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -559,12 +559,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 1 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -584,7 +584,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 1) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -601,7 +601,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -628,16 +628,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -649,12 +649,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 1 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -674,7 +674,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 3) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -691,7 +691,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -718,16 +718,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -739,12 +739,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 1 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -764,7 +764,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 2) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -781,7 +781,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -808,16 +808,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -829,12 +829,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 1 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -853,7 +853,7 @@ export default {
       //Eletivas
       var eletiva = true;
       for (var t = 0; t < turmas.length; t++) {
-        for (var d = 0; d < disciplinaGrades.length; d++) {
+        for (let d = 0; d < disciplinaGrades.length; d++) {
           if (turmas[t].Disciplina === disciplinaGrades[d].Disciplina) {
             eletiva = false;
           }
@@ -911,7 +911,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 4) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -928,7 +928,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -955,16 +955,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -976,12 +976,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 3 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -1001,7 +1001,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 1) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -1018,7 +1018,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -1045,16 +1045,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -1066,12 +1066,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 3 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -1091,7 +1091,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 3) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -1108,7 +1108,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -1135,16 +1135,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -1156,12 +1156,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 3 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -1181,7 +1181,7 @@ export default {
       grades = _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
       grades = _.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
-      for (var t in this.$store.state.pedido.Pedidos) {
+      for (let t in this.$store.state.pedido.Pedidos) {
         for (var pedido in this.$store.state.pedido.Pedidos[t]) {
           if (this.$store.state.pedido.Pedidos[t][pedido].Curso === 2) {
             pedidos.push(this.$store.state.pedido.Pedidos[t][pedido]);
@@ -1198,7 +1198,7 @@ export default {
           }
         }
       }
-      for (var i = 0; i < grades.length && inicio <= 10; i++) {
+      for (let i = 0; i < grades.length && inicio <= 10; i++) {
         //grade
         grade = grades[i].id;
         //inicio
@@ -1225,16 +1225,16 @@ export default {
             (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
-        for (var k = 0; k < disciplinaGrades.length; k++) {
+        for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
             disciplinaGrades[k].Grade == grade &&
             this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
             disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
             disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
-            for (var j = 0; j < turmas.length; j++) {
+            for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
-                for (var p = 0; p < pedidos.length; p++) {
+                for (let p = 0; p < pedidos.length; p++) {
                   if (
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
@@ -1246,12 +1246,12 @@ export default {
                 }
               }
             }
-            for (var j = 0; j < turmasExternas.length; j++) {
+            for (let j = 0; j < turmasExternas.length; j++) {
               if (
                 turmasExternas[j].periodo == 3 &&
                 turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
-                for (var p = 0; p < pedidosExternos.length; p++) {
+                for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
@@ -1270,7 +1270,7 @@ export default {
       //Eletivas
       var eletiva = true;
       for (var t = 0; t < turmas.length; t++) {
-        for (var d = 0; d < disciplinaGrades.length; d++) {
+        for (let d = 0; d < disciplinaGrades.length; d++) {
           if (turmas[t].Disciplina === disciplinaGrades[d].Disciplina) {
             eletiva = false;
           }
@@ -1310,9 +1310,9 @@ export default {
     },
 
     updateHorarios() {
-      for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < this.ativos1.CCD[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < this.ativos1.CCD[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos1.CCD[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1323,8 +1323,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos1.CCN[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos1.CCN[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos1.CCN[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1335,8 +1335,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos1.EC[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos1.EC[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos1.EC[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1347,8 +1347,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos1.SI[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos1.SI[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos1.SI[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1365,9 +1365,9 @@ export default {
         Ativas: this.ativos1
       });
 
-      for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < this.ativos2.CCD[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < this.ativos2.CCD[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos2.CCD[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1378,8 +1378,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos2.CCN[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos2.CCN[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos2.CCN[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1390,8 +1390,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos2.EC[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos2.EC[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos2.EC[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1402,8 +1402,8 @@ export default {
               );
             }
           }
-        for (var j = 0; j < this.ativos2.SI[i].length; j++)
-          for (var k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+        for (let j = 0; j < this.ativos2.SI[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
             if (
               this.ativos2.SI[i][j].id == this.$store.state.turma.Turmas[k].id
             ) {
@@ -1456,7 +1456,7 @@ export default {
         fontSize: 20
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosCCD1[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -1506,10 +1506,10 @@ export default {
               ]
             }
           });
-          for (var d = 0; d < 4; d++) {
-            for (var j = 0; j < periodosCCD1[i].length; j++) {
+          for (let d = 0; d < 4; d++) {
+            for (let j = 0; j < periodosCCD1[i].length; j++) {
               if (this.checkTurmaHorario(periodosCCD1[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -1521,7 +1521,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD1[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -1533,7 +1533,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD1[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -1545,7 +1545,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD1[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -1557,7 +1557,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD1[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -1753,7 +1753,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosCCN1[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -1803,10 +1803,10 @@ export default {
               ]
             }
           });
-          for (var d = 4; d < 6; d++) {
-            for (var j = 0; j < periodosCCN1[i].length; j++) {
+          for (let d = 4; d < 6; d++) {
+            for (let j = 0; j < periodosCCN1[i].length; j++) {
               if (this.checkTurmaHorario(periodosCCN1[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -1818,7 +1818,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN1[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -1830,7 +1830,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN1[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -1842,7 +1842,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN1[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -1854,7 +1854,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN1[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -2050,7 +2050,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosEC1[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -2100,10 +2100,10 @@ export default {
               ]
             }
           });
-          for (var d = 0; d < 4; d++) {
-            for (var j = 0; j < periodosEC1[i].length; j++) {
+          for (let d = 0; d < 4; d++) {
+            for (let j = 0; j < periodosEC1[i].length; j++) {
               if (this.checkTurmaHorario(periodosEC1[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -2115,7 +2115,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC1[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -2127,7 +2127,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC1[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -2139,7 +2139,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC1[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -2151,7 +2151,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC1[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -2347,7 +2347,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosSI1[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -2397,10 +2397,10 @@ export default {
               ]
             }
           });
-          for (var d = 4; d < 6; d++) {
-            for (var j = 0; j < periodosSI1[i].length; j++) {
+          for (let d = 4; d < 6; d++) {
+            for (let j = 0; j < periodosSI1[i].length; j++) {
               if (this.checkTurmaHorario(periodosSI1[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -2412,7 +2412,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI1[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -2424,7 +2424,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI1[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -2436,7 +2436,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI1[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -2448,7 +2448,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI1[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -2688,15 +2688,15 @@ export default {
             ]
           }
         });
-        for (var d = 0; d < 8; d++) {
-          for (var j = 0; j < eletivas1.length; j++) {
+        for (let d = 0; d < 8; d++) {
+          for (let j = 0; j < eletivas1.length; j++) {
             if (
               this.checkTurmaHorario(
                 eletivas1[j],
                 (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (var k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas1[j].Disciplina === disciplinas[k].id) {
                   if (seg !== "") seg = seg + " ";
                   seg = seg + disciplinas[k].codigo + " " + eletivas1[j].letra;
@@ -2709,7 +2709,7 @@ export default {
                 (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas1[j].Disciplina === disciplinas[k].id) {
                   if (ter != "") ter = ter + " ";
                   ter = ter + disciplinas[k].codigo + " " + eletivas1[j].letra;
@@ -2722,7 +2722,7 @@ export default {
                 (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas1[j].Disciplina === disciplinas[k].id) {
                   if (qua != "") qua = qua + " ";
                   qua = qua + disciplinas[k].codigo + " " + eletivas1[j].letra;
@@ -2735,7 +2735,7 @@ export default {
                 (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas1[j].Disciplina === disciplinas[k].id) {
                   if (qui != "") qui = qui + " ";
                   qui = qui + disciplinas[k].codigo + " " + eletivas1[j].letra;
@@ -2748,7 +2748,7 @@ export default {
                 (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas1[j].Disciplina === disciplinas[k].id) {
                   if (sex != "") sex = sex + " ";
                   sex = sex + disciplinas[k].codigo + " " + eletivas1[j].letra;
@@ -3006,7 +3006,7 @@ export default {
         fontSize: 20
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosCCD2[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -3056,10 +3056,10 @@ export default {
               ]
             }
           });
-          for (var d = 0; d < 4; d++) {
-            for (var j = 0; j < periodosCCD2[i].length; j++) {
+          for (let d = 0; d < 4; d++) {
+            for (let j = 0; j < periodosCCD2[i].length; j++) {
               if (this.checkTurmaHorario(periodosCCD2[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -3071,7 +3071,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD2[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -3083,7 +3083,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD2[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -3095,7 +3095,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD2[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -3107,7 +3107,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCD2[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -3303,7 +3303,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosCCN2[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -3353,10 +3353,10 @@ export default {
               ]
             }
           });
-          for (var d = 4; d < 6; d++) {
-            for (var j = 0; j < periodosCCN2[i].length; j++) {
+          for (let d = 4; d < 6; d++) {
+            for (let j = 0; j < periodosCCN2[i].length; j++) {
               if (this.checkTurmaHorario(periodosCCN2[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -3368,7 +3368,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN2[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -3380,7 +3380,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN2[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -3392,7 +3392,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN2[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -3404,7 +3404,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosCCN2[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -3600,7 +3600,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosEC2[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -3650,10 +3650,10 @@ export default {
               ]
             }
           });
-          for (var d = 0; d < 4; d++) {
-            for (var j = 0; j < periodosEC2[i].length; j++) {
+          for (let d = 0; d < 4; d++) {
+            for (let j = 0; j < periodosEC2[i].length; j++) {
               if (this.checkTurmaHorario(periodosEC2[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -3665,7 +3665,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC2[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -3677,7 +3677,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC2[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -3689,7 +3689,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC2[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -3701,7 +3701,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosEC2[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -3897,7 +3897,7 @@ export default {
         pageBreak: "before"
       });
 
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         if (periodosSI2[i].length === 0) {
           vazio = vazio + 1;
         } else {
@@ -3947,10 +3947,10 @@ export default {
               ]
             }
           });
-          for (var d = 4; d < 6; d++) {
-            for (var j = 0; j < periodosSI2[i].length; j++) {
+          for (let d = 4; d < 6; d++) {
+            for (let j = 0; j < periodosSI2[i].length; j++) {
               if (this.checkTurmaHorario(periodosSI2[i][j], 1 + d)) {
-                for (var k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                     if (seg !== "") seg = seg + " ";
                     seg =
@@ -3962,7 +3962,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI2[i][j], 7 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                     if (ter != "") ter = ter + " ";
                     ter =
@@ -3974,7 +3974,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI2[i][j], 13 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                     if (qua != "") qua = qua + " ";
                     qua =
@@ -3986,7 +3986,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI2[i][j], 19 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                     if (qui != "") qui = qui + " ";
                     qui =
@@ -3998,7 +3998,7 @@ export default {
                 }
               }
               if (this.checkTurmaHorario(periodosSI2[i][j], 25 + d)) {
-                for (k = 0; k < disciplinas.length; k++) {
+                for (let k = 0; k < disciplinas.length; k++) {
                   if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                     if (sex != "") sex = sex + " ";
                     sex =
@@ -4238,15 +4238,15 @@ export default {
             ]
           }
         });
-        for (var d = 0; d < 8; d++) {
-          for (var j = 0; j < eletivas2.length; j++) {
+        for (let d = 0; d < 8; d++) {
+          for (let j = 0; j < eletivas2.length; j++) {
             if (
               this.checkTurmaHorario(
                 eletivas2[j],
                 (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (var k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas2[j].Disciplina === disciplinas[k].id) {
                   if (seg !== "") seg = seg + " ";
                   seg = seg + disciplinas[k].codigo + " " + eletivas2[j].letra;
@@ -4259,7 +4259,7 @@ export default {
                 (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas2[j].Disciplina === disciplinas[k].id) {
                   if (ter != "") ter = ter + " ";
                   ter = ter + disciplinas[k].codigo + " " + eletivas2[j].letra;
@@ -4272,7 +4272,7 @@ export default {
                 (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas2[j].Disciplina === disciplinas[k].id) {
                   if (qua != "") qua = qua + " ";
                   qua = qua + disciplinas[k].codigo + " " + eletivas2[j].letra;
@@ -4285,7 +4285,7 @@ export default {
                 (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas2[j].Disciplina === disciplinas[k].id) {
                   if (qui != "") qui = qui + " ";
                   qui = qui + disciplinas[k].codigo + " " + eletivas2[j].letra;
@@ -4298,7 +4298,7 @@ export default {
                 (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
               )
             ) {
-              for (k = 0; k < disciplinas.length; k++) {
+              for (let k = 0; k < disciplinas.length; k++) {
                 if (eletivas2[j].Disciplina === disciplinas[k].id) {
                   if (sex != "") sex = sex + " ";
                   sex = sex + disciplinas[k].codigo + " " + eletivas2[j].letra;
@@ -4860,7 +4860,17 @@ button {
 .form-inline {
   width: auto;
 }
-
+.sticky {
+  display: block !important;
+  overflow: hidden !important;
+  height: 20px !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
 @media screen and (max-width: 499px) {
   .div-titulo {
     height: 70px !important;

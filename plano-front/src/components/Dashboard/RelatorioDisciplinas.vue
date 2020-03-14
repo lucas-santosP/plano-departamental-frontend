@@ -605,15 +605,21 @@ export default {
       }
     },
 
-    selecionaTurma(turma){
-        this.turmaSelecionada = turma
-        for(let i = 0; i < this.VagasTurmaSelecionada.length; i++){
-            console.log({nome: this.curso(this.VagasTurmaSelecionada[i]).nome, codigo: this.curso(this.VagasTurmaSelecionada[i]).codigo, vagasPeriodizadas: this.VagasTurmaSelecionada[i].vagasPeriodizadas, vagasNaoPeriodizadas: this.VagasTurmaSelecionada[i].vagasNaoPeriodizadas})
-        }
+    selecionaTurma(turma) {
+      this.turmaSelecionada = turma;
+      for (let i = 0; i < this.VagasTurmaSelecionada.length; i++) {
+        console.log({
+          nome: this.curso(this.VagasTurmaSelecionada[i]).nome,
+          codigo: this.curso(this.VagasTurmaSelecionada[i]).codigo,
+          vagasPeriodizadas: this.VagasTurmaSelecionada[i].vagasPeriodizadas,
+          vagasNaoPeriodizadas: this.VagasTurmaSelecionada[i]
+            .vagasNaoPeriodizadas
+        });
+      }
     },
 
-    curso(pedido){
-        return _.find(this.$store.state.curso.Cursos, {'id': pedido.Curso})
+    curso(pedido) {
+      return _.find(this.$store.state.curso.Cursos, { id: pedido.Curso });
     }
   },
 
@@ -628,7 +634,12 @@ export default {
     },
 
     VagasTurmaSelecionada() {
-        return _.filter(this.$store.state.pedido.Pedidos[this.turmaSelecionada.id], function (p) { return (p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0)})
+      return _.filter(
+        this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
+        function(p) {
+          return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
+        }
+      );
     },
 
     Horarios() {
@@ -657,7 +668,7 @@ export default {
 }
 .main-table {
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: -webkit-calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
@@ -699,7 +710,6 @@ export default {
 .sticky {
   display: block !important;
   overflow: hidden !important;
-  height: 20px !important;
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
