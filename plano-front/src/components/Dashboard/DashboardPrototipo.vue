@@ -14,7 +14,7 @@
           class="form-group col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
-          <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
+          <b-button v-b-modal.modalSemestre title="Filtros" class="cancelbtn">
             <i class="fas fa-calendar-alt"></i>
           </b-button>
           <!--
@@ -161,12 +161,7 @@
     </b-modal>
 
     <!-- MODAL SEMESTRE -->
-    <b-modal
-      id="modalSemestre"
-      ref="modalSemestre"
-      scrollable
-      title="Selecione os semestres"
-    >
+    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Filtros">
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
@@ -210,7 +205,10 @@
           </li>
         </ul>
       </div>
-      <div class="col m-0 p-0" style="width:max-content;height: 450px!important;">
+      <div
+        class="col m-0 p-0"
+        style="width:max-content;height: 450px!important;"
+      >
         <!-- TABLE SEMESTRE -->
         <table
           v-if="nav_ativo == 'semestre'"
@@ -1182,7 +1180,7 @@ i.far {
   font-size: 25px;
 }
 .addbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #a0e7a0;
 }
 
@@ -1198,7 +1196,7 @@ i.far {
 }
 
 .cancelbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #cfcfc4;
 }
 
@@ -1215,7 +1213,7 @@ i.far {
 }
 
 .delbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #ff817b;
 }
 
@@ -1230,7 +1228,7 @@ i.far {
 }
 
 .relatbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #9ab3ff !important;
 }
 
@@ -1389,11 +1387,11 @@ i.far {
 .nav-link {
   color: #007bff !important;
 }
-.clickable{
+.clickable {
   cursor: pointer;
 }
 .active {
-  background-color: #e9ecef!important;
+  background-color: #e9ecef !important;
   color: #495057 !important;
   cursor: default;
 }
@@ -1546,6 +1544,10 @@ i.far {
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
+}
+.modal-title {
+  text-align: center !important;
+  width: 100%;
 }
 
 </style>

@@ -6,14 +6,20 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">Creditação Pós</h1>
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">
+          Creditação Pós
+        </h1>
 
         <div
           class="form-group form-group-top col-xl-10 col-md-9 col-sm-8 col-7 mb-0 p-0"
           style="justify-content: flex-end!important;"
         >
           <div class="d-flex p-0 m-0">
-            <b-button v-b-modal.modalSemestre title="Semestre" class="cancelbtn">
+            <b-button
+              v-b-modal.modalSemestre
+              title="Semestre"
+              class="cancelbtn"
+            >
               <i class="fas fa-calendar-alt"></i>
             </b-button>
             <button
@@ -42,22 +48,32 @@
     <div class="row m-0">
       <!-- Inicio Tabela 1 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
+        <div
+          class="alert alert-dark p-0 m-0 text-center rounded-0"
+          role="alert"
+        >
           <div class="row m-0">
             <p
               class="p-0 alert-p m-0 border border-right-0"
               style="font-weight: bold; width: 187px;"
-            >PGMC</p>
+            >
+              PGMC
+            </p>
             <p
               class="m-0 border"
               style="width:32px; cursor: default!important"
               title="Total de creditos"
-            >{{CreditoTotal_PGMC}}</p>
+            >
+              {{ CreditoTotal_PGMC }}
+            </p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
 
-        <table class="table main-table table-hover table-bordered table-sm" ref="tablePGMC">
+        <table
+          class="table main-table table-hover table-bordered table-sm"
+          ref="tablePGMC"
+        >
           <thead class="thead-light sticky">
             <tr>
               <div style="display: block; width: 198px;" class="sticky">
@@ -72,7 +88,7 @@
                   >
                     T.
                     <i
-                      v-if="ordenacaoAtualPGMC==='periodo'"
+                      v-if="ordenacaoAtualPGMC === 'periodo'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -86,7 +102,7 @@
                   >
                     Docente
                     <i
-                      v-if="ordenacaoAtualPGMC==='nome'"
+                      v-if="ordenacaoAtualPGMC === 'nome'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -101,25 +117,37 @@
 
           <tbody>
             <!-- LINHAS -->
-            <template v-if="CargasPGMC.length>0">
+            <template v-if="CargasPGMC.length > 0">
               <template v-for="t in vetorPeriodosPGMC">
                 <template v-for="docente in Docentes">
                   <template v-for="carga in CargasPGMC">
                     <tr
                       v-if="checkPGMC(carga, docente, t)"
-                      :key="'MC-docente'+docente.id+'carga'+carga.id+t"
+                      :key="'MC-docente' + docente.id + 'carga' + carga.id + t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
-                      :class="{'bg-custom':linhaClickada == carga.id}"
+                      :class="{ 'bg-custom': linhaClickada == carga.id }"
                     >
                       <template
-                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (semestreAtual == 1 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 1 || carga.trimestre == 2) &&
+                            (semestreAtual == 1 || semestreAtual == 3)
+                        "
                       >
-                        <cargadata :key="'1-MC'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        <cargadata
+                          :key="'1-MC' + docente.id + 'carga' + carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
                       </template>
                       <template
-                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (semestreAtual == 2 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 3 || carga.trimestre == 4) &&
+                            (semestreAtual == 2 || semestreAtual == 3)
+                        "
                       >
-                        <cargadata :key="'2-MC'+docente.id+'carga'+carga.id" v-bind:carga="carga"></cargadata>
+                        <cargadata
+                          :key="'2-MC' + docente.id + 'carga' + carga.id"
+                          v-bind:carga="carga"
+                        ></cargadata>
                       </template>
                     </tr>
                   </template>
@@ -132,17 +160,24 @@
 
       <!-- Inicio Tabela 2 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
+        <div
+          class="alert alert-dark p-0 m-0 text-center rounded-0"
+          role="alert"
+        >
           <div class="row m-0">
             <p
               class="col p-0 alert-p m-0 border border-right-0"
               style="font-weight: bold; width: 187px;"
-            >PGCC</p>
+            >
+              PGCC
+            </p>
             <p
               class="m-0 border"
               style="width:32px; cursor: default!important"
               title="Total de creditos"
-            >{{CreditoTotal_PGCC}}</p>
+            >
+              {{ CreditoTotal_PGCC }}
+            </p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
@@ -162,7 +197,7 @@
                   >
                     T.
                     <i
-                      v-if="ordenacaoAtualPGCC==='periodo'"
+                      v-if="ordenacaoAtualPGCC === 'periodo'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -176,7 +211,7 @@
                   >
                     Docente
                     <i
-                      v-if="ordenacaoAtualPGCC==='nome'"
+                      v-if="ordenacaoAtualPGCC === 'nome'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -191,29 +226,35 @@
 
           <tbody>
             <!-- LINHAS -->
-            <template v-if="CargasPGCC.length>0">
+            <template v-if="CargasPGCC.length > 0">
               <template v-for="t in vetorPeriodosPGCC">
                 <template v-for="docente in Docentes">
                   <template v-for="carga in CargasPGCC">
                     <tr
                       v-if="checkPGCC(carga, docente, t)"
-                      :key="'CC-docente'+docente.id+'carga'+carga.id+t"
+                      :key="'CC-docente' + docente.id + 'carga' + carga.id + t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
-                      :class="{'bg-custom':linhaClickada == carga.id}"
+                      :class="{ 'bg-custom': linhaClickada == carga.id }"
                     >
                       <template
-                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (semestreAtual == 1 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 1 || carga.trimestre == 2) &&
+                            (semestreAtual == 1 || semestreAtual == 3)
+                        "
                       >
                         <cargadata
-                          :key="'CC-docente'+docente.id+'carga'+carga.id"
+                          :key="'CC-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
                       <template
-                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (semestreAtual == 2 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 3 || carga.trimestre == 4) &&
+                            (semestreAtual == 2 || semestreAtual == 3)
+                        "
                       >
                         <cargadata
-                          :key="'CC-docente'+docente.id+'carga'+carga.id"
+                          :key="'CC-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -228,17 +269,24 @@
 
       <!-- Inicio Tabela 3 -->
       <div class="p-0 divTable mr-2 mb-2" v-if="!isLoading">
-        <div class="alert alert-dark p-0 m-0 text-center rounded-0" role="alert">
+        <div
+          class="alert alert-dark p-0 m-0 text-center rounded-0"
+          role="alert"
+        >
           <div class="row m-0">
             <p
               class="col p-0 alert-p m-0 border border-right-0"
               style="font-weight: bold; width: 187px;"
-            >PGEM</p>
+            >
+              PGEM
+            </p>
             <p
               class="m-0 border"
               style="width:32px; cursor: default!important"
               title="Total de creditos"
-            >{{CreditoTotal_PGEM}}</p>
+            >
+              {{ CreditoTotal_PGEM }}
+            </p>
             <div v-bind:style="scrollsize" class="border border-left-0"></div>
           </div>
         </div>
@@ -258,7 +306,7 @@
                   >
                     T.
                     <i
-                      v-if="ordenacaoAtualPGEM==='periodo'"
+                      v-if="ordenacaoAtualPGEM === 'periodo'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -272,7 +320,7 @@
                   >
                     Docente
                     <i
-                      v-if="ordenacaoAtualPGEM==='nome'"
+                      v-if="ordenacaoAtualPGEM === 'nome'"
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -287,29 +335,35 @@
 
           <tbody>
             <!-- LINHAS -->
-            <template v-if="CargasPGEM.length>0">
+            <template v-if="CargasPGEM.length > 0">
               <template v-for="t in vetorPeriodosPGEM">
                 <template v-for="docente in Docentes">
                   <template v-for="carga in CargasPGEM">
                     <tr
                       v-if="checkPGEM(carga, docente, t)"
-                      :key="'EM-docente'+docente.id+'carga'+carga.id+t"
+                      :key="'EM-docente' + docente.id + 'carga' + carga.id + t"
                       v-on:click="fun_clickado(carga, docente.apelido)"
-                      :class="{'bg-custom':linhaClickada == carga.id}"
+                      :class="{ 'bg-custom': linhaClickada == carga.id }"
                     >
                       <template
-                        v-if="((carga.trimestre == 1 || carga.trimestre == 2) && (semestreAtual == 1 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 1 || carga.trimestre == 2) &&
+                            (semestreAtual == 1 || semestreAtual == 3)
+                        "
                       >
                         <cargadata
-                          :key="'EM-docente'+docente.id+'carga'+carga.id"
+                          :key="'EM-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
                       <template
-                        v-if="((carga.trimestre == 3 || carga.trimestre == 4) && (semestreAtual == 2 || semestreAtual == 3))"
+                        v-if="
+                          (carga.trimestre == 3 || carga.trimestre == 4) &&
+                            (semestreAtual == 2 || semestreAtual == 3)
+                        "
                       >
                         <cargadata
-                          :key="'EM-docente'+docente.id+'carga'+carga.id"
+                          :key="'EM-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
                         ></cargadata>
                       </template>
@@ -352,12 +406,15 @@
                   id="docente1"
                   v-model="cargaPosForm.Docente"
                 >
-                  <option v-if="Docentes.length===0" type="text" value>Nenhum Docente Encontrado</option>
+                  <option v-if="Docentes.length === 0" type="text" value
+                    >Nenhum Docente Encontrado</option
+                  >
                   <option
                     v-for="docente in Docentes"
-                    :key="'id docente'+docente.id"
+                    :key="'id docente' + docente.id"
                     :value="docente.id"
-                  >{{docente.apelido}}</option>
+                    >{{ docente.apelido }}</option
+                  >
                 </select>
               </div>
             </div>
@@ -455,16 +512,18 @@
         <p class="my-4">Nenhuma carga selecionada!</p>
       </template>
       <template v-else>
-        <p class="my-4">Tem certeza que deseja deletar as cargas selecionadas?</p>
+        <p class="my-4">
+          Tem certeza que deseja deletar as cargas selecionadas?
+        </p>
         <template v-for="carga in Deletar">
           <template v-for="docente in Docentes">
-            <template v-if="docente.id===carga.Docente">
-              <p :key="'carga id'+carga.id+'docente'+docente.id">
-                Docente:{{docente.apelido}}
+            <template v-if="docente.id === carga.Docente">
+              <p :key="'carga id' + carga.id + 'docente' + docente.id">
+                Docente:{{ docente.apelido }}
                 <br />
-                Programa:{{carga.programa}}
+                Programa:{{ carga.programa }}
                 <br />
-                Trimestre:{{carga.trimestre}}
+                Trimestre:{{ carga.trimestre }}
               </p>
             </template>
           </template>
@@ -473,19 +532,33 @@
     </b-modal>
 
     <!-- MODAL CONFIRMA de uma carga  -->
-    <b-modal id="modalConfirma2" title="Confirmar Seleção" @ok="deleteCarga(cargaPosForm)">
+    <b-modal
+      id="modalConfirma2"
+      title="Confirmar Seleção"
+      @ok="deleteCarga(cargaPosForm)"
+    >
       <p class="my-4">Tem certeza que deseja deletar esta carga ?</p>
       <p>
-        Docente:{{apelidoClikado}}
+        Docente:{{ apelidoClikado }}
         <br />
-        Programa:{{cargaPosForm.programa}}
+        Programa:{{ cargaPosForm.programa }}
         <br />
-        Trimestre:{{cargaPosForm.trimestre}}
+        Trimestre:{{ cargaPosForm.trimestre }}
       </p>
     </b-modal>
 
     <!-- MODAL SEMESTRE -->
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Filtros">
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
+        <ul
+          class="nav nav-tabs card-header-tabs m-0"
+          style="font-size: 11px!important;height: 30px;"
+        >
+          <li class="nav-item">
+            <a class="nav-link border clickable active">Semestre</a>
+          </li>
+        </ul>
+      </div>
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-bordered table-sm modal-table"
@@ -504,7 +577,9 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 435px; text-align: start;"
-                  >Semestre Letivo</p>
+                  >
+                    Semestre Letivo
+                  </p>
                 </th>
               </div>
             </tr>
@@ -553,19 +628,22 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAllSemestre()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNoneSemestre()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOKSemestre()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
 
@@ -574,44 +652,33 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para adicionar docentes à Tabela:</strong> Preencha o cartão à direita. Após concluído,
-            clique em Adicionar
-            <i
-              class="fas fa-plus addbtn px-1"
-              style="font-size:12px"
-            ></i>
+            <strong>Para adicionar docentes à Tabela:</strong> Preencha o cartão
+            à direita. Após concluído, clique em Adicionar
+            <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
             ou em Cancelar
-            <i
-              class="fas fa-times cancelbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar docentes da Tabela:</strong> Na tabela, clique no docente que deseja alterar.
-            No cartão à direita faça as mudanças desejadas e, em seguida, clique em Salvar
-            <i
-              class="fas fa-check addbtn px-1"
-              style="font-size:12px"
-            ></i>
+            <strong>Para editar docentes da Tabela:</strong> Na tabela, clique
+            no docente que deseja alterar. No cartão à direita faça as mudanças
+            desejadas e, em seguida, clique em Salvar
+            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou em Cancelar
-            <i
-              class="fas fa-times cancelbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deletar docentes da Tabela:</strong> Marque o(s) docente(s) que deseja deletar através
-            da caixa de seleção à esquerda e em seguida clique em Deletar Selecionados
-            <i
-              class="far fa-trash-alt delbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <strong>Para deletar docentes da Tabela:</strong> Marque o(s)
+            docente(s) que deseja deletar através da caixa de seleção à esquerda
+            e em seguida clique em Deletar Selecionados
+            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para alterar ordenação:</strong> Clique em Docente ou em T. no cabeçalho de cada tabela para alternar a ordenação entre alfabética e por trimestre.
+            <strong>Para alterar ordenação:</strong> Clique em Docente ou em T.
+            no cabeçalho de cada tabela para alternar a ordenação entre
+            alfabética e por trimestre.
           </li>
         </ul>
       </div>
@@ -620,7 +687,6 @@
     </b-modal>
   </div>
 </template>
-
 
 <script>
 import _ from "lodash";
@@ -1222,7 +1288,7 @@ i.far {
   -webkit-text-stroke-color: #2fbf53;
 }
 .cancelbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #cfcfc4;
 }
 .cancelbtn:hover {
@@ -1501,6 +1567,11 @@ i.far {
   margin-left: 0 !important;
   margin-top: 4px !important;
   margin-bottom: auto !important;
+}
+.active {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: default;
 }
 /* FIM MODAL TABLE */
 /* =========================== */

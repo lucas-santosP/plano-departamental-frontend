@@ -497,18 +497,13 @@
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
     <!-- MODAL SEMESTRE -->
-    <b-modal
-      id="modalSemestre"
-      ref="modalSemestre"
-      scrollable
-      title="Selecione os semestres"
-    >
+    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Filtros">
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
           style="font-size: 11px!important;height: 30px;"
         >
-          <li class="nav-item" @click="nav_ativo = 'semestre'">
+          <li class="nav-item">
             <a class="nav-link border clickable active">Semestre</a>
           </li>
         </ul>
@@ -1252,7 +1247,7 @@ strong {
   margin-bottom: auto !important;
 }
 .active {
-  background-color: #e9ecef!important;
+  background-color: #e9ecef !important;
   color: #495057 !important;
   cursor: default;
 }
