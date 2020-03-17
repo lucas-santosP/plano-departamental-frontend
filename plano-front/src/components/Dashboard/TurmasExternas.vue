@@ -6,7 +6,9 @@
       style="height:38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">Tabela Externa</h1>
+        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">
+          Tabela Externa
+        </h1>
 
         <div
           class="form-group col-xl-10 col-md-9 col-sm-8 col-7 mb-0 p-0"
@@ -18,7 +20,12 @@
 
           <div class="d-flex p-0 m-0">
             <template v-if="isAdd">
-              <button type="button" title="Salvar" class="addbtn" v-on:click.prevent="addTurma">
+              <button
+                type="button"
+                title="Salvar"
+                class="addbtn"
+                v-on:click.prevent="addTurma"
+              >
                 <i class="fas fa-check"></i>
               </button>
               <button
@@ -32,10 +39,21 @@
             </template>
 
             <template v-else>
-              <button type="button" title="Adicionar" class="addbtn" v-on:click.prevent="toggleAdd">
+              <button
+                type="button"
+                title="Adicionar"
+                class="addbtn"
+                v-on:click.prevent="toggleAdd"
+              >
                 <i class="fas fa-plus"></i>
               </button>
-              <button type="button" title="Deletar" class="delbtn" style v-b-modal.modalConfirma>
+              <button
+                type="button"
+                title="Deletar"
+                class="delbtn"
+                style
+                v-b-modal.modalConfirma
+              >
                 <i class="far fa-trash-alt"></i>
               </button>
             </template>
@@ -64,22 +82,48 @@
               class="sticky"
             >
               <th scope="col">
-                <p class="p-header" style="width:24px !important;" title="Semestre">S.</p>
+                <p
+                  class="p-header"
+                  style="width:24px !important;"
+                  title="Semestre"
+                >
+                  S.
+                </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:70px !important;" title="Código">Cod</p>
+                <p
+                  class="p-header"
+                  style="width:70px !important;"
+                  title="Código"
+                >
+                  Cod
+                </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:330px !important">Disciplina</p>
+                <p class="p-header" style="width:330px !important">
+                  Disciplina
+                </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:18px !important;" title="Créditos">C.</p>
+                <p
+                  class="p-header"
+                  style="width:18px !important;"
+                  title="Créditos"
+                >
+                  C.
+                </p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:40px !important;">Turma</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:68px !important;" title="Total de vagas">Turno</p>
+                <p
+                  class="p-header"
+                  style="width:68px !important;"
+                  title="Total de vagas"
+                >
+                  Turno
+                </p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width:72px !important;">Horário</p>
@@ -91,26 +135,42 @@
                 <p class="p-header" style="width:32px !important;">Total</p>
               </th>
               <template v-for="curso in Cursos">
-                <th scope="col" :key="'1-curso-id'+curso.id" :id="'curso'+curso.id">
-                  <p class="p-header" style="width:32px !important;">{{curso.codigo}}</p>
+                <th
+                  scope="col"
+                  :key="'1-curso-id' + curso.id"
+                  :id="'curso' + curso.id"
+                >
+                  <p class="p-header" style="width:32px !important;">
+                    {{ curso.codigo }}
+                  </p>
 
                   <b-popover
-                    :key="'2-curso-id'+curso.id"
-                    :target="'curso'+curso.id"
+                    :key="'2-curso-id' + curso.id"
+                    :target="'curso' + curso.id"
                     placement="bottom"
                     triggers="hover focus"
                   >
                     <p
                       style="font-size: 11px"
                       class="p-0 m-0"
-                      v-if="curso.semestreInicial==1 || curso.semestreInicial==3"
-                    >1º - {{curso.alunosEntrada}}</p>
+                      v-if="
+                        curso.semestreInicial == 1 || curso.semestreInicial == 3
+                      "
+                    >
+                      1º - {{ curso.alunosEntrada }}
+                    </p>
                     <p
                       style="font-size: 11px"
                       class="p-0 m-0"
-                      v-if="curso.semestreInicial==2 || curso.semestreInicial==3"
-                    >2º - {{curso.alunosEntrada2}}</p>
-                    <p style="font-size: 11px" class="p-0 m-0">{{curso.nome}}</p>
+                      v-if="
+                        curso.semestreInicial == 2 || curso.semestreInicial == 3
+                      "
+                    >
+                      2º - {{ curso.alunosEntrada2 }}
+                    </p>
+                    <p style="font-size: 11px" class="p-0 m-0">
+                      {{ curso.nome }}
+                    </p>
                   </b-popover>
                 </th>
               </template>
@@ -143,15 +203,17 @@
                       v-model="turmaForm.Disciplina"
                     >
                       <option
-                        v-if="DisciplinasCod.length===0"
+                        v-if="DisciplinasCod.length === 0"
                         type="text"
                         value
-                      >Nenhuma Disciplina Encontrada</option>
+                        >Nenhuma Disciplina Encontrada</option
+                      >
                       <option
                         v-for="disciplina in DisciplinasCod"
-                        :key="'1-disciplina-id'+disciplina.id"
+                        :key="'1-disciplina-id' + disciplina.id"
                         :value="disciplina.id"
-                      >{{disciplina.codigo}}</option>
+                        >{{ disciplina.codigo }}</option
+                      >
                     </select>
                   </div>
                 </td>
@@ -163,16 +225,15 @@
                       id="disciplina"
                       v-model="turmaForm.Disciplina"
                     >
-                      <option
-                        v-if="Disciplinas.length===0"
-                        type="text"
-                        value
-                      >Nenhuma Disciplina Encontrada</option>
+                      <option v-if="Disciplinas.length === 0" type="text" value
+                        >Nenhuma Disciplina Encontrada</option
+                      >
                       <option
                         v-for="disciplina in Disciplinas"
-                        :key="'2-disciplina-id'+disciplina.id"
+                        :key="'2-disciplina-id' + disciplina.id"
                         :value="disciplina.id"
-                      >{{disciplina.nome}}</option>
+                        >{{ disciplina.nome }}</option
+                      >
                     </select>
                   </div>
                 </td>
@@ -181,15 +242,23 @@
                     <p style="width:18px;">
                       <template v-for="disciplina in Disciplinas">
                         <template
-                          v-if="disciplina.id===turmaForm.Disciplina"
-                        >{{disciplina.cargaPratica + disciplina.cargaTeorica}}</template>
+                          v-if="disciplina.id === turmaForm.Disciplina"
+                          >{{
+                            disciplina.cargaPratica + disciplina.cargaTeorica
+                          }}</template
+                        >
                       </template>
                     </p>
                   </div>
                 </td>
                 <td>
                   <div style="width: 40px">
-                    <input type="text" style="width:20px;" id="turma" v-model="turmaForm.letra" />
+                    <input
+                      type="text"
+                      style="width:20px;"
+                      id="turma"
+                      v-model="turmaForm.letra"
+                    />
                   </div>
                 </td>
                 <td>
@@ -216,12 +285,15 @@
                       v-model="turmaForm.Horario1"
                       v-on:change="adjustTurno1"
                     >
-                      <option v-if="Horarios.length===0" type="text" value>Nenhum Horário Encontrado</option>
+                      <option v-if="Horarios.length === 0" type="text" value
+                        >Nenhum Horário Encontrado</option
+                      >
                       <option
                         v-for="horario in Horarios"
-                        :key="'1-horario-id'+horario.id"
+                        :key="'1-horario-id' + horario.id"
                         :value="horario.id"
-                      >{{horario.horario}}</option>
+                        >{{ horario.horario }}</option
+                      >
                     </select>
                     <select
                       type="text"
@@ -230,12 +302,15 @@
                       v-model="turmaForm.Horario2"
                       v-on:change="adjustTurno2"
                     >
-                      <option v-if="Horarios.length===0" type="text" value>Nenhum Horário Encontrado</option>
+                      <option v-if="Horarios.length === 0" type="text" value
+                        >Nenhum Horário Encontrado</option
+                      >
                       <option
                         v-for="horario in Horarios"
-                        :key="'2-horario-id'+horario.id"
+                        :key="'2-horario-id' + horario.id"
                         :value="horario.id"
-                      >{{horario.horario}}</option>
+                        >{{ horario.horario }}</option
+                      >
                     </select>
                   </div>
                 </td>
@@ -247,20 +322,31 @@
                       id="sala1"
                       v-model="turmaForm.Sala1"
                     >
-                      <option v-if="Salas.length===0" type="text" value>Nenhuma Sala Encontrada</option>
+                      <option v-if="Salas.length === 0" type="text" value
+                        >Nenhuma Sala Encontrada</option
+                      >
                       <option
                         v-for="sala in Salas"
-                        :key="'1-sala-id'+sala.id"
+                        :key="'1-sala-id' + sala.id"
                         :value="sala.id"
-                      >{{sala.nome}}</option>
+                        >{{ sala.nome }}</option
+                      >
                     </select>
-                    <select type="text" style="width:93px;" id="sala2" v-model="turmaForm.Sala2">
-                      <option v-if="Salas.length===0" type="text" value>Nenhuma Sala Encontrada</option>
+                    <select
+                      type="text"
+                      style="width:93px;"
+                      id="sala2"
+                      v-model="turmaForm.Sala2"
+                    >
+                      <option v-if="Salas.length === 0" type="text" value
+                        >Nenhuma Sala Encontrada</option
+                      >
                       <option
                         v-for="sala in Salas"
-                        :key="'2-sala-id'+sala.id"
+                        :key="'2-sala-id' + sala.id"
                         :value="sala.id"
-                      >{{sala.nome}}</option>
+                        >{{ sala.nome }}</option
+                      >
                     </select>
                   </div>
                 </td>
@@ -274,19 +360,39 @@
           <!--FINAL ADIÇÃO DE TURMA-->
 
           <!-- LINHAS DA TABELA -->
-          <template v-if="Turmas.length>0">
+          <template v-if="Turmas.length > 0">
             <template v-for="perfil in Perfis">
               <template v-for="disciplina in DisciplinasCod">
                 <tr
                   v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                   v-if="turma.Disciplina === disciplina.id"
-                  :key="'1-tr-'+perfil+turma.id+disciplina"
-                  v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
-                    'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
-                    'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
+                  :key="'1-tr-' + perfil + turma.id + disciplina"
+                  v-bind:class="{
+                    basico: perfil.id == 1,
+                    avancado: perfil.id == 2,
+                    arqso: perfil.id == 3,
+                    bancosdedados: perfil.id == 4,
+                    computacaografica: perfil.id == 5,
+                    engenhariasoftware: perfil.id == 6,
+                    iaic: perfil.id == 7,
+                    numoc: perfil.id == 8,
+                    redes: perfil.id == 9,
+                    teoria: perfil.id == 10,
+                    humempre: perfil.id == 11,
+                    multi: perfil.id == 12,
+                    ice: perfil.id == 13
+                  }"
                 >
-                  <template v-if="turma.periodo==1 && (semestreAtual == 1 || semestreAtual==3)">
-                    <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                  <template
+                    v-if="
+                      turma.periodo == 1 &&
+                        (semestreAtual == 1 || semestreAtual == 3)
+                    "
+                  >
+                    <turmadata
+                      v-bind:turma="turma"
+                      v-bind:perfil="perfil"
+                    ></turmadata>
                   </template>
                 </tr>
               </template>
@@ -296,13 +402,33 @@
                 <tr
                   v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                   v-if="turma.Disciplina === disciplina.id"
-                  :key="'2-tr-'+perfil+turma.id+disciplina"
-                  v-bind:class="{'basico':perfil.id==1,'avancado':perfil.id==2, 'arqso':perfil.id==3,
-                    'bancosdedados':perfil.id==4, 'computacaografica':perfil.id==5, 'engenhariasoftware':perfil.id==6, 'iaic':perfil.id==7, 'numoc':perfil.id==8, 'redes':perfil.id==9, 'teoria':perfil.id==10,
-                    'humempre':perfil.id==11, 'multi': perfil.id==12, 'ice':perfil.id==13}"
+                  :key="'2-tr-' + perfil + turma.id + disciplina"
+                  v-bind:class="{
+                    basico: perfil.id == 1,
+                    avancado: perfil.id == 2,
+                    arqso: perfil.id == 3,
+                    bancosdedados: perfil.id == 4,
+                    computacaografica: perfil.id == 5,
+                    engenhariasoftware: perfil.id == 6,
+                    iaic: perfil.id == 7,
+                    numoc: perfil.id == 8,
+                    redes: perfil.id == 9,
+                    teoria: perfil.id == 10,
+                    humempre: perfil.id == 11,
+                    multi: perfil.id == 12,
+                    ice: perfil.id == 13
+                  }"
                 >
-                  <template v-if="turma.periodo==3 && (semestreAtual==2 || semestreAtual==3)">
-                    <turmadata v-bind:turma="turma" v-bind:perfil="perfil"></turmadata>
+                  <template
+                    v-if="
+                      turma.periodo == 3 &&
+                        (semestreAtual == 2 || semestreAtual == 3)
+                    "
+                  >
+                    <turmadata
+                      v-bind:turma="turma"
+                      v-bind:perfil="perfil"
+                    ></turmadata>
                   </template>
                 </tr>
               </template>
@@ -317,11 +443,14 @@
       <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
       <template v-for="turma in Deletar">
         <template v-for="disciplina in Disciplinas">
-          <template v-if="disciplina.id===turma.Disciplina">
-            <p :key="'disciplina'+disciplina.id+'turma'+turma.id" style="width:80px">
-              Disciplina:{{disciplina.codigo}}
+          <template v-if="disciplina.id === turma.Disciplina">
+            <p
+              :key="'disciplina' + disciplina.id + 'turma' + turma.id"
+              style="width:80px"
+            >
+              Disciplina:{{ disciplina.codigo }}
               <br />
-              Turma:{{turma.letra}}
+              Turma:{{ turma.letra }}
             </p>
           </template>
         </template>
@@ -332,36 +461,35 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em Adicionar
+            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em
+            Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
-            , em seguida, preencha a nova linha que surgirá na tabela. Após concluído, clique em Salvar
-            <i
-              class="fas fa-check addbtn px-1"
-              style="font-size:12px"
-            ></i>
+            , em seguida, preencha a nova linha que surgirá na tabela. Após
+            concluído, clique em Salvar
+            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou em Cancelar
-            <i
-              class="fas fa-times cancelbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s) disciplina(s) que deseja deletar através
-            da caixa de seleção à esquerda e em seguida clique em Deletar
-            <i
-              class="far fa-trash-alt delbtn px-1"
-              style="font-size: 12px"
-            ></i>
+            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s)
+            disciplina(s) que deseja deletar através da caixa de seleção à
+            esquerda e em seguida clique em Deletar
+            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para editar disciplinas da Tabela:</strong> Faça as alterações necessárias diretamente na tabela e o sistema irá salvar automaticamente.
+            <strong>Para editar disciplinas da Tabela:</strong> Faça as
+            alterações necessárias diretamente na tabela e o sistema irá salvar
+            automaticamente.
           </li>
           <li class="list-group-item">
-            <strong>Observações:</strong> Em cada coluna de cursos a disciplina adicionada permite a inclusão em dois espaços, sendo acima
-            destinado para alunos na grade, e abaixo para alunos repetentes. Para que uma disciplina externa apareça em Horários de um determinado
-            curso é preciso que pelo menos uma vaga para alunos na grade seja destinada ao mesmo.
+            <strong>Observações:</strong> Em cada coluna de cursos a disciplina
+            adicionada permite a inclusão em dois espaços, sendo acima destinado
+            para alunos na grade, e abaixo para alunos repetentes. Para que uma
+            disciplina externa apareça em Horários de um determinado curso é
+            preciso que pelo menos uma vaga para alunos na grade seja destinada
+            ao mesmo.
           </li>
         </ul>
       </div>
@@ -369,7 +497,22 @@
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
     <!-- MODAL SEMESTRE -->
-    <b-modal id="modalSemestre" ref="modalSemestre" scrollable title="Selecione os semestres">
+    <b-modal
+      id="modalSemestre"
+      ref="modalSemestre"
+      scrollable
+      title="Selecione os semestres"
+    >
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
+        <ul
+          class="nav nav-tabs card-header-tabs m-0"
+          style="font-size: 11px!important;height: 30px;"
+        >
+          <li class="nav-item" @click="nav_ativo = 'semestre'">
+            <a class="nav-link border clickable active">Semestre</a>
+          </li>
+        </ul>
+      </div>
       <div class="col m-0 p-0" style="width:max-content;heigth:max-content;">
         <table
           class="table table-bordered table-sm modal-table"
@@ -388,7 +531,9 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 435px; text-align: start;"
-                  >Semestre Letivo</p>
+                  >
+                    Semestre Letivo
+                  </p>
                 </th>
               </div>
             </tr>
@@ -437,19 +582,22 @@
             class="btn-azul btn-df mr-2"
             variant="success"
             @click="selectAllSemestre()"
-          >Selecionar Todos</b-button>
+            >Selecionar Todos</b-button
+          >
           <b-button
             class="btn-cinza btn-df mr-2"
             variant="secondary"
             @click="selectNoneSemestre()"
-          >Desmarcar Todos</b-button>
+            >Desmarcar Todos</b-button
+          >
         </div>
         <b-button
           variant="success"
           @click="btnOKSemestre()"
           class="btn-verde btn-df mr-2"
           style="padding-right:15px!important; padding-left:15px!important;"
-        >OK</b-button>
+          >OK</b-button
+        >
       </div>
     </b-modal>
   </div>
@@ -911,7 +1059,7 @@ strong {
   color: #007bff;
 }
 .addbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #a0e7a0;
 }
 .addbtn:hover {
@@ -924,7 +1072,7 @@ strong {
   -webkit-text-stroke-color: #2fbf53;
 }
 .cancelbtn {
-  background-color: white!important;
+  background-color: white !important;
   color: #cfcfc4;
 }
 .cancelbtn:hover {
@@ -1102,6 +1250,11 @@ strong {
   margin-left: 0 !important;
   margin-top: 4px !important;
   margin-bottom: auto !important;
+}
+.active {
+  background-color: #e9ecef!important;
+  color: #495057 !important;
+  cursor: default;
 }
 /* FIM MODAL TABLE */
 @media screen and (max-width: 429px) {

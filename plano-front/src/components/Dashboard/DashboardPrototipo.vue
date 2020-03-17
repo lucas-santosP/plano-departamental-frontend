@@ -507,7 +507,7 @@
       -->
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="row ml-2 w-100">
+        <div class="row w-100">
           <b-button
             class="btn-azul btn-df mr-2"
             variant="success"
