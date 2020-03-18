@@ -724,15 +724,6 @@ export default {
 
     selecionaTurma(turma) {
       this.turmaSelecionada = turma;
-      for (let i = 0; i < this.VagasTurmaSelecionada.length; i++) {
-        console.log({
-          nome: this.curso(this.VagasTurmaSelecionada[i]).nome,
-          codigo: this.curso(this.VagasTurmaSelecionada[i]).codigo,
-          vagasPeriodizadas: this.VagasTurmaSelecionada[i].vagasPeriodizadas,
-          vagasNaoPeriodizadas: this.VagasTurmaSelecionada[i]
-            .vagasNaoPeriodizadas
-        });
-      }
       this.$refs.VagasModal.show()
     },
 
