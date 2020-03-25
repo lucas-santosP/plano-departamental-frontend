@@ -326,25 +326,6 @@
           class="nav nav-tabs card-header-tabs m-0"
           style="font-size: 11px!important;height: 30px;"
         >
-          <li class="nav-item" @click="showSearch(), (search = '')">
-            <a
-              class="nav-link border border-right-0 "
-              :class="{
-                clickable: nav_ativo != 'semestre'
-              }"
-              ><i
-                v-if="show_search == false"
-                class="fas fa-search"
-                style="font-size: 12px;width: 12px; padding-top: 0;"
-              ></i>
-              <i
-                v-else
-                style="font-size: 12px;width: 12px; padding-top: 0"
-                class="fas fa-times"
-              ></i
-            ></a>
-          </li>
-
           <li class="nav-item" @click="changeTab('disciplinas')">
             <a
               class="nav-link border border-right-0  clickable"
@@ -356,11 +337,20 @@
           </li>
           <li class="nav-item" @click="changeTab('semestre')">
             <a
-              class="nav-link border clickable"
+              class="nav-link border border-right-0  clickable"
               :class="{
                 active: nav_ativo == 'semestre'
               }"
               >Semestre</a
+            >
+          </li>
+          <li class="nav-item" @click="changeTab('perfis')">
+            <a
+              class="nav-link border clickable"
+              :class="{
+                active: nav_ativo == 'perfis'
+              }"
+              >Perfis</a
             >
           </li>
         </ul>
@@ -384,9 +374,52 @@
             </div>
           </form>
         </div> -->
+        <!-- TABLE PERFIS -->
+        <table
+          v-if="nav_ativo == 'perfis'"
+          class="table table-sm modal-table table-bordered"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light">
+            <tr>
+              <div
+                style="width: max-content; height: 18px !important; font-size: 11px!important"
+                class="sticky"
+              >
+                <th>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 435px; text-align:start">
+                    Nome
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="perfil in Perfiss" :key="'perfil-id' + perfil.id">
+              <div style="width: max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      v-model="PerfisSelecionados"
+                      :value="perfil"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width:435px; text-align:start">{{ perfil.nome }}</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
         <!-- TABLE DISCIPLINAS -->
         <table
-          v-if="nav_ativo == 'disciplinas'"
+          v-else-if="nav_ativo == 'disciplinas'"
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important; overflow-y: scroll!important"
         >
@@ -446,33 +479,28 @@
                 </th>
               </div>
             </tr>
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated slideInDown sidebar-animated"
-              leave-active-class="animated slideOutUp sidebar-animated"
-            >
-              <tr v-if="show_search">
-                <div
-                  style="width: max-content; font-size: 11px!important"
-                  class="sticky2 "
-                >
-                  <th>
-                    <div
-                      class="m-0 border"
-                      style="width:450px; height:34px;padding-left: 5px;padding-right: 10px; padding-top: 4px;"
-                    >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="searchBar"
-                        placeholder="Pesquise nome ou codigo de uma disciplina"
-                        v-model="search"
-                      />
-                    </div>
-                  </th>
-                </div>
-              </tr>
-            </transition>
+
+            <tr>
+              <div
+                style="width: max-content; font-size: 11px!important"
+                class="sticky2 "
+              >
+                <th>
+                  <div
+                    class="m-0 border"
+                    style="width:450px; height:34px;padding-left: 5px;padding-right: 10px; padding-top: 4px;"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="searchBar"
+                      placeholder="Pesquise nome ou codigo de uma disciplina"
+                      v-model="search"
+                    />
+                  </div>
+                </th>
+              </div>
+            </tr>
           </thead>
           <tbody>
             <tr
@@ -526,10 +554,7 @@
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p
-                    class="p-header clickable-header"
-                    style="width: 435px; text-align: start;"
-                  >
+                  <p class="p-header" style="width: 435px; text-align: start;">
                     Semestre Letivo
                   </p>
                 </th>
@@ -549,7 +574,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                  <p style="width:435px; text-align:start">Primeiro</p>
                 </td>
               </div>
             </tr>
@@ -565,7 +590,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                  <p style="width:435px; text-align:start">Segundo</p>
                 </td>
               </div>
             </tr>
@@ -586,6 +611,20 @@
               class="btn-cinza btn-df mr-2"
               variant="secondary"
               @click="selectNone()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+          <template v-else-if="nav_ativo == 'perfis'">
+            <b-button
+              class="btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllPerfis()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNonePerfis()"
               >Desmarcar Todos</b-button
             >
           </template>
@@ -626,6 +665,7 @@
                 : "Nenhuma Turma Selecionada"
             }}
           </h6>
+
           <select
             class="col-1"
             v-model="turmaSelecionada"
@@ -789,7 +829,9 @@ export default {
 
   data() {
     return {
-      ordenacao: "posicao",
+      ordenacao: "codigo",
+      PerfisSelecionados: [],
+      PerfisAtivados: [],
       DisciplinasSelecionados: [],
       DisciplinasAtivados: [],
       semestre_1Ativo: true,
@@ -798,40 +840,18 @@ export default {
       turmaSelecionada: undefined,
       ordemCurso: "codigo",
       nav_ativo: "disciplinas",
-      search: "",
-      show_search: false
+      search: null
     };
   },
 
   methods: {
-    showSearch() {
-      if (this.nav_ativo == "semestre") {
-        this.clearSearch();
-      } else {
-        this.show_search = !this.show_search;
-      }
-    },
     changeTab(tab) {
       this.nav_ativo = tab;
-      this.clearSearch();
+      this.search = null; //clear search
     },
-    clearSearch() {
-      this.show_search = false;
-      this.search = "";
-    },
+
     pdf() {
       pdfs.pdfRelatorioDisciplinas();
-    },
-    btnOKSemestre() {
-      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
-        this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
-        this.semestreAtual = 2;
-      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
-        this.semestreAtual = 3;
-      } else {
-        this.semestreAtual = undefined;
-      }
     },
     selectAllSemestre() {
       this.semestre_1Ativo = true;
@@ -842,15 +862,33 @@ export default {
       this.semestre_2Ativo = false;
     },
     btnOK() {
-      this.btnOKSemestre(); //Atualiza semestre selecionados
+      //Atualiza semestre selecionados
+      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
+        this.semestreAtual = 1;
+      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+        this.semestreAtual = 2;
+      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
+        this.semestreAtual = 3;
+      } else {
+        this.semestreAtual = undefined;
+      }
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.DisciplinasAtivados = [
         ..._.orderBy(this.DisciplinasSelecionados, this.ordenacao)
       ];
-      this.clearSearch();
+
+      this.search = null; //clear search
       this.$refs.modalFiltros.hide();
     },
 
+    selectAllPerfis() {
+      if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
+      for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
+        this.PerfisSelecionados.push(this.$store.state.perfil.Perfis[i]);
+    },
+    selectNonePerfis() {
+      this.PerfisSelecionados = [];
+    },
     selectAll() {
       if (this.DisciplinasSelecionados != []) this.DisciplinasSelecionados = [];
       for (var i = 0; i < this.$store.state.disciplina.Disciplinas.length; i++)
@@ -917,7 +955,6 @@ export default {
       });
       return perfil.abreviacao;
     },
-
     turmas(disciplina, semestre) {
       return _.orderBy(
         _.filter(this.$store.state.turma.Turmas, turma => {
@@ -975,10 +1012,10 @@ export default {
   computed: {
     disciplinasComFiltro: function() {
       return this.Disciplinas.filter(disci => {
-        return (
-          disci.nome.match(this.search.toUpperCase()) ||
-          disci.codigo.match(this.search.toUpperCase())
-        );
+        return this.search == null
+          ? true
+          : disci.nome.match(this.search.toUpperCase()) ||
+              disci.codigo.match(this.search.toUpperCase());
       });
     },
     Disciplinas() {
@@ -988,6 +1025,9 @@ export default {
         }),
         this.ordenacao
       );
+    },
+    Perfiss() {
+      return this.$store.state.perfil.Perfis;
     },
 
     VagasTurmaSelecionada() {
@@ -1024,8 +1064,22 @@ export default {
   },
   watch: {
     ordenacao(newValue, oldValue) {
-      console.log(newValue, oldValue);
       this.DisciplinasAtivados = _.orderBy(this.DisciplinasAtivados, newValue);
+    },
+    PerfisSelecionados(newValue, oldValue) {
+      //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
+      this.DisciplinasSelecionados = [];
+
+      this.Disciplinas.forEach(discip => {
+        this.PerfisSelecionados.forEach(perfil => {
+          if (
+            discip.Perfil == perfil.id &&
+            !this.DisciplinasSelecionados.includes(discip)
+          ) {
+            this.DisciplinasSelecionados.push(discip);
+          }
+        });
+      });
     }
   }
 };
@@ -1050,7 +1104,7 @@ export default {
 }
 .main-table {
   display: block;
-  overflow-y: auto;
+  overflow-y: scroll;
   height: -webkit-calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
