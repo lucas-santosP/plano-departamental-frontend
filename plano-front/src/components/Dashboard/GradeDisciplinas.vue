@@ -15,7 +15,7 @@
         >
           <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
             <select v-model="novoAno" v-on:change="runNovoAno()" style="height: 25px!important">
-            <option v-for="i in Array.from(Array(10), (e, i)=>i -5)" :value="AnoAtual + i">{{AnoAtual + i}}</option>
+            <option v-for="i in Array.from(Array(11), (e, i)=>i -5)" :value="AnoAtual + i">{{AnoAtual + i}}</option>
             </select>
           </div>
           <div class="d-flex">
