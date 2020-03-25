@@ -805,6 +805,21 @@
                     ></i>
                   </p>
                 </th>
+                <th>
+                  <p
+                          class="p-header clickable-header"
+                          style="width: 70px; text-align: start;"
+                          v-on:click="ordemCursos('vagasTotais')"
+                          title="Clique para ordenar por vagas extras"
+                  >
+                    Total
+                    <i
+                            v-if="ordemCurso === 'vagasTotais'"
+                            style="font-size:0.6rem; text-align:right"
+                            class="fas fa-arrow-down fa-sm"
+                    ></i>
+                  </p>
+                </th>
               </div>
             </tr>
           </thead>
@@ -833,6 +848,11 @@
                 <td>
                   <p style="width:70px; text-align:start">
                     {{ p.vagasNaoPeriodizadas }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width:70px; text-align:start">
+                    {{ p.vagasPeriodizadas + p.vagasNaoPeriodizadas }}
                   </p>
                 </td>
               </div>
@@ -1058,6 +1078,8 @@ export default {
               return -p.vagasPeriodizadas;
             case "vagasNaoPeriodizadas":
               return -p.vagasNaoPeriodizadas;
+            case "vagasTotais":
+              return -(p.vagasPeriodizadas + p.vagasNaoPeriodizadas);
             default:
               return this.curso(p).codigo;
           }
