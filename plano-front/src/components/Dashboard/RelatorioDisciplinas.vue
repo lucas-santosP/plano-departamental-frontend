@@ -346,6 +346,9 @@
       size="lg"
       title="Selecione as disciplinas"
     >
+      <div class="col m-0 p-0" style="width:100%;">
+        <input type="text" v-model="filtroDisciplina" style="width:100%; text-align: left">
+      </div>
       <div class="col m-0 p-0" style="width:max-content;">
         <table
           class="table table-sm modal-table table-bordered"
@@ -612,6 +615,7 @@ export default {
       semestreAtual: 3,
       turmaSelecionada: undefined,
       ordemCurso: 'codigo',
+      filtroDisciplina: ''
     };
   },
 
@@ -764,8 +768,8 @@ export default {
   computed: {
     Disciplinas() {
       return _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil !== 13 && d.Perfil !== 15;
+        _.filter(this.$store.state.disciplina.Disciplinas, (d) => {
+          return (d.Perfil !== 13 && d.Perfil !== 15 && (this.filtroDisciplina === '' ? true : d.nome.includes(this.filtroDisciplina.toUpperCase())));
         }),
         this.ordenacao
       );
