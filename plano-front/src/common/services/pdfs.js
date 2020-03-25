@@ -914,15 +914,15 @@ export default {
                     tables.push({
                         style: 'tableExample',
                         table: {
-                            widths: [16, '*', 110, 65, ],
+                            widths: [40, '*', 110, 65, ],
                             headerRows: 1,
                             color: '#426',
                             body: [
                                 [
-                                    {text: 'T: ' + turmasDisc[j].letra, alignment: 'center', fontSize: 8},
-                                    {text: 'Docentes: ' + docentes, alignment: 'left', fontSize: 8},
-                                    {text: 'Horário: ' + horarioTotal, alignment: 'left', fontSize: 8},
-                                    {text: 'Vagas: ' + this.vagasTurma(turmasDisc[j], 1), alignment: 'left', fontSize: 8}]
+                                    {text: 'Turma: ' + turmasDisc[j].letra, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Docentes: ' + docentes, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Horário: ' + horarioTotal, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Vagas: ' + this.vagasTurma(turmasDisc[j], 1), alignment: 'left', fontSize: 8, bold: true}]
                             ]
                         },
                         layout: {
@@ -1013,15 +1013,15 @@ export default {
                     tables.push({
                         style: 'tableExample',
                         table: {
-                            widths: [16, '*', 110, 65, ],
+                            widths: [40, '*', 110, 65, ],
                             headerRows: 1,
                             color: '#426',
                             body: [
                                 [
-                                    {text: 'T: ' + turmasDisc[j].letra, alignment: 'center', fontSize: 8},
-                                    {text: 'Docentes: ' + docentes, alignment: 'left', fontSize: 8},
-                                    {text: 'Horário: ' + horarioTotal, alignment: 'left', fontSize: 8},
-                                    {text: 'Vagas: ' + this.vagasTurma(turmasDisc[j], 2), alignment: 'left', fontSize: 8}]
+                                    {text: 'Turma: ' + turmasDisc[j].letra, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Docentes: ' + docentes, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Horário: ' + horarioTotal, alignment: 'left', fontSize: 8, bold: true},
+                                    {text: 'Vagas: ' + this.vagasTurma(turmasDisc[j], 2), alignment: 'left', fontSize: 8, bold: true}]
                             ]
                         },
                         layout: {
