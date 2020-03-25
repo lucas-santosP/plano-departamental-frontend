@@ -299,10 +299,14 @@
             <font style="font-style:italic;">download</font> do mesmo.
           </li>
           <li class="list-group-item">
-            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho da tabela para ordenar por código, ou em Nome para ordenar por ordem alfabética, ou em Perfil para ordenar por perfil.
+            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho
+            da tabela para ordenar por código, ou em Nome para ordenar por ordem
+            alfabética, ou em Perfil para ordenar por perfil.
           </li>
           <li class="list-group-item">
-            <strong>Para visualizar divisões de vagas:</strong> Clique no número de vagas de uma turma para visualizar a alocação das vagas por cursos.
+            <strong>Para visualizar divisões de vagas:</strong> Clique no número
+            de vagas de uma turma para visualizar a alocação das vagas por
+            cursos.
           </li>
         </ul>
       </div>
@@ -343,7 +347,7 @@
 
           <li class="nav-item" @click="changeTab('disciplinas')">
             <a
-              class="nav-link border border-right-0 clickable"
+              class="nav-link border border-right-0  clickable"
               :class="{
                 active: nav_ativo == 'disciplinas'
               }"
@@ -718,16 +722,16 @@
                 </th>
                 <th>
                   <p
-                          class="p-header clickable-header"
-                          style="width: 70px; text-align: start;"
-                          v-on:click="ordemCursos('vagasTotais')"
-                          title="Clique para ordenar por vagas extras"
+                    class="p-header clickable-header"
+                    style="width: 70px; text-align: start;"
+                    v-on:click="ordemCursos('vagasTotais')"
+                    title="Clique para ordenar por vagas extras"
                   >
                     Total
                     <i
-                            v-if="ordemCurso === 'vagasTotais'"
-                            style="font-size:0.6rem; text-align:right"
-                            class="fas fa-arrow-down fa-sm"
+                      v-if="ordemCurso === 'vagasTotais'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-down fa-sm"
                     ></i>
                   </p>
                 </th>
