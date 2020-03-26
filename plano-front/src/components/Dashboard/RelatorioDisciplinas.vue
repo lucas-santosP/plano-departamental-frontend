@@ -43,7 +43,7 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="divTable p-0" ref="carga">
-      <table class="table main-table table-hover border table-sm">
+      <table class="main-table table table-bordered  table-hover table-sm">
         <thead class="thead-light">
           <tr>
             <div
@@ -54,14 +54,20 @@
                 <p
                   class="p-header clickable-header"
                   style="width: 80px;"
-                  @click="toggleOrderCodigo()"
+                  @click="toggleOrdem('codigo')"
                   title="Clique para ordenar por código"
                 >
                   Cód.
                   <i
-                    v-if="ordenacao == 'codigo'"
+                    v-if="ordenacao.ordemPor == 'codigo'"
                     style="font-size:0.6rem; text-align:right"
-                    class="fas fa-arrow-down fa-sm"
+                    :class="
+                      ordenacao.ordemPor == 'codigo'
+                        ? ordenacao.tipo == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : ''
+                    "
                   ></i>
                 </p>
               </th>
@@ -69,14 +75,19 @@
                 <p
                   class="p-header clickable-header"
                   style="width: 350px"
-                  @click="toggleOrderNome()"
+                  @click="toggleOrdem('nome')"
                   title="Clique para ordenar por nome"
                 >
                   Nome
                   <i
-                    v-if="ordenacao == 'nome'"
-                    style="font-size:0.6rem; text-align:right"
-                    class="fas fa-arrow-down fa-sm"
+                    style="font-size:0.6rem; text-align:right;"
+                    :class="
+                      ordenacao.ordemPor == 'nome'
+                        ? ordenacao.tipo == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : ''
+                    "
                   ></i>
                 </p>
               </th>
@@ -85,14 +96,20 @@
                 <p
                   class="p-header clickable-header"
                   style="width: 65px"
-                  @click="toggleOrderPerfil()"
+                  @click="toggleOrdem('perfil')"
                   title="Clique para ordenar por nome"
                 >
                   Perfil
                   <i
-                    v-if="Array.isArray(ordenacao)"
+                    v-if="ordenacao.ordemPor == 'perfil'"
                     style="font-size:0.6rem; text-align:right"
-                    class="fas fa-arrow-down fa-sm"
+                    :class="
+                      ordenacao.ordemPor == 'perfil'
+                        ? ordenacao.tipo == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : ''
+                    "
                   ></i>
                 </p>
               </th>
@@ -135,7 +152,7 @@
         </thead>
         <tbody>
           <template v-if="Disciplinas.length > 0">
-            <template v-for="disciplina in DisciplinasAtivados">
+            <template v-for="disciplina in computed_disci">
               <template v-if="turmas(disciplina, semestreAtual).length > 0">
                 <tr class="disc-tr" :key="disciplina.codigo">
                   <div style="width: ?max-contet;">
@@ -326,6 +343,15 @@
           class="nav nav-tabs card-header-tabs m-0"
           style="font-size: 11px!important;height: 30px;"
         >
+          <li class="nav-item" @click="changeTab('perfis')">
+            <a
+              class="nav-link border border-right-0 clickable"
+              :class="{
+                active: nav_ativo == 'perfis'
+              }"
+              >Perfis</a
+            >
+          </li>
           <li class="nav-item" @click="changeTab('disciplinas')">
             <a
               class="nav-link border border-right-0  clickable"
@@ -337,20 +363,11 @@
           </li>
           <li class="nav-item" @click="changeTab('semestre')">
             <a
-              class="nav-link border border-right-0  clickable"
+              class="nav-link border  clickable"
               :class="{
                 active: nav_ativo == 'semestre'
               }"
               >Semestre</a
-            >
-          </li>
-          <li class="nav-item" @click="changeTab('perfis')">
-            <a
-              class="nav-link border clickable"
-              :class="{
-                active: nav_ativo == 'perfis'
-              }"
-              >Perfis</a
             >
           </li>
         </ul>
@@ -436,12 +453,12 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 80px; text-align: start;"
-                    @click="toggleOrderCodigo()"
+                    @click="toggleOrdem('codigo')"
                     title="Clique para ordenar por código"
                   >
                     Cód.
                     <i
-                      v-if="ordenacao == 'codigo'"
+                      v-if="ordenacao.ordemPor == 'codigo'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -451,12 +468,12 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 260px; text-align: start;"
-                    @click="toggleOrderNome()"
+                    @click="toggleOrdem('nome')"
                     title="Clique para ordenar por nome"
                   >
                     Nome
                     <i
-                      v-if="ordenacao == 'nome'"
+                      v-if="ordenacao.ordemPor == 'nome'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -466,12 +483,12 @@
                   <p
                     class="p-header clickable-header"
                     style="width: 80px; text-align: start;"
-                    @click="toggleOrderPerfil()"
+                    @click="toggleOrdem('perfil')"
                     title="Clique para ordenar por nome"
                   >
                     Perfil
                     <i
-                      v-if="Array.isArray(ordenacao)"
+                      v-if="Array.isArray(ordenacao.ordemPor)"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
@@ -829,7 +846,7 @@ export default {
 
   data() {
     return {
-      ordenacao: "codigo",
+      ordenacao: { ordemPor: "codigo", tipo: "asc" },
       PerfisSelecionados: [],
       PerfisAtivados: [],
       DisciplinasSelecionados: [],
@@ -839,7 +856,7 @@ export default {
       semestreAtual: 3,
       turmaSelecionada: undefined,
       ordemCurso: "codigo",
-      nav_ativo: "disciplinas",
+      nav_ativo: "perfis",
       search: null
     };
   },
@@ -899,29 +916,18 @@ export default {
     selectNone() {
       this.DisciplinasSelecionados = [];
     },
-
-    toggleOrderNome() {
-      if (this.ordenacao != "nome") {
-        this.ordenacao = "nome";
+    toggleOrdem(ord) {
+      if (this.ordenacao.ordemPor != ord) {
+        this.ordenacao.ordemPor = ord;
+        this.ordenacao.tipo = "asc";
       } else {
-        this.ordenacao = "posicao";
+        if (this.ordenacao.tipo == "asc") {
+          this.ordenacao.tipo = "desc";
+        } else {
+          this.ordenacao.tipo = "asc";
+        }
       }
     },
-    toggleOrderCodigo() {
-      if (this.ordenacao != "codigo") {
-        this.ordenacao = "codigo";
-      } else {
-        this.ordenacao = "posicao";
-      }
-    },
-    toggleOrderPerfil() {
-      if (!Array.isArray(this.ordenacao)) {
-        this.ordenacao = ["Perfil", "codigo"];
-      } else {
-        this.ordenacao = "posicao";
-      }
-    },
-
     vagasTurma(turma, semestre) {
       if (
         (semestre === 1 && (turma.periodo == 3 || turma.periodo == 4)) ||
@@ -1060,10 +1066,28 @@ export default {
 
     Horarios() {
       return this.$store.state.horario.Horarios;
+    },
+    computed_disci() {
+      if (this.ordenacao.ordemPor == "perfil") {
+        return _.orderBy(
+          this.DisciplinasAtivados,
+          ["Perfil", "codigo"],
+          [this.ordenacao.tipo, "asc"]
+        );
+      } else {
+        return _.orderBy(
+          this.DisciplinasAtivados,
+          this.ordenacao.ordemPor,
+          this.ordenacao.tipo
+        );
+      }
     }
   },
   watch: {
     ordenacao(newValue, oldValue) {
+      // if (newValue == "perfis") {
+      //   this.ordenacao.ordemPor = ["Perfil", "codigo"];
+      // }
       this.DisciplinasAtivados = _.orderBy(this.DisciplinasAtivados, newValue);
     },
     PerfisSelecionados(newValue, oldValue) {
