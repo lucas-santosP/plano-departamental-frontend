@@ -421,7 +421,7 @@
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="PerfisSelecionados"
+                      v-model="PerfisAtivados"
                       :value="perfil"
                       class="form-check-input position-static m-0"
                     />
@@ -866,7 +866,6 @@ export default {
   data() {
     return {
       ordenacao: { ordemPor: "codigo", tipo: "asc" },
-      PerfisSelecionados: [],
       PerfisAtivados: [],
       DisciplinasSelecionados: [],
       DisciplinasAtivados: [],
@@ -926,12 +925,12 @@ export default {
     },
 
     selectAllPerfis() {
-      if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
+      if (this.PerfisAtivados != []) this.PerfisAtivados = [];
       for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
-        this.PerfisSelecionados.push(this.$store.state.perfil.Perfis[i]);
+        this.PerfisAtivados.push(this.$store.state.perfil.Perfis[i]);
     },
     selectNonePerfis() {
-      this.PerfisSelecionados = [];
+      this.PerfisAtivados = [];
     },
     selectAll() {
       if (this.DisciplinasSelecionados != []) this.DisciplinasSelecionados = [];
@@ -1131,12 +1130,12 @@ export default {
     }
   },
   watch: {
-    PerfisSelecionados(newValue, oldValue) {
+    PerfisAtivados(newValue, oldValue) {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
       this.DisciplinasSelecionados = [];
 
       this.Disciplinas.forEach(discip => {
-        this.PerfisSelecionados.forEach(perfil => {
+        this.PerfisAtivados.forEach(perfil => {
           if (
             discip.Perfil == perfil.id &&
             !this.DisciplinasSelecionados.includes(discip)
