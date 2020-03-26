@@ -152,7 +152,7 @@
         </thead>
         <tbody>
           <template v-if="Disciplinas.length > 0">
-            <template v-for="disciplina in computed_disci">
+            <template v-for="disciplina in Disciplinas_Main_Table">
               <template v-if="turmas(disciplina, semestreAtual).length > 0">
                 <tr class="disc-tr" :key="disciplina.codigo">
                   <div style="width: ?max-contet;">
@@ -437,7 +437,7 @@
         <!-- TABLE DISCIPLINAS -->
         <table
           v-else-if="nav_ativo == 'disciplinas'"
-          class="table table-sm modal-table table-bordered"
+          class="table table-sm modal-table table-bordered table-hover"
           style="max-height: 450px !important; overflow-y: scroll!important"
         >
           <thead class="thead-light">
@@ -460,7 +460,13 @@
                     <i
                       v-if="ordenacao.ordemPor == 'codigo'"
                       style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
+                      :class="
+                        ordenacao.ordemPor == 'codigo'
+                          ? ordenacao.tipo == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
                     ></i>
                   </p>
                 </th>
@@ -475,7 +481,13 @@
                     <i
                       v-if="ordenacao.ordemPor == 'nome'"
                       style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
+                      :class="
+                        ordenacao.ordemPor == 'nome'
+                          ? ordenacao.tipo == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
                     ></i>
                   </p>
                 </th>
@@ -488,9 +500,15 @@
                   >
                     Perfil
                     <i
-                      v-if="Array.isArray(ordenacao.ordemPor)"
+                      v-if="ordenacao.ordemPor == 'perfil'"
                       style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
+                      :class="
+                        ordenacao.ordemPor == 'perfil'
+                          ? ordenacao.tipo == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
                     ></i>
                   </p>
                 </th>
@@ -521,9 +539,10 @@
           </thead>
           <tbody>
             <tr
-              v-for="disciplina in disciplinasComFiltro"
+              v-for="disciplina in Disciplinas_Modal_Table"
               :key="'disciplina' + disciplina.id"
               value="disciplina.id"
+              @click="addInDisci(disciplina)"
             >
               <div style="width: max-content">
                 <td>
@@ -862,6 +881,16 @@ export default {
   },
 
   methods: {
+    //Função para adicionar ao clickar no <tr>
+    // addInDisci(disciplina) {
+    //   let indice = this.DisciplinasSelecionados.indexOf(disciplina);
+
+    //   if (indice === -1) {
+    //     this.DisciplinasSelecionados.push(disciplina);
+    //   } else {
+    //     this.DisciplinasSelecionados.splice(indice, 1);
+    //   }
+    // },
     changeTab(tab) {
       this.nav_ativo = tab;
       this.search = null; //clear search
@@ -890,9 +919,7 @@ export default {
         this.semestreAtual = undefined;
       }
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.DisciplinasAtivados = [
-        ..._.orderBy(this.DisciplinasSelecionados, this.ordenacao)
-      ];
+      this.DisciplinasAtivados = [...this.DisciplinasSelecionados];
 
       this.search = null; //clear search
       this.$refs.modalFiltros.hide();
@@ -1016,21 +1043,56 @@ export default {
   },
 
   computed: {
-    disciplinasComFiltro: function() {
-      return this.Disciplinas.filter(disci => {
+    //Todas disciplinas
+    Disciplinas() {
+      return _.orderBy(
+        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
+          return d.Perfil !== 13 && d.Perfil !== 15;
+        })
+      );
+    },
+    //Todas disciplinas ordenadas pelo click
+    orderDisciplinas() {
+      if (this.ordenacao.ordemPor == "perfil") {
+        //Se for ordem pelo perfil, passa o vetor de ordem ["Perfil", "codigo"]
+        return _.orderBy(
+          this.Disciplinas,
+          ["Perfil", "codigo"],
+          [this.ordenacao.tipo, "asc"]
+        );
+      } else {
+        //Outros casos
+        return _.orderBy(
+          this.Disciplinas,
+          this.ordenacao.ordemPor,
+          this.ordenacao.tipo
+        );
+      }
+    },
+    //Disciplinas da Modal Table com a pesquisa
+    Disciplinas_Modal_Table() {
+      return this.orderDisciplinas.filter(disci => {
         return this.search == null
           ? true
           : disci.nome.match(this.search.toUpperCase()) ||
               disci.codigo.match(this.search.toUpperCase());
       });
     },
-    Disciplinas() {
-      return _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil !== 13 && d.Perfil !== 15;
-        }),
-        this.ordenacao
-      );
+    //Disciplinas da Main Table ordenadas
+    Disciplinas_Main_Table() {
+      if (this.ordenacao.ordemPor == "perfil") {
+        return _.orderBy(
+          this.DisciplinasAtivados,
+          ["Perfil", "codigo"],
+          [this.ordenacao.tipo, "asc"]
+        );
+      } else {
+        return _.orderBy(
+          this.DisciplinasAtivados,
+          this.ordenacao.ordemPor,
+          this.ordenacao.tipo
+        );
+      }
     },
     Perfiss() {
       return this.$store.state.perfil.Perfis;
@@ -1066,30 +1128,9 @@ export default {
 
     Horarios() {
       return this.$store.state.horario.Horarios;
-    },
-    computed_disci() {
-      if (this.ordenacao.ordemPor == "perfil") {
-        return _.orderBy(
-          this.DisciplinasAtivados,
-          ["Perfil", "codigo"],
-          [this.ordenacao.tipo, "asc"]
-        );
-      } else {
-        return _.orderBy(
-          this.DisciplinasAtivados,
-          this.ordenacao.ordemPor,
-          this.ordenacao.tipo
-        );
-      }
     }
   },
   watch: {
-    ordenacao(newValue, oldValue) {
-      // if (newValue == "perfis") {
-      //   this.ordenacao.ordemPor = ["Perfil", "codigo"];
-      // }
-      this.DisciplinasAtivados = _.orderBy(this.DisciplinasAtivados, newValue);
-    },
     PerfisSelecionados(newValue, oldValue) {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
       this.DisciplinasSelecionados = [];
@@ -1400,6 +1441,7 @@ i.far {
   margin: 0 !important;
   /* height: 22px !important; */
 }
+
 .modal-table p {
   margin: 0 !important;
   text-align: center;
