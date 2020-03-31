@@ -356,7 +356,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                  <p style="width:435px; text-align:start">PRIMEIRO SEMESTRE</p>
                 </td>
               </div>
             </tr>
@@ -372,7 +372,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                  <p style="width:435px; text-align:start">SEGUNDO SEMESTRE</p>
                 </td>
               </div>
             </tr>

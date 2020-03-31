@@ -87,6 +87,7 @@
               v-on:click.prevent="
                 showDisciplina(disciplina), clickada(disciplina.codigo)
               "
+              style="cursor:pointer"
               :class="{ 'bg-custom': disciplinaClickada === disciplina.codigo }"
             >
               <div style="width:700px">
@@ -215,7 +216,7 @@
                   type="text"
                   id="perfil"
                   class="form-control form-control-sm"
-                  style="width: 288px!important"
+                  style="width: 288px!important; text-align: start"
                   v-model="disciplinaForm.Perfil"
                 >
                   <option v-if="Perfis.length === 0" type="text" value
