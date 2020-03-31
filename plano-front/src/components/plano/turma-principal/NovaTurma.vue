@@ -1,7 +1,7 @@
 <template>
   <div
-    style="font-size:11px; background-color:#c8c8c8;"
-    class="sticky3 max-content"
+    style="font-size:11px; background-color:#e9e9e9;"
+    class="stickyAdd max-content"
   >
     <td>
       <div style="width: 25px;"></div>
@@ -142,10 +142,10 @@
     </td>
 
     <td>
-      <div style="width: 72px">
+      <div style="width: 80px">
         <select
           type="text"
-          style="width: 67px; margin-bottom:1px"
+          style="width: 75px; margin-bottom:1px"
           id="horario1"
           v-model="turmaForm.Horario1"
           v-on:change="adjustTurno1"
@@ -163,7 +163,7 @@
         <br />
         <select
           type="text"
-          style="width: 67px"
+          style="width: 75px"
           id="horario2"
           v-model="turmaForm.Horario2"
           v-on:change="adjustTurno2"
@@ -219,8 +219,13 @@
       </div>
     </td>
     <td>
-      <div style="width:35px"></div>
+      <div style="width:40px"></div>
     </td>
+    <template v-for="c in cursos_length">
+      <td :key="c + 'cursos-ativados'">
+        <div style="width:32px">{{ c.codigo }}</div>
+      </td>
+    </template>
   </div>
 </template>
 <script>
@@ -243,6 +248,7 @@ const emptyTurma = {
 };
 export default {
   name: "NovaTurma",
+  props: { cursos_length: Number },
   data() {
     return {
       turmaForm: _.clone(emptyTurma),
@@ -429,7 +435,7 @@ input[type="text"] {
 select {
   height: 18px;
 }
-.sticky3 {
+.stickyAdd {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
@@ -437,7 +443,7 @@ select {
   top: 21px !important;
   display: block !important;
   overflow: hidden !important;
-  z-index: 5;
+  z-index: 3;
 }
 @-moz-document url-prefix() {
   select {

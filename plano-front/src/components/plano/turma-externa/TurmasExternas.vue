@@ -78,13 +78,16 @@
         <thead class="thead-light">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: ‭884‬px; height:20px !important"
-              class="sticky"
+              style="display: block; overflow: hidden;"
+              class="sticky max-content"
             >
+              <th scope="col">
+                <p style="width: 25px"></p>
+              </th>
               <th scope="col">
                 <p
                   class="p-header"
-                  style="width:24px !important;"
+                  style="width:40px !important;"
                   title="Semestre"
                 >
                   S.
@@ -96,7 +99,7 @@
                   style="width:70px !important;"
                   title="Código"
                 >
-                  Cod
+                  Cód.
                 </p>
               </th>
               <th scope="col">
@@ -132,7 +135,7 @@
                 <p class="p-header" style="width:98px !important;">Sala</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width:32px !important;">Total</p>
+                <p class="p-header" style="width:40px !important;">Total</p>
               </th>
               <template v-for="curso in Cursos">
                 <th
@@ -151,7 +154,7 @@
                     triggers="hover focus"
                   >
                     <p
-                      style="font-size: 11px"
+                      style="text-align:center; font-size: 11px!important;"
                       class="p-0 m-0"
                       v-if="
                         curso.semestreInicial == 1 || curso.semestreInicial == 3
@@ -160,7 +163,7 @@
                       1º - {{ curso.alunosEntrada }}
                     </p>
                     <p
-                      style="font-size: 11px"
+                      style="text-align:center; font-size: 11px!important;"
                       class="p-0 m-0"
                       v-if="
                         curso.semestreInicial == 2 || curso.semestreInicial == 3
@@ -168,8 +171,12 @@
                     >
                       2º - {{ curso.alunosEntrada2 }}
                     </p>
-                    <p style="font-size: 11px" class="p-0 m-0">
-                      {{ curso.nome }}
+
+                    <p
+                      style="text-align:center; font-size: 11px!important;"
+                      class="p-0 m-0"
+                    >
+                      <b>{{ curso.nome }}</b>
                     </p>
                   </b-popover>
                 </th>
@@ -181,17 +188,24 @@
         <tbody>
           <!-- Adição de turma-->
           <template v-if="isAdd">
-            <tr style="background-color: #c8c8c8;;" class="stickyAdd">
-              <div style="width: ‭884‬px; height:41px; font-size:11px">
+            <tr class="stickyAdd">
+              <div
+                class="max-content"
+                style="font-size:11px; background-color:#e9e9e9; "
+              >
                 <td>
-                  <div style="width:24px !important;">
-                    <input
-                      type="text"
-                      style="width: 20px; height:20px; text-align: center; "
-                      id="periodo"
-                      @keypress="onlyNumber"
+                  <div style="width:25px !important;"></div>
+                </td>
+                <td>
+                  <div style="width:40px !important;">
+                    <select
+                      id="2periodo"
+                      style="width: 35px;"
                       v-model="turmaForm.periodo"
-                    />
+                    >
+                      <option value="1">1</option>
+                      <option value="3">3</option>
+                    </select>
                   </div>
                 </td>
                 <td>
@@ -350,9 +364,11 @@
                     </select>
                   </div>
                 </td>
-                <td>
-                  <!-- Ocupa espaço vazio das vagas na parte de edição -->
-                  <div style="width: 165px; height:37px"></div>
+                <td><div style="width:40px"></div></td>
+                <!-- <div style="width: 165px; height:37px"></div> -->
+                <!-- Ocupa espaço vazio das vagas na parte de edição -->
+                <td v-for="n in 4" :key="n">
+                  <div style="width:32px"></div>
                 </td>
               </div>
             </tr>
@@ -367,21 +383,7 @@
                   v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                   v-if="turma.Disciplina === disciplina.id"
                   :key="'1-tr-' + perfil + turma.id + disciplina"
-                  v-bind:class="{
-                    basico: perfil.id == 1,
-                    avancado: perfil.id == 2,
-                    arqso: perfil.id == 3,
-                    bancosdedados: perfil.id == 4,
-                    computacaografica: perfil.id == 5,
-                    engenhariasoftware: perfil.id == 6,
-                    iaic: perfil.id == 7,
-                    numoc: perfil.id == 8,
-                    redes: perfil.id == 9,
-                    teoria: perfil.id == 10,
-                    humempre: perfil.id == 11,
-                    multi: perfil.id == 12,
-                    ice: perfil.id == 13
-                  }"
+                  :class="cor_perfil(perfil.id)"
                 >
                   <template
                     v-if="
@@ -648,6 +650,47 @@ export default {
         },
         */
   methods: {
+    cor_perfil(id) {
+      let perfil;
+      switch (id) {
+        case 1:
+          perfil = "basico";
+          break;
+        case 2:
+          perfil = "avancado";
+          break;
+        case 3:
+          perfil = "arqso";
+          break;
+        case 4:
+          perfil = "bancosdedados";
+          break;
+        case 5:
+          perfil = "computacaografica";
+          break;
+        case 6:
+          perfil = "engenhariasoftware";
+          break;
+        case 7:
+          perfil = "iaic";
+        case 8:
+          perfil = "numoc";
+        case 9:
+          perfil = "redes";
+        case 10:
+          perfil = "teoria";
+        case 11:
+          perfil = "humempre";
+        case 12:
+          perfil = "multi";
+          break;
+        case 13:
+          perfil = "ice";
+          break;
+      }
+      console.log(perfil);
+      return perfil;
+    },
     btnOKSemestre() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) {
         this.semestreAtual = 1;
@@ -1001,12 +1044,24 @@ export default {
   margin-bottom: 0;
   text-align: center;
 }
-.main-table input {
-  height: 18px !important;
-  text-align: center !important;
-}
+
 .main-table select {
   height: 18px;
+}
+.main-table input[type="text"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+  margin-bottom: auto !important;
+  height: 18px;
+  width: 18px;
+  text-align: center !important;
+}
+.main-table input[type="checkbox"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+  margin-bottom: auto !important;
+  height: 15px;
+  width: 15px;
 }
 .sticky {
   display: block !important;
@@ -1019,10 +1074,14 @@ export default {
   z-index: 3;
 }
 .stickyAdd {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 21px;
-  display: fixed;
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 21px !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
 }
 /* Botoes */
 button {
@@ -1254,6 +1313,12 @@ strong {
   color: #495057 !important;
   cursor: default;
 }
+.max-content {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+}
+
 /* FIM MODAL TABLE */
 @media screen and (max-width: 429px) {
   .div-titulo {

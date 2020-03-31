@@ -25,13 +25,13 @@
       <p style="width:75px !important;">Turno</p>
     </th>
     <th scope="col">
-      <p style="width:72px !important;">Horário</p>
+      <p style="width:80px !important;">Horário</p>
     </th>
     <th scope="col">
       <p style="width:98px !important;">Sala</p>
     </th>
     <th scope="col">
-      <p style="width:35px !important;" title="Total de vagas">Total</p>
+      <p style="width:40px !important;" title="Total de vagas">Total</p>
     </th>
     <template v-for="curso in cursos">
       <th :key="'1-' + curso.id" :id="'curso' + curso.id">
@@ -56,18 +56,25 @@
         triggers="hover focus"
       >
         <p
-          style="font-size: 11px"
+          class="p-0 m-0"
+          style="text-align:center; font-size: 11px!important;"
           v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3"
         >
           1º - {{ curso.alunosEntrada }}
         </p>
         <p
-          style="font-size: 11px"
+          class="p-0 m-0"
+          style="text-align:center; font-size: 11px!important;"
           v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
         >
           2º - {{ curso.alunosEntrada2 }}
         </p>
-        <p style="font-size: 11px">{{ curso.nome }}</p>
+        <p
+          class="p-0 m-0"
+          style="text-align:center; font-size: 11px!important;"
+        >
+          <b>{{ curso.nome }}</b>
+        </p>
       </b-popover>
     </template>
   </div>

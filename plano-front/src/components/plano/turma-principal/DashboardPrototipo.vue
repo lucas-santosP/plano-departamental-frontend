@@ -74,17 +74,18 @@
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light">
           <tr>
-            <turmaheader v-bind:cursos="CursosAtivados"></turmaheader>
+            <turmaheader :cursos="CursosAtivados"></turmaheader>
           </tr>
         </thead>
         <tbody>
           <template v-if="isAdd">
-            <tr style="background-color:#c8c8c8;">
-              <novaturma></novaturma>
+            <tr>
+              <novaturma :cursos_length="CursosAtivados.length"></novaturma>
             </tr>
           </template>
 
           <template v-if="Turmas.length > 0">
+            <!-- PRIMEIRO SEMESTRE -->
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
@@ -104,8 +105,18 @@
                     v-bind:cursos="CursosAtivados"
                   ></turmadata>
                 </template>
+
+                <template
+                  v-else-if="
+                    turma.periodo == 3 &&
+                      (semestreAtual == 2 || semestreAtual == 3)
+                  "
+                >
+                  <template></template>
+                </template>
               </tr>
             </template>
+            <!-- SEGUNDO SEMESTRE -->
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
@@ -589,8 +600,8 @@ export default {
 
   methods: {
     btnOK() {
-      this.btnOKSemestre();
       this.btnOKPerfis();
+      this.btnOKSemestre();
       this.btnOKCursos();
       this.$refs.modalFiltros.hide();
     },
@@ -881,6 +892,20 @@ export default {
         return false;
       }
     }
+    //   turmasFiltradas() {
+    //     let result_1 = [];
+    //     this.PerfisAtivados.forEach(perfil => {
+    //       this.inPerfil(perfil, this.Turmas, this.Disciplinas).forEach(turma => {
+    //         let obj = {
+    //           perfil: perfil,
+    //           turma: turma,
+    //           periodo_ord: parseInt(turma.periodo)
+    //         };
+    //         result_1.push(obj);
+    //       });
+    //     });
+    //     return _.orderBy(result_1, "periodo_ord");
+    //   }
   }
 };
 </script>

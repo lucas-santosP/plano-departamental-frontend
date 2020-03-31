@@ -136,7 +136,7 @@
     </td>
 
     <td>
-      <div style="width: 75px">
+      <div style="width: 75px;">
         <select
           :disabled="Admin ? false : true"
           type="text"
@@ -154,11 +154,11 @@
     </td>
 
     <td>
-      <div style="width:72px">
+      <div style="width:80px">
         <select
           :disabled="Admin ? false : true"
           type="text"
-          style="width: 67px; margin-bottom:1px"
+          style="width: 75px; margin-bottom:1px"
           id="horario1"
           v-model="turmaForm.Horario1"
           v-on:change="checkHorario(1)"
@@ -205,7 +205,7 @@
           v-if="Disciplina.cargaTeorica + Disciplina.cargaPratica >= 4"
           :disabled="Admin ? false : true"
           type="text"
-          style="width: 67px"
+          style="width: 75px"
           id="horario2"
           v-model="turmaForm.Horario2"
           v-on:change="checkHorario(2)"
@@ -294,11 +294,11 @@
     </td>
 
     <td>
-      <div style="width:35px">
-        <p style="width: 35px; font-weight: bold">
+      <div style="width:40px; height:43px">
+        <p style="width: 40px; font-weight: bold;" class="py-1">
           {{ totalPedidos() }}
         </p>
-        <p style="width: 35px; margin:0;">
+        <p style="width: 40px;">
           {{ totalPedidosPeriodizados() }}+{{ totalPedidosNaoPeriodizados() }}
         </p>
       </div>
