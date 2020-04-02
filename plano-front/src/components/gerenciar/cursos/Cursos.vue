@@ -411,11 +411,17 @@ export default {
     },
     toggleOrderCod() {
       if (this.ordenacao.order == "codigo") this.ordenacao.type = (this.ordenacao.type === 'asc' ? 'desc' : 'asc');
-      else this.ordenacao.order = "codigo";
+      else {
+        this.ordenacao.order = "codigo";
+        this.ordenacao.type = 'asc'
+      }
     },
     toggleOrderNome() {
       if (this.ordenacao.order == "nome") this.ordenacao.type = (this.ordenacao.type === 'asc' ? 'desc' : 'asc');
-      else this.ordenacao.order = "nome";
+      else {
+        this.ordenacao.order = "nome";
+        this.ordenacao.type = 'asc'
+      }
     },
     clickada(f_curso) {
       this.cursoClickado = f_curso;
