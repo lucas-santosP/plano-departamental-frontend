@@ -208,7 +208,7 @@
                 </td>
                 <td>
                   <p style="width:435px; text-align:start">
-                    Primeiro semestre
+                    PRIMEIRO
                   </p>
                 </td>
               </div>
@@ -226,7 +226,7 @@
                 </td>
                 <td>
                   <p style="width:435px; text-align:start">
-                    Segundo semestre
+                    SEGUNDO
                   </p>
                 </td>
               </div>
