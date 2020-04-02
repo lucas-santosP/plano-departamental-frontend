@@ -27,7 +27,7 @@
         <thead class="thead-light">
           <tr>
             <div style="width: 157px;" class="sticky">
-              <th scope="col" v-on:click="toggleOrder">
+              <th scope="col" class="clickable-header" v-on:click="toggleOrder">
                 <p class="p-header" style="width: 82px">Nome
                 <i
                   v-if="ordenacao.type == 'asc'"
@@ -599,6 +599,12 @@ i.far {
   background-color: white;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #698dff;
+}
+
+.clickable-header {
+  cursor: pointer;
+  text-align: start !important;
+  padding-left: 5px;
 }
 
 /* APENAS NO FIREFOX */
