@@ -17,7 +17,7 @@
           <b-button
             v-b-modal.modalFiltros
             title="Disciplinas"
-            class="cancelbtn"
+            class="cancelbtn btn-custom"
           >
             <i class="fas fa-list-ul"></i>
           </b-button>
@@ -25,14 +25,18 @@
           <div class="d-flex">
             <button
               type="button"
-              class="relatbtn"
+              class="relatbtn btn-custom"
               title="Relatório"
               v-on:click.prevent="pdf"
             >
               <i class="far fa-file-alt"></i>
             </button>
 
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+            <b-button
+              v-b-modal.modalAjuda
+              title="Ajuda"
+              class="relatbtn btn-custom"
+            >
               <i class="fas fa-question"></i>
             </b-button>
           </div>
@@ -330,7 +334,7 @@
 
       <div slot="modal-footer" style="display: none"></div>
     </b-modal>
-    <!-- Modals do botão para escolher disciplinas -->
+    <!-- Modals FILTROS -->
     <b-modal
       id="modalFiltros"
       ref="modalFiltros"
@@ -338,7 +342,7 @@
       size="md"
       title="Filtros"
     >
-      <div class="p-0 m-0 hhed" style="height: 30px; width: 465px;">
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
           style="font-size: 11px!important;height: 30px;"
@@ -518,12 +522,12 @@
             <tr>
               <div
                 style="width: max-content; font-size: 11px!important"
-                class="sticky2 "
+                class="stickySearch "
               >
                 <th>
                   <div
                     class="m-0 border"
-                    style="width:450px; height:34px;padding-left: 5px;padding-right: 10px; padding-top: 4px;"
+                    style="width:465px; height:34px;padding-left: 5px;padding-right: 25px; padding-top: 4px;"
                   >
                     <input
                       type="text"
@@ -638,13 +642,13 @@
         <div class="row ml-0 w-100">
           <template v-if="nav_ativo == 'disciplinas'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-df mr-2 btn-custom"
               variant="success"
               @click="selectAll()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-df mr-2 btn-custom"
               variant="secondary"
               @click="selectNone()"
               >Desmarcar Todos</b-button
@@ -652,13 +656,13 @@
           </template>
           <template v-else-if="nav_ativo == 'perfis'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-df mr-2 btn-custom"
               variant="success"
               @click="selectAllPerfis()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-df mr-2 btn-custom"
               variant="secondary"
               @click="selectNonePerfis()"
               >Desmarcar Todos</b-button
@@ -666,13 +670,13 @@
           </template>
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-df mr-2 btn-custom"
               variant="success"
               @click="selectAllSemestre()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-df mr-2 btn-custom"
               variant="secondary"
               @click="selectNoneSemestre()"
               >Desmarcar Todos</b-button
@@ -682,17 +686,18 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-df mr-2 btn-custom"
           style="padding-right:15px!important; padding-left:15px!important;"
           >OK</b-button
         >
       </div>
     </b-modal>
+
     <!-- Modals para ver divisões de vagas por curso -->
-    <b-modal id="modalVagas" ref="VagasModal" scrollable size="lg">
-      <div slot="modal-header" style="width:100%">
-        <div class="row col-12">
-          <h6 class="col-11">
+    <b-modal id="modalVagas" ref="VagasModal" scrollable size="md">
+      <div slot="modal-header" class="row w-100 m-0  p-0" style="width:100%">
+        <div class="col-10 form-inline p-0">
+          <h6 class="p-0 m-0 mr-4">
             {{
               turmaSelecionada !== undefined
                 ? disciplina(turmaSelecionada).codigo +
@@ -702,10 +707,12 @@
             }}
           </h6>
 
+          <label for="selectTurma" class="mr-2">Turma: </label>
           <select
-            class="col-1"
+            id="selectTurma"
+            class="form-control"
+            style="width:50px!important;"
             v-model="turmaSelecionada"
-            style="height:25px!important"
           >
             <option
               v-for="turma in turmaSelecionada !== undefined
@@ -723,7 +730,22 @@
             >
           </select>
         </div>
+
+        <div
+          class="col d-flex p-0"
+          style="justify-content: flex-end; align-content: center;"
+        >
+          <button
+            type="button"
+            class="btn-x"
+            style="font-size:20px"
+            @click="$refs.VagasModal.hide()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
+
       <div class="col m-0 p-0" style="width:max-content;">
         <table
           class="table table-sm modal-table table-bordered"
@@ -738,18 +760,24 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 100px; text-align: start;"
+                    style="width: 50px; text-align: start;"
                     v-on:click="ordemCursos('codigo')"
                     title="Clique para ordenar por código"
                   >
                     Cód.
                     <i
-                      v-if="ordemCurso.order === 'codigo' && ordemCurso.type === 'asc'"
+                      v-if="
+                        ordemCurso.order === 'codigo' &&
+                          ordemCurso.type === 'asc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordemCurso.order === 'codigo' && ordemCurso.type === 'desc'"
+                      v-if="
+                        ordemCurso.order === 'codigo' &&
+                          ordemCurso.type === 'desc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -758,18 +786,23 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 428px; text-align: start;"
+                    style="width: 260px; text-align: start;"
                     v-on:click="ordemCursos('nome')"
                     title="Clique para ordenar por nome"
                   >
                     Nome
                     <i
-                      v-if="ordemCurso.order === 'nome' && ordemCurso.type === 'asc'"
+                      v-if="
+                        ordemCurso.order === 'nome' && ordemCurso.type === 'asc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordemCurso.order === 'nome' && ordemCurso.type === 'desc'"
+                      v-if="
+                        ordemCurso.order === 'nome' &&
+                          ordemCurso.type === 'desc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -779,18 +812,24 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 70px; text-align: start;"
+                    style="width: 50px; text-align: start;"
                     v-on:click="ordemCursos('vagasPeriodizadas')"
                     title="Clique para ordenar por vagas da grade"
                   >
                     Grade
                     <i
-                      v-if="ordemCurso.order === 'vagasPeriodizadas' && ordemCurso.type === 'asc'"
+                      v-if="
+                        ordemCurso.order === 'vagasPeriodizadas' &&
+                          ordemCurso.type === 'asc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordemCurso.order === 'vagasPeriodizadas' && ordemCurso.type === 'desc'"
+                      v-if="
+                        ordemCurso.order === 'vagasPeriodizadas' &&
+                          ordemCurso.type === 'desc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -799,18 +838,24 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 70px; text-align: start;"
+                    style="width: 50px; text-align: start;"
                     v-on:click="ordemCursos('vagasNaoPeriodizadas')"
                     title="Clique para ordenar por vagas extras"
                   >
                     Extra
                     <i
-                      v-if="ordemCurso.order === 'vagasNaoPeriodizadas' && ordemCurso.type === 'asc'"
+                      v-if="
+                        ordemCurso.order === 'vagasNaoPeriodizadas' &&
+                          ordemCurso.type === 'asc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordemCurso.order === 'vagasNaoPeriodizadas' && ordemCurso.type === 'desc'"
+                      v-if="
+                        ordemCurso.order === 'vagasNaoPeriodizadas' &&
+                          ordemCurso.type === 'desc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -819,18 +864,24 @@
                 <th>
                   <p
                     class="p-header clickable-header"
-                    style="width: 70px; text-align: start;"
+                    style="width: 50px; text-align: start;"
                     v-on:click="ordemCursos('vagasTotais')"
                     title="Clique para ordenar por vagas extras"
                   >
                     Total
                     <i
-                      v-if="ordemCurso.order === 'vagasTotais' && ordemCurso.type === 'asc'"
+                      v-if="
+                        ordemCurso.order === 'vagasTotais' &&
+                          ordemCurso.type === 'asc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordemCurso.order === 'vagasTotais' && ordemCurso.type === 'desc'"
+                      v-if="
+                        ordemCurso.order === 'vagasTotais' &&
+                          ordemCurso.type === 'desc'
+                      "
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -845,29 +896,29 @@
               v-for="p in VagasTurmaSelecionada"
               :key="'vaga' + p.Curso + '-' + p.Turma"
             >
-              <div style="width: max-content">
+              <div style="width: max-content!important">
                 <td>
-                  <p style="width:100px; text-align:start">
+                  <p style="width: 50px; text-align:start">
                     {{ curso(p).codigo }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:428px; text-align:start">
+                  <p style="width:260px; text-align:start">
                     {{ curso(p).nome }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:70px; text-align:start">
+                  <p style="width:50px; text-align:start">
                     {{ p.vagasPeriodizadas }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:70px; text-align:start">
+                  <p style="width:50px; text-align:start">
                     {{ p.vagasNaoPeriodizadas }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:70px; text-align:start">
+                  <p style="width:50px; text-align:start">
                     {{ p.vagasPeriodizadas + p.vagasNaoPeriodizadas }}
                   </p>
                 </td>
@@ -876,7 +927,6 @@
           </tbody>
         </table>
       </div>
-
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;"></div>
     </b-modal>
   </div>
@@ -898,7 +948,7 @@ export default {
       semestre_2Ativo: true,
       semestreAtual: 3,
       turmaSelecionada: undefined,
-      ordemCurso: {order: "codigo", type: "asc"},
+      ordemCurso: { order: "codigo", type: "asc" },
       nav_ativo: "perfis",
       search: null
     };
@@ -921,7 +971,9 @@ export default {
     },
 
     pdf() {
-      pdfs.pdfRelatorioDisciplinas({disciplinasSelecionadas: this.DisciplinasAtivados});
+      pdfs.pdfRelatorioDisciplinas({
+        disciplinasSelecionadas: this.DisciplinasAtivados
+      });
     },
     selectAllSemestre() {
       this.semestre_1Ativo = true;
@@ -945,8 +997,8 @@ export default {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.DisciplinasAtivados = [...this.DisciplinasSelecionados];
 
-      this.search = null; //clear search
       this.$refs.modalFiltros.hide();
+      this.search = null; //clear search
     },
 
     selectAllPerfis() {
@@ -1062,11 +1114,13 @@ export default {
     },
 
     ordemCursos(ordem) {
-      if(this.ordemCurso.order === ordem)
-        this.ordemCurso.type === 'asc' ? this.ordemCurso.type = 'desc' : this.ordemCurso.type = 'asc'
+      if (this.ordemCurso.order === ordem)
+        this.ordemCurso.type === "asc"
+          ? (this.ordemCurso.type = "desc")
+          : (this.ordemCurso.type = "asc");
       else {
-        this.ordemCurso.order = ordem
-        this.ordemCurso.type = 'asc'
+        this.ordemCurso.order = ordem;
+        this.ordemCurso.type = "asc";
       }
     }
   },
@@ -1147,11 +1201,12 @@ export default {
             case "vagasNaoPeriodizadas":
               return p.vagasNaoPeriodizadas;
             case "vagasTotais":
-              return (p.vagasPeriodizadas + p.vagasNaoPeriodizadas);
+              return p.vagasPeriodizadas + p.vagasNaoPeriodizadas;
             default:
               return this.curso(p).codigo;
           }
-        }, this.ordemCurso.type
+        },
+        this.ordemCurso.type
       );
     },
 
@@ -1247,7 +1302,7 @@ export default {
   overflow: hidden !important;
   z-index: 3;
 }
-.sticky2 {
+.stickySearch {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
@@ -1278,7 +1333,14 @@ strong {
   text-transform: uppercase;
 }
 /* Botoes */
-button {
+.btn-x {
+  background: none;
+  border: none;
+  margin-top: 0px;
+  line-height: 50%;
+  padding-bottom: 8px;
+}
+.btn-custom {
   padding: 0;
   border: none;
   background: none;
@@ -1431,7 +1493,6 @@ i.far {
   font-size: 12px !important;
   padding: 2px 5px 2px 5px !important;
   text-align: start;
-  width: 100% !important;
 }
 
 /* ==== MODAL TABLE ==== */
