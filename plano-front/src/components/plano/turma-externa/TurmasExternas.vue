@@ -514,6 +514,7 @@
         class="col m-0 p-0"
         style="width:max-content;height: 450px!important;"
       >
+        <!-- TABLE SEMESTRE -->
         <table
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
@@ -552,7 +553,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Primeiro semestre</p>
+                  <p style="width:435px; text-align:start">PRIMEIRO</p>
                 </td>
               </div>
             </tr>
@@ -568,7 +569,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">Segundo semestre</p>
+                  <p style="width:435px; text-align:start">SEGUNDO</p>
                 </td>
               </div>
             </tr>
