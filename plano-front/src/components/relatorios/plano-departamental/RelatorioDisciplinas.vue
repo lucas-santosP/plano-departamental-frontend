@@ -692,7 +692,7 @@
     <b-modal id="modalVagas" ref="VagasModal" scrollable size="lg">
       <div slot="modal-header" style="width:100%">
         <div class="row col-12">
-          <h6 class="col-11">
+          <h6 class="col-9">
             {{
               turmaSelecionada !== undefined
                 ? disciplina(turmaSelecionada).codigo +
@@ -701,27 +701,34 @@
                 : "Nenhuma Turma Selecionada"
             }}
           </h6>
-
-          <select
-            class="col-1"
-            v-model="turmaSelecionada"
-            style="height:25px!important"
-          >
-            <option
-              v-for="turma in turmaSelecionada !== undefined
-                ? turmas(
-                    disciplina(turmaSelecionada),
-                    turmaSelecionada.periodo === 1 ||
-                      turmaSelecionada.periodo === 2
-                      ? 1
-                      : 2
-                  )
-                : []"
-              :key="'selectModalVagas' + turma.id"
-              :value="turma"
-              >{{ turma.letra }}</option
-            >
-          </select>
+          <div class=" col-2 m-0 p-0">
+              <label for="selectTurmaModal">Turma:</label>
+              <select
+                v-model="turmaSelecionada"
+                style="height:25px!important; margin-left: 5px"
+                id="selectTurmaModal"
+              >
+                <option
+                  v-for="turma in turmaSelecionada !== undefined
+                    ? turmas(
+                        disciplina(turmaSelecionada),
+                        turmaSelecionada.periodo === 1 ||
+                          turmaSelecionada.periodo === 2
+                          ? 1
+                          : 2
+                      )
+                    : []"
+                  :key="'selectModalVagas' + turma.id"
+                  :value="turma"
+                  >{{ turma.letra }}</option
+                >
+              </select>
+          </div>
+          <div class="col-1 m-0 p-0">
+            <button type="button" class="close" v-on:click="closeModalVagas" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         </div>
       </div>
       <div class="col m-0 p-0" style="width:max-content;">
@@ -1068,6 +1075,10 @@ export default {
         this.ordemCurso.order = ordem
         this.ordemCurso.type = 'asc'
       }
+    },
+
+    closeModalVagas(){
+      this.$refs.VagasModal.hide()
     }
   },
 
