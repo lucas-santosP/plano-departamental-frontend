@@ -419,7 +419,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="perfil in Perfiss" :key="'perfil-id' + perfil.id">
+            <tr v-for="perfil in Perfis_Modal" :key="'perfil-id' + perfil.id">
               <div style="width: max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -546,7 +546,6 @@
               v-for="disciplina in Disciplinas_Modal_Table"
               :key="'disciplina' + disciplina.id"
               value="disciplina.id"
-              @click="addInDisci(disciplina)"
             >
               <div style="width: max-content">
                 <td>
@@ -1178,7 +1177,7 @@ export default {
         );
       }
     },
-    Perfiss() {
+    Perfis_Modal() {
       return this.$store.state.perfil.Perfis;
     },
 
