@@ -694,10 +694,10 @@
     </b-modal>
 
     <!-- Modals para ver divisões de vagas por curso -->
-    <b-modal id="modalVagas" ref="VagasModal" scrollable size="lg">
-      <div slot="modal-header" style="width:100%">
-        <div class="row col-12">
-          <h6 class="col-9">
+    <b-modal id="modalVagas" ref="VagasModal" scrollable size="md">
+      <div slot="modal-header" class="row w-100 m-0  p-0" style="width:100%">
+        <div class="col-10 form-inline p-0">
+          <h6 class="p-0 m-0 mr-4">
             {{
               turmaSelecionada !== undefined
                 ? disciplina(turmaSelecionada).codigo +
@@ -706,50 +706,37 @@
                 : "Nenhuma Turma Selecionada"
             }}
           </h6>
-          <div class=" col-2 m-0 p-0">
-            <label for="selectTurmaModal">Turma:</label>
-            <select
-              v-model="turmaSelecionada"
-              style="height:25px!important; margin-left: 5px"
-              id="selectTurmaModal"
+
+          <label for="selectTurma" class="mr-2">Turma: </label>
+          <select
+            id="selectTurma"
+            class="form-control"
+            style="width:50px!important;"
+            v-model="turmaSelecionada"
+          >
+            <option
+              v-for="turma in turmaSelecionada !== undefined
+                ? turmas(
+                    disciplina(turmaSelecionada),
+                    turmaSelecionada.periodo === 1 ||
+                      turmaSelecionada.periodo === 2
+                      ? 1
+                      : 2
+                  )
+                : []"
+              :key="'selectModalVagas' + turma.id"
+              :value="turma"
+              >{{ turma.letra }}</option
             >
-              <option
-                v-for="turma in turmaSelecionada !== undefined
-                  ? turmas(
-                      disciplina(turmaSelecionada),
-                      turmaSelecionada.periodo === 1 ||
-                        turmaSelecionada.periodo === 2
-                        ? 1
-                        : 2
-                    )
-                  : []"
-                :key="'selectModalVagas' + turma.id"
-                :value="turma"
-                >{{ turma.letra }}</option
-              >
-            </select>
-          </div>
-          <div class="col-1 m-0 p-0">
-            <button
-              type="button"
-              class="close"
-              v-on:click="closeModalVagas"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+          </select>
         </div>
 
-        <div
-          class="col d-flex p-0"
-          style="justify-content: flex-end; align-content: center;"
-        >
+        <div class="col-1 m-0 p-0">
           <button
             type="button"
-            class="btn-x"
-            style="font-size:20px"
-            @click="$refs.VagasModal.hide()"
+            class="close"
+            v-on:click="closeModalVagas"
+            aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
           </button>
