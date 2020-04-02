@@ -507,6 +507,27 @@
                 </th>
               </div>
             </tr>
+            <tr>
+              <div
+                style="width: max-content; font-size: 11px!important"
+                class="stickySearch"
+              >
+                <th>
+                  <div
+                    class="m-0 border"
+                    style="width:465px; height:34px;padding-left: 5px;padding-right: 25px; padding-top: 4px;"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="searchBar"
+                      placeholder="Pesquise nome ou codigo de uma disciplina"
+                      v-model="searchProf"
+                    />
+                  </div>
+                </th>
+              </div>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="docente in Professores" :key="`docente${docente.id}`">
@@ -588,7 +609,8 @@ export default {
       DocentesSelecionados: [],
       DocentesAtivados: [],
       SemAlocacao: false,
-      SemAlocacaoCheck: false
+      SemAlocacaoCheck: false,
+      searchProf: null
     };
   },
 
@@ -604,6 +626,7 @@ export default {
       ];
       this.SemAlocacao = this.SemAlocacaoCheck;
       this.$refs.DocentesModal.hide();
+      this.searchProf = null;
     },
 
     selectAll() {
@@ -815,9 +838,16 @@ export default {
     },
     Professores() {
       return _.orderBy(
-        _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
+        _.filter(this.Professores_search, ["ativo", true]),
         "apelido"
       );
+    },
+    Professores_search() {
+      return this.$store.state.docente.Docentes.filter(prof => {
+        return this.searchProf == null
+          ? true
+          : prof.apelido.match(this.searchProf.toUpperCase());
+      });
     }
   }
 };
@@ -902,6 +932,16 @@ tbody {
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
+.stickySearch {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 18px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;
@@ -1141,6 +1181,12 @@ i.far {
   margin-top: 4px !important;
   margin-bottom: auto !important;
   height: 13px !important;
+}
+.form-control {
+  height: 25px !important;
+  font-size: 12px !important;
+  padding: 2px 5px 2px 5px !important;
+  text-align: start;
 }
 /* FIM MODAL TABLE */
 @media screen and (max-width: 355px) {

@@ -522,7 +522,7 @@
             <tr>
               <div
                 style="width: max-content; font-size: 11px!important"
-                class="stickySearch "
+                class="stickySearch"
               >
                 <th>
                   <div
