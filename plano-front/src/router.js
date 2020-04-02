@@ -3,29 +3,29 @@ import VueRouter from "vue-router";
 import store from "./vuex/store";
 
 // Dashboard
-import Login from "@/components/Dashboard/TheLogin";
-import Dashboard from "@/components/Dashboard/TheDashboard";
-import DashboardHome from "@/components/Dashboard/Home";
+import Login from "@/components/dashboard/TheLogin";
+import Dashboard from "@/components/dashboard/TheDashboard";
+import DashboardHome from "@/components/dashboard/Home";
 // Plano
-import DashboardPedidos from "@/components/Plano/turma-principal/DashboardPrototipo";
-import DashboardTurmasExternas from "@/components/Plano/turma-externa/TurmasExternas";
-import DashboardCargaPos from "@/components/Plano/carga-pos/CargaPos";
+import DashboardPedidos from "@/components/plano/turma-principal/DashboardPrototipo";
+import DashboardTurmasExternas from "@/components/plano/turma-externa/TurmasExternas";
+import DashboardCargaPos from "@/components/plano/carga-pos/CargaPos";
 // Relatorios
-import DashboardCargaProfessores from "@/components/Relatorios/carga-professores/CargaProfessores";
-import DashboardRelatorioDisciplinas from "@/components/Relatorios/plano-departamental/RelatorioDisciplinas";
-import DashboardGradeDisciplinas from "@/components/Relatorios/grades-disciplinas/GradeDisciplinas";
-import DashboardHorarios from "@/components/Relatorios/horarios-curso/Horarios";
-import DashboardLaboratoriosAlocacao from "@/components/Relatorios/horarios-lab/LaboratoriosAlocacao";
+import DashboardCargaProfessores from "@/components/relatorios/carga-professores/CargaProfessores";
+import DashboardRelatorioDisciplinas from "@/components/relatorios/plano-departamental/RelatorioDisciplinas";
+import DashboardGradeDisciplinas from "@/components/relatorios/grades-disciplinas/GradeDisciplinas";
+import DashboardHorarios from "@/components/relatorios/horarios-curso/Horarios";
+import DashboardLaboratoriosAlocacao from "@/components/relatorios/horarios-lab/LaboratoriosAlocacao";
 
 // Gerenciar
-import DashboardCursos from "@/components/Gerenciar/cursos/Cursos";
-import DashboardDocentes from "@/components/Gerenciar/docentes/Docentes";
-import DashboardGradesEdit from "@/components/Gerenciar/grades-cursos/GradesEdit";
-import DashboardGrades from "@/components/Gerenciar/grades-cursos/Grades";
-import DashboardPerfis from "@/components/Gerenciar/perfis/Perfis";
-import DashboardDisciplinas from "@/components/Gerenciar/disciplinas/Disciplinas";
-import DashboardSalas from "@/components/Gerenciar/salas/Salas";
-import DashboardHistory from "@/components/Gerenciar/history-log/History";
+import DashboardCursos from "@/components/gerenciar/cursos/Cursos";
+import DashboardDocentes from "@/components/gerenciar/docentes/Docentes";
+import DashboardGradesEdit from "@/components/gerenciar/grades-cursos/GradesEdit";
+import DashboardGrades from "@/components/gerenciar/grades-cursos/Grades";
+import DashboardPerfis from "@/components/gerenciar/perfis/Perfis";
+import DashboardDisciplinas from "@/components/gerenciar/disciplinas/Disciplinas";
+import DashboardSalas from "@/components/gerenciar/salas/Salas";
+import DashboardHistory from "@/components/gerenciar/history-log/History";
 /*
 //Componentes desabilitados 
 import DashboardRelatorios from "@/components/Relatorios";
