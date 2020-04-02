@@ -3,9 +3,9 @@ import VueRouter from "vue-router";
 import store from "./vuex/store";
 
 // Dashboard plano-front\src\components\
-import Login from "@/components/dashboard/TheLogin";
-import Dashboard from "@/components/dashboard/TheDashboard";
-import DashboardHome from "@/components/dashboard/Home";
+import Login from "@/components/Dashboard/TheLogin";
+import Dashboard from "@/components/Dashboard/TheDashboard";
+import DashboardHome from "@/components/Dashboard/Home";
 // Plano
 import DashboardPedidos from "@/components/plano/turma-principal/DashboardPrototipo";
 import DashboardTurmasExternas from "@/components/plano/turma-externa/TurmasExternas";

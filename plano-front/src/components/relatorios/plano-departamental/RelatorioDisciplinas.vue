@@ -744,9 +744,14 @@
                   >
                     Cód.
                     <i
-                      v-if="ordemCurso === 'codigo'"
+                      v-if="ordemCurso.order === 'codigo' && ordemCurso.type === 'asc'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
+                    ></i>
+                    <i
+                      v-if="ordemCurso.order === 'codigo' && ordemCurso.type === 'desc'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-up fa-sm"
                     ></i>
                   </p>
                 </th>
@@ -759,9 +764,14 @@
                   >
                     Nome
                     <i
-                      v-if="ordemCurso === 'nome'"
+                      v-if="ordemCurso.order === 'nome' && ordemCurso.type === 'asc'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
+                    ></i>
+                    <i
+                      v-if="ordemCurso.order === 'nome' && ordemCurso.type === 'desc'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-up fa-sm"
                     ></i>
                   </p>
                 </th>
@@ -775,9 +785,14 @@
                   >
                     Grade
                     <i
-                      v-if="ordemCurso === 'vagasPeriodizadas'"
+                      v-if="ordemCurso.order === 'vagasPeriodizadas' && ordemCurso.type === 'asc'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
+                    ></i>
+                    <i
+                      v-if="ordemCurso.order === 'vagasPeriodizadas' && ordemCurso.type === 'desc'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-up fa-sm"
                     ></i>
                   </p>
                 </th>
@@ -790,9 +805,14 @@
                   >
                     Extra
                     <i
-                      v-if="ordemCurso === 'vagasNaoPeriodizadas'"
+                      v-if="ordemCurso.order === 'vagasNaoPeriodizadas' && ordemCurso.type === 'asc'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
+                    ></i>
+                    <i
+                      v-if="ordemCurso.order === 'vagasNaoPeriodizadas' && ordemCurso.type === 'desc'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-up fa-sm"
                     ></i>
                   </p>
                 </th>
@@ -805,9 +825,14 @@
                   >
                     Total
                     <i
-                      v-if="ordemCurso === 'vagasTotais'"
+                      v-if="ordemCurso.order === 'vagasTotais' && ordemCurso.type === 'asc'"
                       style="font-size:0.6rem; text-align:right"
                       class="fas fa-arrow-down fa-sm"
+                    ></i>
+                    <i
+                      v-if="ordemCurso.order === 'vagasTotais' && ordemCurso.type === 'desc'"
+                      style="font-size:0.6rem; text-align:right"
+                      class="fas fa-arrow-up fa-sm"
                     ></i>
                   </p>
                 </th>
@@ -873,7 +898,7 @@ export default {
       semestre_2Ativo: true,
       semestreAtual: 3,
       turmaSelecionada: undefined,
-      ordemCurso: "codigo",
+      ordemCurso: {order: "codigo", type: "asc"},
       nav_ativo: "perfis",
       search: null
     };
@@ -896,7 +921,7 @@ export default {
     },
 
     pdf() {
-      pdfs.pdfRelatorioDisciplinas();
+      pdfs.pdfRelatorioDisciplinas({disciplinasSelecionadas: this.DisciplinasAtivados});
     },
     selectAllSemestre() {
       this.semestre_1Ativo = true;
@@ -1037,7 +1062,12 @@ export default {
     },
 
     ordemCursos(ordem) {
-      this.ordemCurso = ordem;
+      if(this.ordemCurso.order === ordem)
+        this.ordemCurso.type === 'asc' ? this.ordemCurso.type = 'desc' : this.ordemCurso.type = 'asc'
+      else {
+        this.ordemCurso.order = ordem
+        this.ordemCurso.type = 'asc'
+      }
     }
   },
 
@@ -1099,7 +1129,7 @@ export default {
 
     VagasTurmaSelecionada() {
       if (this.turmaSelecionada === undefined) return [];
-      return _.sortBy(
+      return _.orderBy(
         _.filter(
           this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
           function(p) {
@@ -1107,21 +1137,21 @@ export default {
           }
         ),
         p => {
-          switch (this.ordemCurso) {
+          switch (this.ordemCurso.order) {
             case "codigo":
               return this.curso(p).codigo;
             case "nome":
               return this.curso(p).nome;
             case "vagasPeriodizadas":
-              return -p.vagasPeriodizadas;
+              return p.vagasPeriodizadas;
             case "vagasNaoPeriodizadas":
-              return -p.vagasNaoPeriodizadas;
+              return p.vagasNaoPeriodizadas;
             case "vagasTotais":
-              return -(p.vagasPeriodizadas + p.vagasNaoPeriodizadas);
+              return (p.vagasPeriodizadas + p.vagasNaoPeriodizadas);
             default:
               return this.curso(p).codigo;
           }
-        }
+        }, this.ordemCurso.type
       );
     },
 
