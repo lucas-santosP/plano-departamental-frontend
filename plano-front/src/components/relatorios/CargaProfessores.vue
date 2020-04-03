@@ -42,8 +42,8 @@
         <thead class="thead-light">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: ‭845‬px; height:20px !important"
-              class="sticky"
+              style="font-size: 11px!important"
+              class="sticky-top max-content"
             >
               <th scope="col">
                 <p
@@ -467,10 +467,10 @@
     <!-- Modals do botão para escolher docentes -->
     <b-modal
       id="modalFiltros"
-      ref="DocentesModal"
+      ref="modalFiltros"
       scrollable
-      title="Filtros"
       size="md"
+      title="Filtros"
     >
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
@@ -482,56 +482,65 @@
           </li>
         </ul>
       </div>
-      <div
-        class="col m-0 p-0"
-        style="width:max-content;height: 450px!important;"
-      >
+
+      <div class="col m-0 p-0 max-content" style="height: 450px!important;">
         <!-- TABLE PROFS -->
         <table
-          class="table table-bordered table-sm modal-table"
+          class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
           <thead class="thead-light">
             <tr>
               <div
-                style="width: max-content; height: 18px !important; font-size: 11px!important"
-                class="sticky"
+                style="font-size: 11px!important"
+                class="sticky-top max-content"
+              >
+                <th>
+                  <div
+                    class="m-0 input-group"
+                    style="width:462px; height:35px; padding-left: 4px; padding-right: 20px; padding-top: 4px;"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="border-right: none;"
+                      placeholder="Pesquise o nome de um docente..."
+                      v-model="searchProf"
+                    />
+                    <div class="input-group-append" @click="searchProf = null">
+                      <span
+                        class="input-group-text"
+                        style="height:25px;  font-size: 18px; cursor:pointer"
+                        >&times;</span
+                      >
+                    </div>
+                  </div>
+                </th>
+              </div>
+            </tr>
+
+            <tr>
+              <div
+                style="font-size: 11px!important"
+                class="sticky-bottom max-content"
               >
                 <th>
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 435px; text-align:start;">
+                  <p
+                    class="p-header clickable"
+                    style="width: 436px; text-align:start;"
+                  >
                     Nome
                   </p>
-                </th>
-              </div>
-            </tr>
-            <tr>
-              <div
-                style="width: max-content; font-size: 11px!important"
-                class="stickySearch"
-              >
-                <th>
-                  <div
-                    class="m-0 border"
-                    style="width:465px; height:34px;padding-left: 5px;padding-right: 25px; padding-top: 4px;"
-                  >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="searchBar"
-                      placeholder="Pesquise nome ou codigo de uma disciplina"
-                      v-model="searchProf"
-                    />
-                  </div>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
             <tr v-for="docente in Professores" :key="`docente${docente.id}`">
-              <div style="width: max-content">
+              <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -543,12 +552,13 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">
+                  <p style="width:436px; text-align:start">
                     {{ docente.apelido }}
                   </p>
                 </td>
               </div>
             </tr>
+
             <tr>
               <div style="width: max-content">
                 <td>
@@ -561,7 +571,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">SEM ALOCAÇÃO</p>
+                  <p style="width:436px; text-align:start">SEM ALOCAÇÃO</p>
                 </td>
               </div>
             </tr>
@@ -625,7 +635,7 @@ export default {
         ..._.orderBy(this.DocentesSelecionados, "apelido")
       ];
       this.SemAlocacao = this.SemAlocacaoCheck;
-      this.$refs.DocentesModal.hide();
+      this.$refs.modalFiltros.hide();
       this.searchProf = null;
     },
 
@@ -926,7 +936,7 @@ tbody {
   margin-top: 4px !important;
 }
 
-.sticky {
+.sticky-top {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
@@ -936,12 +946,12 @@ tbody {
   overflow: hidden !important;
   z-index: 3;
 }
-.stickySearch {
+.sticky-bottom {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
-  top: 18px !important;
+  top: 38px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;
@@ -1007,33 +1017,6 @@ i.far {
   -webkit-text-stroke-color: #698dff;
 }
 
-/* APENAS NO FIREFOX */
-@-moz-document url-prefix() {
-  select {
-    height: 15px !important;
-    text-align: left;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-}
 .prof-td {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
@@ -1148,21 +1131,26 @@ i.far {
   padding: 0 !important;
   text-align: center !important;
   height: 18px !important;
-  border-bottom: 0 !important;
-  border-top: 0 !important;
 }
+
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
   margin: 0 !important;
   text-align: start;
   height: 18px !important;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .modal-table tbody {
   max-height: 100%;
   width: 100%;
 }
 .modal-table td {
-  border-bottom: 0;
+  border-top: 0;
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;
@@ -1189,6 +1177,16 @@ i.far {
   text-align: start;
 }
 /* FIM MODAL TABLE */
+/* search */
+.input-group-text:hover {
+  color: rgb(102, 102, 102);
+  background-color: #dddddd;
+}
+.input-group-text {
+  background-color: #ffffff;
+  border-left: none;
+}
+
 @media screen and (max-width: 355px) {
   .div-titulo {
     height: 70px !important;
@@ -1198,5 +1196,37 @@ i.far {
   background-color: #e9ecef !important;
   color: #495057 !important;
   cursor: default;
+}
+.max-content {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+}
+/* APENAS NO FIREFOX */
+@-moz-document url-prefix() {
+  .main-table select {
+    height: 15px !important;
+    text-align: left;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(133, 133, 133);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
+  .main-table input {
+    height: 18px !important;
+    text-align: center;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    line-height: 8px;
+    border: 0.5px solid rgb(92, 92, 92);
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgb(245, 245, 245);
+  }
 }
 </style>

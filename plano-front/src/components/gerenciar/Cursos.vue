@@ -29,7 +29,7 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="display: block; overflow: hidden; width: 525px;"
+                style="display: block; overflow: hidden; width: max-content;"
                 class="sticky"
               >
                 <th scope="col">
@@ -41,12 +41,16 @@
                   >
                     Nome
                     <i
-                      v-if="ordenacao.order == 'nome' && ordenacao.type == 'asc'"
+                      v-if="
+                        ordenacao.order == 'nome' && ordenacao.type == 'asc'
+                      "
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordenacao.order == 'nome' && ordenacao.type == 'desc'"
+                      v-if="
+                        ordenacao.order == 'nome' && ordenacao.type == 'desc'
+                      "
                       style="font-size:0.6rem"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -61,12 +65,16 @@
                   >
                     Código
                     <i
-                      v-if="ordenacao.order == 'codigo'  && ordenacao.type == 'asc'"
+                      v-if="
+                        ordenacao.order == 'codigo' && ordenacao.type == 'asc'
+                      "
                       style="font-size:0.6rem"
                       class="fas fa-arrow-down fa-sm"
                     ></i>
                     <i
-                      v-if="ordenacao.order == 'codigo'  && ordenacao.type == 'desc'"
+                      v-if="
+                        ordenacao.order == 'codigo' && ordenacao.type == 'desc'
+                      "
                       style="font-size:0.6rem"
                       class="fas fa-arrow-up fa-sm"
                     ></i>
@@ -109,7 +117,7 @@
                 :class="{ 'bg-custom': cursoClickado === curso.codigo }"
                 style="cursor: pointer;"
               >
-                <div style="width: 525px">
+                <div style="width: max-content">
                   <td>
                     <p style="width: 300px; text-align: start">
                       {{ curso.nome }}
@@ -410,17 +418,19 @@ export default {
       }
     },
     toggleOrderCod() {
-      if (this.ordenacao.order == "codigo") this.ordenacao.type = (this.ordenacao.type === 'asc' ? 'desc' : 'asc');
+      if (this.ordenacao.order == "codigo")
+        this.ordenacao.type = this.ordenacao.type === "asc" ? "desc" : "asc";
       else {
         this.ordenacao.order = "codigo";
-        this.ordenacao.type = 'asc'
+        this.ordenacao.type = "asc";
       }
     },
     toggleOrderNome() {
-      if (this.ordenacao.order == "nome") this.ordenacao.type = (this.ordenacao.type === 'asc' ? 'desc' : 'asc');
+      if (this.ordenacao.order == "nome")
+        this.ordenacao.type = this.ordenacao.type === "asc" ? "desc" : "asc";
       else {
         this.ordenacao.order = "nome";
-        this.ordenacao.type = 'asc'
+        this.ordenacao.type = "asc";
       }
     },
     clickada(f_curso) {
@@ -572,7 +582,11 @@ export default {
   },
   computed: {
     Cursos() {
-      return _.orderBy(this.$store.state.curso.Cursos, this.ordenacao.order, this.ordenacao.type);
+      return _.orderBy(
+        this.$store.state.curso.Cursos,
+        this.ordenacao.order,
+        this.ordenacao.type
+      );
     },
     CursosAtivos() {
       return this.$store.state.curso.Ativos;
@@ -626,7 +640,8 @@ export default {
 }
 table {
   display: block !important;
-  overflow: auto !important;
+  overflow-x: auto !important;
+  overflow-y: scroll !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;

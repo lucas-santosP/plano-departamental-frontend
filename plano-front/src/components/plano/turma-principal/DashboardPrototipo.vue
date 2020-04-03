@@ -165,7 +165,7 @@
       </template>
     </b-modal>
 
-    <!-- MODAL SEMESTRE -->
+    <!-- MODAL FILTROS -->
     <b-modal
       id="modalFiltros"
       ref="modalFiltros"
@@ -226,15 +226,27 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="height: 18px !important; font-size: 11px!important"
-                class="sticky max-content"
+                style="font-size: 11px!important"
+                class="sticky-top max-content"
               >
                 <th>
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 435px; text-align:start">
+                  <p
+                    class="p-header clickable"
+                    @click="toggleOrdPerfis()"
+                    style="width: 436px; text-align:start"
+                  >
                     Nome
+                    <i
+                      style="font-size:0.6rem; text-align:right"
+                      :class="
+                        ordenacaoPerfis.tipo == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                      "
+                    ></i>
                   </p>
                 </th>
               </div>
@@ -254,7 +266,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">{{ perfil.nome }}</p>
+                  <p style="width:436px; text-align:start">{{ perfil.nome }}</p>
                 </td>
               </div>
             </tr>
@@ -269,62 +281,82 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="height: 18px !important; font-size: 11px!important"
-                class="sticky max-content"
+                style="font-size: 11px!important"
+                class="sticky-top max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
-                </th>
-                <th
-                  class="clickable-header"
-                  style="text-align:center;"
-                  @click="ToggleCodigoOrdering()"
-                >
-                  <p style="width:50px; text-align:center" class="p-header">
-                    Cód.
-                    <i
-                      v-if="ordenacaoCurso == 'codigo'"
-                      style="font-size:0.6rem"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                  </p>
-                </th>
-                <th class="clickable-header" @click="ToggleNomeOrdering()">
-                  <p style="width:385px; text-align: start" class="p-header">
-                    Nome
-                    <i
-                      v-if="ordenacaoCurso == 'nome'"
-                      style="font-size:0.6rem"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                  </p>
+                  <div
+                    class="m-0 input-group"
+                    style="width:462px; height:35px; padding-left: 4px; padding-right: 20px; padding-top: 4px;"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="border-right: none;"
+                      placeholder="Pesquise nome ou codigo de um curso..."
+                      v-model="searchCursos"
+                    />
+                    <div
+                      class="input-group-append"
+                      @click="searchCursos = null"
+                    >
+                      <span
+                        class="input-group-text"
+                        style="height:25px;  font-size: 18px; cursor:pointer"
+                        >&times;</span
+                      >
+                    </div>
+                  </div>
                 </th>
               </div>
             </tr>
             <tr>
               <div
-                style="width: max-content; font-size: 11px!important"
-                class="stickySearch "
+                style="font-size: 11px!important"
+                class="sticky-bottom max-content"
               >
                 <th>
-                  <div
-                    class="m-0 border"
-                    style="width:465px; height:34px;padding-left: 5px;padding-right: 25px; padding-top: 4px;"
-                  >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="searchBar"
-                      placeholder="Pesquise nome ou codigo de uma disciplina"
-                      v-model="searchCursos"
-                    />
-                  </div>
+                  <p style="width:25px" class="p-header"></p>
+                </th>
+                <th
+                  class="clickable"
+                  style="text-align:center;"
+                  @click="toggleOrdCursos('codigo')"
+                >
+                  <p style="width:50px; text-align:start" class="p-header">
+                    Cód.
+                    <i
+                      style="font-size:0.6rem"
+                      :class="
+                        ordenacaoCurso.ordemPor == 'codigo'
+                          ? ordenacaoCurso.tipo == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th class="clickable" @click="toggleOrdCursos('nome')">
+                  <p style="width:385px; text-align: start" class="p-header">
+                    Nome
+                    <i
+                      style="font-size:0.6rem"
+                      :class="
+                        ordenacaoCurso.ordemPor == 'nome'
+                          ? ordenacaoCurso.tipo == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
+                    ></i>
+                  </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="curso in Cursos" :key="'cursoMd' + curso.id">
+            <tr v-for="curso in Cursos_filtred" :key="'cursoMd' + curso.id">
               <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -337,7 +369,9 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width: 50px">{{ curso.codigo }}</p>
+                  <p style="width: 50px; text-align:start">
+                    {{ curso.codigo }}
+                  </p>
                 </td>
                 <td>
                   <p style="width:385px; text-align: start;">
@@ -358,17 +392,14 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="height: 18px !important; font-size: 11px!important"
-                class="sticky max-content"
+                style="font-size: 11px!important"
+                class="sticky-top max-content"
               >
                 <th>
                   <p style="width:25px" class="p-header"></p>
                 </th>
                 <th>
-                  <p
-                    class="p-header clickable-header"
-                    style="width: 435px; text-align: start;"
-                  >
+                  <p class="p-header" style="width: 435px; text-align: start;">
                     Semestre Letivo
                   </p>
                 </th>
@@ -578,12 +609,13 @@ export default {
       CursosSelecionados: [],
       PerfisAtivados: [],
       CursosAtivados: [],
-      ordenacaoCurso: "posicao",
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
       nav_ativo: "perfis",
-      searchCursos: null
+      searchCursos: null,
+      ordenacaoCurso: { ordemPor: "codigo", tipo: "asc" },
+      ordenacaoPerfis: { ordemPor: "nome", tipo: "asc" }
     };
   },
 
@@ -623,7 +655,7 @@ export default {
   methods: {
     changeTab(tab) {
       this.nav_ativo = tab;
-      this.searchCursos = null; //clear search
+      // this.searchCursos = null;
     },
     btnOK() {
       this.btnOKPerfis();
@@ -643,18 +675,36 @@ export default {
         this.semestreAtual = undefined;
       }
     },
-    selectAllSemestre() {
-      this.semestre_1Ativo = true;
-      this.semestre_2Ativo = true;
-    },
-    selectNoneSemestre() {
-      this.semestre_1Ativo = false;
-      this.semestre_2Ativo = false;
-    },
     btnOKPerfis() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
       this.PerfisAtivados = [...this.PerfisSelecionados];
     },
+    btnOKCursos() {
+      this.CursosAtivados = [...this.CursosSelecionados];
+    },
+    // Ordem Perfis
+    toggleOrdPerfis() {
+      if (this.ordenacaoPerfis.tipo == "asc") {
+        this.ordenacaoPerfis.tipo = "desc";
+      } else {
+        this.ordenacaoPerfis.tipo = "asc";
+      }
+    },
+    // Ordem Cursos
+    toggleOrdCursos(ord) {
+      if (this.ordenacaoCurso.ordemPor != ord) {
+        this.ordenacaoCurso.ordemPor = ord;
+        this.ordenacaoCurso.tipo = "asc";
+      } else {
+        if (this.ordenacaoCurso.tipo == "asc") {
+          this.ordenacaoCurso.tipo = "desc";
+        } else {
+          this.ordenacaoCurso.tipo = "asc";
+        }
+      }
+    },
+
+    //Select Perfis
     selectAllPerfis() {
       if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
       for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
@@ -663,11 +713,8 @@ export default {
     selectNonePerfis() {
       this.PerfisSelecionados = [];
     },
-    btnOKCursos() {
-      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.CursosAtivados = [...this.CursosSelecionados];
-      this.CursosAtivados = _.orderBy(this.CursosAtivados, this.ordenacaoCurso);
-    },
+
+    //Select Cursos
     selectAllCursos() {
       if (this.CursosSelecionados != []) this.CursosSelecionados = [];
       for (var i = 0; i < this.$store.state.curso.Cursos.length; i++)
@@ -676,15 +723,17 @@ export default {
     selectNoneCursos() {
       this.CursosSelecionados = [];
     },
-    ToggleCodigoOrdering() {
-      if (this.ordenacaoCurso === "codigo") this.ordenacaoCurso = "posicao";
-      else this.ordenacaoCurso = "codigo";
+
+    //Select Semestre
+    selectAllSemestre() {
+      this.semestre_1Ativo = true;
+      this.semestre_2Ativo = true;
+    },
+    selectNoneSemestre() {
+      this.semestre_1Ativo = false;
+      this.semestre_2Ativo = false;
     },
 
-    ToggleNomeOrdering() {
-      if (this.ordenacaoCurso === "nome") this.ordenacaoCurso = "posicao";
-      else this.ordenacaoCurso = "nome";
-    },
     xlsx: function(pedidos) {
       xlsx
         .downloadTable({
@@ -862,20 +911,40 @@ export default {
   },
 
   computed: {
-    Cursos() {
-      return _.orderBy(this.Cursos_search, this.ordenacaoCurso);
-    },
+    // Cursos() {
+    //   return _.orderBy(
+    //     this.Cursos_search,
+    //     this.ordenacaoCurso.ordemPor,
+    //     this.ordenacaoCurso.tipo
+    //   );
+    // },
 
-    Cursos_search() {
-      return this.$store.state.curso.Cursos.filter(curso => {
-        return this.searchCursos == null
-          ? true
-          : curso.nome.match(this.searchCursos.toUpperCase()) ||
-              curso.codigo.match(this.searchCursos.toUpperCase());
-      });
+    //Todos Cursos
+    Cursos() {
+      let result = this.$store.state.curso.Cursos;
+
+      //Filtro search
+      if (this.searchCursos != null) {
+        let searchUpperCase = this.searchCursos.toUpperCase();
+
+        return this.$store.state.curso.Cursos.filter(curso => {
+          return (
+            curso.nome
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .match(searchUpperCase) || curso.codigo.match(searchUpperCase)
+          );
+        });
+      }
+      return result;
     },
-    CursosAtivos() {
-      return this.$store.state.curso.Ativos;
+    //Cursos filtrados
+    Cursos_filtred() {
+      return _.orderBy(
+        this.Cursos,
+        this.ordenacaoCurso.ordemPor,
+        this.ordenacaoCurso.tipo
+      );
     },
 
     Disciplinas() {
@@ -898,7 +967,11 @@ export default {
     },
 
     Perfis() {
-      return this.$store.state.perfil.Perfis;
+      return _.orderBy(
+        this.$store.state.perfil.Perfis,
+        this.ordenacaoPerfis.ordemPor,
+        this.ordenacaoPerfis.tipo
+      );
     },
 
     Turmas() {
@@ -927,6 +1000,7 @@ export default {
         return false;
       }
     }
+    //Juntando o vetor com turmas num unico vetor
     //   turmasFiltradas() {
     //     let result_1 = [];
     //     this.PerfisAtivados.forEach(perfil => {
@@ -1165,12 +1239,6 @@ i.far {
   -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
 }
-
-.clickable-header {
-  cursor: pointer;
-  padding-left: 5px;
-}
-
 .form-inline {
   width: auto;
 }
@@ -1185,12 +1253,23 @@ i.far {
   align-items: center;
   margin-bottom: 0;
 }
-.sticky {
+.sticky-top {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
+.sticky-bottom {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  /* Tamanho da linha acima + bordas */
+  top: 38px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;
@@ -1212,21 +1291,26 @@ i.far {
   padding: 0 !important;
   text-align: center !important;
   height: 18px !important;
-  border-bottom: 0 !important;
-  border-top: 0 !important;
 }
+
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
   margin: 0 !important;
   text-align: start;
   height: 18px !important;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .modal-table tbody {
   max-height: 100%;
   width: 100%;
 }
 .modal-table td {
-  border-bottom: 0;
+  border-top: 0;
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;
@@ -1254,19 +1338,41 @@ i.far {
   width: 100% !important;
 }
 /* FIM MODAL TABLE */
+/* search */
+.input-group-text:hover {
+  color: rgb(102, 102, 102);
+  background-color: #dddddd;
+}
+.input-group-text {
+  background-color: #ffffff;
+  border-left: none;
+}
 
 .nav-link {
   color: #007bff !important;
-}
-.clickable {
   cursor: pointer;
+}
+.nav-link:hover {
+  text-decoration: underline;
 }
 .active {
   background-color: #e9ecef !important;
   color: #495057 !important;
   cursor: default;
+  text-decoration: none !important;
 }
-
+.modal-title {
+  text-align: center !important;
+  width: 100%;
+}
+.max-content {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+}
+.clickable {
+  cursor: pointer;
+}
 @media screen and (max-width: 536px) {
   .div-titulo {
     height: 70px !important;
@@ -1415,14 +1521,5 @@ i.far {
     transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg);
   }
-}
-.modal-title {
-  text-align: center !important;
-  width: 100%;
-}
-.max-content {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
 }
 </style>
