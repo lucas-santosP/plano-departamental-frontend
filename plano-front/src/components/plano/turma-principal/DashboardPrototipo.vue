@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
+      style="height: 38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 px-0 pr-1">
@@ -12,7 +12,7 @@
 
         <div
           class="form-group col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
-          style="justify-content: flex-end!important;"
+          style="justify-content: flex-end !important;"
         >
           <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
@@ -95,7 +95,7 @@
                 <template
                   v-if="
                     turma.periodo == 1 &&
-                      (semestreAtual == 1 || semestreAtual == 3)
+                    (semestreAtual == 1 || semestreAtual == 3)
                   "
                 >
                   <turmadata
@@ -109,7 +109,7 @@
                 <template
                   v-else-if="
                     turma.periodo == 3 &&
-                      (semestreAtual == 2 || semestreAtual == 3)
+                    (semestreAtual == 2 || semestreAtual == 3)
                   "
                 >
                   <template></template>
@@ -126,7 +126,7 @@
                 <template
                   v-if="
                     turma.periodo == 3 &&
-                      (semestreAtual == 2 || semestreAtual == 3)
+                    (semestreAtual == 2 || semestreAtual == 3)
                   "
                 >
                   <turmadata
@@ -153,7 +153,7 @@
             <template v-if="disciplina.id === turma.Disciplina">
               <p
                 :key="'disciplina' + disciplina.id + 'turma' + turma.id"
-                style="width:80px"
+                style="width: 80px;"
               >
                 Disciplina:{{ disciplina.codigo }}
                 <br />
@@ -176,16 +176,16 @@
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px!important;height: 30px;"
+          style="font-size: 11px !important; height: 30px;"
         >
           <li class="nav-item" @click="changeTab('perfis')">
             <a
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'perfis'
+                  active: nav_ativo == 'perfis',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Perfis</a
             >
@@ -195,9 +195,9 @@
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'cursos'
+                  active: nav_ativo == 'cursos',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Cursos</a
             >
@@ -207,16 +207,16 @@
               class="nav-link border"
               :class="[
                 {
-                  active: nav_ativo == 'semestre'
+                  active: nav_ativo == 'semestre',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Semestre</a
             >
           </li>
         </ul>
       </div>
-      <div class="col m-0 p-0 max-content" style="height: 450px!important;">
+      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- TABLE PERFIS -->
         <table
           v-if="nav_ativo == 'perfis'"
@@ -226,23 +226,23 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
                     @click="toggleOrdPerfis()"
-                    style="width: 436px; text-align:start"
+                    style="width: 436px; text-align: start;"
                   >
                     Nome
                     <i
-                      style="font-size:0.6rem; text-align:right"
+                      style="font-size: 0.6rem; text-align: right;"
                       :class="
-                        ordenacaoPerfis.tipo == 'asc'
+                        ordenacaoPerfis.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
                       "
@@ -266,7 +266,9 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:436px; text-align:start">{{ perfil.nome }}</p>
+                  <p style="width: 436px; text-align: start;">
+                    {{ perfil.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -281,13 +283,19 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
                   <div
                     class="m-0 input-group"
-                    style="width:462px; height:35px; padding-left: 4px; padding-right: 20px; padding-top: 4px;"
+                    style="
+                      width: 462px;
+                      height: 35px;
+                      padding-left: 4px;
+                      padding-right: 20px;
+                      padding-top: 4px;
+                    "
                   >
                     <input
                       type="text"
@@ -302,7 +310,7 @@
                     >
                       <span
                         class="input-group-text"
-                        style="height:25px;  font-size: 18px; cursor:pointer"
+                        style="height: 25px; font-size: 18px; cursor: pointer;"
                         >&times;</span
                       >
                     </div>
@@ -312,24 +320,24 @@
             </tr>
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-bottom max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th
                   class="clickable"
-                  style="text-align:center;"
+                  style="text-align: center;"
                   @click="toggleOrdCursos('codigo')"
                 >
-                  <p style="width:50px; text-align:start" class="p-header">
+                  <p style="width: 50px; text-align: start;" class="p-header">
                     Cód.
                     <i
-                      style="font-size:0.6rem"
+                      style="font-size: 0.6rem;"
                       :class="
-                        ordenacaoCurso.ordemPor == 'codigo'
-                          ? ordenacaoCurso.tipo == 'asc'
+                        ordenacaoCurso.order == 'codigo'
+                          ? ordenacaoCurso.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
                           : ''
@@ -338,13 +346,13 @@
                   </p>
                 </th>
                 <th class="clickable" @click="toggleOrdCursos('nome')">
-                  <p style="width:385px; text-align: start" class="p-header">
+                  <p style="width: 385px; text-align: start;" class="p-header">
                     Nome
                     <i
-                      style="font-size:0.6rem"
+                      style="font-size: 0.6rem;"
                       :class="
-                        ordenacaoCurso.ordemPor == 'nome'
-                          ? ordenacaoCurso.tipo == 'asc'
+                        ordenacaoCurso.order == 'nome'
+                          ? ordenacaoCurso.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
                           : ''
@@ -369,12 +377,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width: 50px; text-align:start">
+                  <p style="width: 50px; text-align: start;">
                     {{ curso.codigo }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:385px; text-align: start;">
+                  <p style="width: 385px; text-align: start;">
                     {{ curso.nome }}
                   </p>
                 </td>
@@ -392,11 +400,11 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
                   <p class="p-header" style="width: 435px; text-align: start;">
@@ -419,12 +427,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">PRIMEIRO</p>
+                  <p style="width: 435px; text-align: start;">PRIMEIRO</p>
                 </td>
               </div>
             </tr>
             <tr>
-              <div style="width: max-content">
+              <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -435,7 +443,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">SEGUNDO</p>
+                  <p style="width: 435px; text-align: start;">SEGUNDO</p>
                 </td>
               </div>
             </tr>
@@ -494,7 +502,7 @@
           variant="success"
           @click="btnOK()"
           class="btn-verde btn-df mr-2"
-          style="padding-right:15px!important; padding-left:15px!important;"
+          style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
       </div>
@@ -509,25 +517,25 @@
             o(s) semestre(s) desejado(s). Em seguida, clique em Perfil
             <i
               class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e marque quais deseja mostrar, depois clique em OK. Logo após,
             escolha os Cursos
             <i
               class="fas fa-graduation-cap cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             que quer ver, confirmando a seleção em OK.
           </li>
           <li class="list-group-item">
             <strong>Para adicionar disciplinas à Tabela:</strong> Clique em
             Adicionar
-            <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
+            <i class="fas fa-plus addbtn px-1" style="font-size: 12px;"></i>
             , em seguida, preencha a nova linha que surgirá na tabela. Após
             concluído, clique em Salvar
-            <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
+            <i class="fas fa-check addbtn px-1" style="font-size: 12px;"></i>
             ou em Cancelar
-            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
+            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px;"></i>
             .
           </li>
           <li class="list-group-item">
@@ -539,17 +547,20 @@
             <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s)
             disciplina(s) que deseja deletar através da caixa de seleção à
             esquerda e em seguida clique em Deletar
-            <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
+            <i
+              class="far fa-trash-alt delbtn px-1"
+              style="font-size: 12px;"
+            ></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão XLSX
             <i
               class="far fa-file-alt relatbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e aguarde para fazer
-            <font style="font-style:italic;">download</font> do relatório.
+            <font style="font-style: italic;">download</font> do relatório.
           </li>
           <li class="list-group-item">
             <strong>Observações:</strong> Em cada coluna de cursos a disciplina
@@ -592,7 +603,7 @@ const emptyTurma = {
   Horario1: undefined,
   Horario2: undefined,
   Sala1: undefined,
-  Sala2: undefined
+  Sala2: undefined,
 };
 
 export default {
@@ -614,18 +625,18 @@ export default {
       semestreAtual: 3,
       nav_ativo: "perfis",
       searchCursos: null,
-      ordenacaoCurso: { ordemPor: "codigo", tipo: "asc" },
-      ordenacaoPerfis: { ordemPor: "nome", tipo: "asc" }
+      ordenacaoCurso: { order: "codigo", type: "asc" },
+      ordenacaoPerfis: { order: "nome", type: "asc" },
     };
   },
 
   components: {
     turmadata,
     turmaheader,
-    novaturma
+    novaturma,
   },
 
-  mounted: function() {
+  mounted: function () {
     ls.set("toggle", -1);
     ls.on("toggle", () => {
       var val = ls.get("toggle");
@@ -644,7 +655,7 @@ export default {
     }
   },
 
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     ls.off("toggle");
     for (var c = 0; c < this.$store.state.curso.Cursos.length; c++) {
       let id = this.$store.state.curso.Cursos[c].id;
@@ -684,23 +695,20 @@ export default {
     },
     // Ordem Perfis
     toggleOrdPerfis() {
-      if (this.ordenacaoPerfis.tipo == "asc") {
-        this.ordenacaoPerfis.tipo = "desc";
+      if (this.ordenacaoPerfis.type == "asc") {
+        this.ordenacaoPerfis.type = "desc";
       } else {
-        this.ordenacaoPerfis.tipo = "asc";
+        this.ordenacaoPerfis.type = "asc";
       }
     },
     // Ordem Cursos
     toggleOrdCursos(ord) {
-      if (this.ordenacaoCurso.ordemPor != ord) {
-        this.ordenacaoCurso.ordemPor = ord;
-        this.ordenacaoCurso.tipo = "asc";
+      if (this.ordenacaoCurso.order != ord) {
+        this.ordenacaoCurso.order = ord;
+        this.ordenacaoCurso.type = "asc";
       } else {
-        if (this.ordenacaoCurso.tipo == "asc") {
-          this.ordenacaoCurso.tipo = "desc";
-        } else {
-          this.ordenacaoCurso.tipo = "asc";
-        }
+        this.ordenacaoCurso.type =
+          this.ordenacaoCurso.type == "asc" ? "desc" : "asc";
       }
     },
 
@@ -734,26 +742,26 @@ export default {
       this.semestre_2Ativo = false;
     },
 
-    xlsx: function(pedidos) {
+    xlsx: function (pedidos) {
       xlsx
         .downloadTable({
-          pedidos: pedidos
+          pedidos: pedidos,
         })
         .then(() => {
           console.log("done");
           fetch("http://200.131.219.57:3000/api/xlsx/download", {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`
-            }
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           })
-            .then(r => r.blob())
-            .then(blob => saveAs(blob, "tabela.xlsx"));
+            .then((r) => r.blob())
+            .then((blob) => saveAs(blob, "tabela.xlsx"));
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
-    adjustTurno1: function() {
+    adjustTurno1: function () {
       if (
         this.turmaForm.Horario1 == 1 ||
         this.turmaForm.Horario1 == 2 ||
@@ -784,7 +792,7 @@ export default {
       }
     },
 
-    adjustTurno2: function() {
+    adjustTurno2: function () {
       if (
         this.turmaForm.Horario2 == 1 ||
         this.turmaForm.Horario2 == 2 ||
@@ -815,7 +823,7 @@ export default {
       }
     },
 
-    deleteSelected: function() {
+    deleteSelected: function () {
       var turmas = this.$store.state.turma.Deletar;
       for (var i = 0; i < turmas.length; i++) {
         this.deleteTurma(turmas[i]);
@@ -823,10 +831,10 @@ export default {
       this.$store.commit("emptyDelete");
     },
 
-    inPerfil: function(perfil, turmas, disciplinas) {
-      return turmas.filter(function(turma) {
+    inPerfil: function (perfil, turmas, disciplinas) {
+      return turmas.filter(function (turma) {
         if (_.isNull(turma.Disciplina)) return false;
-        var disciplina = _.find(disciplinas, function(disc) {
+        var disciplina = _.find(disciplinas, function (disc) {
           return disc.id === turma.Disciplina;
         });
         return disciplina.Perfil === perfil.id;
@@ -840,15 +848,15 @@ export default {
     editTurma(turma) {
       turmaService
         .update(turma.id, turma)
-        .then(response => {
+        .then((response) => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success"
+            type: "success",
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.error = "<b>Erro ao atualizar Turma</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -890,10 +898,10 @@ export default {
                 group: "general",
                 title: `Sucesso!`,
                 text: `O pedido foi atualizado!`,
-                type: "success"
+                type: "success",
               });
             })
-            .catch(error => {
+            .catch((error) => {
               this.error = "<b>Erro ao atualizar Pedido</b>";
               if (error.response.data.fullMessage) {
                 this.error +=
@@ -907,18 +915,10 @@ export default {
 
     toggleAdd() {
       this.isAdd = !this.isAdd;
-    }
+    },
   },
 
   computed: {
-    // Cursos() {
-    //   return _.orderBy(
-    //     this.Cursos_search,
-    //     this.ordenacaoCurso.ordemPor,
-    //     this.ordenacaoCurso.tipo
-    //   );
-    // },
-
     //Todos Cursos
     Cursos() {
       let result = this.$store.state.curso.Cursos;
@@ -927,7 +927,7 @@ export default {
       if (this.searchCursos != null) {
         let searchUpperCase = this.searchCursos.toUpperCase();
 
-        return this.$store.state.curso.Cursos.filter(curso => {
+        return this.$store.state.curso.Cursos.filter((curso) => {
           return (
             curso.nome
               .normalize("NFD")
@@ -942,8 +942,8 @@ export default {
     Cursos_filtred() {
       return _.orderBy(
         this.Cursos,
-        this.ordenacaoCurso.ordemPor,
-        this.ordenacaoCurso.tipo
+        this.ordenacaoCurso.order,
+        this.ordenacaoCurso.type
       );
     },
 
@@ -969,8 +969,8 @@ export default {
     Perfis() {
       return _.orderBy(
         this.$store.state.perfil.Perfis,
-        this.ordenacaoPerfis.ordemPor,
-        this.ordenacaoPerfis.tipo
+        this.ordenacaoPerfis.order,
+        this.ordenacaoPerfis.type
       );
     },
 
@@ -999,7 +999,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
     //Juntando o vetor com turmas num unico vetor
     //   turmasFiltradas() {
     //     let result_1 = [];
@@ -1015,7 +1015,7 @@ export default {
     //     });
     //     return _.orderBy(result_1, "periodo_ord");
     //   }
-  }
+  },
 };
 </script>
 

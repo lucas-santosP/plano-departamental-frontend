@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
+      style="height: 38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-8 col-sm-6 col-md-4 col-lg-4 px-0 pr-1">
@@ -12,7 +12,7 @@
 
         <div
           class="form-group col-4 col-sm-6 col-md-8 col-lg-8 mb-0 p-0"
-          style="justify-content: flex-end!important;"
+          style="justify-content: flex-end !important;"
         >
           <b-button
             v-b-modal.modalFiltros
@@ -47,27 +47,32 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="divTable p-0" ref="carga">
-      <table class="main-table table table-bordered  table-hover table-sm">
+      <table class="main-table table table-bordered table-hover table-sm">
         <thead class="thead-light">
           <tr>
             <div
-              style="display: block; overflow: hidden; width: ?max-contet; height:20px !important"
+              style="
+                display: block;
+                overflow: hidden;
+                width: ?max-contet;
+                height: 20px !important;
+              "
               class="sticky-top"
             >
               <th scope="col">
                 <p
                   class="p-header clickable"
                   style="width: 80px;"
-                  @click="toggleOrdem('codigo')"
+                  @click="toggleOrdDiscip('codigo')"
                   title="Clique para ordenar por código"
                 >
                   Cód.
                   <i
-                    v-if="ordemCursos.order == 'codigo'"
-                    style="font-size:0.6rem; text-align:right"
+                    v-if="ordemDiscip.order == 'codigo'"
+                    style="font-size: 0.6rem; text-align: right;"
                     :class="
-                      ordemCursos.order == 'codigo'
-                        ? ordemCursos.type == 'asc'
+                      ordemDiscip.order == 'codigo'
+                        ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
                         : ''
@@ -78,16 +83,16 @@
               <th scope="col">
                 <p
                   class="p-header clickable"
-                  style="width: 350px"
-                  @click="toggleOrdem('nome')"
+                  style="width: 350px;"
+                  @click="toggleOrdDiscip('nome')"
                   title="Clique para ordenar por nome"
                 >
                   Nome
                   <i
-                    style="font-size:0.6rem; text-align:right;"
+                    style="font-size: 0.6rem; text-align: right;"
                     :class="
-                      ordemCursos.order == 'nome'
-                        ? ordemCursos.type == 'asc'
+                      ordemDiscip.order == 'nome'
+                        ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
                         : ''
@@ -99,17 +104,17 @@
               <th scope="col">
                 <p
                   class="p-header clickable"
-                  style="width: 65px"
-                  @click="toggleOrdem('perfil')"
+                  style="width: 65px;"
+                  @click="toggleOrdDiscip('perfil')"
                   title="Clique para ordenar por nome"
                 >
                   Perfil
                   <i
-                    v-if="ordemCursos.order == 'perfil'"
-                    style="font-size:0.6rem; text-align:right"
+                    v-if="ordemDiscip.order == 'perfil'"
+                    style="font-size: 0.6rem; text-align: right;"
                     :class="
-                      ordemCursos.order == 'perfil'
-                        ? ordemCursos.type == 'asc'
+                      ordemDiscip.order == 'perfil'
+                        ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
                         : ''
@@ -118,16 +123,16 @@
                 </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 24px">S.</p>
+                <p class="p-header" style="width: 24px;">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 24px">T.</p>
+                <p class="p-header" style="width: 24px;">T.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 200px">Docentes</p>
+                <p class="p-header" style="width: 200px;">Docentes</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 180px">Horário</p>
+                <p class="p-header" style="width: 180px;">Horário</p>
               </th>
 
               <th
@@ -135,21 +140,21 @@
                 v-if="semestreAtual === 1"
                 title="Vagas do 1º semestre"
               >
-                <p class="p-header" style="width: 50px">Vagas</p>
+                <p class="p-header" style="width: 50px;">Vagas</p>
               </th>
               <th
                 scope="col"
                 v-if="semestreAtual === 2"
                 title="Vagas do 2º semestre"
               >
-                <p class="p-header" style="width: 50px">Vagas</p>
+                <p class="p-header" style="width: 50px;">Vagas</p>
               </th>
               <th
                 scope="col"
                 v-if="semestreAtual === 3"
                 title="Vagas do 1º e 2º semestre"
               >
-                <p class="p-header" style="width: 50px">Vagas</p>
+                <p class="p-header" style="width: 50px;">Vagas</p>
               </th>
             </div>
           </tr>
@@ -161,7 +166,7 @@
                 <tr class="disc-tr" :key="disciplina.codigo">
                   <div class="max-content">
                     <td>
-                      <p style="width: 80px">{{ disciplina.codigo }}</p>
+                      <p style="width: 80px;">{{ disciplina.codigo }}</p>
                     </td>
                     <td>
                       <p style="width: 350px;">{{ disciplina.nome }}</p>
@@ -170,23 +175,32 @@
                       <p style="width: 65px;">{{ perfil(disciplina) }}</p>
                     </td>
                     <td>
-                      <p style="width: 428px"></p>
+                      <p style="width: 24px;"></p>
+                    </td>
+                    <td>
+                      <p style="width: 24px;"></p>
+                    </td>
+                    <td>
+                      <p style="width: 200px;"></p>
+                    </td>
+                    <td>
+                      <p style="width: 180px;"></p>
                     </td>
                     <td v-if="semestreAtual == 1">
-                      <p style="width: 50px">
+                      <p style="width: 50px;">
                         {{ vagasDisciplina(disciplina, 1) }}
                       </p>
                     </td>
                     <td v-if="semestreAtual == 2">
-                      <p style="width: 50px">
+                      <p style="width: 50px;">
                         {{ vagasDisciplina(disciplina, 2) }}
                       </p>
                     </td>
                     <td v-if="semestreAtual == 3">
-                      <p style="width: 50px">
+                      <p style="width: 50px;">
                         {{
                           vagasDisciplina(disciplina, 2) +
-                            vagasDisciplina(disciplina, 1)
+                          vagasDisciplina(disciplina, 1)
                         }}
                       </p>
                     </td>
@@ -197,28 +211,28 @@
               <template v-for="turma in turmas(disciplina, semestreAtual)">
                 <tr :key="'turma-id:' + turma.id">
                   <template>
-                    <div class="linhas" style="width: ?858px;">
+                    <div class="linhas max-content">
                       <td>
-                        <p style="width: 80px"></p>
+                        <p style="width: 80px;"></p>
                       </td>
                       <td>
-                        <p style="width: 350px"></p>
+                        <p style="width: 350px;"></p>
                       </td>
                       <td>
-                        <p style="width: 65px"></p>
+                        <p style="width: 65px;"></p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.periodo }}</p>
+                        <p style="width: 24px;">{{ turma.periodo }}</p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.letra }}</p>
+                        <p style="width: 24px;">{{ turma.letra }}</p>
                       </td>
                       <td>
                         <p style="width: 200px;">{{ docentes(turma) }}</p>
                       </td>
 
                       <td>
-                        <div style="width: 180px">
+                        <div style="width: 180px;">
                           <template v-for="horario in Horarios">
                             <p
                               :key="horario.id"
@@ -305,7 +319,7 @@
             Disciplinas
             <i
               class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e selecione a(s) disciplina(s) que deseja ver, em seguida confirme
             em OK. Caso queira ver todas basta clicar em Selecionar Todos.
@@ -314,10 +328,10 @@
             <strong>Para gerar relatório:</strong> Clique no botão Relatório
             <i
               class="far fa-file-alt relatbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e aguarde para fazer
-            <font style="font-style:italic;">download</font> do mesmo.
+            <font style="font-style: italic;">download</font> do mesmo.
           </li>
           <li class="list-group-item">
             <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho
@@ -332,7 +346,7 @@
         </ul>
       </div>
 
-      <div slot="modal-footer" style="display: none"></div>
+      <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
     <!-- Modals FILTROS -->
     <b-modal
@@ -345,13 +359,13 @@
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px!important;height: 30px;"
+          style="font-size: 11px !important; height: 30px;"
         >
           <li class="nav-item" @click="changeTab('perfis')">
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'perfis'
+                active: nav_ativo == 'perfis',
               }"
               >Perfis</a
             >
@@ -360,7 +374,7 @@
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'disciplinas'
+                active: nav_ativo == 'disciplinas',
               }"
               >Disciplinas</a
             >
@@ -369,7 +383,7 @@
             <a
               class="nav-link border"
               :class="{
-                active: nav_ativo == 'semestre'
+                active: nav_ativo == 'semestre',
               }"
               >Semestre</a
             >
@@ -377,7 +391,7 @@
         </ul>
       </div>
 
-      <div class="col m-0 p-0 max-content" style="height: 450px!important;">
+      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- SEARCH BAR -->
         <!-- <div class="w-100 p-0 m-0 mb-1" v-if="nav_ativo == 'disciplinas'">
           <form class="form-inline">
@@ -401,21 +415,21 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
-                    style="width: 435px; text-align:start"
+                    style="width: 435px; text-align: start;"
                     @click="toggleOrdPerfis()"
                   >
                     Nome
                     <i
-                      style="font-size:0.6rem; text-align:right"
+                      style="font-size: 0.6rem; text-align: right;"
                       :class="
                         ordemPerfis.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
@@ -441,7 +455,9 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">{{ perfil.nome }}</p>
+                  <p style="width: 435px; text-align: start;">
+                    {{ perfil.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -451,18 +467,24 @@
         <table
           v-else-if="nav_ativo == 'disciplinas'"
           class="table table-sm modal-table table-bordered table-hover"
-          style="max-height: 450px !important; overflow-y: auto!important"
+          style="max-height: 450px !important; overflow-y: auto !important;"
         >
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
                   <div
                     class="m-0 input-group"
-                    style="width:462px; height:35px; padding-left: 4px; padding-right: 20px; padding-top: 4px;"
+                    style="
+                      width: 462px;
+                      height: 35px;
+                      padding-left: 4px;
+                      padding-right: 20px;
+                      padding-top: 4px;
+                    "
                   >
                     <input
                       type="text"
@@ -477,7 +499,7 @@
                     >
                       <span
                         class="input-group-text"
-                        style="height:25px;  font-size: 18px; cursor:pointer"
+                        style="height: 25px; font-size: 18px; cursor: pointer;"
                         >&times;</span
                       >
                     </div>
@@ -488,26 +510,29 @@
 
             <tr>
               <div
-                style=" font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-bottom max-content"
               >
                 <th>
-                  <p style="width:25px; text-align:center" class="p-header"></p>
+                  <p
+                    style="width: 25px; text-align: center;"
+                    class="p-header"
+                  ></p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
                     style="width: 70px; text-align: start;"
-                    @click="toggleOrdem('codigo')"
+                    @click="toggleOrdDiscip('codigo')"
                     title="Clique para ordenar por código"
                   >
                     Cód.
                     <i
-                      v-if="ordemCursos.order == 'codigo'"
-                      style="font-size:0.6rem; text-align:right"
+                      v-if="ordemDiscip.order == 'codigo'"
+                      style="font-size: 0.6rem; text-align: right;"
                       :class="
-                        ordemCursos.order == 'codigo'
-                          ? ordemCursos.type == 'asc'
+                        ordemDiscip.order == 'codigo'
+                          ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
                           : ''
@@ -519,16 +544,16 @@
                   <p
                     class="p-header clickable"
                     style="width: 280px; text-align: start;"
-                    @click="toggleOrdem('nome')"
+                    @click="toggleOrdDiscip('nome')"
                     title="Clique para ordenar por nome"
                   >
                     Nome
                     <i
-                      v-if="ordemCursos.order == 'nome'"
-                      style="font-size:0.6rem; text-align:right"
+                      v-if="ordemDiscip.order == 'nome'"
+                      style="font-size: 0.6rem; text-align: right;"
                       :class="
-                        ordemCursos.order == 'nome'
-                          ? ordemCursos.type == 'asc'
+                        ordemDiscip.order == 'nome'
+                          ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
                           : ''
@@ -540,16 +565,16 @@
                   <p
                     class="p-header clickable"
                     style="width: 85px; text-align: start;"
-                    @click="toggleOrdem('perfil')"
+                    @click="toggleOrdDiscip('perfil')"
                     title="Clique para ordenar por nome"
                   >
                     Perfil
                     <i
-                      v-if="ordemCursos.order == 'perfil'"
-                      style="font-size:0.6rem; text-align:right"
+                      v-if="ordemDiscip.order == 'perfil'"
+                      style="font-size: 0.6rem; text-align: right;"
                       :class="
-                        ordemCursos.order == 'perfil'
-                          ? ordemCursos.type == 'asc'
+                        ordemDiscip.order == 'perfil'
+                          ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
                           : ''
@@ -578,17 +603,17 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:70px; text-align:start">
+                  <p style="width: 70px; text-align: start;">
                     {{ disciplina.codigo }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:280px; text-align:start">
+                  <p style="width: 280px; text-align: start;">
                     {{ disciplina.nome }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:85px; text-align:start">
+                  <p style="width: 85px; text-align: start;">
                     {{ perfil(disciplina) }}
                   </p>
                 </td>
@@ -605,11 +630,11 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
                   <p class="p-header" style="width: 435px; text-align: start;">
@@ -621,7 +646,7 @@
           </thead>
           <tbody>
             <tr>
-              <div style="width: max-content">
+              <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -632,12 +657,12 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">PRIMEIRO</p>
+                  <p style="width: 435px; text-align: start;">PRIMEIRO</p>
                 </td>
               </div>
             </tr>
             <tr>
-              <div style="width: max-content">
+              <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -648,7 +673,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">SEGUNDO</p>
+                  <p style="width: 435px; text-align: start;">SEGUNDO</p>
                 </td>
               </div>
             </tr>
@@ -705,55 +730,65 @@
           variant="success"
           @click="btnOK()"
           class="btn-verde btn-df mr-2 btn-custom"
-          style="padding-right:15px!important; padding-left:15px!important;"
+          style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
       </div>
     </b-modal>
 
     <!-- Modals para ver divisões de vagas por curso -->
-    <b-modal id="modalVagas" ref="VagasModal" scrollable size="md">
-      <div slot="modal-header" class="row w-100 m-0  p-0" style="width:100%">
-        <div class="col-10 form-inline p-0">
-          <h6 class="p-0 m-0 mr-4">
-            {{
-              turmaSelecionada !== undefined
-                ? disciplina(turmaSelecionada).codigo +
-                  " - " +
-                  disciplina(turmaSelecionada).nome
-                : "Nenhuma Turma Selecionada"
-            }}
-          </h6>
-
-          <label for="selectTurma" class="mr-2">Turma: </label>
-          <select
-            id="selectTurma"
-            class="form-control"
-            style="width:50px!important;"
-            v-model="turmaSelecionada"
-          >
-            <option
-              v-for="turma in turmaSelecionada !== undefined
-                ? turmas(
-                    disciplina(turmaSelecionada),
-                    turmaSelecionada.periodo === 1 ||
-                      turmaSelecionada.periodo === 2
-                      ? 1
-                      : 2
-                  )
-                : []"
-              :key="'selectModalVagas' + turma.id"
-              :value="turma"
-              >{{ turma.letra }}</option
+    <b-modal
+      size="md"
+      id="modalVagas"
+      class="modalVagas modal-vagas"
+      ref="VagasModal"
+      scrollable
+    >
+      <div slot="modal-header" class="row w-100 m-0 p-0">
+        <div class="col-11 form-group p-0">
+          <div class="form-row p-0 m-0">
+            <h6 class="p-0 m-0 mr-4 col-12">
+              {{
+                turmaSelecionada !== undefined
+                  ? disciplina(turmaSelecionada).codigo +
+                    " - " +
+                    disciplina(turmaSelecionada).nome
+                  : "Nenhuma Turma Selecionada"
+              }}
+            </h6>
+          </div>
+          <div class="d-flex col-12 p-0 mt-2" style="margin-bottom: -15px;">
+            <label for="selectTurma" class="mr-2">Turma: </label>
+            <select
+              id="selectTurma"
+              class="form-control"
+              style="width: 50px !important;"
+              v-model="turmaSelecionada"
             >
-          </select>
+              <option
+                v-for="turma in turmaSelecionada !== undefined
+                  ? turmas(
+                      disciplina(turmaSelecionada),
+                      turmaSelecionada.periodo === 1 ||
+                        turmaSelecionada.periodo === 2
+                        ? 1
+                        : 2
+                    )
+                  : []"
+                :key="'selectModalVagas' + turma.id"
+                :value="turma"
+                >{{ turma.letra }}</option
+              >
+            </select>
+          </div>
         </div>
 
         <div class="col-1 m-0 p-0">
           <button
             type="button"
-            class="close"
-            v-on:click="closeModalVagas"
+            class="close float-right"
+            style="padding-bottom: 4px;"
+            v-on:click="closeModalVagas()"
             aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
@@ -769,57 +804,46 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
                   <p
                     class="p-header clickable"
                     style="width: 50px; text-align: start;"
-                    v-on:click="toggleOrdCursos('codigo')"
+                    v-on:click="toggleOrdVagas('codigo')"
                     title="Clique para ordenar por código"
                   >
                     Cód.
                     <i
-                      v-if="
-                        ordemVagas.order === 'codigo' &&
-                          ordemVagas.type === 'asc'
+                      :class="
+                        ordemVagas.order === 'codigo'
+                          ? ordemVagas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
                       "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                    <i
-                      v-if="
-                        ordemVagas.order === 'codigo' &&
-                          ordemVagas.type === 'desc'
-                      "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-up fa-sm"
+                      style="font-size: 0.6rem; text-align: right;"
                     ></i>
                   </p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
-                    style="width: 260px; text-align: start;"
-                    v-on:click="toggleOrdCursos('nome')"
+                    style="width: 250px; text-align: start;"
+                    v-on:click="toggleOrdVagas('nome')"
                     title="Clique para ordenar por nome"
                   >
                     Nome
                     <i
-                      v-if="
-                        ordemVagas.order === 'nome' && ordemVagas.type === 'asc'
+                      :class="
+                        ordemVagas.order === 'nome'
+                          ? ordemVagas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
                       "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                    <i
-                      v-if="
-                        ordemVagas.order === 'nome' &&
-                          ordemVagas.type === 'desc'
-                      "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-up fa-sm"
+                      style="font-size: 0.6rem; text-align: right;"
                     ></i>
                   </p>
                 </th>
@@ -827,52 +851,40 @@
                 <th>
                   <p
                     class="p-header clickable"
-                    style="width: 50px; text-align: start;"
-                    v-on:click="toggleOrdCursos('vagasPeriodizadas')"
+                    style="width: 55px; text-align: start;"
+                    v-on:click="toggleOrdVagas('vagasPeriodizadas')"
                     title="Clique para ordenar por vagas da grade"
                   >
                     Grade
                     <i
-                      v-if="
-                        ordemVagas.order === 'vagasPeriodizadas' &&
-                          ordemVagas.type === 'asc'
+                      :class="
+                        ordemVagas.order === 'vagasPeriodizadas'
+                          ? ordemVagas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
                       "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                    <i
-                      v-if="
-                        ordemVagas.order === 'vagasPeriodizadas' &&
-                          ordemVagas.type === 'desc'
-                      "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-up fa-sm"
+                      style="font-size: 0.6rem; text-align: right;"
                     ></i>
                   </p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
-                    style="width: 50px; text-align: start;"
-                    v-on:click="toggleOrdCursos('vagasNaoPeriodizadas')"
+                    style="width: 55px; text-align: start;"
+                    v-on:click="toggleOrdVagas('vagasNaoPeriodizadas')"
                     title="Clique para ordenar por vagas extras"
                   >
                     Extra
                     <i
-                      v-if="
-                        ordemVagas.order === 'vagasNaoPeriodizadas' &&
-                          ordemVagas.type === 'asc'
+                      :class="
+                        ordemVagas.order === 'vagasNaoPeriodizadas'
+                          ? ordemVagas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
                       "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                    <i
-                      v-if="
-                        ordemVagas.order === 'vagasNaoPeriodizadas' &&
-                          ordemVagas.type === 'desc'
-                      "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-up fa-sm"
+                      style="font-size: 0.6rem; text-align: right;"
                     ></i>
                   </p>
                 </th>
@@ -880,25 +892,19 @@
                   <p
                     class="p-header clickable"
                     style="width: 50px; text-align: start;"
-                    v-on:click="toggleOrdCursos('vagasTotais')"
+                    v-on:click="toggleOrdVagas('vagasTotais')"
                     title="Clique para ordenar por vagas extras"
                   >
                     Total
                     <i
-                      v-if="
-                        ordemVagas.order === 'vagasTotais' &&
-                          ordemVagas.type === 'asc'
+                      :class="
+                        ordemVagas.order === 'vagasTotais'
+                          ? ordemVagas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
                       "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-down fa-sm"
-                    ></i>
-                    <i
-                      v-if="
-                        ordemVagas.order === 'vagasTotais' &&
-                          ordemVagas.type === 'desc'
-                      "
-                      style="font-size:0.6rem; text-align:right"
-                      class="fas fa-arrow-up fa-sm"
+                      style="font-size: 0.6rem; text-align: right;"
                     ></i>
                   </p>
                 </th>
@@ -911,29 +917,29 @@
               v-for="p in VagasTurmaSelecionada"
               :key="'vaga' + p.Curso + '-' + p.Turma"
             >
-              <div style="width: max-content!important">
+              <div style="width: max-content !important;">
                 <td>
-                  <p style="width: 50px; text-align:start">
+                  <p style="width: 50px; text-align: start;">
                     {{ curso(p).codigo }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:260px; text-align:start">
+                  <p style="width: 250px; text-align: start;">
                     {{ curso(p).nome }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:start">
+                  <p style="width: 55px; text-align: start;">
                     {{ p.vagasPeriodizadas }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:start">
+                  <p style="width: 55px; text-align: start;">
                     {{ p.vagasNaoPeriodizadas }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:start">
+                  <p style="width: 50px; text-align: start;">
                     {{ p.vagasPeriodizadas + p.vagasNaoPeriodizadas }}
                   </p>
                 </td>
@@ -964,9 +970,9 @@ export default {
       turmaSelecionada: undefined,
       nav_ativo: "perfis",
       searchDisciplinas: null,
-      ordemCursos: { order: "codigo", type: "asc" },
+      ordemDiscip: { order: "codigo", type: "asc" },
       ordemVagas: { order: "codigo", type: "asc" },
-      ordemPerfis: { order: "nome", type: "asc" }
+      ordemPerfis: { order: "nome", type: "asc" },
     };
   },
 
@@ -992,23 +998,31 @@ export default {
       this.$refs.modalFiltros.hide();
       this.searchDisciplinas = null;
     },
-    // Ordem Curso
-    toggleOrdCursos(ordem) {
-      if (this.ordemVagas.order === ordem)
-        this.ordemVagas.type === "asc"
-          ? (this.ordemVagas.type = "desc")
-          : (this.ordemVagas.type = "asc");
-      else {
-        this.ordemVagas.order = ordem;
-        this.ordemVagas.type = "asc";
+    // Ordem disciplinas Main table
+    toggleOrdDiscip(ord) {
+      if (this.ordemDiscip.order != ord) {
+        this.ordemDiscip.order = ord;
+        this.ordemDiscip.type = "asc";
+      } else {
+        this.ordemDiscip.type = this.ordemDiscip.type == "asc" ? "desc" : "asc";
       }
     },
-    // Ordem Perfis
+
+    // Ordem Perfis Modal
     toggleOrdPerfis() {
       if (this.ordemPerfis.type == "asc") {
         this.ordemPerfis.type = "desc";
       } else {
         this.ordemPerfis.type = "asc";
+      }
+    },
+    // Ordem Vagas Modal
+    toggleOrdVagas(ord) {
+      if (this.ordemVagas.order != ord) {
+        this.ordemVagas.order = ord;
+        this.ordemVagas.type = "asc";
+      } else {
+        this.ordemVagas.type = this.ordemVagas.type == "asc" ? "desc" : "asc";
       }
     },
     //Select Semestre
@@ -1041,21 +1055,9 @@ export default {
       this.DisciplinasSelecionados = [];
     },
 
-    toggleOrdem(ord) {
-      if (this.ordemCursos.order != ord) {
-        this.ordemCursos.order = ord;
-        this.ordemCursos.type = "asc";
-      } else {
-        if (this.ordemCursos.type == "asc") {
-          this.ordemCursos.type = "desc";
-        } else {
-          this.ordemCursos.type = "asc";
-        }
-      }
-    },
     pdf() {
       pdfs.pdfRelatorioDisciplinas({
-        disciplinasSelecionadas: this.DisciplinasAtivados
+        disciplinasSelecionadas: this.DisciplinasAtivados,
       });
     },
     vagasTurma(turma, semestre) {
@@ -1067,7 +1069,7 @@ export default {
       let pedidos = this.$store.state.pedido.Pedidos[turma.id];
       let vagasP = 0;
       let vagasNP = 0;
-      pedidos.forEach(p => {
+      pedidos.forEach((p) => {
         vagasP += p.vagasPeriodizadas;
         vagasNP += p.vagasNaoPeriodizadas;
       });
@@ -1076,10 +1078,10 @@ export default {
 
     vagasDisciplina(disciplina, semestre) {
       let turmas = _.filter(this.$store.state.turma.Turmas, {
-        Disciplina: disciplina.id
+        Disciplina: disciplina.id,
       });
       let vagas = 0;
-      turmas.forEach(t => {
+      turmas.forEach((t) => {
         vagas += this.vagasTurma(t, semestre);
       });
       return vagas;
@@ -1087,13 +1089,13 @@ export default {
 
     perfil(disciplina) {
       let perfil = _.find(this.$store.state.perfil.Perfis, {
-        id: disciplina.Perfil
+        id: disciplina.Perfil,
       });
       return perfil.abreviacao;
     },
     turmas(disciplina, semestre) {
       return _.orderBy(
-        _.filter(this.$store.state.turma.Turmas, turma => {
+        _.filter(this.$store.state.turma.Turmas, (turma) => {
           return (
             turma.Disciplina === disciplina.id &&
             (semestre === 1
@@ -1109,10 +1111,10 @@ export default {
 
     docentes(turma) {
       let d1 = _.find(this.$store.state.docente.Docentes, {
-        id: turma.Docente1
+        id: turma.Docente1,
       });
       let d2 = _.find(this.$store.state.docente.Docentes, {
-        id: turma.Docente2
+        id: turma.Docente2,
       });
       if (d1 === undefined && d2 === undefined) {
         return "";
@@ -1136,20 +1138,20 @@ export default {
 
     disciplina(turma) {
       return _.find(this.$store.state.disciplina.Disciplinas, {
-        id: turma.Disciplina
+        id: turma.Disciplina,
       });
     },
 
     closeModalVagas() {
       this.$refs.VagasModal.hide();
-    }
+    },
   },
 
   computed: {
     //Todas disciplinas
     Disciplinas() {
       let result = _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
+        _.filter(this.$store.state.disciplina.Disciplinas, function (d) {
           return d.Perfil !== 13 && d.Perfil !== 15;
         })
       );
@@ -1157,7 +1159,7 @@ export default {
       if (this.searchDisciplinas != null) {
         let searchUpperCase = this.searchDisciplinas.toUpperCase();
 
-        return result.filter(disci => {
+        return result.filter((disci) => {
           return (
             disci.nome
               .normalize("NFD")
@@ -1172,36 +1174,36 @@ export default {
     },
     //Disciplinas filtradas
     Disciplinas_Filtred() {
-      if (this.ordemCursos.order == "perfil") {
+      if (this.ordemDiscip.order == "perfil") {
         //Se for ordem pelo perfil, passa o vetor de ordem ["Perfil", "codigo"]
         return _.orderBy(
           this.Disciplinas,
           ["Perfil", "codigo"],
-          [this.ordemCursos.type, "asc"]
+          [this.ordemDiscip.type, "asc"]
         );
       } else {
         //Outros casos
         return _.orderBy(
           this.Disciplinas,
-          this.ordemCursos.order,
-          this.ordemCursos.type
+          this.ordemDiscip.order,
+          this.ordemDiscip.type
         );
       }
     },
 
     //Disciplinas da Main Table ordenadas
     Disciplinas_Main_Table() {
-      if (this.ordemCursos.order == "perfil") {
+      if (this.ordemDiscip.order == "perfil") {
         return _.orderBy(
           this.DisciplinasAtivados,
           ["Perfil", "codigo"],
-          [this.ordemCursos.type, "asc"]
+          [this.ordemDiscip.type, "asc"]
         );
       } else {
         return _.orderBy(
           this.DisciplinasAtivados,
-          this.ordemCursos.order,
-          this.ordemCursos.type
+          this.ordemDiscip.order,
+          this.ordemDiscip.type
         );
       }
     },
@@ -1215,14 +1217,15 @@ export default {
 
     VagasTurmaSelecionada() {
       if (this.turmaSelecionada === undefined) return [];
+
       return _.orderBy(
         _.filter(
           this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
-          function(p) {
+          function (p) {
             return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
           }
         ),
-        p => {
+        (p) => {
           switch (this.ordemVagas.order) {
             case "codigo":
               return this.curso(p).codigo;
@@ -1244,7 +1247,7 @@ export default {
 
     Horarios() {
       return this.$store.state.horario.Horarios;
-    }
+    },
     //Função para adicionar ao clickar no <tr>
     // addInDisci(disciplina) {
     //   let indice = this.DisciplinasSelecionados.indexOf(disciplina);
@@ -1261,8 +1264,8 @@ export default {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
       this.DisciplinasSelecionados = [];
 
-      this.Disciplinas.forEach(discip => {
-        this.PerfisAtivados.forEach(perfil => {
+      this.Disciplinas.forEach((discip) => {
+        this.PerfisAtivados.forEach((perfil) => {
           if (
             discip.Perfil == perfil.id &&
             !this.DisciplinasSelecionados.includes(discip)
@@ -1271,8 +1274,8 @@ export default {
           }
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -1383,13 +1386,6 @@ strong {
   text-transform: uppercase;
 }
 /* Botoes */
-.btn-x {
-  background: none;
-  border: none;
-  margin-top: 0px;
-  line-height: 50%;
-  padding-bottom: 8px;
-}
 .btn-custom {
   padding: 0;
   border: none;
@@ -1648,5 +1644,8 @@ i.far {
   width: -webkit-max-content !important;
   width: -moz-max-content !important;
   width: max-content !important;
+}
+.modal-content .modal-header {
+  padding: 0 !important;
 }
 </style>

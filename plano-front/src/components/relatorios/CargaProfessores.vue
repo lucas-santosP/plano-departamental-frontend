@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
+      style="height: 38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-8 col-sm-5 col-md-4 col-lg-3 col-xl-3">
@@ -42,34 +42,43 @@
         <thead class="thead-light">
           <tr>
             <div
-              style="font-size: 11px!important"
+              style="font-size: 11px !important;"
               class="sticky-top max-content"
             >
               <th scope="col">
                 <p
-                  class="p-header"
-                  style="width: 130px; text-align: start !important; padding-left: 5px;"
+                  class="p-header clickable"
+                  style="width: 130px; text-align: start !important;"
+                  @click="toggleOrdProf_Main"
                 >
                   Nome
+                  <i
+                    style="font-size: 0.6rem;"
+                    :class="
+                      ordemProf_Main.type == 'asc'
+                        ? 'fas fa-arrow-down fa-sm'
+                        : 'fas fa-arrow-up fa-sm'
+                    "
+                  ></i>
                 </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 24px">S.</p>
+                <p class="p-header" style="width: 24px;">S.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 80px">Cod</p>
+                <p class="p-header" style="width: 80px;">Cod</p>
               </th>
               <th scope="col">
                 <p class="p-header" style="width: 300px;">Disciplina</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 24px">T.</p>
+                <p class="p-header" style="width: 24px;">T.</p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 180px">Horário</p>
+                <p class="p-header" style="width: 180px;">Horário</p>
               </th>
               <th scope="col" id="creditos1">
-                <p class="p-header" style="width: 32px">CS1</p>
+                <p class="p-header" style="width: 32px;">CS1</p>
                 <b-popover
                   :target="'creditos1'"
                   placement="bottom"
@@ -79,7 +88,7 @@
                 </b-popover>
               </th>
               <th scope="col" id="creditos2">
-                <p class="p-header" style="width: 32px">CS2</p>
+                <p class="p-header" style="width: 32px;">CS2</p>
                 <b-popover
                   :target="'creditos2'"
                   placement="bottom"
@@ -89,7 +98,7 @@
                 </b-popover>
               </th>
               <th scope="col" id="creditostotal">
-                <p class="p-header" style="width: 42px">CTotal</p>
+                <p class="p-header" style="width: 42px;">CTotal</p>
                 <b-popover
                   :target="'creditostotal'"
                   placement="bottom"
@@ -102,8 +111,8 @@
           </tr>
         </thead>
         <tbody>
-          <template v-if="Professores.length > 0">
-            <template v-for="professor in DocentesAtivados">
+          <template v-if="Docentes.length > 0">
+            <template v-for="professor in Docentes_Ativados_filtred">
               <template v-if="turmas(professor).length > 0">
                 <div style="width: ‭845‬px;" :key="professor.apelido">
                   <td class="prof-td">
@@ -112,25 +121,25 @@
                     </p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 24px"></p>
+                    <p style="width: 24px;"></p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 80px"></p>
+                    <p style="width: 80px;"></p>
                   </td>
                   <td class="prof-td">
                     <p style="width: 300px; height: 20px;"></p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 24px"></p>
+                    <p style="width: 24px;"></p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 180px"></p>
+                    <p style="width: 180px;"></p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 32px">{{ creditos1(professor) }}</p>
+                    <p style="width: 32px;">{{ creditos1(professor) }}</p>
                   </td>
                   <td class="prof-td">
-                    <p style="width: 32px">{{ creditos2(professor) }}</p>
+                    <p style="width: 32px;">{{ creditos2(professor) }}</p>
                   </td>
                   <td class="prof-td">
                     <p style="width: 42px;">{{ creditos(professor) }}</p>
@@ -143,38 +152,38 @@
                   v-for="disciplina in Disciplinas"
                   :key="
                     'turma' +
-                      turma.id +
-                      'disciplina' +
-                      disciplina.id +
-                      'professor' +
-                      professor.id
+                    turma.id +
+                    'disciplina' +
+                    disciplina.id +
+                    'professor' +
+                    professor.id
                   "
                 >
                   <template
                     v-if="
                       turma.Disciplina === disciplina.id &&
-                        (turma.Docente1 === professor.id ||
-                          turma.Docente2 === professor.id)
+                      (turma.Docente1 === professor.id ||
+                        turma.Docente2 === professor.id)
                     "
                   >
                     <div style="width: ‭845‬px;">
                       <td>
-                        <p style="width: 130px"></p>
+                        <p style="width: 130px;"></p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.periodo }}</p>
+                        <p style="width: 24px;">{{ turma.periodo }}</p>
                       </td>
                       <td>
-                        <p style="width: 80px">{{ disciplina.codigo }}</p>
+                        <p style="width: 80px;">{{ disciplina.codigo }}</p>
                       </td>
                       <td>
                         <p style="width: 300px;">{{ disciplina.nome }}</p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.letra }}</p>
+                        <p style="width: 24px;">{{ turma.letra }}</p>
                       </td>
                       <td>
-                        <div style="width: 180px">
+                        <div style="width: 180px;">
                           <template v-for="horario in Horarios">
                             <p
                               :key="horario.id"
@@ -194,12 +203,12 @@
                       </td>
 
                       <td v-if="turma.periodo === 1">
-                        <div style="width: 32px">
+                        <div style="width: 32px;">
                           <p v-if="turma.Docente1 > 0 && turma.Docente2 > 0">
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                                2
+                              2
                             }}
                           </p>
 
@@ -212,16 +221,16 @@
                       </td>
 
                       <td v-else>
-                        <p style="width: 32px"></p>
+                        <p style="width: 32px;"></p>
                       </td>
 
                       <td v-if="turma.periodo === 3">
-                        <div style="width: 32px">
+                        <div style="width: 32px;">
                           <p v-if="turma.Docente1 > 0 && turma.Docente2 > 0">
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                                2
+                              2
                             }}
                           </p>
                           <p v-else>
@@ -232,11 +241,11 @@
                         </div>
                       </td>
                       <td v-else>
-                        <p style="width: 32px"></p>
+                        <p style="width: 32px;"></p>
                       </td>
 
                       <td>
-                        <p style="width: 42px"></p>
+                        <p style="width: 42px;"></p>
                       </td>
                     </div>
                   </template>
@@ -248,41 +257,41 @@
                   <tr :key="'cargaPos' + carga.id + 'professor' + professor.id">
                     <div style="width: ‭845‬px;">
                       <td>
-                        <p style="width: 130px"></p>
+                        <p style="width: 130px;"></p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ carga.trimestre }}</p>
+                        <p style="width: 24px;">{{ carga.trimestre }}</p>
                       </td>
                       <td>
-                        <p style="width: 80px"></p>
+                        <p style="width: 80px;"></p>
                       </td>
                       <td>
-                        <p style="width: 300px" class="toUpperCase">
+                        <p style="width: 300px;" class="toUpperCase">
                           Disciplina do {{ carga.programa }}
                         </p>
                       </td>
                       <td>
-                        <p style="width: 24px"></p>
+                        <p style="width: 24px;"></p>
                       </td>
                       <td>
-                        <p style="width: 180px"></p>
+                        <p style="width: 180px;"></p>
                       </td>
 
                       <td v-if="carga.trimestre == 1 || carga.trimestre == 2">
-                        <p style="width: 32px">{{ carga.creditos }}</p>
+                        <p style="width: 32px;">{{ carga.creditos }}</p>
                       </td>
                       <td v-else>
-                        <p style="width: 32px"></p>
+                        <p style="width: 32px;"></p>
                       </td>
 
                       <td v-if="carga.trimestre == 3 || carga.trimestre == 4">
-                        <p style="width: 32px">{{ carga.creditos }}</p>
+                        <p style="width: 32px;">{{ carga.creditos }}</p>
                       </td>
                       <td v-else>
-                        <p style="width: 32px"></p>
+                        <p style="width: 32px;"></p>
                       </td>
 
-                      <td><p style="width: 42px"></p></td>
+                      <td><p style="width: 42px;"></p></td>
                     </div>
                   </tr>
                 </template>
@@ -292,31 +301,31 @@
               <template v-if="turmasSemAlocacao().length > 0">
                 <div style="width: ‭845‬px;" :key="'semAlocacao'">
                   <td class="prof-td">
-                    <div style="width: 130px">SEM ALOCAÇÃO</div>
+                    <div style="width: 130px;">SEM ALOCAÇÃO</div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 24px"></div>
+                    <div style="width: 24px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 80px"></div>
+                    <div style="width: 80px;"></div>
                   </td>
                   <td class="prof-td">
                     <div style="width: 300px; height: 20px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 24px"></div>
+                    <div style="width: 24px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 180px"></div>
+                    <div style="width: 180px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 32px"></div>
+                    <div style="width: 32px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 32px"></div>
+                    <div style="width: 32px;"></div>
                   </td>
                   <td class="prof-td">
-                    <div style="width: 42px; "></div>
+                    <div style="width: 42px;"></div>
                   </td>
                 </div>
               </template>
@@ -325,37 +334,37 @@
                   v-for="disciplina in Disciplinas"
                   :key="
                     'turma' +
-                      turma.id +
-                      'disciplina' +
-                      disciplina.id +
-                      'semAlocacao'
+                    turma.id +
+                    'disciplina' +
+                    disciplina.id +
+                    'semAlocacao'
                   "
                 >
                   <template
                     v-if="
                       turma.Disciplina === disciplina.id &&
-                        turma.Docente1 == null &&
-                        turma.Docente2 == null
+                      turma.Docente1 == null &&
+                      turma.Docente2 == null
                     "
                   >
                     <div style="width: ‭845‬px;">
                       <td>
-                        <p style="width: 130px"></p>
+                        <p style="width: 130px;"></p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.periodo }}</p>
+                        <p style="width: 24px;">{{ turma.periodo }}</p>
                       </td>
                       <td>
-                        <p style="width: 80px">{{ disciplina.codigo }}</p>
+                        <p style="width: 80px;">{{ disciplina.codigo }}</p>
                       </td>
                       <td>
                         <p style="width: 300px;">{{ disciplina.nome }}</p>
                       </td>
                       <td>
-                        <p style="width: 24px">{{ turma.letra }}</p>
+                        <p style="width: 24px;">{{ turma.letra }}</p>
                       </td>
                       <td>
-                        <div style="width: 180px">
+                        <div style="width: 180px;">
                           <template v-for="horario in Horarios">
                             <p
                               :key="horario.id"
@@ -375,12 +384,12 @@
                       </td>
 
                       <td v-if="turma.periodo === 1">
-                        <div style="width: 32px">
+                        <div style="width: 32px;">
                           <p v-if="turma.Docente1 > 0 && turma.Docente2 > 0">
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                                2
+                              2
                             }}
                           </p>
 
@@ -393,16 +402,16 @@
                       </td>
 
                       <td v-else>
-                        <div style="width: 32px"></div>
+                        <div style="width: 32px;"></div>
                       </td>
 
                       <td v-if="turma.periodo === 3">
-                        <div style="width: 32px">
+                        <div style="width: 32px;">
                           <p v-if="turma.Docente1 > 0 && turma.Docente2 > 0">
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                                2
+                              2
                             }}
                           </p>
                           <p v-else>
@@ -413,11 +422,11 @@
                         </div>
                       </td>
                       <td v-else>
-                        <div style="width: 32px"></div>
+                        <div style="width: 32px;"></div>
                       </td>
 
                       <td>
-                        <div style="width: 42px"></div>
+                        <div style="width: 42px;"></div>
                       </td>
                     </div>
                   </template>
@@ -444,7 +453,7 @@
             <strong>Para exibir conteúdo na Tabela:</strong> Clique em Docentes
             <i
               class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e selecione o(s) professor(es) que deseja ver, em seguida confirme
             em OK. Caso queira ver todos basta clicar em Selecionar Todos.
@@ -453,15 +462,15 @@
             <strong>Para gerar relatório:</strong> Clique no botão Relatório
             <i
               class="far fa-file-alt relatbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e aguarde para fazer
-            <font style="font-style:italic;">download</font> do mesmo.
+            <font style="font-style: italic;">download</font> do mesmo.
           </li>
         </ul>
       </div>
 
-      <div slot="modal-footer" style="display: none"></div>
+      <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
 
     <!-- Modals do botão para escolher docentes -->
@@ -475,7 +484,7 @@
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px!important;height: 30px;"
+          style="font-size: 11px !important; height: 30px;"
         >
           <li class="nav-item">
             <a class="nav-link active border clickable">Perfis</a>
@@ -483,7 +492,7 @@
         </ul>
       </div>
 
-      <div class="col m-0 p-0 max-content" style="height: 450px!important;">
+      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- TABLE PROFS -->
         <table
           class="table table-sm modal-table table-bordered"
@@ -492,13 +501,19 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-top max-content"
               >
                 <th>
                   <div
                     class="m-0 input-group"
-                    style="width:462px; height:35px; padding-left: 4px; padding-right: 20px; padding-top: 4px;"
+                    style="
+                      width: 462px;
+                      height: 35px;
+                      padding-left: 4px;
+                      padding-right: 20px;
+                      padding-top: 4px;
+                    "
                   >
                     <input
                       type="text"
@@ -510,7 +525,7 @@
                     <div class="input-group-append" @click="searchProf = null">
                       <span
                         class="input-group-text"
-                        style="height:25px;  font-size: 18px; cursor:pointer"
+                        style="height: 25px; font-size: 18px; cursor: pointer;"
                         >&times;</span
                       >
                     </div>
@@ -521,25 +536,37 @@
 
             <tr>
               <div
-                style="font-size: 11px!important"
+                style="font-size: 11px !important;"
                 class="sticky-bottom max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
-                    style="width: 436px; text-align:start;"
+                    style="width: 436px; text-align: start;"
+                    @click="toggleOrdProf_Modal()"
                   >
                     Nome
+                    <i
+                      style="font-size: 0.6rem;"
+                      :class="
+                        ordemProf_Modal.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                      "
+                    ></i>
                   </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="docente in Professores" :key="`docente${docente.id}`">
+            <tr
+              v-for="docente in Docentes_Filtred"
+              :key="`docente${docente.id}`"
+            >
               <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -552,7 +579,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:436px; text-align:start">
+                  <p style="width: 436px; text-align: start;">
                     {{ docente.apelido }}
                   </p>
                 </td>
@@ -560,7 +587,7 @@
             </tr>
 
             <tr>
-              <div style="width: max-content">
+              <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -571,7 +598,7 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:436px; text-align:start">SEM ALOCAÇÃO</p>
+                  <p style="width: 436px; text-align: start;">SEM ALOCAÇÃO</p>
                 </td>
               </div>
             </tr>
@@ -598,7 +625,7 @@
           variant="success"
           @click="btnOK()"
           class="btn-verde btn-df mr-2"
-          style="padding-right:15px!important; padding-left:15px!important;"
+          style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
       </div>
@@ -620,7 +647,9 @@ export default {
       DocentesAtivados: [],
       SemAlocacao: false,
       SemAlocacaoCheck: false,
-      searchProf: null
+      searchProf: null,
+      ordemProf_Modal: { order: "apelido", type: "asc" },
+      ordemProf_Main: { order: "apelido", type: "asc" },
     };
   },
 
@@ -628,12 +657,23 @@ export default {
     pdf() {
       pdfs.pdfCargaProfessores();
     },
-
+    toggleOrdProf_Modal() {
+      if (this.ordemProf_Modal.type == "asc") {
+        this.ordemProf_Modal.type = "desc";
+      } else {
+        this.ordemProf_Modal.type = "asc";
+      }
+    },
+    toggleOrdProf_Main() {
+      if (this.ordemProf_Main.type == "asc") {
+        this.ordemProf_Main.type = "desc";
+      } else {
+        this.ordemProf_Main.type = "asc";
+      }
+    },
     btnOK() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.DocentesAtivados = [
-        ..._.orderBy(this.DocentesSelecionados, "apelido")
-      ];
+      this.DocentesAtivados = [...this.DocentesSelecionados];
       this.SemAlocacao = this.SemAlocacaoCheck;
       this.$refs.modalFiltros.hide();
       this.searchProf = null;
@@ -653,7 +693,7 @@ export default {
 
     turmas(professor) {
       return _.orderBy(
-        _.filter(this.$store.state.turma.Turmas, turma => {
+        _.filter(this.$store.state.turma.Turmas, (turma) => {
           return (
             turma.Docente1 === professor.id || turma.Docente2 === professor.id
           );
@@ -664,7 +704,7 @@ export default {
 
     turmasSemAlocacao() {
       return _.orderBy(
-        _.filter(this.$store.state.turma.Turmas, turma => {
+        _.filter(this.$store.state.turma.Turmas, (turma) => {
           return (
             turma.Docente1 == null &&
             turma.Docente2 == null &&
@@ -676,7 +716,7 @@ export default {
     },
 
     pos(professor) {
-      return _.filter(this.$store.state.cargaPos.Cargas, turma => {
+      return _.filter(this.$store.state.cargaPos.Cargas, (turma) => {
         return turma.Docente === professor.id;
       });
     },
@@ -832,10 +872,17 @@ export default {
         }
       }
       return c;
-    }
+    },
   },
 
   computed: {
+    Docentes_Ativados_filtred() {
+      return _.orderBy(
+        this.DocentesAtivados,
+        this.ordemProf_Main.order,
+        this.ordemProf_Main.type
+      );
+    },
     CargasPos() {
       return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
     },
@@ -846,20 +893,31 @@ export default {
     Horarios() {
       return this.$store.state.horario.Horarios;
     },
-    Professores() {
+    Docentes_Filtred() {
+      //Filtro ordem
       return _.orderBy(
-        _.filter(this.Professores_search, ["ativo", true]),
-        "apelido"
+        this.Docentes,
+        this.ordemProf_Modal.order,
+        this.ordemProf_Modal.type
       );
     },
-    Professores_search() {
-      return this.$store.state.docente.Docentes.filter(prof => {
-        return this.searchProf == null
-          ? true
-          : prof.apelido.match(this.searchProf.toUpperCase());
+    Docentes() {
+      //Filtro search
+      return this.$store.state.docente.Docentes.filter((prof) => {
+        console.log(prof);
+
+        return prof.ativo
+          ? this.searchProf == null
+            ? true
+            : prof.apelido.match(this.searchProf.toUpperCase())
+          : false;
+
+        // return (this.searchProf == null)
+        //   ? true
+        //   : prof.apelido.match(this.searchProf.toUpperCase());
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -871,12 +929,18 @@ export default {
   overflow: hidden;
   margin: 0;
 }
-.p-header {
-  padding: 0px 0 0px 0;
-  margin: 0;
-  font-size: 11px;
+.main-table .p-header {
+  padding: 0 5px 0 5px !important;
+  margin: 0 !important;
+  font-size: 11px !important;
   text-align: center;
   height: 18px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .divTable {
   overflow: hidden;
@@ -1228,5 +1292,8 @@ i.far {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
+}
+.clickable {
+  cursor: pointer !important;
 }
 </style>
