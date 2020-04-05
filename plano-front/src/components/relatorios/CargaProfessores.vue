@@ -38,7 +38,7 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="divTable p-0" ref="carga">
-      <table class="main-table table table-hover border table-sm">
+      <table class="main-table table table-bordered table-hover table-sm">
         <thead class="thead-light">
           <tr>
             <div
@@ -114,7 +114,7 @@
           <template v-if="Docentes.length > 0">
             <template v-for="professor in Docentes_Ativados_filtred">
               <template v-if="turmas(professor).length > 0">
-                <div style="width: ‭845‬px;" :key="professor.apelido">
+                <div class="max-content" :key="professor.apelido">
                   <td class="prof-td">
                     <p style="width: 130px; text-align: start !important;">
                       {{ professor.apelido }}
@@ -166,7 +166,7 @@
                         turma.Docente2 === professor.id)
                     "
                   >
-                    <div style="width: ‭845‬px;">
+                    <div class="max-content">
                       <td>
                         <p style="width: 130px;"></p>
                       </td>
@@ -255,7 +255,7 @@
               <template v-for="carga in CargasPos">
                 <template v-if="carga.Docente === professor.id">
                   <tr :key="'cargaPos' + carga.id + 'professor' + professor.id">
-                    <div style="width: ‭845‬px;">
+                    <div class="max-content">
                       <td>
                         <p style="width: 130px;"></p>
                       </td>
@@ -347,7 +347,7 @@
                       turma.Docente2 == null
                     "
                   >
-                    <div style="width: ‭845‬px;">
+                    <div class="max-content">
                       <td>
                         <p style="width: 130px;"></p>
                       </td>
@@ -876,13 +876,6 @@ export default {
   },
 
   computed: {
-    Docentes_Ativados_filtred() {
-      return _.orderBy(
-        this.DocentesAtivados,
-        this.ordemProf_Main.order,
-        this.ordemProf_Main.type
-      );
-    },
     CargasPos() {
       return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
     },
@@ -892,6 +885,13 @@ export default {
     },
     Horarios() {
       return this.$store.state.horario.Horarios;
+    },
+    Docentes_Ativados_filtred() {
+      return _.orderBy(
+        this.DocentesAtivados,
+        this.ordemProf_Main.order,
+        this.ordemProf_Main.type
+      );
     },
     Docentes_Filtred() {
       //Filtro ordem
@@ -903,19 +903,14 @@ export default {
     },
     Docentes() {
       //Filtro search
-      return this.$store.state.docente.Docentes.filter((prof) => {
-        console.log(prof);
-
-        return prof.ativo
-          ? this.searchProf == null
-            ? true
-            : prof.apelido.match(this.searchProf.toUpperCase())
-          : false;
-
-        // return (this.searchProf == null)
-        //   ? true
-        //   : prof.apelido.match(this.searchProf.toUpperCase());
-      });
+      if (this.searchProf != null && this.searchProf != "") {
+        return this.$store.state.docente.Docentes.filter((prof) => {
+          return prof.ativo
+            ? prof.apelido.match(this.searchProf.toUpperCase())
+            : false;
+        });
+      }
+      return this.$store.state.docente.Docentes;
     },
   },
 };
@@ -951,15 +946,18 @@ export default {
   width: -moz-max-content;
   width: max-content;
 }
+
 .main-table {
-  display: block;
-  overflow: auto;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
-  font-size: 11px;
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
   background-color: white;
-  margin: 0;
+  margin: 0 !important;
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
 }
 tbody {
   max-height: 100%;

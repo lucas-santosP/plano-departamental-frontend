@@ -3,7 +3,7 @@
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
+      style="height: 38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6 px-0 pr-1">
@@ -11,16 +11,20 @@
         </h1>
         <div
           class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-6 mb-0 p-0"
-          style="justify-content: flex-end!important;"
+          style="justify-content: flex-end !important;"
         >
-          <div class="input-group mr-3 ml-auto mb-0 mt-0 p-0">
+          <div class="input-group m-0 mr-3 ml-auto p-0">
+            <div class="input-group-prepend">
+              <label class="input-group-text">Ano</label>
+            </div>
             <select
               v-model="novoAno"
+              class="form-control"
               v-on:change="runNovoAno()"
-              style="height: 25px!important"
             >
               <option
                 v-for="i in Array.from(Array(11), (e, i) => i - 5)"
+                :key="i"
                 :value="AnoAtual + i"
                 >{{ AnoAtual + i }}</option
               >
@@ -44,13 +48,43 @@
       <table class="main-table table table-hover border table-sm">
         <thead class="thead-light">
           <tr>
-            <div class="sticky" style="width: max-content">
+            <div class="sticky" style="width: max-content;">
               <th scope="col">
-                <p class="p-header" style="width: 100px;">Código</p>
+                <p
+                  class="p-header"
+                  style="width: 100px;"
+                  @click="toggleOrdMain('codigo')"
+                >
+                  Código
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemMainTable.order == 'codigo'
+                        ? ordemMainTable.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : ''
+                    "
+                  ></i>
+                </p>
               </th>
               <th scope="col">
-                <p class="p-header" style="width: 380px; text-align:start">
+                <p
+                  class="p-header"
+                  style="width: 380px; text-align: start;"
+                  @click="toggleOrdMain('nome')"
+                >
                   Disciplina
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemMainTable.order == 'nome'
+                        ? ordemMainTable.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : ''
+                    "
+                  ></i>
                 </p>
               </th>
               <th scope="col" v-if="activeSI">
@@ -99,18 +133,18 @@
               :key="disciplina.id"
               v-bind:style="{ backgroundColor: perfil.cor }"
             >
-              <div style="width: max-content">
+              <div style="width: max-content;">
                 <td>
-                  <p style="width: 100px">{{ disciplina.codigo }}</p>
+                  <p style="width: 100px;">{{ disciplina.codigo }}</p>
                 </td>
                 <td>
-                  <p style="width:380px; text-align:start">
+                  <p style="width: 380px; text-align: start;">
                     {{ disciplina.nome }}
                   </p>
                 </td>
                 <!-- 76A-  -->
                 <td v-if="activeSI">
-                  <p style="width:150px;">
+                  <p style="width: 150px;">
                     <template
                       v-if="disciplinasGrades[disciplina.id][2][0].length !== 0"
                     >
@@ -131,7 +165,7 @@
                 </td>
                 <!-- 35A-  -->
                 <td v-if="activeCCN">
-                  <p style="width: 150px">
+                  <p style="width: 150px;">
                     <template
                       v-if="disciplinasGrades[disciplina.id][0][0].length !== 0"
                     >
@@ -152,7 +186,7 @@
                 </td>
                 <!-- 65C -->
                 <td v-if="activeCCD">
-                  <p style="width: 150px">
+                  <p style="width: 150px;">
                     <template
                       v-if="disciplinasGrades[disciplina.id][3][0].length !== 0"
                     >
@@ -173,7 +207,7 @@
                 </td>
                 <!-- 65B -->
                 <td v-if="activeEC">
-                  <p style="width: 150px">
+                  <p style="width: 150px;">
                     <template
                       v-if="disciplinasGrades[disciplina.id][1][0].length !== 0"
                     >
@@ -210,16 +244,16 @@
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
         <ul
           class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px!important;height: 30px;"
+          style="font-size: 11px !important; height: 30px;"
         >
           <li class="nav-item" @click="nav_ativo = 'perfis'">
             <a
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'perfis'
+                  active: nav_ativo == 'perfis',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Perfis</a
             >
@@ -229,9 +263,9 @@
               class="nav-link border"
               :class="[
                 {
-                  active: nav_ativo == 'cursos'
+                  active: nav_ativo == 'cursos',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Cursos</a
             >
@@ -240,7 +274,7 @@
       </div>
       <div
         class="col m-0 p-0"
-        style="width:max-content;height: 450px!important;"
+        style="width: max-content; height: 450px !important;"
       >
         <!-- TABLE PERFIS -->
         <table
@@ -251,23 +285,38 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="width: max-content; height: 18px !important; font-size: 11px!important"
-                class="sticky"
+                style="font-size: 11px !important;"
+                class="sticky max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 435px; text-align:start">
+                  <p
+                    class="p-header clickable"
+                    @click="toggleOrdPerfis()"
+                    style="width: 435px; text-align: start;"
+                  >
                     Nome
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemPerfis.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                      "
+                    ></i>
                   </p>
                 </th>
               </div>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="perfil in Perfis" :key="'perfil-id' + perfil.id">
-              <div style="width: max-content">
+            <tr
+              v-for="perfil in Perfis_Modal_Filtred"
+              :key="'perfil-id' + perfil.id"
+            >
+              <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -279,7 +328,9 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:435px; text-align:start">{{ perfil.nome }}</p>
+                  <p style="width: 435px; text-align: start;">
+                    {{ perfil.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -294,20 +345,48 @@
           <thead class="thead-light">
             <tr>
               <div
-                style="width: max-content; height: 18px !important; font-size: 11px!important"
-                class="sticky "
+                style="font-size: 11px !important;"
+                class="sticky max-content"
               >
                 <th>
-                  <p style="width:25px" class="p-header"></p>
+                  <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 50px; text-align: center;">
+                  <p
+                    class="p-header clickable"
+                    style="width: 50px; text-align: center;"
+                    @click="toggleOrdCursos('codigo')"
+                  >
                     Cód.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemCursos.order == 'codigo'
+                          ? ordemCursos.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
+                    ></i>
                   </p>
                 </th>
                 <th>
-                  <p class="p-header" style="width: 385px; text-align:start">
+                  <p
+                    class="p-header clickable"
+                    style="width: 385px;"
+                    @click="toggleOrdCursos('nome')"
+                  >
                     Nome
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemCursos.order == 'nome'
+                          ? ordemCursos.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : ''
+                      "
+                    ></i>
                   </p>
                 </th>
               </div>
@@ -315,10 +394,10 @@
           </thead>
           <tbody>
             <tr
-              v-for="curso in options_Cursos"
+              v-for="curso in Cursos_Modal_Filtred"
               :key="'curso-id-' + curso.value"
             >
-              <div style="width: max-content; height: 22px !important">
+              <div style="width: max-content; height: 22px !important;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
@@ -330,12 +409,14 @@
                   </div>
                 </td>
                 <td>
-                  <p style="width:50px; text-align:center;">
+                  <p style="width: 50px; text-align: center;">
                     {{ curso.codigo.toUpperCase() }}
                   </p>
                 </td>
                 <td>
-                  <p style="width:385px; text-align:start;">{{ curso.nome }}</p>
+                  <p style="width: 385px; text-align: start;">
+                    {{ curso.nome }}
+                  </p>
                 </td>
               </div>
             </tr>
@@ -343,7 +424,7 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex">
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
           <template v-if="nav_ativo == 'perfis'">
             <b-button
@@ -379,7 +460,7 @@
           variant="success"
           v-on:click="btnOK()"
           class="btn-verde btn-df mr-2"
-          style="padding-right:15px!important; padding-left:15px!important;"
+          style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
       </div>
@@ -392,81 +473,20 @@
             <strong>Para exibir conteúdo na Tabela:</strong> Clique em Perfis
             <i
               class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             e marque quais deseja mostrar, depois clique em OK. Logo após,
             escolha os Cursos
             <i
               class="fas fa-graduation-cap cancelbtn px-1"
-              style="font-size: 12px"
+              style="font-size: 12px;"
             ></i>
             que quer ver, confirmando a seleção em OK. Caso queira ver todos
             basta clicar em Selecionar Todos.
           </li>
         </ul>
       </div>
-      <div slot="modal-footer" style="display: none"></div>
-    </b-modal>
-
-    <!-- Modals do botão perfis slot="modal-footer" -->
-    <b-modal
-      id="modalPerfis"
-      ref="PerfisModal"
-      scrollable
-      title="Selecione os perfis"
-    >
-      <div
-        class="col m-0 p-0 border"
-        style="height: 395px; width:max-content; border-color: rgba(0,0,0,0.125);"
-      >
-        <table
-          class="table table-sm modal-table"
-          style="max-height: 392px !important;"
-        >
-          <tr>
-            <div style="width: max-content; font-size: 11px!important">
-              <th class="border-0">
-                <p style="width:25px" class="p-header"></p>
-              </th>
-              <th class="border-0">
-                <p class="p-header" style="width: 424px; text-align:start">
-                  Nome
-                </p>
-              </th>
-            </div>
-          </tr>
-          <tbody>
-            <tr v-for="perfil in Perfis" :key="'perfil-id' + perfil.id">
-              <div style="width: max-content">
-                <td style="padding:0;broder:0;margin:0!important;">
-                  <div style="width:25px;">
-                    <input
-                      type="checkbox"
-                      v-model="PerfisSelecionados"
-                      :value="perfil"
-                      class="form-check-input position-static m-0"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <p style="width:424px; text-align:start">{{ perfil.nome }}</p>
-                </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="row ml-2 w-100">
-          <b-button
-            variant="success"
-            @click="btnOkPerfis()"
-            class="btn-verde btn-df mr-2"
-            style="padding-right:15px!important; padding-left:15px!important;"
-            >OK</b-button
-          >
-        </div>
-      </div>
+      <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
   </div>
 </template>
@@ -487,46 +507,49 @@ export default {
         1: undefined, //CCN
         2: undefined, //EC
         3: undefined, //SI
-        4: undefined //CCD
+        4: undefined, //CCD
       },
       gradesAtivas: {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [] //CCD
+        4: [], //CCD
       },
       PerfisSelecionados: [],
       PerfisAtivados: [],
-      cursos: [],
       cursosSelecionados: [],
+      cursosAtivados: [],
       options_Cursos: [
         {
           nome: "SISTEMAS DE INFORMAÇÃO",
           value: 3,
-          codigo: "76A"
+          codigo: "76A",
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
           value: 2,
-          codigo: "35A"
+          codigo: "35A",
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
           value: 1,
-          codigo: "65C"
+          codigo: "65C",
         },
         {
           nome: "ENGENHARIA DA COMPUTAÇÃO",
           value: 4,
-          codigo: "65B"
-        }
+          codigo: "65B",
+        },
       ],
       showCurso: undefined,
-      nav_ativo: "perfis"
+      nav_ativo: "perfis",
+      ordemPerfis: { order: "nome", type: "asc" },
+      ordemCursos: { order: "codigo", type: "asc" },
+      ordemMainTable: { order: "codigo", type: "asc" },
     };
   },
 
-  beforeMount: function() {
+  beforeMount: function () {
     this.ano = this.$store.state.plano.Plano[0].ano;
     this.novoAno = this.ano;
     this.runAll();
@@ -536,10 +559,29 @@ export default {
     btnOK() {
       //Somente atualiza perfis ativados quando o botão OK for clickado
       this.PerfisAtivados = [...this.PerfisSelecionados];
-      this.$refs.PerfisModal.hide();
       //Somente atualiza cursos se alterar
-      this.cursos = [...this.cursosSelecionados];
+      this.cursosAtivados = [...this.cursosSelecionados];
       this.$refs.modalFiltros.hide();
+    },
+    toggleOrdPerfis() {
+      this.ordemPerfis.type = this.ordemPerfis.type == "asc" ? "desc" : "asc";
+    },
+    toggleOrdCursos(ord) {
+      if (this.ordemCursos.order != ord) {
+        this.ordemCursos.order = ord;
+        this.ordemCursos.type = "asc";
+      } else {
+        this.ordemCursos.type = this.ordemCursos.type == "asc" ? "desc" : "asc";
+      }
+    },
+    toggleOrdMain(ord) {
+      if (this.ordemMainTable.order != ord) {
+        this.ordemMainTable.order = ord;
+        this.ordemMainTable.type = "asc";
+      } else {
+        this.ordemMainTable.type =
+          this.ordemMainTable.type == "asc" ? "desc" : "asc";
+      }
     },
     //PERFIS SELECTIONS
     selectAllPerfis() {
@@ -560,13 +602,8 @@ export default {
       if (this.cursosSelecionados.length !== 5)
         this.cursosSelecionados = [1, 2, 3, 4, 5];
     },
-    inPerfil: function(perfil, disciplinas) {
-      //Verifica se uma disciplina faz parte de um perfil
-      return disciplinas.filter(function(disciplina) {
-        return disciplina.Perfil === perfil.id;
-      });
-    },
-    runNovoAno: function() {
+
+    runNovoAno: function () {
       //executa runAll, modificando o ano
       if (this.ano != this.novoAno) {
         this.ano = this.novoAno;
@@ -576,14 +613,14 @@ export default {
       }
     },
 
-    runAll: function() {
+    runAll: function () {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
-      this.$store.state.disciplina.Disciplinas.forEach(d => {
+      this.$store.state.disciplina.Disciplinas.forEach((d) => {
         this.disciplinasGrades[d.id] = [
           [[], []],
           [[], []],
           [[], []],
-          [[], []]
+          [[], []],
         ]; //inisializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
@@ -591,7 +628,7 @@ export default {
       this.get2Periodo();
     },
 
-    getGrades: function() {
+    getGrades: function () {
       //popula as grades disponíveis de cada curso em um objeto
       for (let i = 1; i <= 4; i++) {
         this.grades[i] = _.orderBy(
@@ -602,7 +639,7 @@ export default {
       }
     },
 
-    get1Periodo: function() {
+    get1Periodo: function () {
       //Armazena os períodos de cada disciplina no primeiro semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -611,10 +648,10 @@ export default {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [] //CCD
+        4: [], //CCD
       };
       for (let i = 1; i <= 4; i++) {
-        this.grades[i].forEach(g => {
+        this.grades[i].forEach((g) => {
           let fim =
             1 +
             2 * (this.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
@@ -629,7 +666,7 @@ export default {
         }
       }
 
-      disciplinas.forEach(d => {
+      disciplinas.forEach((d) => {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
@@ -640,7 +677,7 @@ export default {
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id
+                Grade: this.gradesAtivas[i][j].grade.id,
               }
             ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
@@ -682,7 +719,7 @@ export default {
       });
     },
 
-    get2Periodo: function() {
+    get2Periodo: function () {
       //Armazena os períodos de cada disciplina no segundo semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -691,10 +728,10 @@ export default {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [] //CCD
+        4: [], //CCD
       };
       for (let i = 1; i <= 4; i++) {
-        this.grades[i].forEach(g => {
+        this.grades[i].forEach((g) => {
           let fim =
             1 +
             2 * (this.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
@@ -709,7 +746,7 @@ export default {
         }
       }
 
-      disciplinas.forEach(d => {
+      disciplinas.forEach((d) => {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
@@ -720,7 +757,7 @@ export default {
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id
+                Grade: this.gradesAtivas[i][j].grade.id,
               }
             ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
@@ -760,40 +797,58 @@ export default {
           }
         }
       });
-    }
+    },
+    inPerfil: function (perfil, todasDisciplinas) {
+      //Verifica se uma disciplina faz parte de um perfil
+      return todasDisciplinas.filter((disciplina) => {
+        return disciplina.Perfil === perfil.id;
+      });
+    },
   },
-
   computed: {
+    Cursos_Modal_Filtred() {
+      return _.orderBy(
+        this.options_Cursos,
+        this.ordemCursos.order,
+        this.ordemCursos.type
+      );
+    },
+    Perfis_Modal_Filtred() {
+      return _.orderBy(
+        this.$store.state.perfil.Perfis,
+        this.ordemPerfis.order,
+        this.ordemPerfis.type
+      );
+    },
     activeCCD() {
-      return _.indexOf(this.cursos, 1) > -1;
+      return _.indexOf(this.cursosAtivados, 1) > -1;
     },
 
     activeCCN() {
-      return _.indexOf(this.cursos, 2) > -1;
+      return _.indexOf(this.cursosAtivados, 2) > -1;
     },
 
     activeSI() {
-      return _.indexOf(this.cursos, 3) > -1;
+      return _.indexOf(this.cursosAtivados, 3) > -1;
     },
 
     activeEC() {
-      return _.indexOf(this.cursos, 4) > -1;
+      return _.indexOf(this.cursosAtivados, 4) > -1;
     },
     Cursos() {
       return _.orderBy(this.$store.state.curso.Cursos, "posicao");
-    },
-
-    Perfis() {
-      return this.$store.state.perfil.Perfis;
     },
     CursosAtivos() {
       return this.$store.state.curso.Ativos;
     },
 
     Disciplinas() {
-      return this.$store.state.disciplina.Disciplinas;
+      return _.orderBy(
+        this.$store.state.disciplina.Disciplinas,
+        this.ordemMainTable.order,
+        this.ordemMainTable.type
+      );
     },
-
     Docentes() {
       return _.orderBy(
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
@@ -812,7 +867,7 @@ export default {
     Turmas() {
       return _.orderBy(
         _.orderBy(
-          _.filter(this.$store.state.turma.Turmas, function(t) {
+          _.filter(this.$store.state.turma.Turmas, function (t) {
             return t.Disciplina !== null;
           }),
           "letra"
@@ -835,17 +890,17 @@ export default {
 
     AnoAtual() {
       return this.$store.state.plano.Plano[0].ano;
-    }
+    },
   },
   watch: {
-    CursosSelecionados: function() {
+    CursosSelecionados: function () {
       if (this.cursos.length === 5) {
         this.selectAll = true;
       } else {
         this.selectAll = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -867,6 +922,12 @@ export default {
   font-size: 11px;
   text-align: center;
   height: 18px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .divTable {
   overflow: hidden;
@@ -988,7 +1049,7 @@ export default {
   height: 25px !important;
   font-size: 12px !important;
   padding: 2px 5px 0px 5px !important;
-  width: 50px !important;
+  width: 60px !important;
   text-align: center;
 }
 /* =========================== */
@@ -1130,21 +1191,26 @@ i.far {
   padding: 0 !important;
   text-align: center !important;
   height: 18px !important;
-  border-bottom: 0 !important;
-  border-top: 0 !important;
 }
+
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
   margin: 0 !important;
   text-align: start;
   height: 18px !important;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .modal-table tbody {
   max-height: 100%;
   width: 100%;
 }
 .modal-table td {
-  border-bottom: 0;
+  border-top: 0;
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;
@@ -1165,14 +1231,18 @@ i.far {
   height: 13px !important;
 }
 /* FIM MODAL TABLE */
-.clickable {
+.nav-link {
   color: #007bff !important;
   cursor: pointer;
+}
+.nav-link:hover {
+  text-decoration: underline;
 }
 .active {
   background-color: #e9ecef !important;
   color: #495057 !important;
   cursor: default;
+  text-decoration: none !important;
 }
 
 @media screen and (max-width: 519px) {

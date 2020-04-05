@@ -68,7 +68,6 @@
                 >
                   Cód.
                   <i
-                    v-if="ordemDiscip.order == 'codigo'"
                     style="font-size: 0.6rem; text-align: right;"
                     :class="
                       ordemDiscip.order == 'codigo'
@@ -110,7 +109,6 @@
                 >
                   Perfil
                   <i
-                    v-if="ordemDiscip.order == 'perfil'"
                     style="font-size: 0.6rem; text-align: right;"
                     :class="
                       ordemDiscip.order == 'perfil'
@@ -682,7 +680,7 @@
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="row ml-0 w-100">
+        <div class="w-100">
           <template v-if="nav_ativo == 'disciplinas'">
             <b-button
               class="btn-azul btn-df mr-2 btn-custom"
@@ -1428,9 +1426,6 @@ i.far {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
 }
-.clickable {
-  cursor: pointer;
-}
 
 .btn-df {
   font-size: 12px;
@@ -1639,11 +1634,6 @@ i.far {
 }
 .disable-link {
   color: #495057 !important;
-}
-.max-content {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
 }
 .modal-content .modal-header {
   padding: 0 !important;
