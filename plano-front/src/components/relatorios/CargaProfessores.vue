@@ -484,7 +484,7 @@
           style="font-size: 11px !important; height: 30px;"
         >
           <li class="nav-item">
-            <a class="nav-link active border clickable">Perfis</a>
+            <a class="nav-link active border clickable">Docentes</a>
           </li>
         </ul>
       </div>
@@ -897,7 +897,10 @@ export default {
       if (this.searchProf != null && this.searchProf != "") {
         return this.$store.state.docente.Docentes.filter((prof) => {
           return prof.ativo
-            ? prof.apelido.match(this.searchProf.toUpperCase())
+            ? prof.apelido
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .match(this.searchProf.toUpperCase())
             : false;
         });
       }

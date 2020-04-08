@@ -66,7 +66,7 @@
                         ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : ''
+                        : 'fas fa-arrow-down fa-sm low-opacity'
                     "
                   ></i>
                 </p>
@@ -86,7 +86,7 @@
                         ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : ''
+                        : 'fas fa-arrow-down fa-sm low-opacity'
                     "
                   ></i>
                 </p>
@@ -107,7 +107,7 @@
                         ? ordemDiscip.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : ''
+                        : 'fas fa-arrow-down fa-sm low-opacity'
                     "
                   ></i>
                 </p>
@@ -509,14 +509,13 @@
                   >
                     Cód.
                     <i
-                      v-if="ordemDiscip.order == 'codigo'"
                       style="font-size: 0.6rem; text-align: right;"
                       :class="
                         ordemDiscip.order == 'codigo'
                           ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                     ></i>
                   </p>
@@ -530,14 +529,13 @@
                   >
                     Nome
                     <i
-                      v-if="ordemDiscip.order == 'nome'"
                       style="font-size: 0.6rem; text-align: right;"
                       :class="
                         ordemDiscip.order == 'nome'
                           ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                     ></i>
                   </p>
@@ -551,14 +549,13 @@
                   >
                     Perfil
                     <i
-                      v-if="ordemDiscip.order == 'perfil'"
                       style="font-size: 0.6rem; text-align: right;"
                       :class="
                         ordemDiscip.order == 'perfil'
                           ? ordemDiscip.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                     ></i>
                   </p>
@@ -797,7 +794,7 @@
                           ? ordemVagas.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                       style="font-size: 0.6rem; text-align: right;"
                     ></i>
@@ -817,7 +814,7 @@
                           ? ordemVagas.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                       style="font-size: 0.6rem; text-align: right;"
                     ></i>
@@ -838,7 +835,7 @@
                           ? ordemVagas.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                       style="font-size: 0.6rem; text-align: right;"
                     ></i>
@@ -858,7 +855,7 @@
                           ? ordemVagas.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                       style="font-size: 0.6rem; text-align: right;"
                     ></i>
@@ -878,7 +875,7 @@
                           ? ordemVagas.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                       style="font-size: 0.6rem; text-align: right;"
                     ></i>
