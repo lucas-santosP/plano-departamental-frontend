@@ -167,37 +167,34 @@
                 />
               </div>
 
-              <div class="form-group col m-0 mr-4 px-0">
-                <div class="form-check" style="margin-top: 28px;">
-                  <input
-                    type="checkbox"
-                    id="ativo"
-                    value="1"
-                    v-model="docenteForm.ativo"
-                    class="form-check-input my-auto"
-                    style="margin-top: 2px;"
-                  />
-                  <label for="ativo" class="form-check-label">Ativo</label>
-                </div>
+              <!-- <div class="form-group col m-0  px-0"> -->
+              <div class="form-check form-check-inline col m-0 mr-4 mt-4 px-0">
+                <input
+                  type="checkbox"
+                  id="ativo"
+                  value="1"
+                  v-model="docenteForm.ativo"
+                  class="form-check-input my-auto"
+                />
+                <label for="ativo" class="form-check-label">Ativo</label>
               </div>
+              <!-- </div> -->
             </div>
             <template v-if="isEdit">
-              <div class="border-bottom my-2"></div>
+              <div class="border-bottom mt-2 mb-1"></div>
+              <small>Perfis Associados ao docente</small>
               <div class="row mb-3 mx-0">
                 <div class="form-group col m-0 px-0" style="height: 300px;">
                   <table
-                    class="table table-bordered table-sm modal-table"
+                    class="modal-table table table-bordered table-sm"
                     style="max-height: 300px !important; overflow: auto;"
                   >
                     <tr class="thead-light sticky">
-                      <div
-                        class=" max-content"
-                        style="font-size:11px!important"
-                      >
-                        <th scope="col" class="border-top-0">
+                      <div class="max-content" style="font-size:11px!important">
+                        <th scope="col">
                           <p class="p-header" style="width: 25px;"></p>
                         </th>
-                        <th scope="col" class="border-top-0">
+                        <th scope="col">
                           <p
                             class="p-header"
                             style="width: 275px; text-align: start;"
@@ -873,7 +870,7 @@ i.far {
 .form-inline {
   width: auto;
 }
-@media screen and (max-width: 725px) {
+@media screen and (max-width: 825px) {
   .divTable {
     margin-right: 100px !important;
   }
