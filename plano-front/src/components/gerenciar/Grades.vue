@@ -456,14 +456,20 @@ export default {
       return this.$store.state.grade.Grades;
     },
     Grades_CCNoturno() {
-      return this.Grades.filter(function(grade) {
-        return grade.Curso == 1;
-      });
+      return _.orderBy(
+        this.Grades.filter(function(grade) {
+          return grade.Curso == 1;
+        }),
+        "nome"
+      );
     },
     Grades_CCDiurno() {
-      return this.Grades.filter(function(grade) {
-        return grade.Curso == 4;
-      });
+      return _.orderBy(
+        this.Grades.filter(function(grade) {
+          return grade.Curso == 4;
+        }),
+        "nome"
+      );
     },
     Grades_SI() {
       return this.Grades.filter(function(grade) {
@@ -471,9 +477,12 @@ export default {
       });
     },
     Grade_EC() {
-      return this.Grades.filter(function(grade) {
-        return grade.Curso == 2;
-      });
+      return _.orderBy(
+        this.Grades.filter(function(grade) {
+          return grade.Curso == 2;
+        }),
+        "nome"
+      );
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;

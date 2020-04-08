@@ -244,18 +244,16 @@
             </div>
 
             <div class="row mb-2 mt-3 mx-0">
-              <div class="form-group col m-0 px-0">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    id="ead"
-                    value="1"
-                    class="form-check-input"
-                    style="margin-top: 2px"
-                    v-model="disciplinaForm.ead"
-                  />
-                  <label for="ead" class="form-check-label">EAD</label>
-                </div>
+              <div class="form-check form-check-inline col m-0 px-0 pl-1">
+                <input
+                  type="checkbox"
+                  id="ead"
+                  value="1"
+                  class="form-check-input"
+                  style="margin-top: 2px"
+                  v-model="disciplinaForm.ead"
+                />
+                <label for="ead" class="form-check-label">EAD</label>
               </div>
             </div>
 

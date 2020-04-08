@@ -146,20 +146,17 @@
             </div>
 
             <div class="row mb-2 mt-3 mx-0">
-              <div class="form-group col m-0 px-0">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    id="laboratorio"
-                    class="form-check-input"
-                    style="margin-top: 2px"
-                    v-model="salaForm.laboratorio"
-                    value="1"
-                  />
-                  <label class="form-check-label" for="laboratorio"
-                    >Laboratório</label
-                  >
-                </div>
+              <div class="form-check form-check-inline col m-0 px-0 pl-1">
+                <input
+                  type="checkbox"
+                  id="laboratorio"
+                  class="form-check-input"
+                  v-model="salaForm.laboratorio"
+                  value="1"
+                />
+                <label class="form-check-label" for="laboratorio"
+                  >Laboratório</label
+                >
               </div>
             </div>
 
@@ -381,12 +378,13 @@ export default {
 </script>
 
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
 .DashboardSalas {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  box-sizing: border-box !important;
 }
 
 .titulo {
@@ -394,38 +392,6 @@ export default {
   font-weight: normal;
   padding-left: 0;
   margin: 0 !important;
-}
-.div-card {
-  margin-left: auto;
-}
-.card-title {
-  font-size: 16px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0;
-  text-align: center;
-}
-.card {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  min-width: 164px;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15); /*sugestão sombra*/
-  margin-left: auto;
-}
-.card-body {
-  font-size: 12px;
-  padding-top: 15px;
-  padding-left: 14px !important;
-}
-
-.custom-select {
-  height: 26px !important;
-  font-size: 12px !important;
-  padding: 0px 0px 0px 10px !important;
-  min-width: 85px;
-  max-width: 85px;
-  text-align: center;
 }
 .input-group-text {
   max-width: 70px;
@@ -509,11 +475,34 @@ tbody {
   min-width: 100px;
   text-align: start;
 }
+.div-card {
+  margin-left: auto;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: normal;
+  padding-left: 0;
+  margin: 0;
+  text-align: center;
+}
+.card {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-width: 164px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15); /*sugestão sombra*/
+  margin-left: auto;
+}
+.card-body {
+  font-size: 12px;
+  padding-top: 15px;
+  padding-left: 14px !important;
+}
 .card label {
-  line-height: 1.2;
+  /* line-height: 1.2;
   font-size: 12px;
   text-align: start;
-  padding-top: 0 !important;
+  padding-top: 0 !important; */
 }
 .card input[type="text"] {
   height: 25px !important;
