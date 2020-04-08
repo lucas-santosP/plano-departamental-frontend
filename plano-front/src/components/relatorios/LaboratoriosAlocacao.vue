@@ -39,7 +39,7 @@
       <template
         v-if="
           LaboratoriosAtivados.length != 0 &&
-          (semestreAtual == 1 || semestreAtual == 3)
+            (semestreAtual == 1 || semestreAtual == 3)
         "
       >
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
@@ -70,7 +70,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 1, lab.id)
+                          checkTurmaHorario(turma, 1, lab.id)
                       "
                     >
                       <p
@@ -91,7 +91,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 7, lab.id)
+                          checkTurmaHorario(turma, 7, lab.id)
                       "
                     >
                       <p
@@ -112,7 +112,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 13, lab.id)
+                          checkTurmaHorario(turma, 13, lab.id)
                       "
                     >
                       <p
@@ -133,7 +133,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 19, lab.id)
+                          checkTurmaHorario(turma, 19, lab.id)
                       "
                     >
                       <p
@@ -154,7 +154,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 25, lab.id)
+                          checkTurmaHorario(turma, 25, lab.id)
                       "
                     >
                       <p
@@ -179,7 +179,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 2, lab.id)
+                          checkTurmaHorario(turma, 2, lab.id)
                       "
                     >
                       <p
@@ -200,7 +200,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 8, lab.id)
+                          checkTurmaHorario(turma, 8, lab.id)
                       "
                     >
                       <p
@@ -221,7 +221,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 14, lab.id)
+                          checkTurmaHorario(turma, 14, lab.id)
                       "
                     >
                       <p
@@ -242,7 +242,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 20, lab.id)
+                          checkTurmaHorario(turma, 20, lab.id)
                       "
                     >
                       <p
@@ -263,7 +263,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 26, lab.id)
+                          checkTurmaHorario(turma, 26, lab.id)
                       "
                     >
                       <p
@@ -288,7 +288,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 3, lab.id)
+                          checkTurmaHorario(turma, 3, lab.id)
                       "
                     >
                       <p
@@ -309,7 +309,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 9, lab.id)
+                          checkTurmaHorario(turma, 9, lab.id)
                       "
                     >
                       <p
@@ -330,7 +330,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 15, lab.id)
+                          checkTurmaHorario(turma, 15, lab.id)
                       "
                     >
                       <p
@@ -351,7 +351,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 21, lab.id)
+                          checkTurmaHorario(turma, 21, lab.id)
                       "
                     >
                       <p
@@ -372,7 +372,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 27, lab.id)
+                          checkTurmaHorario(turma, 27, lab.id)
                       "
                     >
                       <p
@@ -397,7 +397,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 4, lab.id)
+                          checkTurmaHorario(turma, 4, lab.id)
                       "
                     >
                       <p
@@ -418,7 +418,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 10, lab.id)
+                          checkTurmaHorario(turma, 10, lab.id)
                       "
                     >
                       <p
@@ -439,7 +439,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 16, lab.id)
+                          checkTurmaHorario(turma, 16, lab.id)
                       "
                     >
                       <p
@@ -460,7 +460,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 22, lab.id)
+                          checkTurmaHorario(turma, 22, lab.id)
                       "
                     >
                       <p
@@ -481,7 +481,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 28, lab.id)
+                          checkTurmaHorario(turma, 28, lab.id)
                       "
                     >
                       <p
@@ -506,7 +506,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 32, lab.id)
+                          checkTurmaHorario(turma, 32, lab.id)
                       "
                     >
                       <p
@@ -527,7 +527,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 34, lab.id)
+                          checkTurmaHorario(turma, 34, lab.id)
                       "
                     >
                       <p
@@ -548,7 +548,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 36, lab.id)
+                          checkTurmaHorario(turma, 36, lab.id)
                       "
                     >
                       <p
@@ -569,7 +569,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 38, lab.id)
+                          checkTurmaHorario(turma, 38, lab.id)
                       "
                     >
                       <p
@@ -590,7 +590,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 40, lab.id)
+                          checkTurmaHorario(turma, 40, lab.id)
                       "
                     >
                       <p
@@ -615,7 +615,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 33, lab.id)
+                          checkTurmaHorario(turma, 33, lab.id)
                       "
                     >
                       <p
@@ -636,7 +636,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 35, lab.id)
+                          checkTurmaHorario(turma, 35, lab.id)
                       "
                     >
                       <p
@@ -657,7 +657,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 37, lab.id)
+                          checkTurmaHorario(turma, 37, lab.id)
                       "
                     >
                       <p
@@ -678,7 +678,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 39, lab.id)
+                          checkTurmaHorario(turma, 39, lab.id)
                       "
                     >
                       <p
@@ -699,7 +699,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 41, lab.id)
+                          checkTurmaHorario(turma, 41, lab.id)
                       "
                     >
                       <p
@@ -724,7 +724,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 5, lab.id)
+                          checkTurmaHorario(turma, 5, lab.id)
                       "
                     >
                       <p
@@ -745,7 +745,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 11, lab.id)
+                          checkTurmaHorario(turma, 11, lab.id)
                       "
                     >
                       <p
@@ -766,7 +766,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 17, lab.id)
+                          checkTurmaHorario(turma, 17, lab.id)
                       "
                     >
                       <p
@@ -787,7 +787,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 23, lab.id)
+                          checkTurmaHorario(turma, 23, lab.id)
                       "
                     >
                       <p
@@ -808,7 +808,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 29, lab.id)
+                          checkTurmaHorario(turma, 29, lab.id)
                       "
                     >
                       <p
@@ -833,7 +833,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 6, lab.id)
+                          checkTurmaHorario(turma, 6, lab.id)
                       "
                     >
                       <p
@@ -854,7 +854,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 12, lab.id)
+                          checkTurmaHorario(turma, 12, lab.id)
                       "
                     >
                       <p
@@ -875,7 +875,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 18, lab.id)
+                          checkTurmaHorario(turma, 18, lab.id)
                       "
                     >
                       <p
@@ -896,7 +896,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 24, lab.id)
+                          checkTurmaHorario(turma, 24, lab.id)
                       "
                     >
                       <p
@@ -917,7 +917,7 @@
                       v-for="turma in Turmas1"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 30, lab.id)
+                          checkTurmaHorario(turma, 30, lab.id)
                       "
                     >
                       <p
@@ -943,7 +943,7 @@
       <template
         v-if="
           LaboratoriosAtivados.length != 0 &&
-          (semestreAtual == 2 || semestreAtual == 3)
+            (semestreAtual == 2 || semestreAtual == 3)
         "
       >
         <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
@@ -975,7 +975,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 1, lab.id)
+                          checkTurmaHorario(turma, 1, lab.id)
                       "
                     >
                       <p
@@ -996,7 +996,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 7, lab.id)
+                          checkTurmaHorario(turma, 7, lab.id)
                       "
                     >
                       <p
@@ -1017,7 +1017,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 13, lab.id)
+                          checkTurmaHorario(turma, 13, lab.id)
                       "
                     >
                       <p
@@ -1038,7 +1038,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 19, lab.id)
+                          checkTurmaHorario(turma, 19, lab.id)
                       "
                     >
                       <p
@@ -1059,7 +1059,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 25, lab.id)
+                          checkTurmaHorario(turma, 25, lab.id)
                       "
                     >
                       <p
@@ -1084,7 +1084,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 2, lab.id)
+                          checkTurmaHorario(turma, 2, lab.id)
                       "
                     >
                       <p
@@ -1105,7 +1105,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 8, lab.id)
+                          checkTurmaHorario(turma, 8, lab.id)
                       "
                     >
                       <p
@@ -1126,7 +1126,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 14, lab.id)
+                          checkTurmaHorario(turma, 14, lab.id)
                       "
                     >
                       <p
@@ -1147,7 +1147,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 20, lab.id)
+                          checkTurmaHorario(turma, 20, lab.id)
                       "
                     >
                       <p
@@ -1168,7 +1168,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 26, lab.id)
+                          checkTurmaHorario(turma, 26, lab.id)
                       "
                     >
                       <p
@@ -1193,7 +1193,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 3, lab.id)
+                          checkTurmaHorario(turma, 3, lab.id)
                       "
                     >
                       <p
@@ -1214,7 +1214,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 9, lab.id)
+                          checkTurmaHorario(turma, 9, lab.id)
                       "
                     >
                       <p
@@ -1235,7 +1235,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 15, lab.id)
+                          checkTurmaHorario(turma, 15, lab.id)
                       "
                     >
                       <p
@@ -1256,7 +1256,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 21, lab.id)
+                          checkTurmaHorario(turma, 21, lab.id)
                       "
                     >
                       <p
@@ -1277,7 +1277,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 27, lab.id)
+                          checkTurmaHorario(turma, 27, lab.id)
                       "
                     >
                       <p
@@ -1302,7 +1302,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 4, lab.id)
+                          checkTurmaHorario(turma, 4, lab.id)
                       "
                     >
                       <p
@@ -1323,7 +1323,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 10, lab.id)
+                          checkTurmaHorario(turma, 10, lab.id)
                       "
                     >
                       <p
@@ -1344,7 +1344,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 16, lab.id)
+                          checkTurmaHorario(turma, 16, lab.id)
                       "
                     >
                       <p
@@ -1365,7 +1365,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 22, lab.id)
+                          checkTurmaHorario(turma, 22, lab.id)
                       "
                     >
                       <p
@@ -1386,7 +1386,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 28, lab.id)
+                          checkTurmaHorario(turma, 28, lab.id)
                       "
                     >
                       <p
@@ -1411,7 +1411,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 32, lab.id)
+                          checkTurmaHorario(turma, 32, lab.id)
                       "
                     >
                       <p
@@ -1432,7 +1432,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 34, lab.id)
+                          checkTurmaHorario(turma, 34, lab.id)
                       "
                     >
                       <p
@@ -1453,7 +1453,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 36, lab.id)
+                          checkTurmaHorario(turma, 36, lab.id)
                       "
                     >
                       <p
@@ -1474,7 +1474,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 38, lab.id)
+                          checkTurmaHorario(turma, 38, lab.id)
                       "
                     >
                       <p
@@ -1495,7 +1495,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 40, lab.id)
+                          checkTurmaHorario(turma, 40, lab.id)
                       "
                     >
                       <p
@@ -1520,7 +1520,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 33, lab.id)
+                          checkTurmaHorario(turma, 33, lab.id)
                       "
                     >
                       <p
@@ -1541,7 +1541,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 35, lab.id)
+                          checkTurmaHorario(turma, 35, lab.id)
                       "
                     >
                       <p
@@ -1562,7 +1562,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 37, lab.id)
+                          checkTurmaHorario(turma, 37, lab.id)
                       "
                     >
                       <p
@@ -1583,7 +1583,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 39, lab.id)
+                          checkTurmaHorario(turma, 39, lab.id)
                       "
                     >
                       <p
@@ -1604,7 +1604,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 41, lab.id)
+                          checkTurmaHorario(turma, 41, lab.id)
                       "
                     >
                       <p
@@ -1629,7 +1629,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 5, lab.id)
+                          checkTurmaHorario(turma, 5, lab.id)
                       "
                     >
                       <p
@@ -1650,7 +1650,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 11, lab.id)
+                          checkTurmaHorario(turma, 11, lab.id)
                       "
                     >
                       <p
@@ -1671,7 +1671,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 17, lab.id)
+                          checkTurmaHorario(turma, 17, lab.id)
                       "
                     >
                       <p
@@ -1692,7 +1692,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 23, lab.id)
+                          checkTurmaHorario(turma, 23, lab.id)
                       "
                     >
                       <p
@@ -1713,7 +1713,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 29, lab.id)
+                          checkTurmaHorario(turma, 29, lab.id)
                       "
                     >
                       <p
@@ -1738,7 +1738,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 6, lab.id)
+                          checkTurmaHorario(turma, 6, lab.id)
                       "
                     >
                       <p
@@ -1759,7 +1759,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 12, lab.id)
+                          checkTurmaHorario(turma, 12, lab.id)
                       "
                     >
                       <p
@@ -1780,7 +1780,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 18, lab.id)
+                          checkTurmaHorario(turma, 18, lab.id)
                       "
                     >
                       <p
@@ -1801,7 +1801,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 24, lab.id)
+                          checkTurmaHorario(turma, 24, lab.id)
                       "
                     >
                       <p
@@ -1822,7 +1822,7 @@
                       v-for="turma in Turmas2"
                       v-if="
                         (turma.Sala1 === lab.id || turma.Sala2 === lab.id) &&
-                        checkTurmaHorario(turma, 30, lab.id)
+                          checkTurmaHorario(turma, 30, lab.id)
                       "
                     >
                       <p
@@ -1887,16 +1887,9 @@
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="
-                  width: max-content;
-                  height: 18px !important;
-                  font-size: 11px !important;
-                "
-                class="sticky"
-              >
+              <div style="font-size: 11px !important" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -1952,16 +1945,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 392px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="
-                  width: max-content;
-                  height: 18px !important;
-                  font-size: 11px !important;
-                "
-                class="sticky"
-              >
+              <div style="font-size: 11px !important" class="max-content">
                 <th>
                   <p style="width: 25px !important;" class="p-header"></p>
                 </th>

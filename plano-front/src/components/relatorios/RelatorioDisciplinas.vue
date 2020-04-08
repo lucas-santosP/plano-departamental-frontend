@@ -48,17 +48,9 @@
 
     <div class="divTable p-0" ref="carga">
       <table class="main-table table table-bordered table-hover table-sm">
-        <thead class="thead-light">
+        <thead class="thead-light sticky">
           <tr>
-            <div
-              style="
-                display: block;
-                overflow: hidden;
-                width: ?max-contet;
-                height: 20px !important;
-              "
-              class="sticky-top"
-            >
+            <div style="font-size: 11px !important;" class="max-content">
               <th scope="col">
                 <p
                   class="p-header clickable"
@@ -198,7 +190,7 @@
                       <p style="width: 50px;">
                         {{
                           vagasDisciplina(disciplina, 2) +
-                          vagasDisciplina(disciplina, 1)
+                            vagasDisciplina(disciplina, 1)
                         }}
                       </p>
                     </td>
@@ -410,12 +402,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -467,12 +456,9 @@
           class="table table-sm modal-table table-bordered table-hover"
           style="max-height: 450px !important; overflow-y: auto !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <div
                     class="m-0 input-group"
@@ -507,10 +493,7 @@
             </tr>
 
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-bottom max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p
                     style="width: 25px; text-align: center;"
@@ -625,12 +608,9 @@
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -795,16 +775,14 @@
       </div>
 
       <div class="col m-0 p-0 max-content">
+        <!-- Table vagas -->
         <table
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p
                     class="p-header clickable"
@@ -1149,7 +1127,7 @@ export default {
     //Todas disciplinas
     Disciplinas() {
       let result = _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function (d) {
+        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
           return d.Perfil !== 13 && d.Perfil !== 15;
         })
       );
@@ -1219,7 +1197,7 @@ export default {
       return _.orderBy(
         _.filter(
           this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
-          function (p) {
+          function(p) {
             return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
           }
         ),
@@ -1342,22 +1320,12 @@ export default {
   height: 18px !important;
 }
 
-.sticky-top {
+.sticky {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
-.sticky-bottom {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 38px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;

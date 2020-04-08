@@ -95,7 +95,7 @@
                 <template
                   v-if="
                     turma.periodo == 1 &&
-                    (semestreAtual == 1 || semestreAtual == 3)
+                      (semestreAtual == 1 || semestreAtual == 3)
                   "
                 >
                   <turmadata
@@ -109,7 +109,7 @@
                 <template
                   v-else-if="
                     turma.periodo == 3 &&
-                    (semestreAtual == 2 || semestreAtual == 3)
+                      (semestreAtual == 2 || semestreAtual == 3)
                   "
                 >
                   <template></template>
@@ -126,7 +126,7 @@
                 <template
                   v-if="
                     turma.periodo == 3 &&
-                    (semestreAtual == 2 || semestreAtual == 3)
+                      (semestreAtual == 2 || semestreAtual == 3)
                   "
                 >
                   <turmadata
@@ -192,25 +192,19 @@
           </li>
           <li class="nav-item" @click="changeTab('cursos')">
             <a
-              class="nav-link border border-right-0"
-              :class="[
-                {
-                  active: nav_ativo == 'cursos',
-                },
-                'clickable',
-              ]"
+              class="nav-link clickable border border-right-0"
+              :class="{
+                active: nav_ativo == 'cursos',
+              }"
               >Cursos</a
             >
           </li>
           <li class="nav-item" @click="changeTab('semestre')">
             <a
-              class="nav-link border"
-              :class="[
-                {
-                  active: nav_ativo == 'semestre',
-                },
-                'clickable',
-              ]"
+              class="nav-link clickable border"
+              :class="{
+                active: nav_ativo == 'semestre',
+              }"
               >Semestre</a
             >
           </li>
@@ -223,12 +217,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -280,12 +271,9 @@
           class="table table-sm modal-table table-bordered"
           style="height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <div
                     class="m-0 input-group"
@@ -319,10 +307,7 @@
               </div>
             </tr>
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-bottom max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -340,7 +325,7 @@
                           ? ordenacaoCurso.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                     ></i>
                   </p>
@@ -355,7 +340,7 @@
                           ? ordenacaoCurso.type == 'asc'
                             ? 'fas fa-arrow-down fa-sm'
                             : 'fas fa-arrow-up fa-sm'
-                          : ''
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
                     ></i>
                   </p>
@@ -397,12 +382,9 @@
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -636,7 +618,7 @@ export default {
     novaturma,
   },
 
-  mounted: function () {
+  mounted: function() {
     ls.set("toggle", -1);
     ls.on("toggle", () => {
       var val = ls.get("toggle");
@@ -655,7 +637,7 @@ export default {
     }
   },
 
-  beforeDestroy: function () {
+  beforeDestroy: function() {
     ls.off("toggle");
     for (var c = 0; c < this.$store.state.curso.Cursos.length; c++) {
       let id = this.$store.state.curso.Cursos[c].id;
@@ -742,7 +724,7 @@ export default {
       this.semestre_2Ativo = false;
     },
 
-    xlsx: function (pedidos) {
+    xlsx: function(pedidos) {
       xlsx
         .downloadTable({
           pedidos: pedidos,
@@ -761,7 +743,7 @@ export default {
         .catch((error) => console.log(error));
     },
 
-    adjustTurno1: function () {
+    adjustTurno1: function() {
       if (
         this.turmaForm.Horario1 == 1 ||
         this.turmaForm.Horario1 == 2 ||
@@ -792,7 +774,7 @@ export default {
       }
     },
 
-    adjustTurno2: function () {
+    adjustTurno2: function() {
       if (
         this.turmaForm.Horario2 == 1 ||
         this.turmaForm.Horario2 == 2 ||
@@ -823,7 +805,7 @@ export default {
       }
     },
 
-    deleteSelected: function () {
+    deleteSelected: function() {
       var turmas = this.$store.state.turma.Deletar;
       for (var i = 0; i < turmas.length; i++) {
         this.deleteTurma(turmas[i]);
@@ -831,10 +813,10 @@ export default {
       this.$store.commit("emptyDelete");
     },
 
-    inPerfil: function (perfil, turmas, disciplinas) {
-      return turmas.filter(function (turma) {
+    inPerfil: function(perfil, turmas, disciplinas) {
+      return turmas.filter(function(turma) {
         if (_.isNull(turma.Disciplina)) return false;
-        var disciplina = _.find(disciplinas, function (disc) {
+        var disciplina = _.find(disciplinas, function(disc) {
           return disc.id === turma.Disciplina;
         });
         return disciplina.Perfil === perfil.id;
@@ -1253,7 +1235,7 @@ i.far {
   align-items: center;
   margin-bottom: 0;
 }
-.sticky-top {
+.sticky {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
@@ -1263,17 +1245,16 @@ i.far {
   overflow: hidden !important;
   z-index: 3;
 }
-.sticky-bottom {
+/* .sticky-bottom {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
-  /* Tamanho da linha acima + bordas */
   top: 38px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;
-}
+} */
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
@@ -1298,12 +1279,6 @@ i.far {
   margin: 0 !important;
   text-align: start;
   height: 18px !important;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
 }
 .modal-table tbody {
   max-height: 100%;

@@ -46,16 +46,16 @@
 
     <div class="divTable">
       <table class="main-table table table-hover border table-sm">
-        <thead class="thead-light">
+        <thead class="thead-light sticky">
           <tr>
-            <div class="sticky" style="width: max-content;">
+            <div style="font-size:11px!important" class=" max-content">
               <th scope="col">
                 <p
-                  class="p-header"
+                  class="p-header clickable"
                   style="width: 100px;"
                   @click="toggleOrdMain('codigo')"
                 >
-                  Código
+                  Cód.
                   <i
                     style="font-size: 0.6rem; text-align: right;"
                     :class="
@@ -63,14 +63,14 @@
                         ? ordemMainTable.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : ''
+                        : 'fas fa-arrow-down fa-sm low-opacity'
                     "
                   ></i>
                 </p>
               </th>
               <th scope="col">
                 <p
-                  class="p-header"
+                  class="p-header clickable"
                   style="width: 380px; text-align: start;"
                   @click="toggleOrdMain('nome')"
                 >
@@ -82,7 +82,7 @@
                         ? ordemMainTable.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : ''
+                        : 'fas fa-arrow-down fa-sm low-opacity'
                     "
                   ></i>
                 </p>
@@ -282,12 +282,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -342,11 +339,11 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
               <div
                 style="font-size: 11px !important;"
-                class="sticky max-content"
+                class=" max-content"
               >
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -549,7 +546,7 @@ export default {
     };
   },
 
-  beforeMount: function () {
+  beforeMount: function() {
     this.ano = this.$store.state.plano.Plano[0].ano;
     this.novoAno = this.ano;
     this.runAll();
@@ -603,7 +600,7 @@ export default {
         this.cursosSelecionados = [1, 2, 3, 4, 5];
     },
 
-    runNovoAno: function () {
+    runNovoAno: function() {
       //executa runAll, modificando o ano
       if (this.ano != this.novoAno) {
         this.ano = this.novoAno;
@@ -613,7 +610,7 @@ export default {
       }
     },
 
-    runAll: function () {
+    runAll: function() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
         this.disciplinasGrades[d.id] = [
@@ -628,7 +625,7 @@ export default {
       this.get2Periodo();
     },
 
-    getGrades: function () {
+    getGrades: function() {
       //popula as grades disponíveis de cada curso em um objeto
       for (let i = 1; i <= 4; i++) {
         this.grades[i] = _.orderBy(
@@ -639,7 +636,7 @@ export default {
       }
     },
 
-    get1Periodo: function () {
+    get1Periodo: function() {
       //Armazena os períodos de cada disciplina no primeiro semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -719,7 +716,7 @@ export default {
       });
     },
 
-    get2Periodo: function () {
+    get2Periodo: function() {
       //Armazena os períodos de cada disciplina no segundo semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -798,7 +795,7 @@ export default {
         }
       });
     },
-    inPerfil: function (perfil, todasDisciplinas) {
+    inPerfil: function(perfil, todasDisciplinas) {
       //Verifica se uma disciplina faz parte de um perfil
       return todasDisciplinas.filter((disciplina) => {
         return disciplina.Perfil === perfil.id;
@@ -867,7 +864,7 @@ export default {
     Turmas() {
       return _.orderBy(
         _.orderBy(
-          _.filter(this.$store.state.turma.Turmas, function (t) {
+          _.filter(this.$store.state.turma.Turmas, function(t) {
             return t.Disciplina !== null;
           }),
           "letra"
@@ -893,7 +890,7 @@ export default {
     },
   },
   watch: {
-    CursosSelecionados: function () {
+    CursosSelecionados: function() {
       if (this.cursos.length === 5) {
         this.selectAll = true;
       } else {
@@ -922,12 +919,6 @@ export default {
   font-size: 11px;
   text-align: center;
   height: 18px;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
 }
 .divTable {
   overflow: hidden;
@@ -1030,8 +1021,7 @@ export default {
   padding-left: 15px;
   font-size: 12px !important;
 }
-.form-inline .input-group,
-.form-inline {
+.form-inline .input-group {
   width: auto;
 }
 .form-group {
@@ -1198,12 +1188,6 @@ i.far {
   margin: 0 !important;
   text-align: start;
   height: 18px !important;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
 }
 .modal-table tbody {
   max-height: 100%;

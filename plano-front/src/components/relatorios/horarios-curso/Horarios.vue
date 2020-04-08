@@ -176,12 +176,9 @@
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -239,12 +236,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header clickable"></p>
                 </th>
@@ -458,7 +452,7 @@ export default {
     cursoNoturno,
     horarioEletivas,
   },
-  beforeMount: function () {
+  beforeMount: function() {
     this.createHorarios1();
     this.createHorarios2();
   },
@@ -540,7 +534,7 @@ export default {
       };
     },
 
-    filterTurmas: function (t) {
+    filterTurmas: function(t) {
       var check = false;
       for (var turma in this.ativos1.CCN) {
         if (turma.id === t.id) check = true;
@@ -554,7 +548,7 @@ export default {
       } else return false;
     },
 
-    createHorarios1: function () {
+    createHorarios1: function() {
       var grade;
       var grades;
       var inicio = 1;
@@ -972,7 +966,7 @@ export default {
       });
     },
 
-    createHorarios2: function () {
+    createHorarios2: function() {
       var grade;
       var grades;
       var inicio = 1;
@@ -4723,7 +4717,7 @@ export default {
       this.updateHorarios();
     },
 
-    CursosSelecionados: function () {
+    CursosSelecionados: function() {
       if (this.cursos.length === 5) {
         this.selectAll = true;
       } else {

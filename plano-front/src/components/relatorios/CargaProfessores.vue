@@ -39,12 +39,9 @@
 
     <div class="divTable p-0" ref="carga">
       <table class="main-table table table-bordered table-hover table-sm">
-        <thead class="thead-light">
+        <thead class="thead-light sticky">
           <tr>
-            <div
-              style="font-size: 11px !important;"
-              class="sticky-top max-content"
-            >
+            <div style="font-size: 11px !important;" class="max-content">
               <th scope="col">
                 <p
                   class="p-header clickable"
@@ -152,18 +149,18 @@
                   v-for="disciplina in Disciplinas"
                   :key="
                     'turma' +
-                    turma.id +
-                    'disciplina' +
-                    disciplina.id +
-                    'professor' +
-                    professor.id
+                      turma.id +
+                      'disciplina' +
+                      disciplina.id +
+                      'professor' +
+                      professor.id
                   "
                 >
                   <template
                     v-if="
                       turma.Disciplina === disciplina.id &&
-                      (turma.Docente1 === professor.id ||
-                        turma.Docente2 === professor.id)
+                        (turma.Docente1 === professor.id ||
+                          turma.Docente2 === professor.id)
                     "
                   >
                     <div class="max-content">
@@ -208,7 +205,7 @@
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                              2
+                                2
                             }}
                           </p>
 
@@ -230,7 +227,7 @@
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                              2
+                                2
                             }}
                           </p>
                           <p v-else>
@@ -334,17 +331,17 @@
                   v-for="disciplina in Disciplinas"
                   :key="
                     'turma' +
-                    turma.id +
-                    'disciplina' +
-                    disciplina.id +
-                    'semAlocacao'
+                      turma.id +
+                      'disciplina' +
+                      disciplina.id +
+                      'semAlocacao'
                   "
                 >
                   <template
                     v-if="
                       turma.Disciplina === disciplina.id &&
-                      turma.Docente1 == null &&
-                      turma.Docente2 == null
+                        turma.Docente1 == null &&
+                        turma.Docente2 == null
                     "
                   >
                     <div class="max-content">
@@ -389,7 +386,7 @@
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                              2
+                                2
                             }}
                           </p>
 
@@ -411,7 +408,7 @@
                             {{
                               (disciplina.cargaTeorica +
                                 disciplina.cargaPratica) /
-                              2
+                                2
                             }}
                           </p>
                           <p v-else>
@@ -498,12 +495,9 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-top max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <div
                     class="m-0 input-group"
@@ -535,10 +529,7 @@
             </tr>
 
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="sticky-bottom max-content"
-              >
+              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -998,7 +989,7 @@ tbody {
   margin-top: 4px !important;
 }
 
-.sticky-top {
+.sticky {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;

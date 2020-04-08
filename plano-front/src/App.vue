@@ -61,4 +61,15 @@ body {
 .clickable {
   cursor: pointer;
 }
+.p-header {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.low-opacity {
+  opacity: 0.4;
+}
 </style>
