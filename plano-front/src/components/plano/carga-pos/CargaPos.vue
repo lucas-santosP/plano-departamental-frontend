@@ -1,9 +1,5 @@
 <template>
-  <div v-if="!isLoading && onLoading" id="loading">
-    <div class="cube1"></div>
-    <div class="cube2"></div>
-  </div>
-  <div v-else-if="Admin" class="CargaPos row pr-2">
+  <div v-if="Admin" class="CargaPos row pr-2">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
@@ -728,19 +724,17 @@ export default {
   components: {
     cargadata,
   },
-
   mounted() {
     setTimeout(() => {
       this.onLoading = false;
-      this.scrollsize = {
-        width:
-          this.$refs.tablePGMC.offsetWidth -
-          this.$refs.tablePGMC.clientWidth +
-          "px",
-      };
     }, 300);
+    this.scrollsize = {
+      width:
+        this.$refs.tablePGMC.offsetWidth -
+        this.$refs.tablePGMC.clientWidth +
+        "px",
+    };
   },
-
   methods: {
     btnOKSemestre() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) {

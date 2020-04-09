@@ -590,7 +590,7 @@ export default {
       onLoading: true,
     };
   },
-  mounted() {
+  beforeCreate() {
     setTimeout(() => {
       this.onLoading = false;
     }, 300);
