@@ -1,5 +1,9 @@
 <template>
-  <div class="TurmasExternas row pr-2" v-if="Admin">
+  <div v-if="!isLoading && onLoading" id="loading">
+    <div class="cube1"></div>
+    <div class="cube2"></div>
+  </div>
+  <div v-else-if="Admin" class="TurmasExternas row pr-2">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
@@ -66,11 +70,6 @@
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
-
-    <div id="loading" v-if="isLoading">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
 
     <!-- Inicio Tabela -->
     <div class="p-0 divTable mb-2" v-if="!isLoading">
@@ -372,70 +371,10 @@
               </div>
             </tr>
           </template>
-          <!--FINAL ADIÇÃO DE TURMA-->
-
-          <!-- LINHAS DA TABELA -->
-          <template v-if="Turmas.length > 0">
-            <template v-for="perfil in Perfis">
-              <template v-for="disciplina in DisciplinasCod">
-                <tr
-                  v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                  v-if="turma.Disciplina === disciplina.id"
-                  :key="'1-tr-' + perfil + turma.id + disciplina"
-                  :class="cor_perfil(perfil.id)"
-                >
-                  <template
-                    v-if="
-                      turma.periodo == 1 &&
-                        (semestreAtual == 1 || semestreAtual == 3)
-                    "
-                  >
-                    <turmadata
-                      v-bind:turma="turma"
-                      v-bind:perfil="perfil"
-                    ></turmadata>
-                  </template>
-                </tr>
-              </template>
-            </template>
-
-            <template v-for="perfil in Perfis">
-              <template v-for="disciplina in DisciplinasCod">
-                <tr
-                  v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                  v-if="turma.Disciplina === disciplina.id"
-                  :key="'2-tr-' + perfil + turma.id + disciplina"
-                  v-bind:class="{
-                    basico: perfil.id == 1,
-                    avancado: perfil.id == 2,
-                    arqso: perfil.id == 3,
-                    bancosdedados: perfil.id == 4,
-                    computacaografica: perfil.id == 5,
-                    engenhariasoftware: perfil.id == 6,
-                    iaic: perfil.id == 7,
-                    numoc: perfil.id == 8,
-                    redes: perfil.id == 9,
-                    teoria: perfil.id == 10,
-                    humempre: perfil.id == 11,
-                    multi: perfil.id == 12,
-                    ice: perfil.id == 13,
-                  }"
-                >
-                  <template
-                    v-if="
-                      turma.periodo == 3 &&
-                        (semestreAtual == 2 || semestreAtual == 3)
-                    "
-                  >
-                    <turmadata
-                      v-bind:turma="turma"
-                      v-bind:perfil="perfil"
-                    ></turmadata>
-                  </template>
-                </tr>
-              </template>
-            </template>
-          </template>
+          <!-- LINHAS -->
+          <tr v-for="turma in Turmas_filtred" :key="'1-tr-' + turma.id">
+            <turmadata :turma="turma"></turmadata>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -636,6 +575,9 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardTurmasExternas",
+  components: {
+    turmadata,
+  },
   data() {
     return {
       turmaForm: _.clone(emptyTurma),
@@ -645,59 +587,20 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
+      onLoading: true,
     };
   },
-  components: {
-    turmadata,
+
+  mounted() {
+    setTimeout(() => {
+      this.onLoading = false;
+    }, 300);
+    // this.$store.commit('emptyDelete')
+    // console.log(this.$store.state.turma.Deletar)
+    // this.$store.commit(COMPONENT_LOADED)
   },
-  /*
-    mounted () {
-      this.$store.commit('emptyDelete')
-      console.log(this.$store.state.turma.Deletar)
-      this.$store.commit(COMPONENT_LOADED)
-        },
-        */
+
   methods: {
-    cor_perfil(id) {
-      let perfil;
-      switch (id) {
-        case 1:
-          perfil = "basico";
-          break;
-        case 2:
-          perfil = "avancado";
-          break;
-        case 3:
-          perfil = "arqso";
-          break;
-        case 4:
-          perfil = "bancosdedados";
-          break;
-        case 5:
-          perfil = "computacaografica";
-          break;
-        case 6:
-          perfil = "engenhariasoftware";
-          break;
-        case 7:
-          perfil = "iaic";
-        case 8:
-          perfil = "numoc";
-        case 9:
-          perfil = "redes";
-        case 10:
-          perfil = "teoria";
-        case 11:
-          perfil = "humempre";
-        case 12:
-          perfil = "multi";
-          break;
-        case 13:
-          perfil = "ice";
-          break;
-      }
-      return perfil;
-    },
     btnOKSemestre() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) {
         this.semestreAtual = 1;
@@ -718,12 +621,7 @@ export default {
       this.semestre_1Ativo = false;
       this.semestre_2Ativo = false;
     },
-    onlyNumber($event) {
-      let keyCode = $event.keyCode ? $event.keyCode : $event.which;
-      if (keyCode < 48 || keyCode > 57) {
-        $event.preventDefault();
-      }
-    },
+
     adjustTurno1: function() {
       if (
         this.turmaForm.Horario1 == 1 ||
@@ -797,14 +695,14 @@ export default {
       }
       this.$store.commit("emptyDeleteExterno");
     },
-    inPerfil: function(perfil, turmas, disciplinas, discip) {
-      return turmas.filter(function(turma) {
-        var disciplina = _.find(disciplinas, function(disc) {
-          return disc.id === turma.Disciplina;
-        });
-        return disciplina.Perfil === perfil.id;
-      });
-    },
+    // inPerfil: function(perfil, turmas, disciplinas) {
+    //   return turmas.filter(function(turma) {
+    //     var disciplina = _.find(disciplinas, function(disc) {
+    //       return disc.id === turma.Disciplina;
+    //     });
+    //     return disciplina.Perfil === perfil.id;
+    //   });
+    // },
     addTurma() {
       turmaExternaService
         .create(this.turmaForm)
@@ -885,16 +783,30 @@ export default {
     },
   },
   computed: {
+    Turmas_filtred() {
+      return _.orderBy(
+        this.Turmas.filter((turma) => {
+          let discip = _.find(this.Disciplinas, (d) => {
+            if (d.id === turma.Disciplina) {
+              //Adiciona os atributos codigo e nome para serem usados na ordenação
+              turma.disciplina_codigo = d.codigo;
+              turma.disciplina_nome = d.codigo;
+              return true;
+            }
+            return false;
+          });
+          return discip;
+        }),
+        ["periodo", "disciplina_codigo"]
+      );
+    },
     Cursos() {
       return _.slice(this.$store.state.curso.Cursos, 0, 4);
     },
     Disciplinas() {
-      return _.orderBy(
-        _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
-          return d.Perfil == 13 || d.Perfil == 15;
-        }),
-        "nome"
-      );
+      return _.filter(this.$store.state.disciplina.Disciplinas, function(d) {
+        return d.Perfil == 13 || d.Perfil == 15;
+      });
     },
     DisciplinasCod() {
       return _.orderBy(
@@ -904,26 +816,14 @@ export default {
         "codigo"
       );
     },
-    Docentes() {
-      return _.orderBy(
-        _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
-        "apelido"
-      );
-    },
     Horarios() {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
     },
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
-    Perfis() {
-      return this.$store.state.perfil.Perfis;
-    },
     Turmas() {
-      return _.orderBy(
-        _.orderBy(this.$store.state.turmaExterna.Turmas, "letra"),
-        "Disciplina"
-      );
+      return this.$store.state.turmaExterna.Turmas;
     },
     Deletar() {
       return this.$store.state.turmaExterna.Deletar;
@@ -944,47 +844,6 @@ export default {
   },
 };
 </script>
-<style>
-.avancado {
-  background-color: #7c997f !important;
-}
-.basico {
-  background-color: #a76663 !important;
-}
-.arqso {
-  background-color: #a4a75a !important;
-}
-.bancosdedados {
-  background-color: #60a75a !important;
-}
-.computacaografica {
-  background-color: #a75877 !important;
-}
-.engenhariasoftware {
-  background-color: #34a9f6 !important;
-}
-.iaic {
-  background-color: #a449f6 !important;
-}
-.numoc {
-  background-color: #a7000c !important;
-}
-.redes {
-  background-color: #0f0da7 !important;
-}
-.teoria {
-  background-color: #0aa702 !important;
-}
-.humempre {
-  background-color: #0e6ba7 !important;
-}
-.multi {
-  background-color: #9100a7 !important;
-}
-.ice {
-}
-</style>
-
 <style scoped>
 /* prefixed */
 
