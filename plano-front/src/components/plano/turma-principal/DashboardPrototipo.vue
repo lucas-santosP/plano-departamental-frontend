@@ -648,7 +648,6 @@ export default {
   methods: {
     changeTab(tab) {
       this.nav_ativo = tab;
-      // this.searchCursos = null;
     },
     btnOK() {
       this.btnOKPerfis();

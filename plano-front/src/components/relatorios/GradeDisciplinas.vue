@@ -44,11 +44,31 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="divTable">
-      <table class="main-table table table-hover border table-sm">
+    <div class="divTable p-0">
+      <table class="main-table table table-sm table-hover table-bordered">
         <thead class="thead-light sticky">
           <tr>
             <div style="font-size:11px!important" class=" max-content">
+              <th scope="col">
+                <p
+                  class="p-header clickable"
+                  style="width:80px"
+                  @click="toggleOrdMainPerfis()"
+                >
+                  Perfil
+
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemMainTablePerfis.order == 'perfil_nome'
+                        ? ordemMainTablePerfis.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
               <th scope="col">
                 <p
                   class="p-header clickable"
@@ -90,7 +110,7 @@
               <th scope="col" v-if="activeSI">
                 <p
                   class="p-header"
-                  style="width: 150px;"
+                  style="width: 140px;"
                   title="Sistemas de informação"
                 >
                   76A
@@ -99,7 +119,7 @@
               <th scope="col" v-if="activeCCN">
                 <p
                   class="p-header"
-                  style="width: 150px;"
+                  style="width: 140px;"
                   title="Ciência da Computação Noturno"
                 >
                   35A
@@ -108,7 +128,7 @@
               <th scope="col" v-if="activeCCD">
                 <p
                   class="p-header"
-                  style="width: 150px;"
+                  style="width: 140px;"
                   title="Ciência da Computação Noturno"
                 >
                   65C
@@ -117,7 +137,7 @@
               <th scope="col" v-if="activeEC">
                 <p
                   class="p-header"
-                  style="width: 150px;"
+                  style="width: 140px;"
                   title="Engenharia da Computação"
                 >
                   65B
@@ -127,13 +147,15 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="perfil in PerfisAtivados">
-            <tr
-              v-for="disciplina in inPerfil(perfil, Disciplinas)"
-              :key="disciplina.id"
-              v-bind:style="{ backgroundColor: perfil.cor }"
-            >
+          <template v-for="disciplina in Disciplinas_Filtred">
+            <tr :key="disciplina.id">
               <div style="width: max-content;">
+                <td v-bind:style="{ backgroundColor: disciplina.cor }">
+                  <p style="width: 80px ">
+                    {{ disciplina.perfil_nome }}
+                  </p>
+                </td>
+
                 <td>
                   <p style="width: 100px;">{{ disciplina.codigo }}</p>
                 </td>
@@ -144,7 +166,7 @@
                 </td>
                 <!-- 76A-  -->
                 <td v-if="activeSI">
-                  <p style="width: 150px;">
+                  <p style="width: 140px">
                     <template
                       v-if="disciplinasGrades[disciplina.id][2][0].length !== 0"
                     >
@@ -165,7 +187,7 @@
                 </td>
                 <!-- 35A-  -->
                 <td v-if="activeCCN">
-                  <p style="width: 150px;">
+                  <p style="width: 140px">
                     <template
                       v-if="disciplinasGrades[disciplina.id][0][0].length !== 0"
                     >
@@ -186,7 +208,7 @@
                 </td>
                 <!-- 65C -->
                 <td v-if="activeCCD">
-                  <p style="width: 150px;">
+                  <p style="width: 140px">
                     <template
                       v-if="disciplinasGrades[disciplina.id][3][0].length !== 0"
                     >
@@ -207,7 +229,7 @@
                 </td>
                 <!-- 65B -->
                 <td v-if="activeEC">
-                  <p style="width: 150px;">
+                  <p style="width: 140px">
                     <template
                       v-if="disciplinasGrades[disciplina.id][1][0].length !== 0"
                     >
@@ -341,10 +363,7 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class=" max-content"
-              >
+              <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -543,6 +562,7 @@ export default {
       ordemPerfis: { order: "nome", type: "asc" },
       ordemCursos: { order: "codigo", type: "asc" },
       ordemMainTable: { order: "codigo", type: "asc" },
+      ordemMainTablePerfis: { order: "perfil_nome", type: "asc" },
     };
   },
 
@@ -558,7 +578,12 @@ export default {
       this.PerfisAtivados = [...this.PerfisSelecionados];
       //Somente atualiza cursos se alterar
       this.cursosAtivados = [...this.cursosSelecionados];
+      this.nav_ativo = "perfis";
       this.$refs.modalFiltros.hide();
+    },
+    toggleOrdMainPerfis() {
+      this.ordemMainTablePerfis.type =
+        this.ordemMainTablePerfis.type == "asc" ? "desc" : "asc";
     },
     toggleOrdPerfis() {
       this.ordemPerfis.type = this.ordemPerfis.type == "asc" ? "desc" : "asc";
@@ -801,8 +826,42 @@ export default {
         return disciplina.Perfil === perfil.id;
       });
     },
+    DisciplinaComPerfil() {
+      // let result = this.Disciplinas;
+      // this.PerfisAtivados.forEach((perfil) => {
+      //   result.filter((disciplina) => {
+      //     if (disciplina.Perfil === perfil.id) {
+      //       disciplinas.perfil_nome = perfil.nome;
+      //       return true;
+      //     }
+      //     return false;
+      //   });
+      // });
+      // return result;
+    },
   },
   computed: {
+    Disciplinas_Filtred() {
+      let result = [];
+
+      this.PerfisAtivados.forEach((perfil) => {
+        result = this.Disciplinas;
+        result.filter((disciplina) => {
+          if (disciplina.Perfil === perfil.id) {
+            disciplina.perfil_nome = perfil.abreviacao;
+            disciplina.cor = perfil.cor;
+            return true;
+          }
+          return false;
+        });
+      });
+      return _.orderBy(
+        result,
+        [this.ordemMainTablePerfis.order, this.ordemMainTable.order],
+        [this.ordemMainTablePerfis.type, this.ordemMainTable.type]
+      );
+    },
+
     Cursos_Modal_Filtred() {
       return _.orderBy(
         this.options_Cursos,
@@ -816,6 +875,9 @@ export default {
         this.ordemPerfis.order,
         this.ordemPerfis.type
       );
+    },
+    Perfis() {
+      return _.orderBy(this.$store.state.perfil.Perfis, "nome");
     },
     activeCCD() {
       return _.indexOf(this.cursosAtivados, 1) > -1;
@@ -840,11 +902,12 @@ export default {
     },
 
     Disciplinas() {
-      return _.orderBy(
-        this.$store.state.disciplina.Disciplinas,
-        this.ordemMainTable.order,
-        this.ordemMainTable.type
-      );
+      // return _.orderBy(
+      //   this.$store.state.disciplina.Disciplinas,
+      //   this.ordemMainTable.order,
+      //   this.ordemMainTable.type
+      // );
+      return this.$store.state.disciplina.Disciplinas;
     },
     Docentes() {
       return _.orderBy(
@@ -912,17 +975,10 @@ export default {
   padding-left: 0;
   margin: 0 !important;
 }
+
 /* main-table */
-.main-table .p-header {
-  padding: 0 5px 0 5px !important;
-  margin: 0;
-  font-size: 11px;
-  text-align: center;
-  height: 18px;
-}
 .divTable {
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.125);
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -930,9 +986,10 @@ export default {
   width: -moz-max-content;
   width: max-content;
 }
-.divTable .main-table {
+.main-table {
   display: block !important;
-  overflow: auto !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;
@@ -941,49 +998,43 @@ export default {
   height: -moz-calc(100vh - 95px);
   height: calc(100vh - 95px);
 }
-.main-table tbody {
-  max-height: 100%;
-  width: 100%;
+.main-table .p-header {
+  height: 18px;
+}
+.main-table p {
+  padding: 0 5px 0 5px !important;
+  margin: 0 !important;
+  font-size: 11px !important;
+  text-align: center;
+}
+tbody {
+  max-height: 100% !important;
+  width: 100% !important;
 }
 .main-table td {
   text-align: center;
   vertical-align: middle !important;
   padding: 0 !important;
-  height: 18px !important;
+  height: 22px !important;
 }
-.main-table p {
-  margin-bottom: 0 !important;
-  text-align: center;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-  font-size: 11px !important;
-}
-.main-tabletr thead {
+.main-table tr thead {
   display: block !important;
 }
-.main-table th {
+.main-table thead th {
   padding: 0 !important;
-  font-size: 14px !important;
-  text-align: center !important;
+  font-size: 14px;
+  text-align: center;
   height: 18px !important;
 }
-.main-table input {
-  height: 11px !important;
-  text-align: center !important;
-}
 .main-table input[type="checkbox"] {
-  width: 16px !important;
-  height: 14px !important;
+  width: 13px !important;
+  height: 13px !important;
   text-align: center !important;
-}
-.main-table input[type="checkbox"] {
-  margin-left: 0 !important;
+  margin: 0 !important;
   margin-top: 4px !important;
 }
-.main-table input[type="text"] {
-  height: 25px !important;
-  font-size: 11px !important;
-}
+/* fim table */
+
 .sticky {
   display: block !important;
   overflow: hidden !important;
