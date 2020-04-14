@@ -74,9 +74,9 @@
     <!-- Inicio Tabela -->
     <div class="p-0 divTable mb-2" v-if="!isLoading">
       <table class="main-table table table-sm table-hover table-bordered">
-        <thead class="thead-light sticky">
-          <tr>
-            <div class="max-content">
+        <thead class="thead-light">
+          <tr class="sticky">
+            <div style="font-size:11px!important" class="max-content ">
               <th scope="col">
                 <p style="width: 25px;"></p>
               </th>
@@ -565,18 +565,18 @@ const emptyTurma = {
   Horario1: undefined,
   Horario2: undefined,
   Sala1: undefined,
-  Sala2: undefined,
+  Sala2: undefined
 };
 const emptyPedido = {
   vagasPeriodizadas: 0,
   vagasNaoPeriodizadas: 0,
   Curso: undefined,
-  Turma: undefined,
+  Turma: undefined
 };
 export default {
   name: "DashboardTurmasExternas",
   components: {
-    turmadata,
+    turmadata
   },
   data() {
     return {
@@ -587,7 +587,7 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
-      onLoading: true,
+      onLoading: true
     };
   },
 
@@ -706,7 +706,7 @@ export default {
     addTurma() {
       turmaExternaService
         .create(this.turmaForm)
-        .then((response) => {
+        .then(response => {
           this.semestre = response.Turma.periodo;
           for (var i = 0; i < 4; i++) {
             var pedido = _.clone(emptyPedido);
@@ -714,10 +714,10 @@ export default {
             pedido.Turma = response.Turma.id;
             pedidoExternoService
               .create(pedido)
-              .then((response) => {
+              .then(response => {
                 // console.log(response.Pedido);
               })
-              .catch((error) => {
+              .catch(error => {
                 // console.log("erro ao criar pedido: " + error);
               });
           }
@@ -726,10 +726,10 @@ export default {
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi criada!`,
-            type: "success",
+            type: "success"
           });
         })
-        .catch((error) => {
+        .catch(error => {
           this.error = "<b>Erro ao criar Turma</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -740,15 +740,15 @@ export default {
     editTurma(turma) {
       turmaExternaService
         .update(turma.id, turma)
-        .then((response) => {
+        .then(response => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success",
+            type: "success"
           });
         })
-        .catch((error) => {
+        .catch(error => {
           this.error = "<b>Erro ao atualizar Turma</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -759,12 +759,12 @@ export default {
     deleteTurma(turma) {
       turmaExternaService
         .delete(turma.id, turma)
-        .then((response) => {
+        .then(response => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi excluída!`,
-            type: "success",
+            type: "success"
           });
         })
         .catch(() => {
@@ -780,13 +780,13 @@ export default {
     toggleAdd() {
       this.cleanTurma();
       this.isAdd = !this.isAdd;
-    },
+    }
   },
   computed: {
     Turmas_filtred() {
       return _.orderBy(
-        this.Turmas.filter((turma) => {
-          let discip = _.find(this.Disciplinas, (d) => {
+        this.Turmas.filter(turma => {
+          let discip = _.find(this.Disciplinas, d => {
             if (d.id === turma.Disciplina) {
               //Adiciona os atributos codigo e nome para serem usados na ordenação
               turma.disciplina_codigo = d.codigo;
@@ -840,8 +840,8 @@ export default {
       } else {
         return false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -934,7 +934,6 @@ export default {
   position: -webkit-sticky !important;
   top: 0 !important;
   display: block !important;
-  overflow: hidden !important;
   z-index: 3;
 }
 .stickyAdd {

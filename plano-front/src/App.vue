@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "App",
+  name: "App"
 };
 </script>
 
@@ -71,6 +71,14 @@ body {
 }
 .low-opacity {
   opacity: 0.4;
+}
+sticky-thead {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  z-index: 3;
 }
 
 .cube1,

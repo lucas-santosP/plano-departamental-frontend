@@ -46,9 +46,9 @@
 
     <div class="divTable p-0">
       <table class="main-table table table-sm table-hover table-bordered">
-        <thead class="thead-light sticky">
-          <tr>
-            <div style="font-size:11px!important" class=" max-content">
+        <thead class="thead-light">
+          <tr class="sticky">
+            <div style="font-size:11px!important" class="max-content">
               <th scope="col">
                 <p
                   class="p-header clickable"
@@ -149,7 +149,7 @@
         <tbody>
           <template v-for="disciplina in Disciplinas_Filtred">
             <tr :key="disciplina.id">
-              <div style="width: max-content;">
+              <div class="max-content">
                 <td v-bind:style="{ backgroundColor: disciplina.cor }">
                   <p style="width: 80px ">
                     {{ disciplina.perfil_nome }}
@@ -273,9 +273,9 @@
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'perfis',
+                  active: nav_ativo == 'perfis'
                 },
-                'clickable',
+                'clickable'
               ]"
               >Perfis</a
             >
@@ -285,9 +285,9 @@
               class="nav-link border"
               :class="[
                 {
-                  active: nav_ativo == 'cursos',
+                  active: nav_ativo == 'cursos'
                 },
-                'clickable',
+                'clickable'
               ]"
               >Cursos</a
             >
@@ -304,8 +304,8 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light sticky">
-            <tr>
+          <thead class="thead-light">
+            <tr class="sticky">
               <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -361,8 +361,8 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light sticky">
-            <tr>
+          <thead class="thead-light">
+            <tr class="sticky">
               <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -523,13 +523,13 @@ export default {
         1: undefined, //CCN
         2: undefined, //EC
         3: undefined, //SI
-        4: undefined, //CCD
+        4: undefined //CCD
       },
       gradesAtivas: {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [], //CCD
+        4: [] //CCD
       },
       PerfisSelecionados: [],
       PerfisAtivados: [],
@@ -539,30 +539,30 @@ export default {
         {
           nome: "SISTEMAS DE INFORMAÇÃO",
           value: 3,
-          codigo: "76A",
+          codigo: "76A"
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
           value: 2,
-          codigo: "35A",
+          codigo: "35A"
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
           value: 1,
-          codigo: "65C",
+          codigo: "65C"
         },
         {
           nome: "ENGENHARIA DA COMPUTAÇÃO",
           value: 4,
-          codigo: "65B",
-        },
+          codigo: "65B"
+        }
       ],
       showCurso: undefined,
       nav_ativo: "perfis",
       ordemPerfis: { order: "nome", type: "asc" },
       ordemCursos: { order: "codigo", type: "asc" },
       ordemMainTable: { order: "codigo", type: "asc" },
-      ordemMainTablePerfis: { order: "perfil_nome", type: "asc" },
+      ordemMainTablePerfis: { order: "perfil_nome", type: "asc" }
     };
   },
 
@@ -637,12 +637,12 @@ export default {
 
     runAll: function() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
-      this.$store.state.disciplina.Disciplinas.forEach((d) => {
+      this.$store.state.disciplina.Disciplinas.forEach(d => {
         this.disciplinasGrades[d.id] = [
           [[], []],
           [[], []],
           [[], []],
-          [[], []],
+          [[], []]
         ]; //inisializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
@@ -670,10 +670,10 @@ export default {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [], //CCD
+        4: [] //CCD
       };
       for (let i = 1; i <= 4; i++) {
-        this.grades[i].forEach((g) => {
+        this.grades[i].forEach(g => {
           let fim =
             1 +
             2 * (this.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
@@ -688,7 +688,7 @@ export default {
         }
       }
 
-      disciplinas.forEach((d) => {
+      disciplinas.forEach(d => {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
@@ -699,7 +699,7 @@ export default {
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id,
+                Grade: this.gradesAtivas[i][j].grade.id
               }
             ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
@@ -750,10 +750,10 @@ export default {
         1: [], //CCN
         2: [], //EC
         3: [], //SI
-        4: [], //CCD
+        4: [] //CCD
       };
       for (let i = 1; i <= 4; i++) {
-        this.grades[i].forEach((g) => {
+        this.grades[i].forEach(g => {
           let fim =
             1 +
             2 * (this.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
@@ -768,7 +768,7 @@ export default {
         }
       }
 
-      disciplinas.forEach((d) => {
+      disciplinas.forEach(d => {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
@@ -779,7 +779,7 @@ export default {
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id,
+                Grade: this.gradesAtivas[i][j].grade.id
               }
             ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
@@ -822,7 +822,7 @@ export default {
     },
     inPerfil: function(perfil, todasDisciplinas) {
       //Verifica se uma disciplina faz parte de um perfil
-      return todasDisciplinas.filter((disciplina) => {
+      return todasDisciplinas.filter(disciplina => {
         return disciplina.Perfil === perfil.id;
       });
     },
@@ -838,15 +838,15 @@ export default {
       //   });
       // });
       // return result;
-    },
+    }
   },
   computed: {
     Disciplinas_Filtred() {
       let result = [];
 
-      this.PerfisAtivados.forEach((perfil) => {
+      this.PerfisAtivados.forEach(perfil => {
         result = this.Disciplinas;
-        result.filter((disciplina) => {
+        result.filter(disciplina => {
           if (disciplina.Perfil === perfil.id) {
             disciplina.perfil_nome = perfil.abreviacao;
             disciplina.cor = perfil.cor;
@@ -950,7 +950,7 @@ export default {
 
     AnoAtual() {
       return this.$store.state.plano.Plano[0].ano;
-    },
+    }
   },
   watch: {
     CursosSelecionados: function() {
@@ -959,8 +959,8 @@ export default {
       } else {
         this.selectAll = false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

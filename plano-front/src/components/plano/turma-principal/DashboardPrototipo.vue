@@ -73,13 +73,13 @@
     <div class="pl-0 divTable" v-if="!isLoading" ref="mainTable">
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light">
-          <tr>
+          <tr class="sticky">
             <turmaheader :cursos="CursosAtivados"></turmaheader>
           </tr>
         </thead>
         <tbody>
           <template v-if="isAdd">
-            <tr>
+            <tr class="stickyAdd" style="background-color:#e9e9e9;">
               <novaturma :cursos_length="CursosAtivados.length"></novaturma>
             </tr>
           </template>
@@ -183,9 +183,9 @@
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'perfis',
+                  active: nav_ativo == 'perfis'
                 },
-                'clickable',
+                'clickable'
               ]"
               >Perfis</a
             >
@@ -194,7 +194,7 @@
             <a
               class="nav-link clickable border border-right-0"
               :class="{
-                active: nav_ativo == 'cursos',
+                active: nav_ativo == 'cursos'
               }"
               >Cursos</a
             >
@@ -203,7 +203,7 @@
             <a
               class="nav-link clickable border"
               :class="{
-                active: nav_ativo == 'semestre',
+                active: nav_ativo == 'semestre'
               }"
               >Semestre</a
             >
@@ -585,7 +585,7 @@ const emptyTurma = {
   Horario1: undefined,
   Horario2: undefined,
   Sala1: undefined,
-  Sala2: undefined,
+  Sala2: undefined
 };
 
 export default {
@@ -608,14 +608,14 @@ export default {
       nav_ativo: "perfis",
       searchCursos: null,
       ordenacaoCurso: { order: "codigo", type: "asc" },
-      ordenacaoPerfis: { order: "nome", type: "asc" },
+      ordenacaoPerfis: { order: "nome", type: "asc" }
     };
   },
 
   components: {
     turmadata,
     turmaheader,
-    novaturma,
+    novaturma
   },
 
   mounted: function() {
@@ -726,20 +726,20 @@ export default {
     xlsx: function(pedidos) {
       xlsx
         .downloadTable({
-          pedidos: pedidos,
+          pedidos: pedidos
         })
         .then(() => {
           console.log("done");
           fetch("http://200.131.219.57:3000/api/xlsx/download", {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
+              Authorization: `Bearer ${this.$store.state.auth.token}`
+            }
           })
-            .then((r) => r.blob())
-            .then((blob) => saveAs(blob, "tabela.xlsx"));
+            .then(r => r.blob())
+            .then(blob => saveAs(blob, "tabela.xlsx"));
         })
-        .catch((error) => console.log(error));
+        .catch(error => console.log(error));
     },
 
     adjustTurno1: function() {
@@ -829,15 +829,15 @@ export default {
     editTurma(turma) {
       turmaService
         .update(turma.id, turma)
-        .then((response) => {
+        .then(response => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success",
+            type: "success"
           });
         })
-        .catch((error) => {
+        .catch(error => {
           this.error = "<b>Erro ao atualizar Turma</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -879,10 +879,10 @@ export default {
                 group: "general",
                 title: `Sucesso!`,
                 text: `O pedido foi atualizado!`,
-                type: "success",
+                type: "success"
               });
             })
-            .catch((error) => {
+            .catch(error => {
               this.error = "<b>Erro ao atualizar Pedido</b>";
               if (error.response.data.fullMessage) {
                 this.error +=
@@ -896,7 +896,7 @@ export default {
 
     toggleAdd() {
       this.isAdd = !this.isAdd;
-    },
+    }
   },
 
   computed: {
@@ -908,7 +908,7 @@ export default {
       if (this.searchCursos != null) {
         let searchUpperCase = this.searchCursos.toUpperCase();
 
-        return this.$store.state.curso.Cursos.filter((curso) => {
+        return this.$store.state.curso.Cursos.filter(curso => {
           return (
             curso.nome
               .normalize("NFD")
@@ -980,7 +980,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
     //Juntando o vetor com turmas num unico vetor
     //   turmasFiltradas() {
     //     let result_1 = [];
@@ -996,7 +996,7 @@ export default {
     //     });
     //     return _.orderBy(result_1, "periodo_ord");
     //   }
-  },
+  }
 };
 </script>
 
@@ -1240,6 +1240,16 @@ i.far {
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
+.stickyAdd {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 21px !important;
   display: block !important;
   overflow: hidden !important;
   z-index: 3;
