@@ -355,7 +355,7 @@
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'perfis'
+                active: nav_ativo == 'perfis',
               }"
               >Perfis</a
             >
@@ -364,7 +364,7 @@
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'disciplinas'
+                active: nav_ativo == 'disciplinas',
               }"
               >Disciplinas</a
             >
@@ -373,7 +373,7 @@
             <a
               class="nav-link border"
               :class="{
-                active: nav_ativo == 'semestre'
+                active: nav_ativo == 'semestre',
               }"
               >Semestre</a
             >
@@ -945,7 +945,7 @@ export default {
       searchDisciplinas: null,
       ordemDiscip: { order: "codigo", type: "asc" },
       ordemVagas: { order: "codigo", type: "asc" },
-      ordemPerfis: { order: "nome", type: "asc" }
+      ordemPerfis: { order: "nome", type: "asc" },
     };
   },
 
@@ -1030,7 +1030,7 @@ export default {
 
     pdf() {
       pdfs.pdfRelatorioDisciplinas({
-        disciplinasSelecionadas: this.DisciplinasAtivados
+        disciplinasSelecionadas: this.DisciplinasAtivados,
       });
     },
     vagasTurma(turma, semestre) {
@@ -1042,7 +1042,7 @@ export default {
       let pedidos = this.$store.state.pedido.Pedidos[turma.id];
       let vagasP = 0;
       let vagasNP = 0;
-      pedidos.forEach(p => {
+      pedidos.forEach((p) => {
         vagasP += p.vagasPeriodizadas;
         vagasNP += p.vagasNaoPeriodizadas;
       });
@@ -1051,10 +1051,10 @@ export default {
 
     vagasDisciplina(disciplina, semestre) {
       let turmas = _.filter(this.$store.state.turma.Turmas, {
-        Disciplina: disciplina.id
+        Disciplina: disciplina.id,
       });
       let vagas = 0;
-      turmas.forEach(t => {
+      turmas.forEach((t) => {
         vagas += this.vagasTurma(t, semestre);
       });
       return vagas;
@@ -1062,13 +1062,13 @@ export default {
 
     perfil(disciplina) {
       let perfil = _.find(this.$store.state.perfil.Perfis, {
-        id: disciplina.Perfil
+        id: disciplina.Perfil,
       });
       return perfil.abreviacao;
     },
     turmas(disciplina, semestre) {
       return _.orderBy(
-        _.filter(this.$store.state.turma.Turmas, turma => {
+        _.filter(this.$store.state.turma.Turmas, (turma) => {
           return (
             turma.Disciplina === disciplina.id &&
             (semestre === 1
@@ -1084,10 +1084,10 @@ export default {
 
     docentes(turma) {
       let d1 = _.find(this.$store.state.docente.Docentes, {
-        id: turma.Docente1
+        id: turma.Docente1,
       });
       let d2 = _.find(this.$store.state.docente.Docentes, {
-        id: turma.Docente2
+        id: turma.Docente2,
       });
       if (d1 === undefined && d2 === undefined) {
         return "";
@@ -1111,13 +1111,13 @@ export default {
 
     disciplina(turma) {
       return _.find(this.$store.state.disciplina.Disciplinas, {
-        id: turma.Disciplina
+        id: turma.Disciplina,
       });
     },
 
     closeModalVagas() {
       this.$refs.VagasModal.hide();
-    }
+    },
   },
 
   computed: {
@@ -1132,7 +1132,7 @@ export default {
       if (this.searchDisciplinas != null) {
         let searchUpperCase = this.searchDisciplinas.toUpperCase();
 
-        return result.filter(disci => {
+        return result.filter((disci) => {
           return (
             disci.nome
               .normalize("NFD")
@@ -1151,7 +1151,44 @@ export default {
         //Se for ordem pelo perfil, passa o vetor de ordem ["Perfil", "codigo"]
         return _.orderBy(
           this.Disciplinas,
-          ["Perfil", "codigo"],
+          (disciplina) => {
+            switch (disciplina.Perfil) {
+              case 1:
+                return "BÁSICO";
+              case 2:
+                return "AVANÇADO";
+              case 3:
+                return "ARQSO";
+              case 4:
+                return "BD";
+              case 5:
+                return "CG";
+              case 6:
+                return "ES";
+              case 7:
+                return "IAIC";
+              case 8:
+                return "NUM/OC";
+              case 9:
+                return "REDES";
+              case 10:
+                return "TEO";
+              case 11:
+                return "HUMEMPR";
+              case 12:
+                return "MULTI";
+              case 13:
+                return "ICE";
+              case 14:
+                return "SI";
+              case 15:
+                return "MAC";
+              case 16:
+                return "EAD";
+              case 17:
+                return "PUI";
+            }
+          },
           [this.ordemDiscip.type, "asc"]
         );
       } else {
@@ -1198,7 +1235,7 @@ export default {
             return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
           }
         ),
-        p => {
+        (p) => {
           switch (this.ordemVagas.order) {
             case "codigo":
               return this.curso(p).codigo;
@@ -1220,7 +1257,7 @@ export default {
 
     Horarios() {
       return this.$store.state.horario.Horarios;
-    }
+    },
     //Função para adicionar ao clickar no <tr>
     // addInDisci(disciplina) {
     //   let indice = this.DisciplinasSelecionados.indexOf(disciplina);
@@ -1237,8 +1274,8 @@ export default {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
       this.DisciplinasSelecionados = [];
 
-      this.Disciplinas.forEach(discip => {
-        this.PerfisAtivados.forEach(perfil => {
+      this.Disciplinas.forEach((discip) => {
+        this.PerfisAtivados.forEach((perfil) => {
           if (
             discip.Perfil == perfil.id &&
             !this.DisciplinasSelecionados.includes(discip)
@@ -1247,8 +1284,8 @@ export default {
           }
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
