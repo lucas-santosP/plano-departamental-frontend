@@ -114,7 +114,6 @@
         </thead>
         <tbody>
           <template v-for="professor in Docentes_Ativados_filtred">
-            <template v-if="turmasInProf(professor).length > 0"></template>
             <tr class="prof-td" :key="professor.apelido">
               <div class="max-content">
                 <td>
@@ -587,7 +586,7 @@ export default {
       ordemProf_Main: { order: "apelido", type: "asc" },
       credito1Atual: 0,
       credito2Atual: 0,
-      onLoading: true
+      onLoading: true,
     };
   },
   beforeCreate() {
@@ -630,12 +629,12 @@ export default {
     },
     turmasInProf(professor) {
       return _.orderBy(
-        _.filter(this.Turmas, turma => {
+        _.filter(this.Turmas, (turma) => {
           if (
             turma.Docente1 === professor.id ||
             turma.Docente2 === professor.id
           ) {
-            _.find(this.Disciplinas, disciplina => {
+            _.find(this.Disciplinas, (disciplina) => {
               if (turma.Disciplina === disciplina.id) {
                 turma.disciplina_nome = disciplina.nome;
                 turma.disciplina_codigo = disciplina.codigo;
@@ -652,13 +651,13 @@ export default {
     },
     turmasSemAlocacao() {
       return _.orderBy(
-        _.filter(this.Turmas, turma => {
+        _.filter(this.Turmas, (turma) => {
           if (
             turma.Docente1 == null &&
             turma.Docente2 == null &&
             turma.Disciplina != null
           ) {
-            _.find(this.Disciplinas, disciplina => {
+            _.find(this.Disciplinas, (disciplina) => {
               if (turma.Disciplina === disciplina.id) {
                 turma.disciplina_nome = disciplina.nome;
                 turma.disciplina_codigo = disciplina.codigo;
@@ -733,10 +732,10 @@ export default {
       return creditos_prof;
     },
     CargasPosFiltred(prof_id) {
-      return this.CargasPos.filter(carga => {
+      return this.CargasPos.filter((carga) => {
         return carga.Docente === prof_id;
       });
-    }
+    },
   },
 
   computed: {
@@ -773,7 +772,7 @@ export default {
     Docentes_Search() {
       //Filtro do search
       if (this.searchProf != null && this.searchProf != "") {
-        return this.Docentes.filter(prof => {
+        return this.Docentes.filter((prof) => {
           return prof.apelido
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
@@ -788,16 +787,16 @@ export default {
       //Adiciona atributos creditos 1 e 2 em todos professores
       let result = _.filter(this.$store.state.docente.Docentes, [
         "ativo",
-        true
+        true,
       ]);
-      result.forEach(prof => {
+      result.forEach((prof) => {
         let creditos = this.CalculaCreditos(prof);
         prof.cred1 = creditos.periodo1;
         prof.cred2 = creditos.periodo2;
       });
       return result;
-    }
-  }
+    },
+  },
 };
 </script>
 

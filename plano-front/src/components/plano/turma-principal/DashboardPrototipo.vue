@@ -14,6 +14,13 @@
           class="form-group col-xl-10 col-lg-10 col-md-10 col-sm-10 col-9 mb-0 p-0"
           style="justify-content: flex-end !important;"
         >
+          <b-button
+            v-b-modal.modalValidacao
+            title="Validação"
+            class="cancelbtn"
+          >
+            <i class="far fa-calendar-check"></i>
+          </b-button>
           <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
           </b-button>
@@ -183,9 +190,9 @@
               class="nav-link border border-right-0"
               :class="[
                 {
-                  active: nav_ativo == 'perfis'
+                  active: nav_ativo == 'perfis',
                 },
-                'clickable'
+                'clickable',
               ]"
               >Perfis</a
             >
@@ -194,7 +201,7 @@
             <a
               class="nav-link clickable border border-right-0"
               :class="{
-                active: nav_ativo == 'cursos'
+                active: nav_ativo == 'cursos',
               }"
               >Cursos</a
             >
@@ -203,7 +210,7 @@
             <a
               class="nav-link clickable border"
               :class="{
-                active: nav_ativo == 'semestre'
+                active: nav_ativo == 'semestre',
               }"
               >Semestre</a
             >
@@ -490,6 +497,191 @@
       </div>
     </b-modal>
 
+    <!-- MODAL FILTROS -->
+    <b-modal
+      id="modalValidacao"
+      ref="modalValidacao"
+      scrollable
+      size="lg"
+      title="Validações"
+    >
+      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
+        <!-- TABLE Validações -->
+        <table
+          class="table table-sm modal-table table-bordered"
+          style="height: 450px !important;"
+        >
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="font-size: 11px !important;" class=" max-content">
+                <th>
+                  <p
+                    style="width: 35px; text-align: center;"
+                    class="p-header"
+                    @click="toggleOrdValidacoes('periodo')"
+                  >
+                    S.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemValidacao.order == 'periodo'
+                          ? ordemValidacao.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 70px; text-align: start;"
+                    class="p-header"
+                    @click="toggleOrdValidacoes('perfil')"
+                  >
+                    Perfil
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemValidacao.order == 'perfil'
+                          ? ordemValidacao.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 70px; text-align: start;"
+                    class="p-header"
+                    @click="toggleOrdValidacoes('codigo')"
+                  >
+                    Cód.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemValidacao.order == 'codigo'
+                          ? ordemValidacao.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 240px; text-align: start;"
+                    class="p-header"
+                    @click="toggleOrdValidacoes('nome')"
+                  >
+                    Disciplina
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemValidacao.order == 'nome'
+                          ? ordemValidacao.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p style="width: 35px; text-align: start;" class="p-header">
+                    Letra
+                  </p>
+                </th>
+
+                <th>
+                  <p style="width: 290px; text-align: start;" class="p-header">
+                    Conflito
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody style="text-transform: uppercase">
+            <template v-for="(turma, index) in Turmas_validacoes">
+              <tr
+                :key="
+                  index + '-' + turma.id + turma.Disciplina + 'modal-validacoes'
+                "
+                style="background-color:rgba(0, 0, 0, 0.089);"
+              >
+                <div class="max-content">
+                  <td>
+                    <p style="width: 35px; text-align: center;">
+                      {{ turma.periodo }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;">
+                      {{ turma.perfil }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;">
+                      {{ turma.codigo }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 240px; text-align: start;">
+                      {{ turma.nome }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 35px; text-align: center;">
+                      {{ turma.letra }}
+                    </p>
+                  </td>
+
+                  <td>
+                    <p style="width: 290px; text-align: start;">
+                      {{ turma.mensagem }}
+                    </p>
+                  </td>
+                </div>
+              </tr>
+              <tr
+                v-for="erro in turma.erros"
+                :key="turma.id + turma.codigo + erro.mensagem"
+              >
+                <div class="max-content">
+                  <td>
+                    <p style="width: 35px; text-align: center;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: center;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 240px; text-align: start;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 35px; text-align: center;"></p>
+                  </td>
+
+                  <td>
+                    <p style="width: 290px; text-align: start;">
+                      {{ erro.mensagem }}
+                    </p>
+                  </td>
+                </div>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;"></div>
+    </b-modal>
+
     <!-- Modal de Ajuda -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
       <div class="modal-body">
@@ -585,7 +777,7 @@ const emptyTurma = {
   Horario1: undefined,
   Horario2: undefined,
   Sala1: undefined,
-  Sala2: undefined
+  Sala2: undefined,
 };
 
 export default {
@@ -608,14 +800,15 @@ export default {
       nav_ativo: "perfis",
       searchCursos: null,
       ordenacaoCurso: { order: "codigo", type: "asc" },
-      ordenacaoPerfis: { order: "nome", type: "asc" }
+      ordenacaoPerfis: { order: "nome", type: "asc" },
+      ordemValidacao: { order: "periodo", type: "asc" },
     };
   },
 
   components: {
     turmadata,
     turmaheader,
-    novaturma
+    novaturma,
   },
 
   mounted: function() {
@@ -692,6 +885,16 @@ export default {
           this.ordenacaoCurso.type == "asc" ? "desc" : "asc";
       }
     },
+    // Ordem Validacoes
+    toggleOrdValidacoes(ord) {
+      if (this.ordemValidacao.order != ord) {
+        this.ordemValidacao.order = ord;
+        this.ordemValidacao.type = "asc";
+      } else {
+        this.ordemValidacao.type =
+          this.ordemValidacao.type == "asc" ? "desc" : "asc";
+      }
+    },
 
     //Select Perfis
     selectAllPerfis() {
@@ -726,20 +929,20 @@ export default {
     xlsx: function(pedidos) {
       xlsx
         .downloadTable({
-          pedidos: pedidos
+          pedidos: pedidos,
         })
         .then(() => {
           console.log("done");
           fetch("http://200.131.219.57:3000/api/xlsx/download", {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`
-            }
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
           })
-            .then(r => r.blob())
-            .then(blob => saveAs(blob, "tabela.xlsx"));
+            .then((r) => r.blob())
+            .then((blob) => saveAs(blob, "tabela.xlsx"));
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     adjustTurno1: function() {
@@ -829,15 +1032,15 @@ export default {
     editTurma(turma) {
       turmaService
         .update(turma.id, turma)
-        .then(response => {
+        .then((response) => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success"
+            type: "success",
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.error = "<b>Erro ao atualizar Turma</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -879,10 +1082,10 @@ export default {
                 group: "general",
                 title: `Sucesso!`,
                 text: `O pedido foi atualizado!`,
-                type: "success"
+                type: "success",
               });
             })
-            .catch(error => {
+            .catch((error) => {
               this.error = "<b>Erro ao atualizar Pedido</b>";
               if (error.response.data.fullMessage) {
                 this.error +=
@@ -896,7 +1099,15 @@ export default {
 
     toggleAdd() {
       this.isAdd = !this.isAdd;
-    }
+    },
+    sala_eh_lab(t_sala) {
+      let cond = _.find(
+        this.Salas,
+        (sala) => t_sala == sala.id && sala.laboratorio
+      );
+      if (cond != undefined) return true;
+      else return false;
+    },
   },
 
   computed: {
@@ -908,7 +1119,7 @@ export default {
       if (this.searchCursos != null) {
         let searchUpperCase = this.searchCursos.toUpperCase();
 
-        return this.$store.state.curso.Cursos.filter(curso => {
+        return this.$store.state.curso.Cursos.filter((curso) => {
           return (
             curso.nome
               .normalize("NFD")
@@ -919,7 +1130,7 @@ export default {
       }
       return result;
     },
-    //Cursos filtrados
+    //Cursos Ordenados
     Cursos_filtred() {
       return _.orderBy(
         this.Cursos,
@@ -927,7 +1138,99 @@ export default {
         this.ordenacaoCurso.type
       );
     },
+    Turmas_validacoes() {
+      // console.log("turmas", this.Turmas[0]);
+      // console.log("disciplina", this.Disciplinas[0]);
+      // console.log("disciplina", this.Salas[0]);
+      return _.orderBy(
+        this.Turmas.filter((turma) => {
+          //Disciplina da turma
+          let disciplina_encontrada = _.find(
+            this.Disciplinas,
+            (disciplina) => disciplina.id == turma.Disciplina
+          );
 
+          if (disciplina_encontrada && turma.periodo == 1) {
+            let erros = [];
+            let cond = false;
+            turma.nome = disciplina_encontrada.nome;
+            turma.codigo = disciplina_encontrada.codigo;
+            turma.cargaTeorica = disciplina_encontrada.cargaTeorica;
+            turma.cargaPratica = disciplina_encontrada.cargaPratica;
+            turma.ead = disciplina_encontrada.ead;
+            turma.laboratorio = disciplina_encontrada.laboratorio;
+            //Encontra o nome do perfil
+            turma.perfil_nome = _.find(this.Perfis, (perfil) => {
+              if (perfil.id == disciplina_encontrada.Perfil) {
+                turma.perfil = perfil.abreviacao;
+              }
+            });
+            //Verifica letra
+            if (!turma.letra.match(/[A-Z]/i)) {
+              erros.push({ mensagem: "Letra da turma invalida" });
+              cond = true;
+            }
+            //Verifica turno
+            if (turma.turno1 == null) {
+              erros.push({ mensagem: "Turno Invalido" });
+              cond = true;
+            }
+            if (!turma.ead && turma.turno1 == "EAD") {
+              erros.push({
+                mensagem:
+                  "Turma não cadastrada como EAD, porem o turno esta alocado como tal",
+              });
+              cond = true;
+            }
+            //Verifica Horarios
+            if (
+              !(turma.ead || turma.turno1 == "EAD") &&
+              turma.Horario1 == null
+            ) {
+              erros.push({ mensagem: "Primeiro Horario invalido" });
+              cond = true;
+            }
+            if (
+              !(turma.ead || turma.turno1 == "EAD") &&
+              turma.cargaTeorica > 2 &&
+              turma.Horario2 == null
+            ) {
+              erros.push({ mensagem: "Segundo Horario invalido" });
+              cond = true;
+            }
+            //Verifica Docente
+            if (turma.Docente1 == null) {
+              erros.push({ mensagem: "Primeiro Docente invalido" });
+              cond = true;
+            }
+            //Verifica alocação de Lab
+            if (
+              turma.cargaPratica > 0 &&
+              !(this.sala_eh_lab(turma.Sala1) || this.sala_eh_lab(turma.Sala2))
+            ) {
+              erros.push({
+                mensagem:
+                  "Turma possui carga pratica porem não possui laboratorio alocado",
+              });
+              cond = true;
+            }
+            // if (
+            //   turma.laboratorio &&
+            //   !(this.sala_eh_lab(turma.Sala1) || this.sala_eh_lab(turma.Sala2))
+            // ) {
+            //   erros.push({
+            //     mensagem: "Turma é labotorio e não possui uma salas lab alocada",
+            //   });
+            //   cond = true;
+            // }
+            turma.erros = erros;
+            return cond;
+          }
+        }),
+        this.ordemValidacao.order,
+        this.ordemValidacao.type
+      );
+    },
     Disciplinas() {
       return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
@@ -980,7 +1283,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
     //Juntando o vetor com turmas num unico vetor
     //   turmasFiltradas() {
     //     let result_1 = [];
@@ -996,7 +1299,7 @@ export default {
     //     });
     //     return _.orderBy(result_1, "periodo_ord");
     //   }
-  }
+  },
 };
 </script>
 
