@@ -1227,15 +1227,13 @@ export default {
             });
           }
           //Verifica Horarios
-          if (!(turma.ead || turma.turno1 == "EAD") && turma.Horario1 == null) {
-            obj.erros.push({ mensagem: "Primeiro Horario invalido" });
-          }
-          if (
-            !(turma.ead || turma.turno1 == "EAD") &&
-            turma.cargaTeorica > 2 &&
-            turma.Horario2 == null
-          ) {
-            obj.erros.push({ mensagem: "Segundo Horario invalido" });
+          if (!turma.ead || !turma.turno1 == "EAD") {
+            if (turma.Horario1 == null) {
+              obj.erros.push({ mensagem: "Primeiro Horario invalido" });
+            }
+            if (turma.cargaTeorica > 2 && turma.Horario2 == null) {
+              obj.erros.push({ mensagem: "Segundo Horario invalido" });
+            }
           }
           //Verifica Docente
           if (turma.Docente1 == null) {
