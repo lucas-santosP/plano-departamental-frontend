@@ -196,10 +196,7 @@
                 </td>
 
                 <td>
-                  <p
-                    v-html="erro.type + ' - ' + erro.msg"
-                    style="width: 350px; text-align: start;"
-                  >
+                  <p v-html="erro.msg" style="width: 350px; text-align: start;">
                     <!-- {{ erro.msg }} -->
                   </p>
                 </td>
