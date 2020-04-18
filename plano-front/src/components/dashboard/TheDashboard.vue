@@ -135,6 +135,15 @@
                     <i class="fas fa-clipboard"></i> Creditação Pós
                   </router-link>
                 </li>
+                <li v-if="Admin" @click="show = false" class="nav-item">
+                  <router-link
+                    :to="{ name: 'validacoes' }"
+                    class="nav-link"
+                    v-on:click="loadPage"
+                  >
+                    <i class="fas fa-calendar-check"></i> Validações do Plano
+                  </router-link>
+                </li>
               </ul>
               <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">
                 Relatórios
