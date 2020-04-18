@@ -1206,7 +1206,44 @@ export default {
       if (this.ordemDiscip.order == "perfil") {
         return _.orderBy(
           this.DisciplinasAtivados,
-          ["Perfil", "codigo"],
+          (disciplina) => {
+            switch (disciplina.Perfil) {
+              case 1:
+                return "BÁSICO";
+              case 2:
+                return "AVANÇADO";
+              case 3:
+                return "ARQSO";
+              case 4:
+                return "BD";
+              case 5:
+                return "CG";
+              case 6:
+                return "ES";
+              case 7:
+                return "IAIC";
+              case 8:
+                return "NUM/OC";
+              case 9:
+                return "REDES";
+              case 10:
+                return "TEO";
+              case 11:
+                return "HUMEMPR";
+              case 12:
+                return "MULTI";
+              case 13:
+                return "ICE";
+              case 14:
+                return "SI";
+              case 15:
+                return "MAC";
+              case 16:
+                return "EAD";
+              case 17:
+                return "PUI";
+            }
+          },
           [this.ordemDiscip.type, "asc"]
         );
       } else {
