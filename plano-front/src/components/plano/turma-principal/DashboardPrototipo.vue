@@ -505,8 +505,7 @@
       size="lg"
       title="Validações"
     >
-      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
-        <!-- TABLE Validações -->
+      <!-- <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <table
           class="table table-sm modal-table table-bordered"
           style="height: 450px !important;"
@@ -677,7 +676,7 @@
             </template>
           </tbody>
         </table>
-      </div>
+      </div> -->
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;"></div>
     </b-modal>

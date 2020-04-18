@@ -267,7 +267,7 @@
     >
       <p
         v-for="value in files"
-        :key="'1' + value"
+        :key="'1--' + value"
         v-on:click="selectFile(value)"
       >
         {{ value }}
@@ -350,7 +350,7 @@
     <b-modal id="modal-load" ref="modalLoad" title="Selecione um Arquivo">
       <p
         v-for="value in files"
-        :key="'2' + value"
+        :key="'2--' + value"
         v-on:click="selectFile(value)"
       >
         {{ value }}
@@ -369,7 +369,7 @@
     >
       <p
         v-for="value in files"
-        :key="'3' + value"
+        :key="'3--' + value"
         v-on:click="selectFile(value)"
       >
         {{ value }}
