@@ -124,7 +124,7 @@
           </tr>
         </thead>
         <tbody style="text-transform: uppercase">
-          <template v-for="validacao in Turmas_validacoes_filtred">
+          <template v-for="validacao in Turmas_Validacoes_Ordered">
             <tr
               :key="
                 'validacoes-' + validacao.turma_id + validacao.disciplina_codigo
@@ -219,7 +219,6 @@ export default {
     };
   },
   methods: {
-    //Ordem Validacoes
     toggleOrdValidacoes(ord) {
       if (this.OrdemValidacao.order != ord) {
         this.OrdemValidacao.order = ord;
@@ -229,17 +228,15 @@ export default {
           this.OrdemValidacao.type == "asc" ? "desc" : "asc";
       }
     },
-    //Encontra o nome do perfil pelo ID
     findPerfilById(id) {
       let perfil = _.find(this.Perfis, (p) => p.id == id);
       return perfil != undefined ? perfil : null;
     },
-    //Encontra o nome do docente pelo ID
+    //return apelido
     findDocenteById(id) {
       let docente = _.find(this.Docentes, (d) => d.id == id);
       return docente != undefined ? docente.apelido : null;
     },
-    //Encontra disciplina pelo ID
     findDisciplinaById(id) {
       let disciplina = _.find(this.Disciplinas, (d) => d.id == id);
       return disciplina != undefined ? disciplina : null;
@@ -284,38 +281,35 @@ export default {
     },
     checkAllValidations(validacao) {
       let check;
-      //1-Letra
-      check = this.checkLetra(validacao.turma_letra);
-      if (check) validacao.conflitos.push(check);
-      //2-Turno
+      //Turno
       check = this.checkTurno(validacao.turma_turno1);
       if (check) validacao.conflitos.push(check);
-      //3-Compatibilidade do turno com disciplina
+      //Compatibilidade do turno com disciplina
       check = this.checkTurnoEAD(
         validacao.disciplina_ead,
         validacao.turma_turno1
       );
       if (check) validacao.conflitos.push(check);
-      //4-Horarios
+      //Horarios
       check = this.checkHorarios(
         validacao.disciplina_ead,
         validacao.turma_Horario1
       );
       if (check) validacao.conflitos.push(check);
-      //5-Docente
+      //Docente
       check = this.checkDocentes(
         validacao.turma_docente1,
         validacao.turma_docente2
       );
       if (check) validacao.conflitos.push(check);
-      //6-Salas
+      //Salas
       check = this.checkSalas(
         validacao.disciplina_laboratorio,
         validacao.turma_sala1,
         validacao.turma_sala2
       );
       if (check) validacao.conflitos.push(check);
-      //7-Lotação das salas
+      //Lotação das salas
       check = this.checkVagasSalas(
         validacao.turma_sala1,
         validacao.turma_sala2,
@@ -326,20 +320,15 @@ export default {
       check = this.checkPedidos(validacao.pedidos_totais);
       if (check) validacao.conflitos.push(check);
     },
-    checkLetra(letra) {
-      return letra != null && !letra.match(/[A-Z]/i)
-        ? { type: 1, msg: "Letra da turma invalida!" }
-        : null;
-    },
     checkTurno(turno) {
       return turno === null || turno === undefined
-        ? { type: 2, msg: "Nenhum Turno alocado" }
+        ? { type: 1, msg: "Nenhum Turno alocado" }
         : null;
     },
     checkTurnoEAD(isEAD, turno) {
       return (isEAD && turno !== "EAD") || (!isEAD && turno == "EAD")
         ? {
-            type: 3,
+            type: 2,
             msg: "Incompatbilidade entre turno e cadastro EAD da disciplina",
           }
         : false;
@@ -348,7 +337,7 @@ export default {
       if (!isEAD) {
         return horario1 === null || horario1 === undefined
           ? {
-              type: 4,
+              type: 3,
               msg: "Horarios incompletos ou invalidos",
             }
           : false;
@@ -357,13 +346,13 @@ export default {
     },
     checkDocentes(docente1, docente2) {
       return docente1 === null && docente2 == null
-        ? { type: 5, msg: "Nenhum Docente alocado" }
+        ? { type: 4, msg: "Nenhum Docente alocado" }
         : false;
     },
     checkSalas(isLab, sala1, sala2) {
       return isLab && !this.isLab(sala1) && !this.isLab(sala2)
         ? {
-            type: 6,
+            type: 5,
             msg:
               "Disciplina de laborátorio, porêm não possui laboratorio alocado",
           }
@@ -374,7 +363,7 @@ export default {
       if (sala1_id != null) sala1 = _.find(this.Salas, (s) => sala1_id == s.id);
       if (sala2_id != null && sala2_id != sala1_id)
         sala2 = _.find(this.Salas, (s) => sala2_id == s.id);
-      let result = { type: 7, msg: "" };
+      let result = { type: 6, msg: "" };
 
       if (sala1 != undefined && sala1.lotacao_maxima != 0) {
         if (sala1.lotacao_maxima < pedidos_totais) {
@@ -403,7 +392,7 @@ export default {
     checkPedidos(pedidos_totais) {
       return pedidos_totais <= 4
         ? {
-            type: 8,
+            type: 7,
             msg: "Apenas 4 ou menos vagas foram alocadas!",
           }
         : false;
@@ -419,27 +408,15 @@ export default {
   },
   computed: {
     //Turmas validacoes ordenadas
-    Turmas_validacoes_filtred() {
+    Turmas_Validacoes_Ordered() {
       return _.orderBy(
-        this.Turmas_validacoes,
+        this.Turmas_Validacoes,
         this.OrdemValidacao.order,
         this.OrdemValidacao.type
       );
     },
-    Turmas_table() {
-      // let result = [];
-      // this.Perfis.forEach((perfil) => {
-      //   result = this.Turmas.filter((turma) => {
-      //     if (_.isNull(turma.Disciplina)) return false;
-      //     //Encontra a disciplina da turma
-      //     let disciplina = this.findDisciplinaById(turma.Disciplina);
-      //     return disciplina.Perfil === perfil.id;
-      //   });
-      // });
-      // return result;
-    },
     //Verifica validações das turmas
-    Turmas_validacoes() {
+    Turmas_Validacoes() {
       console.log(this.Turmas[0]);
       let turmas_resultante = [];
 
@@ -450,7 +427,7 @@ export default {
         if (disciplina) {
           let validacao = this.createValidacao(turma, disciplina);
           this.checkAllValidations(validacao);
-          //Se houve conflito adiciona na turma resultante
+          //Se houve conflito adiciona nas turmas de validaçoes
           if (validacao.conflitos.length) turmas_resultante.push(validacao);
         }
       });
@@ -476,93 +453,6 @@ export default {
     },
   },
 };
-//Verifica letra
-// if (this.checkLetra(turma.letra)) {
-//   obj.erros.push({ mensagem: "Letra da turma invalida" });
-// }
-// //Verifica turno
-// if (this.checkTurno(turma.turno1)) {
-//   obj.erros.push({ mensagem: "Turno Invalido" });
-// }
-// //Verifica compatibilidade do turno com disciplina EAD
-// if (this.checkTurnoEAD(disciplina.ead, turma.turno1)) {
-//   obj.erros.push({
-//     mensagem:
-//       "Incompatibilidade entre cadastro da disciplina e o turno alocado",
-//   });
-// }
-// //Verifica Horarios das disciplinas que não são EAD
-// if (!disciplina.ead && turma.turno1 != "EAD") {
-//   if (
-//     this.isNull(turma.Horario1) ||
-//     (turma.cargaTeorica > 2 && this.isNull(turma.Horario2))
-//   ) {
-//     obj.erros.push({
-//       mensagem: "Horarios incompletos ou invalidos",
-//     });
-//   }
-// }
-// //Verifica Docente
-// if (this.isNull(turma.Docente1) && this.isNull(turma.Docente2)) {
-//   obj.erros.push({ mensagem: "Docentes incompletos ou invalidos" });
-// }
-// //Verifica alocação de Lab e salas
-// if (!this.isNull(turma.Sala1) || !this.isNull(turma.Sala2)) {
-//   //Se possui sala alocada verifica se possui lab alocado
-//   if (this.checkSala(disciplina.ead, turma.Sala1, turma.Sala2)) {
-//     obj.erros.push({
-//       mensagem:
-//         "Disciplina de laboratorio porem não possui uma sala laboratorio alocada",
-//     });
-//   }
-//   //Verifica as vagas com capacidade das salas
-//   //Sala 1
-//   let vagasInSala1 = this.checkVagasSalas(
-//     turma.Sala1,
-//     turmaPedidosTotais
-//   );
-//   //Sala 2
-//   let vagasInSala2 = this.checkVagasSalas(
-//     turma.Sala1,
-//     turmaPedidosTotais
-//   );
-
-//   if (vagasInSala1) {
-//     obj.erros.push({
-//       mensagem:
-//         "Limite da 1º sala excedido: " +
-//         vagasInSala1.sala +
-//         " possui capacidade de " +
-//         vagasInSala1.lotacao +
-//         " vagas e foram alocadas " +
-//         vagasInSala1.vagastotais,
-//     });
-//   }
-//   if (vagasInSala2) {
-//     obj.erros.push({
-//       mensagem:
-//         "Limite da 2ª sala excedido: " +
-//         vagasInSala2.sala +
-//         " possui capacidade de " +
-//         vagasInSala2.lotacao +
-//         " vagas e foram alocadas " +
-//         vagasInSala2.vagastotais,
-//     });
-//   }
-// }
-// if (turmaPedidosTotais == 0) {
-//   obj.erros.push({
-//     mensagem: "Turma não possui nenhuma vaga alocada",
-//   });
-// } else if (turmaPedidosTotais <= 4) {
-//   obj.erros.push({
-//     mensagem: "Turma possui apenas 4 vagas alocadas",
-//   });
-// }
-
-// if (obj.erros.length) {
-//   result.push(obj);
-// }
 </script>
 
 <style scoped>
