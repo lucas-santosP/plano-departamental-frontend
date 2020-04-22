@@ -14,265 +14,301 @@
           class="form-group col-xl-6 col-lg-6 col-md-5 col-sm-5 col-4 mb-0 p-0"
           style="justify-content: flex-end !important;"
         >
-          <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
+          <!-- <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
             <i class="fas fa-list-ul"></i>
-          </b-button>
+          </b-button> -->
         </div>
       </div>
     </div>
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="pl-0 divTable" ref="mainTable">
-      <table class="table main-table table-hover table-sm table-bordered" style="height: 300px !important">
-        <thead class="thead-light sticky">
-        <tr>
-          <div style="font-size: 11px !important;" class=" max-content">
-            <th>
-              <p
-                      style="width: 615px; text-align: left;"
-                      class="p-header clickable"
-                      @click="toggleOrdDocentes"
+    <div class="p-0 m-0" style="height: 30px; width: 465px;">
+      <ul
+        class="nav nav-tabs card-header-tabs m-0"
+        style="font-size: 11px !important; height: 30px;"
+      >
+        <li class="nav-item" @click="nav_table = 'docentes'">
+          <a
+            class="nav-link border border-right-0"
+            :class="{
+              active: nav_table === 'docentes',
+            }"
+            >Docentes</a
+          >
+        </li>
+        <li class="nav-item" @click="nav_table = 'turmas'">
+          <a
+            class="nav-link border"
+            :class="{
+              active: nav_table === 'turmas',
+            }"
+            >Disciplinas</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="w-100 p-0">
+      <div class="pl-0 divTable" ref="mainTable">
+        <table
+          v-if="nav_table === 'docentes'"
+          class="table main-table table-hover table-sm table-bordered"
+        >
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="font-size: 11px !important;" class=" max-content">
+                <th>
+                  <p
+                    style="width: 615px; text-align: start;"
+                    class="p-header clickable"
+                    @click="toggleOrdDocentes"
+                  >
+                    Nome
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemDocentes == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p style="width: 350px; text-align: start;" class="p-header">
+                    Conflito
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody style="text-transform: uppercase">
+            <template v-for="validacao in Docentes_validacoes">
+              <tr
+                :key="'validacoes-' + validacao.nome"
+                style="background-color:rgba(0, 0, 0, 0.089);"
               >
-                Nome
-                <i
-                        style="font-size: 0.6rem; text-align: right;"
-                        :class="
-                          ordemDocentes == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        "
-                ></i>
-              </p>
-            </th>
-            <th>
-              <p style="width: 350px; text-align: start;" class="p-header">
-                Conflito
-              </p>
-            </th>
-          </div>
-        </tr>
-        </thead>
-        <tbody style="text-transform: uppercase">
-        <template v-for="validacao in Docentes_validacoes">
-          <tr
-                  :key="
-                'validacoes-' + validacao.nome
-              "
-                  style="background-color:rgba(0, 0, 0, 0.089);"
-          >
-            <div class="max-content">
-              <td>
-                <p style="width: 615px;  text-align: center;">
-                  {{ validacao.nome}}
-                </p>
-              </td>
+                <div class="max-content">
+                  <td>
+                    <p style="width: 615px;  text-align: start;">
+                      {{ validacao.nome }}
+                    </p>
+                  </td>
 
-              <td>
-                <p style="width: 350px; text-align: start;"></p>
-              </td>
-            </div>
-          </tr>
-          <tr
-                  v-for="(erro, index) in validacao.erros"
-                  :key="'validacao-conflitos-' + validacao.nome + '-' + index"
-          >
-            <div class="max-content">
-              <td>
-                <p style="width: 615px; text-align: center;"></p>
-              </td>
+                  <td>
+                    <p style="width: 350px; text-align: start;"></p>
+                  </td>
+                </div>
+              </tr>
+              <tr
+                v-for="(erro, index) in validacao.erros"
+                :key="'validacao-conflitos-' + validacao.nome + '-' + index"
+              >
+                <div class="max-content">
+                  <td>
+                    <p style="width: 615px; text-align: center;"></p>
+                  </td>
 
-              <td>
-                <p v-html="erro" style="width: 350px; text-align: start;">
-                  <!-- {{ erro.msg }} -->
-                </p>
-              </td>
-            </div>
-          </tr>
-        </template>
-        </tbody>
-      </table>
-      <table class="table main-table table-hover table-sm table-bordered">
-        <thead class="thead-light sticky">
-          <tr>
-            <div style="font-size: 11px !important;" class=" max-content">
-              <th>
-                <p
-                  style="width: 35px; text-align: center;"
-                  class="p-header clickable"
-                  @click="toggleOrdValidacoes('turma_periodo')"
-                >
-                  S.
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      OrdemValidacao.order == 'turma_periodo'
-                        ? OrdemValidacao.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th>
-                <p
-                  style="width: 70px; text-align: start;"
-                  class="p-header clickable"
-                  @click="toggleOrdValidacoes('disciplina_perfil')"
-                >
-                  Perfil
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      OrdemValidacao.order == 'disciplina_perfil'
-                        ? OrdemValidacao.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th>
-                <p
-                  style="width: 70px; text-align: start;"
-                  class="p-header clickable"
-                  @click="toggleOrdValidacoes('disciplina_codigo')"
-                >
-                  Cód.
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      OrdemValidacao.order == 'disciplina_codigo'
-                        ? OrdemValidacao.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th>
-                <p
-                  style="width: 300px; text-align: start;"
-                  class="p-header clickable"
-                  @click="toggleOrdValidacoes('disciplina_nome')"
-                >
-                  Disciplina
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      OrdemValidacao.order == 'disciplina_nome'
-                        ? OrdemValidacao.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th>
-                <p style="width: 35px; text-align: start;" class="p-header">
-                  Letra
-                </p>
-              </th>
-              <th>
-                <p style="width: 100px; text-align: center;" class="p-header">
-                  Docentes
-                </p>
-              </th>
+                  <td>
+                    <p v-html="erro" style="width: 350px; text-align: start;">
+                      <!-- {{ erro.msg }} -->
+                    </p>
+                  </td>
+                </div>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+        <!-- TABLE TURMAS -->
+        <table
+          v-else-if="nav_table === 'turmas'"
+          class="table main-table table-hover table-sm table-bordered"
+        >
+          <thead class="thead-light sticky">
+            <tr>
+              <div style="font-size: 11px !important;" class=" max-content">
+                <th>
+                  <p
+                    style="width: 35px; text-align: center;"
+                    class="p-header clickable"
+                    @click="toggleOrdTurmas('turma_periodo')"
+                  >
+                    S.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemTurmas.order == 'turma_periodo'
+                          ? ordemTurmas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 70px; text-align: start;"
+                    class="p-header clickable"
+                    @click="toggleOrdTurmas('disciplina_perfil')"
+                  >
+                    Perfil
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemTurmas.order == 'disciplina_perfil'
+                          ? ordemTurmas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 70px; text-align: start;"
+                    class="p-header clickable"
+                    @click="toggleOrdTurmas('disciplina_codigo')"
+                  >
+                    Cód.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemTurmas.order == 'disciplina_codigo'
+                          ? ordemTurmas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p
+                    style="width: 300px; text-align: start;"
+                    class="p-header clickable"
+                    @click="toggleOrdTurmas('disciplina_nome')"
+                  >
+                    Disciplina
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        ordemTurmas.order == 'disciplina_nome'
+                          ? ordemTurmas.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
+                  </p>
+                </th>
+                <th>
+                  <p style="width: 35px; text-align: start;" class="p-header">
+                    Letra
+                  </p>
+                </th>
+                <th>
+                  <p style="width: 100px; text-align: center;" class="p-header">
+                    Docentes
+                  </p>
+                </th>
 
-              <th>
-                <p style="width: 350px; text-align: start;" class="p-header">
-                  Conflito
-                </p>
-              </th>
-            </div>
-          </tr>
-        </thead>
-        <tbody style="text-transform: uppercase">
-          <template v-for="validacao in Turmas_Validacoes_Ordered">
-            <tr
-              :key="
-                'validacoes-' + validacao.turma_id + validacao.disciplina_codigo
-              "
-              style="background-color:rgba(0, 0, 0, 0.089);"
-            >
-              <div class="max-content">
-                <td>
-                  <p style="width: 35px; text-align: center;">
-                    {{ validacao.turma_periodo }}
+                <th>
+                  <p style="width: 350px; text-align: start;" class="p-header">
+                    Conflito
                   </p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;">
-                    {{ validacao.disciplina_perfil }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;">
-                    {{ validacao.disciplina_codigo }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 300px; text-align: start;">
-                    {{ validacao.disciplina_nome }} --
-                    {{ validacao.pedidos_totais }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 35px; text-align: center;">
-                    {{ validacao.turma_letra }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 100px; text-align: center;">
-                    {{ validacao.turma_docente1 }}
-                    <br />
-                    {{ validacao.turma_docente2 }}
-                  </p>
-                </td>
-
-                <td>
-                  <p style="width: 350px; text-align: start;"></p>
-                </td>
+                </th>
               </div>
             </tr>
-            <tr
-              v-for="erro in validacao.conflitos"
-              :key="'validacao-conflitos-' + validacao.turma_id + erro.type"
-            >
-              <div class="max-content">
-                <td>
-                  <p style="width: 35px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;"></p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 300px; text-align: start;"></p>
-                </td>
-                <td>
-                  <p style="width: 35px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 100px; text-align: center;"></p>
-                </td>
+          </thead>
+          <tbody style="text-transform: uppercase">
+            <template v-for="validacao in Turmas_Validacoes_Ordered">
+              <tr
+                :key="
+                  'validacoes-' +
+                    validacao.turma_id +
+                    validacao.disciplina_codigo
+                "
+                style="background-color:rgba(0, 0, 0, 0.089);"
+              >
+                <div class="max-content">
+                  <td>
+                    <p style="width: 35px; text-align: center;">
+                      {{ validacao.turma_periodo }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;">
+                      {{ validacao.disciplina_perfil }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;">
+                      {{ validacao.disciplina_codigo }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 300px; text-align: start;">
+                      {{ validacao.disciplina_nome }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 35px; text-align: center;">
+                      {{ validacao.turma_letra }}
+                    </p>
+                  </td>
+                  <td>
+                    <p style="width: 100px; text-align: center;">
+                      {{ validacao.turma_docente1 }}
+                      <br />
+                      {{ validacao.turma_docente2 }}
+                    </p>
+                  </td>
 
-                <td>
-                  <p v-html="erro.msg" style="width: 350px; text-align: start;">
-                    <!-- {{ erro.msg }} -->
-                  </p>
-                </td>
-              </div>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+                  <td>
+                    <p style="width: 350px; text-align: start;"></p>
+                  </td>
+                </div>
+              </tr>
+              <tr
+                v-for="erro in validacao.conflitos"
+                :key="'validacao-conflitos-' + validacao.turma_id + erro.type"
+              >
+                <div class="max-content">
+                  <td>
+                    <p style="width: 35px; text-align: center;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: start;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 70px; text-align: center;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 300px; text-align: start;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 35px; text-align: center;"></p>
+                  </td>
+                  <td>
+                    <p style="width: 100px; text-align: center;"></p>
+                  </td>
+
+                  <td>
+                    <p
+                      v-html="erro.msg"
+                      style="width: 350px; text-align: start;"
+                    >
+                      <!-- {{ erro.msg }} -->
+                    </p>
+                  </td>
+                </div>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -282,27 +318,27 @@ import _ from "lodash";
 export default {
   data() {
     return {
-      OrdemValidacao: { order: "turma_periodo", type: "asc" },
+      nav_table: "docentes",
+      ordemTurmas: { order: "turma_periodo", type: "asc" },
+      ordemDocentes: "asc",
       semestreAtual: 1,
-      ordemDocentes: 'asc'
     };
   },
   methods: {
-    toggleOrdValidacoes(ord) {
-      if (this.OrdemValidacao.order != ord) {
-        this.OrdemValidacao.order = ord;
-        this.OrdemValidacao.type = "asc";
+    toggleOrdTurmas(ord) {
+      if (this.ordemTurmas.order != ord) {
+        this.ordemTurmas.order = ord;
+        this.ordemTurmas.type = "asc";
       } else {
-        this.OrdemValidacao.type =
-          this.OrdemValidacao.type == "asc" ? "desc" : "asc";
+        this.ordemTurmas.type =
+          this.ordemTurmas.type === "asc" ? "desc" : "asc";
       }
     },
-
     toggleOrdDocentes() {
-      if(this.ordemDocentes === 'asc'){
-        this.ordemDocentes = 'desc'
+      if (this.ordemDocentes === "asc") {
+        this.ordemDocentes = "desc";
       } else {
-        this.ordemDocentes = 'asc'
+        this.ordemDocentes = "asc";
       }
     },
     //Encontra o nome do perfil pelo ID
@@ -487,49 +523,51 @@ export default {
       else return false;
     },
 
-    creditosGraduacao(docente){
+    creditosGraduacao(docente) {
       let turmas = _.filter(this.$store.state.turma.Turmas, (t) => {
-        return (t.Docente1 === docente.id || t.Docente2 === docente.id)
-      })
+        return t.Docente1 === docente.id || t.Docente2 === docente.id;
+      });
 
-      let cargaTotalDocente = 0
+      let cargaTotalDocente = 0;
 
-      for(let i = 0; i < turmas.length; i++){
-        let disciplina = _.find(this.$store.state.disciplina.Disciplinas, {id: turmas[i].Disciplina})
-        let cargaTotalDisciplina = disciplina.cargaTeorica + disciplina.cargaPratica
-        if(turmas[i].Docente1 != null && turmas[i].Docente2 != null){
-          if(turmas[i].Docente1 !== turmas[i].Docente2){
-            cargaTotalDisciplina = cargaTotalDisciplina/2.0
+      for (let i = 0; i < turmas.length; i++) {
+        let disciplina = _.find(this.$store.state.disciplina.Disciplinas, {
+          id: turmas[i].Disciplina,
+        });
+        let cargaTotalDisciplina =
+          disciplina.cargaTeorica + disciplina.cargaPratica;
+        if (turmas[i].Docente1 != null && turmas[i].Docente2 != null) {
+          if (turmas[i].Docente1 !== turmas[i].Docente2) {
+            cargaTotalDisciplina = cargaTotalDisciplina / 2.0;
           }
         }
-        cargaTotalDocente = cargaTotalDocente + cargaTotalDisciplina
+        cargaTotalDocente = cargaTotalDocente + cargaTotalDisciplina;
       }
 
-      return cargaTotalDocente
+      return cargaTotalDocente;
     },
 
-    creditosPos(docente){
+    creditosPos(docente) {
       let turmas = _.filter(this.$store.state.cargaPos.Cargas, (t) => {
-        return t.Docente === docente.id
-      })
+        return t.Docente === docente.id;
+      });
 
-      let cargaTotalDocente = 0
+      let cargaTotalDocente = 0;
 
-      for(let i = 0; i < turmas.length; i++){
-        cargaTotalDocente = cargaTotalDocente + turmas[i].creditos
+      for (let i = 0; i < turmas.length; i++) {
+        cargaTotalDocente = cargaTotalDocente + turmas[i].creditos;
       }
 
-      return cargaTotalDocente
+      return cargaTotalDocente;
     },
-
   },
   computed: {
     //Turmas validacoes ordenadas
     Turmas_Validacoes_Ordered() {
       return _.orderBy(
         this.Turmas_Validacoes,
-        this.OrdemValidacao.order,
-        this.OrdemValidacao.type
+        this.ordemTurmas.order,
+        this.ordemTurmas.type
       );
     },
     //Verifica validações das turmas
@@ -555,22 +593,27 @@ export default {
       let docentes_resultantes = [];
 
       this.Docentes.forEach((docente) => {
-        let validacao = {nome: docente.nome, erros: []}
-        let cargaGraduacao = this.creditosGraduacao(docente)
-        let cargaPos = this.creditosPos(docente)
-        if(cargaGraduacao < 8.0) {
-          validacao.erros.push(`Apenas ${cargaGraduacao} créditos na graduação`)
+        let validacao = { nome: docente.nome, erros: [] };
+        let cargaGraduacao = this.creditosGraduacao(docente);
+        let cargaPos = this.creditosPos(docente);
+        if (cargaGraduacao < 8.0) {
+          validacao.erros.push(
+            `Apenas ${cargaGraduacao} créditos na graduação`
+          );
         }
-        if((cargaGraduacao + cargaPos) < 16.0){
-          validacao.erros.push(`Apenas ${cargaGraduacao + cargaPos} créditos, ${cargaGraduacao}  na graduação e ${cargaPos} na pós`)
+        if (cargaGraduacao + cargaPos < 16.0) {
+          validacao.erros.push(
+            `Apenas ${cargaGraduacao +
+              cargaPos} créditos, ${cargaGraduacao}  na graduação e ${cargaPos} na pós`
+          );
         }
 
-        if(validacao.erros.length > 0){
-          docentes_resultantes.push(validacao)
+        if (validacao.erros.length > 0) {
+          docentes_resultantes.push(validacao);
         }
-      })
+      });
 
-      return docentes_resultantes
+      return docentes_resultantes;
     },
 
     Turmas() {
@@ -588,7 +631,8 @@ export default {
     Docentes() {
       return _.orderBy(
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
-        "nome", this.ordemDocentes
+        "nome",
+        this.ordemDocentes
       );
     },
   },
@@ -626,9 +670,9 @@ export default {
   font-weight: normal !important;
   background-color: white;
   margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
+  height: -webkit-calc(100vh - 130px);
+  height: -moz-calc(100vh - 130px);
+  height: calc(100vh - 130px);
 }
 .main-table .p-header {
   height: 18px;
@@ -715,5 +759,18 @@ i.far {
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
+}
+.nav-link {
+  color: #007bff !important;
+  cursor: pointer;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
+.active {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: default;
+  text-decoration: none !important;
 }
 </style>
