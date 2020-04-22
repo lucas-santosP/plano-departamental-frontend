@@ -293,7 +293,8 @@ export default {
       //Horarios
       check = this.checkHorarios(
         validacao.disciplina_ead,
-        validacao.turma_Horario1
+        validacao.turma_Horario1,
+        validacao.turma_Horario2
       );
       if (check) validacao.conflitos.push(check);
       //Docente
@@ -333,9 +334,10 @@ export default {
           }
         : false;
     },
-    checkHorarios(isEAD, horario1) {
+    checkHorarios(isEAD, horario1, horario2) {
       if (!isEAD) {
-        return horario1 === null || horario1 === undefined
+        return (horario1 === null || horario1 === undefined) &&
+          (horario2 === null || horario2 === undefined)
           ? {
               type: 3,
               msg: "Horarios incompletos ou invalidos",
