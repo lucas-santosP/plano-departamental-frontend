@@ -24,6 +24,74 @@
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="pl-0 divTable" ref="mainTable">
+      <table class="table main-table table-hover table-sm table-bordered" style="height: 300px !important">
+        <thead class="thead-light sticky">
+        <tr>
+          <div style="font-size: 11px !important;" class=" max-content">
+            <th>
+              <p
+                      style="width: 615px; text-align: left;"
+                      class="p-header clickable"
+                      @click="toggleOrdDocentes"
+              >
+                Nome
+                <i
+                        style="font-size: 0.6rem; text-align: right;"
+                        :class="
+                          ordemDocentes == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        "
+                ></i>
+              </p>
+            </th>
+            <th>
+              <p style="width: 350px; text-align: start;" class="p-header">
+                Conflito
+              </p>
+            </th>
+          </div>
+        </tr>
+        </thead>
+        <tbody style="text-transform: uppercase">
+        <template v-for="validacao in Docentes_validacoes">
+          <tr
+                  :key="
+                'validacoes-' + validacao.nome
+              "
+                  style="background-color:rgba(0, 0, 0, 0.089);"
+          >
+            <div class="max-content">
+              <td>
+                <p style="width: 615px;  text-align: center;">
+                  {{ validacao.nome}}
+                </p>
+              </td>
+
+              <td>
+                <p style="width: 350px; text-align: start;"></p>
+              </td>
+            </div>
+          </tr>
+          <tr
+                  v-for="(erro, index) in validacao.erros"
+                  :key="'validacao-conflitos-' + validacao.nome + '-' + index"
+          >
+            <div class="max-content">
+              <td>
+                <p style="width: 615px; text-align: center;"></p>
+              </td>
+
+              <td>
+                <p v-html="erro" style="width: 350px; text-align: start;">
+                  <!-- {{ erro.msg }} -->
+                </p>
+              </td>
+            </div>
+          </tr>
+        </template>
+        </tbody>
+      </table>
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light sticky">
           <tr>
@@ -216,6 +284,7 @@ export default {
     return {
       OrdemValidacao: { order: "turma_periodo", type: "asc" },
       semestreAtual: 1,
+      ordemDocentes: 'asc'
     };
   },
   methods: {
@@ -227,6 +296,14 @@ export default {
       } else {
         this.OrdemValidacao.type =
           this.OrdemValidacao.type == "asc" ? "desc" : "asc";
+      }
+    },
+
+    toggleOrdDocentes() {
+      if(this.ordemDocentes === 'asc'){
+        this.ordemDocentes = 'desc'
+      } else {
+        this.ordemDocentes = 'asc'
       }
     },
     //Encontra o nome do perfil pelo ID
@@ -416,6 +493,42 @@ export default {
       if (cond !== undefined) return true;
       else return false;
     },
+
+    creditosGraduacao(docente){
+      let turmas = _.filter(this.$store.state.turma.Turmas, (t) => {
+        return (t.Docente1 === docente.id || t.Docente2 === docente.id)
+      })
+
+      let cargaTotalDocente = 0
+
+      for(let i = 0; i < turmas.length; i++){
+        let disciplina = _.find(this.$store.state.disciplina.Disciplinas, {id: turmas[i].Disciplina})
+        let cargaTotalDisciplina = disciplina.cargaTeorica + disciplina.cargaPratica
+        if(turmas[i].Docente1 != null && turmas[i].Docente2 != null){
+          if(turmas[i].Docente1 !== turmas[i].Docente2){
+            cargaTotalDisciplina = cargaTotalDisciplina/2.0
+          }
+        }
+        cargaTotalDocente = cargaTotalDocente + cargaTotalDisciplina
+      }
+
+      return cargaTotalDocente
+    },
+
+    creditosPos(docente){
+      let turmas = _.filter(this.$store.state.cargaPos.Cargas, (t) => {
+        return t.Docente === docente.id
+      })
+
+      let cargaTotalDocente = 0
+
+      for(let i = 0; i < turmas.length; i++){
+        cargaTotalDocente = cargaTotalDocente + turmas[i].creditos
+      }
+
+      return cargaTotalDocente
+    },
+
   },
   computed: {
     //Turmas validacoes ordenadas
@@ -456,6 +569,29 @@ export default {
       });
       return turmas_resultante;
     },
+
+    Docentes_validacoes() {
+      let docentes_resultantes = [];
+
+      this.Docentes.forEach((docente) => {
+        let validacao = {nome: docente.nome, erros: []}
+        let cargaGraduacao = this.creditosGraduacao(docente)
+        let cargaPos = this.creditosPos(docente)
+        if(cargaGraduacao < 8.0) {
+          validacao.erros.push(`Apenas ${cargaGraduacao} créditos na graduação`)
+        }
+        if((cargaGraduacao + cargaPos) < 16.0){
+          validacao.erros.push(`Apenas ${cargaGraduacao + cargaPos} créditos, ${cargaGraduacao}  na graduação e ${cargaPos} na pós`)
+        }
+
+        if(validacao.erros.length > 0){
+          docentes_resultantes.push(validacao)
+        }
+      })
+
+      return docentes_resultantes
+    },
+
     Turmas() {
       return _.orderBy(this.$store.state.turma.Turmas, ["letra", "Disciplina"]);
     },
@@ -471,7 +607,7 @@ export default {
     Docentes() {
       return _.orderBy(
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
-        "apelido"
+        "nome", this.ordemDocentes
       );
     },
   },
