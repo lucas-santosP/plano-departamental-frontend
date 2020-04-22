@@ -23,7 +23,7 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <div class="p-0 m-0" style="height: 30px; width: 465px;">
+    <div class="p-0 m-0" style="height: 30px;">
       <ul
         class="nav nav-tabs card-header-tabs m-0"
         style="font-size: 11px !important; height: 30px;"
@@ -50,6 +50,7 @@
     </div>
     <div class="w-100 p-0">
       <div class="pl-0 divTable" ref="mainTable">
+        <!-- TABLE DOCENTES -->
         <table
           v-if="nav_table === 'docentes'"
           class="table main-table table-hover table-sm table-bordered"
@@ -341,8 +342,6 @@ export default {
         this.ordemDocentes = "asc";
       }
     },
-    //Encontra o nome do perfil pelo ID
-
     findPerfilById(id) {
       let perfil = _.find(this.Perfis, (p) => p.id == id);
       return perfil != undefined ? perfil : null;
@@ -576,13 +575,12 @@ export default {
       let turmas_resultante = [];
 
       this.Turmas.forEach((turma) => {
-        //Encontra a disciplina da turma
         let disciplina = this.findDisciplinaById(turma.Disciplina);
 
         if (disciplina) {
           let validacao = this.createValidacao(turma, disciplina);
           this.checkAllValidations(validacao);
-          //Se houve conflito adiciona nas turmas de validaçoes
+
           if (validacao.conflitos.length) turmas_resultante.push(validacao);
         }
       });
@@ -670,9 +668,9 @@ export default {
   font-weight: normal !important;
   background-color: white;
   margin: 0 !important;
-  height: -webkit-calc(100vh - 130px);
-  height: -moz-calc(100vh - 130px);
-  height: calc(100vh - 130px);
+  height: -webkit-calc(100vh - 125px);
+  height: -moz-calc(100vh - 125px);
+  height: calc(100vh - 125px);
 }
 .main-table .p-header {
   height: 18px;
