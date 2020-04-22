@@ -347,7 +347,7 @@ export default {
         disciplina_nome: disciplina.nome,
         disciplina_codigo: disciplina.codigo,
         disciplina_ead: disciplina.ead,
-        disciplina_laboratorio: disciplina.laboratorio,
+        disciplina_laboratorio: disciplina.laboratorio == 1,
         disciplina_perfil: this.findPerfilById(disciplina.Perfil).abreviacao,
         conflitos: [],
         // disciplina: {
