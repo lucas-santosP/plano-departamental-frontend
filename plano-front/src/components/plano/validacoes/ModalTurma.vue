@@ -38,7 +38,7 @@
           <input
             readonly
             type="text"
-            class="form-control"
+            class="form-control text-center"
             id="inputCredito"
             style="max-width:50px;"
             v-model="CreditosDaDisciplina"

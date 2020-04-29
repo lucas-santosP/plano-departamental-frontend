@@ -657,7 +657,7 @@ export default {
           type: 7,
           msg: "Apenas 4 ou menos vagas foram alocadas!",
         },
-        { type: 8, msg: "Turma é EAD e com sala alocada" },
+        { type: 8, msg: "Turma EAD porém sala alocada" },
       ],
       grades1semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
@@ -1062,7 +1062,7 @@ export default {
     checkSalasInEAD(isEAD, sala1, sala2) {
       if (isEAD) {
         return sala1 != null || sala2 != null
-          ? { type: 8, msg: "Turma é EAD e com sala alocada" }
+          ? { type: 8, msg: "Turma EAD porém sala alocada" }
           : false;
       }
       return false;
