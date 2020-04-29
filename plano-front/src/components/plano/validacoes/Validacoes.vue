@@ -1,6 +1,6 @@
 <template>
-  <!-- Titulo -->
-  <div class="DashboardValidacoes row pr-2">
+  <div id="Validacoes" class="DashboardValidacoes row pr-2">
+    <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
       style="height: 38px;"
@@ -14,7 +14,7 @@
           class="form-group col-xl-6 col-lg-6 col-md-5 col-sm-5 col-4 mb-0 p-0"
           style="justify-content: flex-end !important;"
         >
-          <!-- <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
+          <!-- <b-button title="Filtros" class="btn-icon cancelbtn">
             <i class="fas fa-list-ul"></i>
           </b-button> -->
         </div>
@@ -48,283 +48,319 @@
         </li>
       </ul>
     </div>
-    <div class="w-100 p-0">
-      <div class="pl-0 divTable" ref="mainTable">
-        <!-- TABLE DOCENTES -->
-        <table
-          v-if="nav_table === 'docentes'"
-          class="table main-table table-hover table-sm table-bordered"
-        >
-          <thead class="thead-light sticky">
-            <tr>
-              <div style="font-size: 11px !important;" class=" max-content">
-                <th>
-                  <p
-                    style="width: 615px; text-align: start;"
-                    class="p-header clickable"
-                    @click="toggleOrdDocentes"
-                  >
-                    Nome
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemDocentes == 'asc'
+    <div class="w-100"></div>
+    <!-- TABLE DOCENTES -->
+    <div class="pl-0 divTable">
+      <table
+        v-if="nav_table === 'docentes'"
+        class="table main-table table-hover table-sm table-bordered"
+      >
+        <thead class="thead-light ">
+          <tr class="sticky">
+            <div style="font-size: 11px !important;" class=" max-content">
+              <th>
+                <p
+                  style="width: 615px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdDocentes"
+                >
+                  Nome
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemDocentes == 'asc'
+                        ? 'fas fa-arrow-down fa-sm'
+                        : 'fas fa-arrow-up fa-sm'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p style="width: 350px; text-align: start;" class="p-header">
+                  Conflito
+                </p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody style="text-transform: uppercase">
+          <template v-for="validacao in Docentes_validacoes">
+            <tr
+              :key="'validacoes-' + validacao.nome"
+              style="background-color:rgba(0, 0, 0, 0.089);"
+            >
+              <div class="max-content">
+                <td>
+                  <p style="width: 615px;  text-align: start;">
+                    {{ validacao.nome }}
+                  </p>
+                </td>
+
+                <td>
+                  <p style="width: 350px; text-align: start;"></p>
+                </td>
+              </div>
+            </tr>
+            <tr
+              v-for="(erro, index) in validacao.erros"
+              :key="'validacao-conflitos-' + validacao.nome + '-' + index"
+            >
+              <div class="max-content">
+                <td>
+                  <p style="width: 615px; text-align: center;"></p>
+                </td>
+
+                <td>
+                  <p v-html="erro" style="width: 350px; text-align: start;">
+                    <!-- {{ erro.msg }} -->
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+
+      <!-- TABLE TURMAS -->
+      <table
+        v-else-if="nav_table === 'turmas'"
+        class="table main-table table-hover table-sm table-bordered"
+      >
+        <thead class="thead-light ">
+          <tr class="sticky">
+            <div style="font-size: 11px !important;" class=" max-content">
+              <th>
+                <p
+                  style="width: 35px; text-align: center;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('turma_periodo')"
+                >
+                  S.
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'turma_periodo'
+                        ? ordemTurmas.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p style="width: 350px; text-align: start;" class="p-header">
-                    Conflito
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody style="text-transform: uppercase">
-            <template v-for="validacao in Docentes_validacoes">
-              <tr
-                :key="'validacoes-' + validacao.nome"
-                style="background-color:rgba(0, 0, 0, 0.089);"
-              >
-                <div class="max-content">
-                  <td>
-                    <p style="width: 615px;  text-align: start;">
-                      {{ validacao.nome }}
-                    </p>
-                  </td>
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p
+                  style="width: 70px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_perfil')"
+                >
+                  Perfil
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_perfil'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p
+                  style="width: 70px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_codigo')"
+                >
+                  Cód.
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_codigo'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p
+                  style="width: 300px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_nome')"
+                >
+                  Disciplina
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_nome'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p style="width: 35px; text-align: start;" class="p-header">
+                  Turma
+                </p>
+              </th>
+              <th>
+                <p style="width: 130px; text-align: center;" class="p-header">
+                  Docentes
+                </p>
+              </th>
 
-                  <td>
-                    <p style="width: 350px; text-align: start;"></p>
-                  </td>
-                </div>
-              </tr>
-              <tr
-                v-for="(erro, index) in validacao.erros"
-                :key="'validacao-conflitos-' + validacao.nome + '-' + index"
-              >
-                <div class="max-content">
-                  <td>
-                    <p style="width: 615px; text-align: center;"></p>
-                  </td>
+              <th>
+                <p style="width: 350px; text-align: start;" class="p-header">
+                  Conflito
+                </p>
+              </th>
+              <th><p class="p-header" style="width:50px">Tipo</p></th>
+            </div>
+          </tr>
+        </thead>
+        <tbody style="text-transform: uppercase">
+          <template v-for="validacao in Turmas_Validacoes_Ordered">
+            <tr
+              :key="
+                'validacoes-' + validacao.turma_id + validacao.disciplina_codigo
+              "
+              style="background-color:rgba(0, 0, 0, 0.089);"
+            >
+              <div class="max-content">
+                <td>
+                  <p style="width: 35px; text-align: center;">
+                    {{ validacao.turma_periodo }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: start;">
+                    {{ validacao.disciplina_perfil }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: start;">
+                    {{ validacao.disciplina_codigo }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 300px; text-align: start;">
+                    {{ validacao.disciplina_nome }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 35px; text-align: center;">
+                    {{ validacao.turma_letra }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 130px; text-align: center;">
+                    {{ validacao.turma_docente1 }}
+                    <br />
+                    {{ validacao.turma_docente2 }}
+                  </p>
+                </td>
 
-                  <td>
-                    <p v-html="erro" style="width: 350px; text-align: start;">
-                      <!-- {{ erro.msg }} -->
-                    </p>
-                  </td>
-                </div>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-        <!-- TABLE TURMAS -->
-        <table
-          v-else-if="nav_table === 'turmas'"
-          class="table main-table table-hover table-sm table-bordered"
-        >
-          <thead class="thead-light sticky">
-            <tr>
-              <div style="font-size: 11px !important;" class=" max-content">
-                <th>
+                <td>
+                  <p style="width: 350px; text-align: start;"></p>
+                </td>
+                <td>
                   <p
-                    style="width: 35px; text-align: center;"
-                    class="p-header clickable"
-                    @click="toggleOrdTurmas('turma_periodo')"
+                    style="width: 50px; text-align: center;"
+                    @click="openModalEditTurma(validacao.turma)"
+                    class="clickable"
                   >
-                    S.
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemTurmas.order == 'turma_periodo'
-                          ? ordemTurmas.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    style="width: 70px; text-align: start;"
-                    class="p-header clickable"
-                    @click="toggleOrdTurmas('disciplina_perfil')"
-                  >
-                    Perfil
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemTurmas.order == 'disciplina_perfil'
-                          ? ordemTurmas.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    style="width: 70px; text-align: start;"
-                    class="p-header clickable"
-                    @click="toggleOrdTurmas('disciplina_codigo')"
-                  >
-                    Cód.
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemTurmas.order == 'disciplina_codigo'
-                          ? ordemTurmas.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    style="width: 300px; text-align: start;"
-                    class="p-header clickable"
-                    @click="toggleOrdTurmas('disciplina_nome')"
-                  >
-                    Disciplina
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemTurmas.order == 'disciplina_nome'
-                          ? ordemTurmas.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p style="width: 35px; text-align: start;" class="p-header">
-                    Letra
-                  </p>
-                </th>
-                <th>
-                  <p style="width: 100px; text-align: center;" class="p-header">
-                    Docentes
-                  </p>
-                </th>
-
-                <th>
-                  <p style="width: 350px; text-align: start;" class="p-header">
-                    Conflito
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody style="text-transform: uppercase">
-            <template v-for="validacao in Turmas_Validacoes_Ordered">
-              <tr
-                :key="
-                  'validacoes-' +
-                    validacao.turma_id +
-                    validacao.disciplina_codigo
-                "
-                style="background-color:rgba(0, 0, 0, 0.089);"
-              >
-                <div class="max-content">
-                  <td>
-                    <p style="width: 35px; text-align: center;">
-                      {{ validacao.turma_periodo }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 70px; text-align: start;">
-                      {{ validacao.disciplina_perfil }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 70px; text-align: start;">
-                      {{ validacao.disciplina_codigo }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 300px; text-align: start;">
-                      {{ validacao.disciplina_nome }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 35px; text-align: center;">
-                      {{ validacao.turma_letra }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 100px; text-align: center;">
-                      {{ validacao.turma_docente1 }}
-                      <br />
-                      {{ validacao.turma_docente2 }}
-                    </p>
-                  </td>
-
-                  <td>
-                    <p style="width: 350px; text-align: start;"></p>
-                  </td>
-                </div>
-              </tr>
-              <tr
-                v-for="erro in validacao.conflitos"
-                :key="'validacao-conflitos-' + validacao.turma_id + erro.type"
-              >
-                <div class="max-content">
-                  <td>
-                    <p style="width: 35px; text-align: center;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 70px; text-align: start;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 70px; text-align: center;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 300px; text-align: start;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 35px; text-align: center;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 100px; text-align: center;"></p>
-                  </td>
-
-                  <td>
-                    <p
-                      v-html="erro.msg"
-                      style="width: 350px; text-align: start;"
+                    <button
+                      class="btn btn-info btn-small btn-table"
+                      style="font-size:11px"
                     >
-                      <!-- {{ erro.msg }} -->
-                    </p>
-                  </td>
-                </div>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
+                      EDIT
+                    </button>
+                    <!-- <i class="fas fa-edit addbtn" style="font-size:1rem"></i> -->
+                  </p>
+                </td>
+              </div>
+            </tr>
+            <tr
+              v-for="(erro, index) in validacao.conflitos"
+              :key="
+                index + 'validacao-conflitos-' + validacao.turma_id + erro.type
+              "
+            >
+              <div class="max-content">
+                <td>
+                  <p style="width: 35px; text-align: center;"></p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: start;"></p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: center;"></p>
+                </td>
+                <td>
+                  <p style="width: 300px; text-align: start;"></p>
+                </td>
+                <td>
+                  <p style="width: 35px; text-align: center;"></p>
+                </td>
+                <td>
+                  <p style="width: 130px; text-align: center;"></p>
+                </td>
+
+                <td>
+                  <p v-html="erro.msg" style="width: 350px; text-align: start;">
+                    <!-- {{ erro.msg }}  -->
+                  </p>
+                </td>
+                <td>
+                  <p style="width:50px; " class="py-auto">
+                    <i
+                      v-if="isCritical(erro.type)"
+                      style=" background-color: inherit; font-size: 14px;"
+                      class="fas fa-exclamation-circle delbtn my-auto"
+                    ></i>
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </template>
+        </tbody>
+      </table>
     </div>
+
+    <b-modal
+      id="modalTurma"
+      ref="modalTurma"
+      scrollable
+      title="Edição de Turma"
+      size="md"
+    >
+      <ModalTurma :turma="turma_clickada"></ModalTurma>
+      <div slot="modal-footer" class="d-none"></div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import _ from "lodash";
+import ModalTurma from "./ModalTurma.vue";
 
 export default {
+  name: "Validacoes",
   data() {
     return {
-      nav_table: "docentes",
+      turma_clickada: null,
+      nav_table: "turmas",
       ordemTurmas: { order: "turma_periodo", type: "asc" },
       ordemDocentes: "asc",
       semestreAtual: 1,
-      ordemDocentes: 'asc',
+      ordemDocentes: "asc",
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
@@ -347,14 +383,20 @@ export default {
       },
     };
   },
-
+  components: {
+    ModalTurma,
+  },
   mounted() {
     this.createHorarios1();
     this.createHorarios2();
-    console.log(this.ativos1)
+    console.log(this.ativos1);
   },
 
   methods: {
+    openModalEditTurma(turma) {
+      this.turma_clickada = turma;
+      this.$bvModal.show("modalTurma");
+    },
     toggleOrdTurmas(ord) {
       if (this.ordemTurmas.order != ord) {
         this.ordemTurmas.order = ord;
@@ -393,9 +435,15 @@ export default {
       }
       return result;
     },
+    isCritical(tipo) {
+      return tipo == 1 || tipo == 2 || tipo == 3 || tipo == 4 || tipo == 5
+        ? true
+        : false;
+    },
     createValidacao(turma, disciplina) {
       return {
         //Turmas
+        turma: { ...turma },
         turma_id: turma.id,
         turma_periodo: turma.periodo,
         turma_letra: turma.letra,
@@ -414,12 +462,6 @@ export default {
         disciplina_laboratorio: disciplina.laboratorio == 1,
         disciplina_perfil: this.findPerfilById(disciplina.Perfil).abreviacao,
         conflitos: [],
-        // disciplina: {
-        //   nome: disciplina.nome,
-        //   codigo: disciplina.codigo,
-        //   ead: disciplina.ead,
-        //   perfil: this.findPerfilById(disciplina.Perfil).abreviacao,
-        // },
       };
     },
     checkAllValidations(validacao) {
@@ -453,13 +495,28 @@ export default {
         validacao.turma_sala2
       );
       if (check) validacao.conflitos.push(check);
+
       //Lotação das salas
-      check = this.checkVagasSalas(
+      // sala 1
+      check = this.checkVagaSala(
         validacao.turma_sala1,
-        validacao.turma_sala2,
         validacao.pedidos_totais
       );
       if (check) validacao.conflitos.push(check);
+      // sala 2
+      if (validacao.turma_sala1 != validacao.turma_sala2) {
+        check = this.checkVagaSala(
+          validacao.turma_sala2,
+          validacao.pedidos_totais
+        );
+        if (check) validacao.conflitos.push(check);
+      }
+      // check = this.checkVagasSalas(
+      //   validacao.turma_sala1,
+      //   validacao.turma_sala2,
+      //   validacao.pedidos_totais
+      // );
+
       //Pedidos
       check = this.checkPedidos(validacao.pedidos_totais);
       if (check) validacao.conflitos.push(check);
@@ -503,6 +560,19 @@ export default {
           }
         : false;
     },
+    checkVagaSala(sala_id, pedidos_totais) {
+      let sala;
+      if (sala_id != null) sala = _.find(this.Salas, (s) => sala_id == s.id);
+
+      if (sala != undefined) {
+        if (sala.lotacao_maxima < pedidos_totais) {
+          return {
+            type: 6,
+            msg: `Limite da sala ${sala.nome} execedido!<br>Vagas: ${pedidos_totais} - Lotação: ${sala.lotacao_maxima} `,
+          };
+        }
+      }
+    },
     checkVagasSalas(sala1_id, sala2_id, pedidos_totais) {
       let sala1, sala2;
       if (sala1_id != null) sala1 = _.find(this.Salas, (s) => sala1_id == s.id);
@@ -510,25 +580,28 @@ export default {
         sala2 = _.find(this.Salas, (s) => sala2_id == s.id);
       let result = { type: 6, msg: "" };
 
-      if (sala1 != undefined && sala1.lotacao_maxima != 0) {
+      if (sala1 != undefined) {
         if (sala1.lotacao_maxima < pedidos_totais) {
           result.msg +=
             "Limite da sala " +
             sala1.nome +
-            " excedido: " +
+            " excedido!" +
+            "<br>Vagas: " +
             pedidos_totais +
-            "/" +
-            sala1.lotacao_maxima;
+            " - Lotaçao: " +
+            sala1.lotacao_maxima +
+            "<br/>";
         }
       }
-      if (sala2 != undefined && sala2.lotacao_maxima != 0) {
+      if (sala2 != undefined) {
         if (sala2.lotacao_maxima < pedidos_totais) {
           result.msg +=
-            "<br/>Limite da sala " +
+            "Limite da sala " +
             sala2.nome +
-            " excedido: " +
+            " excedido!" +
+            "<br>Vagas: " +
             pedidos_totais +
-            "/" +
+            " - Lotaçao: " +
             sala2.lotacao_maxima;
         }
       }
@@ -647,7 +720,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 4) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -663,39 +736,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos1.CCD[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -703,16 +776,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 1 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 1 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos1.CCD[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -738,7 +811,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 1) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -753,39 +826,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos1.CCN[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -793,16 +866,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 1 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 1 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos1.CCN[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -828,7 +901,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 3) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -843,39 +916,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos1.SI[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -883,16 +956,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 1 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 1 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos1.SI[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -918,7 +991,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 2) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -933,39 +1006,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos1.EC[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -973,16 +1046,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 1 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 1 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos1.EC[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -1065,7 +1138,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 4) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -1080,39 +1153,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenCCD &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos2.CCD[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -1120,16 +1193,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 3 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 3 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos2.CCD[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -1155,7 +1228,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 1) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -1170,39 +1243,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenCCN &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos2.CCN[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -1210,16 +1283,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 3 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 3 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos2.CCN[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -1245,7 +1318,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 3) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -1260,39 +1333,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenSI &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos2.SI[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -1300,16 +1373,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 3 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 3 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos2.SI[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -1335,7 +1408,7 @@ export default {
         for (let pedido in this.$store.state.pedidoExterno.Pedidos[t]) {
           if (this.$store.state.pedidoExterno.Pedidos[t][pedido].Curso === 2) {
             pedidosExternos.push(
-                    this.$store.state.pedidoExterno.Pedidos[t][pedido]
+              this.$store.state.pedidoExterno.Pedidos[t][pedido]
             );
           }
         }
@@ -1350,39 +1423,39 @@ export default {
         if (i + 1 === grades.length) fim = 10;
         else if (i == 0)
           fim =
-                  1 +
-                  2 *
-                  (parseInt(anoAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(semestreAtual, 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            1 +
+            2 *
+              (parseInt(anoAtual, 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(semestreAtual, 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         else
           fim =
-                  inicio -
-                  1 +
-                  2 *
-                  (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
-                          parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-                  (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
-                          parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
-                  2;
+            inicio -
+            1 +
+            2 *
+              (parseInt(grades[i - 1].periodoInicio.slice(0, 4), 10) -
+                parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
+            (parseInt(grades[i - 1].periodoInicio.slice(5, 6), 10) -
+              parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
+              2;
         for (let k = 0; k < disciplinaGrades.length; k++) {
           if (
-                  disciplinaGrades[k].Grade == grade &&
-                  this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
-                  disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
-                  disciplinaGrades[k].periodo <= parseInt(fim, 10)
+            disciplinaGrades[k].Grade == grade &&
+            this.isEven(disciplinaGrades[k].periodo) == this.evenEC &&
+            disciplinaGrades[k].periodo >= parseInt(inicio, 10) &&
+            disciplinaGrades[k].periodo <= parseInt(fim, 10)
           ) {
             for (let j = 0; j < turmas.length; j++) {
               if (turmas[j].Disciplina == disciplinaGrades[k].Disciplina) {
                 for (let p = 0; p < pedidos.length; p++) {
                   if (
-                          pedidos[p].vagasPeriodizadas > 0 &&
-                          pedidos[p].Turma == turmas[j].id
+                    pedidos[p].vagasPeriodizadas > 0 &&
+                    pedidos[p].Turma == turmas[j].id
                   ) {
                     this.ativos2.EC[disciplinaGrades[k].periodo - 1].push(
-                            turmas[j]
+                      turmas[j]
                     );
                   }
                 }
@@ -1390,16 +1463,16 @@ export default {
             }
             for (let j = 0; j < turmasExternas.length; j++) {
               if (
-                      turmasExternas[j].periodo == 3 &&
-                      turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
+                turmasExternas[j].periodo == 3 &&
+                turmasExternas[j].Disciplina == disciplinaGrades[k].Disciplina
               ) {
                 for (let p = 0; p < pedidosExternos.length; p++) {
                   if (
-                          pedidosExternos[p].vagasPeriodizadas > 0 &&
-                          pedidosExternos[p].Turma == turmasExternas[j].id
+                    pedidosExternos[p].vagasPeriodizadas > 0 &&
+                    pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
                     this.ativos2.EC[disciplinaGrades[k].periodo - 1].push(
-                            turmasExternas[j]
+                      turmasExternas[j]
                     );
                   }
                 }
@@ -1428,7 +1501,6 @@ export default {
         Ativas: this.ativos2,
       });
     },
-
   },
   computed: {
     //Turmas validacoes ordenadas
@@ -1441,7 +1513,6 @@ export default {
     },
     //Verifica validações das turmas
     Turmas_Validacoes() {
-      console.log(this.Turmas[0]);
       let turmas_resultante = [];
 
       this.Turmas.forEach((turma) => {
@@ -1533,7 +1604,6 @@ export default {
 .main-table {
   display: block !important;
   overflow-y: scroll !important;
-  overflow-x: auto !important;
   font-size: 11px !important;
   font-weight: normal !important;
   background-color: white;
@@ -1542,8 +1612,12 @@ export default {
   height: -moz-calc(100vh - 125px);
   height: calc(100vh - 125px);
 }
+
 .main-table .p-header {
-  height: 18px;
+  padding: 0px 5px 0px 5px !important;
+  margin: 0 !important;
+  text-align: center;
+  height: 18px !important;
 }
 .main-table p {
   padding: 0 5px 0 5px !important;
@@ -1589,8 +1663,11 @@ tbody {
   overflow: hidden !important;
   z-index: 3;
 }
+.btn-table {
+  padding: 0 0.25rem !important;
+}
 /* Botoes */
-button {
+.btn-icon {
   padding: 0;
   border: none;
   background: none;
@@ -1623,10 +1700,22 @@ i.far {
 }
 
 .cancelbtn:focus {
-  background-color: white;
   color: #b8b8a8;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #ada89a;
+}
+.addbtn {
+  color: #7cd17c;
+}
+
+.addbtn:hover {
+  color: #77dd77;
+}
+
+.addbtn:focus {
+  color: #77dd77;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #2fbf53;
 }
 .nav-link {
   color: #007bff !important;
@@ -1640,5 +1729,17 @@ i.far {
   color: #495057 !important;
   cursor: default;
   text-decoration: none !important;
+}
+.delbtn {
+  background-color: white;
+  color: #ff817b;
+}
+.delbtn:hover {
+  color: #ff5f48;
+}
+.delbtn:focus {
+  color: #ff5f48;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #ff4e34;
 }
 </style>
