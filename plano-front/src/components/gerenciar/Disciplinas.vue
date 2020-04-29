@@ -84,7 +84,7 @@
                 </p>
               </th>
               <th scope="col">
-                <p style="width: 30px" class="p-header">EAD</p>
+                <p style="width: 70px" class="p-header">EAD</p>
               </th>
               <th scope="col">
                 <p style="width: 70px" class="p-header">Lab</p>
@@ -129,17 +129,9 @@
                   </td>
                 </template>
                 <td>
-                  <div style="width: 30px;">
-                    <input
-                      type="checkbox"
-                      class="form-check-input position-static noHover"
-                      v-model="disciplina.ead"
-                      v-on:click.prevent="
-                        showDisciplina(disciplina), clickada(disciplina.nome)
-                      "
-                      value
-                    />
-                  </div>
+                  <p style="width: 70px">
+                    {{ textoEad(disciplina.ead) }}
+                  </p>
                 </td>
                 <td>
                   <p style="width: 70px">
@@ -277,7 +269,7 @@
                   v-model="disciplinaForm.laboratorio"
                 >
                   <option value="0">Não</option>
-                  <option value="1">Obrigatório</option>
+                  <option value="1">Sim</option>
                   <option value="2">Desejável</option>
                 </select>
               </div>
@@ -527,9 +519,14 @@ export default {
     },
 
     textoLab(lab) {
-      if (lab == 0) return "Não";
-      if (lab == 1) return "Obrigatório";
-      if (lab == 2) return "Opcional";
+      if (lab == 0) return "-";
+      if (lab == 1) return "Sim";
+      if (lab == 2) return "Desejável";
+    },
+
+    textoEad(ead) {
+      if (ead) return "Sim";
+      else return "-";
     },
   },
 
