@@ -87,7 +87,7 @@
             </div>
           </tr>
         </thead>
-        <tbody style="text-transform: uppercase">
+        <tbody>
           <template v-for="validacao in Docentes_validacoes">
             <tr
               :key="'validacoes-' + validacao.nome"
@@ -219,17 +219,11 @@
                   Docentes
                 </p>
               </th>
-
-              <th>
-                <p style="width: 400px; text-align: start;" class="p-header">
-                  Conflito
-                </p>
-              </th>
-              <th><p class="p-header" style="width:50px">Tipo</p></th>
+              <th><p class="p-header" style="width:50px">Editar</p></th>
             </div>
           </tr>
         </thead>
-        <tbody style="text-transform: uppercase">
+        <tbody>
           <template v-for="validacao in Turmas_Validacoes_Ordered">
             <tr
               :key="
@@ -270,10 +264,6 @@
                     {{ validacao.turma_docente2 }}
                   </p>
                 </td>
-
-                <td>
-                  <p style="width: 400px; text-align: start;"></p>
-                </td>
                 <td>
                   <p
                     style="width: 50px; text-align: center;"
@@ -281,12 +271,10 @@
                     class="clickable"
                     title="Editar turma"
                   >
-                    <button
-                      class="btn btn-info btn-small btn-table"
-                      style="font-size:11px"
-                    >
-                      EDIT
-                    </button>
+                    <i
+                      class="fas fa-edit btn-table"
+                      style="font-size:12px;margin:3px!important;"
+                    ></i>
                   </p>
                 </td>
               </div>
@@ -294,112 +282,26 @@
             <tr
               v-for="(erro, index) in validacao.conflitos"
               :key="
-                index + 'validacao-conflitos-' + validacao.turma_id + erro.type
+                index + 'validacao-conflitos' + validacao.turma_id + erro.type
               "
             >
               <div class="max-content">
                 <td>
-                  <p style="width: 35px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;"></p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 300px; text-align: start;"></p>
-                </td>
-                <td>
-                  <p style="width: 35px; text-align: center;"></p>
-                </td>
-                <td>
-                  <p style="width: 130px; text-align: center;"></p>
-                </td>
-
-                <td>
-                  <p
-                    v-html="erro.msg"
-                    style="width: 400px; text-align: start;"
-                  ></p>
-                </td>
-                <td>
-                  <p style="width:50px; " class="py-auto">
+                  <p style="width: 35px; text-align: center;">
                     <i
                       v-if="isCritical(erro.type)"
-                      style=" background-color: inherit; font-size: 14px;"
-                      class="fas fa-exclamation-circle delbtn my-auto"
+                      style=" background-color: inherit; font-size: 13px; margin:3px!important;"
+                      class="fas fa-exclamation-circle delbtn"
                       title="Conflito critico!"
                     ></i>
                   </p>
                 </td>
+                <td>
+                  <p style="width: 660px; text-align: start;">{{ erro.msg }}</p>
+                </td>
               </div>
             </tr>
           </template>
-          <!-- <template v-for="validacao in vetorDeValidacoes">
-            <tr
-              :key="
-                'validacoes-' + validacao.turma_id + validacao.disciplina_codigo
-              "
-              style="background-color:rgba(0, 0, 0, 0.089);"
-            >
-              <div class="max-content">
-                <td>
-                  <p style="width: 35px; text-align: center;">
-                    {{ validacao.turma_periodo }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;">
-                    {{ validacao.disciplina_perfil }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 70px; text-align: start;">
-                    {{ validacao.disciplina_codigo }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 300px; text-align: start;">
-                    {{ validacao.disciplina_nome }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 35px; text-align: center;">
-                    {{ validacao.turma_letra }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 130px; text-align: center;">
-                    {{ validacao.turma_docente1 }}
-                    <br />
-                    {{ validacao.turma_docente2 }}
-                  </p>
-                </td>
-
-                <td>
-                  <p style="width: 400px; text-align: start;">
-                    {{ validacao.msg }}
-                  </p>
-                </td>
-                <td>
-                  <p
-                    style="width: 50px; text-align: center;"
-                    @click="openModalEditTurma(validacao.turma)"
-                    class="clickable"
-                    title="Editar turma"
-                  >
-                    <button
-                      class="btn btn-info btn-small btn-table"
-                      style="font-size:11px"
-                    >
-                      EDIT
-                    </button>
-                  </p>
-                </td>
-              </div>
-            </tr>
-          </template> -->
         </tbody>
       </table>
     </div>
@@ -841,9 +743,9 @@ export default {
       this.semestre_2Ativo = false;
     },
     selectAllConflitos() {
-      if (this.ConflitosSelected != []) this.ConflitosSelected = [];
-      for (var i = 0; i < this.Conflitos.length; i++)
-        this.ConflitosSelected.push(this.Conflitos[i].type);
+      this.ConflitosSelected = [
+        ...this.Conflitos.map((conflito) => conflito.type),
+      ];
     },
     selectNoneConflitos() {
       this.ConflitosSelected = [];
@@ -1046,7 +948,7 @@ export default {
         if (sala.lotacao_maxima < pedidos_totais) {
           return {
             type: 6,
-            msg: `Limite da sala ${sala.nome} execedido!<br>Vagas: ${pedidos_totais} - Lotação: ${sala.lotacao_maxima} `,
+            msg: `Limite da sala ${sala.nome} execedido! Vagas: ${pedidos_totais} - Lotação: ${sala.lotacao_maxima} `,
           };
         }
       }
