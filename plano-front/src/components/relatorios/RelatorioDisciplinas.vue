@@ -320,8 +320,8 @@
               class="far fa-file-alt relatbtn px-1"
               style="font-size: 12px;"
             ></i>
-            e aguarde para fazer
-            <font style="font-style: italic;">download</font> do mesmo.
+            e selecione se deseja o relatório completo, com todas as disciplinas,
+            ou apenas o relatório parcial, com as disciplinas selecionadas.
           </li>
           <li class="list-group-item">
             <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho
