@@ -1117,7 +1117,7 @@ export default {
                     tables.push({
                         style: 'tableExample',
                         table: {
-                            widths: [40, 35, '*', 18, 44, 28, 82, 65, ],
+                            widths: [40, 35, '*', 18, 44, 28, 42, 65, ],
                             headerRows: 1,
                             color: '#426',
                             body: [
@@ -1247,7 +1247,7 @@ export default {
                     tables.push({
                         style: 'tableExample',
                         table: {
-                            widths: [40, 35, '*', 18, 44, 28, 82, 65, ],
+                            widths: [40, 35, '*', 18, 44, 28, 42, 65, ],
                             headerRows: 1,
                             color: '#426',
                             body: [
