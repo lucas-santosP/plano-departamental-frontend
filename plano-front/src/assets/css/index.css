@@ -8,17 +8,19 @@
   opacity: 0.4;
 }
 /* nav-tab */
-.nav-tabs .active {
-  background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default;
-}
 .nav-tabs .nav-link {
-  color: #007bff !important;
+  color: #0079fa !important;
   cursor: pointer;
 }
 .nav-tabs .nav-link:hover {
   text-decoration: underline;
+}
+.nav-tabs .active {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: default !important;
+  text-decoration: none !important;
+  transition: background-color 0.7s ease;
 }
 /* searchDisciplinas */
 .search-text:hover {

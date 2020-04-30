@@ -398,7 +398,7 @@
       </template>
     </b-modal>
     <!-- MODAL AJUDA -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+    <b-modal id="modalAjuda" scrollable title="Ajuda">
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">

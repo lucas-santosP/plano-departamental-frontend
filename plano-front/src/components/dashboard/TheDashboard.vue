@@ -8,33 +8,26 @@
 
     <nav class="navbar navbar-dark bg-dark fixed-top shadow">
       <div class="row w-100 m-0">
-        <router-link
-          :to="{ name: 'dashboard' }"
-          class="navbar-brand col-sm-3 col-md-2 col-2 mr-0"
-          style="text-align: center;"
-          >Plano Departamental</router-link
-        >
-        <transition name="custom-classes-transition" mode="out-in">
-          <button
-            v-if="toggleSideBar.show"
-            @click="toggleSideBar.show = !toggleSideBar.show"
-            key="save"
-            type="button"
-            class="btn-navbar"
-          >
-            <i key="save" class="fas fa-times"></i>
-          </button>
+        <div @click="closeSideBar()" class="navbar-brand">
+          <router-link
+            :to="{ name: 'dashboard' }"
+            class="brand-text"
+            style="text-align: center;"
+            >Plano Departamental
+          </router-link>
+        </div>
 
-          <button
-            v-else
-            @click="toggleSideBar.show = !toggleSideBar.show"
-            key="edit"
-            type="button"
-            class="btn-navbar"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-        </transition>
+        <button
+          @click="toggleSideBar = !toggleSideBar"
+          key="openAndClose"
+          type="button"
+          class="btn-navbar"
+        >
+          <i
+            key="openAndClose"
+            :class="toggleSideBar ? 'fas fa-times' : 'fas fa-bars'"
+          ></i>
+        </button>
 
         <ul class="navbar-nav listaNavbarTop" style="flex-direction:row;">
           <li class="nav-item">
@@ -80,11 +73,19 @@
     <div class="container-fluid">
       <div class="row m-0" style="max-width:100%; height:100%;">
         <!-- TRANSIÇÃO SIDEBAR -->
-
-        <Navbar :toggleSideBar="toggleSideBar" :year="year"></Navbar>
-
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated slideInLeft sidebar-animated"
+          leave-active-class="animated slideOutLeft sidebar-animated"
+        >
+          <Navbar
+            v-if="toggleSideBar"
+            v-on:toggle="closeSideBar()"
+            :year="year"
+          ></Navbar>
+        </transition>
         <main
-          @click="toggleSideBar.show = false"
+          @click="closeSideBar()"
           role="main"
           class="col-12 pl-2 pr-0 pt-0 pl-0"
           v-if="!isLoading"
@@ -306,10 +307,14 @@ export default {
       userForm: _.clone(emptyUser),
       downloadState: 0,
       planoForm: _.clone(emptyPlano),
-      toggleSideBar: { show: false },
+      toggleSideBar: false,
     };
   },
-
+  mounted() {
+    this.$on("toggle", () => {
+      this.toggleSideBar = !this.toggleSideBar;
+    });
+  },
   computed: {
     year() {
       if (!_.isEmpty(this.$store.state.plano.Plano)) {
@@ -351,6 +356,9 @@ export default {
   },
 
   methods: {
+    closeSideBar() {
+      this.toggleSideBar = false;
+    },
     bddump: function(filename) {
       bddumpService
         .createDump({ filename: filename })
@@ -570,24 +578,46 @@ export default {
   border-radius: 0;
 }
 .navbar-brand {
-  height: 30px;
-  color: rgb(224, 224, 224) !important;
-  font-size: 15px;
-  padding: 3px 12px 5px 10px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px !important;
+  margin: 0;
   min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
+  padding: 0 5px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  background-color: #00000040;
+  -webkit-box-shadow: inset -1px 0 0 #00000040;
+  -moz-box-shadow: inset -1px 0 0 #00000040;
+  box-shadow: inset -1px 0 0 #00000040;
 }
-.navbar-brand:hover {
-  color: rgb(255, 255, 255) !important;
+.brand-text {
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+  font-size: 15px;
+  color: #e0e0e0 !important;
+}
+.brand-text:hover {
+  color: #ffffff !important;
+}
+.btn-navbar {
+  outline: none;
+  width: 40px !important;
+  padding: 0 6px 0 6px !important;
+  height: 30px !important;
+  margin-left: 0px !important;
+  color: rgb(205, 206, 208) !important;
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  font-size: 20px !important;
+  border: 1px !important;
+}
+.btn-navbar i.fas {
+  font-size: 20px !important;
+}
+.btn-navbar:hover,
+:focus {
+  color: white !important;
 }
 .listaNavbarTop {
   margin-left: auto;
@@ -616,11 +646,11 @@ export default {
   padding-left: 0px;
 }
 [role="main"] {
-  margin-top: 32px; /* Space for fixed navbar */
+  margin-top: 30px; /* Space for fixed navbar */
   overflow-y: auto !important;
-  height: -webkit-calc(100vh - 32px);
-  height: -moz-calc(100vh - 32px);
-  height: calc(100vh - 32px);
+  height: -webkit-calc(100vh - 30px);
+  height: -moz-calc(100vh - 30px);
+  height: calc(100vh - 30px);
 }
 
 /*Download Files Loading*/
@@ -670,19 +700,6 @@ export default {
   margin-left: -32px;
   margin-top: -32px;
   z-index: 99999;
-}
-.btn-navbar {
-  width: 40px;
-  padding: 0 6px 0 6px;
-  height: 30px;
-  margin-left: 0px;
-  color: rgb(205, 206, 208);
-  background-color: rgba(0, 0, 0, 0.25);
-  font-size: 20px;
-  border: 1px;
-}
-.btn-navbar:hover {
-  color: white;
 }
 
 /* ANIMATION */

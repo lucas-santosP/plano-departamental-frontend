@@ -1,6 +1,36 @@
+.btn-custom {
+  padding: 0 !important;
+  border: none !important;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  line-height: 50% !important;
+  margin: 0;
+  transition: all 0.3s ease 0s !important;
+  cursor: pointer !important;
+  text-align: center !important;
+}
+.btn-title {
+  outline: none !important;
+  width: 32px !important;
+  margin: 0 4px !important;
+  background: none !important;
+}
+.btn-modal {
+  font-size: 12px !important;
+  height: 25px !important;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0 5px !important;
+}
+.btn-modal + .btn-modal {
+  margin-left: 10px !important;
+}
+
 button i.fas,
 button i.far {
-  font-size: 25px !important;
+  font-size: 25px;
 }
 .addbtn {
   background-color: white !important;

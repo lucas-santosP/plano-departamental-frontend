@@ -17,7 +17,7 @@
           <b-button
             v-b-modal.modalFiltros
             title="Filtros"
-            class="cancelbtn btn-icon"
+            class="cancelbtn btn-title btn-custom"
           >
             <i class="fas fa-list-ul"></i>
           </b-button>
@@ -26,7 +26,7 @@
             <b-button
               v-b-modal.modalRelatorio
               type="button"
-              class="relatbtn btn-icon"
+              class="relatbtn btn-title btn-custom"
               title="Relatório"
             >
               <i class="far fa-file-alt"></i>
@@ -35,7 +35,7 @@
             <b-button
               v-b-modal.modalAjuda
               title="Ajuda"
-              class="relatbtn btn-icon"
+              class="relatbtn btn-title btn-custom"
             >
               <i class="fas fa-question"></i>
             </b-button>
@@ -291,12 +291,20 @@
     </div>
 
     <!-- MODAL DE AJUDA -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+    <b-modal
+      class="modal-ajuda"
+      id="modalAjuda"
+      ref="ajudaModal"
+      scrollable
+      title="Ajuda"
+    >
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na Tabela:</strong> Clique em
-            Disciplinas
+            <strong class="ajuda-strong"
+              >Para exibir conteúdo na Tabela:</strong
+            >
+            Clique em Disciplinas
             <i
               class="fas fa-list-ul cancelbtn px-1"
               style="font-size: 12px;"
@@ -305,7 +313,8 @@
             em OK. Caso queira ver todas basta clicar em Selecionar Todos.
           </li>
           <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão Relatório
+            <strong class="ajuda-strong">Para gerar relatório:</strong> Clique
+            no botão Relatório
             <i
               class="far fa-file-alt relatbtn px-1"
               style="font-size: 12px;"
@@ -315,14 +324,17 @@
             selecionadas.
           </li>
           <li class="list-group-item">
-            <strong>Para alterar ordenação:</strong> Clique em Cod. no cabeçalho
-            da tabela para ordenar por código, ou em Nome para ordenar por ordem
-            alfabética, ou em Perfil para ordenar por perfil.
+            <strong class="ajuda-strong">Para alterar ordenação:</strong> Clique
+            em Cod. no cabeçalho da tabela para ordenar por código, ou em Nome
+            para ordenar por ordem alfabética, ou em Perfil para ordenar por
+            perfil.
           </li>
           <li class="list-group-item">
-            <strong>Para visualizar divisões de vagas:</strong> Clique no número
-            de vagas de uma turma para visualizar a alocação das vagas por
-            cursos.
+            <strong class="ajuda-strong"
+              >Para visualizar divisões de vagas:</strong
+            >
+            Clique no número de vagas de uma turma para visualizar a alocação
+            das vagas por cursos.
           </li>
         </ul>
       </div>
@@ -346,7 +358,7 @@
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'perfis',
+                active: nav_ativo === 'perfis',
               }"
               >Perfis</a
             >
@@ -355,7 +367,7 @@
             <a
               class="nav-link border border-right-0"
               :class="{
-                active: nav_ativo == 'disciplinas',
+                active: nav_ativo === 'disciplinas',
               }"
               >Disciplinas</a
             >
@@ -364,7 +376,7 @@
             <a
               class="nav-link border"
               :class="{
-                active: nav_ativo == 'semestre',
+                active: nav_ativo === 'semestre',
               }"
               >Semestre</a
             >
@@ -373,15 +385,37 @@
       </div>
 
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
-        <!-- TABLE PERFIS -->
-        <table
-          v-if="nav_ativo == 'perfis'"
-          class="table table-sm modal-table table-bordered"
-          style="max-height: 450px !important;"
-        >
+        <table class="table table-sm modal-table table-bordered">
           <thead class="thead-light">
-            <tr class="sticky">
+            <!-- search bar disciplinas -->
+            <tr class="sticky" v-if="nav_ativo === 'disciplinas'">
               <div style="font-size: 11px !important;" class="max-content">
+                <th>
+                  <div class="m-0 input-group input-group-search">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="border-right: none;"
+                      placeholder="Pesquise nome ou codigo de uma disciplina..."
+                      v-model="searchDisciplinas"
+                    />
+                    <div
+                      class="input-group-append"
+                      @click="searchDisciplinas = null"
+                    >
+                      <span
+                        class="input-group-text search-text"
+                        style="height: 25px; font-size: 18px; cursor: pointer;"
+                        >&times;</span
+                      >
+                    </div>
+                  </div>
+                </th>
+              </div>
+            </tr>
+            <!-- perfis -->
+            <tr v-if="nav_ativo === 'perfis'" class="sticky">
+              <div class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -404,73 +438,9 @@
                 </th>
               </div>
             </tr>
-          </thead>
-          <tbody>
-            <tr v-for="perfil in Perfis_Modal" :key="'perfil-id' + perfil.id">
+            <!-- disciplinas -->
+            <tr v-else-if="nav_ativo === 'disciplinas'" class="sticky2">
               <div class="max-content">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      v-model="PerfisAtivados"
-                      :value="perfil"
-                      class="form-check-input position-static m-0"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <p style="width: 435px; text-align: start;">
-                    {{ perfil.nome }}
-                  </p>
-                </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
-        <!-- TABLE DISCIPLINAS -->
-        <table
-          v-else-if="nav_ativo == 'disciplinas'"
-          class="table table-sm modal-table table-bordered table-hover"
-          style="max-height: 450px !important; overflow-y: auto !important;"
-        >
-          <thead class="thead-light ">
-            <tr class="sticky">
-              <div style="font-size: 11px !important;" class="max-content">
-                <th>
-                  <div
-                    class="m-0 input-group"
-                    style="
-                      width: 462px;
-                      height: 35px;
-                      padding-left: 4px;
-                      padding-right: 20px;
-                      padding-top: 4px;
-                    "
-                  >
-                    <input
-                      type="text"
-                      class="form-control"
-                      style="border-right: none;"
-                      placeholder="Pesquise nome ou codigo de uma disciplina..."
-                      v-model="searchDisciplinas"
-                    />
-                    <div
-                      class="input-group-append"
-                      @click="searchDisciplinas = null"
-                    >
-                      <span
-                        class="input-group-text search-text"
-                        style="height: 25px; font-size: 18px; cursor: pointer;"
-                        >&times;</span
-                      >
-                    </div>
-                  </div>
-                </th>
-              </div>
-            </tr>
-
-            <tr>
-              <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <p
                     style="width: 25px; text-align: center;"
@@ -539,8 +509,42 @@
                 </th>
               </div>
             </tr>
+            <!-- semestre -->
+            <tr v-else class="sticky">
+              <div class="max-content">
+                <th>
+                  <p style="width: 25px;" class="p-header"></p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 435px; text-align: start;">
+                    Semestre Letivo
+                  </p>
+                </th>
+              </div>
+            </tr>
           </thead>
-          <tbody>
+          <tbody v-if="nav_ativo === 'perfis'">
+            <tr v-for="perfil in Perfis_Modal" :key="'perfil-id' + perfil.id">
+              <div class="max-content">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      v-model="PerfisAtivados"
+                      :value="perfil"
+                      class="form-check-input position-static m-0"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width: 435px; text-align: start;">
+                    {{ perfil.nome }}
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+          <tbody v-else-if="nav_ativo === 'disciplinas'">
             <tr
               v-for="disciplina in Disciplinas_Filtred"
               :key="'disciplina' + disciplina.id"
@@ -575,28 +579,7 @@
               </div>
             </tr>
           </tbody>
-        </table>
-        <!-- TABLE SEMESTRE -->
-        <table
-          v-else
-          class="table table-bordered table-sm modal-table"
-          style="max-height: 392px !important;"
-        >
-          <thead class="thead-light ">
-            <tr class="sticky">
-              <div style="font-size: 11px !important;" class="max-content">
-                <th>
-                  <p style="width: 25px;" class="p-header"></p>
-                </th>
-                <th>
-                  <p class="p-header" style="width: 435px; text-align: start;">
-                    Semestre Letivo
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody>
+          <tbody v-else>
             <tr>
               <div style="width: max-content;">
                 <td>
@@ -633,17 +616,17 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+      <div slot="modal-footer" class="w-100 m-0 p-0 d-flex">
         <div class="w-100">
           <template v-if="nav_ativo == 'disciplinas'">
             <b-button
-              class="btn-azul btn-df mr-2 btn-icon"
+              class="btn-azul btn-modal btn-custom"
               variant="success"
               @click="selectAllDisciplinas()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-icon"
+              class="btn-cinza btn-modal btn-custom"
               variant="secondary"
               @click="selectNoneDisciplinas()"
               >Desmarcar Todos</b-button
@@ -651,13 +634,13 @@
           </template>
           <template v-else-if="nav_ativo == 'perfis'">
             <b-button
-              class="btn-azul btn-df mr-2 btn-icon"
+              class="btn-azul btn-modal btn-custom"
               variant="success"
               @click="selectAllPerfis()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-icon"
+              class="btn-cinza btn-modal btn-custom"
               variant="secondary"
               @click="selectNonePerfis()"
               >Desmarcar Todos</b-button
@@ -665,13 +648,13 @@
           </template>
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2 btn-icon"
+              class="btn-azul btn-modal btn-custom"
               variant="success"
               @click="selectAllSemestre()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-icon"
+              class="btn-cinza btn-modal btn-custom"
               variant="secondary"
               @click="selectNoneSemestre()"
               >Desmarcar Todos</b-button
@@ -681,7 +664,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2 btn-icon"
+          class="btn-verde btn-modal btn-custom"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -911,10 +894,10 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item clickable" v-on:click="pdf(1)">
-            <strong>Relatório Parcial</strong>
+            <strong class="ajuda-strong">Relatório Parcial</strong>
           </li>
           <li class="list-group-item clickable" v-on:click="pdf(2)">
-            <strong>Relatório Completo</strong>
+            <strong class="ajuda-strong">Relatório Completo</strong>
           </li>
         </ul>
       </div>
@@ -1351,43 +1334,12 @@ export default {
   line-height: inherit;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
-strong {
+.ajuda-strong {
   color: #007bff;
 }
-/* Botoes */
-.btn-icon {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-
 .disciplina-tr {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
-}
-
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
 }
 
 /* Formularios no topo da tela */
