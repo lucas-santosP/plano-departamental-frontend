@@ -1,3 +1,6 @@
+button {
+  cursor: pointer !important;
+}
 .btn-custom {
   padding: 0 !important;
   border: none !important;
@@ -6,9 +9,8 @@
   height: max-content;
   line-height: 50% !important;
   margin: 0;
-  transition: all 0.3s ease 0s !important;
-  cursor: pointer !important;
   text-align: center !important;
+  transition: all 0.3s ease 0s !important;
 }
 .btn-title {
   outline: none !important;
@@ -17,6 +19,8 @@
   background: none !important;
 }
 .btn-modal {
+  border: none !important;
+  color: #fff !important;
   font-size: 12px !important;
   height: 25px !important;
   width: -webkit-max-content;

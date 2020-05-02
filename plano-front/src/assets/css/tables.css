@@ -37,6 +37,7 @@
   width: max-content;
   font-size: 11px;
 }
+/* to remove */
 .main-table {
   display: block !important;
   overflow-y: scroll !important;
@@ -48,6 +49,11 @@
   height: -webkit-calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
+}
+.tab-table {
+  height: -webkit-calc(100vh - 125px);
+  height: -moz-calc(100vh - 125px);
+  height: calc(100vh - 125px);
 }
 .main-table .p-header {
   height: 18px;
@@ -90,11 +96,14 @@ tbody {
 .bg-custom:hover {
   background-color: #c8c8c8;
 }
-.noHover {
-  pointer-events: none;
+.tr-bg-gray {
+  background-color: #00000017;
 }
 /* fim main-table */
 
+.noHover {
+  pointer-events: none;
+}
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
