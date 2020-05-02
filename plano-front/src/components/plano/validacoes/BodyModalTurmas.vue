@@ -1,5 +1,5 @@
 <template>
-  <div id="ModalTurma" class="modal-turma">
+  <div id="BodyModalTurmas" class="modal-turma">
     <h3 class="modal-title p-0 m-0 mb-2 col-12">
       {{
         turmaForm.Disciplina
@@ -300,7 +300,7 @@ const emptyTurma = {
 };
 
 export default {
-  name: "ModalTurma",
+  name: "BodyModalTurmas",
 
   props: {
     turma: Object,
