@@ -1,46 +1,44 @@
 <template>
   <div class="GradesDisciplinas row pr-2">
     <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6 px-0 pr-1">
-          Grades Disciplinas
-        </h1>
-        <div
-          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-6 mb-0 p-0"
-          style="justify-content: flex-end !important;"
-        >
-          <div class="input-group m-0 mr-3 ml-auto p-0">
-            <div class="input-group-prepend">
-              <label class="input-group-text input-group-top">Ano</label>
-            </div>
-            <select
-              v-model="novo_ano"
-              class="form-control form-control-top"
-              v-on:change="runNovoAno()"
+    <PageTitle>
+      <template #title>Grades Disciplinas</template>
+      <template #botoes>
+        <div class="input-group m-0 mr-3 ml-auto p-0">
+          <div class="input-group-prepend">
+            <label class="input-group-text input-group-top">Ano</label>
+          </div>
+          <select
+            v-model="novo_ano"
+            class="form-control form-control-top"
+            v-on:change="runNovoAno()"
+          >
+            <option
+              v-for="i in Array.from(Array(11), (e, i) => i - 5)"
+              :key="i"
+              :value="AnoAtual + i"
+              >{{ AnoAtual + i }}</option
             >
-              <option
-                v-for="i in Array.from(Array(11), (e, i) => i - 5)"
-                :key="i"
-                :value="AnoAtual + i"
-                >{{ AnoAtual + i }}</option
-              >
-            </select>
-          </div>
-          <div class="d-flex">
-            <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
-              <i class="fas fa-list-ul"></i>
-            </b-button>
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
+          </select>
         </div>
-      </div>
-    </div>
+        <div class="d-flex">
+          <b-button
+            v-b-modal.modalFiltros
+            title="Filtros"
+            class="btn-custom btn-title cancelbtn"
+          >
+            <i class="fas fa-list-ul"></i>
+          </b-button>
+          <b-button
+            v-b-modal.modalAjuda
+            title="Ajuda"
+            class="btn-custom btn-title relatbtn"
+          >
+            <i class="fas fa-question"></i>
+          </b-button>
+        </div>
+      </template>
+    </PageTitle>
 
     <div class="w-100 mb-2 border-bottom"></div>
 
@@ -616,13 +614,13 @@
         <div class="w-100">
           <template v-if="nav_ativo == 'disciplinas'">
             <b-button
-              class="btn-azul btn-df mr-2 btn-custom"
+              class="btn-azul btn-modal mr-2"
               variant="success"
               @click="selectAllDisciplinas()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-custom"
+              class="btn-cinza btn-modal mr-2"
               variant="secondary"
               @click="selectNoneDisciplinas()"
               >Desmarcar Todos</b-button
@@ -630,13 +628,13 @@
           </template>
           <template v-else-if="nav_ativo == 'perfis'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-modal mr-2"
               variant="success"
               @click="selectAllPerfis()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-modal mr-2"
               variant="secondary"
               @click="selectNonePerfis()"
               >Desmarcar Todos</b-button
@@ -645,13 +643,13 @@
 
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-modal mr-2"
               variant="success"
               @click="selectAllCursos()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-modal mr-2"
               variant="secondary"
               @click="selectNoneCursos()"
               >Desmarcar Todos</b-button
@@ -661,7 +659,7 @@
         <b-button
           variant="success"
           v-on:click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-modal mr-2"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -695,10 +693,13 @@
 
 <script>
 import _ from "lodash";
+import PageTitle from "@/components/PageTitle.vue";
 
 export default {
   name: "GradeDisciplinas",
-
+  components: {
+    PageTitle,
+  },
   data() {
     return {
       error: undefined,
@@ -1240,16 +1241,6 @@ tbody {
 }
 /* fim table */
 
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
 /* ============================================ */
 /* Formularios no topo da tela */
 .input-group-top {
@@ -1388,116 +1379,6 @@ strong {
   text-decoration: none !important;
 }
 
-/* ====== BOTÕES ====== */
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  background-color: white;
-  color: #82a0ff !important;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #698dff;
-}
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-
-.btn-azul {
-  background-color: #718de0 !important;
-  border-color: #9ab3ff !important;
-}
-.btn-azul:hover {
-  background-color: rgb(74, 101, 190) !important;
-  border-color: #82a0ff !important;
-}
-
-.btn-azul:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-.btn-cinza {
-  background-color: #999999 !important;
-  border-color: #c3c3c3 !important;
-}
-.btn-cinza:hover {
-  background-color: #747474 !important;
-  border-color: #aaaaaa !important;
-}
-
-.btn-cinza:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-}
-.btn-verde {
-  background-color: #70b670 !important;
-  border-color: #a0e7a0 !important;
-}
-.btn-verde:hover {
-  background-color: #4c8a4c !important;
-  border-color: #77dd77 !important;
-}
-
-.btn-verde:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-i.fas,
-i.far {
-  font-size: 25px;
-}
-
-.cancelbtn {
-  background-color: white;
-  color: #cfcfc4;
-}
-.cancelbtn:hover {
-  background-color: white;
-  color: #b8b4a8;
-}
-
-.cancelbtn:focus {
-  background-color: white;
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
 @media screen and (max-width: 519px) {
   .div-titulo {
     height: 70px !important;
