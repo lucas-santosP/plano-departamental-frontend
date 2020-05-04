@@ -1,23 +1,37 @@
 <template>
   <div id="Validacoes" class="DashboardValidacoes row pr-2">
-    <PageTitle>
-      <template #title>Validações do Plano</template>
-      <template #botoes>
-        <b-button
-          v-b-modal.modalFiltros
-          title="Filtros"
-          class="cancelbtn btn-custom btn-title"
+    <!-- Titulo -->
+    <div
+      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
+      style="height: 38px;"
+    >
+      <div class="form-inline col-12 pl-0 mb-1 pr-1">
+        <h1 class="titulo col-xl-6 col-lg-6 col-md-7 col-sm-7 col-8 px-0 pr-1">
+          Validações do Plano
+        </h1>
+
+        <div
+          class="form-group col-xl-6 col-lg-6 col-md-5 col-sm-5 col-4 mb-0 p-0"
+          style="justify-content: flex-end !important;"
         >
-          <i class="fas fa-list-ul"></i>
-        </b-button>
-        <!-- <b-button
-          v-b-modal.modalAjuda
-          title="Ajuda"
-          class="relatbtn btn-custom btn-title">
-          <i class="fas fa-question"></i>
-        </b-button> -->
-      </template>
-    </PageTitle>
+          <b-button
+            v-b-modal.modalFiltros
+            title="Filtros"
+            class="cancelbtn btn-custom btn-title"
+          >
+            <i class="fas fa-list-ul"></i>
+          </b-button>
+          <b-button
+            v-b-modal.modalAjuda
+            title="Ajuda"
+            class="relatbtn btn-custom btn-title"
+          >
+            <i class="fas fa-question"></i>
+          </b-button>
+        </div>
+      </div>
+    </div>
+
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="p-0 m-0" style="height: 30px;">
@@ -46,175 +60,41 @@
       </ul>
     </div>
     <div class="w-100"></div>
-
+    <!-- TABLE DOCENTES -->
     <div class="pl-0 divTable">
-      <!-- table Turmas -->
-      <MainTable v-if="nav_table === 'turmas'" class="tab-table">
-        <template #thead>
-          <th
-            style="width: 35px;"
-            class="p-header clickable"
-            @click="toggleOrdTurmas('periodo')"
-          >
-            S.
-            <i
-              style="font-size: 0.6rem; text-align: right;"
-              :class="
-                ordemTurmas.order == 'periodo'
-                  ? ordemTurmas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-            ></i>
-          </th>
-          <th
-            style="width: 70px; text-align: start;"
-            class="p-header clickable"
-            @click="toggleOrdTurmas('disciplina_perfil')"
-          >
-            Perfil
-            <i
-              style="font-size: 0.6rem; text-align: right;"
-              :class="
-                ordemTurmas.order == 'disciplina_perfil'
-                  ? ordemTurmas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-            ></i>
-          </th>
-          <th
-            style="width: 70px; text-align: start;"
-            class="p-header clickable"
-            @click="toggleOrdTurmas('disciplina_codigo')"
-          >
-            Cód.
-            <i
-              style="font-size: 0.6rem; text-align: right;"
-              :class="
-                ordemTurmas.order == 'disciplina_codigo'
-                  ? ordemTurmas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-            ></i>
-          </th>
-          <th
-            style="width: 300px; text-align: start;"
-            class="p-header clickable"
-            @click="toggleOrdTurmas('disciplina_nome')"
-          >
-            Disciplina
-            <i
-              style="font-size: 0.6rem; text-align: right;"
-              :class="
-                ordemTurmas.order == 'disciplina_nome'
-                  ? ordemTurmas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-            ></i>
-          </th>
-          <th style="width: 50px; text-align: center;" class="p-header">
-            Turma
-          </th>
-          <th style="width: 130px; text-align: center;" class="p-header">
-            Docentes
-          </th>
-          <th class="p-header" style="width:50px">Editar</th>
-        </template>
-        <template #tbody>
-          <template v-for="validacao in Turmas_Validacoes_Ordered">
-            <tr
-              class="tr-bg-gray"
-              :key="'validacoes-' + validacao.id + validacao.disciplina_codigo"
-            >
-              <div class="max-content">
-                <td style="width: 35px;">
-                  {{ validacao.periodo }}
-                </td>
-                <td style="width: 70px;">
-                  {{ validacao.disciplina_perfil }}
-                </td>
-                <td style="width: 70px;">
-                  {{ validacao.disciplina_codigo }}
-                </td>
-                <td style="width: 300px;">
-                  {{ validacao.disciplina_nome }}
-                </td>
-                <td style="width: 50px;">
-                  {{ validacao.letra }}
-                </td>
-                <td style="width: 130px;">
-                  {{ validacao.docente1_apelido }}
-                  <br />
-                  {{ validacao.docente2_apelido }}
-                </td>
-                <td
-                  style="width: 50px;"
-                  @click="openModalEditTurma(validacao.id)"
-                  class="clickable"
-                  title="Editar turma"
+      <table
+        v-if="nav_table === 'docentes'"
+        class="table main-table table-hover table-sm table-bordered"
+      >
+        <thead class="thead-light ">
+          <tr class="sticky">
+            <div style="font-size: 11px !important;" class=" max-content">
+              <th>
+                <p
+                  style="width: 615px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdDocentes"
                 >
+                  Nome
                   <i
-                    class="fas fa-edit btn-table"
-                    style="font-size:12px;margin:3px!important;"
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemDocentes == 'asc'
+                        ? 'fas fa-arrow-down fa-sm'
+                        : 'fas fa-arrow-up fa-sm'
+                    "
                   ></i>
-                </td>
-              </div>
-            </tr>
-            <tr
-              v-for="(erro, index) in validacao.conflitos"
-              :key="index + 'conflitos' + validacao.id + erro.type"
-            >
-              <div class="max-content">
-                <td style="width: 35px; text-align: center;">
-                  <i
-                    v-if="isCritical(erro.type)"
-                    style=" background-color: inherit; font-size: 13px;margin-top: 3.5px!important;"
-                    class="fas fa-exclamation-circle delbtn btn-table"
-                    title="Conflito critico!"
-                  ></i>
-                </td>
-                <td style="width: 670px; text-align: start;">
-                  {{ erro.msg }}
-                </td>
-              </div>
-            </tr>
-          </template>
-        </template>
-      </MainTable>
-      <!-- table Docentes -->
-      <MainTable v-else-if="nav_table === 'docentes'" class="tab-table">
-        <template #thead>
-          <th>
-            <p
-              style="width: 615px; text-align: start;"
-              class="p-header clickable"
-              @click="toggleOrdDocentes"
-            >
-              Nome
-              <i
-                style="font-size: 0.6rem; text-align: right;"
-                :class="
-                  ordemDocentes == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                "
-              ></i>
-            </p>
-          </th>
-          <th>
-            <p style="width: 400px; text-align: start;" class="p-header">
-              Conflito
-            </p>
-          </th>
-        </template>
-        <template #tbody>
+                </p>
+              </th>
+              <th>
+                <p style="width: 400px; text-align: start;" class="p-header">
+                  Conflito
+                </p>
+              </th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
           <template v-for="validacao in Docentes_validacoes">
             <tr
               :key="'validacoes-' + validacao.nome"
@@ -242,123 +122,370 @@
                 </td>
 
                 <td>
-                  <p style="width: 400px; text-align: start;">
-                    {{ erro }}
+                  <p v-html="erro" style="width: 400px; text-align: start;">
+                    <!-- {{ erro.msg }} -->
                   </p>
                 </td>
               </div>
             </tr>
           </template>
-        </template>
-      </MainTable>
-    </div>
+        </tbody>
+      </table>
 
-    <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
-      <!-- Body -->
-      <BodyFiltros
-        v-on:change-tab="modal_navtab = $event"
-        :TabsModal="['Conflitos', 'Semestre']"
-        :tabSelected="modal_navtab"
+      <!-- TABLE TURMAS -->
+      <table
+        v-else-if="nav_table === 'turmas'"
+        class="table main-table table-hover table-sm table-bordered"
       >
-        <!-- Tables -->
-        <template #table-group>
-          <!-- Conflitos -->
-          <ModalTable v-if="modal_navtab === 'Conflitos'">
-            <template #thead>
+        <thead class="thead-light ">
+          <tr class="sticky">
+            <div style="font-size: 11px !important;" class=" max-content">
               <th>
-                <p style="width: 25px;" class="p-header"></p>
-              </th>
-              <th>
-                <p class="p-header" style="width: 435px; text-align: start;">
-                  Conflito
+                <p
+                  style="width: 35px; text-align: center;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('turma_periodo')"
+                >
+                  S.
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'turma_periodo'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
                 </p>
               </th>
-            </template>
-            <template #tbody>
-              <tr
-                v-for="conflito in Conflitos"
-                :key="conflito.id"
-                style="text-transform:uppercase"
-              >
-                <div style="width: max-content;">
-                  <td>
-                    <div style="width: 25px; height: inherit;" class="px-1">
-                      <input
-                        type="checkbox"
-                        class="form-check-input position-static m-0"
-                        v-model="ConflitosSelected"
-                        :value="conflito.type"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <p style="width: 435px; text-align: start;">
-                      {{ conflito.msg }}
-                    </p>
-                  </td>
-                </div>
-              </tr>
-            </template>
-          </ModalTable>
-          <!-- Semestre -->
-          <ModalTable v-if="modal_navtab === 'Semestre'">
-            <template #thead>
               <th>
-                <p style="width: 25px;" class="p-header"></p>
+                <p
+                  style="width: 70px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_perfil')"
+                >
+                  Perfil
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_perfil'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
               </th>
               <th>
-                <p class="p-header" style="width: 435px; text-align: start;">
-                  Semestre Letivo
+                <p
+                  style="width: 70px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_codigo')"
+                >
+                  Cód.
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_codigo'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
                 </p>
-              </th></template
+              </th>
+              <th>
+                <p
+                  style="width: 300px; text-align: start;"
+                  class="p-header clickable"
+                  @click="toggleOrdTurmas('disciplina_nome')"
+                >
+                  Disciplina
+                  <i
+                    style="font-size: 0.6rem; text-align: right;"
+                    :class="
+                      ordemTurmas.order == 'disciplina_nome'
+                        ? ordemTurmas.type == 'asc'
+                          ? 'fas fa-arrow-down fa-sm'
+                          : 'fas fa-arrow-up fa-sm'
+                        : 'fas fa-arrow-down fa-sm low-opacity'
+                    "
+                  ></i>
+                </p>
+              </th>
+              <th>
+                <p style="width: 35px; text-align: start;" class="p-header">
+                  Turma
+                </p>
+              </th>
+              <th>
+                <p style="width: 130px; text-align: center;" class="p-header">
+                  Docentes
+                </p>
+              </th>
+              <th><p class="p-header" style="width:50px">Editar</p></th>
+            </div>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="validacao in Turmas_Validacoes_Ordered">
+            <tr
+              :key="
+                'validacoes-' + validacao.turma_id + validacao.disciplina_codigo
+              "
+              style="background-color:rgba(0, 0, 0, 0.089);"
             >
-            <template #tbody>
-              <tr>
-                <div style="width: max-content;">
-                  <td>
-                    <div style="width: 25px; height: inherit;" class="px-1">
-                      <input
-                        type="checkbox"
-                        class="form-check-input position-static m-0"
-                        v-model="semestre_1Ativo"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <p style="width: 435px; text-align: start;">PRIMEIRO</p>
-                  </td>
-                </div>
-              </tr>
-              <tr>
-                <div style="width: max-content;">
-                  <td>
-                    <div style="width: 25px; height: inherit;" class="px-1">
-                      <input
-                        type="checkbox"
-                        class="form-check-input position-static m-0"
-                        v-model="semestre_2Ativo"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <p style="width: 435px; text-align: start;">SEGUNDO</p>
-                  </td>
-                </div>
-              </tr>
-            </template>
-          </ModalTable>
-        </template>
-      </BodyFiltros>
-      <!-- Footer -->
-      <div slot="modal-footer" class="w-100 m-0">
-        <FooterFiltros
-          v-on:select-all="selectAll"
-          v-on:select-none="selectNone"
-          v-on:btn-ok="btnOK"
-        ></FooterFiltros>
+              <div class="max-content">
+                <td>
+                  <p style="width: 35px; text-align: center;">
+                    {{ validacao.turma_periodo }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: start;">
+                    {{ validacao.disciplina_perfil }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 70px; text-align: start;">
+                    {{ validacao.disciplina_codigo }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 300px; text-align: start;">
+                    {{ validacao.disciplina_nome }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 35px; text-align: center;">
+                    {{ validacao.turma_letra }}
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 130px; text-align: center;">
+                    {{ validacao.turma_docente1 }}
+                    <br />
+                    {{ validacao.turma_docente2 }}
+                  </p>
+                </td>
+                <td>
+                  <p
+                    style="width: 50px; text-align: center;"
+                    @click="openModalEditTurma(validacao.turma_id)"
+                    class="clickable"
+                    title="Editar turma"
+                  >
+                    <i
+                      class="fas fa-edit btn-table"
+                      style="font-size:12px;margin:3px!important;"
+                    ></i>
+                  </p>
+                </td>
+              </div>
+            </tr>
+            <tr
+              v-for="(erro, index) in validacao.conflitos"
+              :key="
+                index + 'validacao-conflitos' + validacao.turma_id + erro.type
+              "
+            >
+              <div class="max-content">
+                <td>
+                  <p style="width: 35px; text-align: center;">
+                    <i
+                      v-if="isCritical(erro.type)"
+                      style=" background-color: inherit; font-size: 13px; margin:3px!important;"
+                      class="fas fa-exclamation-circle delbtn"
+                      title="Conflito critico!"
+                    ></i>
+                  </p>
+                </td>
+                <td>
+                  <p style="width: 660px; text-align: start;">{{ erro.msg }}</p>
+                </td>
+              </div>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <!-- Modal Filtros -->
+    <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
+      <div class="p-0 m-0" style="height: 30px; width: 465px;">
+        <ul
+          class="nav nav-tabs card-header-tabs m-0"
+          style="font-size: 11px !important; height: 30px;"
+        >
+          <li class="nav-item" @click="modal_navtab = 'conflito'">
+            <a
+              class="nav-link border border-right-0 clickable"
+              :class="{
+                active: modal_navtab == 'conflito',
+              }"
+              >Conflito</a
+            >
+          </li>
+          <li class="nav-item" @click="modal_navtab = 'semestre'">
+            <a
+              class="nav-link border clickable"
+              :class="{
+                active: modal_navtab == 'semestre',
+              }"
+              >Semestre</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="col m-0 p-0"
+        style="width: max-content; height: 450px !important;"
+      >
+        <!-- TABLE SEMESTRE -->
+        <table
+          v-if="modal_navtab === 'semestre'"
+          class="table table-bordered table-sm modal-table"
+          style="max-height: 392px !important;"
+        >
+          <thead class="thead-light ">
+            <tr class="sticky">
+              <div style="font-size: 11px !important;" class="max-content">
+                <th>
+                  <p style="width: 25px;" class="p-header"></p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 435px; text-align: start;">
+                    Semestre Letivo
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <div style="width: max-content;">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_1Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width: 435px; text-align: start;">PRIMEIRO</p>
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <div style="width: max-content;">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="semestre_2Ativo"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width: 435px; text-align: start;">SEGUNDO</p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+        <!-- TABLE MODAL CONFLITOS -->
+        <table
+          v-else
+          class="table table-bordered table-sm modal-table"
+          style="max-height: 450px !important;"
+        >
+          <thead class="thead-light ">
+            <tr class="sticky">
+              <div style="font-size: 11px !important;" class="max-content">
+                <th>
+                  <p style="width: 25px;" class="p-header"></p>
+                </th>
+                <th>
+                  <p class="p-header" style="width: 435px; text-align: start;">
+                    Conflito
+                  </p>
+                </th>
+              </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="conflito in Conflitos"
+              :key="conflito.id"
+              style="text-transform:uppercase"
+            >
+              <div style="width: max-content;">
+                <td>
+                  <div style="width: 25px; height: inherit;" class="px-1">
+                    <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="ConflitosSelected"
+                      :value="conflito.type"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p style="width: 435px; text-align: start;">
+                    {{ conflito.msg }}
+                  </p>
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+        <div class="w-100">
+          <template v-if="modal_navtab === 'semestre'">
+            <b-button
+              class="btn-custom btn-modal  btn-azul btn-df mr-2"
+              variant="success"
+              @click="selectAllSemestre()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-custom btn-modal btn-cinza btn-df mr-2"
+              variant="secondary"
+              @click="selectNoneSemestre()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+          <template v-else-if="modal_navtab === 'conflito'">
+            <b-button
+              class="btn-azul btn-df mr-2 btn-custom btn-modal "
+              variant="success"
+              @click="selectAllConflitos()"
+              >Selecionar Todos</b-button
+            >
+            <b-button
+              class="btn-cinza btn-df mr-2 btn-custom btn-modal "
+              variant="secondary"
+              @click="selectNoneConflitos()"
+              >Desmarcar Todos</b-button
+            >
+          </template>
+        </div>
+        <b-button
+          variant="success"
+          @click="btnOK()"
+          class="btn-custom btn-modal btn-verde btn-df mr-2"
+          style="padding-right: 15px !important; padding-left: 15px !important;"
+          >OK</b-button
+        >
       </div>
     </b-modal>
-
     <!-- modal turma edit -->
     <b-modal
       id="modalTurma"
@@ -367,7 +494,7 @@
       title="Edição de Turma"
       size="md"
     >
-      <BodyModalTurmas :turma="turma_clickada"></BodyModalTurmas>
+      <ModalTurma :turma="turma_clickada"></ModalTurma>
       <div slot="modal-footer" class="d-none"></div>
     </b-modal>
     <!-- MODAL AJUDA -->
@@ -400,50 +527,13 @@
 
 <script>
 import _ from "lodash";
-import PageTitle from "@/components/PageTitle.vue";
-import MainTable from "@/components/MainTable.vue";
-import ModalTable from "@/components/ModalTable.vue";
-import BodyModalTurmas from "./BodyModalTurmas.vue";
-// Modal Filtros
-import BodyFiltros from "@/components/BodyFiltros.vue";
-import FooterFiltros from "@/components/FooterFiltros.vue";
+import ModalTurma from "./ModalTurma.vue";
 
-const AllConflitosTurmas = [
-  { type: 1, msg: "Nenhum turno alocado" },
-  {
-    type: 2,
-    msg: "Incompatibilidade entre turno e cadastro EAD da disciplina",
-  },
-  {
-    type: 3,
-    msg: "Horarios incompletos ou invalidos",
-  },
-  { type: 4, msg: "Nenhum docente alocado" },
-  {
-    type: 5,
-    msg: "Disciplina de laborátorio, porêm não possui laboratorio alocado",
-  },
-  {
-    type: 6,
-    msg:
-      "Disciplina desejável laborátorio, porêm não possui laboratorio alocado",
-  },
-  {
-    type: 7,
-    msg: "Limite de lotação das sala",
-  },
-  {
-    type: 8,
-    msg: "Apenas 4 ou menos vagas foram alocadas!",
-  },
-  { type: 9, msg: "Turma EAD e possui sala alocada" },
-  { type: 10, msg: "Conflito de horarios na grade" },
-];
 export default {
   name: "Validacoes",
   data() {
     return {
-      modal_navtab: "Conflitos",
+      modal_navtab: "conflito",
       ConflitosSelected: [],
       ConflitosAtivados: [],
       semestreAtual: 3,
@@ -451,7 +541,7 @@ export default {
       semestre_2Ativo: true,
       turma_clickada: null,
       nav_table: "turmas",
-      ordemTurmas: { order: "periodo", type: "asc" },
+      ordemTurmas: { order: "turma_periodo", type: "asc" },
       ordemDocentes: "asc",
       ordemDocentes: "asc",
       evenCCN: "false",
@@ -472,18 +562,44 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
-      Conflitos: _.clone(AllConflitosTurmas),
+      Conflitos: [
+        { type: 1, msg: "Nenhum turno alocado" },
+        {
+          type: 2,
+          msg: "Incompatibilidade entre turno e cadastro EAD da disciplina",
+        },
+        {
+          type: 3,
+          msg: "Horarios incompletos ou invalidos",
+        },
+        { type: 4, msg: "Nenhum docente alocado" },
+        {
+          type: 5,
+          msg:
+            "Disciplina de laborátorio, porêm não possui laboratorio alocado",
+        },
+        {
+          type: 6,
+          msg:
+            "Disciplina desejável laborátorio, porêm não possui laboratorio alocado",
+        },
+        {
+          type: 7,
+          msg: "Limite de lotação das sala",
+        },
+        {
+          type: 8,
+          msg: "Apenas 4 ou menos vagas foram alocadas!",
+        },
+        { type: 9, msg: "Turma EAD e possui sala alocada" },
+        { type: 10, msg: "Conflito de horarios na grade" },
+      ],
       grades1semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
     };
   },
   components: {
-    PageTitle,
-    BodyModalTurmas,
-    MainTable,
-    BodyFiltros,
-    FooterFiltros,
-    ModalTable,
+    ModalTurma,
   },
   mounted() {
     //define grades ativas por periodo
@@ -635,15 +751,6 @@ export default {
   },
 
   methods: {
-    selectAll() {
-      if (this.modal_navtab == "Semestre") this.selectAllSemestre();
-      else this.selectAllConflitos();
-    },
-    selectNone() {
-      if (this.modal_navtab == "Semestre") this.selectNoneSemestre();
-      else this.selectNoneConflitos();
-    },
-
     btnOK() {
       this.btnOkSemestre();
       this.ConflitosAtivados = [...this.ConflitosSelected];
@@ -730,9 +837,17 @@ export default {
     createValidacao(turma, disciplina) {
       return {
         //Turmas
-        ...turma,
-        docente1_apelido: this.findDocenteById(turma.Docente1),
-        docente2_apelido: this.findDocenteById(turma.Docente2),
+        turma: { ...turma },
+        turma_id: turma.id,
+        turma_periodo: turma.periodo,
+        turma_letra: turma.letra,
+        turma_turno1: turma.turno1,
+        turma_Horario1: turma.Horario1,
+        turma_Horario2: turma.Horario2,
+        turma_sala1: turma.Sala1,
+        turma_sala2: turma.Sala2,
+        turma_docente1: this.findDocenteById(turma.Docente1),
+        turma_docente2: this.findDocenteById(turma.Docente2),
         pedidos_totais: this.totalPedidos(turma.id),
         //Disciplinas
         disciplina_nome: disciplina.nome,
@@ -746,43 +861,52 @@ export default {
     checkAllValidations(validacao) {
       let check;
       //Turno
-      check = this.checkTurno(validacao.turno1);
+      check = this.checkTurno(validacao.turma_turno1);
       if (check) validacao.conflitos.push(check);
 
       //Compatibilidade do turno com disciplina
-      check = this.checkTurnoEAD(validacao.disciplina_ead, validacao.turno1);
+      check = this.checkTurnoEAD(
+        validacao.disciplina_ead,
+        validacao.turma_turno1
+      );
       if (check) validacao.conflitos.push(check);
 
       //Horarios
       check = this.checkHorarios(
         validacao.disciplina_ead,
-        validacao.Horario1,
-        validacao.Horario2
+        validacao.turma_Horario1,
+        validacao.turma_Horario2
       );
       if (check) validacao.conflitos.push(check);
 
       //Docente
       check = this.checkDocentes(
-        validacao.docente1_apelido,
-        validacao.docente2_apelido
+        validacao.turma_docente1,
+        validacao.turma_docente2
       );
       if (check) validacao.conflitos.push(check);
 
       //Salas
       check = this.checkSalasLab(
         validacao.disciplina_laboratorio,
-        validacao.sala1,
-        validacao.sala2
+        validacao.turma_sala1,
+        validacao.turma_sala2
       );
       if (check) validacao.conflitos.push(check);
 
       //Lotação das salas
       // sala 1
-      check = this.checkVagaSala(validacao.sala1, validacao.pedidos_totais);
+      check = this.checkVagaSala(
+        validacao.turma_sala1,
+        validacao.pedidos_totais
+      );
       if (check) validacao.conflitos.push(check);
       // sala 2
-      if (validacao.sala1 != validacao.sala2) {
-        check = this.checkVagaSala(validacao.sala2, validacao.pedidos_totais);
+      if (validacao.turma_sala1 != validacao.turma_sala2) {
+        check = this.checkVagaSala(
+          validacao.turma_sala2,
+          validacao.pedidos_totais
+        );
         if (check) validacao.conflitos.push(check);
       }
 
@@ -792,15 +916,13 @@ export default {
       // EAD com salas - 8
       check = this.checkSalasInEAD(
         validacao.disciplina_ead,
-        validacao.sala1,
-        validacao.sala2
+        validacao.turma_sala1,
+        validacao.turma_sala2
       );
       if (check) validacao.conflitos.push(check);
       //Periodo curso
-      check = this.checkPeriodoCursos(validacao);
+      check = this.checkPeriodoCursos(validacao.turma);
       if (check) validacao.conflitos.push(check);
-
-      check = null;
     },
     checkTurno(turno) {
       return turno === null || turno === undefined ? this.Conflitos[0] : null;
@@ -1143,12 +1265,29 @@ export default {
     },
   },
   computed: {
+    vetorDeValidacoes() {
+      let result = [];
+
+      this.Turmas.forEach((turma) => {
+        let disciplina = this.findDisciplinaById(turma.Disciplina);
+        if (disciplina) {
+          let validacao = this.createValidacao(turma, disciplina);
+          if (
+            validacao.turma_turno1 === null ||
+            validacao.turma_turno1 === undefined
+          ) {
+            result.push({ type: 1, msg: "Nenhum Turno alocado", ...validacao });
+          }
+        }
+      });
+      return result;
+    },
     //Turmas validacoes ordenadas
     Turmas_Validacoes_Ordered() {
       return _.orderBy(
         _.filter(this.Turmas_Validacoes, (valid) => {
-          if (this.semestreAtual === 1) return valid.periodo == 1;
-          else if (this.semestreAtual === 2) return valid.periodo == 1;
+          if (this.semestreAtual === 1) return valid.turma_periodo == 1;
+          else if (this.semestreAtual === 2) return valid.turma_periodo == 1;
 
           return true;
         }),
@@ -1248,9 +1387,80 @@ export default {
   margin: 0 !important;
 }
 
+/* main-table */
+.divTable {
+  overflow: hidden;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.main-table {
+  display: block !important;
+  overflow-y: scroll !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: white;
+  margin: 0 !important;
+  height: -webkit-calc(100vh - 125px);
+  height: -moz-calc(100vh - 125px);
+  height: calc(100vh - 125px);
+}
+
+.main-table .p-header {
+  padding: 0px 5px 0px 5px !important;
+  margin: 0 !important;
+  text-align: center;
+  height: 18px !important;
+}
+.main-table p {
+  padding: 0 5px 0 5px !important;
+  margin: 0 !important;
+  font-size: 11px !important;
+  text-align: center;
+}
+tbody {
+  max-height: 100% !important;
+  width: 100% !important;
+}
+.main-table td {
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 0 !important;
+  height: 22px !important;
+}
+.main-table tr thead {
+  display: block !important;
+}
+.main-table thead th {
+  padding: 0 !important;
+  font-size: 14px;
+  text-align: center;
+  height: 18px !important;
+}
+.main-table input[type="checkbox"] {
+  width: 13px !important;
+  height: 13px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  margin-top: 4px !important;
+}
+/* fim table */
+
+.sticky {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
 .btn-table {
   padding: 0 0.25rem !important;
-  background-color: inherit !important;
 }
 /* Botoes */
 .btn-custom {

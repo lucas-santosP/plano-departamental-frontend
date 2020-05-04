@@ -11,12 +11,6 @@
 .nav-tabs .nav-link {
   color: #0079fa !important;
   cursor: pointer;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
 }
 .nav-tabs .nav-link:hover {
   text-decoration: underline;
@@ -26,7 +20,7 @@
   color: #495057 !important;
   cursor: default !important;
   text-decoration: none !important;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.7s ease;
 }
 /* searchDisciplinas */
 .search-text:hover {
