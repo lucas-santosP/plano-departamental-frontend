@@ -10,7 +10,7 @@
   cursor: pointer !important;
   text-align: center !important;
 }
-.btn-title {
+.btn-icon {
   outline: none !important;
   width: 32px !important;
   margin: 0 4px !important;
@@ -27,7 +27,10 @@
 .btn-modal + .btn-modal {
   margin-left: 10px !important;
 }
-
+.btn-icon i {
+  font-size: 25px;
+}
+/* deletar dps de padronizar */
 button i.fas,
 button i.far {
   font-size: 25px;

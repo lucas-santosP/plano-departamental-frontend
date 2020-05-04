@@ -24,16 +24,6 @@ export default {
 </script>
 
 <style scoped>
-/* main-table */
-.divTable {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
 .main-table {
   display: block !important;
   overflow-y: scroll !important;
@@ -42,39 +32,53 @@ export default {
   font-weight: normal !important;
   background-color: white;
   margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
+  /* ou - 100px */
+  height: -webkit-calc(100vh - 110px);
+  height: -moz-calc(100vh - 110px);
+  height: calc(100vh - 110px);
 }
-.main-table .p-header {
+.tab-table {
+  height: -webkit-calc(100vh - 125px);
+  height: -moz-calc(100vh - 125px);
+  height: calc(100vh - 125px);
+}
+.main-table tr thead {
+  display: block !important;
+}
+.main-table thead tr th {
   height: 18px;
-}
-.main-table p {
-  padding: 0 5px 0 5px !important;
+  padding: 0 5px !important;
   margin: 0 !important;
   font-size: 11px !important;
   text-align: center;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.main-table thead tr th i {
+  font-size: 0.575rem;
+}
+.main-table td {
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 0 5px !important;
+  margin: 0 !important;
+  height: 20px !important;
 }
 tbody {
   max-height: 100% !important;
   width: 100% !important;
 }
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  height: 22px !important;
-}
-.main-table tr thead {
-  display: block !important;
-}
+
 .main-table thead th {
   padding: 0 !important;
   font-size: 14px;
   text-align: center;
   height: 18px !important;
 }
-
 .main-table input[type="checkbox"] {
   width: 13px !important;
   height: 13px !important;

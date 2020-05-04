@@ -5,9 +5,14 @@
       :asideClass="'col-xl-10 col-md-8 col-sm-7 col-5'"
     >
       <template #aside>
-        <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+        <button
+          type="button"
+          class="btn-custom btn-icon relatbtn"
+          title="Ajuda"
+          v-b-modal.modalAjuda
+        >
           <i class="fas fa-question"></i>
-        </b-button>
+        </button>
       </template>
     </PageTitle>
 
@@ -16,124 +21,122 @@
     <div class="row w-100 m-0">
       <!-- Grid Esquerdo -->
       <div class="divTable p-0">
-        <!-- Inicio da Tabela -->
-        <table class="main-table table table-hover table-bordered table-sm">
-          <thead class="thead-light sticky">
-            <tr>
-              <div style="font-size: 11px;" class=" max-content">
-                <th scope="col">
-                  <p
-                    @click="toggleOrd('nome')"
-                    title="Clique para ordenar por nome"
-                    class="p-header clickable"
-                    style="
-                      width: 300px !important;
-                      text-align: start !important;
-                    "
-                  >
-                    Nome
-                    <i
-                      style="font-size: 0.6rem;"
-                      :class="
-                        ordenacao.order == 'nome'
-                          ? ordenacao.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th scope="col">
-                  <p
-                    @click="toggleOrd('codigo')"
-                    title="Clique para ordenar por nome"
-                    class="p-header clickable"
-                    style="width: 60px !important;"
-                  >
-                    Código
-                    <i
-                      style="font-size: 0.6rem;"
-                      :class="
-                        ordenacao.order == 'codigo'
-                          ? ordenacao.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th scope="col">
-                  <p
-                    class="p-header clickable"
-                    style="width: 52px !important; text-align:start"
-                    @click="toggleOrd('turno')"
-                  >
-                    Turno
-                    <i
-                      style="font-size: 0.6rem;"
-                      :class="
-                        ordenacao.order == 'turno'
-                          ? ordenacao.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th scope="col">
-                  <p
-                    class="p-header"
-                    style="width: 52px !important;"
-                    title="Entrada de alunos 1º Semestre"
-                  >
-                    1º Sem.
-                  </p>
-                </th>
-                <th scope="col">
-                  <p
-                    class="p-header"
-                    style="width: 52px !important;"
-                    title="Entrada de alunos 2º Semestre"
-                  >
-                    2º Sem.
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-
-          <tbody>
+        <!-- Inicio Tabela -->
+        <TableMain>
+          <template #thead>
+            <th
+              @click="toggleOrd('nome')"
+              title="Clique para ordenar por nome"
+              class="clickable"
+              style="width:300px!important; text-align:start!important;"
+            >
+              Nome
+              <i
+                :class="
+                  ordenacao.order == 'nome'
+                    ? ordenacao.type == 'asc'
+                      ? 'fas fa-arrow-down fa-sm'
+                      : 'fas fa-arrow-up fa-sm'
+                    : 'fas fa-arrow-down fa-sm low-opacity'
+                "
+              ></i>
+            </th>
+            <th
+              @click="toggleOrd('codigo')"
+              title="Clique para ordenar por nome"
+              class="clickable"
+              style="width: 60px !important;"
+            >
+              Código
+              <i
+                :class="
+                  ordenacao.order == 'codigo'
+                    ? ordenacao.type == 'asc'
+                      ? 'fas fa-arrow-down fa-sm'
+                      : 'fas fa-arrow-up fa-sm'
+                    : 'fas fa-arrow-down fa-sm low-opacity'
+                "
+              ></i>
+            </th>
+            <th
+              class="clickable"
+              style="width:55px!important; text-align:start"
+              @click="toggleOrd('turno')"
+            >
+              Turno
+              <i
+                :class="
+                  ordenacao.order == 'turno'
+                    ? ordenacao.type == 'asc'
+                      ? 'fas fa-arrow-down fa-sm'
+                      : 'fas fa-arrow-up fa-sm'
+                    : 'fas fa-arrow-down fa-sm low-opacity'
+                "
+              ></i>
+            </th>
+            <th
+              class="clickable"
+              style="width: 65px !important;"
+              title="Entrada de alunos 1º Semestre"
+              @click="toggleOrd('alunosEntrada', 'desc')"
+            >
+              1º Sem.
+              <i
+                :class="
+                  ordenacao.order == 'alunosEntrada'
+                    ? ordenacao.type == 'asc'
+                      ? 'fas fa-arrow-down fa-sm'
+                      : 'fas fa-arrow-up fa-sm'
+                    : 'fas fa-arrow-down fa-sm low-opacity'
+                "
+              ></i>
+            </th>
+            <th
+              class="clickable"
+              style="width: 65px !important;"
+              title="Entrada de alunos 2º Semestre"
+              @click="toggleOrd('alunosEntrada2', 'desc')"
+            >
+              2º Sem.
+              <i
+                :class="
+                  ordenacao.order == 'alunosEntrada2'
+                    ? ordenacao.type == 'asc'
+                      ? 'fas fa-arrow-down fa-sm'
+                      : 'fas fa-arrow-up fa-sm'
+                    : 'fas fa-arrow-down fa-sm low-opacity'
+                "
+              ></i>
+            </th>
+          </template>
+          <template #tbody>
             <template v-if="Cursos.length > 0">
               <tr
                 v-for="curso in Cursos"
-                :key="'curso codigo' + curso.codigo"
-                v-on:click.prevent="showCurso(curso), clickada(curso.codigo)"
-                :class="{ 'bg-custom': cursoClickado === curso.codigo }"
-                style="cursor: pointer;"
+                :key="'table-cursos: cod-' + curso.codigo"
+                @click.prevent="
+                  showCurso(curso), HandleClickInCurso(curso.codigo)
+                "
+                :class="[
+                  { 'bg-custom': cursoClickado === curso.codigo },
+                  'clickable',
+                ]"
               >
                 <div class="max-content">
-                  <td>
-                    <p style="width: 300px; text-align: start;">
-                      {{ curso.nome }}
-                    </p>
+                  <td style="width: 300px; text-align: start;">
+                    {{ curso.nome }}
                   </td>
-                  <td>
-                    <p style="width: 60px;">{{ curso.codigo }}</p>
+                  <td style="width: 60px;">
+                    {{ curso.codigo }}
                   </td>
-                  <td>
-                    <p style="width: 52px;text-align:start">
-                      {{ curso.turno }}
-                    </p>
+                  <td style="width: 55px;text-align:start">
+                    {{ curso.turno }}
                   </td>
-                  <!-- 1 = 1º semestre, 2 = 2º semestre, 3 = Ambos-->
-                  <td>
-                    <p style="width: 52px;">{{ curso.alunosEntrada }}</p>
+                  <td style="width: 65px;">
+                    {{ curso.alunosEntrada }}
                   </td>
-                  <td>
-                    <p style="width: 52px;">{{ curso.alunosEntrada2 }}</p>
+                  <td style="width: 65px;">
+                    {{ curso.alunosEntrada2 }}
                   </td>
                 </div>
               </tr>
@@ -146,11 +149,11 @@
                 </td>
               </tr>
             </template>
-          </tbody>
-        </table>
-        <!-- Fim da Tabela -->
+          </template>
+        </TableMain>
+        <!-- Fim Tabela -->
       </div>
-
+      <!-- Fim Grid Esquerdo -->
       <!-- Grid Direito -->
       <div class="div-card p-0 mt-0 mb-4 col-auto">
         <div class="card mr-3 ml-auto">
@@ -224,55 +227,15 @@
                   />
                 </div>
               </div>
-
-              <!-- <div class="row mb-2 mt-1 mx-0">
-              <div class="form-group col m-0 px-0">
-                <h5 style="font-size:14px" class="mt-1">Turno:</h5>
-                <div class="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    name="turno"
-                    id="diurno"
-                    value="Diurno"
-                    class="form-check-input"
-                    v-model="cursoForm.turno"
-                  />
-                  <label class="form-check-label" for="diurno">Diurno</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    name="turno"
-                    id="integral"
-                    value="Integral"
-                    class="form-check-input"
-                    v-model="cursoForm.turno"
-                  />
-                  <label class="form-check-label" for="integral">Integral</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    name="turno"
-                    id="noturno"
-                    value="Noturno"
-                    v-model="cursoForm.turno"
-                    class="form-check-input"
-                  />
-                  <label class="form-check-label" for="noturno">Noturno</label>
-                </div>
-              </div>
-              </div>-->
-
               <div class="row mb-0 mt-3 mx-0">
                 <div class="d-flex mr-0 ml-auto">
                   <template v-if="isEdit">
                     <!-- Editar -->
                     <button
                       type="button"
-                      class="addbtn"
-                      title="Salvar"
                       v-on:click.prevent="editCurso"
+                      class="btn-custom btn-icon addbtn"
+                      title="Salvar"
                       :key="1"
                     >
                       <i class="fas fa-check"></i>
@@ -280,9 +243,9 @@
                     <!-- Excluir -->
                     <button
                       type="button"
-                      title="Deletar"
-                      class="delbtn"
                       v-on:click.prevent="deleteCurso"
+                      class="btn-custom btn-icon delbtn"
+                      title="Deletar"
                       :key="2"
                     >
                       <i class="far fa-trash-alt"></i>
@@ -290,9 +253,9 @@
                     <!-- Cancelar -->
                     <button
                       type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
                       v-on:click.prevent="cleanCurso"
+                      class="btn-custom btn-icon cancelbtn"
+                      title="Cancelar"
                       :key="3"
                     >
                       <i class="fas fa-times"></i>
@@ -303,9 +266,9 @@
                     <!-- Adicionar -->
                     <button
                       type="button"
-                      title="Adicionar"
-                      class="addbtn"
                       v-on:click.prevent="addCurso"
+                      class="btn-custom btn-icon addbtn"
+                      title="Adicionar"
                       :key="1"
                     >
                       <i class="fas fa-plus"></i>
@@ -313,9 +276,9 @@
                     <!-- Resetar -->
                     <button
                       type="button"
-                      title="Cancelar"
-                      class="cancelbtn"
                       v-on:click.prevent="cleanCurso"
+                      class="btn-custom btn-icon cancelbtn"
+                      title="Cancelar"
                       :key="2"
                     >
                       <i class="fas fa-times"></i>
@@ -328,7 +291,8 @@
         </div>
       </div>
     </div>
-    <!-- Fim do Grid Direito -->
+    <!-- Fim Grid Direito -->
+
     <!-- MODAL DE AJUDA -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
       <div class="modal-body">
@@ -372,10 +336,11 @@
 
 <script>
 import _ from "lodash";
+import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import pedidoService from "@/common/services/pedido";
-import ls from "local-storage";
 import PageTitle from "@/components/PageTitle";
+import TableMain from "@/components/TableMain";
 
 const emptyCurso = {
   id: undefined,
@@ -397,7 +362,7 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardCursos",
-  components: { PageTitle },
+  components: { PageTitle, TableMain },
 
   data() {
     return {
@@ -420,16 +385,15 @@ export default {
         $event.preventDefault();
       }
     },
-    toggleOrd(ord) {
+    toggleOrd(ord, type = "asc") {
       if (this.ordenacao.order != ord) {
         this.ordenacao.order = ord;
-        this.ordenacao.type = "asc";
+        this.ordenacao.type = type;
       } else {
         this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
       }
     },
-
-    clickada(f_curso) {
+    HandleClickInCurso(f_curso) {
       this.cursoClickado = f_curso;
     },
     clearClick() {
@@ -584,9 +548,6 @@ export default {
         this.ordenacao.type
       );
     },
-    CursosAtivos() {
-      return this.$store.state.curso.Ativos;
-    },
     isEdit() {
       return this.cursoForm.id !== undefined;
     },
@@ -609,74 +570,7 @@ export default {
   overflow: auto;
   margin: 0;
 }
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-
-/* main-table */
-.divTable {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
-.main-table {
-  display: block !important;
-  overflow-y: scroll !important;
-  overflow-x: auto !important;
-  font-size: 11px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
-}
-.main-table .p-header {
-  height: 18px;
-}
-.main-table p {
-  padding: 0 5px 0 5px !important;
-  margin: 0 !important;
-  font-size: 11px !important;
-  text-align: center;
-}
-tbody {
-  max-height: 100% !important;
-  width: 100% !important;
-}
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  height: 22px !important;
-}
-.main-table tr thead {
-  display: block !important;
-}
-.main-table thead th {
-  padding: 0 !important;
-  font-size: 14px;
-  text-align: center;
-  height: 18px !important;
-}
-/* fim table */
-
-.bg-custom {
-  background-color: #c8c8c8;
-}
-.bg-custom:hover {
-  background-color: #c8c8c8;
-}
-
 /* ====== CARD ====== */
-
 .div-card {
   margin-left: auto;
 }
@@ -702,7 +596,7 @@ tbody {
   text-align: start;
   padding-top: 0 !important;
 }
-select {
+.card select {
   height: 25px !important;
   font-size: 11px !important;
   padding: 0px 5px 0px 5px !important;
@@ -710,48 +604,28 @@ select {
   max-width: 100px;
   text-align: center;
 }
-input {
+.card input {
   height: 25px !important;
   padding: 0px 5px 0px 5px !important;
   font-size: 11px !important;
   text-align: start;
 }
-.inputMaior {
+.card .inputMaior {
   min-width: 250px;
   max-width: 250px;
   text-align: start !important;
 }
-.inputMenor {
+.card .inputMenor {
   max-width: 60px;
   min-width: 60px;
   text-align: center;
 }
-.selectMenor {
-  min-width: 80px;
-  max-width: 80px;
+.card .selectMenor {
+  min-width: 100px;
+  max-width: 100px;
   text-align: start !important;
 }
 /* =================== */
-
-.radio {
-  font-size: 11px;
-}
-input[type="text"] {
-  height: 25px !important;
-  font-size: 11px;
-}
-input[type="radio"] {
-  height: 13px !important;
-}
-input[type="checkbox"] {
-  width: 16px !important;
-  height: 14px !important;
-  text-align: center !important;
-}
-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-}
 
 .listas {
   line-height: 30px;
@@ -762,83 +636,6 @@ table input[type="checkbox"] {
 }
 strong {
   color: #007bff;
-}
-
-/* Botoes */
-button {
-  padding: 0 !important;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-i.fas,
-i.far {
-  font-size: 25px;
-}
-.addbtn {
-  background-color: white;
-  color: #a0e7a0;
-}
-.addbtn:hover {
-  background-color: white;
-  color: #77dd77;
-}
-.addbtn:focus {
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-}
-.cancelbtn {
-  background-color: white;
-  color: #cfcfc4;
-}
-.cancelbtn:hover {
-  color: #b8b4a8;
-}
-.cancelbtn:focus {
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
-
-.delbtn {
-  background-color: white;
-  color: #ff817b;
-}
-.delbtn:hover {
-  color: #ff5f48;
-}
-.delbtn:focus {
-  color: #ff5f48;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #ff4e34;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  color: #82a0ff !important;
-  background-color: white;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: #698dff;
 }
 
 @media screen and (max-width: 858px) {
