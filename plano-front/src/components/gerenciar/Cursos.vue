@@ -2,7 +2,7 @@
   <div class="DashboardCursos row pr-2" v-if="Admin">
     <PageTitle
       :title="'Cursos'"
-      :asideClass="'col-xl-10 col-md-8 col-sm-7 col-5'"
+      :asideClass="'col-xl-10 col-md-8 col-sm-7 col-2'"
     >
       <template #aside>
         <button
@@ -15,11 +15,10 @@
         </button>
       </template>
     </PageTitle>
-
+    <!--  -->
     <div class="w-100 mb-2 border-bottom"></div>
-
+    <!--  -->
     <div class="row w-100 m-0">
-      <!-- Grid Esquerdo -->
       <div class="divTable p-0">
         <!-- Inicio Tabela -->
         <TableMain>
@@ -45,7 +44,7 @@
               @click="toggleOrd('codigo')"
               title="Clique para ordenar por nome"
               class="clickable"
-              style="width: 60px !important;"
+              style="width: 60px !important;text-align:start"
             >
               Código
               <i
@@ -115,7 +114,7 @@
                 v-for="curso in Cursos"
                 :key="'table-cursos: cod-' + curso.codigo"
                 @click.prevent="
-                  showCurso(curso), HandleClickInCurso(curso.codigo)
+                  showCurso(curso), handleClickInCurso(curso.codigo)
                 "
                 :class="[
                   { 'bg-custom': cursoClickado === curso.codigo },
@@ -126,7 +125,7 @@
                   <td style="width: 300px; text-align: start;">
                     {{ curso.nome }}
                   </td>
-                  <td style="width: 60px;">
+                  <td style="width: 60px; text-align:start">
                     {{ curso.codigo }}
                   </td>
                   <td style="width: 55px;text-align:start">
@@ -153,9 +152,8 @@
         </TableMain>
         <!-- Fim Tabela -->
       </div>
-      <!-- Fim Grid Esquerdo -->
-      <!-- Grid Direito -->
-      <div class="div-card p-0 mt-0 mb-4 col-auto">
+
+      <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
         <div class="card mr-3 ml-auto">
           <div class="card-header">
             <h1 class="card-title">Curso</h1>
@@ -291,7 +289,6 @@
         </div>
       </div>
     </div>
-    <!-- Fim Grid Direito -->
 
     <!-- MODAL DE AJUDA -->
     <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
@@ -393,8 +390,8 @@ export default {
         this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
       }
     },
-    HandleClickInCurso(f_curso) {
-      this.cursoClickado = f_curso;
+    handleClickInCurso(curso) {
+      this.cursoClickado = curso;
     },
     clearClick() {
       this.cursoClickado = "";
@@ -563,16 +560,15 @@ export default {
 </script>
 
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
 .DashboardCursos {
   max-width: 100%;
   overflow: auto;
   margin: 0;
 }
 /* ====== CARD ====== */
-.div-card {
-  margin-left: auto;
+.card {
+  width: 300px;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
 }
 .card-title {
   font-size: 16px;
@@ -580,11 +576,6 @@ export default {
   padding-left: 0;
   margin: 0;
   text-align: center;
-}
-.card {
-  width: 300px;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-  margin-left: auto;
 }
 .card-body {
   font-size: 12px !important;

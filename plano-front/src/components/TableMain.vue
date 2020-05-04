@@ -32,6 +32,7 @@ export default {
   font-weight: normal !important;
   background-color: white;
   margin: 0 !important;
+  margin-bottom: 20px !important;
   /* ou - 100px */
   height: -webkit-calc(100vh - 110px);
   height: -moz-calc(100vh - 110px);
@@ -87,12 +88,10 @@ tbody {
   margin-top: 4px !important;
 }
 .bg-custom {
-  background-color: #c8c8c8;
-}
-.bg-custom:hover {
-  background-color: #c8c8c8;
+  /* ou 17 no final */
+  background-color: #00000015;
 }
 .tr-bg-gray {
-  background-color: #00000017;
+  background-color: #00000015;
 }
 </style>

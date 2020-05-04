@@ -493,6 +493,7 @@
       scrollable
       title="Edição de Turma"
       size="md"
+      hide-footer
     >
       <ModalTurma :turma="turma_clickada"></ModalTurma>
       <div slot="modal-footer" class="d-none"></div>
