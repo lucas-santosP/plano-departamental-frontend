@@ -1,25 +1,16 @@
 <template>
   <div class="DashboardCursos row pr-2" v-if="Admin">
-    <!-- Titulo -->
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
+    <PageTitle
+      :title="'Cursos'"
+      :asideClass="'col-xl-10 col-md-8 col-sm-7 col-5'"
     >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-xl-2 col-md-4 col-sm-5 col-7 px-0 pr-1 titulo">
-          Cursos
-        </h1>
+      <template #aside>
+        <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
-        <div
-          class="form-group col-xl-10 col-md-8 col-sm-7 col-5 mb-0 p-0"
-          style="justify-content: flex-end !important;"
-        >
-          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-            <i class="fas fa-question"></i>
-          </b-button>
-        </div>
-      </div>
-    </div>
     <div class="w-100 mb-2 border-bottom"></div>
 
     <div class="row w-100 m-0">
@@ -384,6 +375,8 @@ import _ from "lodash";
 import cursoService from "@/common/services/curso";
 import pedidoService from "@/common/services/pedido";
 import ls from "local-storage";
+import PageTitle from "@/components/PageTitle";
+
 const emptyCurso = {
   id: undefined,
   nome: undefined,
@@ -392,7 +385,7 @@ const emptyCurso = {
   semestreInicial: undefined,
   alunosEntrada: undefined,
   alunosEntrada2: undefined,
-  posicao: undefined
+  posicao: undefined,
 };
 const emptyPedido = {
   vagasPeriodizadas: 0,
@@ -400,16 +393,18 @@ const emptyPedido = {
   Curso: undefined,
   Turma: undefined,
   ultimo: undefined,
-  selectAll: undefined
+  selectAll: undefined,
 };
 export default {
   name: "DashboardCursos",
+  components: { PageTitle },
+
   data() {
     return {
       cursoForm: _.clone(emptyCurso),
       error: undefined,
       cursoClickado: "",
-      ordenacao: { order: "nome", type: "asc" }
+      ordenacao: { order: "nome", type: "asc" },
     };
   },
   created() {
@@ -477,7 +472,7 @@ export default {
       else this.cursoForm.semestreInicial = 3;
       cursoService
         .create(this.cursoForm)
-        .then(response => {
+        .then((response) => {
           for (var i = 0; i < this.$store.state.turma.Turmas.length; i++) {
             var pedido = _.clone(emptyPedido);
             pedido.Curso = response.Curso.id;
@@ -485,8 +480,8 @@ export default {
             console.log(pedido);
             pedidoService
               .create(pedido)
-              .then(response => {})
-              .catch(error => {
+              .then((response) => {})
+              .catch((error) => {
                 console.log("erro ao criar pedido: " + error);
               });
           }
@@ -495,10 +490,10 @@ export default {
             group: "general",
             title: `Sucesso!`,
             text: `O Curso ${response.Curso.nome} foi criado!`,
-            type: "success"
+            type: "success",
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.error = "<b>Erro ao criar Curso</b>";
           if (error.response.data.fullMessage) {
             this.error +=
@@ -508,7 +503,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: "error"
+            type: "error",
           });
         });
     },
@@ -531,34 +526,34 @@ export default {
       else this.cursoForm.semestreInicial = 3;
       cursoService
         .update(this.cursoForm.id, this.cursoForm)
-        .then(response => {
+        .then((response) => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `O Curso ${response.Curso.nome} foi atualizado!`,
-            type: "success"
+            type: "success",
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.error = "<b>Erro ao atualizar Curso</b>";
           this.$notify({
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: "error"
+            type: "error",
           });
         });
     },
     deleteCurso() {
       cursoService
         .delete(this.cursoForm.id, this.cursoForm)
-        .then(response => {
+        .then((response) => {
           this.cleanCurso();
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `O Curso ${response.Curso.nome} foi excluído!`,
-            type: "success"
+            type: "success",
           });
         })
         .catch(() => {
@@ -567,7 +562,7 @@ export default {
             group: "general",
             title: `Erro!`,
             text: this.error,
-            type: "error"
+            type: "error",
           });
         });
     },
@@ -579,7 +574,7 @@ export default {
     showCurso(curso) {
       this.cleanCurso();
       this.cursoForm = _.clone(curso);
-    }
+    },
   },
   computed: {
     Cursos() {
@@ -601,8 +596,8 @@ export default {
       } else {
         return false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -673,16 +668,6 @@ tbody {
 }
 /* fim table */
 
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
 .bg-custom {
   background-color: #c8c8c8;
 }

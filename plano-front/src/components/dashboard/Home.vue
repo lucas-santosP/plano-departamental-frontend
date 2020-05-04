@@ -1,16 +1,8 @@
 <template>
   <div class="DashboardHome row pr-2">
-    <!-- Titulo -->
-    <div
-      class="col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="col-12 titulo">Dashboard</h1>
-      </div>
-    </div>
-    <div class="w-100 mb-2 border-bottom"></div>
+    <PageTitle :title="'Dashboard'" :asideClass="'col-0'"> </PageTitle>
 
+    <div class="w-100 mb-2 border-bottom"></div>
     <!-- alert -->
     <div class="alert alert-light alerta mt-1" role="alert">
       <p style="font-size:12px">
@@ -197,9 +189,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import PageTitle from "@/components/PageTitle";
 
 export default {
   name: "DashboardHome",
+  components: { PageTitle },
   created() {
     console.log(this.$store);
   },
@@ -222,12 +216,6 @@ export default {
   max-width: 100%;
   overflow: hidden;
   margin: 0;
-}
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
 }
 
 .alerta {
