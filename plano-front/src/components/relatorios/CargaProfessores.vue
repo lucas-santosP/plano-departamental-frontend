@@ -689,10 +689,10 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item clickable" v-on:click="pdf(1)">
-            <strong>Relatório Parcial</strong>
+            <strong>Parcial</strong>
           </li>
           <li class="list-group-item clickable" v-on:click="pdf(2)">
-            <strong>Relatório Completo</strong>
+            <strong>Completo</strong>
           </li>
         </ul>
       </div>

@@ -894,10 +894,10 @@
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item clickable" v-on:click="pdf(1)">
-            <strong class="ajuda-strong">Relatório Parcial</strong>
+            <strong class="ajuda-strong">Parcial</strong>
           </li>
           <li class="list-group-item clickable" v-on:click="pdf(2)">
-            <strong class="ajuda-strong">Relatório Completo</strong>
+            <strong class="ajuda-strong">Completo</strong>
           </li>
         </ul>
       </div>
