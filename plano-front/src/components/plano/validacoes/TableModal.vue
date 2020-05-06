@@ -1,8 +1,20 @@
 <template>
-  <table id="TableModal" class="table table-bordered table-sm modal-table">
+  <table
+    id="TableModal"
+    class="table table-bordered table-sm modal-table"
+    :style="heightClass"
+  >
     <thead class="thead-light">
-      <tr class="sticky">
-        <div style="font-size: 11px !important;" class="max-content">
+      <template v-if="hasSearchBar">
+        <tr class="sticky">
+          <div style="font-size: 11px !important;" class="max-content">
+            <slot name="thead-search"> </slot>
+          </div>
+        </tr>
+      </template>
+
+      <tr :class="hasSearchBar ? 'sticky2' : 'sticky'">
+        <div class="max-content">
           <slot name="thead"></slot>
         </div>
       </tr>
@@ -16,6 +28,18 @@
 <script>
 export default {
   name: "TableModal",
+  props: {
+    tableHeight: {
+      type: Number,
+      default: 450,
+    },
+    hasSearchBar: { type: Boolean, default: false },
+  },
+  computed: {
+    heightClass() {
+      return "height: " + this.tableHeight + "px";
+    },
+  },
 };
 </script>
 

@@ -14,7 +14,6 @@
         >Créditos: {{ CreditosDaDisciplina }}</span
       >
     </div>
-
     <hr class="my-2" />
     <!-- TURMA INFOS -->
     <div class="form-container row m-0 p-0 w-100">
@@ -259,7 +258,30 @@
         Total: {{ totalPedidos() }}
       </p>
     </div>
-    <TableModal>
+    <TableModal :tableHeight="350" :hasSearchBar="true">
+      <template #thead-search>
+        <th>
+          <div
+            class="m-0 input-group"
+            style=" width: 442px; height: 35px; padding:4px 10px 4px 5px;"
+          >
+            <input
+              type="text"
+              class="form-control"
+              style="border-right: none;"
+              placeholder="Pesquise nome ou codigo de um curso..."
+              v-model="searchCursos"
+            />
+            <div class="input-group-append" @click="searchCursos = null">
+              <span
+                class="input-group-text"
+                style="height: 25px; font-size: 18px; cursor: pointer;"
+                >&times;</span
+              >
+            </div>
+          </div>
+        </th>
+      </template>
       <template#thead>
         <th>
           <p
@@ -304,18 +326,18 @@
 
         <th>
           <p
-            class="p-header"
+            class="p-header clickable"
             style="width: 70px; text-align: center;"
             title="Vagas periodizadas / Não periodizadas"
-            @click="toggleOrdVagas('VagasTotais')"
+            @click="toggleOrdVagas('VagasTotais', 'desc')"
           >
             Vagas
             <i
               :class="
                 ordemVagas.order === 'VagasTotais'
                   ? ordemVagas.type == 'asc'
-                    ? 'fas fa-arrow-up fa-sm'
-                    : 'fas fa-arrow-down fa-sm'
+                    ? 'fas fa-arrow-down fa-sm'
+                    : 'fas fa-arrow-up fa-sm'
                   : 'fas fa-arrow-down fa-sm low-opacity'
               "
               style="font-size: 0.6rem; text-align: right;"
@@ -380,6 +402,7 @@ export default {
   },
   data() {
     return {
+      searchCursos: null,
       ativo: false,
       valorAtual: undefined,
       turmaForm: _.clone(emptyTurma),
@@ -394,10 +417,10 @@ export default {
     this.disciplinaAtual = this.findDisciplinaById(this.turmaForm.Disciplina);
   },
   methods: {
-    toggleOrdVagas(ord) {
+    toggleOrdVagas(ord, type = "asc") {
       if (this.ordemVagas.order != ord) {
         this.ordemVagas.order = ord;
-        this.ordemVagas.type = "asc";
+        this.ordemVagas.type = type;
       } else {
         this.ordemVagas.type = this.ordemVagas.type == "asc" ? "desc" : "asc";
       }
@@ -1333,7 +1356,7 @@ export default {
   },
   computed: {
     CursosTableOrdered() {
-      let result = this.$store.state.curso.Cursos;
+      let result = this.CursosFiltred;
       result.forEach((curso) => {
         for (let index = 0; index < this.Pedidos.length; index++) {
           if (this.Pedidos[index].Curso === curso.id) {
@@ -1346,6 +1369,25 @@ export default {
         }
       });
       return _.orderBy(result, this.ordemVagas.order, this.ordemVagas.type);
+    },
+    CursosFiltred() {
+      if (this.searchCursos != null) {
+        let searchUpperCase = this.searchCursos
+          .toUpperCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+
+        return _.filter(this.$store.state.curso.Cursos, (curso) => {
+          return (
+            curso.nome
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .match(searchUpperCase) || curso.codigo.match(searchUpperCase)
+          );
+        });
+      }
+
+      return this.$store.state.curso.Cursos;
     },
     CreditosDaDisciplina() {
       let disciplina = _.find(
@@ -1420,13 +1462,15 @@ export default {
   width: 100%;
   height: 100%;
 }
+.table-turma {
+  max-height: 350px;
+}
 .form-container {
   font-size: 12px;
 }
 .form-group {
   margin: 5px auto;
 }
-
 .form-control,
 .form-control-plaintext {
   height: 25px !important;
