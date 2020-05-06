@@ -408,7 +408,7 @@ export default {
       turmaForm: _.clone(emptyTurma),
       currentData: undefined,
       disciplinaAtual: null,
-      ordemVagas: { order: "codigo", type: "asc" },
+      ordemVagas: { order: "VagasTotais", type: "asc" },
     };
   },
   mounted() {

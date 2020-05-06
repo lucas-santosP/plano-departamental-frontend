@@ -876,8 +876,7 @@ export default {
       check = this.checkHorarios(
         validacao.disciplina_ead,
         validacao.turma_Horario1,
-        validacao.turma_Horario2
-      );
+        validacao.turma_Horario2);
       if (check) validacao.conflitos.push(check);
 
       //Docente
