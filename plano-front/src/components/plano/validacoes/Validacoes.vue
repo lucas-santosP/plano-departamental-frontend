@@ -765,7 +765,7 @@ export default {
       } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
         this.semestreAtual = 3;
       } else {
-        this.semestreAtual = 3;
+        this.semestreAtual = null;
       }
     },
     selectAllSemestre() {
@@ -1288,8 +1288,8 @@ export default {
       return _.orderBy(
         _.filter(this.Turmas_Validacoes, (valid) => {
           if (this.semestreAtual === 1) return valid.turma_periodo == 1;
-          else if (this.semestreAtual === 2) return valid.turma_periodo == 1;
-
+          else if (this.semestreAtual === 2) return valid.turma_periodo == 3;
+          else if (this.semestreAtual === null) return false;
           return true;
         }),
         this.ordemTurmas.order,

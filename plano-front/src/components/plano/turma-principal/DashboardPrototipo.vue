@@ -1,13 +1,12 @@
 <template>
   <div class="DashboardPrototipo row pr-2">
-    <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
       style="height: 38px;"
     >
       <div class="form-inline col-12 pl-0 mb-1 pr-1">
         <h1 class="titulo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3 px-0 pr-1">
-          Tabela
+          Tabela Interna
         </h1>
 
         <div
