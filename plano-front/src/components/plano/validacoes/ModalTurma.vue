@@ -1361,8 +1361,8 @@ export default {
         for (let index = 0; index < this.Pedidos.length; index++) {
           if (this.Pedidos[index].Curso === curso.id) {
             curso.VagasTotais =
-              this.Pedidos[index].vagasPeriodizadas +
-              this.Pedidos[index].vagasNaoPeriodizadas;
+              parseInt(this.Pedidos[index].vagasPeriodizadas,10)*1000//peso para priorizar vagas periodizadas +
+              parseInt(this.Pedidos[index].vagasNaoPeriodizadas, 10);
             curso.indiceVaga = index;
             break;
           }
