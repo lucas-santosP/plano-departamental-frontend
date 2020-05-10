@@ -13,7 +13,7 @@
 .btn-icon {
   outline: none !important;
   width: 32px !important;
-  margin: 0 4px !important;
+  margin: 0 4px;
   background: none !important;
 }
 .btn-modal {
