@@ -37,18 +37,11 @@
             </tr>
             <template v-for="grade in Grades_CCDiurno">
               <tr
-                @click="
-                  (currentGrade = grade.id),
-                    findGrade(),
-                    (grade_selected = true)
-                "
+                @click="findGrade(grade.id)"
                 :key="'grade-id' + grade.id"
                 :class="[
-                  {
-                    'bg-custom':
-                      gradeForm.nome == grade.nome && gradeForm.Curso == 4,
-                  },
                   'clickable',
+                  { 'bg-custom': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -70,18 +63,11 @@
             </tr>
             <template v-for="grade in Grades_CCNoturno">
               <tr
-                @click="
-                  (currentGrade = grade.id),
-                    findGrade(),
-                    (grade_selected = true)
-                "
+                @click="findGrade(grade.id)"
                 :key="'grade-id' + grade.id"
                 :class="[
-                  {
-                    'bg-custom':
-                      gradeForm.nome == grade.nome && gradeForm.Curso == 1,
-                  },
                   'clickable',
+                  { 'bg-custom': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -103,18 +89,11 @@
             </tr>
             <template v-for="grade in Grades_SI">
               <tr
-                @click="
-                  (currentGrade = grade.id),
-                    findGrade(),
-                    (grade_selected = true)
-                "
+                @click="findGrade(grade.id)"
                 :key="'grade-id' + grade.id"
                 :class="[
-                  {
-                    'bg-custom':
-                      gradeForm.nome == grade.nome && gradeForm.Curso == 3,
-                  },
                   'clickable',
+                  { 'bg-custom': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -136,18 +115,11 @@
             </tr>
             <template v-for="grade in Grade_EC">
               <tr
-                @click="
-                  (currentGrade = grade.id),
-                    findGrade(),
-                    (grade_selected = true)
-                "
+                @click="findGrade(grade.id)"
                 :key="'grade-id' + grade.id"
                 :class="[
-                  {
-                    'bg-custom':
-                      gradeForm.nome == grade.nome && gradeForm.Curso == 2,
-                  },
                   'clickable',
+                  { 'bg-custom': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -209,7 +181,7 @@
             </div>
           </template>
           <template #botoes>
-            <template v-if="grade_selected">
+            <template v-if="currentGrade != undefined">
               <button
                 type="button"
                 title="Salvar Grade"
@@ -313,14 +285,10 @@ export default {
   components: { PageTitle, Card },
   data() {
     return {
+      error: undefined,
       gradeForm: _.clone(emptyGrade),
       disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
-      error: undefined,
       currentGrade: undefined,
-      grade_selected: false,
-      grades: [],
-      showCard: false,
-      nomeAtual: undefined,
     };
   },
   methods: {
@@ -374,6 +342,7 @@ export default {
     },
     deleteGrade() {
       let grade_nome = this.gradeForm.nome;
+
       gradeService
         .delete(this.gradeForm.id, this.gradeForm)
         .then((response) => {
@@ -397,21 +366,19 @@ export default {
         });
     },
     cleanGrade() {
-      this.grade_selected = false;
+      this.currentGrade = undefined;
       this.gradeForm = _.clone(emptyGrade);
       this.error = undefined;
     },
     showGrade(grade) {
       this.cleanGrade();
+
+      this.currentGrade = grade.id;
       this.gradeForm = _.clone(grade);
       this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
-    findGrade() {
-      var grade = _.find(this.$store.state.grade.Grades, [
-        "id",
-        this.currentGrade,
-      ]);
-
+    findGrade(id) {
+      var grade = _.find(this.$store.state.grade.Grades, ["id", id]);
       this.showGrade(grade);
     },
     onlyNumber($event) {
