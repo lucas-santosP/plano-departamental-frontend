@@ -34,44 +34,7 @@
           </router-link>
         </li>
       </ul>
-      <!-- <ul class="nav flex-column mb-2" v-if="Admin">
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link
-            :to="{ name: 'pedidos' }"
-            class="nav-link"
-            v-on:click="loadPage"
-          >
-            <i class="icon-nav-link fas fa-clipboard"></i> Tabela Interna
-          </router-link>
-        </li>
-        <li v-if="Admin" @click="$emit('close-sidebar')" class="nav-item">
-          <router-link
-            :to="{ name: 'turmasExternas' }"
-            class="nav-link"
-            v-on:click="loadPage"
-          >
-            <i class="icon-nav-link fas fa-clipboard"></i> Tabela Externa
-          </router-link>
-        </li>
-        <li v-if="Admin" @click="$emit('close-sidebar')" class="nav-item">
-          <router-link
-            :to="{ name: 'cargaPos' }"
-            class="nav-link"
-            v-on:click="loadPage"
-          >
-            <i class="icon-nav-link fas fa-clipboard"></i> Tabela Pós
-          </router-link>
-        </li>
-        <li v-if="Admin" @click="$emit('close-sidebar')" class="nav-item">
-          <router-link
-            :to="{ name: 'validacoes' }"
-            class="nav-link"
-            v-on:click="loadPage"
-          >
-            <i class="icon-nav-link fas fa-calendar-check"></i> Validações
-          </router-link>
-        </li>
-      </ul> -->
+
       <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted">
         Relatórios
       </h3>
@@ -88,34 +51,7 @@
           </router-link>
         </li>
       </ul>
-      <!-- <ul class="nav flex-column">
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'cargaProfessores' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Carga Professores
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'gradeDisciplinas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Grades Disciplinas
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'horarios' }" class="nav-link">
-            <i class="icon-nav-link fas fa-calendar-alt"></i> Horários - Cursos
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'laboratoriosAlocacao' }" class="nav-link">
-            <i class="icon-nav-link fas fa-calendar-alt"></i> Horários -
-            Laboratórios
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'relatorioDisciplinas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Plano Departamental
-          </router-link>
-        </li>
-      </ul> -->
+
       <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted" v-if="Admin">
         Gerenciar
       </h3>
@@ -132,51 +68,6 @@
           </router-link>
         </li>
       </ul>
-      <!-- <ul class="nav flex-column mb-4" v-if="Admin">
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'cursos' }" class="nav-link">
-            <i class="icon-nav-link fas fa-graduation-cap"></i> Cursos
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'disciplinas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-table"></i> Disciplinas
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'gradeEdit' }" class="nav-link">
-            <i class="icon-nav-link fas fa-sitemap"></i> Disciplinas na Grade
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'docentes' }" class="nav-link">
-            <i class="icon-nav-link fas fa-users"></i> Docentes
-          </router-link>
-        </li>
-
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'grades' }" class="nav-link">
-            <i class="icon-nav-link fas fa-sitemap"></i> Grades
-          </router-link>
-        </li>
-
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'perfis' }" class="nav-link">
-            <i class="icon-nav-link fas fa-th"></i> Perfis
-          </router-link>
-        </li>
-
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'salas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Salas
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'history' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Logs
-          </router-link>
-        </li>
-      </ul> -->
     </div>
   </nav>
 </template>
