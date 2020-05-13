@@ -213,17 +213,20 @@
                   <option value="2">Desejável</option>
                 </select>
               </div>
-              <div
-                class="d-flex align-items-end form-check form-check-inline col m-0 px-0 pl-1"
-              >
-                <input
-                  type="checkbox"
-                  id="ead"
-                  value="1"
-                  class="form-check-input"
-                  v-model="disciplinaForm.ead"
-                />
-                <label for="ead" class="form-check-label">EAD</label>
+              <div class="form-group col m-0 px-0">
+                <label for="ead" class="col-form-label"
+                >EAD</label
+                >
+                <select
+                        type="text"
+                        class="form-control form-control-sm input-medio"
+                        id="ead"
+                        v-model="disciplinaForm.ead"
+                >
+                  <option value="0">Não</option>
+                  <option value="1">Integral</option>
+                  <option value="2">Parcial</option>
+                </select>
               </div>
             </div>
           </template>
@@ -480,8 +483,9 @@ export default {
     },
 
     textoEad(ead) {
-      if (ead) return "Sim";
-      else return "-";
+      if (ead == 0) return "-";
+      if (ead == 1) return "Integral";
+      if (ead == 2) return "Parcial";
     },
   },
 

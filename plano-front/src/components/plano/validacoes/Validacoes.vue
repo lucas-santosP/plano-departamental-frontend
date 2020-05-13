@@ -997,10 +997,15 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
+              let disciplinaConflito = _.find(
+                      this.$store.state.disciplina.Disciplinas,
+                      { id: disciplinasPeriodo[d].Disciplina }
+              );
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
               let turmasDisciplina = _.filter(
-                this.$store.state.turma.Turmas,
+                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
                 (t) => {
-                  let pedido = _.find(this.$store.state.pedido.Pedidos[t.id], {
+                  let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
                     Curso: 4,
                   });
                   return (
@@ -1019,10 +1024,7 @@ export default {
                     (turma.Horario2 === turmasDisciplina[t].Horario1 ||
                       turma.Horario2 === turmasDisciplina[t].Horario2))
                 ) {
-                  let disciplinaConflito = _.find(
-                    this.$store.state.disciplina.Disciplinas,
-                    { id: disciplinasPeriodo[d].Disciplina }
-                  );
+
                   conflitos = true;
                   msg =
                     msg +
@@ -1052,10 +1054,15 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
+              let disciplinaConflito = _.find(
+                      this.$store.state.disciplina.Disciplinas,
+                      { id: disciplinasPeriodo[d].Disciplina }
+              );
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
               let turmasDisciplina = _.filter(
-                this.$store.state.turma.Turmas,
-                (t) => {
-                  let pedido = _.find(this.$store.state.pedido.Pedidos[t.id], {
+                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
+                      (t) => {
+                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
                     Curso: 1,
                   });
                   return (
@@ -1074,10 +1081,6 @@ export default {
                     (turma.Horario2 === turmasDisciplina[t].Horario1 ||
                       turma.Horario2 === turmasDisciplina[t].Horario2))
                 ) {
-                  let disciplinaConflito = _.find(
-                    this.$store.state.disciplina.Disciplinas,
-                    { id: disciplinasPeriodo[d].Disciplina }
-                  );
                   conflitos = true;
                   msg =
                     msg +
@@ -1107,10 +1110,15 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
+              let disciplinaConflito = _.find(
+                      this.$store.state.disciplina.Disciplinas,
+                      { id: disciplinasPeriodo[d].Disciplina }
+              );
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
               let turmasDisciplina = _.filter(
-                this.$store.state.turma.Turmas,
-                (t) => {
-                  let pedido = _.find(this.$store.state.pedido.Pedidos[t.id], {
+                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
+                      (t) => {
+                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
                     Curso: 3,
                   });
                   return (
@@ -1129,10 +1137,6 @@ export default {
                     (turma.Horario2 === turmasDisciplina[t].Horario1 ||
                       turma.Horario2 === turmasDisciplina[t].Horario2))
                 ) {
-                  let disciplinaConflito = _.find(
-                    this.$store.state.disciplina.Disciplinas,
-                    { id: disciplinasPeriodo[d].Disciplina }
-                  );
                   conflitos = true;
                   msg =
                     msg +
@@ -1162,10 +1166,15 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
+              let disciplinaConflito = _.find(
+                      this.$store.state.disciplina.Disciplinas,
+                      { id: disciplinasPeriodo[d].Disciplina }
+              );
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
               let turmasDisciplina = _.filter(
-                this.$store.state.turma.Turmas,
-                (t) => {
-                  let pedido = _.find(this.$store.state.pedido.Pedidos[t.id], {
+                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
+                      (t) => {
+                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
                     Curso: 2,
                   });
                   return (
@@ -1184,10 +1193,6 @@ export default {
                     (turma.Horario2 === turmasDisciplina[t].Horario1 ||
                       turma.Horario2 === turmasDisciplina[t].Horario2))
                 ) {
-                  let disciplinaConflito = _.find(
-                    this.$store.state.disciplina.Disciplinas,
-                    { id: disciplinasPeriodo[d].Disciplina }
-                  );
                   conflitos = true;
                   msg =
                     msg +
