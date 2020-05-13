@@ -22,6 +22,19 @@
         </a>
       </h3>
       <ul class="nav flex-column mb-2" v-if="Admin">
+        <li
+          v-for="page in linksPlanoOrdered"
+          :key="page.routerName"
+          @click="$emit('close-sidebar')"
+          class="nav-item"
+        >
+          <router-link :to="{ name: page.routerName }" class="nav-link">
+            <i class="icon-nav-link fas" :class="page.icon"></i>
+            {{ page.title }}
+          </router-link>
+        </li>
+      </ul>
+      <!-- <ul class="nav flex-column mb-2" v-if="Admin">
         <li @click="$emit('close-sidebar')" class="nav-item">
           <router-link
             :to="{ name: 'pedidos' }"
@@ -58,19 +71,27 @@
             <i class="icon-nav-link fas fa-calendar-check"></i> Validações
           </router-link>
         </li>
-      </ul>
+      </ul> -->
       <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted">
         Relatórios
       </h3>
       <ul class="nav flex-column">
+        <li
+          v-for="page in linksRelatoriosOrdered"
+          :key="page.routerName"
+          @click="$emit('close-sidebar')"
+          class="nav-item"
+        >
+          <router-link :to="{ name: page.routerName }" class="nav-link">
+            <i class="icon-nav-link fas" :class="page.icon"></i>
+            {{ page.title }}
+          </router-link>
+        </li>
+      </ul>
+      <!-- <ul class="nav flex-column">
         <li @click="$emit('close-sidebar')" class="nav-item">
           <router-link :to="{ name: 'cargaProfessores' }" class="nav-link">
             <i class="icon-nav-link fas fa-clipboard"></i> Carga Professores
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'relatorioDisciplinas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-clipboard"></i> Plano Departamental
           </router-link>
         </li>
         <li @click="$emit('close-sidebar')" class="nav-item">
@@ -89,24 +110,37 @@
             Laboratórios
           </router-link>
         </li>
-      </ul>
+        <li @click="$emit('close-sidebar')" class="nav-item">
+          <router-link :to="{ name: 'relatorioDisciplinas' }" class="nav-link">
+            <i class="icon-nav-link fas fa-clipboard"></i> Plano Departamental
+          </router-link>
+        </li>
+      </ul> -->
       <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted" v-if="Admin">
         Gerenciar
       </h3>
       <ul class="nav flex-column mb-4" v-if="Admin">
+        <li
+          v-for="page in linksGenrenciarOrdered"
+          :key="page.routerName"
+          @click="$emit('close-sidebar')"
+          class="nav-item"
+        >
+          <router-link :to="{ name: page.routerName }" class="nav-link">
+            <i class="icon-nav-link fas" :class="page.icon"></i>
+            {{ page.title }}
+          </router-link>
+        </li>
+      </ul>
+      <!-- <ul class="nav flex-column mb-4" v-if="Admin">
         <li @click="$emit('close-sidebar')" class="nav-item">
           <router-link :to="{ name: 'cursos' }" class="nav-link">
             <i class="icon-nav-link fas fa-graduation-cap"></i> Cursos
           </router-link>
         </li>
         <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'docentes' }" class="nav-link">
-            <i class="icon-nav-link fas fa-users"></i> Docentes
-          </router-link>
-        </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'grades' }" class="nav-link">
-            <i class="icon-nav-link fas fa-sitemap"></i> Grades
+          <router-link :to="{ name: 'disciplinas' }" class="nav-link">
+            <i class="icon-nav-link fas fa-table"></i> Disciplinas
           </router-link>
         </li>
         <li @click="$emit('close-sidebar')" class="nav-item">
@@ -115,15 +149,23 @@
           </router-link>
         </li>
         <li @click="$emit('close-sidebar')" class="nav-item">
+          <router-link :to="{ name: 'docentes' }" class="nav-link">
+            <i class="icon-nav-link fas fa-users"></i> Docentes
+          </router-link>
+        </li>
+
+        <li @click="$emit('close-sidebar')" class="nav-item">
+          <router-link :to="{ name: 'grades' }" class="nav-link">
+            <i class="icon-nav-link fas fa-sitemap"></i> Grades
+          </router-link>
+        </li>
+
+        <li @click="$emit('close-sidebar')" class="nav-item">
           <router-link :to="{ name: 'perfis' }" class="nav-link">
             <i class="icon-nav-link fas fa-th"></i> Perfis
           </router-link>
         </li>
-        <li @click="$emit('close-sidebar')" class="nav-item">
-          <router-link :to="{ name: 'disciplinas' }" class="nav-link">
-            <i class="icon-nav-link fas fa-table"></i> Disciplina
-          </router-link>
-        </li>
+
         <li @click="$emit('close-sidebar')" class="nav-item">
           <router-link :to="{ name: 'salas' }" class="nav-link">
             <i class="icon-nav-link fas fa-clipboard"></i> Salas
@@ -134,16 +176,82 @@
             <i class="icon-nav-link fas fa-clipboard"></i> Logs
           </router-link>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </nav>
 </template>
 
 <script>
 import _ from "lodash";
-
 export default {
   name: "Navbar",
+  data() {
+    return {
+      linksPlano: [
+        {
+          title: "Tabela Interna",
+          routerName: "pedidos",
+          icon: "fa-clipboard",
+        },
+        {
+          title: "Tabela Externa",
+          routerName: "turmasExternas",
+          icon: "fa-clipboard",
+        },
+        {
+          title: "Tabela Pós",
+          routerName: "cargaPos",
+          icon: "fa-clipboard",
+        },
+        {
+          title: "Validações",
+          routerName: "validacoes",
+          icon: "fa-calendar-check",
+        },
+      ],
+      linksRelatorios: [
+        {
+          title: "Carga Professores",
+          routerName: "cargaProfessores",
+          icon: "fa-clipboard",
+        },
+        {
+          title: "Grades Disciplinass",
+          routerName: "gradeDisciplinas",
+          icon: "fa-clipboard",
+        },
+        {
+          title: "Horários - Cursos",
+          routerName: "horarios",
+          icon: "fa-calendar-alt",
+        },
+        {
+          title: "Horários - Laboratórios",
+          routerName: "laboratoriosAlocacao",
+          icon: "fa-calendar-alt",
+        },
+        {
+          title: "Plano Departamental",
+          routerName: "relatorioDisciplinas",
+          icon: "fa-clipboard",
+        },
+      ],
+      linksGenrenciar: [
+        { title: "Cursos ", routerName: "cursos", icon: "fa-graduation-cap" },
+        { title: "Disciplinas ", routerName: "disciplinas", icon: "fa-table" },
+        {
+          title: "Disciplinas na Grade ",
+          routerName: "gradeEdit",
+          icon: "fa-sitemap",
+        },
+        { title: "docentes ", routerName: "Docentes", icon: "fa-users" },
+        { title: "grades ", routerName: "Grades", icon: "fa-sitemap" },
+        { title: "perfis ", routerName: "Perfis", icon: "fa-th" },
+        { title: "salas ", routerName: "Salas", icon: "fa-clipboard" },
+        { title: "history ", routerName: "Logs", icon: "fa-clipboard" },
+      ],
+    };
+  },
   props: {
     year: Number,
   },
@@ -159,6 +267,15 @@ export default {
       } else {
         return false;
       }
+    },
+    linksPlanoOrdered() {
+      return this.linksPlano;
+    },
+    linksRelatoriosOrdered() {
+      return _.orderBy(this.linksRelatorios, "title");
+    },
+    linksGenrenciarOrdered() {
+      return _.orderBy(this.linksGenrenciar, "title");
     },
   },
 };
