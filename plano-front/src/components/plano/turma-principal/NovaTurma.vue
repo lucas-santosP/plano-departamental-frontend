@@ -20,11 +20,11 @@
           id="disciplinaCod"
           v-model="turmaForm.Disciplina"
         >
-          <option v-if="DisciplinasCod.length === 0" type="text" value
+          <option v-if="DisciplinasOrederedByCod.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
           >
           <option
-            v-for="disciplina in DisciplinasCod"
+            v-for="disciplina in DisciplinasOrederedByCod"
             :key="'1-' + disciplina.id"
             :value="disciplina.id"
             >{{ disciplina.codigo }}</option
@@ -40,7 +40,7 @@
           style="width:325px;"
           id="disciplina"
           v-model="turmaForm.Disciplina"
-          v-on:change="setTurno(), setDisciplinaAtual()"
+          v-on:change="setDisciplinaAtual(), checkIfIsEad()"
         >
           <option v-if="Disciplinas.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
@@ -54,7 +54,6 @@
         </select>
       </div>
     </td>
-
     <td>
       <div style="width: 18px">
         <p style="width:20px">
@@ -77,7 +76,6 @@
         />
       </div>
     </td>
-
     <td>
       <div style="width:130px">
         <select
@@ -116,7 +114,6 @@
         </select>
       </div>
     </td>
-
     <td>
       <div style="width: 80px">
         <select
@@ -126,25 +123,15 @@
           v-model="turmaForm.Horario1"
           v-on:change="setTurnoByHorario(1)"
         >
-          <option v-if="Horarios.length === 0" type="text" value
+          <option
+            v-for="horario in HorariosFiltredByTurno"
+            :key="'1-horarioEAD-id' + horario.id"
+            :value="horario.id"
+            >{{ horario.horario }}</option
+          >
+          <option v-if="HorariosFiltredByTurno.length === 0" type="text" value
             >Nenhum Horário Encontrado</option
           >
-          <template v-if="disciplinaSelectedIsEad">
-            <option
-              v-for="horario in HorariosEAD"
-              :key="'1-horarioEAD-id' + horario.id"
-              :value="horario.id"
-              >{{ horario.horario }}</option
-            >
-          </template>
-          <template v-else>
-            <option
-              v-for="horario in Horarios"
-              :key="'1-horario-id' + horario.id"
-              :value="horario.id"
-              >{{ horario.horario }}</option
-            >
-          </template>
         </select>
         <br />
 
@@ -156,25 +143,15 @@
           v-model="turmaForm.Horario2"
           v-on:change="setTurnoByHorario(2)"
         >
-          <option v-if="Horarios.length === 0" type="text" value
+          <option
+            v-for="horario in HorariosFiltredByTurno"
+            :key="'1-horarioEAD-id' + horario.id"
+            :value="horario.id"
+            >{{ horario.horario }}</option
+          >
+          <option v-if="HorariosFiltredByTurno.length === 0" type="text" value
             >Nenhum Horário Encontrado</option
           >
-          <template v-if="disciplinaSelectedIsEad">
-            <option
-              v-for="horario in HorariosEAD"
-              :key="'2-horarioEAD-id' + horario.id"
-              :value="horario.id"
-              >{{ horario.horario }}</option
-            >
-          </template>
-          <template v-else>
-            <option
-              v-for="horario in Horarios"
-              :key="'2-horario-id' + horario.id"
-              :value="horario.id"
-              >{{ horario.horario }}</option
-            >
-          </template>
         </select>
       </div>
     </td>
@@ -185,11 +162,17 @@
           style="width: 75px"
           id="turno1"
           v-model="turmaForm.turno1"
-          v-on:change="setEad()"
         >
-          <template v-if="disciplinaIsEad(turmaForm.Disciplina)">
-            <option value="EAD">EAD</option>
-          </template>
+          <option
+            v-if="disciplinaSelected ? disciplinaSelected.ead == 1 : false"
+            value="EAD"
+            >EAD</option
+          >
+          <option
+            v-else-if="disciplinaSelected ? disciplinaSelected.ead == 2 : false"
+            value="Parcial"
+            >Parcial</option
+          >
           <template v-else>
             <option value="Diurno">Diurno</option>
             <option value="Noturno">Noturno</option>
@@ -198,10 +181,10 @@
       </div>
     </td>
     <td>
-      <div style="width: 98px">
+      <div style="width: 100px">
         <select
           type="text"
-          style="width:93px; margin-bottom:1px"
+          style="width:95px; margin-bottom:1px"
           id="sala1"
           v-model="turmaForm.Sala1"
         >
@@ -219,7 +202,7 @@
         <select
           v-if="hasMoreThan4Creditos"
           type="text"
-          style="width: 93px"
+          style="width: 95px"
           id="sala2"
           v-model="turmaForm.Sala2"
         >
@@ -294,12 +277,17 @@ export default {
       let disciplina = _.find(this.Disciplinas, (d) => d.id == id);
       return disciplina != undefined ? disciplina : null;
     },
-    setTurno() {
-      this.turmaForm.turno1 = "EAD";
-    },
-    disciplinaIsEad(id) {
-      let disciplina = _.find(this.Disciplinas, (d) => d.id == id);
-      return disciplina != undefined ? disciplina.ead : null;
+    checkIfIsEad() {
+      if (this.disciplinaSelected != undefined) {
+        if (this.disciplinaSelected.ead == 1) {
+          this.turmaForm.turno1 = "EAD";
+          this.turmaForm.Horario1 = 31;
+          this.turmaForm.Horario2 = 31;
+        } else if (this.disciplinaSelected.ead == 2) {
+          console.log("!!!");
+          this.turmaForm.turno1 = "Parcial";
+        }
+      }
     },
     onlyA_Z($event) {
       let key = $event.key ? $event.key.toUpperCase() : $event.which;
@@ -333,16 +321,8 @@ export default {
         horario == 28
       ) {
         this.turmaForm.turno1 = "Diurno";
-      } else if (horario == 31) {
-        this.turmaForm.turno1 = "EAD";
       } else {
         this.turmaForm.turno1 = "Noturno";
-      }
-    },
-    setEad() {
-      if (this.turmaForm.turno1 === "EAD") {
-        this.turmaForm.Horario1 = 31;
-        if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
       }
     },
     addTurma() {
@@ -392,11 +372,6 @@ export default {
     },
   },
   computed: {
-    disciplinaSelectedIsEad() {
-      return (
-        this.disciplinaSelected != undefined && this.disciplinaSelected.ead
-      );
-    },
     hasMoreThan4Creditos() {
       if (this.disciplinaSelected == undefined) return false;
       else if (
@@ -409,7 +384,7 @@ export default {
     Disciplinas() {
       return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
-    DisciplinasCod() {
+    DisciplinasOrederedByCod() {
       return _.orderBy(this.$store.state.disciplina.Disciplinas, "codigo");
     },
     Docentes() {
@@ -418,18 +393,23 @@ export default {
         "apelido"
       );
     },
-    Horarios() {
-      return _.orderBy(
-        _.filter(
-          this.$store.state.horario.Horarios,
-          (horario) => horario.id != 31 //exclui horario ead
-        ),
-        "horario"
-      );
-    },
-    HorariosEAD() {
-      console.log(_.filter(this.$store.state.horario.Horarios, { id: 31 }));
-      return _.filter(this.$store.state.horario.Horarios, { id: 31 });
+    HorariosFiltredByTurno() {
+      let horarioResultante = [];
+
+      if (this.disciplinaSelected != undefined) {
+        if (this.disciplinaSelected.ead == 1)
+          horarioResultante = _.filter(this.$store.state.horario.Horarios, {
+            id: 31,
+          });
+        else if (this.disciplinaSelected.ead == 2)
+          horarioResultante = this.$store.state.horario.Horarios;
+        else
+          horarioResultante = _.filter(
+            this.$store.state.horario.Horarios,
+            (horario) => horario.id != 31
+          );
+      }
+      return _.orderBy(horarioResultante, "horario");
     },
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
@@ -441,8 +421,6 @@ export default {
 };
 </script>
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-
 td {
   text-align: center !important;
   vertical-align: middle !important;
@@ -467,12 +445,11 @@ select {
 }
 
 @-moz-document url-prefix() {
-  select {
-    height: 18px !important;
+  table select {
+    height: 50px !important;
     text-align: left;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
     line-height: 8px;
     border: 0.5px solid rgb(160, 160, 160);
     -moz-border-radius: 2px;

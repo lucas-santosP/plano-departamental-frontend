@@ -526,15 +526,14 @@ const AllConflitosTurmas = [
     type: 2,
     msg: "Disciplina da EAD deve ter turno EAD associado.",
   },
-  // dividor em 2.5 para :disciplinas presenciais com turno ead
   {
     type: 3,
-    msg: "Horarios incompletos ou invalidos",
+    msg: "Horários incompletos ou inválidos",
   },
   { type: 4, msg: "Nenhum docente alocado" },
   {
     type: 5,
-    msg: "Disciplina de laborátorio, porêm não possui laboratorio alocado",
+    msg: "Disciplina prática deve ter laboratorio alocado",
   },
   {
     type: 6,
@@ -543,14 +542,15 @@ const AllConflitosTurmas = [
   },
   {
     type: 7,
-    msg: "Limite de lotação das sala",
+    msg: "Limite de lotação da sala ultrapassado",
   },
   {
     type: 8,
-    msg: "Apenas 4 ou menos vagas foram alocadas!",
+    msg: "Apenas 4 ou menos vagas foram alocadas",
   },
-  { type: 9, msg: "Turma EAD e possui sala alocada" },
+  { type: 9, msg: "Turma EAD não deve ter sala alocada" },
   { type: 10, msg: "Conflito de horarios na grade" },
+  { type: 11, msg: "Disciplina de curso presencial não pode ter turno EAD" },
 ];
 export default {
   name: "Validacoes",
@@ -842,6 +842,9 @@ export default {
         pedidos_totais: this.totalPedidos(turma.id),
         //Disciplinas
         disciplina_nome: disciplina.nome,
+        disciplina_creditoTotal:
+          parseInt(disciplina.cargaTeorica, 10) +
+          parseInt(disciplina.cargaPratica, 10),
         disciplina_codigo: disciplina.codigo,
         disciplina_ead: disciplina.ead,
         disciplina_laboratorio: disciplina.laboratorio,
@@ -854,26 +857,23 @@ export default {
       //Turno
       check = this.checkTurno(validacao.turno1);
       if (check) validacao.conflitos.push(check);
-
       //Compatibilidade do turno com disciplina
       check = this.checkTurnoEAD(validacao.disciplina_ead, validacao.turno1);
       if (check) validacao.conflitos.push(check);
-
       //Horarios
       check = this.checkHorarios(
         validacao.disciplina_ead,
+        validacao.disciplina_creditoTotal,
         validacao.Horario1,
         validacao.Horario2
       );
       if (check) validacao.conflitos.push(check);
-
       //Docente
       check = this.checkDocentes(
         validacao.docente1_apelido,
         validacao.docente2_apelido
       );
       if (check) validacao.conflitos.push(check);
-
       //Salas
       check = this.checkSalasLab(
         validacao.disciplina_laboratorio,
@@ -912,16 +912,21 @@ export default {
       return turno === null || turno === undefined ? this.Conflitos[0] : null;
     },
     checkTurnoEAD(isEAD, turno) {
-      return (isEAD && turno !== "EAD") || (!isEAD && turno == "EAD")
+      return (isEAD == 1 && turno !== "EAD") || (isEAD != 1 && turno == "EAD")
         ? this.Conflitos[1]
         : false;
     },
-    checkHorarios(isEAD, horario1, horario2) {
-      if (!isEAD) {
-        return (horario1 === null || horario1 === undefined) &&
-          (horario2 === null || horario2 === undefined)
-          ? this.Conflitos[2]
-          : false;
+    checkHorarios(isEAD, creditoTotal, horario1, horario2) {
+      if (isEAD != 1) {
+        if (creditoTotal <= 2) {
+          return horario1 == null && horario2 == null
+            ? this.Conflitos[2]
+            : false;
+        } else {
+          return horario1 == null || horario2 == null
+            ? this.Conflitos[2]
+            : false;
+        }
       }
       return false;
     },
@@ -960,7 +965,7 @@ export default {
       return pedidos_totais <= 4 ? this.Conflitos[7] : false;
     },
     checkSalasInEAD(isEAD, sala1, sala2) {
-      if (isEAD) {
+      if (isEAD == 1) {
         return sala1 != null || sala2 != null ? this.Conflitos[8] : false;
       }
       return false;
@@ -998,16 +1003,25 @@ export default {
                 continue;
               }
               let disciplinaConflito = _.find(
-                      this.$store.state.disciplina.Disciplinas,
-                      { id: disciplinasPeriodo[d].Disciplina }
+                this.$store.state.disciplina.Disciplinas,
+                { id: disciplinasPeriodo[d].Disciplina }
               );
-              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
+              let externa =
+                disciplinaConflito.Perfil == 13 ||
+                disciplinaConflito.Perfil == 15;
               let turmasDisciplina = _.filter(
-                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
+                externa
+                  ? this.$store.state.turmaExterna.Turmas
+                  : this.$store.state.turma.Turmas,
                 (t) => {
-                  let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
-                    Curso: 4,
-                  });
+                  let pedido = _.find(
+                    externa
+                      ? this.$store.state.pedidoExterno.Pedidos[t.id]
+                      : this.$store.state.pedido.Pedidos[t.id],
+                    {
+                      Curso: 4,
+                    }
+                  );
                   return (
                     t.periodo == turma.periodo &&
                     t.Disciplina === disciplinasPeriodo[d].Disciplina &&
@@ -1024,7 +1038,6 @@ export default {
                     (turma.Horario2 === turmasDisciplina[t].Horario1 ||
                       turma.Horario2 === turmasDisciplina[t].Horario2))
                 ) {
-
                   conflitos = true;
                   msg =
                     msg +
@@ -1055,16 +1068,25 @@ export default {
                 continue;
               }
               let disciplinaConflito = _.find(
-                      this.$store.state.disciplina.Disciplinas,
-                      { id: disciplinasPeriodo[d].Disciplina }
+                this.$store.state.disciplina.Disciplinas,
+                { id: disciplinasPeriodo[d].Disciplina }
               );
-              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
+              let externa =
+                disciplinaConflito.Perfil == 13 ||
+                disciplinaConflito.Perfil == 15;
               let turmasDisciplina = _.filter(
-                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
-                      (t) => {
-                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
-                    Curso: 1,
-                  });
+                externa
+                  ? this.$store.state.turmaExterna.Turmas
+                  : this.$store.state.turma.Turmas,
+                (t) => {
+                  let pedido = _.find(
+                    externa
+                      ? this.$store.state.pedidoExterno.Pedidos[t.id]
+                      : this.$store.state.pedido.Pedidos[t.id],
+                    {
+                      Curso: 1,
+                    }
+                  );
                   return (
                     t.periodo == turma.periodo &&
                     t.Disciplina === disciplinasPeriodo[d].Disciplina &&
@@ -1111,16 +1133,25 @@ export default {
                 continue;
               }
               let disciplinaConflito = _.find(
-                      this.$store.state.disciplina.Disciplinas,
-                      { id: disciplinasPeriodo[d].Disciplina }
+                this.$store.state.disciplina.Disciplinas,
+                { id: disciplinasPeriodo[d].Disciplina }
               );
-              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
+              let externa =
+                disciplinaConflito.Perfil == 13 ||
+                disciplinaConflito.Perfil == 15;
               let turmasDisciplina = _.filter(
-                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
-                      (t) => {
-                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
-                    Curso: 3,
-                  });
+                externa
+                  ? this.$store.state.turmaExterna.Turmas
+                  : this.$store.state.turma.Turmas,
+                (t) => {
+                  let pedido = _.find(
+                    externa
+                      ? this.$store.state.pedidoExterno.Pedidos[t.id]
+                      : this.$store.state.pedido.Pedidos[t.id],
+                    {
+                      Curso: 3,
+                    }
+                  );
                   return (
                     t.periodo == turma.periodo &&
                     t.Disciplina === disciplinasPeriodo[d].Disciplina &&
@@ -1167,16 +1198,25 @@ export default {
                 continue;
               }
               let disciplinaConflito = _.find(
-                      this.$store.state.disciplina.Disciplinas,
-                      { id: disciplinasPeriodo[d].Disciplina }
+                this.$store.state.disciplina.Disciplinas,
+                { id: disciplinasPeriodo[d].Disciplina }
               );
-              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15
+              let externa =
+                disciplinaConflito.Perfil == 13 ||
+                disciplinaConflito.Perfil == 15;
               let turmasDisciplina = _.filter(
-                      (externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas),
-                      (t) => {
-                        let pedido = _.find((externa ? this.$store.state.pedidoExterno.Pedidos[t.id] : this.$store.state.pedido.Pedidos[t.id]), {
-                    Curso: 2,
-                  });
+                externa
+                  ? this.$store.state.turmaExterna.Turmas
+                  : this.$store.state.turma.Turmas,
+                (t) => {
+                  let pedido = _.find(
+                    externa
+                      ? this.$store.state.pedidoExterno.Pedidos[t.id]
+                      : this.$store.state.pedido.Pedidos[t.id],
+                    {
+                      Curso: 2,
+                    }
+                  );
                   return (
                     t.periodo == turma.periodo &&
                     t.Disciplina === disciplinasPeriodo[d].Disciplina &&

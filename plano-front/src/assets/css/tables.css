@@ -100,4 +100,13 @@
   padding-right: 20px !important;
   padding-top: 4px !important;
 }
+
+@-moz-document url-prefix() {
+  .main-table tbody select {
+    height: 20px !important;
+  }
+  .main-table tbody input[type="text"] {
+    margin-top: 0px !important;
+  }
+}
 /* FIM MODAL TABLE */

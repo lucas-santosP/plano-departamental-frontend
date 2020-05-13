@@ -28,7 +28,7 @@
       <p style="width:80px !important;">Turno</p>
     </th>
     <th scope="col">
-      <p style="width:98px !important;">Sala</p>
+      <p style="width:100px !important;">Sala</p>
     </th>
     <th scope="col">
       <p style="width:40px !important;" title="Total de vagas">Total</p>

@@ -240,11 +240,11 @@
       </div>
     </td>
     <td>
-      <div style="width: 98px">
+      <div style="width: 100px">
         <select
           :disabled="Admin ? false : true"
           type="text"
-          style="width:92px; margin-bottom:1px;"
+          style="width:95px; margin-bottom:1px;"
           id="sala1"
           v-model="turmaForm.Sala1"
           v-on:change="checkSala()"
@@ -264,7 +264,7 @@
           v-if="Disciplina.cargaTeorica + Disciplina.cargaPratica >= 4"
           :disabled="Admin ? false : true"
           type="text"
-          style="width: 92px"
+          style="width: 95px"
           id="sala2"
           v-model="turmaForm.Sala2"
           v-on:change="checkSala()"

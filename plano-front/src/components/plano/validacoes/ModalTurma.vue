@@ -55,7 +55,7 @@
             v-model="turmaForm.turno1"
             v-on:change="editTurma(turma)"
           >
-            <template v-if="disciplinaAtual ? disciplinaAtual.ead : false">
+            <template v-if="disciplinaAtual ? disciplinaAtual.ead == 1 : false">
               <option value="EAD">EAD</option>
             </template>
             <template v-else>
