@@ -524,8 +524,9 @@ const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
   {
     type: 2,
-    msg: "Incompatibilidade entre turno e cadastro EAD da disciplina",
+    msg: "Disciplina da EAD deve ter turno EAD associado.",
   },
+  // dividor em 2.5 para :disciplinas presenciais com turno ead
   {
     type: 3,
     msg: "Horarios incompletos ou invalidos",
