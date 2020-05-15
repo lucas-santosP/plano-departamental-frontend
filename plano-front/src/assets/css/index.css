@@ -37,6 +37,15 @@
   background-color: #ffffff !important;
   border-left: none !important;
 }
+.search-btn {
+  cursor: pointer;
+  height: 25px;
+  background-color: #fff;
+  font-size: 18px;
+}
+.search-btn :hover {
+  background-color: #fff;
+}
 
 .clickable {
   cursor: pointer;
