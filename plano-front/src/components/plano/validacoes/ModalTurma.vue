@@ -54,6 +54,7 @@
             class="form-control"
             v-model="turmaForm.turno1"
             v-on:change="editTurma(turma)"
+            disabled
           >
             <template v-if="disciplinaAtual ? disciplinaAtual.ead == 1 : false">
               <option value="EAD">EAD</option>
@@ -65,7 +66,7 @@
           </select>
         </div>
       </div>
-      <!-- Docente, Salas e Horarios -->
+      <!-- Docente, Horarios e Salas -->
       <div class="form-row w-100">
         <div class="form-group col">
           <label for="SelectDocente1">Docentes:</label>
@@ -109,48 +110,7 @@
             >
           </select>
         </div>
-        <div class="form-group col">
-          <label for="sala1">Salas:</label>
-          <select
-            type="text"
-            class="form-control mb-1"
-            style="max-width:100px;"
-            id="sala1"
-            v-model="turmaForm.Sala1"
-            v-on:change="checkSala()"
-          >
-            <option v-if="Salas.length === 0" type="text" value=""
-              >Nenhuma Sala Encontrada</option
-            >
-            <option v-else value=""></option>
-            <option
-              v-for="sala in Salas"
-              :key="'1-sala-id' + sala.id"
-              :value="sala.id"
-              >{{ sala.nome }}</option
-            >
-          </select>
-          <select
-            v-if="hasMoreThan4Creditos"
-            type="text"
-            class="form-control"
-            style="max-width: 100px"
-            id="sala2"
-            v-model="turmaForm.Sala2"
-            v-on:change="checkSala()"
-          >
-            <option v-if="Salas.length === 0" type="text" value=""
-              >Nenhuma Sala Encontrada</option
-            >
-            <option v-else value=""></option>
-            <option
-              v-for="sala in Salas"
-              :key="'2-sala-id' + sala.id"
-              :value="sala.id"
-              >{{ sala.nome }}</option
-            >
-          </select>
-        </div>
+
         <div class="form-group col">
           <label for="horario1">Horarios:</label>
           <select
@@ -161,42 +121,16 @@
             v-model="turmaForm.Horario1"
             v-on:change="checkHorario(1), setTurnoByHorario(1)"
           >
-            <option v-if="Horarios.length === 0" type="text" value=""
+            <option type="text" value=""></option>
+            <option
+              v-for="horario in HorariosFiltredByTurno"
+              :key="'1-horario-id' + horario.id"
+              :value="horario.id"
+              >{{ horario.horario }}</option
+            >
+            <option v-if="HorariosFiltredByTurno.length === 0" type="text" value
               >Nenhum Horário Encontrado</option
             >
-            <option v-else value=""></option>
-            <template v-if="turmaForm.turno1 === 'Diurno'">
-              <option
-                v-for="horario in HorariosDiurnos"
-                :key="'1-horariodiurno-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
-            <template v-else-if="turmaForm.turno1 === 'Noturno'">
-              <option
-                v-for="horario in HorariosNoturnos"
-                :key="'1-horarionoturno-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
-            <template v-else-if="turmaForm.turno1 === 'EAD'">
-              <option
-                v-for="horario in HorariosEAD"
-                :key="'1-horarioEAD-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
-            <template v-else>
-              <option
-                v-for="horario in Horarios"
-                :key="'1-horario-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
           </select>
 
           <select
@@ -209,43 +143,73 @@
             v-model="turmaForm.Horario2"
             v-on:change="checkHorario(2), setTurnoByHorario(2)"
           >
-            <option v-if="Horarios.length === 0" type="text" value=""
+            <option v-if="Horarios.length === 0" type="text" value
               >Nenhum Horário Encontrado</option
             >
-            <option v-else value=""></option>
-            <template v-if="turmaForm.turno1 === 'Diurno'">
-              <option
-                v-for="horario in HorariosDiurnos"
-                :key="'2-horariodiurno-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
-            <template v-else-if="turmaForm.turno1 === 'Noturno'">
-              <option
-                v-for="horario in HorariosNoturnos"
-                :key="'2-horarionoturno-id' + horario.id"
-                :value="horario.id"
-                >{{ horario.horario }}</option
-              >
-            </template>
-            <template v-else-if="turmaForm.turno1 === 'EAD'">
+            <template v-if="disciplinaAtual.ead == 2">
               <option
                 v-for="horario in HorariosEAD"
-                :key="'2-horarioEAD-id' + horario.id"
+                :key="'2-horario-id' + horario.id"
                 :value="horario.id"
                 >{{ horario.horario }}</option
               >
             </template>
             <template v-else>
+              <option type="text" value=""></option>
               <option
-                v-for="horario in Horarios"
+                v-for="horario in HorariosFiltredByTurno"
                 :key="'2-horario-id' + horario.id"
                 :value="horario.id"
                 >{{ horario.horario }}</option
               >
             </template>
           </select>
+        </div>
+        <div class="form-group col">
+          <template
+            v-if="currentDisciplina ? currentDisciplina.ead != 1 : true"
+          >
+            <label for="sala1">Salas:</label>
+            <select
+              type="text"
+              class="form-control mb-1"
+              style="max-width:100px;"
+              id="sala1"
+              v-model="turmaForm.Sala1"
+              v-on:change="checkSala()"
+            >
+              <option v-if="Salas.length === 0" type="text" value=""
+                >Nenhuma Sala Encontrada</option
+              >
+              <option v-else value=""></option>
+              <option
+                v-for="sala in Salas"
+                :key="'1-sala-id' + sala.id"
+                :value="sala.id"
+                >{{ sala.nome }}</option
+              >
+            </select>
+            <select
+              v-if="hasMoreThan4Creditos && currentDisciplina.ead != 2"
+              type="text"
+              class="form-control"
+              style="max-width: 100px"
+              id="sala2"
+              v-model="turmaForm.Sala2"
+              v-on:change="checkSala()"
+            >
+              <option v-if="Salas.length === 0" type="text" value=""
+                >Nenhuma Sala Encontrada</option
+              >
+              <option v-else value=""></option>
+              <option
+                v-for="sala in Salas"
+                :key="'2-sala-id' + sala.id"
+                :value="sala.id"
+                >{{ sala.nome }}</option
+              >
+            </select>
+          </template>
         </div>
       </div>
     </div>
@@ -276,11 +240,7 @@
               v-model="searchCursos"
             />
             <div class="input-group-append" @click="searchCursos = null">
-              <span
-                class="input-group-text"
-                style="height: 25px; font-size: 18px; cursor: pointer;"
-                >&times;</span
-              >
+              <span class="input-group-text search-btn">&times;</span>
             </div>
           </div>
         </th>
@@ -1393,6 +1353,11 @@ export default {
     },
   },
   computed: {
+    currentDisciplina() {
+      return _.find(this.$store.state.disciplina.Disciplinas, {
+        id: this.turmaForm.Disciplina,
+      });
+    },
     hasMoreThan4Creditos() {
       if (this.disciplinaAtual == undefined) return false;
       else if (
@@ -1462,26 +1427,38 @@ export default {
     Horarios() {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
     },
+    HorariosFiltredByTurno() {
+      let horarioResultante = [];
+
+      if (this.disciplinaAtual != undefined) {
+        if (this.disciplinaAtual.ead == 1)
+          horarioResultante = _.filter(this.Horarios, {
+            id: 31,
+          });
+        else if (this.disciplinaAtual.ead == 2)
+          horarioResultante = this.Horarios;
+        else
+          horarioResultante = _.filter(
+            this.Horarios,
+            (horario) => horario.id != 31
+          );
+      }
+      return _.orderBy(horarioResultante, "horario");
+    },
     HorariosDiurnos() {
-      return _.orderBy(
-        _.filter(this.$store.state.horario.Horarios, function(h) {
-          if (parseInt(h.horario.slice(3, 5)) < 17) return true;
-          if (h.id === 31) return true;
-        }),
-        "horario"
-      );
+      return _.filter(this.Horarios, function(h) {
+        if (parseInt(h.horario.slice(3, 5)) < 17) return true;
+        if (h.id === 31) return true;
+      });
     },
     HorariosNoturnos() {
-      return _.orderBy(
-        _.filter(this.$store.state.horario.Horarios, function(h) {
-          if (parseInt(h.horario.slice(3, 5)) >= 17) return true;
-          if (h.id === 31) return true;
-        }),
-        "horario"
-      );
+      return _.filter(this.Horarios, function(h) {
+        if (parseInt(h.horario.slice(3, 5)) >= 17) return true;
+        if (h.id === 31) return true;
+      });
     },
     HorariosEAD() {
-      return _.filter(this.$store.state.horario.Horarios, { id: 31 });
+      return _.filter(this.Horarios, { id: 31 });
     },
     Pedidos() {
       return this.$store.state.pedido.Pedidos[this.turma.id];
