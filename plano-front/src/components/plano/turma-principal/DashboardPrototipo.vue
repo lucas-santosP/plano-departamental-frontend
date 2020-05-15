@@ -978,10 +978,11 @@ export default {
       }
     },
 
-    deleteSelected: function() {
-      var turmas = this.$store.state.turma.Deletar;
-      for (var i = 0; i < turmas.length; i++) {
-        this.deleteTurma(turmas[i]);
+    deleteSelected() {
+      let turmas = this.$store.state.turma.Deletar;
+      for (let i = 0; i < turmas.length; i++) {
+        this.deleteTurma(_.clone(turmas[i]));
+        //Necessario _.clone para não passar um objeto reativo como parametro onde será editado
       }
       this.$store.commit("emptyDelete");
     },
@@ -1011,7 +1012,7 @@ export default {
             group: "general",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success",
+            type: "warn",
           });
         })
         .catch((error) => {
@@ -1035,12 +1036,11 @@ export default {
       turma.Horario2 = null;
       turma.Sala1 = null;
       turma.Sala2 = null;
-      console.log(turma);
 
       this.editTurma(turma);
 
-      var pedidos = this.$store.state.pedido.Pedidos[turma.id];
-      for (var i = 0; i < pedidos.length; i++) {
+      let pedidos = this.$store.state.pedido.Pedidos[turma.id];
+      for (let i = 0; i < pedidos.length; i++) {
         if (
           !(
             pedidos[i].vagasPeriodizadas === 0 &&
@@ -1056,7 +1056,8 @@ export default {
                 group: "general",
                 title: `Sucesso!`,
                 text: `O pedido foi atualizado!`,
-                type: "success",
+                type: "warn",
+                position: "bottom right",
               });
             })
             .catch((error) => {
