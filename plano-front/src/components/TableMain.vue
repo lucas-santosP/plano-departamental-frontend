@@ -12,7 +12,9 @@
       </tr>
     </thead>
     <tbody>
-      <slot name="tbody"> </slot>
+      <div class="max-content">
+        <slot name="tbody"> </slot>
+      </div>
     </tbody>
   </table>
 </template>

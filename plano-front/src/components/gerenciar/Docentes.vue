@@ -82,17 +82,15 @@
                   'clickable',
                 ]"
               >
-                <div class="max-content">
-                  <td style="width:240px;" class="t-start">
-                    {{ docente.nome }}
-                  </td>
-                  <td style="width:120px;" class="t-start">
-                    {{ docente.apelido }}
-                  </td>
-                  <td style="width:50px">
-                    {{ textoAtivo(docente.ativo) }}
-                  </td>
-                </div>
+                <td style="width:240px;" class="t-start">
+                  {{ docente.nome }}
+                </td>
+                <td style="width:120px;" class="t-start">
+                  {{ docente.apelido }}
+                </td>
+                <td style="width:50px">
+                  {{ textoAtivo(docente.ativo) }}
+                </td>
               </tr>
             </template>
             <template v-if="Docentes.length == 0">

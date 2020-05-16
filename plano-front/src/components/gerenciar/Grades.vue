@@ -14,26 +14,22 @@
 
     <div class="row w-100 m-0">
       <div class="p-0 divTable">
-        <table class="main-table table table-sm table-hover table-bordered">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">
-                <p class="p-header" style="width: 220px">Cursos</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 100px">Grades</p>
-              </th>
-            </tr>
-          </thead>
+        <TableMain>
+          <template #thead>
+            <th style="width: 220px">
+              Cursos
+            </th>
+            <th style="width: 100px">
+              Grades
+            </th>
+          </template>
 
-          <tbody>
+          <template #tbody>
             <tr class="bg-custom">
-              <td>
-                <p style="width: 220px">Ciência da Computação Diurno</p>
+              <td style="width: 220px">
+                Ciência da Computação Diurno
               </td>
-              <td>
-                <div style="width:100px"></div>
-              </td>
+              <td style="width:100px"></td>
             </tr>
             <template v-for="grade in Grades_CCDiurno">
               <tr
@@ -44,22 +40,18 @@
                   { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
-                <td>
-                  <p style="width: 220px"></p>
-                </td>
-                <td>
-                  <p style="width: 100px">{{ grade.nome }}</p>
+                <td style="width: 220px"></td>
+                <td style="width: 100px">
+                  {{ grade.nome }}
                 </td>
               </tr>
             </template>
 
             <tr class="bg-custom">
-              <td>
-                <p style="width: 220px">Ciência da Computação Noturno</p>
+              <td style="width: 220px">
+                Ciência da Computação Noturno
               </td>
-              <td>
-                <div style="width:100px"></div>
-              </td>
+              <td style="width:100px"></td>
             </tr>
             <template v-for="grade in Grades_CCNoturno">
               <tr
@@ -70,22 +62,18 @@
                   { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
-                <td>
-                  <p style="width: 220px"></p>
-                </td>
-                <td>
-                  <p style="width: 100px">{{ grade.nome }}</p>
+                <td style="width: 220px"></td>
+                <td style="width: 100px">
+                  {{ grade.nome }}
                 </td>
               </tr>
             </template>
 
             <tr class="bg-custom">
-              <td>
-                <p style="width: 220px">Sistemas de informação</p>
+              <td style="width: 220px">
+                Sistemas de informação
               </td>
-              <td>
-                <div style="width:100px"></div>
-              </td>
+              <td style="width:100px"></td>
             </tr>
             <template v-for="grade in Grades_SI">
               <tr
@@ -96,22 +84,18 @@
                   { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
-                <td>
-                  <p style="width: 220px"></p>
-                </td>
-                <td>
-                  <p style="width: 100px">{{ grade.nome }}</p>
+                <td style="width: 220px"></td>
+                <td style="width: 100px">
+                  {{ grade.nome }}
                 </td>
               </tr>
             </template>
 
             <tr class="bg-custom">
-              <td>
-                <p style="width: 220px">Engenharia da Computação</p>
+              <td style="width: 220px">
+                Engenharia da Computação
               </td>
-              <td>
-                <div style="width:100px"></div>
-              </td>
+              <td style="width:100px"></td>
             </tr>
             <template v-for="grade in Grade_EC">
               <tr
@@ -122,16 +106,14 @@
                   { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
-                <td>
-                  <p style="width: 220px"></p>
-                </td>
-                <td>
-                  <p style="width: 100px">{{ grade.nome }}</p>
+                <td style="width: 220px"></td>
+                <td style="width: 100px">
+                  {{ grade.nome }}
                 </td>
               </tr>
             </template>
-          </tbody>
-        </table>
+          </template>
+        </TableMain>
       </div>
 
       <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
@@ -268,6 +250,7 @@ import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import PageTitle from "@/components/PageTitle";
 import Card from "@/components/Card";
+import TableMain from "@/components/TableMain";
 
 const emptyGrade = {
   id: undefined,
@@ -282,7 +265,7 @@ const emptyDisciplinaGrade = {
 };
 export default {
   name: "DashboardGrade",
-  components: { PageTitle, Card },
+  components: { PageTitle, Card, TableMain },
   data() {
     return {
       error: undefined,
@@ -471,66 +454,11 @@ header {
   text-align: center;
 }
 
-/* main-table */
-.divTable {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
 .main-table {
-  display: block !important;
   overflow: auto !important;
-  font-size: 11px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
-}
-.main-table .p-header {
-  height: 18px;
-}
-.main-table p {
-  padding: 0 5px 0 5px !important;
-  margin: 0 !important;
-  font-size: 11px !important;
-  text-align: center;
-}
-tbody {
-  max-height: 100% !important;
-  width: 100% !important;
-}
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  height: 22px !important;
-}
-.main-table tr thead {
-  display: block !important;
-}
-.main-table thead th {
-  padding: 0 !important;
-  font-size: 14px;
-  text-align: center;
-  height: 18px !important;
-}
-.main-table input[type="checkbox"] {
-  width: 13px !important;
-  height: 13px !important;
-  text-align: center !important;
-  margin: 0 !important;
-  margin-top: 4px !important;
-}
-/* fim table */
-
-.clickable {
-  cursor: pointer;
 }
 
 .listas {
