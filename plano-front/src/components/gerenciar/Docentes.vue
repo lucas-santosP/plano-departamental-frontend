@@ -18,29 +18,29 @@
           <template #thead>
             <th
               class="clickable t-start"
-              @click="toggleOrdMain('nome')"
+              @click="toggleOrder('nome')"
               title="Clique para ordenar por nome"
               style="width: 240px;"
             >
               Nome
-              <i :class="checkOrder('nome')"></i>
+              <i :class="setIconByOrder('nome')"></i>
             </th>
             <th
               class="clickable t-start"
-              @click="toggleOrdMain('apelido')"
+              @click="toggleOrder('apelido')"
               title="Clique para ordenar por apelido"
               style="width: 120px;"
             >
               Apelido
-              <i :class="checkOrder('apelido')"></i>
+              <i :class="setIconByOrder('apelido')"></i>
             </th>
             <th
-              style="width:50px"
+              style="width:60px"
               class="clickable t-center"
-              @click="toggleOrdMain('ativo')"
+              @click="toggleOrder('ativo')"
             >
               Ativo
-              <i :class="checkOrder('ativo')"></i>
+              <i :class="setIconByOrder('ativo')"></i>
             </th>
           </template>
           <template #tbody>
@@ -61,7 +61,7 @@
                 <td style="width:120px;" class="t-start">
                   {{ docente.apelido }}
                 </td>
-                <td style="width:50px">
+                <td style="width:60px">
                   {{ textoAtivo(docente.ativo) }}
                 </td>
               </tr>
@@ -302,8 +302,8 @@ export default {
     clearClick() {
       this.docenteClickado = "";
     },
-    checkOrder(order) {
-      if (this.ordenacao.order === order) {
+    setIconByOrder(orderToCheck) {
+      if (this.ordenacao.order === orderToCheck) {
         return this.ordenacao.type == "asc"
           ? "fas fa-arrow-down fa-sm"
           : "fas fa-arrow-up fa-sm";
@@ -311,7 +311,7 @@ export default {
         return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
-    toggleOrdMain(newOrder, type = "asc") {
+    toggleOrder(newOrder, type = "asc") {
       if (this.ordenacao.order != newOrder) {
         this.ordenacao.order = newOrder;
         this.ordenacao.type = type;

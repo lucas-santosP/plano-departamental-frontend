@@ -1,5 +1,5 @@
 <template>
-  <div id="Validacoes" class="DashboardValidacoes row pr-2">
+  <div id="Validacoes" class="DashboardValidacoes row">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
@@ -73,16 +73,12 @@
                 <p
                   style="width: 696px; text-align: start;"
                   class="p-header clickable"
-                  @click="toggleOrdDocentes"
+                  @click="toggleOrder(ordemDocentes, 'nome')"
                 >
                   Nome
                   <i
                     style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      ordemDocentes == 'asc'
-                        ? 'fas fa-arrow-down fa-sm'
-                        : 'fas fa-arrow-up fa-sm'
-                    "
+                    :class="setIconByOrder(ordemDocentes, 'nome')"
                   ></i>
                 </p>
               </th>
@@ -90,7 +86,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="validacao in Docentes_validacoes">
+          <template v-for="validacao in DocentesValidacoesOrdered">
             <tr :key="'validacoes-' + validacao.nome" class="bg-custom">
               <div class="max-content">
                 <td>
@@ -138,18 +134,12 @@
                 <p
                   style="width: 35px; text-align: center;"
                   class="p-header clickable"
-                  @click="toggleOrdTurmas('turma_periodo')"
+                  @click="toggleOrder(ordemTurmas, 'periodo')"
                 >
                   S.
                   <i
                     style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      ordemTurmas.order == 'turma_periodo'
-                        ? ordemTurmas.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
+                    :class="setIconByOrder(ordemTurmas, 'periodo')"
                   ></i>
                 </p>
               </th>
@@ -157,18 +147,12 @@
                 <p
                   style="width: 70px; text-align: start;"
                   class="p-header clickable"
-                  @click="toggleOrdTurmas('disciplina_perfil')"
+                  @click="toggleOrder(ordemTurmas, 'disciplina_perfil')"
                 >
                   Perfil
                   <i
                     style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      ordemTurmas.order == 'disciplina_perfil'
-                        ? ordemTurmas.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
+                    :class="setIconByOrder(ordemTurmas, 'disciplina_perfil')"
                   ></i>
                 </p>
               </th>
@@ -176,18 +160,12 @@
                 <p
                   style="width: 70px; text-align: start;"
                   class="p-header clickable"
-                  @click="toggleOrdTurmas('disciplina_codigo')"
+                  @click="toggleOrder(ordemTurmas, 'disciplina_codigo')"
                 >
                   Cód.
                   <i
                     style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      ordemTurmas.order == 'disciplina_codigo'
-                        ? ordemTurmas.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
+                    :class="setIconByOrder(ordemTurmas, 'disciplina_codigo')"
                   ></i>
                 </p>
               </th>
@@ -195,18 +173,12 @@
                 <p
                   style="width: 300px; text-align: start;"
                   class="p-header clickable"
-                  @click="toggleOrdTurmas('disciplina_nome')"
+                  @click="toggleOrder(ordemTurmas, 'disciplina_nome')"
                 >
                   Disciplina
                   <i
                     style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      ordemTurmas.order == 'disciplina_nome'
-                        ? ordemTurmas.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
+                    :class="setIconByOrder(ordemTurmas, 'disciplina_nome')"
                   ></i>
                 </p>
               </th>
@@ -225,7 +197,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="validacao in Turmas_Validacoes_Ordered">
+          <template v-for="validacao in TurmasValidacoesOrdered">
             <tr
               :key="'validacoes-' + validacao.id + validacao.disciplina_codigo"
               class="bg-custom"
@@ -478,18 +450,11 @@
       </div>
     </b-modal>
     <!-- modal turma edit -->
-    <b-modal
-      id="modalTurma"
-      ref="modalTurma"
-      scrollable
-      title="Edição de Turma"
-      size="md"
-      hide-footer
-    >
+    <b-modal id="modalTurma" scrollable title="Edição de Turma" hide-footer>
       <ModalTurma :turma="turma_clickada"></ModalTurma>
     </b-modal>
     <!-- MODAL AJUDA -->
-    <b-modal id="modalAjuda" scrollable title="Ajuda">
+    <b-modal id="modalAjuda" title="Ajuda" scrollable hide-footer>
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
@@ -510,8 +475,6 @@
           </li>
         </ul>
       </div>
-
-      <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
   </div>
 </template>
@@ -564,12 +527,11 @@ export default {
       ConflitosAtivados: [],
       semestreAtual: 3,
       semestre_1Ativo: true,
-      semestre_2Ativo: false,
+      semestre_2Ativo: true,
       turma_clickada: null,
       nav_table: "turmas",
       ordemTurmas: { order: "periodo", type: "asc" },
-      ordemDocentes: "asc",
-      ordemDocentes: "asc",
+      ordemDocentes: { order: "nome", type: "asc" },
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
@@ -738,18 +700,8 @@ export default {
         break;
       }
     }
-    console.log(this.grades1semestre);
-    console.log(this.grades2semestre);
   },
   methods: {
-    selectAll() {
-      if (this.modal_navtab == "Semestre") this.selectAllSemestre();
-      else this.selectAllConflitos();
-    },
-    selectNone() {
-      if (this.modal_navtab == "Semestre") this.selectNoneSemestre();
-      else this.selectNoneConflitos();
-    },
     btnOK() {
       this.btnOkSemestre();
       this.ConflitosAtivados = [...this.ConflitosSelected];
@@ -770,6 +722,14 @@ export default {
       this.semestre_1Ativo = true;
       this.semestre_2Ativo = true;
     },
+    selectAll() {
+      if (this.modal_navtab === "Semestre") this.selectAllSemestre();
+      else this.selectAllConflitos();
+    },
+    selectNone() {
+      if (this.modal_navtab == "Semestre") this.selectNoneSemestre();
+      else this.selectNoneConflitos();
+    },
     selectNoneSemestre() {
       this.semestre_1Ativo = false;
       this.semestre_2Ativo = false;
@@ -786,20 +746,21 @@ export default {
       this.turma_clickada = this.findTurmaById(id);
       this.$bvModal.show("modalTurma");
     },
-    toggleOrdTurmas(ord) {
-      if (this.ordemTurmas.order != ord) {
-        this.ordemTurmas.order = ord;
-        this.ordemTurmas.type = "asc";
+    toggleOrder(currentOrder, newOrder, type = "asc") {
+      if (currentOrder.order != newOrder) {
+        currentOrder.order = newOrder;
+        currentOrder.type = type;
       } else {
-        this.ordemTurmas.type =
-          this.ordemTurmas.type === "asc" ? "desc" : "asc";
+        currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
       }
     },
-    toggleOrdDocentes() {
-      if (this.ordemDocentes === "asc") {
-        this.ordemDocentes = "desc";
+    setIconByOrder(currentOrder, orderToCheck) {
+      if (currentOrder.order === orderToCheck) {
+        return currentOrder.type == "asc"
+          ? "fas fa-arrow-down fa-sm"
+          : "fas fa-arrow-up fa-sm";
       } else {
-        this.ordemDocentes = "asc";
+        return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
     findPerfilById(id) {
@@ -1246,12 +1207,12 @@ export default {
       if (conflitos) return { type: 10, msg: msg };
       else return false;
     },
-    isLab(id) {
-      let cond = _.find(
+    isLab(salaId) {
+      let salaResultante = _.find(
         this.Salas,
-        (sala) => id == sala.id && sala.laboratorio
+        (sala) => salaId == sala.id && sala.laboratorio
       );
-      if (cond !== undefined) return true;
+      if (salaResultante !== undefined) return true;
       else return false;
     },
     creditosGraduacao(docente) {
@@ -1292,10 +1253,9 @@ export default {
     },
   },
   computed: {
-    //Turmas validacoes ordenadas
-    Turmas_Validacoes_Ordered() {
+    TurmasValidacoesOrdered() {
       return _.orderBy(
-        _.filter(this.Turmas_Validacoes, (valid) => {
+        _.filter(this.TurmasValidacoes, (valid) => {
           if (this.semestreAtual === 1) return valid.periodo == 1;
           else if (this.semestreAtual === 2) return valid.periodo == 1;
 
@@ -1306,7 +1266,7 @@ export default {
       );
     },
     //Verifica validações das turmas
-    Turmas_Validacoes() {
+    TurmasValidacoes() {
       let turmas_resultante = [];
 
       this.Turmas.forEach((turma) => {
@@ -1324,16 +1284,15 @@ export default {
       });
 
       return turmas_resultante;
-      // .filter((valid) => {
-      //   valid.conflitos = _.filter(valid.conflitos, (c) =>
-      //     _.find(this.ConflitosAtivados, (id) => c.type == id)
-      //   );
-
-      //   if (valid.conflitos.length != 0) return true;
-      //   return false;
-      // });
     },
-    Docentes_validacoes() {
+    DocentesValidacoesOrdered() {
+      return _.orderBy(
+        this.DocentesValidacoes,
+        this.ordemDocentes.order,
+        this.ordemDocentes.type
+      );
+    },
+    DocentesValidacoes() {
       let docentes_resultantes = [];
 
       this.Docentes.forEach((docente) => {
@@ -1372,11 +1331,7 @@ export default {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
     Docentes() {
-      return _.orderBy(
-        _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
-        "nome",
-        this.ordemDocentes
-      );
+      return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
     },
   },
 };
