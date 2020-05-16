@@ -36,14 +36,17 @@
   user-select: none;
 }
 .bg-custom {
-  background-color: #c8c8c8;
+  background-color: #00000015;
 }
 .bg-custom:hover {
-  background-color: #c8c8c8;
+  background-color: #00000015;
 }
-.tr-bg {
-  background-color: #00000017;
+.bg-selected,
+.bg-selected:hover {
+  background-color: #787878 !important;
+  color: #fff !important;
 }
+
 /* fim main-table */
 
 /* ==== MODAL TABLE ==== */
@@ -100,6 +103,7 @@
   padding-right: 20px !important;
   padding-top: 4px !important;
 }
+/* FIM MODAL TABLE */
 
 @-moz-document url-prefix() {
   .main-table tbody select {
@@ -109,4 +113,3 @@
     margin-top: 0px !important;
   }
 }
-/* FIM MODAL TABLE */

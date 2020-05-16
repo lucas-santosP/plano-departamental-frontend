@@ -87,11 +87,13 @@ tbody {
   margin: 0 !important;
   margin-top: 4px !important;
 }
-.bg-custom {
-  /* ou 17 no final */
-  background-color: #00000015;
-}
-.tr-bg-gray {
-  background-color: #00000015;
+
+@-moz-document url-prefix() {
+  .main-table tbody select {
+    height: 20px !important;
+  }
+  .main-table tbody input[type="text"] {
+    margin-top: 0px !important;
+  }
 }
 </style>
