@@ -88,6 +88,17 @@ tbody {
   margin-top: 4px !important;
 }
 
+.bg-custom {
+  background-color: #00000015;
+}
+.bg-custom:hover {
+  background-color: #00000015;
+}
+.bg-selected,
+.bg-selected:hover {
+  background-color: #787878 !important;
+  color: #fff !important;
+}
 @-moz-document url-prefix() {
   .main-table tbody select {
     height: 20px !important;

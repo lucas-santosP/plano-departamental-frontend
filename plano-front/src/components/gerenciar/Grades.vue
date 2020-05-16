@@ -27,7 +27,7 @@
           </thead>
 
           <tbody>
-            <tr class="bg-custom-tr">
+            <tr class="bg-custom">
               <td>
                 <p style="width: 220px">Ciência da Computação Diurno</p>
               </td>
@@ -41,7 +41,7 @@
                 :key="'grade-id' + grade.id"
                 :class="[
                   'clickable',
-                  { 'bg-custom': gradeForm.id == grade.id },
+                  { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -53,7 +53,7 @@
               </tr>
             </template>
 
-            <tr class="bg-custom-tr">
+            <tr class="bg-custom">
               <td>
                 <p style="width: 220px">Ciência da Computação Noturno</p>
               </td>
@@ -67,7 +67,7 @@
                 :key="'grade-id' + grade.id"
                 :class="[
                   'clickable',
-                  { 'bg-custom': gradeForm.id == grade.id },
+                  { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -79,7 +79,7 @@
               </tr>
             </template>
 
-            <tr class="bg-custom-tr">
+            <tr class="bg-custom">
               <td>
                 <p style="width: 220px">Sistemas de informação</p>
               </td>
@@ -93,7 +93,7 @@
                 :key="'grade-id' + grade.id"
                 :class="[
                   'clickable',
-                  { 'bg-custom': gradeForm.id == grade.id },
+                  { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -105,7 +105,7 @@
               </tr>
             </template>
 
-            <tr class="bg-custom-tr">
+            <tr class="bg-custom">
               <td>
                 <p style="width: 220px">Engenharia da Computação</p>
               </td>
@@ -119,7 +119,7 @@
                 :key="'grade-id' + grade.id"
                 :class="[
                   'clickable',
-                  { 'bg-custom': gradeForm.id == grade.id },
+                  { 'bg-selected': gradeForm.id == grade.id },
                 ]"
               >
                 <td>
@@ -533,16 +533,6 @@ tbody {
   cursor: pointer;
 }
 
-.bg-custom {
-  background-color: #c8c8c8;
-}
-.bg-custom:hover {
-  background-color: #c8c8c8;
-}
-.bg-custom-tr {
-  background-color: rgba(0, 0, 0, 0.089);
-  color: black;
-}
 .listas {
   line-height: 30px;
   font-size: 12px;

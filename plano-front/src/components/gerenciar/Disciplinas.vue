@@ -80,7 +80,7 @@
                     handleClickInDisciplina(disciplina.codigo)
                 "
                 :class="[
-                  { 'bg-custom': disciplinaClickada === disciplina.codigo },
+                  { 'bg-selected': disciplinaClickada === disciplina.codigo },
                   'clickable',
                 ]"
               >
@@ -214,14 +214,12 @@
                 </select>
               </div>
               <div class="form-group col m-0 px-0">
-                <label for="ead" class="col-form-label"
-                >EAD</label
-                >
+                <label for="ead" class="col-form-label">EAD</label>
                 <select
-                        type="text"
-                        class="form-control form-control-sm input-medio"
-                        id="ead"
-                        v-model="disciplinaForm.ead"
+                  type="text"
+                  class="form-control form-control-sm input-medio"
+                  id="ead"
+                  v-model="disciplinaForm.ead"
                 >
                   <option value="0">Não</option>
                   <option value="1">Integral</option>

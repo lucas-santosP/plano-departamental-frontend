@@ -112,7 +112,7 @@
                   showCurso(curso), handleClickInCurso(curso.codigo)
                 "
                 :class="[
-                  { 'bg-custom': cursoClickado === curso.codigo },
+                  { 'bg-selected': cursoClickado === curso.codigo },
                   'clickable',
                 ]"
               >

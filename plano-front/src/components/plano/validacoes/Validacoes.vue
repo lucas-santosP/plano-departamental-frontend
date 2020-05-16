@@ -91,7 +91,7 @@
         </thead>
         <tbody>
           <template v-for="validacao in Docentes_validacoes">
-            <tr :key="'validacoes-' + validacao.nome" class="tr-bg">
+            <tr :key="'validacoes-' + validacao.nome" class="bg-custom">
               <div class="max-content">
                 <td>
                   <p style="width: 696px;  text-align: start;">
@@ -228,7 +228,7 @@
           <template v-for="validacao in Turmas_Validacoes_Ordered">
             <tr
               :key="'validacoes-' + validacao.id + validacao.disciplina_codigo"
-              class="tr-bg"
+              class="bg-custom"
             >
               <div class="max-content">
                 <td>

@@ -78,7 +78,7 @@
                   handleClickInDocente(docente, DocentePerfis)
                 "
                 :class="[
-                  { 'bg-custom': docenteClickado == docente.id },
+                  { 'bg-selected': docenteClickado == docente.id },
                   'clickable',
                 ]"
               >
@@ -669,12 +669,6 @@ export default {
 /* FIM MODAL TABLE */
 /* =================== */
 
-.bg-custom {
-  background-color: #c8c8c8;
-}
-.bg-custom:hover {
-  background-color: #c8c8c8;
-}
 .listas {
   line-height: 30px;
   font-size: 12px;
