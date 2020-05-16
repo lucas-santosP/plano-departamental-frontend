@@ -4,8 +4,8 @@
     ref="refMainTable"
     class="main-table table table-hover table-sm table-bordered"
   >
-    <thead class="thead-light">
-      <tr class="sticky">
+    <thead class="thead-light sticky">
+      <tr style="  width: 100% !important;">
         <div class="max-content">
           <slot name="thead"></slot>
         </div>
@@ -35,8 +35,7 @@ export default {
   background-color: white;
   margin: 0 !important;
   margin-bottom: 20px !important;
-  /* ou - 100px */
-  height: -webkit-calc(100vh - 110px);
+  height: -webkit-calc(100vh - 110px); /* ou - 100px */
   height: -moz-calc(100vh - 110px);
   height: calc(100vh - 110px);
 }
@@ -44,6 +43,25 @@ export default {
   height: -webkit-calc(100vh - 125px);
   height: -moz-calc(100vh - 125px);
   height: calc(100vh - 125px);
+}
+.sticky {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  width: 100% !important;
+  top: 0px !important;
+  overflow: hidden !important;
+  z-index: 3;
+}
+.sticky2 {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 38px !important;
+  overflow: hidden !important;
+  z-index: 3;
 }
 .main-table tr thead {
   display: block !important;
@@ -64,23 +82,25 @@ export default {
 .main-table thead tr th i {
   font-size: 0.575rem;
 }
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 5px !important;
-  margin: 0 !important;
-  height: 20px !important;
-}
 tbody {
   max-height: 100% !important;
   width: 100% !important;
 }
-
+.main-table thead th,
+.main-table tbody td {
+  vertical-align: middle !important;
+  word-break: break-word;
+  text-align: center;
+  margin: 0 !important;
+}
 .main-table thead th {
   padding: 0 !important;
   font-size: 14px;
-  text-align: center;
   height: 18px !important;
+}
+.main-table tbody td {
+  padding: 0 5px !important;
+  height: 20px !important;
 }
 .main-table input[type="checkbox"] {
   width: 13px !important;
@@ -100,6 +120,7 @@ tbody {
 .bg-selected:hover {
   background-color: #787878 !important;
   color: #fff !important;
+  cursor: default;
 }
 @-moz-document url-prefix() {
   .main-table tbody select {

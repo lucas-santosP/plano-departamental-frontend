@@ -87,7 +87,7 @@
         <main
           @click="closeSideBar()"
           role="main"
-          class="col-12 pl-2 pr-0 pt-0 pl-0"
+          class="col-12 p-0 px-2"
           v-if="!isLoading"
         >
           <router-view></router-view>

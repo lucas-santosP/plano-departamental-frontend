@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardDisciplinas row pr-2" v-if="Admin">
+  <div class="main-component row pr-2" v-if="Admin">
     <PageTitle :title="'Disciplinas'">
       <template #aside>
         <button
@@ -12,9 +12,7 @@
         </button>
       </template>
     </PageTitle>
-    <!--  -->
-    <div class="w-100 mb-2 border-bottom"></div>
-    <!--  -->
+
     <div class="row w-100 m-0">
       <div class="divTable p-0">
         <TableMain>
@@ -26,91 +24,83 @@
               title="Clique para ordenar por nome"
             >
               Nome
-              <i
-                style=" text-align:right"
-                :class="
-                  ordenacao.order == 'nome'
-                    ? ordenacao.type == 'asc'
-                      ? 'fas fa-arrow-down fa-sm'
-                      : 'fas fa-arrow-up fa-sm'
-                    : 'fas fa-arrow-down fa-sm low-opacity'
-                "
-              ></i>
+              <i :class="checkOrder('nome')"></i>
             </th>
             <th
               style="width: 82px; text-align:start"
               @click="toggleOrdMain('codigo')"
-              class=" clickable"
+              class="clickable"
               title="Clique para ordenar por código"
             >
               Código
-              <i
-                style=" text-align:right"
-                :class="
-                  ordenacao.order == 'codigo'
-                    ? ordenacao.type == 'asc'
-                      ? 'fas fa-arrow-down fa-sm'
-                      : 'fas fa-arrow-up fa-sm'
-                    : 'fas fa-arrow-down fa-sm low-opacity'
-                "
-              ></i>
+              <i :class="checkOrder('codigo')"></i>
             </th>
-            <th style="width: 40px;" class="" title="Carga Teórica">
+            <th style="width: 40px" title="Carga Teórica">
               C.T.
             </th>
-            <th style="width: 40px;" class="" title="Carga Prática">
+            <th style="width: 40px" title="Carga Prática">
               C.P.
             </th>
-            <th style="width: 230px;text-align: start" class="">
+            <th
+              style="width: 230px"
+              class="clickable t-start"
+              @click="toggleOrdMain('perfil_nome')"
+            >
               Perfil
+              <i :class="checkOrder('perfil_nome')"></i>
             </th>
-            <th style="width: 70px" class="">
+            <th
+              style="width: 70px"
+              class="clickable"
+              @click="toggleOrdMain('ead', 'desc')"
+            >
               EAD
+              <i :class="checkOrder('ead')"></i>
             </th>
-            <th style="width: 70px" class="">
+            <th
+              style="width: 70px"
+              class="clickable"
+              @click="toggleOrdMain('laboratorio', 'desc')"
+            >
               Lab
+              <i :class="checkOrder('laboratorio')"></i>
             </th>
           </template>
           <template #tbody>
-            <template v-for="disciplina in Disciplinas">
+            <template v-for="disciplina in DisciplinasOrdered">
               <tr
                 :key="'table disciplina:' + disciplina.id"
-                @click.prevent="
-                  showDisciplina(disciplina),
-                    handleClickInDisciplina(disciplina.codigo)
-                "
+                @click.prevent="handleClickInDisciplina(disciplina)"
                 :class="[
                   { 'bg-selected': disciplinaClickada === disciplina.codigo },
                   'clickable',
                 ]"
               >
-                <div class="max-content">
-                  <td style="width: 300px; text-align: start">
-                    {{ disciplina.nome }}
-                  </td>
-                  <td style="width: 82px; text-align: start">
-                    {{ disciplina.codigo }}
-                  </td>
-                  <td style="width: 40px">
-                    {{ disciplina.cargaTeorica }}
-                  </td>
-                  <td style="width: 40px">
-                    {{ disciplina.cargaPratica }}
-                  </td>
+                <td style="width: 300px; text-align: start">
+                  {{ disciplina.nome }}
+                </td>
+                <td style="width: 82px; text-align: start">
+                  {{ disciplina.codigo }}
+                </td>
+                <td style="width: 40px">
+                  {{ disciplina.cargaTeorica }}
+                </td>
+                <td style="width: 40px">
+                  {{ disciplina.cargaPratica }}
+                </td>
 
-                  <td style="width: 230px; text-align: start">
-                    {{ GetPerfilNomeById(disciplina.Perfil) }}
-                  </td>
-                  <td style="width: 70px">
-                    {{ textoEad(disciplina.ead) }}
-                  </td>
-                  <td style="width: 70px">
-                    {{ textoLab(disciplina.laboratorio) }}
-                  </td>
-                </div>
+                <td style="width: 230px; text-align: start">
+                  {{ disciplina.perfil_nome }}
+                </td>
+                <td style="width: 70px">
+                  {{ textoEad(disciplina.ead) }}
+                </td>
+                <td style="width: 70px">
+                  {{ textoLab(disciplina.laboratorio) }}
+                </td>
               </tr>
             </template>
-            <template v-if="Disciplinas.length == 0">
+            <template v-if="DisciplinasOrdered.length == 0">
               <tr>
                 <td class="text-center">
                   <i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina
@@ -123,7 +113,7 @@
       </div>
 
       <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
-        <Card title="Disciplina">
+        <Card :title="'Disciplina'">
           <template #form-group>
             <div class="row mb-2 mx-0">
               <div class="form-group m-0 col px-0">
@@ -228,7 +218,7 @@
               </div>
             </div>
           </template>
-          <template #botoes>
+          <template #footer>
             <template v-if="isEdit">
               <button
                 class="btn-custom btn-icon addbtn"
@@ -285,7 +275,7 @@
     </div>
 
     <!-- MODAL DE AJUDA -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+    <b-modal id="modalAjuda" scrollable title="Ajuda" hide-footer>
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
@@ -315,8 +305,6 @@
           </li>
         </ul>
       </div>
-
-      <div slot="modal-footer" style="display: none"></div>
     </b-modal>
   </div>
 </template>
@@ -352,6 +340,15 @@ export default {
     };
   },
   methods: {
+    checkOrder(order) {
+      if (this.ordenacao.order === order) {
+        return this.ordenacao.type == "asc"
+          ? "fas fa-arrow-down fa-sm"
+          : "fas fa-arrow-up fa-sm";
+      } else {
+        return "fas fa-arrow-down fa-sm low-opacity";
+      }
+    },
     GetPerfilNomeById(id) {
       let perfil = _.find(this.Perfis, (perfil) => id === perfil.id);
       return perfil ? perfil.nome : "Nenhum perfil encontrado com id: " + id;
@@ -371,7 +368,8 @@ export default {
       }
     },
     handleClickInDisciplina(disciplina) {
-      this.disciplinaClickada = disciplina;
+      this.showDisciplina(disciplina);
+      this.disciplinaClickada = disciplina.codigo;
     },
     clearClick() {
       this.disciplinaClickada = "";
@@ -488,9 +486,21 @@ export default {
   },
 
   computed: {
-    Disciplinas() {
+    DisciplinasComPerfil() {
+      let disciplinasResultante = this.$store.state.disciplina.Disciplinas;
+      disciplinasResultante.forEach((disciplina) => {
+        _.find(this.Perfis, (perfil) => {
+          if (perfil.id === disciplina.Perfil) {
+            disciplina.perfil_nome = perfil.nome;
+            return true;
+          }
+        });
+      });
+      return disciplinasResultante;
+    },
+    DisciplinasOrdered() {
       return _.orderBy(
-        this.$store.state.disciplina.Disciplinas,
+        this.DisciplinasComPerfil,
         this.ordenacao.order,
         this.ordenacao.type
       );
@@ -516,12 +526,6 @@ export default {
 </script>
 
 <style scoped>
-.DashboardDisciplinas {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-
 .card .input-maior {
   width: 280px;
 }
@@ -532,16 +536,7 @@ export default {
   width: 80px;
   text-align: center !important;
 }
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
+
 @media screen and (max-width: 1223px) {
   .div-card {
     margin-left: 0px !important;
