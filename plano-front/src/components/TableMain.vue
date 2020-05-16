@@ -4,9 +4,9 @@
     ref="refMainTable"
     class="main-table table table-hover table-sm table-bordered"
   >
-    <thead class="thead-light sticky">
-      <tr style="  width: 100% !important;">
-        <div class="max-content">
+    <thead class="thead-light">
+      <tr>
+        <div class="max-content sticky">
           <slot name="thead"></slot>
         </div>
       </tr>
@@ -35,15 +35,49 @@ export default {
   background-color: white;
   margin: 0 !important;
   margin-bottom: 20px !important;
-  height: -webkit-calc(100vh - 110px); /* ou - 100px */
-  height: -moz-calc(100vh - 110px);
-  height: calc(100vh - 110px);
+  height: -webkit-calc(100vh - 100px); /* ou - 100px */
+  height: -moz-calc(100vh - 100px);
+  height: calc(100vh - 100px);
 }
-.tab-table {
-  height: -webkit-calc(100vh - 125px);
-  height: -moz-calc(100vh - 125px);
-  height: calc(100vh - 125px);
+
+.main-table tr thead {
+  display: block !important;
 }
+tbody {
+  max-height: 100% !important;
+  width: 100% !important;
+}
+.main-table thead th,
+.main-table tbody td {
+  vertical-align: middle !important;
+  word-break: break-word;
+  text-align: center;
+  margin: 0 !important;
+  padding: 0 2px !important;
+}
+.main-table thead tr th {
+  height: 18px !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.main-table tbody td {
+  height: 20px !important;
+}
+.main-table thead tr th i {
+  font-size: 0.575rem;
+}
+.main-table input[type="checkbox"] {
+  width: 13px !important;
+  height: 13px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  margin-top: 4px !important;
+}
+
 .sticky {
   display: block !important;
   overflow: hidden !important;
@@ -63,53 +97,6 @@ export default {
   overflow: hidden !important;
   z-index: 3;
 }
-.main-table tr thead {
-  display: block !important;
-}
-.main-table thead tr th {
-  height: 18px;
-  padding: 0 5px !important;
-  margin: 0 !important;
-  font-size: 11px !important;
-  text-align: center;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
-.main-table thead tr th i {
-  font-size: 0.575rem;
-}
-tbody {
-  max-height: 100% !important;
-  width: 100% !important;
-}
-.main-table thead th,
-.main-table tbody td {
-  vertical-align: middle !important;
-  word-break: break-word;
-  text-align: center;
-  margin: 0 !important;
-}
-.main-table thead th {
-  padding: 0 !important;
-  font-size: 14px;
-  height: 18px !important;
-}
-.main-table tbody td {
-  padding: 0 5px !important;
-  height: 20px !important;
-}
-.main-table input[type="checkbox"] {
-  width: 13px !important;
-  height: 13px !important;
-  text-align: center !important;
-  margin: 0 !important;
-  margin-top: 4px !important;
-}
-
 .bg-custom {
   background-color: #00000015;
 }

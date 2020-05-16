@@ -18,48 +18,48 @@
         <TableMain>
           <template #thead>
             <th
-              @click="toggleOrd('nome')"
+              @click="toggleOrder('nome')"
               title="Clique para ordenar por nome"
               class="clickable t-start"
               style="width:300px"
             >
               Nome
-              <i :class="checkOrder('nome')"></i>
+              <i :class="setIconByOrder('nome')"></i>
             </th>
             <th
-              @click="toggleOrd('codigo')"
+              @click="toggleOrder('codigo')"
               title="Clique para ordenar por nome"
               class="clickable t-start"
               style="width: 65px"
             >
               Código
-              <i :class="checkOrder('codigo')"></i>
+              <i :class="setIconByOrder('codigo')"></i>
             </th>
             <th
               class="clickable t-start"
               style="width:60px"
-              @click="toggleOrd('turno')"
+              @click="toggleOrder('turno')"
             >
               Turno
-              <i :class="checkOrder('turno')"></i>
+              <i :class="setIconByOrder('turno')"></i>
             </th>
             <th
               class="clickable"
               style="width: 70px"
               title="Entrada de alunos 1º Semestre"
-              @click="toggleOrd('alunosEntrada', 'desc')"
+              @click="toggleOrder('alunosEntrada', 'desc')"
             >
               1º Sem.
-              <i :class="checkOrder('alunosEntrada')"></i>
+              <i :class="setIconByOrder('alunosEntrada')"></i>
             </th>
             <th
               class="clickable"
               style="width: 70px"
               title="Entrada de alunos 2º Semestre"
-              @click="toggleOrd('alunosEntrada2', 'desc')"
+              @click="toggleOrder('alunosEntrada2', 'desc')"
             >
               2º Sem.
-              <i :class="checkOrder('alunosEntrada2')"></i>
+              <i :class="setIconByOrder('alunosEntrada2')"></i>
             </th>
           </template>
           <template #tbody>
@@ -321,8 +321,8 @@ export default {
         $event.preventDefault();
       }
     },
-    checkOrder(order) {
-      if (this.ordenacao.order === order) {
+    setIconByOrder(orderToCheck) {
+      if (this.ordenacao.order === orderToCheck) {
         return this.ordenacao.type == "asc"
           ? "fas fa-arrow-down fa-sm"
           : "fas fa-arrow-up fa-sm";
@@ -330,7 +330,7 @@ export default {
         return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
-    toggleOrd(newOrder, type = "asc") {
+    toggleOrder(newOrder, type = "asc") {
       if (this.ordenacao.order != newOrder) {
         this.ordenacao.order = newOrder;
         this.ordenacao.type = type;

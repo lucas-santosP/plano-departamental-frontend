@@ -18,22 +18,22 @@
         <TableMain>
           <template #thead>
             <th
-              @click="toggleOrdMain('nome')"
+              @click="toggleOrder('nome')"
               style="width: 300px; text-align:start"
               class="clickable"
               title="Clique para ordenar por nome"
             >
               Nome
-              <i :class="checkOrder('nome')"></i>
+              <i :class="setIconByOrder('nome')"></i>
             </th>
             <th
               style="width: 82px; text-align:start"
-              @click="toggleOrdMain('codigo')"
+              @click="toggleOrder('codigo')"
               class="clickable"
               title="Clique para ordenar por código"
             >
               Código
-              <i :class="checkOrder('codigo')"></i>
+              <i :class="setIconByOrder('codigo')"></i>
             </th>
             <th style="width: 40px" title="Carga Teórica">
               C.T.
@@ -44,26 +44,26 @@
             <th
               style="width: 230px"
               class="clickable t-start"
-              @click="toggleOrdMain('perfil_nome')"
+              @click="toggleOrder('perfil_nome')"
             >
               Perfil
-              <i :class="checkOrder('perfil_nome')"></i>
+              <i :class="setIconByOrder('perfil_nome')"></i>
             </th>
             <th
               style="width: 70px"
               class="clickable"
-              @click="toggleOrdMain('ead', 'desc')"
+              @click="toggleOrder('ead', 'desc')"
             >
               EAD
-              <i :class="checkOrder('ead')"></i>
+              <i :class="setIconByOrder('ead')"></i>
             </th>
             <th
               style="width: 70px"
               class="clickable"
-              @click="toggleOrdMain('laboratorio', 'desc')"
+              @click="toggleOrder('laboratorio', 'desc')"
             >
               Lab
-              <i :class="checkOrder('laboratorio')"></i>
+              <i :class="setIconByOrder('laboratorio')"></i>
             </th>
           </template>
           <template #tbody>
@@ -97,14 +97,6 @@
                 </td>
                 <td style="width: 70px">
                   {{ textoLab(disciplina.laboratorio) }}
-                </td>
-              </tr>
-            </template>
-            <template v-if="DisciplinasOrdered.length == 0">
-              <tr>
-                <td class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhuma disciplina
-                  encontrada!
                 </td>
               </tr>
             </template>
@@ -340,31 +332,27 @@ export default {
     };
   },
   methods: {
-    checkOrder(order) {
-      if (this.ordenacao.order === order) {
-        return this.ordenacao.type == "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
-    },
-    GetPerfilNomeById(id) {
-      let perfil = _.find(this.Perfis, (perfil) => id === perfil.id);
-      return perfil ? perfil.nome : "Nenhum perfil encontrado com id: " + id;
-    },
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (keyCode < 48 || keyCode > 57) {
         $event.preventDefault();
       }
     },
-    toggleOrdMain(ord, type = "asc") {
+    toggleOrder(ord, type = "asc") {
       if (this.ordenacao.order != ord) {
         this.ordenacao.order = ord;
         this.ordenacao.type = type;
       } else {
         this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
+      }
+    },
+    setIconByOrder(order) {
+      if (this.ordenacao.order === order) {
+        return this.ordenacao.type == "asc"
+          ? "fas fa-arrow-down fa-sm"
+          : "fas fa-arrow-up fa-sm";
+      } else {
+        return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
     handleClickInDisciplina(disciplina) {

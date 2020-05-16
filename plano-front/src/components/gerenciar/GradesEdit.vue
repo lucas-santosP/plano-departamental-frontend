@@ -22,7 +22,7 @@
               @click="toggleOrder('periodo')"
             >
               P.
-              <i :class="checkOrder('periodo')"></i>
+              <i :class="setIconByOrder('periodo')"></i>
             </th>
             <th
               style="width:75px"
@@ -30,7 +30,7 @@
               @click="toggleOrder('disciplina_codigo')"
             >
               Código
-              <i :class="checkOrder('disciplina_codigo')"></i>
+              <i :class="setIconByOrder('disciplina_codigo')"></i>
             </th>
             <th
               style="width:400px"
@@ -38,7 +38,7 @@
               @click="toggleOrder('disciplina_nome')"
             >
               Disciplina
-              <i :class="checkOrder('disciplina_nome')"></i>
+              <i :class="setIconByOrder('disciplina_nome')"></i>
             </th>
           </template>
           <template #tbody>
@@ -308,8 +308,8 @@ export default {
     };
   },
   methods: {
-    checkOrder(order) {
-      if (this.ordenacao.order === order) {
+    setIconByOrder(orderToCheck) {
+      if (this.ordenacao.order === orderToCheck) {
         return this.ordenacao.type == "asc"
           ? "fas fa-arrow-down fa-sm"
           : "fas fa-arrow-up fa-sm";
