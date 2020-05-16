@@ -1,6 +1,6 @@
 <template>
   <table
-    id="MainTable"
+    id="TableMain"
     ref="refMainTable"
     class="main-table table table-hover table-sm table-bordered"
   >
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "MainTable",
+  name: "TableMain",
 };
 </script>
 
@@ -39,23 +39,26 @@ export default {
   height: -moz-calc(100vh - 100px);
   height: calc(100vh - 100px);
 }
-
 .main-table tr thead {
   display: block !important;
 }
-tbody {
+
+.main-table tbody {
   max-height: 100% !important;
   width: 100% !important;
 }
+
 .main-table thead th,
 .main-table tbody td {
-  vertical-align: middle !important;
   word-break: break-word;
+  vertical-align: middle !important;
   text-align: center;
   margin: 0 !important;
-  padding: 0 2px !important;
+  padding: 0 3px !important;
 }
+
 .main-table thead tr th {
+  word-wrap: none !important;
   height: 18px !important;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -64,6 +67,7 @@ tbody {
   -ms-user-select: none;
   user-select: none;
 }
+
 .main-table tbody td {
   height: 20px !important;
 }
@@ -83,7 +87,6 @@ tbody {
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
-  width: 100% !important;
   top: 0px !important;
   overflow: hidden !important;
   z-index: 3;

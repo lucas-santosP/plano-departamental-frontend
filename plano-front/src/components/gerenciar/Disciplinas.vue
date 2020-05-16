@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row pr-2" v-if="Admin">
+  <div class="main-component row" v-if="Admin">
     <PageTitle :title="'Disciplinas'">
       <template #aside>
         <button
@@ -76,10 +76,10 @@
                   'clickable',
                 ]"
               >
-                <td style="width: 300px; text-align: start">
+                <td style="width: 300px" class="t-start">
                   {{ disciplina.nome }}
                 </td>
-                <td style="width: 82px; text-align: start">
+                <td style="width: 82px" class="t-start">
                   {{ disciplina.codigo }}
                 </td>
                 <td style="width: 40px">
@@ -89,7 +89,7 @@
                   {{ disciplina.cargaPratica }}
                 </td>
 
-                <td style="width: 230px; text-align: start">
+                <td style="width: 230px" class="t-start">
                   {{ disciplina.perfil_nome }}
                 </td>
                 <td style="width: 70px">

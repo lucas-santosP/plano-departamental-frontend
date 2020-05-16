@@ -22,75 +22,61 @@
           <i class="fas fa-list-ul"></i>
         </b-button>
 
-        <b-button
+        <!-- <b-button
           v-b-modal.modalAjuda
           title="Ajuda"
           class="btn-custom btn-icon relatbtn"
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </b-button> -->
       </template>
     </PageTitle>
 
-    <div class="divTable p-0">
-      <TableMain>
-        <template #thead>
-          <th style="width: 110px">
-            Tabela Modificada
-          </th>
-          <th style="width: 120px">
-            Campo Modificado
-          </th>
-          <th style="width: 200px">
-            Linha Modificada
-          </th>
-          <th style="width: 150px">
-            Valor Anterior
-          </th>
-          <th style="width: 150px">
-            Novo Valor
-          </th>
-          <th style="width: 65px">
-            Operação
-          </th>
-          <th style="width: 80px">
-            Usuário
-          </th>
-          <th style="width: 160px">
-            Hora
-          </th>
-        </template>
-        <template #tbody>
-          <template v-for="h in History">
-            <tr :key="`History${h.id}`">
-              <td style="width: 110px">
-                {{ h.tabelaModificada }}
-              </td>
-              <td style="width: 120px">
-                {{ h.campoModificado }}
-              </td>
-              <td style="width: 200px">
-                {{ linhaModificada(h) }}
-              </td>
-              <td style="width: 150px">
-                {{ valorAnterior(h) }}
-              </td>
-              <td style="width: 150px">
-                {{ valorNovo(h) }}
-              </td>
-              <td style="width: 65px">
-                {{ h.tipoOperacao }}
-              </td>
-              <td style="width: 80px">
-                {{ h.usuario }}
-              </td>
-              <td style="width: 160px">
-                {{ h.createdAt }}
-              </td>
-            </tr>
+    <div class="row w-100 m-0 p-0">
+      <div class="divTable p-0">
+        <TableMain>
+          <template #thead>
+            <th style="width: 110px;">Tabela Modificada</th>
+            <th style="width: 120px">Campo Modificado</th>
+            <th style="width: 200px">Linha Modificada</th>
+            <th style="width: 120px">Valor Anterior</th>
+            <th style="width: 120px">Novo Valor</th>
+            <th style="width: 65px">Operação</th>
+            <th style="width: 80px">Usuário</th>
+            <th style="width: 160px">Hora</th>
           </template>
-        </template>
-      </TableMain>
+          <template #tbody>
+            <template v-for="h in History">
+              <tr :key="`History${h.id}`">
+                <td style="width: 110px">
+                  {{ h.tabelaModificada }}
+                </td>
+                <td style="width: 120px">
+                  {{ h.campoModificado }}
+                </td>
+                <td style="width: 200px">
+                  {{ linhaModificada(h) }}
+                </td>
+                <td style="width: 120px">
+                  {{ valorAnterior(h) }}
+                </td>
+                <td style="width: 120px">
+                  {{ valorNovo(h) }}
+                </td>
+                <td style="width: 65px">
+                  {{ h.tipoOperacao }}
+                </td>
+                <td style="width: 80px">
+                  {{ h.usuario }}
+                </td>
+                <td style="width: 160px">
+                  {{ h.createdAt }}
+                </td>
+              </tr>
+            </template>
+          </template>
+        </TableMain>
+      </div>
     </div>
 
     <b-modal
@@ -156,13 +142,13 @@
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100 d-flex">
           <b-button
-            class="btn-azul btn-df mr-2"
+            class="btn-azul btn-custom btn-modal"
             variant="success"
             @click="selectAll()"
             >Selecionar Todos</b-button
           >
           <b-button
-            class="btn-cinza btn-df mr-2"
+            class="btn-cinza btn-custom btn-modal"
             variant="secondary"
             @click="selectNone()"
             >Desmarcar Todos</b-button
@@ -171,7 +157,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-custom btn-modal"
           style="padding-right:15px!important; padding-left:15px!important;"
           >OK</b-button
         >
@@ -558,7 +544,6 @@ export default {
 </script>
 
 <style scoped>
-/* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
   overflow-y: auto !important;
@@ -576,7 +561,6 @@ export default {
   text-align: center !important;
   height: 18px !important;
 }
-
 .modal-table .p-header {
   padding: 0px 5px 0px 5px !important;
   margin: 0 !important;
@@ -608,13 +592,6 @@ export default {
   margin-bottom: auto !important;
   height: 13px !important;
 }
-/* FIM MODAL TABLE */
-
-/* .disc-td {
-  background-color: rgba(0, 0, 0, 0.089);
-  color: black;
-} */
-
 .input-group-text {
   width: 70px !important;
 }
