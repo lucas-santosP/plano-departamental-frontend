@@ -2,7 +2,7 @@
   <table
     id="TableMain"
     ref="refMainTable"
-    class="main-table table table-hover table-sm table-bordered"
+    class="main-table table table-sm table-bordered"
   >
     <thead class="thead-light">
       <tr>
@@ -54,7 +54,7 @@ export default {
   vertical-align: middle !important;
   text-align: center;
   margin: 0 !important;
-  padding: 0 3px !important;
+  padding: 0 5px !important;
 }
 
 .main-table thead tr th {
@@ -100,11 +100,11 @@ export default {
   overflow: hidden !important;
   z-index: 3;
 }
-.bg-custom {
-  background-color: #00000015;
+table tbody tr:hover {
+  background-color: #dbdbdb;
 }
-.bg-custom:hover {
-  background-color: #00000015;
+.bg-custom {
+  background-color: #f1f1f1;
 }
 .bg-selected,
 .bg-selected:hover {

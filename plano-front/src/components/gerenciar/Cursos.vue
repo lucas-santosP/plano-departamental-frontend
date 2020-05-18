@@ -37,7 +37,7 @@
             </th>
             <th
               class="clickable"
-              style="width:60px"
+              style="width:65px"
               @click="toggleOrder('turno')"
             >
               Turno
@@ -81,7 +81,7 @@
                 <td style="width: 65px" class="t-start">
                   {{ curso.codigo }}
                 </td>
-                <td style="width: 60px">
+                <td style="width: 65px">
                   {{ curso.turno }}
                 </td>
                 <td style="width: 70px;">

@@ -35,7 +35,7 @@
               <i :class="setIconByOrder('apelido')"></i>
             </th>
             <th
-              style="width:60px"
+              style="width:65px"
               class="clickable t-center"
               @click="toggleOrder('ativo', 'desc')"
             >
@@ -61,7 +61,7 @@
                 <td style="width:120px;" class="t-start">
                   {{ docente.apelido }}
                 </td>
-                <td style="width:60px">
+                <td style="width:65px">
                   {{ booleanToText(docente.ativo) }}
                 </td>
               </tr>

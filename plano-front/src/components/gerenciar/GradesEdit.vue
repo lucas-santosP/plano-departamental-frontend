@@ -17,7 +17,7 @@
         <TableMain>
           <template #thead>
             <th
-              style="width:32px"
+              style="width:35px"
               class="clickable"
               @click="toggleOrder('periodo')"
             >
@@ -56,7 +56,7 @@
                     },
                   ]"
                 >
-                  <td style="width:32px" class="clickable">
+                  <td style="width:35px">
                     {{ disciplinaGrade.periodo }}
                   </td>
                   <td style="width:75px">

@@ -18,14 +18,14 @@
           <template #thead>
             <th
               style="width: 82px"
-              class="clickable"
+              class="clickable t-start"
               @click="toggleOrder('nome')"
             >
               Nome
               <i :class="setIconByOrder('nome')"></i>
             </th>
             <th
-              style="width: 85px"
+              style="width: 90px"
               class="clickable"
               @click="toggleOrder('laboratorio', 'desc')"
             >
@@ -33,7 +33,7 @@
               <i :class="setIconByOrder('laboratorio')"></i>
             </th>
             <th
-              style="width: 90px"
+              style="width: 100px"
               class="clickable"
               @click="toggleOrder('lotacao_maxima', 'desc')"
             >
@@ -51,14 +51,14 @@
                   'clickable',
                 ]"
               >
-                <td style="width: 82px">
+                <td style="width: 82px" class="t-start">
                   {{ sala.nome }}
                 </td>
 
-                <td style="width: 85px">
+                <td style="width: 90px">
                   {{ booleanToText(sala.laboratorio) }}
                 </td>
-                <td style="width: 90px">
+                <td style="width: 100px">
                   {{ sala.lotacao_maxima }}
                 </td>
               </tr>

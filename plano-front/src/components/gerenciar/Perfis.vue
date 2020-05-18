@@ -54,7 +54,10 @@
                   {{ perfil.abreviacao }}
                 </td>
                 <td style="width: 60px">
-                  <input type="color" v-model="perfil.cor" />
+                  <div
+                    :style="{ 'background-color': perfil.cor }"
+                    style="width: 50px; height: 15px; border: 1px black solid"
+                  ></div>
                 </td>
               </tr>
             </template>
@@ -247,7 +250,7 @@ export default {
     },
     toggleOrder(newOrder, type = "asc") {
       if (this.ordenacao.order != newOrder) {
-        this.ordenacao.order = ord;
+        this.ordenacao.order = newOrder;
         this.ordenacao.type = type;
       } else {
         this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
