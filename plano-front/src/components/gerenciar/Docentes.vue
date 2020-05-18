@@ -37,7 +37,7 @@
             <th
               style="width:60px"
               class="clickable t-center"
-              @click="toggleOrder('ativo')"
+              @click="toggleOrder('ativo', 'desc')"
             >
               Ativo
               <i :class="setIconByOrder('ativo')"></i>
@@ -62,7 +62,7 @@
                   {{ docente.apelido }}
                 </td>
                 <td style="width:60px">
-                  {{ textoAtivo(docente.ativo) }}
+                  {{ booleanToText(docente.ativo) }}
                 </td>
               </tr>
             </template>
@@ -467,7 +467,7 @@ export default {
         this.addPerfil(perfil);
       }
     },
-    textoAtivo(docenteIsAtivo) {
+    booleanToText(docenteIsAtivo) {
       return docenteIsAtivo ? "Sim" : "-";
     },
   },

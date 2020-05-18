@@ -36,7 +36,7 @@
               <i :class="setIconByOrder('codigo')"></i>
             </th>
             <th
-              class="clickable t-start"
+              class="clickable"
               style="width:60px"
               @click="toggleOrder('turno')"
             >
@@ -75,13 +75,13 @@
                   'clickable',
                 ]"
               >
-                <td style="width: 300px; text-align: start;">
+                <td style="width: 300px" class="t-start">
                   {{ curso.nome }}
                 </td>
-                <td style="width: 65px; text-align:start">
+                <td style="width: 65px" class="t-start">
                   {{ curso.codigo }}
                 </td>
-                <td style="width: 60px;text-align:start">
+                <td style="width: 60px">
                   {{ curso.turno }}
                 </td>
                 <td style="width: 70px;">

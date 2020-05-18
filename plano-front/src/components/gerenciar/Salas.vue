@@ -56,7 +56,7 @@
                 </td>
 
                 <td style="width: 85px">
-                  {{ textoLab(sala.laboratorio) }}
+                  {{ booleanToText(sala.laboratorio) }}
                 </td>
                 <td style="width: 90px">
                   {{ sala.lotacao_maxima }}
@@ -225,7 +225,6 @@ export default {
     TableMain,
     Card,
   },
-
   data() {
     return {
       salaForm: _.clone(emptySala),
@@ -253,7 +252,7 @@ export default {
         return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
-    textoLab(isLab) {
+    booleanToText(isLab) {
       return isLab ? "Sim" : "-";
     },
     clickada(salaNome) {

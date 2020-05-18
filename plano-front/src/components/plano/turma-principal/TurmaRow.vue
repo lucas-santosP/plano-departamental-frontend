@@ -81,7 +81,7 @@
         <select
           :disabled="Admin ? false : true"
           type="text"
-          style="width:125px"
+          style="width:125px; margin-bottom:1px;"
           id="docente1"
           v-model="turmaForm.Docente1"
           v-on:change="checkDocente()"
@@ -102,7 +102,7 @@
           v-if="hasMoreThan4Creditos"
           :disabled="Admin ? false : true"
           type="text"
-          style="width:125px;"
+          style="width:125px"
           id="docente2"
           v-model="turmaForm.Docente2"
           v-on:change="checkDocente()"
