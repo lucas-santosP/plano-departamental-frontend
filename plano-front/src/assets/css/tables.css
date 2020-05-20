@@ -1,5 +1,4 @@
 .sticky {
-  display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
@@ -8,7 +7,6 @@
   z-index: 3;
 }
 .sticky2 {
-  display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;

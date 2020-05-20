@@ -4,7 +4,7 @@
     ref="refMainTable"
     class="main-table table table-sm table-bordered"
   >
-    <thead class="thead-light">
+    <thead class="thead-light sticky">
       <tr>
         <div class="max-content sticky">
           <slot name="thead"></slot>
@@ -83,7 +83,6 @@ export default {
 }
 
 .sticky {
-  display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
@@ -92,7 +91,6 @@ export default {
   z-index: 3;
 }
 .sticky2 {
-  display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;

@@ -140,6 +140,7 @@
           v-on:change="checkHorario(1)"
         >
           <option v-if="!disciplinaIsIntegralEAD" type="text" value=""></option>
+
           <option
             v-for="horario in HorariosFiltredByTurno"
             :key="'1-horarioEAD-id' + horario.id"
@@ -157,8 +158,6 @@
           v-model="turmaForm.Horario2"
           v-on:change="checkHorario(2)"
         >
-          <option v-if="!disciplinaIsIntegralEAD" type="text" value=""></option>
-
           <template v-if="isParcialEAD">
             <option
               v-for="horario in HorariosEAD"
@@ -168,6 +167,12 @@
             >
           </template>
           <template v-else>
+            <option
+              v-if="!disciplinaIsIntegralEAD"
+              type="text"
+              value=""
+            ></option>
+
             <option
               v-for="horario in HorariosFiltredByTurno"
               :key="'1-horarioEAD-id' + horario.id"
@@ -1285,7 +1290,7 @@ export default {
         const cadastroEAD = this.currentDisciplina.ead;
         if (cadastroEAD === 1) {
           horariosResultante = _.filter(horariosResultante, { id: 31 });
-        } else if (cadastroEAD !== 2) {
+        } else {
           horariosResultante = _.filter(
             horariosResultante,
             (horario) => horario.id != 31
