@@ -834,18 +834,18 @@ export default {
       //Salas
       check = this.checkSalasLab(
         validacao.disciplina_laboratorio,
-        validacao.sala1,
-        validacao.sala2
+        validacao.Sala1,
+        validacao.Sala2
       );
       if (check) validacao.conflitos.push(check);
 
       //Lotação das salas
       // sala 1
-      check = this.checkVagaSala(validacao.sala1, validacao.pedidos_totais);
+      check = this.checkVagaSala(validacao.Sala1, validacao.pedidos_totais);
       if (check) validacao.conflitos.push(check);
       // sala 2
-      if (validacao.sala1 != validacao.sala2) {
-        check = this.checkVagaSala(validacao.sala2, validacao.pedidos_totais);
+      if (validacao.Sala1 != validacao.Sala2) {
+        check = this.checkVagaSala(validacao.Sala2, validacao.pedidos_totais);
         if (check) validacao.conflitos.push(check);
       }
 
@@ -855,8 +855,8 @@ export default {
       // EAD com salas - 8
       check = this.checkSalasInEAD(
         validacao.disciplina_ead,
-        validacao.sala1,
-        validacao.sala2
+        validacao.Sala1,
+        validacao.Sala2
       );
       if (check) validacao.conflitos.push(check);
       //Periodo curso
@@ -896,6 +896,7 @@ export default {
       return docente1 === null && docente2 == null ? this.Conflitos[3] : false;
     },
     checkSalasLab(isLab, sala1, sala2) {
+      console.log(isLab, sala1, sala2);
       //Não lab
       if (isLab == 0) return false;
       //Obrigatorio
