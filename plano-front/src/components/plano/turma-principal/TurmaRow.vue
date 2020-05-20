@@ -39,8 +39,8 @@
         <input
           :disabled="true"
           type="text"
-          style="width:320px; padding: auto 5px; background-color: #fff;
-           padding: 0 5px!important"
+          class="input-disabled"
+          style="width:320px;"
           v-model="currentDisciplina.nome"
         />
       </div>
@@ -1436,5 +1436,13 @@ input[type="checkbox"] {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   }
+}
+.input-disabled {
+  cursor: text;
+  color: black;
+  padding: auto 5px !important;
+  background-color: #fff !important;
+  padding: 0 5px !important;
+  border: 1px solid rgb(63, 63, 63) !important;
 }
 </style>
