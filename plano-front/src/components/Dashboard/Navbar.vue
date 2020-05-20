@@ -141,8 +141,8 @@ export default {
         },
         { title: "Docentes ", routerName: "docentes", icon: "fa-users" },
         { title: "Grades ", routerName: "grades", icon: "fa-sitemap" },
-        { title: "Log ", routerName: "history", icon: "fa-th-list" },
-        { title: "Perfis ", routerName: "perfis", icon: "fa-clipboard" },
+        { title: "Log ", routerName: "history", icon: "fa-history" },
+        { title: "Perfis ", routerName: "perfis", icon: "fa-th-list" },
         { title: "Salas ", routerName: "salas", icon: "fa-university" },
       ],
     };
