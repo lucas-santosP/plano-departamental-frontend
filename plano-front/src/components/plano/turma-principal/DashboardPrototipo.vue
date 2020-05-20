@@ -1,6 +1,6 @@
 <template>
   <div class="main-component row">
-    <PageTitle title="Tabela Interna">
+    <PageTitle :title="'Graduação - DCC'">
       <template #aside>
         <b-button
           v-b-modal.modalFiltros
