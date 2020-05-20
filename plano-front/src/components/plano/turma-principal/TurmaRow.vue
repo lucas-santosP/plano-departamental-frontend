@@ -236,7 +236,7 @@
       </div>
     </td>
 
-    <template v-for="curso in cursos">
+    <template v-for="curso in cursosSelecteds">
       <td :key="'1-id-curso' + curso.id">
         <template v-for="(pedido, index) in Pedidos">
           <template v-if="pedido.Curso === curso.id">
@@ -276,7 +276,7 @@ export default {
   props: {
     turma: Object,
     perfil: Object,
-    cursos: Array,
+    cursosSelecteds: Array,
   },
 
   data() {
@@ -1341,13 +1341,6 @@ export default {
     //   );
     // },
 
-    Cursos() {
-      return _.orderBy(this.$store.state.curso.Cursos, "posicao");
-    },
-
-    CursosAtivos() {
-      return this.$store.state.curso.Ativos;
-    },
     Pedidos() {
       return this.$store.state.pedido.Pedidos[this.turma.id];
     },
