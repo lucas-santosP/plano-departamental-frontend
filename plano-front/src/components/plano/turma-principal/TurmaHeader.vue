@@ -22,11 +22,12 @@
       <p style="width:130px !important;">Docente</p>
     </th>
     <th scope="col">
-      <p style="width:80px !important;">Horário</p>
-    </th>
-    <th scope="col">
       <p style="width:80px !important;">Turno</p>
     </th>
+    <th scope="col">
+      <p style="width:80px !important;">Horário</p>
+    </th>
+
     <th scope="col">
       <p style="width:100px !important;">Sala</p>
     </th>

@@ -56,11 +56,11 @@
     </td>
     <td>
       <div style="width: 18px">
-        <p style="width:20px">
-          <template v-for="disciplina in Disciplinas">
-            <template v-if="disciplina.id === turmaForm.Disciplina">{{
-              disciplina.cargaPratica + disciplina.cargaTeorica
-            }}</template>
+        <p style="width:18px">
+          <template v-if="currentDisciplina">
+            {{
+              currentDisciplina.cargaPratica + currentDisciplina.cargaTeorica
+            }}
           </template>
         </p>
       </div>
@@ -112,18 +112,37 @@
       </div>
     </td>
     <td>
-      <div style="width: 80px">
+      <div style="width:80px">
         <template v-if="currentDisciplina">
+          <select
+            type="text"
+            style="width: 75px"
+            id="SelectTurno"
+            v-model="turmaForm.turno1"
+          >
+            <template v-if="!isNotEAD">
+              <option value="EAD">EAD</option>
+            </template>
+            <template v-else>
+              <option value="Diurno">Diurno</option>
+              <option value="Noturno">Noturno</option>
+            </template>
+          </select>
+        </template>
+      </div>
+    </td>
+    <td>
+      <div style="width: 80px">
+        <template v-if="currentDisciplina != undefined">
           <select
             type="text"
             style="width: 75px; margin-bottom:1px"
             id="horario1"
             v-model="turmaForm.Horario1"
-            v-on:change="setTurnoByHorario(1)"
           >
             <option v-if="isNotEAD" type="text" value=""></option>
             <option
-              v-for="horario in HorariosFiltredByDisciplina"
+              v-for="horario in HorariosFiltredByTurno"
               :key="'1-horarioEAD-id' + horario.id"
               :value="horario.id"
               >{{ horario.horario }}</option
@@ -137,7 +156,6 @@
             style="width: 75px"
             id="horario2"
             v-model="turmaForm.Horario2"
-            v-on:change="setTurnoByHorario(2)"
           >
             <template v-if="isParcialEAD">
               <option
@@ -150,7 +168,7 @@
             <template v-else>
               <option v-if="isNotEAD" type="text" value=""></option>
               <option
-                v-for="horario in HorariosFiltredByDisciplina"
+                v-for="horario in HorariosFiltredByTurno"
                 :key="'1-horarioEAD-id' + horario.id"
                 :value="horario.id"
                 >{{ horario.horario }}</option
@@ -160,26 +178,13 @@
         </template>
       </div>
     </td>
-    <td>
-      <div style="width:80px">
-        <template v-if="currentDisciplina">
-          <input
-            type="text"
-            style="width: 75px"
-            id="turno1"
-            v-model="turmaForm.turno1"
-            class="input-turno"
-            readonly
-          />
-        </template>
-      </div>
-    </td>
+
     <td>
       <div style="width: 100px">
-        <template v-if="currentDisciplina ? currentDisciplina.ead != 1 : false">
+        <template v-if="isNotEAD">
           <select
             type="text"
-            style="width:95px;"
+            style="width:95px; margin-bottom:1px"
             id="sala1"
             v-model="turmaForm.Sala1"
           >
@@ -195,7 +200,7 @@
           <select
             v-if="hasMoreThan4Creditos && currentDisciplina.ead != 2"
             type="text"
-            style="width: 95px; margin-bottom:1px"
+            style="width: 95px;"
             id="sala2"
             v-model="turmaForm.Sala2"
           >
@@ -226,18 +231,18 @@ import turmaService from "@/common/services/turma";
 import { EventBus } from "@/event-bus.js";
 
 const emptyTurma = {
-  id: undefined,
-  periodo: undefined,
-  letra: undefined,
-  turno1: undefined,
-  turno2: undefined,
-  Disciplina: undefined,
-  Docente1: undefined,
-  Docente2: undefined,
-  Horario1: undefined,
-  Horario2: undefined,
-  Sala1: undefined,
-  Sala2: undefined,
+  id: null,
+  periodo: null,
+  letra: null,
+  turno1: null,
+  turno2: null,
+  Disciplina: null,
+  Docente1: null,
+  Docente2: null,
+  Horario1: null,
+  Horario2: null,
+  Sala1: null,
+  Sala2: null,
 };
 export default {
   name: "NovaTurma",
@@ -260,25 +265,29 @@ export default {
     EventBus.$off("addTurma");
   },
   methods: {
+    isEmpty(value) {
+      return value === null || value === undefined || value === "";
+    },
     findDisciplinaById(id) {
       return _.find(this.Disciplinas, (disciplina) => disciplina.id == id);
     },
     checkDisciplina() {
       this.clearInputs();
-      this.checkEad(this.currentDisciplina);
+      this.checkEad();
     },
     clearInputs() {
-      this.turmaForm.turno1 = undefined;
-      this.turmaForm.Horario1 = undefined;
-      this.turmaForm.Docente2 = undefined;
-      this.turmaForm.Horario2 = undefined;
+      this.turmaForm.turno1 = "";
+      this.turmaForm.Horario1 = "";
+      this.turmaForm.Horario2 = "";
+      this.turmaForm.Docente1 = "";
+      this.turmaForm.Docente2 = "";
     },
     checkEad(disciplina) {
-      if (disciplina.ead === 1) {
+      if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
         this.turmaForm.Horario2 = 31;
-      } else if (disciplina.ead === 2) {
+      } else if (this.currentDisciplina.ead === 2) {
         this.turmaForm.Horario2 = 31;
       }
     },
@@ -286,64 +295,58 @@ export default {
       let key = $event.key ? $event.key.toUpperCase() : $event.which;
       if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
-    setTurnoByHorario(horarioAtual) {
-      if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
-      else this.adjustTurno(this.turmaForm.Horario2);
+    changeTurmaEmptyStringToNull(turma) {
+      if (turma.Docente1 === "") turma.Docente1 = null;
+      if (turma.Docente2 === "") turma.Docente2 = null;
+      if (turma.Horario1 === "") turma.Horario1 = null;
+      if (turma.Horario2 === "") turma.Horario2 = null;
+      if (turma.Sala1 === "") turma.Sala111 = null;
+      if (turma.Sala2 === "") turma.Sala2 = null;
+      if (turma.letra === "") turma.letra = null;
     },
-    adjustTurno(horario) {
-      if (horario == undefined || horario == "")
-        this.turmaForm.turno1 = undefined;
-      else if (horario == 31) this.turmaForm.turno1 = "EAD";
-      else if (
-        horario == 1 ||
-        horario == 2 ||
-        horario == 7 ||
-        horario == 8 ||
-        horario == 13 ||
-        horario == 14 ||
-        horario == 19 ||
-        horario == 20 ||
-        horario == 25 ||
-        horario == 26 ||
-        horario == 3 ||
-        horario == 4 ||
-        horario == 9 ||
-        horario == 10 ||
-        horario == 15 ||
-        horario == 16 ||
-        horario == 21 ||
-        horario == 22 ||
-        horario == 27 ||
-        horario == 28
-      ) {
-        this.turmaForm.turno1 = "Diurno";
-      } else {
-        this.turmaForm.turno1 = "Noturno";
+    checkTurmaInputsValue(turma) {
+      let campoInvalido = false;
+      if (turma.Disciplina === null) campoInvalido = "disciplina";
+      else if (turma.letra === null) campoInvalido = "letra";
+      else if (turma.turno1 === null) campoInvalido = "turno";
+
+      if (campoInvalido) {
+        this.$notify({
+          group: "general",
+          title: "Erro!",
+          text: "Cadastro de " + campoInvalido + " invalido",
+          type: "error",
+        });
+        return false;
       }
+      return true;
     },
     addTurma() {
+      this.changeTurmaEmptyStringToNull(this.turmaForm);
+
+      if (!this.checkTurmaInputsValue(this.turmaForm)) return;
+
       let turmasLivres = _.filter(
         this.$store.state.turma.Turmas,
         (turma) => turma.Disciplina === null
       );
 
       this.turmaForm.id = turmasLivres[0].id;
-      console.log("Nova turma adiciona:", this.turmaForm);
-      this.editTurma(this.turmaForm);
+      this.editTurma(this.turmaForm, this.currentDisciplina.nome);
       this.semestre = this.turmaForm.periodo;
       this.cleanTurma();
     },
-    editTurma(turma) {
+    editTurma(turma, disciplinaNome) {
       turmaService
         .update(turma.id, turma)
         .then((response) => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi atualizada!`,
+            text: `A Turma ${response.Turma.letra} da disciplina ${disciplinaNome} foi adicionada!`,
             type: "success",
-            position: "bottom right",
           });
+          console.log("Nova turma adiciona:", turma);
         })
         .catch((error) => {
           this.error = "<b>Erro ao atualizar Turma</b>";
@@ -404,19 +407,38 @@ export default {
     HorariosEAD() {
       return _.filter(this.Horarios, { id: 31 });
     },
-    HorariosFiltredByDisciplina() {
-      let horarioResultante = [];
+    //filtro do cadastro EAD da disciplina
+    HorariosFiltredByCadastroEAD() {
+      let horariosResultante = this.Horarios;
 
       if (this.currentDisciplina != undefined) {
-        horarioResultante = _.filter(this.Horarios, (horario) => {
-          switch (this.currentDisciplina.ead) {
-            case 1:
-              return horario.id == 31;
-              break;
-            default:
-              return horario.id != 31;
-              break;
-          }
+        const cadastroEAD = this.currentDisciplina.ead;
+        if (cadastroEAD === 1) {
+          horariosResultante = _.filter(horariosResultante, { id: 31 });
+        } else if (cadastroEAD !== 2) {
+          horariosResultante = _.filter(
+            horariosResultante,
+            (horario) => horario.id != 31
+          );
+        }
+      }
+      return horariosResultante;
+    },
+    HorariosFiltredByTurno() {
+      const turnoSelected = this.turmaForm.turno1;
+      let horarioResultante = this.HorariosFiltredByCadastroEAD;
+
+      if (turnoSelected === "EAD") {
+        horarioResultante = _.filter(horarioResultante, { id: 31 });
+      } else if (turnoSelected === "Diurno") {
+        horarioResultante = _.filter(horarioResultante, function(h) {
+          if (parseInt(h.horario.slice(3, 5)) < 17) return true;
+          if (h.id === 31) return true;
+        });
+      } else if (turnoSelected === "Noturno") {
+        horarioResultante = _.filter(horarioResultante, function(h) {
+          if (parseInt(h.horario.slice(3, 5)) >= 17) return true;
+          if (h.id === 31) return true;
         });
       }
       return _.orderBy(horarioResultante, "horario");

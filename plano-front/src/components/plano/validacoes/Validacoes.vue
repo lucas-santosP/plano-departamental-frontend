@@ -1,37 +1,23 @@
 <template>
   <div id="Validacoes" class="DashboardValidacoes row">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-6 col-lg-6 col-md-7 col-sm-7 col-8 px-0 pr-1">
-          Validações do Plano
-        </h1>
-
-        <div
-          class="form-group col-xl-6 col-lg-6 col-md-5 col-sm-5 col-4 mb-0 p-0"
-          style="justify-content: flex-end !important;"
+    <PageTitle :title="'Validações do Plano'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="cancelbtn btn-custom btn-icon"
         >
-          <b-button
-            v-b-modal.modalFiltros
-            title="Filtros"
-            class="cancelbtn btn-custom btn-title"
-          >
-            <i class="fas fa-list-ul"></i>
-          </b-button>
-          <b-button
-            v-b-modal.modalAjuda
-            title="Ajuda"
-            class="relatbtn btn-custom btn-title"
-          >
-            <i class="fas fa-question"></i>
-          </b-button>
-        </div>
-      </div>
-    </div>
-    <div class="w-100 mb-2 border-bottom"></div>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="relatbtn btn-custom btn-icon"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
     <!-- tabs -->
     <div class="p-0 m-0 w-100" style="height: 30px;">
@@ -413,13 +399,13 @@
         <div class="w-100">
           <template v-if="modal_navtab === 'semestre'">
             <b-button
-              class="btn-custom btn-modal  btn-azul btn-df mr-2"
+              class="btn-custom btn-modal btn-azul"
               variant="success"
               @click="selectAllSemestre()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-custom btn-modal btn-cinza btn-df mr-2"
+              class="btn-custom btn-modal btn-cinza"
               variant="secondary"
               @click="selectNoneSemestre()"
               >Desmarcar Todos</b-button
@@ -427,13 +413,13 @@
           </template>
           <template v-else-if="modal_navtab === 'conflitos'">
             <b-button
-              class="btn-azul btn-df mr-2 btn-custom btn-modal "
+              class="btn-custom btn-modal btn-azul"
               variant="success"
               @click="selectAllConflitos()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-custom btn-modal "
+              class="btn-custom btn-modal btn-cinza"
               variant="secondary"
               @click="selectNoneConflitos()"
               >Desmarcar Todos</b-button
@@ -443,7 +429,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-custom btn-modal btn-verde btn-df mr-2"
+          class="btn-custom btn-modal btn-verde"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -482,6 +468,7 @@
 <script>
 import _ from "lodash";
 import ModalTurma from "./ModalTurma.vue";
+import PageTitle from "@/components/PageTitle";
 
 const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
@@ -519,13 +506,14 @@ export default {
   name: "Validacoes",
   components: {
     ModalTurma,
+    PageTitle,
   },
   data() {
     return {
       modal_navtab: "conflitos",
       ConflitosSelected: [],
       ConflitosAtivados: [],
-      semestreAtual: 3,
+      semestreAtual: undefined,
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       turma_clickada: null,
@@ -710,12 +698,12 @@ export default {
     btnOkSemestre() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) {
         this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+      } else if (!this.semestre_1Ativo && this.semestre_2Ativo) {
         this.semestreAtual = 2;
       } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
         this.semestreAtual = 3;
       } else {
-        this.semestreAtual = 3;
+        this.semestreAtual = undefined;
       }
     },
     selectAllSemestre() {
@@ -870,7 +858,12 @@ export default {
       check = null;
     },
     checkTurno(turno) {
-      return turno === null || turno === undefined ? this.Conflitos[0] : null;
+      return turno === null || turno === undefined || turno === ""
+        ? this.Conflitos[0]
+        : null;
+    },
+    isEmpty(value) {
+      return value === null || value === undefined || value === "";
     },
     checkTurnoEAD(isEAD, turno) {
       return (isEAD == 1 && turno !== "EAD") || (isEAD != 1 && turno == "EAD")
@@ -1255,15 +1248,19 @@ export default {
   computed: {
     TurmasValidacoesOrdered() {
       return _.orderBy(
-        _.filter(this.TurmasValidacoes, (valid) => {
-          if (this.semestreAtual === 1) return valid.periodo == 1;
-          else if (this.semestreAtual === 2) return valid.periodo == 1;
-
-          return true;
-        }),
+        this.TurmasValidacoesFiltredByPeriodo,
         this.ordemTurmas.order,
         this.ordemTurmas.type
       );
+    },
+
+    TurmasValidacoesFiltredByPeriodo() {
+      return _.filter(this.TurmasValidacoes, (validacao) => {
+        if (this.semestreAtual === 1) return validacao.periodo === 1;
+        else if (this.semestreAtual === 2) return validacao.periodo === 3;
+        else if (this.semestreAtual === 3) return true;
+        else return false;
+      });
     },
     //Verifica validações das turmas
     TurmasValidacoes() {
@@ -1423,39 +1420,6 @@ tbody {
 }
 .btn-table {
   padding: 0 0.25rem !important;
-}
-/* Botoes */
-.btn-custom {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-i.fas,
-i.far {
-  font-size: 25px;
-}
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
 }
 
 .nav-link {
