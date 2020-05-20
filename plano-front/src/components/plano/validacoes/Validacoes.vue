@@ -896,7 +896,6 @@ export default {
       return docente1 === null && docente2 == null ? this.Conflitos[3] : false;
     },
     checkSalasLab(isLab, sala1, sala2) {
-      console.log(isLab, sala1, sala2);
       //Não lab
       if (isLab == 0) return false;
       //Obrigatorio
