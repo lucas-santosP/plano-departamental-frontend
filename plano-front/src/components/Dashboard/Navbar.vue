@@ -107,7 +107,7 @@ export default {
           icon: "fa-file-alt",
         },
         {
-          title: "Grades Disciplinass",
+          title: "Grades Disciplinas",
           routerName: "gradeDisciplinas",
           icon: "fa-file-alt",
         },

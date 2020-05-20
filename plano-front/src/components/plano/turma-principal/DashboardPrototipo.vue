@@ -98,7 +98,7 @@
                     ref="turma"
                     v-bind:turma="turma"
                     v-bind:perfil="perfil"
-                    v-bind:cursos="CursosAtivados"
+                    v-bind:cursosSelecteds="CursosAtivados"
                   ></turmadata>
                 </template>
 
@@ -129,7 +129,7 @@
                     ref="turma"
                     v-bind:turma="turma"
                     v-bind:perfil="perfil"
-                    v-bind:cursos="CursosAtivados"
+                    v-bind:cursosSelecteds="CursosAtivados"
                   ></turmadata>
                 </template>
               </tr>
