@@ -15,7 +15,7 @@
       >
     </div>
     <hr class="my-2" />
-    <!-- TURMA INFOS -->
+
     <div class="form-container row m-0 p-0 w-100">
       <!-- Semestre, Turma e Creditos -->
       <div class="form-row w-100">
@@ -45,12 +45,7 @@
           />
         </div>
         <div class="form-group col">
-          <label for="SelectTurno"
-            >Turno:
-            {{
-              turmaForm.turno1 == "" ? "vazio" : typeof turmaForm.turno1
-            }}</label
-          >
+          <label for="SelectTurno">Turno:</label>
           <select
             type="text"
             style="max-width: 90px"
@@ -58,13 +53,10 @@
             class="form-control"
             v-model="turmaForm.turno1"
           >
-            <template
-              v-if="currentDisciplina ? currentDisciplina.ead == 1 : false"
-            >
+            <template v-if="disciplinaIsIntegralEAD">
               <option value="EAD">EAD</option>
             </template>
             <template v-else>
-              <option value=""></option>
               <option value="Diurno">Diurno</option>
               <option value="Noturno">Noturno</option>
             </template>
@@ -126,7 +118,11 @@
             v-model="turmaForm.Horario1"
             v-on:change="checkHorario(1)"
           >
-            <option type="text" value=""></option>
+            <option
+              v-if="!disciplinaIsIntegralEAD"
+              type="text"
+              value=""
+            ></option>
             <option
               v-for="horario in HorariosFiltredByTurno"
               :key="'1-horario-id' + horario.id"
@@ -148,19 +144,20 @@
             v-model="turmaForm.Horario2"
             v-on:change="checkHorario(2)"
           >
-            <option v-if="Horarios.length === 0" type="text" value
-              >Nenhum Horário Encontrado</option
-            >
-            <template v-if="currentDisciplina.ead == 2">
+            <option
+              v-if="!disciplinaIsIntegralEAD"
+              type="text"
+              value=""
+            ></option>
+            <template v-if="disciplinaIsParcialEAD">
               <option
                 v-for="horario in HorariosEAD"
-                :key="'2-horario-id' + horario.id"
+                :key="'2-horarioEAD-id' + horario.id"
                 :value="horario.id"
                 >{{ horario.horario }}</option
               >
             </template>
             <template v-else>
-              <option type="text" value=""></option>
               <option
                 v-for="horario in HorariosFiltredByTurno"
                 :key="'2-horario-id' + horario.id"
@@ -171,9 +168,7 @@
           </select>
         </div>
         <div class="form-group col">
-          <template
-            v-if="currentDisciplina ? currentDisciplina.ead != 1 : true"
-          >
+          <template v-if="currentDisciplina && !disciplinaIsIntegralEAD">
             <label for="sala1">Salas:</label>
             <select
               type="text"
@@ -343,7 +338,10 @@
     <div
       class="custom-footer m-0 mt-2 border-top pt-2 w-100  pl-1 pr-2 d-flex justify-content-between"
     >
-      <button class="btn btn-success btn-custom btn-modal btn-cinza">
+      <button
+        @click="closeModalTurma('close-modal-turma')"
+        class="btn btn-success btn-custom btn-modal btn-cinza"
+      >
         Cancelar
       </button>
       <button
@@ -360,6 +358,7 @@ import _ from "lodash";
 import turmaService from "@/common/services/turma";
 import TableModal from "./TableModal.vue";
 import InputPedidos from "./InputPedidos.vue";
+import { EventBus } from "@/event-bus.js";
 
 const emptyTurma = {
   id: "",
@@ -377,7 +376,7 @@ const emptyTurma = {
 };
 
 export default {
-  name: "BodyModalEditTurmas",
+  name: "ModalTurma",
   components: { TableModal, InputPedidos },
   props: {
     turma: Object,
@@ -394,7 +393,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.turma);
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
   },
@@ -402,42 +400,9 @@ export default {
     isEmpty(value) {
       return value === null || value === undefined || value === "";
     },
-
-
-    // setTurnoByHorario(horarioAtual) {
-    //   if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
-    //   else this.adjustTurno(this.turmaForm.Horario2);
-    // },
-    // adjustTurno(horario) {
-    //   if (horario == undefined || horario == "") this.turmaForm.turno1 = "";
-    //   else if (horario == 31) this.turmaForm.turno1 = "EAD";
-    //   else if (
-    //     horario == 1 ||
-    //     horario == 2 ||
-    //     horario == 7 ||
-    //     horario == 8 ||
-    //     horario == 13 ||
-    //     horario == 14 ||
-    //     horario == 19 ||
-    //     horario == 20 ||
-    //     horario == 25 ||
-    //     horario == 26 ||
-    //     horario == 3 ||
-    //     horario == 4 ||
-    //     horario == 9 ||
-    //     horario == 10 ||
-    //     horario == 15 ||
-    //     horario == 16 ||
-    //     horario == 21 ||
-    //     horario == 22 ||
-    //     horario == 27 ||
-    //     horario == 28
-    //   ) {
-    //     this.turmaForm.turno1 = "Diurno";
-    //   } else {
-    //     this.turmaForm.turno1 = "Noturno";
-    //   }
-    // },
+    closeModalTurma(eventName) {
+      EventBus.$emit(eventName);
+    },
     toggleOrdVagas(ord, type = "asc") {
       if (this.ordemVagas.order != ord) {
         this.ordemVagas.order = ord;
@@ -1361,6 +1326,12 @@ export default {
     },
   },
   computed: {
+    disciplinaIsIntegralEAD() {
+      return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
+    },
+    disciplinaIsParcialEAD() {
+      return this.currentDisciplina ? this.currentDisciplina.ead === 2 : false;
+    },
     currentDisciplina() {
       return _.find(this.$store.state.disciplina.Disciplinas, {
         id: this.turmaForm.Disciplina,
@@ -1374,9 +1345,6 @@ export default {
         4
       )
         return true;
-    },
-    currentDisciplinaIsEad() {
-      return this.currentDisciplina != undefined && this.currentDisciplina.ead;
     },
     CursosTableOrdered() {
       let result = this.CursosFiltred;
@@ -1413,12 +1381,9 @@ export default {
       return this.$store.state.curso.Cursos;
     },
     CreditosDaDisciplina() {
-      let disciplina = _.find(
-        this.Disciplinas,
-        (d) => d.id == this.turma.Disciplina
-      );
-      return disciplina
-        ? disciplina.cargaPratica + disciplina.cargaTeorica
+      return this.currentDisciplina
+        ? this.currentDisciplina.cargaPratica +
+            this.currentDisciplina.cargaTeorica
         : "Crédito não encontrado";
     },
     Cursos() {
@@ -1494,6 +1459,41 @@ export default {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
   },
+
+  // setTurnoByHorario(horarioAtual) {
+  //   if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
+  //   else this.adjustTurno(this.turmaForm.Horario2);
+  // },
+  // adjustTurno(horario) {
+  //   if (horario == undefined || horario == "") this.turmaForm.turno1 = "";
+  //   else if (horario == 31) this.turmaForm.turno1 = "EAD";
+  //   else if (
+  //     horario == 1 ||
+  //     horario == 2 ||
+  //     horario == 7 ||
+  //     horario == 8 ||
+  //     horario == 13 ||
+  //     horario == 14 ||
+  //     horario == 19 ||
+  //     horario == 20 ||
+  //     horario == 25 ||
+  //     horario == 26 ||
+  //     horario == 3 ||
+  //     horario == 4 ||
+  //     horario == 9 ||
+  //     horario == 10 ||
+  //     horario == 15 ||
+  //     horario == 16 ||
+  //     horario == 21 ||
+  //     horario == 22 ||
+  //     horario == 27 ||
+  //     horario == 28
+  //   ) {
+  //     this.turmaForm.turno1 = "Diurno";
+  //   } else {
+  //     this.turmaForm.turno1 = "Noturno";
+  //   }
+  // },
 };
 </script>
 

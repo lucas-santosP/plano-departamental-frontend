@@ -36,25 +36,13 @@
     </td>
     <td>
       <div style="width: 330px;">
-        <select
-          :disabled="Admin ? false : true"
+        <input
+          :disabled="true"
           type="text"
-          style="width:325px;"
-          id="disciplina"
-          v-model="turmaForm.Disciplina"
-          v-on:change="editTurma(turma)"
-        >
-          <option v-if="Disciplinas.length === 0" type="text" value=""
-            >Nenhuma Disciplina Encontrada</option
-          >
-          <option
-            v-for="disciplina in Disciplinas"
-            :key="'2-disciplina-id' + disciplina.id"
-            :value="disciplina.id"
-          >
-            {{ disciplina.nome }}
-          </option>
-        </select>
+          style="width:320px; padding: auto 5px; background-color: #fff;
+           padding: 0 5px!important"
+          v-model="currentDisciplina.nome"
+        />
       </div>
     </td>
     <td>
@@ -131,7 +119,7 @@
           v-model="turmaForm.turno1"
           v-on:change="editTurma(turma)"
         >
-          <template v-if="currentDisciplina.ead === 1">
+          <template v-if="disciplinaIsIntegralEAD">
             <option value="EAD">EAD</option>
           </template>
           <template v-else>
@@ -151,7 +139,7 @@
           v-model="turmaForm.Horario1"
           v-on:change="checkHorario(1)"
         >
-          <option v-if="isNotEAD" type="text" value=""></option>
+          <option v-if="!disciplinaIsIntegralEAD" type="text" value=""></option>
           <option
             v-for="horario in HorariosFiltredByTurno"
             :key="'1-horarioEAD-id' + horario.id"
@@ -169,7 +157,7 @@
           v-model="turmaForm.Horario2"
           v-on:change="checkHorario(2)"
         >
-          <option v-if="isNotEAD" type="text" value=""></option>
+          <option v-if="!disciplinaIsIntegralEAD" type="text" value=""></option>
 
           <template v-if="isParcialEAD">
             <option
@@ -193,7 +181,7 @@
 
     <td>
       <div style="width: 100px">
-        <template v-if="isNotEAD">
+        <template v-if="!disciplinaIsIntegralEAD">
           <select
             :disabled="Admin ? false : true"
             type="text"
@@ -310,6 +298,25 @@ export default {
   },
 
   methods: {
+    checkDisciplina() {
+      this.setInfos();
+    },
+    clearInputs() {
+      this.turmaForm.turno1 = null;
+      this.turmaForm.Horario1 = null;
+      this.turmaForm.Horario2 = null;
+      this.turmaForm.Docente1 = null;
+      this.turmaForm.Docente2 = null;
+    },
+    setInfos(disciplina) {
+      if (this.currentDisciplina.ead === 1) {
+        this.turmaForm.turno1 = "EAD";
+        this.turmaForm.Horario1 = 31;
+        this.turmaForm.Horario2 = 31;
+      } else if (this.currentDisciplina.ead === 2) {
+        this.turmaForm.Horario2 = 31;
+      }
+    },
     findDisciplinaById(id) {
       return _.find(this.Disciplinas, (d) => d.id == id);
     },
@@ -1236,8 +1243,8 @@ export default {
   },
 
   computed: {
-    isNotEAD() {
-      return this.currentDisciplina ? this.currentDisciplina.ead != 1 : false;
+    disciplinaIsIntegralEAD() {
+      return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
     },
     currentDisciplina() {
       return _.find(this.$store.state.disciplina.Disciplinas, {

@@ -19,6 +19,7 @@
           style="width:65px;"
           id="disciplinaCod"
           v-model="turmaForm.Disciplina"
+          @change="checkDisciplina()"
         >
           <option v-if="DisciplinasOrederedByCod.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
@@ -40,7 +41,7 @@
           style="width:325px;"
           id="disciplina"
           v-model="turmaForm.Disciplina"
-          v-on:change="checkDisciplina()"
+          @change="checkDisciplina()"
         >
           <option v-if="Disciplinas.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
@@ -120,7 +121,7 @@
             id="SelectTurno"
             v-model="turmaForm.turno1"
           >
-            <template v-if="!isNotEAD">
+            <template v-if="disciplinaIsIntegralEAD">
               <option value="EAD">EAD</option>
             </template>
             <template v-else>
@@ -140,7 +141,6 @@
             id="horario1"
             v-model="turmaForm.Horario1"
           >
-            <option v-if="isNotEAD" type="text" value=""></option>
             <option
               v-for="horario in HorariosFiltredByTurno"
               :key="'1-horarioEAD-id' + horario.id"
@@ -157,7 +157,12 @@
             id="horario2"
             v-model="turmaForm.Horario2"
           >
-            <template v-if="isParcialEAD">
+            <option
+              v-if="!disciplinaIsIntegralEAD"
+              type="text"
+              value=""
+            ></option>
+            <template v-if="disciplinaIsParcialEAD">
               <option
                 v-for="horario in HorariosEAD"
                 :key="'2-horarioEAD-id' + horario.id"
@@ -166,7 +171,6 @@
               >
             </template>
             <template v-else>
-              <option v-if="isNotEAD" type="text" value=""></option>
               <option
                 v-for="horario in HorariosFiltredByTurno"
                 :key="'1-horarioEAD-id' + horario.id"
@@ -181,7 +185,7 @@
 
     <td>
       <div style="width: 100px">
-        <template v-if="isNotEAD">
+        <template v-if="!disciplinaIsIntegralEAD && currentDisciplina">
           <select
             type="text"
             style="width:95px; margin-bottom:1px"
@@ -273,16 +277,16 @@ export default {
     },
     checkDisciplina() {
       this.clearInputs();
-      this.checkEad();
+      this.setInfos();
     },
     clearInputs() {
-      this.turmaForm.turno1 = "";
-      this.turmaForm.Horario1 = "";
-      this.turmaForm.Horario2 = "";
-      this.turmaForm.Docente1 = "";
-      this.turmaForm.Docente2 = "";
+      this.turmaForm.turno1 = null;
+      this.turmaForm.Horario1 = null;
+      this.turmaForm.Horario2 = null;
+      this.turmaForm.Docente1 = null;
+      this.turmaForm.Docente2 = null;
     },
-    checkEad(disciplina) {
+    setInfos(disciplina) {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
@@ -383,10 +387,10 @@ export default {
     hasMoreThan4Creditos() {
       return this.totalCarga >= 4;
     },
-    isNotEAD() {
-      return this.currentDisciplina ? this.currentDisciplina.ead != 1 : false;
+    disciplinaIsIntegralEAD() {
+      return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
     },
-    isParcialEAD() {
+    disciplinaIsParcialEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 2 : false;
     },
     Disciplinas() {

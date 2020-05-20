@@ -369,7 +369,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="conflito in Conflitos"
+              v-for="conflito in ConflitosOrdered"
               :key="conflito.id"
               style="text-transform:uppercase"
             >
@@ -469,6 +469,7 @@
 import _ from "lodash";
 import ModalTurma from "./ModalTurma.vue";
 import PageTitle from "@/components/PageTitle";
+import { EventBus } from "@/event-bus.js";
 
 const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
@@ -543,7 +544,14 @@ export default {
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
     };
   },
+  beforeDestroy() {
+    EventBus.$off("close-modal-turma");
+  },
   mounted() {
+    EventBus.$on("close-modal-turma", () => {
+      this.$bvModal.hide("modalTurma");
+    });
+
     //define grades ativas por periodo
     let g;
     let periodoInicial, periodoFinal;
@@ -1246,6 +1254,9 @@ export default {
     },
   },
   computed: {
+    ConflitosOrdered() {
+      return _.orderBy(AllConflitosTurmas, "msg");
+    },
     TurmasValidacoesOrdered() {
       return _.orderBy(
         this.TurmasValidacoesFiltredByPeriodo,
