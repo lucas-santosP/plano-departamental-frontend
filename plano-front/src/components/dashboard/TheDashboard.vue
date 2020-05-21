@@ -72,17 +72,12 @@
 
     <div class="container-fluid">
       <div class="row m-0" style="max-width:100%; height:100%;">
-        <!-- TRANSIÇÃO SIDEBAR -->
         <transition
-          name="custom-classes-transition"
+          name="custom-transition"
           enter-active-class="animated slideInLeft sidebar-animated"
           leave-active-class="animated slideOutLeft sidebar-animated"
         >
-          <Navbar
-            v-if="toggleSideBar"
-            v-on:close-sidebar="closeSideBar()"
-            :year="year"
-          ></Navbar>
+          <Navbar v-if="toggleSideBar" :year="year"></Navbar>
         </transition>
         <main
           @click="closeSideBar()"
@@ -281,6 +276,7 @@ import novoPlanoService from "@/common/services/novoPlano";
 import planoService from "@/common/services/plano";
 import { saveAs } from "file-saver";
 import Navbar from "./Navbar.vue";
+import { EventBus } from "@/event-bus.js";
 
 const emptyUser = {
   nome: undefined,
@@ -325,7 +321,11 @@ export default {
 
     this.$store.commit("setYear", 2019);
   },
+  mounted() {
+    EventBus.$on("close-sidebar", this.closeSideBar);
+  },
   beforeDestroy() {
+    EventBus.$off("close-sidebar");
     this.$socket.close();
   },
   methods: {
@@ -737,6 +737,16 @@ export default {
   .icons-top {
     margin-right: 10px !important;
   }
+}
+[role="main"]::-webkit-scrollbar-track {
+  background-color: #f4f4f4 !important;
+}
+[role="main"]::-webkit-scrollbar {
+  width: 6px !important;
+  background: #f4f4f4 !important;
+}
+[role="main"]::-webkit-scrollbar-thumb {
+  background: #666 !important;
 }
 /* #ffe1c6 COR ENGENHARIA DE SOFTWARE */
 </style>
