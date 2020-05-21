@@ -19,13 +19,11 @@ import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/css/fontawesome-all.css";
-
 Vue.use(BootstrapVue);
 
-//==================================================
 import PortalVue from "portal-vue";
 Vue.use(PortalVue);
-//==================================================
+
 import Notifications from "vue-notification";
 
 Vue.use(Notifications);
