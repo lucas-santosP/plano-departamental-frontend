@@ -61,80 +61,7 @@
       </template>
     </PageTitle>
 
-    <div id="loading" v-if="isLoading">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
-
     <div class="pl-0 divTable" v-if="!isLoading" ref="mainTable">
-      <!-- <TableMain>
-        <template #thead>
-          <th style="width:25px"></th>
-          <th style="width:45px">Editar</th>
-          <th style="width:40px" title="Semestre">S.</th>
-          <th style="width:70px" title="Código">Cód.</th>
-          <th style="width:330px">Disciplina</th>
-          <th style="width:25px" title="Créditos">C.</th>
-          <th style="width:45px">Turma</th>
-          <th style="width:130px">Docente</th>
-          <th style="width:80px">Turno</th>
-          <th style="width:80px">Horário</th>
-          <th style="width:100px">Sala</th>
-          <th style="width:40px" title="Total de vagas">Total</th>
-          <template v-for="curso in CursosAtivados">
-            <th
-              v-on.prevent:mouseover
-              style="width: 35px"
-              class="p-0"
-              :class="{ cursoGrande: nameIsBig(curso.codigo) }"
-              :key="'cursoId' + curso.id"
-              :id="'curso' + curso.id"
-            >
-              {{ curso.codigo }}
-            </th>
-
-            <b-popover
-              :key="
-                'pop over' +
-                  curso.alunosEntrada +
-                  curso.id +
-                  curso.semestreInicial
-              "
-              :target="'curso' + curso.id"
-              placement="bottom"
-              triggers="hover focus"
-            >
-              <p
-                class="p-0 m-0"
-                style="text-align:center; font-size: 11px!important;"
-                v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3"
-              >
-                1º - {{ curso.alunosEntrada }}
-              </p>
-              <p
-                class="p-0 m-0"
-                style="text-align:center; font-size: 11px!important;"
-                v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
-              >
-                2º - {{ curso.alunosEntrada2 }}
-              </p>
-              <p
-                class="p-0 m-0"
-                style="text-align:center; font-size: 11px!important;"
-              >
-                <b>{{ curso.nome }}</b>
-              </p>
-            </b-popover>
-          </template>
-        </template>
-        <template #tbody>
-          <template v-if="isAdd">
-            <tr class="stickyAdd" style="background-color:#e9e9e9;">
-              <novaturma :cursosLength="CursosAtivados.length"></novaturma>
-            </tr>
-          </template>
-        </template>
-      </TableMain> -->
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light">
           <tr class="sticky">
@@ -163,6 +90,7 @@
                 >
                   <turmadata
                     ref="turma"
+                    v-on:handle-click-in-edit="handleClickInEdit($event)"
                     v-bind:turma="turma"
                     v-bind:perfil="perfil"
                     v-bind:cursosSelecteds="CursosAtivados"
@@ -205,28 +133,6 @@
         </tbody>
       </table>
     </div>
-
-    <!-- ============ Modals ============== -->
-    <!-- Modals do deletar-->
-    <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-      <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-      <template v-if="Deletar.length > 0">
-        <template v-for="turma in Deletar">
-          <template v-for="disciplina in Disciplinas">
-            <template v-if="disciplina.id === turma.Disciplina">
-              <p
-                :key="'disciplina' + disciplina.id + 'turma' + turma.id"
-                style="width: 80px;"
-              >
-                Disciplina:{{ disciplina.codigo }}
-                <br />
-                Turma:{{ turma.letra }}
-              </p>
-            </template>
-          </template>
-        </template>
-      </template>
-    </b-modal>
 
     <!-- MODAL FILTROS -->
     <b-modal
@@ -552,8 +458,37 @@
         >
       </div>
     </b-modal>
-
-    <!-- Modal de Ajuda -->
+    <!-- MODAL TURMA -->
+    <b-modal
+      id="modalEditTurma"
+      ref="modalEditTurma"
+      scrollable
+      title="Edição de Turma"
+      hide-footer
+    >
+      <ModalEditTurma :turma="turmaSelected"></ModalEditTurma>
+    </b-modal>
+    <!-- Modals do deletar-->
+    <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
+      <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
+      <template v-if="Deletar.length > 0">
+        <template v-for="turma in Deletar">
+          <template v-for="disciplina in Disciplinas">
+            <template v-if="disciplina.id === turma.Disciplina">
+              <p
+                :key="'disciplina' + disciplina.id + 'turma' + turma.id"
+                style="width: 80px;"
+              >
+                Disciplina:{{ disciplina.codigo }}
+                <br />
+                Turma:{{ turma.letra }}
+              </p>
+            </template>
+          </template>
+        </template>
+      </template>
+    </b-modal>
+    <!-- MODAL AJUDA -->
     <b-modal
       id="modalAjuda"
       ref="ajudaModal"
@@ -621,6 +556,11 @@
         </ul>
       </div>
     </b-modal>
+
+    <div id="loading" v-if="isLoading">
+      <div class="cube1"></div>
+      <div class="cube2"></div>
+    </div>
   </div>
 </template>
 
@@ -638,6 +578,7 @@ import turmadata from "./TurmaRow.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import novaturma from "./NovaTurma.vue";
 import TableMain from "@/components/TableMain.vue";
+import ModalEditTurma from "@/components/ModalEditTurma.vue";
 
 export default {
   name: "DashboardPrototipo",
@@ -647,6 +588,7 @@ export default {
     novaturma,
     PageTitle,
     TableMain,
+    ModalEditTurma,
   },
   data() {
     return {
@@ -664,6 +606,7 @@ export default {
       searchCursos: null,
       ordenacaoCurso: { order: "codigo", type: "asc" },
       ordenacaoPerfis: { order: "nome", type: "asc" },
+      turmaSelected: undefined,
     };
   },
 
@@ -695,9 +638,9 @@ export default {
   },
 
   methods: {
-    nameIsBig(nome) {
-      if (nome.length > 4) return true;
-      else return false;
+    handleClickInEdit(turmaClicked) {
+      this.turmaSelected = turmaClicked;
+      this.$refs.modalEditTurma.show();
     },
     changeTab(tab) {
       this.nav_ativo = tab;
@@ -894,6 +837,23 @@ export default {
   },
 
   computed: {
+    TurmasInPerfil() {
+      let turmasResult = [];
+
+      this.Perfis.forEach((perfil) => {
+        turmasResult = this.Turmas.filter((turma) => {
+          if (_.isNull(turma.Disciplina)) return false;
+
+          let disciplinaFounded = _.find(
+            this.Disciplinas,
+            (disciplina) => disciplina.id === turma.Disciplina
+          );
+
+          return disciplinaFounded.Perfil === perfil.id;
+        });
+      });
+      return turmasResult;
+    },
     CursosFiltred() {
       if (this.searchCursos != null) {
         let searchUpperCase = this.searchCursos
@@ -963,9 +923,6 @@ export default {
 </script>
 
 <style scoped>
-.main-table thead tr th {
-  /* padding: 0 !important; */
-}
 .divTable {
   overflow-x: hidden;
   overflow-y: auto;
@@ -976,6 +933,39 @@ export default {
   width: -moz-max-content;
   width: max-content;
 }
+.main-table {
+  display: block !important;
+  overflow-y: scroll !important;
+  overflow-x: auto !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  background-color: white;
+  margin: 0 !important;
+  height: -webkit-calc(100vh - 95px);
+  height: -moz-calc(100vh - 95px);
+  height: calc(100vh - 95px);
+}
+.main-table tbody {
+  max-height: 100%;
+  width: 100%;
+}
+.main-table tr thead {
+  display: block;
+}
+.main-table th {
+  padding: 0 !important;
+  font-size: 14px;
+  text-align: center !important;
+  height: 18px !important;
+}
+.main-table .p-header {
+  padding: 0 5px 0 5px !important;
+  margin: 0 !important;
+  font-size: 11px !important;
+  text-align: center;
+  height: 18px;
+}
+
 .listas {
   line-height: 30px;
   font-size: 12px;
