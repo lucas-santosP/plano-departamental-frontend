@@ -45,7 +45,6 @@
 <script>
 import pedidoService from "@/common/services/pedido";
 import _ from "lodash";
-
 const emptyPedido = {
   vagasPeriodizadas: 0,
   vagasNaoPeriodizadas: 0,
@@ -54,8 +53,7 @@ const emptyPedido = {
 };
 
 export default {
-  name: "InputPedidos",
-
+  name: "TableModalPedidos",
   props: {
     turma: Object,
     index: Number,
@@ -68,12 +66,11 @@ export default {
       pedidoForm: _.clone(emptyPedido),
     };
   },
-  mounted: function() {
+  mounted() {
     this.pedidoForm = _.clone(
       this.$store.state.pedido.Pedidos[this.turma.id][this.index]
     );
   },
-
   methods: {
     editPedido() {
       console.log(this.$store.state.pedido.Pedidos[this.turma.id][this.index]);
@@ -119,7 +116,6 @@ export default {
         this.pedidoForm.vagasNaoPeriodizadas = 0;
     },
   },
-
   computed: {
     pedido() {
       return this.$store.state.pedido.Pedidos[this.turma.id][this.index];
@@ -133,7 +129,6 @@ export default {
       }
     },
   },
-
   watch: {
     pedido: function() {
       this.pedidoForm = _.clone(
@@ -143,6 +138,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 input {
   width: 28px !important;

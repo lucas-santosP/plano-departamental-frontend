@@ -45,7 +45,6 @@
 <script>
 import pedidoService from "@/common/services/pedido";
 import _ from "lodash";
-
 const emptyPedido = {
   vagasPeriodizadas: 0,
   vagasNaoPeriodizadas: 0,
@@ -55,7 +54,6 @@ const emptyPedido = {
 
 export default {
   name: "TurmaPedido",
-
   props: {
     turma: Object,
     index: Number,

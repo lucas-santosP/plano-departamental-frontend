@@ -4,17 +4,17 @@
     class="table table-bordered table-sm modal-table"
     :style="heightClass"
   >
-    <thead class="thead-light">
+    <thead class="thead-light sticky">
       <template v-if="hasSearchBar">
-        <tr class="sticky">
-          <div style="font-size: 11px !important;" class="max-content">
+        <tr>
+          <div class="max-content sticky">
             <slot name="thead-search"> </slot>
           </div>
         </tr>
       </template>
 
       <tr :class="hasSearchBar ? 'sticky2' : 'sticky'">
-        <div class="max-content">
+        <div class="max-content" :class="hasSearchBar ? 'sticky2' : 'sticky'">
           <slot name="thead"></slot>
         </div>
       </tr>
@@ -58,7 +58,6 @@ export default {
 .modal-table td,
 .modal-table th {
   text-align: center;
-
   vertical-align: middle !important;
   margin: 0 !important;
   /* padding: 0 5px !important; */
@@ -93,7 +92,6 @@ export default {
   margin-bottom: auto !important;
   height: 13px !important;
   width: 13px !important;
-
   -webkit-box-shadow: 0px 0px 0px 0.005px #555;
   -moz-box-shadow: 0px 0px 0px 0.005px #555;
   box-shadow: 0px 0px 0px 0.005px #555;

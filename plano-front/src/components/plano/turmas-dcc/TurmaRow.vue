@@ -15,7 +15,10 @@
     </td>
     <td>
       <div style="width:40px" class="div-btn">
-        <i class="fas fa-edit btn-table clickable"></i>
+        <i
+          @click="$emit('handle-click-in-edit', turma)"
+          class="fas fa-edit btn-table clickable"
+        ></i>
       </div>
     </td>
     <td>

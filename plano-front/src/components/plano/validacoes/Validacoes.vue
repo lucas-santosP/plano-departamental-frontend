@@ -470,7 +470,6 @@ import _ from "lodash";
 import ModalTurma from "./ModalTurma.vue";
 import PageTitle from "@/components/PageTitle";
 import { EventBus } from "@/event-bus.js";
-
 const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
   {

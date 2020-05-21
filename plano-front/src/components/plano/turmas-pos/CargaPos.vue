@@ -620,16 +620,10 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <b-button
-            class="btn-azul btn-df mr-2"
-            variant="success"
-            @click="selectAllSemestre()"
+          <b-button class="btn-azul btn-df mr-2" @click="selectAllSemestre()"
             >Selecionar Todos</b-button
           >
-          <b-button
-            class="btn-cinza btn-df mr-2"
-            variant="secondary"
-            @click="selectNoneSemestre()"
+          <b-button class="btn-cinza btn-df mr-2" @click="selectNoneSemestre()"
             >Desmarcar Todos</b-button
           >
         </div>

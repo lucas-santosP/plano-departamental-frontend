@@ -423,7 +423,7 @@ export default {
         const cadastroEAD = this.currentDisciplina.ead;
         if (cadastroEAD === 1) {
           horariosResultante = _.filter(horariosResultante, { id: 31 });
-        } else if (cadastroEAD !== 2) {
+        } else {
           horariosResultante = _.filter(
             horariosResultante,
             (horario) => horario.id != 31
