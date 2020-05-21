@@ -7,9 +7,9 @@ import Login from "@/components/Dashboard/TheLogin";
 import Dashboard from "@/components/Dashboard/TheDashboard";
 import DashboardHome from "@/components/Dashboard/Home";
 // Plano
-import DashboardPedidos from "@/components/plano/turma-principal/DashboardPrototipo";
-import DashboardTurmasExternas from "@/components/plano/turma-externa/TurmasExternas";
-import DashboardCargaPos from "@/components/plano/carga-pos/CargaPos";
+import DashboardTurmasDCC from "@/components/plano/turmas-dcc/TurmasDCC";
+import DashboardTurmasExternas from "@/components/plano/turmas-externas/TurmasExternas";
+import DashboardCargaPos from "@/components/plano/turmas-pos/CargaPos";
 import DashboardValidacoes from "@/components/plano/validacoes/Validacoes";
 // Relatorios
 import DashboardHorarios from "@/components/relatorios/horarios-curso/Horarios";
@@ -64,7 +64,7 @@ const routes = [
     beforeEnter: requireAuth,
     children: [
       { path: "", name: "dashboard", component: DashboardHome },
-      { path: "pedidos", name: "pedidos", component: DashboardPedidos },
+      { path: "pedidos", name: "pedidos", component: DashboardTurmasDCC },
 
       {
         path: "turmasExternas",

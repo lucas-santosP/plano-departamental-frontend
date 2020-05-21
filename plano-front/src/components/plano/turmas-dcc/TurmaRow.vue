@@ -14,6 +14,11 @@
       </div>
     </td>
     <td>
+      <div style="width:40px" class="div-btn">
+        <i class="fas fa-edit btn-table clickable"></i>
+      </div>
+    </td>
+    <td>
       <div style="width: 40px;">
         <select
           :disabled="Admin ? false : true"
@@ -35,15 +40,9 @@
       </div>
     </td>
     <td>
-      <div style="width: 330px;">
-        <input
-          :disabled="true"
-          type="text"
-          class="input-disabled"
-          style="width:320px;"
-          v-model="currentDisciplina.nome"
-        />
-      </div>
+      <p style="width: 330px;">
+        {{ currentDisciplina.nome }}
+      </p>
     </td>
     <td>
       <div style="width: 18px;">
@@ -1442,5 +1441,17 @@ input[type="checkbox"] {
   background-color: #fff !important;
   padding: 0 5px !important;
   border: 1px solid rgb(63, 63, 63) !important;
+}
+.div-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.btn-table {
+  font-size: 14px;
+  margin: 0 !important;
+  margin-left: 2px !important;
+  padding: 0 !important;
 }
 </style>

@@ -4,6 +4,9 @@
       <div style="width: 25px;"></div>
     </td>
     <td>
+      <div style="width: 40px;"></div>
+    </td>
+    <td>
       <div style="width: 40px;">
         <select style="width: 35px;" v-model="turmaForm.periodo">
           <option value="1">1</option>
@@ -222,7 +225,7 @@
     <td>
       <div style="width:40px"></div>
     </td>
-    <template v-for="c in cursos_length">
+    <template v-for="c in cursosLength">
       <td :key="c + 'cursos-ativados'">
         <div style="width:32px">{{ c.codigo }}</div>
       </td>
@@ -250,7 +253,8 @@ const emptyTurma = {
 };
 export default {
   name: "NovaTurma",
-  props: { cursos_length: Number },
+  props: { cursosLength: Number, default: 0 },
+
   data() {
     return {
       turmaForm: _.clone(emptyTurma),

@@ -1,7 +1,7 @@
 <template>
   <div class="cargarow" style="width: 218px !important; font-size:11px">
     <td>
-      <div style="width: 24px">
+      <div style="width: 25px">
         <input
           type="checkbox"
           name="ativa"
@@ -13,7 +13,7 @@
     </td>
 
     <td>
-      <p style="width: 24px">{{ carga.trimestre }}</p>
+      <p style="width: 30px">{{ carga.trimestre }}</p>
     </td>
 
     <td>
@@ -37,13 +37,13 @@ import _ from "lodash";
 export default {
   name: "CargaPosRow",
   props: {
-    carga: Object
+    carga: Object,
   },
 
   data() {
     return {
       ativo: false,
-      search: ""
+      search: "",
     };
   },
 
@@ -51,7 +51,7 @@ export default {
     checkDelete(carga) {
       this.$store.commit("checkDeleteCarga", { CargaPos: carga });
       console.log(this.$store.state.cargaPos.Deletar);
-    }
+    },
   },
   computed: {
     Docentes() {
@@ -59,8 +59,8 @@ export default {
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
         "apelido"
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

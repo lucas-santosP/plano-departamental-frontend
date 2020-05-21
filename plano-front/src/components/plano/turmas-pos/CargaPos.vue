@@ -51,7 +51,7 @@
           <div class="row m-0">
             <p
               class="p-0 alert-p m-0 border border-right-0"
-              style="font-weight: bold; width: 187px;"
+              style="font-weight: bold; width: 194px;"
             >
               PGMC
             </p>
@@ -74,12 +74,12 @@
             <tr>
               <div style="font-size:11px!important" class="max-content">
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;"></p>
+                  <p class="p-header" style="width:25px!important;"></p>
                 </th>
                 <th scope="col">
                   <p
                     class="p-header"
-                    style="width:24px!important; cursor: pointer;"
+                    style="width:30px!important; cursor: pointer;"
                     @click="toggleOrdenacaoPGMC('periodo')"
                   >
                     T.
@@ -163,7 +163,7 @@
           <div class="row m-0">
             <p
               class="p-0 alert-p m-0 border border-right-0"
-              style="font-weight: bold; width: 187px;"
+              style="font-weight: bold; width: 194px;"
             >
               PGCC
             </p>
@@ -183,12 +183,12 @@
             <tr>
               <div style="font-size:11px!important" class="max-content">
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;"></p>
+                  <p class="p-header" style="width:25px!important;"></p>
                 </th>
                 <th scope="col">
                   <p
                     class="p-header"
-                    style="width:24px!important; cursor: pointer"
+                    style="width:30px!important; cursor: pointer"
                     @click="toggleOrdenacaoPGCC('periodo')"
                   >
                     T.
@@ -272,7 +272,7 @@
           <div class="row m-0">
             <p
               class="p-0 alert-p m-0 border border-right-0"
-              style="font-weight: bold; width: 187px;"
+              style="font-weight: bold; width: 194px;"
             >
               PGEM
             </p>
@@ -292,12 +292,12 @@
             <tr>
               <div style="font-size:11px!important" class="max-content">
                 <th scope="col">
-                  <p class="p-header" style="width:24px!important;"></p>
+                  <p class="p-header" style="width:25px!important;"></p>
                 </th>
                 <th scope="col">
                   <p
                     class="p-header"
-                    style="width:24px!important; cursor: pointer"
+                    style="width:30px!important; cursor: pointer"
                     @click="toggleOrdenacaoPGEM('periodo')"
                   >
                     T.

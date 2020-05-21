@@ -1,44 +1,47 @@
 <template>
   <div style="font-size:11px!important" class="max-content">
     <th scope="col">
-      <p style="width:25px !important;"></p>
+      <p style="width:25px"></p>
     </th>
     <th scope="col">
-      <p style="width:40px !important;" title="Semestre">S.</p>
+      <p style="width:40px">Editar</p>
     </th>
     <th scope="col">
-      <p style="width:70px !important;" title="Código">Cód.</p>
+      <p style="width:40px" title="Semestre">S.</p>
     </th>
     <th scope="col">
-      <p style="width:330px !important;">Disciplina</p>
+      <p style="width:70px" title="Código">Cód.</p>
     </th>
     <th scope="col">
-      <p style="width:18px !important;" title="Créditos">C.</p>
+      <p style="width:330px">Disciplina</p>
     </th>
     <th scope="col">
-      <p style="width:40px !important;">Turma</p>
+      <p style="width:18px" title="Créditos">C.</p>
     </th>
     <th scope="col">
-      <p style="width:130px !important;">Docente</p>
+      <p style="width:40px">Turma</p>
     </th>
     <th scope="col">
-      <p style="width:80px !important;">Turno</p>
+      <p style="width:130px">Docente</p>
     </th>
     <th scope="col">
-      <p style="width:80px !important;">Horário</p>
+      <p style="width:80px">Turno</p>
+    </th>
+    <th scope="col">
+      <p style="width:80px">Horário</p>
     </th>
 
     <th scope="col">
-      <p style="width:100px !important;">Sala</p>
+      <p style="width:100px">Sala</p>
     </th>
     <th scope="col">
-      <p style="width:40px !important;" title="Total de vagas">Total</p>
+      <p style="width:40px" title="Total de vagas">Total</p>
     </th>
-    <template v-for="curso in cursos">
+    <template v-for="curso in cursosSelecteds">
       <th :key="'1-' + curso.id" :id="'curso' + curso.id">
         <p
-          v-bind:class="{ cursoGrande: big(curso.codigo) }"
-          style="width: 32px !important;"
+          v-bind:class="{ cursoGrande: nameIsBig(curso.codigo) }"
+          style="width: 32px"
           v-on.prevent:mouseover
         >
           {{ curso.codigo }}
@@ -85,11 +88,11 @@ export default {
   name: "TurmaHeader",
 
   props: {
-    cursos: Array,
+    cursosSelecteds: Array,
   },
 
   methods: {
-    big(nome) {
+    nameIsBig(nome) {
       if (nome.length > 4) return true;
       else return false;
     },

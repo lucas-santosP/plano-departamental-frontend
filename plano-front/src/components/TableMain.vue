@@ -54,7 +54,7 @@ export default {
   vertical-align: middle !important;
   text-align: center;
   margin: 0 !important;
-  padding: 0 5px !important;
+  padding: 0 5px;
 }
 
 .main-table thead tr th {
