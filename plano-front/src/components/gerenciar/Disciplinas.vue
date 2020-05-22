@@ -338,9 +338,9 @@ export default {
         $event.preventDefault();
       }
     },
-    toggleOrder(ord, type = "asc") {
-      if (this.ordenacao.order != ord) {
-        this.ordenacao.order = ord;
+    toggleOrder(newOrder, type = "asc") {
+      if (this.ordenacao.order != newOrder) {
+        this.ordenacao.order = newOrder;
         this.ordenacao.type = type;
       } else {
         this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";

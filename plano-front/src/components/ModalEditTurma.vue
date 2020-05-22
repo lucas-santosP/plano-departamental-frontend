@@ -472,12 +472,12 @@ export default {
       }
       // console.log("d1: ", this.turmaForm.Docente1);
       // console.log("d2: ", this.turmaForm.Docente2);
-      console.log("h1: ", this.turmaForm.Horario1);
+      // console.log("h1: ", this.turmaForm.Horario1);
       // console.log("h2: ", this.turmaForm.Horario2);
-      console.log("s1: ", this.turmaForm.Sala1);
-      console.log("s2: ", this.turmaForm.Sala2);
-      console.log("turno: ", this.turmaForm.turno1);
-      console.log("\n");
+      // console.log("s1: ", this.turmaForm.Sala1);
+      // console.log("s2: ", this.turmaForm.Sala2);
+      // console.log("turno: ", this.turmaForm.turno1);
+      // console.log("\n");
     },
     resetInputsValues() {
       this.turmaForm = _.clone(this.turma);
@@ -1425,7 +1425,6 @@ export default {
     },
     editTurma() {
       this.changeTurmaFormEmptyStringToNull();
-      console.log(this.turmaForm);
       if (this.turmaForm.turno1 === null || this.turmaForm.Horario1 === null) {
         this.$notify({
           group: "general-2",

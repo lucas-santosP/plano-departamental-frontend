@@ -65,7 +65,11 @@
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light">
           <tr class="sticky">
-            <turmaheader :cursosSelecteds="CursosAtivados"></turmaheader>
+            <turmaheader
+              v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
+              :cursosSelecteds="CursosAtivados"
+              :currentOrder="ordenacaoTurmas"
+            ></turmaheader>
           </tr>
         </thead>
         <tbody>
@@ -75,8 +79,19 @@
             </tr>
           </template>
 
-          <template v-if="Turmas.length > 0">
-            <template v-for="perfil in PerfisAtivados">
+          <tr
+            v-for="turma in TurmasInPerfilOrdered"
+            :key="'turma id' + turma.id"
+            v-bind:style="{ 'background-color': turma.perfilCor }"
+          >
+            <turmadata
+              ref="turma"
+              v-on:handle-click-in-edit="handleClickInEdit($event)"
+              v-bind:turma="turma"
+              v-bind:cursosSelecteds="CursosAtivados"
+            ></turmadata>
+          </tr>
+          <!-- <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
                 :key="'turma id' + turma.id"
@@ -107,7 +122,6 @@
                 </template>
               </tr>
             </template>
-
             <template v-for="perfil in PerfisAtivados">
               <tr
                 v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
@@ -128,8 +142,7 @@
                   ></turmadata>
                 </template>
               </tr>
-            </template>
-          </template>
+            </template> -->
         </tbody>
       </table>
     </div>
@@ -241,7 +254,33 @@
           style="height: 450px !important;"
         >
           <thead class="thead-light sticky">
-            <tr>
+            <tr class="sticky">
+              <div style="font-size: 11px !important;" class="max-content">
+                <th>
+                  <div class="m-0 input-group input-group-search">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="border-right: none;"
+                      placeholder="Pesquise nome ou codigo de uma disciplina..."
+                      v-model="searchCursos"
+                    />
+                    <div
+                      class="input-group-append"
+                      @click="searchCursos = null"
+                    >
+                      <span
+                        class="input-group-text search-text"
+                        style="height: 25px; font-size: 18px; cursor: pointer;"
+                        >&times;</span
+                      >
+                    </div>
+                  </div>
+                </th>
+              </div>
+            </tr>
+
+            <!-- <tr>
               <div style="font-size: 11px !important;" class="max-content">
                 <th>
                   <div
@@ -274,7 +313,7 @@
                   </div>
                 </th>
               </div>
-            </tr>
+            </tr> -->
             <tr>
               <div style="font-size: 11px !important;" class=" max-content">
                 <th>
@@ -606,6 +645,7 @@ export default {
       searchCursos: null,
       ordenacaoCurso: { order: "codigo", type: "asc" },
       ordenacaoPerfis: { order: "nome", type: "asc" },
+      ordenacaoTurmas: { order: "periodo", type: "asc" },
       turmaSelected: undefined,
     };
   },
@@ -638,6 +678,14 @@ export default {
   },
 
   methods: {
+    toggleOrder(currentOrder, newOrder, type = "asc") {
+      if (currentOrder.order != newOrder) {
+        currentOrder.order = newOrder;
+        currentOrder.type = type;
+      } else {
+        currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
+      }
+    },
     handleClickInEdit(turmaClicked) {
       this.turmaSelected = turmaClicked;
       this.$refs.modalEditTurma.show();
@@ -837,20 +885,42 @@ export default {
   },
 
   computed: {
+    TurmasInPerfilOrdered() {
+      return _.orderBy(
+        this.TurmasInPerfilFiltred,
+        [this.ordenacaoTurmas.order, "letra"],
+        [this.ordenacaoTurmas.type, "asc"]
+      );
+    },
+    TurmasInPerfilFiltred() {
+      return _.filter(this.TurmasInPerfil, (turma) => {
+        if (this.semestreAtual === 1) return turma.periodo === 1;
+        else if (this.semestreAtual === 2) return turma.periodo === 3;
+        else if (this.semestreAtual === 3) return true;
+        else return false;
+      });
+    },
     TurmasInPerfil() {
       let turmasResult = [];
 
-      this.Perfis.forEach((perfil) => {
-        turmasResult = this.Turmas.filter((turma) => {
-          if (_.isNull(turma.Disciplina)) return false;
+      this.PerfisAtivados.forEach((perfil) => {
+        turmasResult = turmasResult.concat(
+          this.Turmas.filter((turma) => {
+            if (_.isNull(turma.Disciplina)) return false;
 
-          let disciplinaFounded = _.find(
-            this.Disciplinas,
-            (disciplina) => disciplina.id === turma.Disciplina
-          );
-
-          return disciplinaFounded.Perfil === perfil.id;
-        });
+            let disciplinaFounded = _.find(
+              this.Disciplinas,
+              (disciplina) => disciplina.id === turma.Disciplina
+            );
+            if (disciplinaFounded.Perfil === perfil.id) {
+              turma.perfilCor = perfil.cor;
+              turma.disciplinaCodigo = disciplinaFounded.codigo;
+              turma.disciplinaNome = disciplinaFounded.nome;
+              return true;
+            }
+            return false;
+          })
+        );
       });
       return turmasResult;
     },
@@ -1041,18 +1111,25 @@ strong {
   font-size: 12px !important;
   padding: 2px 5px 2px 5px !important;
   text-align: start;
-  width: 100% !important;
 }
 /* FIM MODAL TABLE */
 
 /* search */
-.input-group-text:hover {
-  color: rgb(102, 102, 102);
-  background-color: #dddddd;
+.form-inline .input-group,
+.form-inline {
+  width: auto;
 }
-.input-group-text {
-  background-color: #ffffff;
-  border-left: none;
+
+.form-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0;
 }
 .cursoGrande {
   font-size: 7px !important;

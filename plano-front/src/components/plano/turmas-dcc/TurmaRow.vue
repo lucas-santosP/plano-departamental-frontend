@@ -1,5 +1,5 @@
 <template>
-  <div class="turmarow" v-bind:style="{ 'background-color': perfil.cor }">
+  <div class="turmarow">
     <td>
       <div style="width: 25px;">
         <input
@@ -43,7 +43,7 @@
       </div>
     </td>
     <td>
-      <p style="width: 330px;">
+      <p style="width: 330px;" class="t-start">
         {{ currentDisciplina.nome }}
       </p>
     </td>
@@ -282,7 +282,6 @@ export default {
   name: "TurmaRow",
   props: {
     turma: Object,
-    perfil: Object,
     cursosSelecteds: Array,
   },
 
@@ -302,18 +301,12 @@ export default {
   mounted() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
+    this.checkDisciplina();
   },
 
   methods: {
     checkDisciplina() {
       this.setInfos();
-    },
-    clearInputs() {
-      this.turmaForm.turno1 = null;
-      this.turmaForm.Horario1 = null;
-      this.turmaForm.Horario2 = null;
-      this.turmaForm.Docente1 = null;
-      this.turmaForm.Docente2 = null;
     },
     setInfos(disciplina) {
       if (this.currentDisciplina.ead === 1) {
@@ -1248,7 +1241,11 @@ export default {
       this.$store.commit("checkDelete", { Turma: turma });
     },
   },
-
+  watch: {
+    turma() {
+      this.turmaForm = _.clone(this.turma);
+    },
+  },
   computed: {
     disciplinaIsIntegralEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
@@ -1386,7 +1383,8 @@ td {
 }
 p {
   margin-bottom: 0 !important;
-  text-align: center !important;
+  text-align: center;
+  padding: 0 5px;
 }
 select {
   height: 18px;
