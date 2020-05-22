@@ -1,137 +1,71 @@
 <template>
   <div class="main-component row">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-0 pr-1">
-          Horários - Cursos
-        </h1>
-        <div
-          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-7 mb-0 p-0"
-          style="justify-content: flex-end !important;"
+    <PageTitle :title="'Horários - Cursos'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
         >
-          <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
-            <i class="fas fa-list-ul"></i>
-          </b-button>
-          <div class="d-flex p-0 m-0">
-            <button
-              type="button"
-              class="relatbtn"
-              v-on:click.prevent="pdf"
-              title="Relatório"
-            >
-              <i class="far fa-file-alt"></i>
-            </button>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
+        <button
+          type="button"
+          class="btn-custom btn-icon relatbtn"
+          v-on:click.prevent="pdf"
+          title="Relatório"
+        >
+          <i class="far fa-file-alt"></i>
+        </button>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="btn-custom btn-icon relatbtn"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="row w-100 m-0">
+      <template v-if="semestre1IsSelected">
+        <h2 class="semestre-title w-100 px-2 bg-custom">1º SEMESTRE</h2>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+        <template v-for="curso in CursosWithHorarios">
+          <h3 class="curso-title pl-1" :key="'s1-title' + curso.nome">
+            {{ curso.nome }}
+          </h3>
+          <TablesHorarios
+            :HorariosCurso="curso.horarios1Semestre"
+            :turno="curso.turno"
+            :key="'s1-table' + curso.nome"
+          />
+        </template>
 
-    <div class="p-0 w-100 col-12">
-      <!-- -------------------------------------------- 1º periodo ----------------------------------------- -->
-      <template
-        v-if="
-          this.cursos.length != 0 && (semestreAtual == 1 || semestreAtual == 3)
-        "
-      >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
-          1º SEMESTRE
-        </h3>
-        <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-
-        <template v-if="activeCCD">
-          <!-- passar o nome do curso pra dentro da tabela -->
-          <!-- Para centralizar a tabela: -->
-          <div class="flex-container">
-            <h4 class="pl-1">Ciência da Computação Diurno</h4>
-            <curso-diurno :Curso="ativos1.CCD"></curso-diurno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- EC ----------------------------------------- -->
-        <template v-if="activeEC">
-          <div class="flex-container">
-            <h4 class="pl-1">Engenharia Computacional</h4>
-            <curso-diurno :Curso="ativos1.EC"></curso-diurno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-        <template v-if="activeCCN">
-          <div class="flex-container">
-            <h4 class="pl-1">Ciência da Computação Noturno</h4>
-            <curso-noturno :Curso="ativos1.CCN"></curso-noturno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- SI ----------------------------------------- -->
-        <template v-if="activeSI">
-          <div class="flex-container">
-            <h4 class="pl-1">Sistemas de Informação</h4>
-            <curso-noturno :Curso="ativos1.SI"></curso-noturno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-        <template v-if="activeEletivas">
-          <div class="flex-container">
-            <h4 class="pl-1">Eletivas</h4>
-            <horario-eletivas :Eletivas="ativos1.Eletivas"></horario-eletivas>
-          </div>
+        <template v-if="EletivasIsSelected">
+          <h3 class="curso-title pl-1">Eletivas</h3>
+          <TableEletivas :Eletivas="ativos1.Eletivas" />
         </template>
       </template>
 
-      <!-- -------------------------------------------- 2º periodo ----------------------------------------- -->
-      <template
-        v-if="
-          this.cursos.length != 0 && (semestreAtual == 2 || semestreAtual == 3)
-        "
-      >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
-          2º SEMESTRE
-        </h3>
-        <!-- -------------------------------------------- CC Diurno ----------------------------------------- -->
-        <template v-if="activeCCD">
-          <div class="flex-container">
-            <h4 class="pl-1">Ciência da Computação Diurno</h4>
-            <curso-diurno :Curso="ativos2.CCD"></curso-diurno>
-          </div>
+      <template v-if="semestre2IsSelected">
+        <h2 class="semestre-title w-100 px-2 bg-custom">2º SEMESTRE</h2>
+
+        <template v-for="curso in CursosWithHorarios">
+          <h3 class="curso-title pl-1" :key="'s2-title' + curso.nome">
+            {{ curso.nome }}
+          </h3>
+          <TablesHorarios
+            :HorariosCurso="curso.horarios2Semestre"
+            :turno="curso.turno"
+            :key="'s2-table' + curso.nome"
+          />
         </template>
-        <!-- -------------------------------------------- EC ----------------------------------------- -->
-        <template v-if="activeEC">
-          <div class="flex-container">
-            <h4 class="pl-1">Engenharia Computacional</h4>
-            <curso-diurno :Curso="ativos2.EC"></curso-diurno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- CC Noturno ----------------------------------------- -->
-        <template v-if="activeCCN">
-          <div class="flex-container">
-            <h4 class="pl-1">Ciência da Computação Noturno</h4>
-            <curso-noturno :Curso="ativos2.CCN"></curso-noturno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- SI ----------------------------------------- -->
-        <template v-if="activeSI">
-          <div class="flex-container">
-            <h4 class="pl-1">Sistemas de Informação</h4>
-            <curso-noturno :Curso="ativos2.SI"></curso-noturno>
-          </div>
-        </template>
-        <!-- -------------------------------------------- Eletivas ----------------------------------------- -->
-        <template v-if="activeEletivas">
-          <div class="flex-container">
-            <h4 class="pl-1">Eletivas</h4>
-            <horario-eletivas :Eletivas="ativos2.Eletivas"></horario-eletivas>
-          </div>
+        <template v-if="EletivasIsSelected">
+          <h3 class="curso-title pl-1">Eletivas</h3>
+          <TableEletivas :Eletivas="ativos2.Eletivas" />
         </template>
       </template>
-      <!-- ----------------------------------------------------------------------------------------------- -->
     </div>
 
     <!-- MODAL SEMESTRE -->
@@ -178,7 +112,10 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div style="font-size: 11px !important;" class=" max-content">
+              <div
+                style="font-size: 11px !important;"
+                class="max-content sticky"
+              >
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -320,13 +257,13 @@
         <div class="w-100">
           <template v-if="nav_ativo == 'semestre'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAllSemestre()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNoneSemestre()"
               >Desmarcar Todos</b-button
@@ -334,13 +271,13 @@
           </template>
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="toggleAll()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="distoggleAll()"
               >Desmarcar Todos</b-button
@@ -351,7 +288,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-custom btn-modal"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -379,51 +316,62 @@
 </template>
 
 <script>
+const allCursosDCC = [
+  {
+    nome: "SISTEMAS DE INFORMAÇÃO",
+    value: 3,
+    codigo: "76A",
+  },
+  {
+    nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
+    value: 2,
+    codigo: "35A",
+  },
+  {
+    nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
+    value: 1,
+    codigo: "65C",
+  },
+  {
+    nome: "ENGENHARIA DA COMPUTAÇÃO",
+    value: 4,
+    codigo: "65B",
+  },
+  {
+    nome: "ELETIVAS",
+    value: 5,
+    codigo: "-",
+  },
+];
 import _ from "lodash";
-import cursoDiurno from "./HorarioCursoDiurno.vue";
-import cursoNoturno from "./HorarioCursoNoturno.vue";
-import horarioEletivas from "./HorarioEletivas.vue";
+import TableEletivas from "./TableEletivas.vue";
+import TablesHorarios from "./TablesHorarios.vue";
+import PageTitle from "@/components/PageTitle.vue";
 
 export default {
   name: "DashboardHorarios",
-
+  components: {
+    TablesHorarios,
+    TableEletivas,
+    PageTitle,
+  },
   data() {
     return {
       cursos: [],
-      cursosSelecionados: [],
       error: undefined,
-      options_Cursos: [
-        {
-          nome: "SISTEMAS DE INFORMAÇÃO",
-          value: 3,
-          codigo: "76A",
-        },
-        {
-          nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
-          value: 2,
-          codigo: "35A",
-        },
-        {
-          nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
-          value: 1,
-          codigo: "65C",
-        },
-        {
-          nome: "ENGENHARIA DA COMPUTAÇÃO",
-          value: 4,
-          codigo: "65B",
-        },
-        {
-          nome: "ELETIVAS",
-          value: 5,
-          codigo: "-",
-        },
-      ],
+      options_Cursos: [...allCursosDCC],
+      cursosSelecionados: [],
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
       evenSI: "false",
 
+      selectAll: false,
+      semestre_1Ativo: true,
+      semestre_2Ativo: true,
+      semestreAtual: 3,
+      nav_ativo: "cursos",
+      ordemCursos: { order: "codigo", type: "asc" },
       ativos1: {
         CCD: [[], [], [], [], [], [], [], [], [], []],
         CCN: [[], [], [], [], [], [], [], [], [], []],
@@ -431,7 +379,6 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
-
       ativos2: {
         CCD: [[], [], [], [], [], [], [], [], [], []],
         CCN: [[], [], [], [], [], [], [], [], [], []],
@@ -439,24 +386,19 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
-      selectAll: false,
-      semestre_1Ativo: true,
-      semestre_2Ativo: true,
-      semestreAtual: 3,
-      nav_ativo: "cursos",
-      ordemCursos: { order: "codigo", type: "asc" },
     };
   },
-  components: {
-    cursoDiurno,
-    cursoNoturno,
-    horarioEletivas,
-  },
+
   beforeMount: function() {
     this.createHorarios1();
     this.createHorarios2();
   },
 
+  mounted() {
+    this.selectAllSemestre();
+    this.toggleAll();
+    this.btnOK();
+  },
   methods: {
     btnOK() {
       this.btnOKSemestre();
@@ -492,14 +434,6 @@ export default {
     selectNoneSemestre() {
       this.semestre_1Ativo = false;
       this.semestre_2Ativo = false;
-    },
-
-    defineSelectAll() {
-      if (this.cursosSelecionados.length === 5) {
-        this.selectAll = true;
-      } else {
-        this.selectAll = false;
-      }
     },
     distoggleAll() {
       if (this.cursosSelecionados.length !== 0) {
@@ -4645,6 +4579,15 @@ export default {
   },
 
   computed: {
+    hasCursosSelected() {
+      return this.cursos.length != 0;
+    },
+    semestre1IsSelected() {
+      return this.semestreAtual === 1 || this.semestreAtual === 3;
+    },
+    semestre2IsSelected() {
+      return this.semestreAtual === 2 || this.semestreAtual === 3;
+    },
     Cursos_Modal_Filtred() {
       return _.orderBy(
         this.options_Cursos,
@@ -4667,43 +4610,53 @@ export default {
     Disciplinas() {
       return this.$store.state.disciplina.Disciplinas;
     },
+    CursosWithHorarios() {
+      const cursosResult = [
+        {
+          isSelected: _.indexOf(this.cursos, 1) !== -1,
+          nome: "Ciência da computação Diurno",
+          turno: "Diurno",
+          codigo: "65C",
+          value: 1,
+          horarios1Semestre: this.ativos1.CCD,
+          horarios2Semestre: this.ativos2.CCD,
+        },
+        {
+          isSelected: _.indexOf(this.cursos, 2) !== -1,
+          nome: "Ciência da computação Noturno",
+          codigo: "35A",
+          value: 2,
+          turno: "Noturno",
+          horarios1Semestre: this.ativos1.CCN,
+          horarios2Semestre: this.ativos2.CCN,
+        },
+        {
+          isSelected: _.indexOf(this.cursos, 3) !== -1,
+          nome: "Sistemas de Informação",
+          codigo: "76A",
+          value: 3,
+          turno: "Noturno",
+          horarios1Semestre: this.ativos1.SI,
+          horarios2Semestre: this.ativos2.SI,
+        },
+        {
+          isSelected: _.indexOf(this.cursos, 4) !== -1,
+          nome: "Engenharia da Computação",
+          codigo: "65B",
+          value: 4,
+          turno: "Diurno",
+          horarios1Semestre: this.ativos1.EC,
+          horarios2Semestre: this.ativos2.EC,
+        },
+      ];
+      return _.filter(cursosResult, (curso) => curso.isSelected);
+    },
 
     DisciplinaGrades() {
       return this.$store.state.disciplinaGrade.DisciplinaGrades;
     },
 
-    GradesCCD() {
-      return _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
-    },
-
-    GradesCCN() {
-      return _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
-    },
-    GradesSI() {
-      return _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
-    },
-
-    GradesEC() {
-      return _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
-    },
-
-    activeCCD() {
-      return _.indexOf(this.cursos, 1) > -1;
-    },
-
-    activeCCN() {
-      return _.indexOf(this.cursos, 2) > -1;
-    },
-
-    activeSI() {
-      return _.indexOf(this.cursos, 3) > -1;
-    },
-
-    activeEC() {
-      return _.indexOf(this.cursos, 4) > -1;
-    },
-
-    activeEletivas() {
+    EletivasIsSelected() {
       return _.indexOf(this.cursos, 5) > -1;
     },
 
@@ -4729,302 +4682,71 @@ export default {
 </script>
 
 <style scoped>
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-
-h4 {
-  width: 100%;
-  text-align: start !important;
-  font-size: 12px !important;
-  font-weight: bold !important;
-}
-h3 {
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center !important;
-}
-.title {
+.semestre-title {
   clear: both;
   display: block;
   padding-top: 0px;
   text-align: start !important;
   font-weight: bold;
   font-size: 18px;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
-
-.form-inline {
-  width: auto;
-}
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-
-/* BOTOÕES */
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-.btn-azul {
-  background-color: #718de0 !important;
-  border-color: #9ab3ff !important;
-}
-.btn-azul:hover {
-  background-color: rgb(74, 101, 190) !important;
-  border-color: #82a0ff !important;
-}
-
-.btn-azul:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-.btn-cinza {
-  background-color: #999999 !important;
-  border-color: #c3c3c3 !important;
-}
-
-.btn-cinza:hover {
-  background-color: #747474 !important;
-  border-color: #aaaaaa !important;
-}
-
-.btn-cinza:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-}
-
-.btn-verde {
-  background-color: #70b670 !important;
-  border-color: #a0e7a0 !important;
-}
-
-.btn-verde:hover {
-  background-color: #4c8a4c !important;
-  border-color: #77dd77 !important;
-}
-
-.btn-verde:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-i.fas,
-i.far {
-  font-size: 25px;
-}
-
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-  float: right;
-}
-
-.relatbtn:hover {
-  color: #82a0ff !important;
-  background-color: white;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #698dff;
-}
-
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-.addbtn {
-  background-color: white;
-  color: #a0e7a0;
-}
-
-.addbtn:hover {
-  background-color: white;
-  color: #77dd77;
-}
-
-.addbtn:focus {
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-}
-
-.cancelbtn {
-  background-color: white;
-  color: #cfcfc4;
-}
-
-.cancelbtn:hover {
-  background-color: white;
-  color: #b8b4a8;
-}
-
-.cancelbtn:focus {
-  background-color: white;
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
-
-.flex-container {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -moz-box-orient: horizontal;
-  -moz-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: space-evenly;
-  -webkit-justify-content: space-evenly;
-  -moz-box-pack: space-evenly;
-  -ms-flex-pack: space-evenly;
-  justify-content: space-evenly;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  height: 20px !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
-
-/* ==== MODAL TABLE ==== */
-.modal-table {
-  display: block !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  font-size: 10px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-}
-.modal-table tr thead {
-  display: block;
-}
-.modal-table th {
-  padding: 0 !important;
-  text-align: center !important;
-  height: 18px !important;
-}
-
-.modal-table .p-header {
-  padding: 0px 5px 0px 5px !important;
-  margin: 0 !important;
-  text-align: start;
-  height: 18px !important;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
-.modal-table tbody {
-  max-height: 100%;
+.curso-title {
   width: 100%;
+  text-align: start !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
 }
-.modal-table td {
-  border-top: 0;
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  /* height: 22px !important; */
-}
-.modal-table p {
-  margin: 0 !important;
-  text-align: center;
-  padding: 0 !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-}
-.modal-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 13px !important;
-}
-/* FIM MODAL TABLE */
 
-.nav-link {
-  color: #007bff !important;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none;
+::v-deep .container-horarios .div-table .periodo-title {
+  font-size: 12px;
+  font-weight: normal;
 }
-.clickable {
-  cursor: pointer;
+
+::v-deep .container-horarios .div-table .tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-color: #ccc;
+  margin-right: 5px !important;
+  margin-bottom: 20px !important;
 }
-.active {
+::v-deep .container-horarios .div-table .tg td {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  padding: 0px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: break-word;
+  border-color: rgba(189, 189, 189, 0.644);
+  color: #333;
+  background-color: #fff;
+}
+::v-deep .container-horarios .div-table .tg th,
+::v-deep .container-horarios .div-table .tg-hor {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 0px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: rgba(189, 189, 189, 0.623);
+  color: #333;
   background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default;
 }
-@media screen and (max-width: 499px) {
-  .div-titulo {
-    height: 70px !important;
-  }
+::v-deep .container-horarios .div-table .tg .tg-0lax {
+  vertical-align: center;
+  text-align: center;
+  height: 22px;
+  min-width: 50px !important;
+}
+::v-deep .container-horarios td p {
+  min-width: 48px !important;
+  padding-right: 1px !important;
+  padding-left: 1px !important;
+  margin: 0 !important;
 }
 </style>

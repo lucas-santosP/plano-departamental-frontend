@@ -1,5 +1,5 @@
 <template>
-  <div class="row w-100 pl-1">
+  <div class="container-horarios pl-1">
     <div class="div-table col p-0">
       <table class="tg" v-if="horarioVazio(Eletivas)">
         <tr>
@@ -26,7 +26,7 @@
                   :key="'1-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -47,7 +47,7 @@
                   :key="'2-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -68,7 +68,7 @@
                   :key="'3-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -89,7 +89,7 @@
                   :key="'4-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -110,7 +110,7 @@
                   :key="'5-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -135,7 +135,7 @@
                   :key="'6-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -156,7 +156,7 @@
                   :key="'7-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -177,7 +177,7 @@
                   :key="'8-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -198,7 +198,7 @@
                   :key="'9-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -219,7 +219,7 @@
                   :key="'10-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -244,7 +244,7 @@
                   :key="'11-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -265,7 +265,7 @@
                   :key="'12-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -286,7 +286,7 @@
                   :key="'13-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -307,7 +307,7 @@
                   :key="'14-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -328,7 +328,7 @@
                   :key="'15-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -353,7 +353,7 @@
                   :key="'16-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -374,7 +374,7 @@
                   :key="'17-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -395,7 +395,7 @@
                   :key="'18-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -416,7 +416,7 @@
                   :key="'19-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -437,7 +437,7 @@
                   :key="'20-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -462,7 +462,7 @@
                   :key="'21-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -483,7 +483,7 @@
                   :key="'22-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -504,7 +504,7 @@
                   :key="'23-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -525,7 +525,7 @@
                   :key="'24-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -546,7 +546,7 @@
                   :key="'25-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -571,7 +571,7 @@
                   :key="'26-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -592,7 +592,7 @@
                   :key="'27-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -613,7 +613,7 @@
                   :key="'28-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -634,7 +634,7 @@
                   :key="'29-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -655,7 +655,7 @@
                   :key="'30-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -680,7 +680,7 @@
                   :key="'31-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -701,7 +701,7 @@
                   :key="'32-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -722,7 +722,7 @@
                   :key="'33-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -743,7 +743,7 @@
                   :key="'34-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -764,7 +764,7 @@
                   :key="'35-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -789,7 +789,7 @@
                   :key="'36-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -810,7 +810,7 @@
                   :key="'37-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -831,7 +831,7 @@
                   :key="'38-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -852,7 +852,7 @@
                   :key="'39-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -873,7 +873,7 @@
                   :key="'40-' + turma.Disciplina + '-' + disciplina.id"
                   v-b-popover.html.hover.top="{
                     customClass: 'popoverText',
-                    content: disciplina.nome + ' <br> ' + professor(turma)
+                    content: disciplina.nome + ' <br> ' + professor(turma),
                   }"
                 >
                   {{ disciplina.codigo }}
@@ -886,13 +886,14 @@
     </div>
   </div>
 </template>
+
 <script>
 import _ from "lodash";
 
 export default {
-  name: "HorarioEletivas",
+  name: "TableEletivas",
   props: {
-    Eletivas: Array
+    Eletivas: Array,
   },
 
   methods: {
@@ -922,75 +923,32 @@ export default {
         if (d2 !== undefined) apelidos += d2.apelido;
       }
       return apelidos;
-    }
+    },
   },
 
   computed: {
     Disciplinas() {
       return this.$store.state.disciplina.Disciplinas;
-    }
-  }
+    },
+  },
 };
 </script>
+
 <style scoped>
-.row {
-  display: flex;
-  justify-content: center;
-  margin: 0 !important;
+.container-horarios {
+  width: 100% !important;
+  max-width: 1550px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
 }
-.div-table {
-  display: inline;
-  position: relative;
+.container-horarios .div-table {
+  min-width: max-content;
 }
-
-.tg {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-color: #ccc;
-  margin-bottom: 20px !important;
-  margin-right: 5px !important;
-}
-.tg td {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  padding: 0px;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: break-word;
-  border-color: rgba(189, 189, 189, 0.644);
-  color: #333;
-  background-color: #fff;
-}
-.tg th,
-.tg-hor {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 0px;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: normal;
-  border-color: rgba(189, 189, 189, 0.623);
-  color: #333;
-  background-color: #e9ecef !important;
-}
-.tg .tg-0lax {
-  vertical-align: center;
-  text-align: center;
-  height: 22px;
-  min-width: 50px !important;
-}
-td p {
-  min-width: 48px !important;
-  padding-right: 1px !important;
-  padding-left: 1px !important;
-  margin: 0 !important;
-}
-
 .popoverText {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
+  font-family: Arial, sans-serif !important;
+  font-size: 11px !important;
 }
 </style>

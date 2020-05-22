@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardHome row pr-2">
+  <div class="DashboardHome row p-0">
     <PageTitle :title="'Dashboard'" :asideClass="'col-0'"> </PageTitle>
 
     <div class="alert alert-light alerta mt-1" role="alert">
