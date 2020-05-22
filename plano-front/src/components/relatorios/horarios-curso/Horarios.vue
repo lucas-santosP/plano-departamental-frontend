@@ -28,8 +28,13 @@
     </PageTitle>
 
     <div class="row w-100 m-0">
-      <template v-if="semestre1IsSelected">
-        <h2 class="semestre-title w-100 px-2 bg-custom">1º SEMESTRE</h2>
+      <template v-show="semestre1IsSelected">
+        <h2
+          v-show="CursosWithHorarios.length"
+          class="semestre-title w-100 px-2 bg-custom"
+        >
+          1º SEMESTRE
+        </h2>
 
         <template v-for="curso in CursosWithHorarios">
           <h3 class="curso-title pl-1" :key="'s1-title' + curso.nome">
@@ -48,8 +53,13 @@
         </template>
       </template>
 
-      <template v-if="semestre2IsSelected">
-        <h2 class="semestre-title w-100 px-2 bg-custom">2º SEMESTRE</h2>
+      <template v-show="semestre2IsSelected">
+        <h2
+          v-show="CursosWithHorarios.length"
+          class="semestre-title w-100 px-2 bg-custom"
+        >
+          2º SEMESTRE
+        </h2>
 
         <template v-for="curso in CursosWithHorarios">
           <h3 class="curso-title pl-1" :key="'s2-title' + curso.nome">
@@ -316,33 +326,6 @@
 </template>
 
 <script>
-const allCursosDCC = [
-  {
-    nome: "SISTEMAS DE INFORMAÇÃO",
-    value: 3,
-    codigo: "76A",
-  },
-  {
-    nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
-    value: 2,
-    codigo: "35A",
-  },
-  {
-    nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
-    value: 1,
-    codigo: "65C",
-  },
-  {
-    nome: "ENGENHARIA DA COMPUTAÇÃO",
-    value: 4,
-    codigo: "65B",
-  },
-  {
-    nome: "ELETIVAS",
-    value: 5,
-    codigo: "-",
-  },
-];
 import _ from "lodash";
 import TableEletivas from "./TableEletivas.vue";
 import TablesHorarios from "./TablesHorarios.vue";
@@ -359,14 +342,11 @@ export default {
     return {
       cursos: [],
       error: undefined,
-      options_Cursos: [...allCursosDCC],
       cursosSelecionados: [],
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
       evenSI: "false",
-
-      selectAll: false,
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
@@ -386,18 +366,44 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
+      options_Cursos: [
+        {
+          nome: "SISTEMAS DE INFORMAÇÃO",
+          value: 3,
+          codigo: "76A",
+        },
+        {
+          nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
+          value: 2,
+          codigo: "35A",
+        },
+        {
+          nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
+          value: 1,
+          codigo: "65C",
+        },
+        {
+          nome: "ENGENHARIA DA COMPUTAÇÃO",
+          value: 4,
+          codigo: "65B",
+        },
+        {
+          nome: "ELETIVAS",
+          value: 5,
+          codigo: "-",
+        },
+      ],
     };
   },
-
   beforeMount: function() {
     this.createHorarios1();
     this.createHorarios2();
   },
 
   mounted() {
-    this.selectAllSemestre();
-    this.toggleAll();
-    this.btnOK();
+    // this.selectAllSemestre();
+    // this.toggleAll();
+    // this.btnOK();
   },
   methods: {
     btnOK() {
@@ -4666,16 +4672,8 @@ export default {
   },
 
   watch: {
-    Turmas(newTurmas, oldTurmas) {
+    Turmas() {
       this.updateHorarios();
-    },
-
-    CursosSelecionados: function() {
-      if (this.cursos.length === 5) {
-        this.selectAll = true;
-      } else {
-        this.selectAll = false;
-      }
     },
   },
 };
