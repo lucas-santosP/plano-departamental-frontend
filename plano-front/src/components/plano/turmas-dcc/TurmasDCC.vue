@@ -195,7 +195,7 @@
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- TABLE PERFIS -->
         <table
-          v-if="nav_ativo == 'perfis'"
+          v-if="nav_ativo === 'perfis'"
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
@@ -249,7 +249,7 @@
         </table>
         <!-- TABLE CURSOS -->
         <table
-          v-else-if="nav_ativo == 'cursos'"
+          v-else-if="nav_ativo === 'cursos'"
           class="table table-sm modal-table table-bordered"
           style="height: 450px !important;"
         >

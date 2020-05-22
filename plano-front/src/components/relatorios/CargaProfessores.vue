@@ -3,7 +3,7 @@
     <div class="cube1"></div>
     <div class="cube2"></div>
   </div>
-  <div v-else class="DashboardCargaProfessores row pr-2">
+  <div v-else class="DashboardCargaProfessores row p-0">
     <!--  -->
     <!-- Titulo -->
     <div

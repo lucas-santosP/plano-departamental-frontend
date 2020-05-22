@@ -1,3 +1,11 @@
+:root {
+  --navbar-height: 30px;
+}
+@media screen and (max-width: 425px) {
+  :root {
+    --navbar-height: 60px;
+  }
+}
 .main-component {
   width: 100%;
   overflow: hidden !important;

@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardLaboratoriosAlocacao row pr-2">
+  <div class="DashboardLaboratoriosAlocacao row p-0">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"

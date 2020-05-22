@@ -1,11 +1,5 @@
 <template>
   <div class="TheDashboard" v-bind:class="{ loading: isLoadingFile }">
-    <link
-      href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
-      rel="stylesheet"
-      type="text/css"
-    />
-
     <nav class="navbar navbar-dark bg-dark fixed-top shadow">
       <div class="row w-100 m-0">
         <div @click="closeSideBar()" class="navbar-brand">
@@ -29,39 +23,39 @@
           ></i>
         </button>
 
-        <ul class="navbar-nav listaNavbarTop" style="flex-direction:row;">
+        <ul class="navbar-nav">
           <li class="nav-item">
-            <div class="div-nav-top nav-link" v-on:click="showModalUser">
+            <div class="nav-link" v-on:click="showModalUser">
               <i class="icons-top mr-1 fas fa-user"></i>
               <span class="text-nav-top">Usuário</span>
             </div>
           </li>
           <li class="nav-item" v-if="Admin">
-            <div class="div-nav-top nav-link" v-on:click="showModalNovoPlano">
+            <div class="nav-link" v-on:click="showModalNovoPlano">
               <i class="icons-top mr-1 fas fa-plus-square"></i>
               <span class="text-nav-top">Novo</span>
             </div>
           </li>
           <li class="nav-item" v-if="Admin">
-            <div class="div-nav-top nav-link" v-on:click="showModalLoad">
+            <div class="nav-link" v-on:click="showModalLoad">
               <i class="icons-top mr-1 fas fa-folder-open"></i>
               <span class="text-nav-top">Carregar</span>
             </div>
           </li>
           <li class="nav-item">
-            <div class="div-nav-top nav-link" v-on:click="showModalSave">
+            <div class="nav-link" v-on:click="showModalSave">
               <i class="icons-top mr-1 fas fa-file"></i>
               <span class="text-nav-top">Salvar</span>
             </div>
           </li>
           <li class="nav-item">
-            <div class="div-nav-top nav-link" v-on:click="showModalDownload">
+            <div class="nav-link" v-on:click="showModalDownload">
               <i class="icons-top mr-1 fas fa-save"></i>
               <span class="text-nav-top">Download</span>
             </div>
           </li>
           <li class="nav-item">
-            <router-link :to="{ name: 'logout' }" class="div-nav-top nav-link">
+            <router-link :to="{ name: 'logout' }" class="nav-link">
               <i class="icons-top mr-1 fas fa-sign-out-alt"></i>
               <span class="text-nav-top">Logout</span>
             </router-link>
@@ -71,27 +65,25 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row m-0" style="max-width:100%; height:100%;">
-        <transition
-          name="custom-transition"
-          enter-active-class="animated slideInLeft sidebar-animated"
-          leave-active-class="animated slideOutLeft sidebar-animated"
-        >
-          <Navbar v-if="toggleSideBar" :year="year"></Navbar>
-        </transition>
-        <main
-          @click="closeSideBar()"
-          role="main"
-          class="col-12 p-0 px-2"
-          v-if="!isLoading"
-        >
-          <router-view></router-view>
-        </main>
+      <transition
+        name="custom-transition"
+        enter-active-class="animated slideInLeft sidebar-animation"
+        leave-active-class="animated slideOutLeft sidebar-animation"
+      >
+        <TheSidebar v-if="toggleSideBar" :year="year" />
+      </transition>
+      <main
+        @click="closeSideBar()"
+        role="main"
+        class="col-12 p-0 px-2"
+        v-if="!isLoading"
+      >
+        <router-view></router-view>
+      </main>
 
-        <div id="loading" v-if="isLoading">
-          <div class="cube1"></div>
-          <div class="cube2"></div>
-        </div>
+      <div id="loading" v-if="isLoading">
+        <div class="cube1"></div>
+        <div class="cube2"></div>
       </div>
     </div>
 
@@ -262,6 +254,11 @@
         </div>
       </template>
     </b-modal>
+    <link
+      href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+      rel="stylesheet"
+      type="text/css"
+    />
   </div>
 </template>
 
@@ -275,8 +272,8 @@ import xlsxService from "@/common/services/xlsx";
 import novoPlanoService from "@/common/services/novoPlano";
 import planoService from "@/common/services/plano";
 import { saveAs } from "file-saver";
-import Navbar from "./Navbar.vue";
 import { EventBus } from "@/event-bus.js";
+import TheSidebar from "./TheSidebar.vue";
 
 const emptyUser = {
   nome: undefined,
@@ -292,7 +289,7 @@ const emptyPlano = {
 
 export default {
   name: "TheDashboard",
-  components: { Navbar },
+  components: { TheSidebar },
 
   data: function() {
     return {
@@ -534,6 +531,7 @@ export default {
         return false;
       }
     },
+
     year() {
       if (!_.isEmpty(this.$store.state.plano.Plano)) {
         if (typeof this.$store.state.plano.Plano[0].ano === "string")
@@ -543,7 +541,6 @@ export default {
         return this.$store.state.plano.Plano[0].ano;
       } else return 2019;
     },
-
     httpRequestCount() {
       return this.$store.state.httpRequestCount;
     },
@@ -557,20 +554,45 @@ export default {
 
 <style scoped>
 .TheDashboard {
-  max-width: 100% !important;
+  width: 100% !important;
   height: 100%;
   overflow: hidden !important;
   margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+navbar {
+  width: 100%;
+}
+/* main */
+.container-fluid {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: var(--navbar-height);
+  height: 100%;
+  /* height: -webkit-calc(100vh - var(--navbar-height));
+  height: -moz-calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height)); */
+}
+[role="main"] {
+  /* margin-top: var(--navbar-height); */
+  overflow-y: auto !important;
+  height: -webkit-calc(100vh - var(--navbar-height));
+  height: -moz-calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height));
 }
 .loading {
   cursor: progress;
 }
-/* navbar top */
-
 .navbar {
   padding: 0;
   margin: 0;
-  height: 30px;
+  height: var(--navbar-height);
   border-width: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -618,38 +640,18 @@ export default {
 :focus {
   color: white !important;
 }
-.listaNavbarTop {
+.navbar .navbar-nav {
   margin-left: auto;
-  padding: 0;
-}
-.div-nav-top {
-  margin-right: 5px;
-  margin-left: 0px;
-}
-.navbar-nav > .nav-item > .nav-link:hover {
-  cursor: pointer;
-}
-.navbar-nav {
+  padding: 0 0.5rem;
+  flex-direction: row;
   height: 30px;
 }
-.nav-link {
+
+.navbar-nav > .nav-item .nav-link {
+  cursor: pointer;
   font-size: 12px;
   height: 30px;
-  padding: 5px !important;
-}
-/* main */
-.container-fluid {
-  max-width: 100%;
-  margin: 0px;
-  padding-right: 0px;
-  padding-left: 0px;
-}
-[role="main"] {
-  margin-top: 30px; /* Space for fixed navbar */
-  overflow-y: auto !important;
-  height: -webkit-calc(100vh - 30px);
-  height: -moz-calc(100vh - 30px);
-  height: calc(100vh - 30px);
+  padding: 5px 0.5rem !important;
 }
 
 /*Download Files Loading*/
@@ -670,25 +672,21 @@ export default {
     width: 1.25em;
   }
 }
-
 @-o-keyframes ellipsis {
   to {
     width: 1.25em;
   }
 }
-
 @keyframes ellipsis {
   to {
     width: 1.25em;
   }
 }
-
 @-webkit-keyframes ellipsis {
   to {
     width: 1.25em;
   }
 }
-
 /* Page Loading */
 #loading {
   position: absolute;
@@ -702,11 +700,11 @@ export default {
 }
 
 /* ANIMATION */
-.sidebar-animated {
-  -webkit-animation-duration: 0.28s;
-  -moz-animation-duration: 0.28s;
-  -o-animation-duration: 0.28s;
-  animation-duration: 0.28s;
+.sidebar-animation {
+  -webkit-animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  -o-animation-duration: 0.3s;
+  animation-duration: 0.3s;
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both;
   -o-animation-fill-mode: both;
@@ -714,19 +712,9 @@ export default {
 }
 
 @media screen and (max-width: 425px) {
-  [role="main"] {
-    margin-top: 62px;
-  }
-  .sidebar {
-    margin-top: 62px;
-  }
   .listaNavbarTop {
     margin-left: 0;
     width: 100%;
-  }
-  .navbar {
-    /*Aumenta a altura da navbar */
-    height: 60px !important;
   }
 }
 /* SUMIR ICONES DA NAVBAR TOP */

@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <transition name="slide-fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
+
     <notifications
       group="general"
       position="bottom right"
@@ -11,9 +15,6 @@
       :duration="5000"
       classes="vue-notification"
     />
-    <transition name="slide-fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
   </div>
 </template>
 
@@ -28,20 +29,9 @@ html,
 body {
   height: 100%;
 }
-
 #app {
   height: 100%;
 }
-
-.sticky-thead {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  z-index: 3;
-}
-
 .cube1,
 .cube2 {
   background-color: #333;

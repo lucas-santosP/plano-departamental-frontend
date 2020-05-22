@@ -13,7 +13,7 @@ axios(Vue, store);
 // css
 import "./assets/css/botoes.css";
 import "./assets/css/tables.css";
-import "./assets/css/index.css";
+import "./assets/css/global.css";
 // bootstrap
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";

@@ -1,46 +1,42 @@
 <template>
   <nav
-    id="Navbar"
+    id="TheSidebar"
     class="sidebar d-block d-md-block bg-light col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2"
   >
-    <div class="sidebar-sticky">
-      <NavBarMenu :pageLinks="linkDashboard"> </NavBarMenu>
+    <SidebarMenu :menuPages="linkDashboard" />
 
-      <template v-if="Admin">
-        <h3
-          class="sidebar-heading d-flex justify-content-between align-items-center pr-3 pl-2 mt-4 mb-1 text-muted"
-        >
-          <span>Plano</span>
-          <a class="d-flex align-items-center" href="#">
-            <i class=" far fa-calendar-alt mr-1"></i>
-            <span>{{ year }}</span>
-          </a>
-        </h3>
-        <NavBarMenu :pageLinks="linksPlanoOrdered"></NavBarMenu>
+    <SidebarMenu
+      v-if="Admin"
+      :menuTitle="'Plano'"
+      :menuPages="linksPlanoOrdered"
+    >
+      <template #aside-title>
+        <a class="d-flex align-items-center" href="#">
+          <i class=" far fa-calendar-alt mr-1"></i>
+          <span>{{ year }}</span>
+        </a>
       </template>
+    </SidebarMenu>
 
-      <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted">
-        Relatórios
-      </h3>
-      <NavBarMenu :pageLinks="linksRelatoriosOrdered"> </NavBarMenu>
-
-      <h3 class="sidebar-heading pr-3 pl-2 mt-4 mb-1 text-muted" v-if="Admin">
-        Gerenciar
-      </h3>
-      <NavBarMenu :pageLinks="linksGenrenciarOrdered"></NavBarMenu>
-    </div>
+    <SidebarMenu
+      :menuTitle="'Relatórios'"
+      :menuPages="linksRelatoriosOrdered"
+    />
+    <SidebarMenu :menuTitle="'Gerenciar'" :menuPages="linksGenrenciarOrdered" />
   </nav>
 </template>
 
 <script>
 import _ from "lodash";
-import { EventBus } from "@/event-bus.js";
-import NavBarMenu from "@/components/Dashboard/NavBarMenu.vue";
+import SidebarMenu from "@/components/Dashboard/SidebarMenu.vue";
 
 export default {
-  name: "Navbar",
+  name: "TheSidebar",
   components: {
-    NavBarMenu,
+    SidebarMenu,
+  },
+  props: {
+    year: Number,
   },
   data() {
     return {
@@ -116,18 +112,19 @@ export default {
       ],
     };
   },
-  props: {
-    year: Number,
-  },
-  methods: {
-    EmitcloseSideBar() {
-      EventBus.$emit("close-sidebar");
-    },
-    loadPage() {
-      this.$store.commit(COMPONENT_LOADING);
-    },
-  },
   computed: {
+    linksPlanoOrdered() {
+      return this.linksPlano;
+    },
+
+    linksRelatoriosOrdered() {
+      return _.orderBy(this.linksRelatorios, "title");
+    },
+
+    linksGenrenciarOrdered() {
+      return _.orderBy(this.linksGenrenciar, "title");
+    },
+
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
@@ -135,68 +132,80 @@ export default {
         return false;
       }
     },
-    linksPlanoOrdered() {
-      return this.linksPlano;
-    },
-    linksRelatoriosOrdered() {
-      return _.orderBy(this.linksRelatorios, "title");
-    },
-    linksGenrenciarOrdered() {
-      return _.orderBy(this.linksGenrenciar, "title");
-    },
   },
 };
 </script>
 
-<style scoped>
-.sidebar {
+<style>
+nav.sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
-  margin-top: 30px; /* Height of navbar */
-  padding-right: 0px;
-  padding-left: 0px;
+  height: -webkit-calc(100vh - var(--navbar-height));
+  height: -moz-calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height));
   max-width: 200px;
+  margin-top: var(--navbar-height);
+  padding: 0.5rem 0;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  z-index: 100;
+  font-size: 0.875rem;
   -webkit-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
-  font-size: 0.875rem;
 }
-.sidebar-heading {
+nav.sidebar .sidebar-menu:last-of-type {
+  margin-bottom: 2rem;
+}
+nav.sidebar .title {
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
 }
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  padding-top: 0.5rem;
-  height: -webkit-calc(100vh - 30px);
-  height: -moz-calc(100vh - 30px);
-  height: calc(100vh - 30px);
-  padding-bottom: 1rem;
-  overflow-x: hidden;
-  overflow-y: auto !important; /* Scrollable contents if viewport is shorter than content. */
+nav.sidebar .nav li {
+  border-top: rgb(248, 249, 250) solid 0.1px;
+  border-bottom: rgb(248, 249, 250) solid 0.1px;
 }
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
+nav.sidebar .nav li:hover {
+  background-color: #0079fa;
+  color: white;
 }
-
+nav.sidebar .nav li .nav-link {
+  font-weight: 500;
+  color: #333;
+  font-size: 12px;
+  height: 30px;
+  padding: 5px;
+  padding-left: 8px;
+}
+nav.sidebar .nav li .nav-link:hover {
+  color: white;
+}
+nav.sidebar .nav li .nav-link.active {
+  background-color: #0055af;
+  color: white;
+  border-left: #0079fa 10px solid;
+}
+nav.sidebar .nav li .nav-link.active:hover {
+  background-color: #0055af;
+}
+nav.sidebar .nav li .nav-link .icon-nav-link {
+  color: inherit;
+  width: 18px !important;
+  height: 18px !important;
+  text-align: start;
+}
 /* SCROLL BAR CUSTOM */
-.sidebar-sticky ::-webkit-scrollbar-track {
+nav.sidebar.sidebar ::-webkit-scrollbar-track {
   background-color: #f4f4f4 !important;
 }
-.sidebar-sticky::-webkit-scrollbar {
+nav.sidebar.sidebar::-webkit-scrollbar {
   width: 6px !important;
   background: #f4f4f4 !important;
 }
-.sidebar-sticky::-webkit-scrollbar-thumb {
+nav.sidebar.sidebar::-webkit-scrollbar-thumb {
   background: #666 !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="CargaPos row pr-2">
+  <div v-if="Admin" class="CargaPos row p-0">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"

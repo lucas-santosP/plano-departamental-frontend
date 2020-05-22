@@ -3,7 +3,7 @@
     <div class="cube1"></div>
     <div class="cube2"></div>
   </div>
-  <div v-else-if="Admin" class="TurmasExternas row pr-2">
+  <div v-else-if="Admin" class="TurmasExternas row p-0">
     <!-- Titulo -->
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
