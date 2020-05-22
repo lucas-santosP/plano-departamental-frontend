@@ -1,5 +1,5 @@
 <template>
-  <div id="ModalTurma" class="modal-turma">
+  <div id="ModalEditTurma" class="modal-turma">
     <div class="form-container row m-0 p-0 w-100">
       <!-- Disciplina e Codigo -->
       <div class="form-row w-100">
@@ -45,6 +45,7 @@
             >
           </select>
         </div>
+        <!-- Creditos -->
         <!-- <div class="form-group col">
           <label for="SelectDisciplinaName"> Créditos:</label>
           <input
@@ -248,21 +249,20 @@
           </template>
         </div>
       </div>
-      <div class="form-row w-100 mt-2">
-        <div class="from-group col">
-          <b-button
-            class="btn-custom btn-modal btn-verde px-3"
-            @click="editTurma()"
-          >
-            Salvar
-          </b-button>
-          <b-button
-            class="btn-custom btn-modal btn-cinza px-3"
-            @click="resetInputsValues()"
-          >
-            Reset
-          </b-button>
-        </div>
+      <!-- Botoes -->
+      <div class="form-row w-100 m-0 mt-2">
+        <b-button
+          class="btn-custom btn-modal btn-verde px-3"
+          @click="editTurma()"
+        >
+          Salvar
+        </b-button>
+        <b-button
+          class="btn-custom btn-modal btn-cinza px-3"
+          @click="resetInputsValues()"
+        >
+          Reset
+        </b-button>
       </div>
     </div>
     <hr class="my-2 w-100" />

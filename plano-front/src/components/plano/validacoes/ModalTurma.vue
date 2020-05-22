@@ -211,22 +211,21 @@
             </select>
           </template>
         </div>
-        <div class="form-row w-100 m-0 mt-2">
-          <div class="from-group col">
-            <b-button
-              class="btn-custom btn-modal btn-verde px-3"
-              @click="editTurma()"
-            >
-              Salvar
-            </b-button>
-            <b-button
-              class="btn-custom btn-modal btn-cinza px-3"
-              @click="resetInputs()"
-            >
-              Reset
-            </b-button>
-          </div>
-        </div>
+      </div>
+      <!-- Botoes -->
+      <div class="form-row w-100 m-0 mt-2">
+        <b-button
+          class="btn-custom btn-modal btn-verde px-3"
+          @click="editTurma()"
+        >
+          Salvar
+        </b-button>
+        <b-button
+          class="btn-custom btn-modal btn-cinza px-3"
+          @click="resetInputs()"
+        >
+          Reset
+        </b-button>
       </div>
     </div>
     <hr class="my-2 w-100" />
@@ -1498,13 +1497,9 @@ export default {
 </script>
 
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
 .modal-turma {
   width: 100%;
   height: 100%;
-}
-.table-turma {
-  max-height: 350px;
 }
 .form-container {
   font-size: 12px;
