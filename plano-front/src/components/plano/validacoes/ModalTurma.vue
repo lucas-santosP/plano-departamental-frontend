@@ -211,7 +211,7 @@
             </select>
           </template>
         </div>
-        <div class="form-row w-100 mt-2">
+        <div class="form-row w-100 m-0 mt-2">
           <div class="from-group col">
             <b-button
               class="btn-custom btn-modal btn-verde px-3"
