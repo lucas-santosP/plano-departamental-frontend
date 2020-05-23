@@ -1,68 +1,14 @@
 <template>
   <div class="TheDashboard" v-bind:class="{ loading: isLoadingFile }">
-    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
-      <div class="row w-100 m-0">
-        <div @click="closeSideBar()" class="navbar-brand">
-          <router-link
-            :to="{ name: 'dashboard' }"
-            class="brand-text"
-            style="text-align: center;"
-            >Plano Departamental
-          </router-link>
-        </div>
-
-        <button
-          @click="toggleSideBar = !toggleSideBar"
-          key="openAndClose"
-          type="button"
-          class="btn-navbar"
-        >
-          <i
-            key="openAndClose"
-            :class="toggleSideBar ? 'fas fa-times' : 'fas fa-bars'"
-          ></i>
-        </button>
-
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <div class="nav-link" v-on:click="showModalUser">
-              <i class="icons-top mr-1 fas fa-user"></i>
-              <span class="text-nav-top">Usuário</span>
-            </div>
-          </li>
-          <li class="nav-item" v-if="Admin">
-            <div class="nav-link" v-on:click="showModalNovoPlano">
-              <i class="icons-top mr-1 fas fa-plus-square"></i>
-              <span class="text-nav-top">Novo</span>
-            </div>
-          </li>
-          <li class="nav-item" v-if="Admin">
-            <div class="nav-link" v-on:click="showModalLoad">
-              <i class="icons-top mr-1 fas fa-folder-open"></i>
-              <span class="text-nav-top">Carregar</span>
-            </div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link" v-on:click="showModalSave">
-              <i class="icons-top mr-1 fas fa-file"></i>
-              <span class="text-nav-top">Salvar</span>
-            </div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link" v-on:click="showModalDownload">
-              <i class="icons-top mr-1 fas fa-save"></i>
-              <span class="text-nav-top">Download</span>
-            </div>
-          </li>
-          <li class="nav-item">
-            <router-link :to="{ name: 'logout' }" class="nav-link">
-              <i class="icons-top mr-1 fas fa-sign-out-alt"></i>
-              <span class="text-nav-top">Logout</span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <TheNavbar
+      :sidebarVisibility="sidebarVisibility"
+      v-on:toggle-sidebar="toggleSidebar"
+      v-on:show-modal-download="showModalDownload"
+      v-on:show-modal-save="showModalSave"
+      v-on:show-modal-load="showModalLoad"
+      v-on:show-modal-novo-plano="showModalNovoPlano"
+      v-on:show-modal-user="showModalUser"
+    />
 
     <div class="container-fluid">
       <transition
@@ -70,7 +16,7 @@
         enter-active-class="animated slideInLeft sidebar-animation"
         leave-active-class="animated slideOutLeft sidebar-animation"
       >
-        <TheSidebar v-if="toggleSideBar" :year="year" />
+        <TheSidebar v-if="sidebarVisibility" :year="year" />
       </transition>
       <main
         @click="closeSideBar()"
@@ -273,7 +219,8 @@ import novoPlanoService from "@/common/services/novoPlano";
 import planoService from "@/common/services/plano";
 import { saveAs } from "file-saver";
 import { EventBus } from "@/event-bus.js";
-import TheSidebar from "./TheSidebar.vue";
+import TheNavbar from "./TheNavbar.vue";
+import TheSidebar from "./sidebar/TheSidebar.vue";
 
 const emptyUser = {
   nome: undefined,
@@ -281,7 +228,6 @@ const emptyUser = {
   senha: undefined,
   senhaAtual: undefined,
 };
-
 const emptyPlano = {
   ano: undefined,
   obs: undefined,
@@ -289,7 +235,7 @@ const emptyPlano = {
 
 export default {
   name: "TheDashboard",
-  components: { TheSidebar },
+  components: { TheSidebar, TheNavbar },
 
   data: function() {
     return {
@@ -300,7 +246,7 @@ export default {
       userForm: _.clone(emptyUser),
       downloadState: 0,
       planoForm: _.clone(emptyPlano),
-      toggleSideBar: false,
+      sidebarVisibility: false,
     };
   },
   created() {
@@ -326,8 +272,11 @@ export default {
     this.$socket.close();
   },
   methods: {
+    toggleSidebar() {
+      this.sidebarVisibility = !this.sidebarVisibility;
+    },
     closeSideBar() {
-      this.toggleSideBar = false;
+      this.sidebarVisibility = false;
     },
     bddump: function(filename) {
       bddumpService
@@ -524,14 +473,6 @@ export default {
     },
   },
   computed: {
-    Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
     year() {
       if (!_.isEmpty(this.$store.state.plano.Plano)) {
         if (typeof this.$store.state.plano.Plano[0].ano === "string")
@@ -565,95 +506,24 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
 }
-navbar {
-  width: 100%;
-}
-/* main */
 .container-fluid {
   max-width: 100%;
   margin: 0;
   padding: 0;
   margin-top: var(--navbar-height);
   height: 100%;
-  /* height: -webkit-calc(100vh - var(--navbar-height));
-  height: -moz-calc(100vh - var(--navbar-height));
-  height: calc(100vh - var(--navbar-height)); */
+  transition: all 200ms ease;
 }
 [role="main"] {
-  /* margin-top: var(--navbar-height); */
   overflow-y: auto !important;
   height: -webkit-calc(100vh - var(--navbar-height));
   height: -moz-calc(100vh - var(--navbar-height));
   height: calc(100vh - var(--navbar-height));
+  transition: all 200ms ease;
 }
 .loading {
   cursor: progress;
 }
-.navbar {
-  padding: 0;
-  margin: 0;
-  height: var(--navbar-height);
-  border-width: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-}
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 160px !important;
-  margin: 0;
-  min-width: max-content;
-  padding: 0 5px;
-  cursor: pointer;
-  background-color: #00000040;
-  -webkit-box-shadow: inset -1px 0 0 #00000040;
-  -moz-box-shadow: inset -1px 0 0 #00000040;
-  box-shadow: inset -1px 0 0 #00000040;
-}
-.brand-text {
-  text-decoration: none;
-  font-weight: 500;
-  text-align: center;
-  font-size: 15px;
-  color: #e0e0e0 !important;
-}
-.brand-text:hover {
-  color: #ffffff !important;
-}
-.btn-navbar {
-  outline: none;
-  width: 40px !important;
-  padding: 0 6px 0 6px !important;
-  height: 30px !important;
-  margin-left: 0px !important;
-  color: rgb(205, 206, 208) !important;
-  background-color: rgba(0, 0, 0, 0.25) !important;
-  font-size: 20px !important;
-  border: 1px !important;
-}
-.btn-navbar i.fas {
-  font-size: 20px !important;
-}
-.btn-navbar:hover,
-:focus {
-  color: white !important;
-}
-.navbar .navbar-nav {
-  margin-left: auto;
-  padding: 0 0.5rem;
-  flex-direction: row;
-  height: 30px;
-}
-
-.navbar-nav > .nav-item .nav-link {
-  cursor: pointer;
-  font-size: 12px;
-  height: 30px;
-  padding: 5px 0.5rem !important;
-}
-
 /*Download Files Loading*/
 .loadingEllipsis:after {
   overflow: hidden;
@@ -665,6 +535,39 @@ navbar {
   animation: ellipsis steps(4, end) 900ms infinite;
   content: "\2026"; /* ascii code for the ellipsis character */
   width: 0px;
+}
+
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  z-index: 99999;
+}
+
+.sidebar-animation {
+  -webkit-animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  -o-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+[role="main"]::-webkit-scrollbar-track {
+  background-color: #f4f4f4 !important;
+}
+[role="main"]::-webkit-scrollbar {
+  width: 6px !important;
+  background: #f4f4f4 !important;
+}
+[role="main"]::-webkit-scrollbar-thumb {
+  background: #666 !important;
 }
 
 @-moz-keyframes ellipsis {
@@ -687,54 +590,4 @@ navbar {
     width: 1.25em;
   }
 }
-/* Page Loading */
-#loading {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 64px;
-  height: 64px;
-  margin-left: -32px;
-  margin-top: -32px;
-  z-index: 99999;
-}
-
-/* ANIMATION */
-.sidebar-animation {
-  -webkit-animation-duration: 0.3s;
-  -moz-animation-duration: 0.3s;
-  -o-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-fill-mode: both;
-  -moz-animation-fill-mode: both;
-  -o-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-@media screen and (max-width: 425px) {
-  .listaNavbarTop {
-    margin-left: 0;
-    width: 100%;
-  }
-}
-/* SUMIR ICONES DA NAVBAR TOP */
-@media screen and (max-width: 640px) {
-  .text-nav-top {
-    display: none;
-  }
-  .icons-top {
-    margin-right: 10px !important;
-  }
-}
-[role="main"]::-webkit-scrollbar-track {
-  background-color: #f4f4f4 !important;
-}
-[role="main"]::-webkit-scrollbar {
-  width: 6px !important;
-  background: #f4f4f4 !important;
-}
-[role="main"]::-webkit-scrollbar-thumb {
-  background: #666 !important;
-}
-/* #ffe1c6 COR ENGENHARIA DE SOFTWARE */
 </style>

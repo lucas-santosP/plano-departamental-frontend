@@ -1,3 +1,6 @@
+button {
+  transition: all 200ms ease;
+}
 .btn-custom {
   padding: 0 !important;
   border: none !important;
@@ -9,6 +12,7 @@
   transition: all 0.3s ease 0s !important;
   cursor: pointer !important;
   text-align: center !important;
+  transition: all 200ms ease;
 }
 .btn-icon {
   outline: none !important;

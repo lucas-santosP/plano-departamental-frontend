@@ -1,6 +1,6 @@
 <template>
   <div class="DashboardHome row p-0">
-    <PageTitle :title="'Dashboard'" :asideClass="'col-0'"> </PageTitle>
+    <PageTitle :title="'Dashboard'" />
 
     <div class="alert alert-light alerta mt-1" role="alert">
       <p style="font-size:12px">

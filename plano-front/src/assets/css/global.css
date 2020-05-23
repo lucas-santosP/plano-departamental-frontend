@@ -1,7 +1,7 @@
 :root {
   --navbar-height: 30px;
 }
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 470px) {
   :root {
     --navbar-height: 60px;
   }

@@ -1,8 +1,5 @@
 <template>
-  <nav
-    id="TheSidebar"
-    class="sidebar d-block d-md-block bg-light col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2"
-  >
+  <nav class="sidebar d-block d-md-block bg-light col">
     <SidebarMenu :menuPages="linkDashboard" />
 
     <SidebarMenu
@@ -28,7 +25,7 @@
 
 <script>
 import _ from "lodash";
-import SidebarMenu from "@/components/Dashboard/SidebarMenu.vue";
+import SidebarMenu from "./SidebarMenu.vue";
 
 export default {
   name: "TheSidebar",
@@ -155,6 +152,7 @@ nav.sidebar {
   -webkit-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
+  transition: all 200ms ease;
 }
 nav.sidebar .sidebar-menu:last-of-type {
   margin-bottom: 2rem;
