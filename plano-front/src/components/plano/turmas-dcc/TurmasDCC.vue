@@ -72,7 +72,7 @@
             ></turmaheader>
           </tr>
           <template v-if="isAdd">
-            <tr class="stickyAdd" style="background-color:#e9e9e9;">
+            <tr>
               <novaturma :cursosLength="CursosAtivados.length"></novaturma>
             </tr>
           </template>
@@ -1006,7 +1006,6 @@ export default {
   width: max-content;
 }
 .main-table {
-  transition: all 200ms ease;
   display: block !important;
   overflow-y: scroll !important;
   overflow-x: auto !important;

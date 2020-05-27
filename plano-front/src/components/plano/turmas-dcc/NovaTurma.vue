@@ -1,5 +1,8 @@
 <template>
-  <div class="novaturma max-content stickyAdd">
+  <div
+    class="novaturma max-content stickyAdd"
+    style="background-color:#e9e9e9;"
+  >
     <td>
       <div style="width: 25px;"></div>
     </td>
