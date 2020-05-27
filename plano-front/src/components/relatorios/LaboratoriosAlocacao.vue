@@ -1,58 +1,48 @@
 <template>
-  <div class="DashboardLaboratoriosAlocacao row p-0">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-4 col-md-5 col-sm-6 col-5 px-0 pr-1">
-          Horários - Laborátorios
-        </h1>
-        <div
-          class="form-group col-xl-9 col-lg-8 col-md-7 col-sm-6 col-7 mb-0 p-0"
-          style="justify-content: flex-end !important;"
+  <div class="main-component row p-0">
+    <PageTitle :title="'Horários - Laborátorios'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
         >
-          <b-button v-b-modal.modalFiltros title="Semestre" class="cancelbtn">
-            <i class="fas fa-list-ul"></i>
-          </b-button>
-          <div class="d-flex p-0 m-0">
-            <button
-              type="button"
-              class="relatbtn"
-              title="Relatório"
-              v-on:click.prevent="pdf"
-            >
-              <i class="far fa-file-pdf"></i>
-            </button>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
 
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="w-100 mb-2 border-bottom"></div>
+        <button
+          type="button"
+          class="btn-custom btn-icon relatbtn"
+          title="Relatório"
+          v-on:click.prevent="pdf"
+        >
+          <i class="far fa-file-pdf"></i>
+        </button>
 
-    <div class="col-12 p-0 w-100">
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="btn-custom btn-icon relatbtn"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
+
+    <div class="row w-100 m-0">
       <template
         v-if="
           LaboratoriosAtivados.length != 0 &&
             (semestreAtual == 1 || semestreAtual == 3)
         "
       >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
+        <h2 class="semestre-title w-100 px-2 bg-custom">
           1º SEMESTRE
-        </h3>
-        <div class="flex-container">
-          <div class="row marg w-100 pl-1">
-            <div
-              class="div-table col p-0"
-              v-for="lab in LaboratoriosAtivados"
-              :key="'2-lab-id' + lab.id"
-            >
-              <h5>{{ lab.nome }}</h5>
+        </h2>
+        <div class="container-horarios pl-1">
+          <template v-for="lab in LaboratoriosAtivados">
+            <div class="div-table p-0" :key="'1-lab-id' + lab.id">
+              <h3 class="lab-title">{{ lab.nome }}</h3>
               <table class="tg">
                 <tr>
                   <th class="tg-0lax tg-dia">Horário</th>
@@ -936,7 +926,7 @@
                 </tr>
               </table>
             </div>
-          </div>
+          </template>
         </div>
       </template>
 
@@ -946,17 +936,13 @@
             (semestreAtual == 2 || semestreAtual == 3)
         "
       >
-        <h3 class="title px-2" style="background-color: rgba(0, 0, 0, 0.089);">
+        <h2 class="semestre-title w-100 px-2 bg-custom">
           2º SEMESTRE
-        </h3>
-        <div class="flex-container">
-          <div class="row marg w-100 pl-1">
-            <div
-              class="div-table col p-0"
-              v-for="lab in LaboratoriosAtivados"
-              :key="'2-lab-id' + lab.id"
-            >
-              <h5>{{ lab.nome }}</h5>
+        </h2>
+        <div class="container-horarios pl-1">
+          <template v-for="lab in LaboratoriosAtivados">
+            <div class="div-table p-0" :key="'2-lab-id' + lab.id">
+              <h3 class="lab-title">{{ lab.nome }}</h3>
 
               <table class="tg">
                 <tr>
@@ -1841,7 +1827,7 @@
                 </tr>
               </table>
             </div>
-          </div>
+          </template>
         </div>
       </template>
     </div>
@@ -2005,13 +1991,13 @@
         <div class="w-100">
           <template v-if="nav_ativo == 'semestre'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAllSemestre()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNoneSemestre()"
               >Desmarcar Todos</b-button
@@ -2020,13 +2006,13 @@
 
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAll()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNone()"
               >Desmarcar Todos</b-button
@@ -2036,7 +2022,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-custom btn-modal"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -2053,13 +2039,13 @@
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100 m-0 d-flex">
           <b-button
-            class="btn-azul btn-df mr-2"
+            class="btn-azul btn-custom btn-modal"
             variant="success"
             @click="selectAll()"
             >Selecionar Todos</b-button
           >
           <b-button
-            class="btn-cinza btn-df mr-2"
+            class="btn-cinza btn-custom btn-modal"
             variant="secondary"
             @click="selectNone()"
             >Desmarcar Todos</b-button
@@ -2108,8 +2094,13 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
+import PageTitle from "@/components/PageTitle";
+
 export default {
   name: "DashboardLaboratoriosAlocacao",
+  components: {
+    PageTitle,
+  },
   data() {
     return {
       value: 0,
@@ -2260,68 +2251,34 @@ export default {
 </script>
 
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
-.row {
-  margin: 0 !important;
-}
-.DashboardLaboratoriosAlocacao {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-.title {
+.semestre-title {
   clear: both;
   display: block;
   padding-top: 0px;
   text-align: start !important;
   font-weight: bold;
   font-size: 18px;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-
-h5 {
-  width: max-content !important;
-  font-size: 14px;
+.lab-title {
+  width: 100%;
+  text-align: start !important;
+  font-size: 12px !important;
   font-weight: bold !important;
-  text-align: center;
 }
 
-.flex-container {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -moz-box-orient: horizontal;
-  -moz-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: space-evenly;
-  -webkit-justify-content: space-evenly;
-  -moz-box-pack: space-evenly;
-  -ms-flex-pack: space-evenly;
-  justify-content: space-evenly;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+.container-horarios {
+  width: 100% !important;
+  max-width: 1550px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+}
+.container-horarios .div-table {
+  min-width: max-content;
 }
 
 .tg {
@@ -2364,7 +2321,6 @@ h5 {
   height: 22px;
   min-width: 66px;
 }
-
 .tg td p {
   min-width: 64px !important;
   padding-right: 1px !important;
@@ -2377,228 +2333,30 @@ h5 {
   padding-left: 1px !important;
   margin: 0 !important;
 }
-@media screen and (min-width: 1570px) and (max-width: 1741px) {
-  .marg {
-    margin-right: 10% !important;
-  }
-}
-@media screen and (min-width: 1741px) and (max-width: 1905px) {
-  .marg {
-    margin-right: 18% !important;
-  }
-}
-@media screen and (min-width: 1906px) and (max-width: 1965px) {
-  .marg {
-    margin-right: 22% !important;
-  }
-}
-
-/* ====== BOTÕES ====== */
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  background-color: white;
-  color: #82a0ff !important;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #698dff;
-}
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-
-.btn-azul {
-  background-color: #718de0 !important;
-  border-color: #9ab3ff !important;
-}
-.btn-azul:hover {
-  background-color: rgb(74, 101, 190) !important;
-  border-color: #82a0ff !important;
-}
-
-.btn-azul:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-.btn-cinza {
-  background-color: #999999 !important;
-  border-color: #c3c3c3 !important;
-}
-.btn-cinza:hover {
-  background-color: #747474 !important;
-  border-color: #aaaaaa !important;
-}
-
-.btn-cinza:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-}
-.btn-verde {
-  background-color: #70b670 !important;
-  border-color: #a0e7a0 !important;
-}
-.btn-verde:hover {
-  background-color: #4c8a4c !important;
-  border-color: #77dd77 !important;
-}
-
-.btn-verde:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-i.fas,
-i.far {
-  font-size: 25px;
-}
-
-.cancelbtn {
-  background-color: white;
-  color: #cfcfc4;
-}
-.cancelbtn:hover {
-  background-color: white;
-  color: #b8b4a8;
-}
-
-.cancelbtn:focus {
-  background-color: white;
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
-
-.form-inline,
-.form-inline {
-  width: auto;
-}
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-
-/* =========================== */
-@media screen and (max-width: 575px) {
-  .div-titulo {
-    height: 70px !important;
-  }
-}
-
-/* ==== MODAL TABLE ==== */
-.modal-table {
-  display: block !important;
-  overflow: auto !important;
-  font-size: 10px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-}
-.modal-table tr thead {
-  display: block;
-}
-.modal-table th {
-  padding: 0 !important;
-  text-align: center !important;
-  height: 18px !important;
-  border-bottom: 0 !important;
-  border-top: 0 !important;
-}
-.modal-table .p-header {
-  padding: 0px 5px 0px 5px !important;
-  margin: 0 !important;
-  text-align: start;
-  height: 18px !important;
-}
-.modal-table tbody {
-  max-height: 100%;
-  width: 100%;
-}
-.modal-table td {
-  border-bottom: 0;
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  /* height: 22px !important; */
-}
-.modal-table p {
-  margin: 0 !important;
-  text-align: center;
-  padding: 0 !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-}
-.modal-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-}
-/* FIM MODAL TABLE */
 .popoverText {
   font-family: Arial, sans-serif;
   font-size: 11px;
 }
-.div-table {
-  display: inline;
-  position: relative;
+
+@media screen and (min-width: 1570px) and (max-width: 1741px) {
+  .container-horarios {
+    margin-right: 10% !important;
+  }
 }
-.clickable {
-  cursor: pointer;
+@media screen and (min-width: 1741px) and (max-width: 1905px) {
+  .container-horarios {
+    margin-right: 18% !important;
+  }
 }
-.nav-link {
-  color: #007bff !important;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none;
+@media screen and (min-width: 1906px) and (max-width: 1965px) {
+  .container-horarios {
+    margin-right: 22% !important;
+  }
 }
-.active {
-  background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default;
+
+@media screen and (max-width: 575px) {
+  .div-titulo {
+    height: 70px !important;
+  }
 }
 </style>
