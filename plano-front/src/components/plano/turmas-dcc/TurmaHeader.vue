@@ -7,10 +7,13 @@
       <p style="width:40px" class="p-header">Editar</p>
     </th>
     <th class="clickable" @click="$emit('toggle-order', 'periodo')">
-      <p style="width:40px" class="p-header" title="Semestre">
+      <p style="width:50px" class="p-header" title="Semestre">
         S.
         <i :class="setIconByOrder('periodo')"></i>
       </p>
+    </th>
+    <th class="clickable">
+      <p style="width: 80px">Perfil</p>
     </th>
     <th class="clickable" @click="$emit('toggle-order', 'disciplinaCodigo')">
       <p style="width:70px" class="p-header" title="Código">
@@ -107,7 +110,6 @@ export default {
       else return false;
     },
     setIconByOrder(orderToCheck) {
-      console.log(this.currentOrder);
       if (this.currentOrder.order === orderToCheck) {
         return this.currentOrder.type === "asc"
           ? "fas fa-arrow-down fa-sm"

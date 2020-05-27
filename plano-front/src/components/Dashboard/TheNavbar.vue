@@ -16,7 +16,7 @@
     </div>
 
     <ul class="navbar-nav">
-      <li class="nav-link" v-on:click="$emit('show-modal-user')">
+      <li v-if="Admin" class="nav-link" v-on:click="$emit('show-modal-user')">
         <i class="fas fa-user"></i>
         <span>Usuário</span>
       </li>

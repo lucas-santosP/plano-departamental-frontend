@@ -1,70 +1,62 @@
 <template>
-  <div class="TurmasExternas row p-0">
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">
-          Graduação - Outros
-        </h1>
-
-        <div
-          class="form-group col-xl-10 col-md-9 col-sm-8 col-7 mb-0 p-0"
-          style="justify-content: flex-end !important;"
+  <div v-if="Admin" class="main-component row">
+    <PageTitle :title="'Graduação - Outros'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
         >
-          <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
-            <i class="fas fa-list-ul"></i>
-          </b-button>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
 
-          <div class="d-flex p-0 m-0">
-            <template v-if="isAdd">
-              <button
-                type="button"
-                title="Salvar"
-                class="addbtn"
-                v-on:click.prevent="addTurma"
-              >
-                <i class="fas fa-check"></i>
-              </button>
-              <button
-                type="button"
-                title="Cancelar"
-                class="cancelbtn"
-                v-on:click.prevent="toggleAdd"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
+        <template v-if="isAdd">
+          <button
+            type="button"
+            title="Salvar"
+            class="btn-custom btn-icon addbtn"
+            v-on:click.prevent="addTurma"
+          >
+            <i class="fas fa-check"></i>
+          </button>
+          <button
+            type="button"
+            title="Cancelar"
+            class="btn-custom btn-icon cancelbtn"
+            v-on:click.prevent="toggleAdd"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </template>
+        <template v-else>
+          <button
+            type="button"
+            title="Adicionar"
+            class="btn-custom btn-icon addbtn"
+            v-on:click.prevent="toggleAdd"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+          <button
+            type="button"
+            title="Deletar"
+            class="btn-custom btn-icon delbtn"
+            style
+            v-b-modal.modalConfirma
+          >
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </template>
 
-            <template v-else>
-              <button
-                type="button"
-                title="Adicionar"
-                class="addbtn"
-                v-on:click.prevent="toggleAdd"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
-              <button
-                type="button"
-                title="Deletar"
-                class="delbtn"
-                style
-                v-b-modal.modalConfirma
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-            </template>
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-100 mb-2 border-bottom"></div>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="btn-custom btn-icon relatbtn"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
     <div class="p-0 divTable mb-2" v-if="!isLoading">
       <table class="main-table table table-sm table-hover table-bordered">
@@ -367,7 +359,7 @@
           </template>
           <!-- LINHAS -->
           <tr v-for="turma in Turmas_filtred" :key="'1-tr-' + turma.id">
-            <turmadata :turma="turma"></turmadata>
+            <TurmaRow :turma="turma" />
           </tr>
         </tbody>
       </table>
@@ -517,16 +509,16 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 ml-2">
+      <div slot="modal-footer" class="w-100 m-0 d-flex">
+        <div class="w-100">
           <b-button
-            class="btn-azul btn-df mr-2"
+            class="btn-azul btn-custom btn-modal"
             variant="success"
             @click="selectAllSemestre()"
             >Selecionar Todos</b-button
           >
           <b-button
-            class="btn-cinza btn-df mr-2"
+            class="btn-cinza btn-custom btn-modal"
             variant="secondary"
             @click="selectNoneSemestre()"
             >Desmarcar Todos</b-button
@@ -535,7 +527,7 @@
         <b-button
           variant="success"
           @click="btnOKSemestre()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-custom btn-modal"
           style="padding-right: 15px !important; padding-left: 15px !important;"
           >OK</b-button
         >
@@ -548,7 +540,9 @@
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
 import pedidoExternoService from "@/common/services/pedidoExterno";
-import turmadata from "./TurmaExternaRow.vue";
+import TurmaRow from "./TurmaExternaRow.vue";
+import PageTitle from "@/components/PageTitle.vue";
+
 const emptyTurma = {
   id: undefined,
   periodo: undefined,
@@ -570,7 +564,8 @@ const emptyPedido = {
 export default {
   name: "DashboardTurmasExternas",
   components: {
-    turmadata,
+    TurmaRow,
+    PageTitle,
   },
   data() {
     return {
@@ -583,7 +578,18 @@ export default {
       semestreAtual: 3,
     };
   },
-
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   mounted() {
     // this.$store.commit('emptyDelete')
     // console.log(this.$store.state.turma.Deletar)
@@ -835,19 +841,6 @@ export default {
 };
 </script>
 <style scoped>
-/* prefixed */
-
-.TurmasExternas {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-.titulo {
-  font-size: 25px !important;
-  font-weight: normal !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
-}
 .divTable {
   overflow: hidden;
   height: -webkit-max-content;
@@ -936,152 +929,6 @@ export default {
   overflow: hidden !important;
   z-index: 3;
 }
-/* Botoes */
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-i.fas,
-i.far {
-  font-size: 25px;
-}
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-.addbtn {
-  background-color: white !important;
-  color: #a0e7a0;
-}
-.addbtn:hover {
-  background-color: white;
-  color: #77dd77;
-}
-.addbtn:focus {
-  color: #77dd77;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #2fbf53;
-}
-.cancelbtn {
-  background-color: white !important;
-  color: #cfcfc4;
-}
-.cancelbtn:hover {
-  color: #b8b4a8;
-}
-.cancelbtn:focus {
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
-
-.delbtn {
-  background-color: white;
-  color: #ff817b;
-}
-.delbtn:hover {
-  color: #ff5f48;
-}
-.delbtn:focus {
-  color: #ff5f48;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #ff4e34;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  color: #82a0ff !important;
-  background-color: white;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: #698dff;
-}
-
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-
-.btn-azul {
-  background-color: #718de0 !important;
-  border-color: #9ab3ff !important;
-}
-
-.btn-azul:hover {
-  background-color: rgb(74, 101, 190) !important;
-  border-color: #82a0ff !important;
-}
-
-.btn-azul:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-.btn-cinza {
-  background-color: #999999 !important;
-  border-color: #c3c3c3 !important;
-}
-
-.btn-cinza:hover {
-  background-color: #747474 !important;
-  border-color: #aaaaaa !important;
-}
-
-.btn-cinza:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-}
-
-.btn-verde {
-  background-color: #70b670 !important;
-  border-color: #a0e7a0 !important;
-}
-
-.btn-verde:hover {
-  background-color: #4c8a4c !important;
-  border-color: #77dd77 !important;
-}
-
-.btn-verde:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
@@ -1106,27 +953,6 @@ strong {
     -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
-  }
-}
-.form-inline {
-  width: auto;
-}
-
-.active {
-  background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default;
-}
-.max-content {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
-}
-
-/* FIM MODAL TABLE */
-@media screen and (max-width: 429px) {
-  .div-titulo {
-    height: 70px !important;
   }
 }
 </style>

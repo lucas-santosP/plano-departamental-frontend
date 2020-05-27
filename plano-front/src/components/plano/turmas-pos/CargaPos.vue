@@ -1,47 +1,34 @@
 <template>
-  <div v-if="Admin" class="CargaPos row p-0">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height:38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-2 col-md-3 col-sm-4 col-5 px-0 pr-1">
-          Pós Graduação
-        </h1>
-
-        <div
-          class="form-group form-group-top col-xl-10 col-md-9 col-sm-8 col-7 mb-0 p-0"
-          style="justify-content: flex-end!important;"
+  <div class="main-component row">
+    <PageTitle :title="'Pós Graduação'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
         >
-          <div class="d-flex p-0 m-0">
-            <b-button
-              v-b-modal.modalFiltros
-              title="Filtros"
-              class="cancelbtn btn-icon"
-            >
-              <i class="fas fa-list-ul"></i>
-            </b-button>
-            <button
-              type="button"
-              title="Deletar selecionados"
-              class="delbtn"
-              v-b-modal.modalConfirma
-              style="max-width:80px;"
-            >
-              <i class="far fa-trash-alt"></i>
-            </button>
-          </div>
-          <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-            <i class="fas fa-question"></i>
-          </b-button>
-        </div>
-      </div>
-    </div>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
+        <button
+          type="button"
+          title="Deletar selecionados"
+          class="btn-custom btn-icon delbtn"
+          v-b-modal.modalConfirma
+        >
+          <i class="far fa-trash-alt"></i>
+        </button>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="btn-custom btn-icon relatbtn"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
-    <div class="row m-0">
+    <div class="row m-0 p-0">
       <!-- Inicio Tabela 1 -->
       <div class="p-0 divTable mr-2 mb-2">
         <div
@@ -129,10 +116,10 @@
                             (semestreAtual == 1 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'1-MC' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                       <template
                         v-if="
@@ -140,10 +127,10 @@
                             (semestreAtual == 2 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'2-MC' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                     </tr>
                   </template>
@@ -153,7 +140,6 @@
           </tbody>
         </table>
       </div>
-
       <!-- Inicio Tabela 2 -->
       <div class="p-0 divTable mr-2 mb-2">
         <div
@@ -238,10 +224,10 @@
                             (semestreAtual == 1 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'CC-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                       <template
                         v-if="
@@ -249,10 +235,10 @@
                             (semestreAtual == 2 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'CC-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                     </tr>
                   </template>
@@ -262,7 +248,6 @@
           </tbody>
         </table>
       </div>
-
       <!-- Inicio Tabela 3 -->
       <div class="p-0 divTable mr-2 mb-2">
         <div
@@ -347,10 +332,10 @@
                             (semestreAtual == 1 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'EM-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                       <template
                         v-if="
@@ -358,10 +343,10 @@
                             (semestreAtual == 2 || semestreAtual == 3)
                         "
                       >
-                        <cargadata
+                        <CargaPosRow
                           :key="'EM-docente' + docente.id + 'carga' + carga.id"
                           v-bind:carga="carga"
-                        ></cargadata>
+                        ></CargaPosRow>
                       </template>
                     </tr>
                   </template>
@@ -373,9 +358,8 @@
       </div>
     </div>
 
-    <!-- Card de Adição -->
+    <!-- Card -->
     <div class="div-card p-0 mt-0 mb-2 col-auto">
-      <!-- Inicio card -->
       <div class="card mr-3 ml-auto">
         <div class="card-header">
           <h2 class="card-title">Creditação Pós</h2>
@@ -449,7 +433,7 @@
                   <button
                     type="button"
                     title="Salvar"
-                    class="addbtn"
+                    class="btn-custom btn-icon addbtn"
                     v-on:click.prevent="editCarga(cargaPosForm)"
                     style="max-width:80px;"
                   >
@@ -458,7 +442,7 @@
                   <button
                     type="button"
                     title="Deletar"
-                    class="delbtn"
+                    class="btn-custom btn-icon delbtn"
                     v-b-modal.modalConfirma2
                     style="max-width:80px;"
                   >
@@ -467,7 +451,7 @@
                   <button
                     type="button"
                     title="Cancelar"
-                    class="cancelbtn"
+                    class="btn-custom btn-icon cancelbtn"
                     v-on:click.prevent="cleanCarga"
                     style="max-width:80px;"
                   >
@@ -479,7 +463,7 @@
                   <button
                     type="button"
                     title="Adicionar"
-                    class="addbtn"
+                    class="btn-custom btn-icon addbtn"
                     v-on:click.prevent="addCarga"
                     style="max-width:80px;"
                   >
@@ -488,7 +472,7 @@
                   <button
                     type="button"
                     title="Cancelar"
-                    class="cancelbtn"
+                    class="btn-custom btn-icon cancelbtn"
                     v-on:click.prevent="cleanCarga"
                     style="max-width:80px;"
                   >
@@ -620,17 +604,21 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <b-button class="btn-azul btn-df mr-2" @click="selectAllSemestre()"
+          <b-button
+            class="btn-azul btn-custom btn-modal"
+            @click="selectAllSemestre()"
             >Selecionar Todos</b-button
           >
-          <b-button class="btn-cinza btn-df mr-2" @click="selectNoneSemestre()"
+          <b-button
+            class="btn-cinza btn-custom btn-modal"
+            @click="selectNoneSemestre()"
             >Desmarcar Todos</b-button
           >
         </div>
         <b-button
           variant="success"
           @click="btnOKSemestre()"
-          class="btn-verde btn-df mr-2"
+          class="btn-verde btn-custom btn-modal"
           style="padding-right:15px!important; padding-left:15px!important;"
           >OK</b-button
         >
@@ -638,7 +626,13 @@
     </b-modal>
 
     <!-- MODAL AJUDA -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+    <b-modal
+      id="modalAjuda"
+      ref="ajudaModal"
+      scrollable
+      title="Ajuda"
+      hide-footer
+    >
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
@@ -672,8 +666,6 @@
           </li>
         </ul>
       </div>
-
-      <div slot="modal-footer" style="display: none"></div>
     </b-modal>
   </div>
 </template>
@@ -681,7 +673,8 @@
 <script>
 import _ from "lodash";
 import cargaPosService from "@/common/services/cargaPos";
-import cargadata from "./CargaPosRow.vue";
+import CargaPosRow from "./CargaPosRow.vue";
+import PageTitle from "@/components/PageTitle.vue";
 
 const emptyCarga = {
   id: undefined,
@@ -693,7 +686,10 @@ const emptyCarga = {
 
 export default {
   name: "DashboardCargaPos",
-
+  components: {
+    CargaPosRow,
+    PageTitle,
+  },
   data() {
     return {
       cargaPosForm: _.clone(emptyCarga),
@@ -715,17 +711,21 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
-      onLoading: true,
     };
   },
-
-  components: {
-    cargadata,
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
   },
   mounted() {
-    setTimeout(() => {
-      this.onLoading = false;
-    }, 300);
     this.scrollsize = {
       width:
         this.$refs.tablePGMC.offsetWidth -
@@ -1063,18 +1063,6 @@ export default {
 </script>
 
 <style scoped>
-/* prefixed */
-.CargaPos {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-.main-table {
-  height: -webkit-calc(100vh - 110px);
-  height: -moz-calc(100vh - 110px);
-  height: calc(100vh - 110px);
-}
-
 /* main-table */
 .divTable {
   overflow: hidden;
@@ -1126,8 +1114,7 @@ tbody {
   text-align: center;
   height: 18px !important;
 }
-/* fim table */
-/* ====== CARD ====== */
+
 .div-card {
   margin-left: auto;
 }
@@ -1178,62 +1165,11 @@ select {
   min-width: 50px;
   text-align: center;
 }
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-
 .alert {
   background-color: #e9ecef !important;
   border: none;
 }
 
-.form-inline,
-.form-inline {
-  width: auto;
-}
-
-/* FIM MODAL TABLE */
-/* =========================== */
-@media screen and (max-width: 439px) {
-  .div-titulo {
-    height: 70px !important;
-  }
-}
 @media screen and (max-width: 995px) {
   .div-card {
     margin-left: 0px !important;

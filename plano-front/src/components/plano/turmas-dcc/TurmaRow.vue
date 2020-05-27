@@ -16,17 +16,18 @@
     <td>
       <div style="width:40px" class="div-btn">
         <i
+          v-if="Admin"
           @click="$emit('handle-click-in-edit', turma)"
           class="fas fa-edit btn-table clickable"
         ></i>
       </div>
     </td>
     <td>
-      <div style="width: 40px;">
+      <div style="width: 50px;">
         <select
           :disabled="Admin ? false : true"
           id="2periodo"
-          style="width: 35px;"
+          style="width: 40px;"
           v-model="turmaForm.periodo"
           v-on:change="checkHorariosPeriodo()"
         >
@@ -34,6 +35,11 @@
           <option value="3">3</option>
         </select>
       </div>
+    </td>
+    <td>
+      <p style="width: 80px">
+        {{ turma.perfilAbreviacao }}
+      </p>
     </td>
     <td>
       <div style="width:70px;">

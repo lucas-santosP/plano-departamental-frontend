@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
       <template #aside>
         <b-button
@@ -10,7 +10,7 @@
           <i class="fas fa-list-ul"></i>
         </b-button>
 
-        <template v-if="isAdd && Admin">
+        <template v-if="isAdd">
           <b-button
             title="Salvar"
             class="btn-custom btn-icon addbtn"
@@ -27,7 +27,7 @@
           </b-button>
         </template>
 
-        <template v-else-if="Admin">
+        <template v-else>
           <b-button
             title="Adicionar"
             class="btn-custom btn-icon addbtn"
@@ -597,7 +597,18 @@ export default {
       turmaSelected: undefined,
     };
   },
-
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   mounted() {
     ls.set("toggle", -1);
     ls.on("toggle", () => {
@@ -616,7 +627,6 @@ export default {
       });
     }
   },
-
   beforeDestroy() {
     ls.off("toggle");
     for (var c = 0; c < this.$store.state.curso.Cursos.length; c++) {
@@ -720,7 +730,7 @@ export default {
           pedidos: pedidos,
         })
         .then(() => {
-          console.log("done");
+          // console.log("done");
           fetch("http://200.131.219.57:3000/api/xlsx/download", {
             method: "GET",
             headers: {
@@ -836,8 +846,8 @@ export default {
     TurmasInPerfilOrdered() {
       return _.orderBy(
         this.TurmasInPerfilFiltred,
-        [this.ordenacaoTurmas.order, "letra"],
-        [this.ordenacaoTurmas.type, "asc"]
+        [this.ordenacaoTurmas.order, "perfilNome", "letra"],
+        [this.ordenacaoTurmas.type, "asc", "asc"]
       );
     },
     TurmasInPerfilFiltred() {
@@ -860,10 +870,24 @@ export default {
               this.Disciplinas,
               (disciplina) => disciplina.id === turma.Disciplina
             );
+
             if (disciplinaFounded.Perfil === perfil.id) {
-              turma.perfilCor = perfil.cor;
-              turma.disciplinaCodigo = disciplinaFounded.codigo;
-              turma.disciplinaNome = disciplinaFounded.nome;
+              const {
+                cor: perfilCor,
+                nome: PerfilNome,
+                abreviacao: perfilAbreviacao,
+              } = perfil;
+
+              const {
+                codigo: disciplinaCodigo,
+                nome: disciplinaNome,
+              } = disciplinaFounded;
+
+              turma.perfilCor = perfilCor;
+              turma.perfilNome = PerfilNome;
+              turma.perfilAbreviacao = perfilAbreviacao;
+              turma.disciplinaCodigo = disciplinaCodigo;
+              turma.disciplinaNome = disciplinaNome;
               return true;
             }
             return false;

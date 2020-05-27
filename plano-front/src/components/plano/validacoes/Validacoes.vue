@@ -1,5 +1,5 @@
 <template>
-  <div id="Validacoes" class="DashboardValidacoes row">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Validações do Plano'">
       <template #aside>
         <b-button
@@ -401,7 +401,7 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+      <div slot="modal-footer" class="w-100 m-0 d-flex">
         <div class="w-100">
           <template v-if="modal_navtab === 'semestre'">
             <b-button
@@ -549,8 +549,17 @@ export default {
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
     };
   },
-  beforeDestroy() {
-    EventBus.$off("close-modal-turma");
+  Created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
   },
   mounted() {
     EventBus.$on("close-modal-turma", () => {
@@ -701,6 +710,9 @@ export default {
         break;
       }
     }
+  },
+  beforeDestroy() {
+    EventBus.$off("close-modal-turma");
   },
   methods: {
     btnOK() {
@@ -1345,6 +1357,13 @@ export default {
     },
     Docentes() {
       return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
+    },
+    Admin() {
+      if (this.$store.state.auth.Usuario.admin === 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

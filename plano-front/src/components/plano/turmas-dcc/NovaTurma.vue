@@ -10,8 +10,8 @@
       <div style="width: 40px;"></div>
     </td>
     <td>
-      <div style="width: 40px;">
-        <select style="width: 35px; height: 20px" v-model="turmaForm.periodo">
+      <div style="width: 50px;">
+        <select style="width: 40px; height: 20px" v-model="turmaForm.periodo">
           <option value="1">1</option>
           <option value="3">3</option>
         </select>
@@ -148,6 +148,11 @@
             v-model="turmaForm.Horario1"
           >
             <option
+              v-if="!disciplinaIsIntegralEAD && !disciplinaIsParcialEAD"
+              type="text"
+              value=""
+            ></option>
+            <option
               v-for="horario in HorariosFiltredByTurno"
               :key="'1-horarioEAD-id' + horario.id"
               :value="horario.id"
@@ -164,7 +169,7 @@
             v-model="turmaForm.Horario2"
           >
             <option
-              v-if="!disciplinaIsIntegralEAD"
+              v-if="!disciplinaIsIntegralEAD && !disciplinaIsParcialEAD"
               type="text"
               value=""
             ></option>

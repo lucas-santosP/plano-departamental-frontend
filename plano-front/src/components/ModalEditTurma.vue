@@ -127,7 +127,6 @@
             >
           </select>
           <select
-            v-if="hasMoreThan4Creditos"
             type="text"
             class="form-control mt-1"
             style="width:130px;"
@@ -261,7 +260,7 @@
           class="btn-custom btn-modal btn-cinza px-3"
           @click="resetInputsValues()"
         >
-          Reset
+          Cancelar
         </b-button>
       </div>
     </div>
@@ -723,7 +722,7 @@ export default {
 
       let text = `Conflito no horário ${h.horario} com o docente ${d.apelido}`;
       this.$notify({
-        group: "general-2",
+        group: "second",
         title: "Erro",
         text: text,
         type: "error",
@@ -1097,7 +1096,7 @@ export default {
 
       let text = `Conflito no horário ${h.horario} com a sala ${s.nome}`;
       this.$notify({
-        group: "general-2",
+        group: "second",
         title: "Erro",
         text: text,
         type: "error",
@@ -1427,7 +1426,7 @@ export default {
       this.changeTurmaFormEmptyStringToNull();
       if (this.turmaForm.turno1 === null || this.turmaForm.Horario1 === null) {
         this.$notify({
-          group: "general-2",
+          group: "second",
           title: "Erro",
           text: "Nenhum turno ou horario alocado!",
           type: "error",
@@ -1439,7 +1438,7 @@ export default {
         .update(this.turma.id, this.turmaForm)
         .then((response) => {
           this.$notify({
-            group: "general-2",
+            group: "second",
             title: `Sucesso!`,
             text: `A Turma ${response.Turma.letra} foi atualizada!`,
             type: "success",

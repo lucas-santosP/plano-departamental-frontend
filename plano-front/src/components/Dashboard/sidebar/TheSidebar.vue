@@ -19,7 +19,11 @@
       :menuTitle="'Relatórios'"
       :menuPages="linksRelatoriosOrdered"
     />
-    <SidebarMenu :menuTitle="'Gerenciar'" :menuPages="linksGenrenciarOrdered" />
+    <SidebarMenu
+      v-if="Admin"
+      :menuTitle="'Gerenciar'"
+      :menuPages="linksGerenciarOrdered"
+    />
   </nav>
 </template>
 
@@ -89,7 +93,7 @@ export default {
           icon: "fa-file-alt",
         },
       ],
-      linksGenrenciar: [
+      linksGerenciar: [
         { title: "Cursos ", routerName: "cursos", icon: "fa-graduation-cap" },
         {
           title: "Disciplinas ",
@@ -118,8 +122,8 @@ export default {
       return _.orderBy(this.linksRelatorios, "title");
     },
 
-    linksGenrenciarOrdered() {
-      return _.orderBy(this.linksGenrenciar, "title");
+    linksGerenciarOrdered() {
+      return _.orderBy(this.linksGerenciar, "title");
     },
 
     Admin() {
