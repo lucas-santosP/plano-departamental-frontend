@@ -49,7 +49,7 @@
           class="btn-custom btn-icon relatbtn"
           v-on:click.prevent="xlsx(Pedidos)"
         >
-          <i class="far fa-file-alt"></i>
+          <i class="far fa-file-pdf"></i>
         </b-button>
         <b-button
           v-b-modal.modalAjuda
@@ -581,7 +581,7 @@
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão XLSX
             <i
-              class="far fa-file-alt relatbtn px-1"
+              class="far fa-file-pdf relatbtn px-1"
               style="font-size: 12px;"
             ></i>
             e aguarde para fazer
@@ -1036,16 +1036,6 @@ export default {
   height: 18px;
 }
 
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
 .stickyAdd {
   display: block !important;
   overflow: hidden !important;
@@ -1113,30 +1103,8 @@ strong {
   text-align: start;
 }
 /* FIM MODAL TABLE */
-
 /* search */
-.form-inline .input-group,
-.form-inline {
+.form-inline .input-group {
   width: auto;
-}
-
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-.cursoGrande {
-  font-size: 7px !important;
-}
-@media screen and (max-width: 536px) {
-  .div-titulo {
-    height: 70px !important;
-  }
 }
 </style>

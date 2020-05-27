@@ -29,7 +29,7 @@
               class="relatbtn btn-icon btn-custom"
               title="Relatório"
             >
-              <i class="far fa-file-alt"></i>
+              <i class="far fa-file-pdf"></i>
             </b-button>
 
             <b-button
@@ -316,7 +316,7 @@
             <strong class="ajuda-strong">Para gerar relatório:</strong> Clique
             no botão Relatório
             <i
-              class="far fa-file-alt relatbtn px-1"
+              class="far fa-file-pdf relatbtn px-1"
               style="font-size: 12px;"
             ></i>
             e selecione se deseja o relatório completo, com todas as

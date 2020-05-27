@@ -23,7 +23,7 @@
               title="Relatório"
               v-on:click.prevent="pdf"
             >
-              <i class="far fa-file-alt"></i>
+              <i class="far fa-file-pdf"></i>
             </button>
 
             <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
@@ -2092,7 +2092,7 @@
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão Relatório
             <i
-              class="far fa-file-alt relatbtn px-1"
+              class="far fa-file-pdf relatbtn px-1"
               style="font-size: 12px;"
             ></i>
             e aguarde para fazer

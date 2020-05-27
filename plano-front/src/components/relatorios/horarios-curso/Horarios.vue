@@ -15,7 +15,7 @@
           v-on:click.prevent="pdf"
           title="Relatório"
         >
-          <i class="far fa-file-alt"></i>
+          <i class="far fa-file-pdf"></i>
         </button>
         <b-button
           v-b-modal.modalAjuda

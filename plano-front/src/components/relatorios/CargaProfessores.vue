@@ -520,7 +520,7 @@
           <li class="list-group-item">
             <strong>Para gerar relatório:</strong> Clique no botão Relatório
             <i
-              class="far fa-file-alt relatbtn px-1"
+              class="far fa-file-pdf relatbtn px-1"
               style="font-size: 12px;"
             ></i>
             e selecione se deseja o relatório completo, com todos os docentess,
