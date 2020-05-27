@@ -1,7 +1,7 @@
 <template>
   <table
     id="TableModal"
-    class="table table-bordered table-sm modal-table"
+    class="table table-bordered table-sm modal-table max-content"
     :style="heightClass"
   >
     <thead class="thead-light sticky">
@@ -53,7 +53,6 @@ export default {
   background-color: white;
   margin: 0 !important;
   max-height: 450px;
-  width: max-content !important;
 }
 .modal-table td,
 .modal-table th {

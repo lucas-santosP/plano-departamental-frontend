@@ -65,15 +65,15 @@
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light sticky">
           <tr>
-            <turmaheader
+            <TurmaHeader
               v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
               :cursosSelecteds="CursosAtivados"
               :currentOrder="ordenacaoTurmas"
-            ></turmaheader>
+            />
           </tr>
           <template v-if="isAdd">
             <tr>
-              <novaturma :cursosLength="CursosAtivados.length"></novaturma>
+              <NovaTurma :cursosLength="CursosAtivados.length" />
             </tr>
           </template>
         </thead>
@@ -83,65 +83,13 @@
             :key="'turma id' + turma.id"
             v-bind:style="{ 'background-color': turma.perfilCor }"
           >
-            <turmadata
+            <TurmaRow
               ref="turma"
               v-on:handle-click-in-edit="handleClickInEdit($event)"
               v-bind:turma="turma"
               v-bind:cursosSelecteds="CursosAtivados"
-            ></turmadata>
+            />
           </tr>
-          <!-- <template v-for="perfil in PerfisAtivados">
-              <tr
-                v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="'turma id' + turma.id"
-                v-bind:style="{ backgroundColor: perfil.cor }"
-              >
-                <template
-                  v-if="
-                    turma.periodo == 1 &&
-                      (semestreAtual == 1 || semestreAtual == 3)
-                  "
-                >
-                  <turmadata
-                    ref="turma"
-                    v-on:handle-click-in-edit="handleClickInEdit($event)"
-                    v-bind:turma="turma"
-                    v-bind:perfil="perfil"
-                    v-bind:cursosSelecteds="CursosAtivados"
-                  ></turmadata>
-                </template>
-
-                <template
-                  v-else-if="
-                    turma.periodo == 3 &&
-                      (semestreAtual == 2 || semestreAtual == 3)
-                  "
-                >
-                  <template></template>
-                </template>
-              </tr>
-            </template>
-            <template v-for="perfil in PerfisAtivados">
-              <tr
-                v-for="turma in inPerfil(perfil, Turmas, Disciplinas)"
-                :key="'2-turma id ' + turma.id"
-                v-bind:style="{ backgroundColor: perfil.cor }"
-              >
-                <template
-                  v-if="
-                    turma.periodo == 3 &&
-                      (semestreAtual == 2 || semestreAtual == 3)
-                  "
-                >
-                  <turmadata
-                    ref="turma"
-                    v-bind:turma="turma"
-                    v-bind:perfil="perfil"
-                    v-bind:cursosSelecteds="CursosAtivados"
-                  ></turmadata>
-                </template>
-              </tr>
-            </template> -->
         </tbody>
       </table>
     </div>
@@ -507,7 +455,7 @@
       title="Edição de Turma"
       hide-footer
     >
-      <ModalEditTurma :turma="turmaSelected"></ModalEditTurma>
+      <ModalEditTurma :turma="turmaSelected" />
     </b-modal>
     <!-- Modals do deletar-->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
@@ -614,21 +562,19 @@ import { saveAs } from "file-saver";
 
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
-import turmaheader from "./TurmaHeader.vue";
-import turmadata from "./TurmaRow.vue";
+import TurmaHeader from "./TurmaHeader.vue";
+import NovaTurma from "./NovaTurma.vue";
+import TurmaRow from "./TurmaRow.vue";
 import PageTitle from "@/components/PageTitle.vue";
-import novaturma from "./NovaTurma.vue";
-import TableMain from "@/components/TableMain.vue";
 import ModalEditTurma from "@/components/ModalEditTurma.vue";
 
 export default {
   name: "DashboardPrototipo",
   components: {
-    turmadata,
-    turmaheader,
-    novaturma,
+    TurmaRow,
+    TurmaHeader,
+    NovaTurma,
     PageTitle,
-    TableMain,
     ModalEditTurma,
   },
   data() {
