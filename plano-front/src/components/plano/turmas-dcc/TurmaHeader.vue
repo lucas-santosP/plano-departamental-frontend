@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size:11px!important" class="max-content">
+  <div class="max-content sticky">
     <th scope="col">
       <p style="width:25px" class="p-header"></p>
     </th>

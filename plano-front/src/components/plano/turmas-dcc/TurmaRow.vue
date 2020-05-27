@@ -1,5 +1,5 @@
 <template>
-  <div class="turmarow">
+  <div class="turmarow max-content">
     <td>
       <div style="width: 25px;">
         <input
@@ -1411,30 +1411,7 @@ input[type="checkbox"] {
   padding: 0 2px;
   cursor: default;
 }
-@-moz-document url-prefix() {
-  select {
-    height: 18px !important;
-    text-align: left;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    line-height: 8px;
-    border: 0.5px solid rgb(160, 160, 160);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    line-height: 8px;
-    border: 0.5px solid rgb(160, 160, 160);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-}
+
 .input-disabled {
   cursor: text;
   color: black;

@@ -61,24 +61,23 @@
       </template>
     </PageTitle>
 
-    <div class="pl-0 divTable" v-if="!isLoading" ref="mainTable">
+    <div class="pl-0 divTable" v-if="!isLoading">
       <table class="table main-table table-hover table-sm table-bordered">
-        <thead class="thead-light">
-          <tr class="sticky">
+        <thead class="thead-light sticky">
+          <tr>
             <turmaheader
               v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
               :cursosSelecteds="CursosAtivados"
               :currentOrder="ordenacaoTurmas"
             ></turmaheader>
           </tr>
-        </thead>
-        <tbody>
           <template v-if="isAdd">
             <tr class="stickyAdd" style="background-color:#e9e9e9;">
               <novaturma :cursosLength="CursosAtivados.length"></novaturma>
             </tr>
           </template>
-
+        </thead>
+        <tbody>
           <tr
             v-for="turma in TurmasInPerfilOrdered"
             :key="'turma id' + turma.id"
@@ -254,8 +253,11 @@
           style="height: 450px !important;"
         >
           <thead class="thead-light sticky">
-            <tr class="sticky">
-              <div style="font-size: 11px !important;" class="max-content">
+            <tr>
+              <div
+                style="font-size: 11px !important;"
+                class="max-content sticky"
+              >
                 <th>
                   <div class="m-0 input-group input-group-search">
                     <input
@@ -1004,6 +1006,7 @@ export default {
   width: max-content;
 }
 .main-table {
+  transition: all 200ms ease;
   display: block !important;
   overflow-y: scroll !important;
   overflow-x: auto !important;
@@ -1034,17 +1037,22 @@ export default {
   font-size: 11px !important;
   text-align: center;
   height: 18px;
-}
-
-.stickyAdd {
   display: block !important;
   overflow: hidden !important;
   position: sticky !important;
   position: -webkit-sticky !important;
-  top: 21px !important;
+
   display: block !important;
   overflow: hidden !important;
-  z-index: 3;
+  z-index: 30;
+}
+.stickyAdd {
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 21px !important;
+  overflow: hidden !important;
+  z-index: 4;
 }
 /* ==== MODAL TABLE ==== */
 .modal-table {

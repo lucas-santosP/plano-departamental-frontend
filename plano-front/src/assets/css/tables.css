@@ -4,7 +4,7 @@
   position: -webkit-sticky !important;
   top: 0 !important;
   overflow: hidden !important;
-  z-index: 3;
+  z-index: 5;
 }
 .sticky2 {
   overflow: hidden !important;

@@ -48,9 +48,9 @@
 
     <div class="divTable p-0" ref="carga">
       <table class="main-table table table-bordered table-hover table-sm">
-        <thead class="thead-light">
-          <tr class="sticky">
-            <div style="font-size: 11px !important;" class="max-content">
+        <thead class="thead-light sticky">
+          <tr>
+            <div style="font-size: 11px !important;" class="max-content sticky">
               <th scope="col">
                 <p
                   class="p-header clickable"
@@ -386,10 +386,13 @@
 
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <table class="table table-sm modal-table table-bordered">
-          <thead class="thead-light">
+          <thead class="thead-light sticky">
             <!-- search bar disciplinas -->
-            <tr class="sticky" v-if="nav_ativo === 'disciplinas'">
-              <div style="font-size: 11px !important;" class="max-content">
+            <tr v-if="nav_ativo === 'disciplinas'">
+              <div
+                style="font-size: 11px !important;"
+                class="max-content sticky"
+              >
                 <th>
                   <div class="m-0 input-group input-group-search">
                     <input
@@ -737,9 +740,12 @@
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
-          <thead class="thead-light ">
-            <tr class="sticky">
-              <div style="font-size: 11px !important;" class=" max-content">
+          <thead class="thead-light sticky">
+            <tr>
+              <div
+                style="font-size: 11px !important;"
+                class="max-content sticky"
+              >
                 <th>
                   <p
                     class="p-header clickable"

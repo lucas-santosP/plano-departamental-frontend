@@ -1,10 +1,5 @@
 <template>
-  <div v-if="!isLoading && onLoading" id="loading">
-    <div class="cube1"></div>
-    <div class="cube2"></div>
-  </div>
-  <div v-else-if="Admin" class="TurmasExternas row p-0">
-    <!-- Titulo -->
+  <div class="TurmasExternas row p-0">
     <div
       class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
       style="height: 38px;"
@@ -71,12 +66,11 @@
 
     <div class="w-100 mb-2 border-bottom"></div>
 
-    <!-- Inicio Tabela -->
     <div class="p-0 divTable mb-2" v-if="!isLoading">
       <table class="main-table table table-sm table-hover table-bordered">
-        <thead class="thead-light">
-          <tr class="sticky">
-            <div style="font-size:11px!important" class="max-content ">
+        <thead class="thead-light sticky">
+          <tr>
+            <div style="font-size:11px!important" class="max-content sticky">
               <th scope="col">
                 <p style="width: 25px;"></p>
               </th>
@@ -587,14 +581,10 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: 3,
-      onLoading: true,
     };
   },
 
   mounted() {
-    setTimeout(() => {
-      this.onLoading = false;
-    }, 300);
     // this.$store.commit('emptyDelete')
     // console.log(this.$store.state.turma.Deletar)
     // this.$store.commit(COMPONENT_LOADED)

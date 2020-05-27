@@ -84,7 +84,7 @@ export default {
     };
   },
   methods: {
-    close(event) {
+    close() {
       this.$emit("close");
     },
     dragMouseDown(event) {

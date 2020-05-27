@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size:11px;" class="max-content">
+  <div class="novaturma max-content stickyAdd">
     <td>
       <div style="width: 25px;"></div>
     </td>
@@ -8,7 +8,7 @@
     </td>
     <td>
       <div style="width: 40px;">
-        <select style="width: 35px;" v-model="turmaForm.periodo">
+        <select style="width: 35px; height: 20px" v-model="turmaForm.periodo">
           <option value="1">1</option>
           <option value="3">3</option>
         </select>
@@ -461,6 +461,12 @@ export default {
 };
 </script>
 <style scoped>
+.novaturma {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+  font-size: 11px;
+}
 td {
   text-align: center !important;
   vertical-align: middle !important;
@@ -487,38 +493,15 @@ p {
   cursor: default;
 }
 
-select {
-  height: 18px;
+.novaturma select {
+  height: 18px !important;
 }
-
-@-moz-document url-prefix() {
-  table select {
-    height: 50px !important;
-    text-align: left;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    line-height: 8px;
-    border: 0.5px solid rgb(160, 160, 160);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  input {
-    height: 18px !important;
-    text-align: center;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(160, 160, 160);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-}
-.max-content {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
+.stickyAdd {
+  overflow: hidden !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 21px !important;
+  overflow: hidden !important;
+  z-index: 4;
 }
 </style>
