@@ -548,7 +548,7 @@ export default {
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
     };
   },
-  Created() {
+  created() {
     if (!this.Admin) {
       this.$notify({
         group: "second",

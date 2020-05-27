@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Grades'">
       <template #aside>
         <b-button
@@ -245,7 +245,6 @@
 <script>
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
-import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import Card from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
 import TableMain from "@/components/TableMain";
@@ -271,6 +270,18 @@ export default {
       disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
       currentGrade: undefined,
     };
+  },
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
   },
   methods: {
     addGrade() {

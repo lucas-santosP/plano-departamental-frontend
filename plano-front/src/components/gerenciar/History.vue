@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Logs'">
       <template #aside>
         <div class="input-group mx-2 p-0">
@@ -192,7 +192,18 @@ export default {
       operacoes: "Todos",
     };
   },
-
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   methods: {
     btnOK() {
       //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
@@ -495,7 +506,6 @@ export default {
       return v;
     },
   },
-
   computed: {
     History() {
       let TabelasAtivadas = this.TabelasAtivadas;

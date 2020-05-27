@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Disciplinas'">
       <template #aside>
         <button
@@ -331,6 +331,18 @@ export default {
       ordenacao: { order: "codigo", type: "asc" },
     };
   },
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   methods: {
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
@@ -472,7 +484,6 @@ export default {
       if (ead == 2) return "Parcial";
     },
   },
-
   computed: {
     DisciplinasComPerfil() {
       let disciplinasResultante = this.$store.state.disciplina.Disciplinas;

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Docentes'">
       <template #aside>
         <b-button
@@ -303,6 +303,18 @@ export default {
       ordenacao: { order: "nome", type: "asc" },
     };
   },
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   methods: {
     clearClick() {
       this.docenteClickado = "";
@@ -476,7 +488,6 @@ export default {
       return docenteIsAtivo ? "Sim" : "-";
     },
   },
-
   computed: {
     Docentes() {
       return _.orderBy(

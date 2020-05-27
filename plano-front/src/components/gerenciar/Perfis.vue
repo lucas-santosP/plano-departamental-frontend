@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Perfis'">
       <template #aside>
         <b-button
@@ -222,7 +222,6 @@ export default {
     TableMain,
     Card,
   },
-
   data() {
     return {
       perfilForm: _.clone(emptyPerfil),
@@ -231,7 +230,18 @@ export default {
       ordenacao: { order: "nome", type: "asc" },
     };
   },
-
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+  },
   methods: {
     setIconByOrder(orderToCheck) {
       if (this.ordenacao.order === orderToCheck) {
@@ -349,7 +359,6 @@ export default {
       })();
     },
   },
-
   computed: {
     Perfis() {
       return _.orderBy(

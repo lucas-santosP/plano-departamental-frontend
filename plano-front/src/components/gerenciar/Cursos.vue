@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Cursos'">
       <template #aside>
         <button
@@ -309,6 +309,17 @@ export default {
     };
   },
   created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
+
     this.ultimo =
       this.$store.state.curso.Cursos[this.$store.state.curso.Cursos.length - 1]
         .id + 1;

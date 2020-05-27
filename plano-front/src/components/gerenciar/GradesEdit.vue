@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="Admin">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Disciplina na Grade'">
       <template #aside>
         <b-button
@@ -306,6 +306,18 @@ export default {
       nomeDisciplinaAtual: undefined,
       ordenacao: { order: "periodo", type: "asc" },
     };
+  },
+  created() {
+    if (!this.Admin) {
+      this.$notify({
+        group: "second",
+        title: "Erro",
+        text:
+          "Acesso negado! Usuário não possui permissão para acessar esta página!",
+        type: "error",
+      });
+      this.$router.push({ name: "dashboard" });
+    }
   },
   methods: {
     setIconByOrder(orderToCheck) {
