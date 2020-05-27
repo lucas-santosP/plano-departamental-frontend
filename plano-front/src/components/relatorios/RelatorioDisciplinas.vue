@@ -1,54 +1,37 @@
 <template>
   <div class="DashboardRelatorioDisciplinas row p-0">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-8 col-sm-6 col-md-4 col-lg-4 px-0 pr-1">
-          Plano Departamental
-        </h1>
-
-        <div
-          class="form-group col-4 col-sm-6 col-md-8 col-lg-8 mb-0 p-0"
-          style="justify-content: flex-end !important;"
+    <PageTitle :title="'Plano Departamental'">
+      <template #aside>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="cancelbtn btn-icon btn-custom"
         >
-          <b-button
-            v-b-modal.modalFiltros
-            title="Filtros"
-            class="cancelbtn btn-icon btn-custom"
-          >
-            <i class="fas fa-list-ul"></i>
-          </b-button>
+          <i class="fas fa-list-ul"></i>
+        </b-button>
 
-          <div class="d-flex">
-            <b-button
-              v-b-modal.modalRelatorio
-              type="button"
-              class="relatbtn btn-icon btn-custom"
-              title="Relatório"
-            >
-              <i class="far fa-file-pdf"></i>
-            </b-button>
+        <b-button
+          v-b-modal.modalRelatorio
+          type="button"
+          class="relatbtn btn-icon btn-custom"
+          title="Relatório"
+        >
+          <i class="far fa-file-pdf"></i>
+        </b-button>
 
-            <b-button
-              v-b-modal.modalAjuda
-              title="Ajuda"
-              class="relatbtn btn-icon btn-custom"
-            >
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
-        </div>
-      </div>
-    </div>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="relatbtn btn-icon btn-custom"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
-    <div class="w-100 mb-2 border-bottom"></div>
-
-    <div class="divTable p-0" ref="carga">
+    <div class="divTable p-0">
       <table class="main-table table table-bordered table-hover table-sm">
-        <thead class="thead-light sticky">
+        <thead class="thead-light max-content sticky">
           <tr>
             <div style="font-size: 11px !important;" class="max-content sticky">
               <th scope="col">
@@ -667,8 +650,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-modal btn-custom"
-          style="padding-right: 15px !important; padding-left: 15px !important;"
+          class="btn-verde btn-modal btn-custom px-3"
           >OK</b-button
         >
       </div>
@@ -914,9 +896,11 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
+import PageTitle from "@/components/PageTitle";
+
 export default {
   name: "DashboardRelatorioDisciplinas",
-
+  components: { PageTitle },
   data() {
     return {
       PerfisAtivados: [],

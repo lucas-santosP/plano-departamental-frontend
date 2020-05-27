@@ -1,272 +1,266 @@
 <template>
-  <div class="GradesDisciplinas row p-0">
-    <!-- Titulo -->
-    <div
-      class="div-titulo col-12 d-flex center-content-between flex-wrap flex-md-nowrap p-0 mb-0"
-      style="height: 38px;"
-    >
-      <div class="form-inline col-12 pl-0 mb-1 pr-1">
-        <h1 class="titulo col-xl-3 col-lg-3 col-md-4 col-sm-5 col-6 px-0 pr-1">
-          Grades Disciplinas
-        </h1>
-        <div
-          class="form-group col-xl-9 col-lg-9 col-md-8 col-sm-7 col-6 mb-0 p-0"
-          style="justify-content: flex-end !important;"
-        >
-          <div class="input-group m-0 mr-3 ml-auto p-0">
-            <div class="input-group-prepend">
-              <label class="input-group-text input-group-top">Ano</label>
-            </div>
-            <select
-              v-model="novo_ano"
-              class="form-control form-control-top"
-              v-on:change="runNovoAno()"
+  <div class="main-component row">
+    <PageTitle :title="'Grades Disciplinas'">
+      <template #aside>
+        <div class="input-group m-0 mr-3 ml-auto p-0">
+          <div class="input-group-prepend">
+            <label class="input-group-text">Ano</label>
+          </div>
+          <select
+            v-model="novo_ano"
+            class="form-control form-control-top"
+            v-on:change="runNovoAno()"
+          >
+            <option
+              v-for="i in Array.from(Array(11), (e, i) => i - 5)"
+              :key="i"
+              :value="AnoAtual + i"
+              >{{ AnoAtual + i }}</option
             >
-              <option
-                v-for="i in Array.from(Array(11), (e, i) => i - 5)"
-                :key="i"
-                :value="AnoAtual + i"
-                >{{ AnoAtual + i }}</option
-              >
-            </select>
-          </div>
-          <div class="d-flex">
-            <b-button v-b-modal.modalFiltros title="Filtros" class="cancelbtn">
-              <i class="fas fa-list-ul"></i>
-            </b-button>
-            <b-button v-b-modal.modalAjuda title="Ajuda" class="relatbtn">
-              <i class="fas fa-question"></i>
-            </b-button>
-          </div>
+          </select>
         </div>
-      </div>
-    </div>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
+        >
+          <i class="fas fa-list-ul"></i>
+        </b-button>
+        <b-button
+          v-b-modal.modalAjuda
+          title="Ajuda"
+          class="btn-custom btn-icon relatbtn"
+        >
+          <i class="fas fa-question"></i>
+        </b-button>
+      </template>
+    </PageTitle>
 
-    <div class="w-100 mb-2 border-bottom"></div>
+    <div class="row w-100 m-0 p-0">
+      <div class="divTable p-0">
+        <table class="main-table table table-sm table-hover table-bordered">
+          <thead class="thead-light max-content sticky">
+            <tr>
+              <div style="font-size:11px!important" class="max-content sticky">
+                <th scope="col">
+                  <p
+                    class="p-header clickable"
+                    style="width:80px"
+                    @click="toggleOrdMainPerfis()"
+                  >
+                    Perfil
 
-    <div class="divTable p-0">
-      <table class="main-table table table-sm table-hover table-bordered">
-        <thead class="thead-light sticky">
-          <tr>
-            <div style="font-size:11px!important" class="max-content sticky">
-              <th scope="col">
-                <p
-                  class="p-header clickable"
-                  style="width:80px"
-                  @click="toggleOrdMainPerfis()"
-                >
-                  Perfil
-
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      main_oredm_perfis.type == 'asc'
-                        ? 'fas fa-arrow-down fa-sm'
-                        : 'fas fa-arrow-up fa-sm'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th scope="col">
-                <p
-                  class="p-header clickable"
-                  style="width: 100px;"
-                  @click="toggleOrdMain('codigo')"
-                >
-                  Cód.
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      main_ordem.order == 'codigo'
-                        ? main_ordem.type == 'asc'
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        main_oredm_perfis.type == 'asc'
                           ? 'fas fa-arrow-down fa-sm'
                           : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th scope="col">
-                <p
-                  class="p-header clickable"
-                  style="width: 380px; text-align: start;"
-                  @click="toggleOrdMain('nome')"
-                >
-                  Disciplina
-                  <i
-                    style="font-size: 0.6rem; text-align: right;"
-                    :class="
-                      main_ordem.order == 'nome'
-                        ? main_ordem.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                        : 'fas fa-arrow-down fa-sm low-opacity'
-                    "
-                  ></i>
-                </p>
-              </th>
-              <th scope="col" v-if="activeSI">
-                <p
-                  class="p-header"
-                  style="width: 140px;"
-                  title="Sistemas de informação"
-                >
-                  76A
-                </p>
-              </th>
-              <th scope="col" v-if="activeCCN">
-                <p
-                  class="p-header"
-                  style="width: 140px;"
-                  title="Ciência da Computação Noturno"
-                >
-                  35A
-                </p>
-              </th>
-              <th scope="col" v-if="activeCCD">
-                <p
-                  class="p-header"
-                  style="width: 140px;"
-                  title="Ciência da Computação Noturno"
-                >
-                  65C
-                </p>
-              </th>
-              <th scope="col" v-if="activeEC">
-                <p
-                  class="p-header"
-                  style="width: 140px;"
-                  title="Engenharia da Computação"
-                >
-                  65B
-                </p>
-              </th>
-            </div>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="disciplina in Disciplinas_Main_Table_Ordered">
-            <tr :key="disciplina.id">
-              <div class="max-content">
-                <td v-bind:style="{ backgroundColor: disciplina.cor }">
-                  <p style="width: 80px ">
-                    {{ disciplina.perfil_nome }}
+                      "
+                    ></i>
                   </p>
-                </td>
-
-                <td>
-                  <p style="width: 100px;">{{ disciplina.codigo }}</p>
-                </td>
-                <td>
-                  <p style="width: 380px; text-align: start;">
-                    {{ disciplina.nome }}
+                </th>
+                <th scope="col">
+                  <p
+                    class="p-header clickable"
+                    style="width: 100px;"
+                    @click="toggleOrdMain('codigo')"
+                  >
+                    Cód.
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        main_ordem.order == 'codigo'
+                          ? main_ordem.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
+                      "
+                    ></i>
                   </p>
-                </td>
-                <!-- 76A-  -->
-                <td v-if="activeSI">
-                  <p style="width: 140px">
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][2][0].length !== 0
+                </th>
+                <th scope="col">
+                  <p
+                    class="p-header clickable"
+                    style="width: 380px; text-align: start;"
+                    @click="toggleOrdMain('nome')"
+                  >
+                    Disciplina
+                    <i
+                      style="font-size: 0.6rem; text-align: right;"
+                      :class="
+                        main_ordem.order == 'nome'
+                          ? main_ordem.type == 'asc'
+                            ? 'fas fa-arrow-down fa-sm'
+                            : 'fas fa-arrow-up fa-sm'
+                          : 'fas fa-arrow-down fa-sm low-opacity'
                       "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][2][0]"
-                        >1º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][2][1].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][2][1]"
-                        >2º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
+                    ></i>
                   </p>
-                </td>
-                <!-- 35A-  -->
-                <td v-if="activeCCN">
-                  <p style="width: 140px">
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][0][0].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][0][0]"
-                        >1º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][0][1].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][0][1]"
-                        >2º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
+                </th>
+                <th scope="col" v-if="activeSI">
+                  <p
+                    class="p-header"
+                    style="width: 140px;"
+                    title="Sistemas de informação"
+                  >
+                    76A
                   </p>
-                </td>
-                <!-- 65C -->
-                <td v-if="activeCCD">
-                  <p style="width: 140px">
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][3][0].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][3][0]"
-                        >1º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][3][1].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][3][1]"
-                        >2º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
+                </th>
+                <th scope="col" v-if="activeCCN">
+                  <p
+                    class="p-header"
+                    style="width: 140px;"
+                    title="Ciência da Computação Noturno"
+                  >
+                    35A
                   </p>
-                </td>
-                <!-- 65B -->
-                <td v-if="activeEC">
-                  <p style="width: 140px">
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][1][0].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][1][0]"
-                        >1º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
-                    <template
-                      v-if="
-                        disciplinas_grades[disciplina.id][1][1].length !== 0
-                      "
-                    >
-                      <template
-                        v-for="d in disciplinas_grades[disciplina.id][1][1]"
-                        >2º Semestre: {{ d }}º Período</template
-                      >
-                    </template>
+                </th>
+                <th scope="col" v-if="activeCCD">
+                  <p
+                    class="p-header"
+                    style="width: 140px;"
+                    title="Ciência da Computação Noturno"
+                  >
+                    65C
                   </p>
-                </td>
+                </th>
+                <th scope="col" v-if="activeEC">
+                  <p
+                    class="p-header"
+                    style="width: 140px;"
+                    title="Engenharia da Computação"
+                  >
+                    65B
+                  </p>
+                </th>
               </div>
             </tr>
-          </template>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <template v-for="disciplina in Disciplinas_Main_Table_Ordered">
+              <tr :key="disciplina.id">
+                <div class="max-content">
+                  <td v-bind:style="{ backgroundColor: disciplina.cor }">
+                    <p style="width: 80px ">
+                      {{ disciplina.perfil_nome }}
+                    </p>
+                  </td>
+
+                  <td>
+                    <p style="width: 100px;">{{ disciplina.codigo }}</p>
+                  </td>
+                  <td>
+                    <p style="width: 380px; text-align: start;">
+                      {{ disciplina.nome }}
+                    </p>
+                  </td>
+                  <!-- 76A-  -->
+                  <td v-if="activeSI">
+                    <p style="width: 140px">
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][2][0].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][2][0]"
+                          >1º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][2][1].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][2][1]"
+                          >2º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                    </p>
+                  </td>
+                  <!-- 35A-  -->
+                  <td v-if="activeCCN">
+                    <p style="width: 140px">
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][0][0].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][0][0]"
+                          >1º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][0][1].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][0][1]"
+                          >2º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                    </p>
+                  </td>
+                  <!-- 65C -->
+                  <td v-if="activeCCD">
+                    <p style="width: 140px">
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][3][0].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][3][0]"
+                          >1º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][3][1].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][3][1]"
+                          >2º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                    </p>
+                  </td>
+                  <!-- 65B -->
+                  <td v-if="activeEC">
+                    <p style="width: 140px">
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][1][0].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][1][0]"
+                          >1º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                      <template
+                        v-if="
+                          disciplinasGrades[disciplina.id][1][1].length !== 0
+                        "
+                      >
+                        <template
+                          v-for="d in disciplinasGrades[disciplina.id][1][1]"
+                          >2º Semestre: {{ d }}º Período</template
+                        >
+                      </template>
+                    </p>
+                  </td>
+                </div>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- MODAL FILTROS -->
@@ -621,17 +615,17 @@
         </table>
       </div>
 
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
+      <div slot="modal-footer" class="w-100 m-0 d-flex">
         <div class="w-100">
           <template v-if="nav_ativo == 'disciplinas'">
             <b-button
-              class="btn-azul btn-df mr-2 btn-custom"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAllDisciplinas()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2 btn-custom"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNoneDisciplinas()"
               >Desmarcar Todos</b-button
@@ -639,28 +633,27 @@
           </template>
           <template v-else-if="nav_ativo == 'perfis'">
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAllPerfis()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNonePerfis()"
               >Desmarcar Todos</b-button
             >
           </template>
-
           <template v-else>
             <b-button
-              class="btn-azul btn-df mr-2"
+              class="btn-azul btn-custom btn-modal"
               variant="success"
               @click="selectAllCursos()"
               >Selecionar Todos</b-button
             >
             <b-button
-              class="btn-cinza btn-df mr-2"
+              class="btn-cinza btn-custom btn-modal"
               variant="secondary"
               @click="selectNoneCursos()"
               >Desmarcar Todos</b-button
@@ -670,14 +663,19 @@
         <b-button
           variant="success"
           v-on:click="btnOK()"
-          class="btn-verde btn-df mr-2"
-          style="padding-right: 15px !important; padding-left: 15px !important;"
+          class="btn-verde btn-custom btn-modal px-3"
           >OK</b-button
         >
       </div>
     </b-modal>
     <!-- modal de ajuda -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
+    <b-modal
+      id="modalAjuda"
+      ref="ajudaModal"
+      scrollable
+      title="Ajuda"
+      hide-footer
+    >
       <div class="modal-body">
         <ul class="listas list-group">
           <li class="list-group-item">
@@ -697,23 +695,23 @@
           </li>
         </ul>
       </div>
-      <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
   </div>
 </template>
 
 <script>
 import _ from "lodash";
+import PageTitle from "@/components/PageTitle";
 
 export default {
   name: "GradeDisciplinas",
-
+  components: { PageTitle },
   data() {
     return {
       error: undefined,
       ano: undefined,
       novo_ano: undefined,
-      disciplinas_grades: {},
+      disciplinasGrades: {},
       grades: {
         1: undefined, //CCN
         2: undefined, //EC
@@ -763,20 +761,29 @@ export default {
     };
   },
 
-  beforeMount: function() {
+  beforeMount() {
     this.ano = this.$store.state.plano.Plano[0].ano;
     this.novo_ano = this.ano;
     this.runAll();
+  },
+  mounted() {
+    this.selectAllCursos();
+    this.selectAllDisciplinas();
+    this.selectAllPerfis();
+
+    this.disciplinas_ativados = [...this.disciplinas_selecionados];
+    this.cursos_ativados = [...this.cursos_selecionados];
+    this.nav_ativo = "perfis";
   },
 
   methods: {
     btnOK() {
       this.disciplinas_ativados = [...this.disciplinas_selecionados];
-      //Somente atualiza cursos se alterar
       this.cursos_ativados = [...this.cursos_selecionados];
       this.nav_ativo = "perfis";
       this.$refs.modalFiltros.hide();
     },
+
     toggleOrdDiscip(ord) {
       if (this.modal_ordem_discip.order != ord) {
         this.modal_ordem_discip.order = ord;
@@ -811,7 +818,6 @@ export default {
         this.main_ordem.type = this.main_ordem.type == "asc" ? "desc" : "asc";
       }
     },
-
     //PERFIS SELECTIONS
     selectAllPerfis() {
       if (this.perfis_ativados != []) this.perfis_ativados = [];
@@ -856,7 +862,7 @@ export default {
     runAll: function() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
-        this.disciplinas_grades[d.id] = [
+        this.disciplinasGrades[d.id] = [
           [[], []],
           [[], []],
           [[], []],
@@ -882,7 +888,7 @@ export default {
     get1Periodo: function() {
       //Armazena os períodos de cada disciplina no primeiro semestre
       //retorna lista com os ids das disciplinas
-      let disciplinas = Object.keys(this.disciplinas_grades);
+      let disciplinas = Object.keys(this.disciplinasGrades);
       //marca o último período em que uma grade é válida
       this.gradesAtivas = {
         1: [], //CCN
@@ -943,7 +949,7 @@ export default {
               gradedisciplina.periodo % 2 === 1
             )
               //tem entrada de alunos no 1º semestre ou no 3º semestre -> terá períodos ímpares no primeiro semestre
-              this.disciplinas_grades[parseInt(d, 10)][i - 1][0].push(
+              this.disciplinasGrades[parseInt(d, 10)][i - 1][0].push(
                 gradedisciplina.periodo
               );
             if (
@@ -951,7 +957,7 @@ export default {
               gradedisciplina.periodo % 2 === 0
             )
               //tem entrada de alunos no 2º semestre ou no 3º semestre -> terá períodos pares no primeiro semestre
-              this.disciplinas_grades[parseInt(d, 10)][i - 1][0].push(
+              this.disciplinasGrades[parseInt(d, 10)][i - 1][0].push(
                 gradedisciplina.periodo
               );
           }
@@ -961,7 +967,7 @@ export default {
     get2Periodo: function() {
       //Armazena os períodos de cada disciplina no segundo semestre
       //retorna lista com os ids das disciplinas
-      let disciplinas = Object.keys(this.disciplinas_grades);
+      let disciplinas = Object.keys(this.disciplinasGrades);
       //marca o último período em que uma grade é válida
       this.gradesAtivas = {
         1: [], //CCN
@@ -1022,7 +1028,7 @@ export default {
               gradedisciplina.periodo % 2 === 0
             )
               //tem entrada de alunos no 1º semestre ou no 3º semestre -> terá períodos pares no segundo semestre
-              this.disciplinas_grades[parseInt(d, 10)][i - 1][1].push(
+              this.disciplinasGrades[parseInt(d, 10)][i - 1][1].push(
                 gradedisciplina.periodo
               );
             if (
@@ -1030,7 +1036,7 @@ export default {
               gradedisciplina.periodo % 2 === 1
             )
               //tem entrada de alunos no 2º semestre ou no 3º semestre -> terá períodos ímpares no segundo semestre
-              this.disciplinas_grades[parseInt(d, 10)][i - 1][1].push(
+              this.disciplinasGrades[parseInt(d, 10)][i - 1][1].push(
                 gradedisciplina.periodo
               );
           }
@@ -1078,7 +1084,8 @@ export default {
             disci.codigo.match(searchUpperCase)
           );
         });
-      } else return result;
+      }
+      return result;
     },
     Disciplinas_Modal_Ordered() {
       return _.orderBy(
@@ -1178,19 +1185,6 @@ export default {
 };
 </script>
 <style scoped>
-.GradesDisciplinas {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-
-/* main-table */
 .divTable {
   overflow: hidden;
   height: -webkit-max-content;
@@ -1247,77 +1241,6 @@ tbody {
   margin: 0 !important;
   margin-top: 4px !important;
 }
-/* fim table */
-
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
-/* ============================================ */
-/* Formularios no topo da tela */
-.input-group-top {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: flex;
-  -ms-flex-align: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  align-items: center;
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  justify-content: center;
-  margin-bottom: 0;
-  /*===*/
-  max-width: 50px;
-  min-width: 50px;
-  height: 25px !important;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
-}
-
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
-.form-control-top {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 2px 5px 0px 5px !important;
-  width: 60px !important;
-  text-align: center;
-}
-/* =========================== */
-
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-strong {
-  color: #007bff;
-}
-
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
@@ -1383,130 +1306,7 @@ strong {
   background-color: #ffffff;
   border-left: none;
 }
-.nav-link {
-  color: #007bff !important;
-  cursor: pointer;
-}
-.nav-link:hover {
-  text-decoration: underline;
-}
-.active {
-  background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default;
-  text-decoration: none !important;
-}
 
-/* ====== BOTÕES ====== */
-button {
-  padding: 0;
-  border: none;
-  background: none;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: 32px !important;
-  margin-left: 4px;
-  margin-right: 4px;
-  margin-top: 0px;
-  line-height: 50%;
-  margin-bottom: 0px;
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  text-align: center !important;
-}
-.relatbtn {
-  background-color: white;
-  color: #9ab3ff !important;
-}
-
-.relatbtn:hover {
-  background-color: white;
-  color: #82a0ff !important;
-}
-
-.relatbtn:focus {
-  color: #82a0ff;
-  background-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #698dff;
-}
-.btn-df {
-  font-size: 12px;
-  height: 25px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content;
-  padding: 0 5px 0 5px;
-}
-
-.btn-azul {
-  background-color: #718de0 !important;
-  border-color: #9ab3ff !important;
-}
-.btn-azul:hover {
-  background-color: rgb(74, 101, 190) !important;
-  border-color: #82a0ff !important;
-}
-
-.btn-azul:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(122, 128, 124, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-.btn-cinza {
-  background-color: #999999 !important;
-  border-color: #c3c3c3 !important;
-}
-.btn-cinza:hover {
-  background-color: #747474 !important;
-  border-color: #aaaaaa !important;
-}
-
-.btn-cinza:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-  box-shadow: 0 0 0 0.2rem rgba(116, 124, 119, 0.74) !important;
-}
-.btn-verde {
-  background-color: #70b670 !important;
-  border-color: #a0e7a0 !important;
-}
-.btn-verde:hover {
-  background-color: #4c8a4c !important;
-  border-color: #77dd77 !important;
-}
-
-.btn-verde:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  -moz-box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-  box-shadow: 0 0 0 0.2rem rgba(108, 166, 127, 0.5) !important;
-}
-
-i.fas,
-i.far {
-  font-size: 25px;
-}
-
-.cancelbtn {
-  background-color: white;
-  color: #cfcfc4;
-}
-.cancelbtn:hover {
-  background-color: white;
-  color: #b8b4a8;
-}
-
-.cancelbtn:focus {
-  background-color: white;
-  color: #b8b8a8;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #ada89a;
-}
 @media screen and (max-width: 519px) {
   .div-titulo {
     height: 70px !important;

@@ -435,8 +435,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-custom btn-modal btn-verde"
-          style="padding-right: 15px !important; padding-left: 15px !important;"
+          class="btn-custom btn-modal btn-verde px-3"
           >OK</b-button
         >
       </div>

@@ -266,40 +266,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-custom btn-modal"
-          style="padding-right: 15px !important; padding-left: 15px !important;"
-          >OK</b-button
-        >
-      </div>
-    </b-modal>
-    <!-- Modals do botão para escolher laboratorio -->
-    <b-modal
-      id="modalLaboratorios"
-      ref="LaboratoriosModal"
-      size="md"
-      title="Selecione os laboratórios"
-      scrollable
-    >
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100 m-0 d-flex">
-          <b-button
-            class="btn-azul btn-custom btn-modal"
-            variant="success"
-            @click="selectAll()"
-            >Selecionar Todos</b-button
-          >
-          <b-button
-            class="btn-cinza btn-custom btn-modal"
-            variant="secondary"
-            @click="selectNone()"
-            >Desmarcar Todos</b-button
-          >
-        </div>
-        <b-button
-          variant="success"
-          @click="btnOK()"
-          class="btn-verde btn-df mr-0"
-          style="padding-right: 15px !important; padding-left: 15px !important;"
+          class="btn-verde btn-custom btn-modal px-3"
           >OK</b-button
         >
       </div>

@@ -21,14 +21,6 @@
         >
           <i class="fas fa-list-ul"></i>
         </b-button>
-
-        <!-- <b-button
-          v-b-modal.modalAjuda
-          title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
-        >
-          <i class="fas fa-question"></i>
-        </b-button> -->
       </template>
     </PageTitle>
 
