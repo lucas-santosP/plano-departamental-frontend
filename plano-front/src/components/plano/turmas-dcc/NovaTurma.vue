@@ -17,7 +17,17 @@
         </select>
       </div>
     </td>
-
+    <td
+      :style="{
+        'background-color': currentDisciplina
+          ? currentDisciplina.perfilCor
+          : '',
+      }"
+    >
+      <p style="width: 80px">
+        {{ currentDisciplina ? currentDisciplina.perfilAbreviacao : "" }}
+      </p>
+    </td>
     <td>
       <div style="width:70px">
         <select
@@ -102,7 +112,6 @@
         </select>
 
         <select
-          v-if="hasMoreThan4Creditos"
           type="text"
           style="width:125px;"
           id="docente2"
@@ -148,7 +157,7 @@
             v-model="turmaForm.Horario1"
           >
             <option
-              v-if="!disciplinaIsIntegralEAD && !disciplinaIsParcialEAD"
+              v-if="!disciplinaIsIntegralEAD"
               type="text"
               value=""
             ></option>
@@ -298,7 +307,7 @@ export default {
       this.turmaForm.Docente1 = null;
       this.turmaForm.Docente2 = null;
     },
-    setInfos(disciplina) {
+    setInfos() {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
@@ -381,11 +390,21 @@ export default {
   },
   computed: {
     currentDisciplina() {
-      return _.find(this.$store.state.disciplina.Disciplinas, {
+      let disciplinaFounded = _.find(this.$store.state.disciplina.Disciplinas, {
         id: this.turmaForm.Disciplina,
       });
-    },
+      if (disciplinaFounded) {
+        _.find(this.Perfis, (perfil) => {
+          if (perfil.id === disciplinaFounded.Perfil) {
+            disciplinaFounded.perfilAbreviacao = perfil.abreviacao;
+            disciplinaFounded.perfilCor = perfil.cor;
+            return true;
+          }
+        });
+      }
 
+      return disciplinaFounded;
+    },
     totalCarga() {
       if (this.currentDisciplina != undefined) {
         return (
@@ -393,9 +412,8 @@ export default {
           parseInt(this.currentDisciplina.cargaPratica)
         );
       }
-      return;
+      return 0;
     },
-
     hasMoreThan4Creditos() {
       return this.totalCarga >= 4;
     },

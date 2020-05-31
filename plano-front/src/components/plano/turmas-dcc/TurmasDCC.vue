@@ -67,15 +67,18 @@
           <tr>
             <TurmaHeader
               v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
+              v-on:toggle-order-perfil="
+                toggleOrder(ordenacaoTurmasPerfil, $event)
+              "
               :cursosSelecteds="CursosAtivados"
               :currentOrder="ordenacaoTurmas"
+              :currentOrderPerfil="ordenacaoTurmasPerfil"
             />
           </tr>
-          <template v-if="isAdd">
-            <tr>
-              <NovaTurma :cursosLength="CursosAtivados.length" />
-            </tr>
-          </template>
+
+          <tr v-if="isAdd">
+            <NovaTurma :cursosLength="CursosAtivados.length" />
+          </tr>
         </thead>
         <tbody>
           <tr
@@ -593,6 +596,7 @@ export default {
       ordenacaoCurso: { order: "codigo", type: "asc" },
       ordenacaoPerfis: { order: "nome", type: "asc" },
       ordenacaoTurmas: { order: "periodo", type: "asc" },
+      ordenacaoTurmasPerfil: { order: "perfilNome", type: "asc" },
       turmaSelected: undefined,
     };
   },
@@ -845,8 +849,8 @@ export default {
     TurmasInPerfilOrdered() {
       return _.orderBy(
         this.TurmasInPerfilFiltred,
-        [this.ordenacaoTurmas.order, "perfilNome", "letra"],
-        [this.ordenacaoTurmas.type, "asc", "asc"]
+        [this.ordenacaoTurmas.order, this.ordenacaoTurmasPerfil.order, "letra"],
+        [this.ordenacaoTurmas.type, this.ordenacaoTurmasPerfil.type, "asc"]
       );
     },
     TurmasInPerfilFiltred() {
@@ -871,22 +875,11 @@ export default {
             );
 
             if (disciplinaFounded.Perfil === perfil.id) {
-              const {
-                cor: perfilCor,
-                nome: PerfilNome,
-                abreviacao: perfilAbreviacao,
-              } = perfil;
-
-              const {
-                codigo: disciplinaCodigo,
-                nome: disciplinaNome,
-              } = disciplinaFounded;
-
-              turma.perfilCor = perfilCor;
-              turma.perfilNome = PerfilNome;
-              turma.perfilAbreviacao = perfilAbreviacao;
-              turma.disciplinaCodigo = disciplinaCodigo;
-              turma.disciplinaNome = disciplinaNome;
+              turma.perfilCor = perfil.cor;
+              turma.perfilNome = perfil.nome;
+              turma.perfilAbreviacao = perfil.abreviacao;
+              turma.disciplinaCodigo = disciplinaFounded.codigo;
+              turma.disciplinaNome = disciplinaFounded.nome;
               return true;
             }
             return false;

@@ -96,7 +96,6 @@
         </select>
 
         <select
-          v-if="hasMoreThan4Creditos"
           :disabled="Admin ? false : true"
           type="text"
           style="width:125px"
@@ -244,7 +243,7 @@
           {{ totalPedidos() }}
         </p>
         <p style="width: 40px;">
-          {{ totalPedidosPeriodizados() }}+{{ totalPedidosNaoPeriodizados() }}
+          {{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}
         </p>
       </div>
     </td>
@@ -290,7 +289,6 @@ export default {
     turma: Object,
     cursosSelecteds: Array,
   },
-
   data() {
     return {
       ativo: false,
@@ -299,22 +297,17 @@ export default {
       currentData: undefined,
     };
   },
-
   components: {
     turmaPedido,
   },
-
   mounted() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
-    this.checkDisciplina();
+    this.autoSetInputs();
   },
 
   methods: {
-    checkDisciplina() {
-      this.setInfos();
-    },
-    setInfos(disciplina) {
+    autoSetInputs() {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
@@ -335,24 +328,6 @@ export default {
       var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
       for (var p = 0; p < pedidos.length; p++) {
         t += parseInt(pedidos[p].vagasPeriodizadas, 10);
-        t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
-      }
-      return t;
-    },
-
-    totalPedidosPeriodizados() {
-      var t = 0;
-      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
-      for (var p = 0; p < pedidos.length; p++) {
-        t += parseInt(pedidos[p].vagasPeriodizadas, 10);
-      }
-      return t;
-    },
-
-    totalPedidosNaoPeriodizados() {
-      var t = 0;
-      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
-      for (var p = 0; p < pedidos.length; p++) {
         t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
       }
       return t;
@@ -1253,6 +1228,23 @@ export default {
     },
   },
   computed: {
+    totalPedidosPeriodizados() {
+      var t = 0;
+      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
+      for (var p = 0; p < pedidos.length; p++) {
+        t += parseInt(pedidos[p].vagasPeriodizadas, 10);
+      }
+      return t;
+    },
+
+    totalPedidosNaoPeriodizados() {
+      var t = 0;
+      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
+      for (var p = 0; p < pedidos.length; p++) {
+        t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
+      }
+      return t;
+    },
     disciplinaIsIntegralEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
     },
@@ -1374,11 +1366,7 @@ export default {
 };
 </script>
 <style scoped>
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
 .turmarow {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
   font-size: 11px;
 }
 td {
@@ -1416,15 +1404,6 @@ input[type="checkbox"] {
   text-align: center;
   padding: 0 2px;
   cursor: default;
-}
-
-.input-disabled {
-  cursor: text;
-  color: black;
-  padding: auto 5px !important;
-  background-color: #fff !important;
-  padding: 0 5px !important;
-  border: 1px solid rgb(63, 63, 63) !important;
 }
 .div-btn {
   display: flex;

@@ -9,22 +9,29 @@
     <th class="clickable" @click="$emit('toggle-order', 'periodo')">
       <p style="width:50px" class="p-header" title="Semestre">
         S.
-        <i :class="setIconByOrder('periodo')"></i>
+        <i :class="setIconByOrder(currentOrder, 'periodo')"></i>
       </p>
     </th>
-    <th class="clickable">
-      <p style="width: 80px">Perfil</p>
+    <th
+      class="clickable"
+      @click.stop="$emit('toggle-order-perfil', 'perfilNome')"
+    >
+      <p style="width: 80px" class="t-start">
+        <i class="fas fa-thumbtack mr-1"></i>
+        Perfil
+        <i :class="setIconByOrder(currentOrderPerfil, 'perfilNome')"></i>
+      </p>
     </th>
     <th class="clickable" @click="$emit('toggle-order', 'disciplinaCodigo')">
       <p style="width:70px" class="p-header" title="Código">
         Cód.
-        <i :class="setIconByOrder('disciplinaCodigo')"></i>
+        <i :class="setIconByOrder(currentOrder, 'disciplinaCodigo')"></i>
       </p>
     </th>
     <th class="clickable" @click="$emit('toggle-order', 'disciplinaNome')">
       <p class="p-header t-start" style="width:330px">
         Disciplina
-        <i :class="setIconByOrder('disciplinaNome')"></i>
+        <i :class="setIconByOrder(currentOrder, 'disciplinaNome')"></i>
       </p>
     </th>
     <th scope="col">
@@ -102,6 +109,7 @@ export default {
   props: {
     cursosSelecteds: Array,
     currentOrder: Object,
+    currentOrderPerfil: Object,
   },
 
   methods: {
@@ -109,9 +117,9 @@ export default {
       if (nome.length > 4) return true;
       else return false;
     },
-    setIconByOrder(orderToCheck) {
-      if (this.currentOrder.order === orderToCheck) {
-        return this.currentOrder.type === "asc"
+    setIconByOrder(currentOrder, orderToCheck) {
+      if (currentOrder.order === orderToCheck) {
+        return currentOrder.type === "asc"
           ? "fas fa-arrow-down fa-sm"
           : "fas fa-arrow-up fa-sm";
       } else {
