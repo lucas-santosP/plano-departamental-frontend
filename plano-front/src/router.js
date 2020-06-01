@@ -5,7 +5,7 @@ import store from "./vuex/store";
 // Dashboard
 import Login from "@/pages/Dashboard/TheLogin";
 import Dashboard from "@/pages/Dashboard/TheDashboard";
-import DashboardHome from "@/pages/Dashboard/home/Home";
+import DashboardHome from "@/pages/home/Home";
 // Plano
 import DashboardTurmasDCC from "@/pages/plano/turmas-dcc/TurmasDCC";
 import DashboardTurmasExternas from "@/pages/plano/turmas-externas/TurmasExternas";
