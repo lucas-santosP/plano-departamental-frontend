@@ -14,10 +14,13 @@
     </th>
     <th
       class="clickable"
-      @click.stop="$emit('toggle-order-perfil', 'perfilNome')"
+      @click.stop="$emit('toggle-order-perfil', setOrderPerfil)"
     >
       <p style="width: 80px" class="t-start">
-        <i class="fas fa-thumbtack mr-1"></i>
+        <i
+          class="fas fa-thumbtack mr-1"
+          :class="currentOrderPerfil.order === null ? 'low-opacity' : ''"
+        ></i>
         Perfil
         <i :class="setIconByOrder(currentOrderPerfil, 'perfilNome')"></i>
       </p>
@@ -127,6 +130,15 @@ export default {
       }
     },
   },
+  computed: {
+    setOrderPerfil() {
+      if (this.currentOrderPerfil.type === "desc") {
+        return null;
+      } else {
+        return "perfilNome";
+      }
+    },
+  },
 };
 </script>
 
@@ -156,6 +168,7 @@ th {
   font-size: 10px;
   text-align: center;
   height: 16px !important;
+  user-select: none;
 }
 .max-content {
   width: -webkit-max-content !important;

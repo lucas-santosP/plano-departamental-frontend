@@ -2,7 +2,7 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
       <template #aside>
-        <template v-if="isAdd">
+        <template v-if="turmaAddIsVisible">
           <b-button
             title="Salvar"
             class="btn-custom btn-icon addbtn"
@@ -65,18 +65,18 @@
         <thead class="thead-light sticky">
           <tr>
             <TurmaHeader
-              :cursosSelecteds="CursosAtivados"
-              :currentOrder="ordenacaoTurmas"
-              :currentOrderPerfil="ordenacaoTurmasPerfil"
-              v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
+              :cursosSelecteds="filtroCursos.ativados"
+              :currentOrder="mainOrdenacaoTurmas"
+              :currentOrderPerfil="mainOrdenacaoPerfis"
+              v-on:toggle-order="toggleOrder(mainOrdenacaoTurmas, $event)"
               v-on:toggle-order-perfil="
-                toggleOrder(ordenacaoTurmasPerfil, $event)
+                toggleOrder(mainOrdenacaoPerfis, $event)
               "
             />
           </tr>
 
-          <tr v-show="isAdd">
-            <NovaTurma :cursosLength="CursosAtivados.length" />
+          <tr v-show="turmaAddIsVisible">
+            <NovaTurma :cursosLength="filtroCursos.ativados.length" />
           </tr>
         </thead>
         <tbody>
@@ -89,7 +89,7 @@
               ref="turma"
               v-on:handle-click-in-edit="handleClickInEdit($event)"
               v-bind:turma="turma"
-              v-bind:cursosSelecteds="CursosAtivados"
+              v-bind:cursosSelecteds="filtroCursos.ativados"
             />
           </tr>
         </tbody>
@@ -110,7 +110,6 @@
         @change-tab="modalTabAtiva = $event"
       />
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
-        <!-- TABLE PERFIS -->
         <table
           v-show="modalTabAtiva === 'Perfis'"
           class="table table-sm modal-table table-bordered"
@@ -124,18 +123,13 @@
                 </th>
                 <th>
                   <p
-                    class="p-header clickable"
-                    @click="toggleOrdPerfis()"
-                    style="width: 436px; text-align: start;"
+                    class="p-header clickable t-start"
+                    @click="toggleOrder(modalOrdenacaoPerfis, 'nome')"
+                    style="width: 436px"
                   >
                     Nome
                     <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordenacaoPerfis.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                      "
+                      :class="setIconByOrder(modalOrdenacaoPerfis, 'nome')"
                     ></i>
                   </p>
                 </th>
@@ -143,13 +137,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="perfil in Perfis" :key="'perfil-id' + perfil.id">
+            <tr v-for="perfil in PerfisOrdered" :key="'perfilId' + perfil.id">
               <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="PerfisSelecionados"
+                      v-model="filtroPerfis.selecionados"
                       :value="perfil"
                       class="form-check-input position-static m-0"
                     />
@@ -164,7 +158,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- TABLE CURSOS -->
+
         <table
           v-show="modalTabAtiva === 'Cursos'"
           class="table table-sm modal-table table-bordered"
@@ -183,11 +177,11 @@
                       class="form-control"
                       style="border-right: none;"
                       placeholder="Pesquise nome ou codigo de uma disciplina..."
-                      v-model="searchCursos"
+                      v-model="modalSearchCursos"
                     />
                     <div
                       class="input-group-append"
-                      @click="searchCursos = null"
+                      @click="clearModalSearchCursos()"
                     >
                       <span
                         class="input-group-text search-text"
@@ -199,77 +193,30 @@
                 </th>
               </div>
             </tr>
-
-            <!-- <tr>
-              <div style="font-size: 11px !important;" class="max-content">
-                <th>
-                  <div
-                    class="m-0 input-group"
-                    style="
-                      width: 462px;
-                      height: 35px;
-                      padding-left: 4px;
-                      padding-right: 20px;
-                      padding-top: 4px;
-                    "
-                  >
-                    <input
-                      type="text"
-                      class="form-control"
-                      style="border-right: none;"
-                      placeholder="Pesquise nome ou codigo de um curso..."
-                      v-model="searchCursos"
-                    />
-                    <div
-                      class="input-group-append"
-                      @click="searchCursos = null"
-                    >
-                      <span
-                        class="input-group-text"
-                        style="height: 25px; font-size: 18px; cursor: pointer;"
-                        >&times;</span
-                      >
-                    </div>
-                  </div>
-                </th>
-              </div>
-            </tr> -->
             <tr>
               <div style="font-size: 11px !important;" class=" max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
                 <th
-                  class="clickable"
-                  style="text-align: center;"
-                  @click="toggleOrdCursos('codigo')"
+                  class="clickable t-center"
+                  @click="toggleOrder(modalOrdenacaoCursos, 'codigo')"
                 >
                   <p style="width: 50px; text-align: start;" class="p-header">
                     Cód.
                     <i
-                      style="font-size: 0.6rem;"
-                      :class="
-                        ordenacaoCurso.order == 'codigo'
-                          ? ordenacaoCurso.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
+                      :class="setIconByOrder(modalOrdenacaoCursos, 'codigo')"
                     ></i>
                   </p>
                 </th>
-                <th class="clickable" @click="toggleOrdCursos('nome')">
+                <th
+                  class="clickable"
+                  @click="toggleOrder(modalOrdenacaoCursos, 'nome')"
+                >
                   <p style="width: 385px; text-align: start;" class="p-header">
                     Nome
                     <i
-                      style="font-size: 0.6rem;"
-                      :class="
-                        ordenacaoCurso.order == 'nome'
-                          ? ordenacaoCurso.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
+                      :class="setIconByOrder(modalOrdenacaoCursos, 'nome')"
                     ></i>
                   </p>
                 </th>
@@ -277,13 +224,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="curso in CursosOrdered" :key="'cursoMd' + curso.id">
+            <tr v-for="curso in ModalCursosOrdered" :key="'cursoMd' + curso.id">
               <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="CursosSelecionados"
+                      v-model="filtroCursos.selecionados"
                       :value="curso"
                       class="form-check-input position-static m-0"
                     />
@@ -304,7 +251,6 @@
           </tbody>
         </table>
 
-        <!-- TABLE SEMESTRE -->
         <table
           v-show="modalTabAtiva === 'Semestre'"
           class="table table-bordered table-sm modal-table"
@@ -332,7 +278,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_1Ativo"
+                      v-model="semestresAtivos.primeiro"
                     />
                   </div>
                 </td>
@@ -348,7 +294,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_2Ativo"
+                      v-model="semestresAtivos.segundo"
                     />
                   </div>
                 </td>
@@ -410,12 +356,13 @@
         </div>
         <b-button
           variant="success"
-          @click="btnOK()"
+          @click="btnOkFiltros()"
           class="btn-verde btn-custom btn-modal px-3"
           >OK</b-button
         >
       </div>
     </b-modal>
+
     <!-- MODAL TURMA -->
     <b-modal
       id="modalEditTurma"
@@ -426,7 +373,8 @@
     >
       <ModalEditTurma :turma="turmaSelected" />
     </b-modal>
-    <!-- Modals do deletar-->
+
+    <!-- MODAL DELETAR -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
       <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
       <template v-if="Deletar.length > 0">
@@ -528,14 +476,14 @@ import xlsx from "@/common/services/xlsx";
 import ls from "local-storage";
 import { EventBus } from "@/event-bus.js";
 import { saveAs } from "file-saver";
-
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
+
 import TurmaHeader from "./TurmaHeader.vue";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
-import PageTitle from "@/components/PageTitle.vue";
 import NavTab from "@/components/NavTab.vue";
+import PageTitle from "@/components/PageTitle.vue";
 import ModalEditTurma from "@/components/ModalEditTurma.vue";
 
 export default {
@@ -551,22 +499,27 @@ export default {
   data() {
     return {
       error: undefined,
-      isAdd: false,
-      semestre: 1,
-      PerfisSelecionados: [],
-      CursosSelecionados: [],
-      PerfisAtivados: [],
-      CursosAtivados: [],
-      semestre_1Ativo: true,
-      semestre_2Ativo: true,
-      semestreAtual: undefined,
+      turmaSelected: null,
+      turmaAddIsVisible: false,
+      mainOrdenacaoTurmas: { order: "periodo", type: "asc" },
+      mainOrdenacaoPerfis: { order: "perfilNome", type: "asc" },
+      filtroPerfis: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroCursos: {
+        ativados: [],
+        selecionados: [],
+      },
+      semestresAtivos: {
+        primeiro: true,
+        segundo: true,
+      },
+      semestreAtual: 3,
       modalTabAtiva: "Perfis",
-      searchCursos: null,
-      ordenacaoCurso: { order: "codigo", type: "asc" },
-      ordenacaoPerfis: { order: "nome", type: "asc" },
-      ordenacaoTurmas: { order: "periodo", type: "asc" },
-      ordenacaoTurmasPerfil: { order: "perfilNome", type: "asc" },
-      turmaSelected: undefined,
+      modalSearchCursos: null,
+      modalOrdenacaoCursos: { order: "codigo", type: "asc" },
+      modalOrdenacaoPerfis: { order: "nome", type: "asc" },
     };
   },
   created() {
@@ -592,8 +545,8 @@ export default {
       }
       ls.set("toggle", -1);
     });
-    for (var c = 0; c < this.$store.state.curso.Cursos.length; c++) {
-      let id = this.$store.state.curso.Cursos[c].id;
+    for (var c = 0; c < this.Cursos.length; c++) {
+      let id = this.Cursos[c].id;
       ls.on(`${id}`, () => {
         this.$store.dispatch("toggleCurso", id);
       });
@@ -601,8 +554,8 @@ export default {
   },
   beforeDestroy() {
     ls.off("toggle");
-    for (var c = 0; c < this.$store.state.curso.Cursos.length; c++) {
-      let id = this.$store.state.curso.Cursos[c].id;
+    for (var c = 0; c < this.Cursos.length; c++) {
+      let id = this.Cursos[c].id;
       ls.off(`${id}`);
     }
   },
@@ -616,93 +569,72 @@ export default {
         currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
       }
     },
+    setIconByOrder(currentOrder, orderToCheck) {
+      if (currentOrder.order === orderToCheck) {
+        return currentOrder.type === "asc"
+          ? "fas fa-arrow-down fa-sm"
+          : "fas fa-arrow-up fa-sm";
+      } else {
+        return "fas fa-arrow-down fa-sm low-opacity";
+      }
+    },
     handleClickInEdit(turmaClicked) {
       this.turmaSelected = turmaClicked;
       this.$refs.modalEditTurma.show();
     },
-    changeTab(tab) {
-      this.modalTabAtiva = tab;
-    },
-    btnOK() {
-      this.btnOKPerfis();
-      this.btnOKSemestre();
-      this.btnOKCursos();
+    btnOkFiltros() {
+      this.setSemestreAtual();
+      this.filtroPerfis.ativados = [...this.filtroPerfis.selecionados];
+      this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
+      this.clearModalSearchCursos();
       this.$refs.modalFiltros.hide();
-      this.searchCursos = null;
     },
-    btnOKSemestre() {
-      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
+    selectAllPerfis() {
+      this.filtroPerfis.selecionados = [...this.Perfis];
+    },
+    selectNonePerfis() {
+      this.filtroPerfis.selecionados = [];
+    },
+    selectAllCursos() {
+      this.filtroCursos.selecionados = [...this.Cursos];
+    },
+    selectNoneCursos() {
+      this.filtroCursos.selecionados = [];
+    },
+    selectAllSemestre() {
+      this.semestresAtivos.primeiro = true;
+      this.semestresAtivos.segundo = true;
+    },
+    selectNoneSemestre() {
+      this.semestresAtivos.primeiro = false;
+      this.semestresAtivos.segundo = false;
+    },
+    clearModalSearchCursos() {
+      this.modalSearchCursos = null;
+    },
+    setSemestreAtual() {
+      if (this.semestresAtivos.primeiro && !this.semestresAtivos.segundo) {
         this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+      } else if (
+        this.semestresAtivos.segundo &&
+        !this.semestresAtivos.primeiro
+      ) {
         this.semestreAtual = 2;
-      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
+      } else if (
+        this.semestresAtivos.primeiro &&
+        this.semestresAtivos.primeiro
+      ) {
         this.semestreAtual = 3;
       } else {
         this.semestreAtual = undefined;
       }
     },
-    btnOKPerfis() {
-      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.PerfisAtivados = [...this.PerfisSelecionados];
-    },
-    btnOKCursos() {
-      this.CursosAtivados = [...this.CursosSelecionados];
-    },
-    // Ordem Perfis
-    toggleOrdPerfis() {
-      if (this.ordenacaoPerfis.type == "asc") {
-        this.ordenacaoPerfis.type = "desc";
-      } else {
-        this.ordenacaoPerfis.type = "asc";
-      }
-    },
-    // Ordem Cursos
-    toggleOrdCursos(ord) {
-      if (this.ordenacaoCurso.order != ord) {
-        this.ordenacaoCurso.order = ord;
-        this.ordenacaoCurso.type = "asc";
-      } else {
-        this.ordenacaoCurso.type =
-          this.ordenacaoCurso.type == "asc" ? "desc" : "asc";
-      }
-    },
-    //Select Perfis
-    selectAllPerfis() {
-      if (this.PerfisSelecionados != []) this.PerfisSelecionados = [];
-      for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
-        this.PerfisSelecionados.push(this.$store.state.perfil.Perfis[i]);
-    },
-    selectNonePerfis() {
-      this.PerfisSelecionados = [];
-    },
-
-    //Select Cursos
-    selectAllCursos() {
-      if (this.CursosSelecionados != []) this.CursosSelecionados = [];
-      for (var i = 0; i < this.$store.state.curso.Cursos.length; i++)
-        this.CursosSelecionados.push(this.$store.state.curso.Cursos[i]);
-    },
-    selectNoneCursos() {
-      this.CursosSelecionados = [];
-    },
-
-    //Select Semestre
-    selectAllSemestre() {
-      this.semestre_1Ativo = true;
-      this.semestre_2Ativo = true;
-    },
-    selectNoneSemestre() {
-      this.semestre_1Ativo = false;
-      this.semestre_2Ativo = false;
-    },
-
     xlsx(pedidos) {
       xlsx
         .downloadTable({
           pedidos: pedidos,
         })
         .then(() => {
-          // console.log("done");
           fetch("http://200.131.219.57:3000/api/xlsx/download", {
             method: "GET",
             headers: {
@@ -712,9 +644,15 @@ export default {
             .then((r) => r.blob())
             .then((blob) => saveAs(blob, "tabela.xlsx"));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          this.$notify({
+            group: "general",
+            title: `Erro!`,
+            text: `Erro ao gerar a tabela!\n ${error}`,
+            type: "error",
+          });
+        });
     },
-
     deleteSelected() {
       let turmas = this.$store.state.turma.Deletar;
       for (let i = 0; i < turmas.length; i++) {
@@ -723,24 +661,9 @@ export default {
       }
       this.$store.commit("emptyDelete");
     },
-
-    inPerfil(perfil, turmas, disciplinas) {
-      return turmas.filter((turma) => {
-        if (_.isNull(turma.Disciplina)) return false;
-
-        var disciplina = _.find(
-          disciplinas,
-          (disc) => disc.id === turma.Disciplina
-        );
-
-        return disciplina.Perfil === perfil.id;
-      });
-    },
-
     addTurma() {
       EventBus.$emit("addTurma");
     },
-
     editTurma(turma) {
       turmaService
         .update(turma.id, turma)
@@ -760,7 +683,6 @@ export default {
           }
         });
     },
-
     deleteTurma(turma) {
       turma.periodo = null;
       turma.letra = null;
@@ -808,18 +730,28 @@ export default {
         }
       }
     },
-
     toggleAdd() {
-      this.isAdd = !this.isAdd;
+      this.turmaAddIsVisible = !this.turmaAddIsVisible;
     },
   },
 
   computed: {
     TurmasInPerfilOrdered() {
+      if (this.mainOrdenacaoPerfis.order !== null) {
+        return _.orderBy(
+          this.TurmasInPerfilFiltred,
+          [
+            this.mainOrdenacaoPerfis.order,
+            this.mainOrdenacaoTurmas.order,
+            "letra",
+          ],
+          [this.mainOrdenacaoPerfis.type, this.mainOrdenacaoTurmas.type, "asc"]
+        );
+      }
       return _.orderBy(
         this.TurmasInPerfilFiltred,
-        [this.ordenacaoTurmas.order, this.ordenacaoTurmasPerfil.order, "letra"],
-        [this.ordenacaoTurmas.type, this.ordenacaoTurmasPerfil.type, "asc"]
+        [this.mainOrdenacaoTurmas.order, "periodo", "letra"],
+        [this.mainOrdenacaoTurmas.type, "asc", "asc"]
       );
     },
     TurmasInPerfilFiltred() {
@@ -831,10 +763,10 @@ export default {
       });
     },
     TurmasInPerfil() {
-      let turmasResult = [];
+      let turmasResultantes = [];
 
-      this.PerfisAtivados.forEach((perfil) => {
-        turmasResult = turmasResult.concat(
+      this.filtroPerfis.ativados.forEach((perfil) => {
+        turmasResultantes = turmasResultantes.concat(
           this.Turmas.filter((turma) => {
             if (_.isNull(turma.Disciplina)) return false;
 
@@ -855,65 +787,64 @@ export default {
           })
         );
       });
-      return turmasResult;
+      return turmasResultantes;
     },
-    CursosFiltred() {
-      if (this.searchCursos != null) {
-        let searchUpperCase = this.searchCursos
+    Cursos() {
+      return this.$store.state.curso.Cursos;
+    },
+    ModalCursosFiltred() {
+      if (this.modalSearchCursos != null) {
+        let searchNormalized = this.modalSearchCursos
           .toUpperCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "");
 
-        return _.filter(this.$store.state.curso.Cursos, (curso) => {
+        return _.filter(this.Cursos, (curso) => {
           return (
             curso.nome
               .normalize("NFD")
               .replace(/[\u0300-\u036f]/g, "")
-              .match(searchUpperCase) || curso.codigo.match(searchUpperCase)
+              .match(searchNormalized) || curso.codigo.match(searchNormalized)
           );
         });
       }
-      return this.$store.state.curso.Cursos;
+      return this.Cursos;
     },
-    //Cursos Ordenados
-    CursosOrdered() {
+    ModalCursosOrdered() {
       return _.orderBy(
-        this.CursosFiltred,
-        this.ordenacaoCurso.order,
-        this.ordenacaoCurso.type
+        this.ModalCursosFiltred,
+        this.modalOrdenacaoCursos.order,
+        this.modalOrdenacaoCursos.type
       );
+    },
+    PerfisOrdered() {
+      return _.orderBy(
+        this.Perfis,
+        this.modalOrdenacaoPerfis.order,
+        this.modalOrdenacaoPerfis.type
+      );
+    },
+    Perfis() {
+      return this.$store.state.perfil.Perfis;
     },
     Disciplinas() {
       return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
-
-    Perfis() {
-      return _.orderBy(
-        this.$store.state.perfil.Perfis,
-        this.ordenacaoPerfis.order,
-        this.ordenacaoPerfis.type
-      );
-    },
-
     Turmas() {
       return _.orderBy(
         _.orderBy(this.$store.state.turma.Turmas, "letra"),
         "Disciplina"
       );
     },
-
     Deletar() {
       return this.$store.state.turma.Deletar;
     },
-
     Pedidos() {
       return this.$store.state.pedido.Pedidos;
     },
-
     isLoading() {
       return this.$store.state.isLoading;
     },
-
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
