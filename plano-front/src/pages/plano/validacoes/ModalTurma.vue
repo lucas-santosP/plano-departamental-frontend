@@ -87,7 +87,6 @@
             >
           </select>
           <select
-            v-if="hasMoreThan4Creditos"
             type="text"
             class="form-control mt-1"
             style="max-width:130px;"
@@ -224,7 +223,7 @@
           class="btn-custom btn-modal btn-cinza px-3"
           @click="resetInputs()"
         >
-          Reset
+          Cancelar
         </b-button>
       </div>
     </div>

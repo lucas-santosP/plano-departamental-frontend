@@ -2,14 +2,6 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
       <template #aside>
-        <b-button
-          v-b-modal.modalFiltros
-          title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
-        >
-          <i class="fas fa-list-ul"></i>
-        </b-button>
-
         <template v-if="isAdd">
           <b-button
             title="Salvar"
@@ -26,7 +18,6 @@
             <i class="fas fa-times"></i>
           </b-button>
         </template>
-
         <template v-else>
           <b-button
             title="Adicionar"
@@ -45,6 +36,14 @@
         </template>
 
         <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
+        >
+          <i class="fas fa-list-ul"></i>
+        </b-button>
+
+        <b-button
           title="XLSX"
           class="btn-custom btn-icon relatbtn"
           v-on:click.prevent="xlsx(Pedidos)"
@@ -61,22 +60,22 @@
       </template>
     </PageTitle>
 
-    <div class="pl-0 divTable" v-if="!isLoading">
+    <div class="divTable" v-if="!isLoading">
       <table class="table main-table table-hover table-sm table-bordered">
         <thead class="thead-light sticky">
           <tr>
             <TurmaHeader
+              :cursosSelecteds="CursosAtivados"
+              :currentOrder="ordenacaoTurmas"
+              :currentOrderPerfil="ordenacaoTurmasPerfil"
               v-on:toggle-order="toggleOrder(ordenacaoTurmas, $event)"
               v-on:toggle-order-perfil="
                 toggleOrder(ordenacaoTurmasPerfil, $event)
               "
-              :cursosSelecteds="CursosAtivados"
-              :currentOrder="ordenacaoTurmas"
-              :currentOrderPerfil="ordenacaoTurmasPerfil"
             />
           </tr>
 
-          <tr v-if="isAdd">
+          <tr v-show="isAdd">
             <NovaTurma :cursosLength="CursosAtivados.length" />
           </tr>
         </thead>
@@ -105,47 +104,15 @@
       size="md"
       title="Filtros"
     >
-      <div class="p-0 m-0" style="height: 30px; width: 465px;">
-        <ul
-          class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px !important; height: 30px;"
-        >
-          <li class="nav-item" @click="changeTab('perfis')">
-            <a
-              class="nav-link border border-right-0"
-              :class="[
-                {
-                  active: nav_ativo == 'perfis',
-                },
-                'clickable',
-              ]"
-              >Perfis</a
-            >
-          </li>
-          <li class="nav-item" @click="changeTab('cursos')">
-            <a
-              class="nav-link clickable border border-right-0"
-              :class="{
-                active: nav_ativo == 'cursos',
-              }"
-              >Cursos</a
-            >
-          </li>
-          <li class="nav-item" @click="changeTab('semestre')">
-            <a
-              class="nav-link clickable border"
-              :class="{
-                active: nav_ativo == 'semestre',
-              }"
-              >Semestre</a
-            >
-          </li>
-        </ul>
-      </div>
+      <NavTab
+        :currentTab="modalTabAtiva"
+        :allTabs="['Perfis', 'Cursos', 'Semestre']"
+        @change-tab="modalTabAtiva = $event"
+      />
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- TABLE PERFIS -->
         <table
-          v-if="nav_ativo === 'perfis'"
+          v-show="modalTabAtiva === 'Perfis'"
           class="table table-sm modal-table table-bordered"
           style="max-height: 450px !important;"
         >
@@ -199,7 +166,7 @@
         </table>
         <!-- TABLE CURSOS -->
         <table
-          v-else-if="nav_ativo === 'cursos'"
+          v-show="modalTabAtiva === 'Cursos'"
           class="table table-sm modal-table table-bordered"
           style="height: 450px !important;"
         >
@@ -339,7 +306,7 @@
 
         <!-- TABLE SEMESTRE -->
         <table
-          v-else
+          v-show="modalTabAtiva === 'Semestre'"
           class="table table-bordered table-sm modal-table"
           style="max-height: 392px !important;"
         >
@@ -396,7 +363,7 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <template v-if="nav_ativo == 'semestre'">
+          <template v-if="modalTabAtiva === 'Semestre'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -411,7 +378,7 @@
             >
           </template>
 
-          <template v-else-if="nav_ativo == 'perfis'">
+          <template v-else-if="modalTabAtiva === 'Perfis'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -568,6 +535,7 @@ import TurmaHeader from "./TurmaHeader.vue";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
 import PageTitle from "@/components/PageTitle.vue";
+import NavTab from "@/components/NavTab.vue";
 import ModalEditTurma from "@/components/ModalEditTurma.vue";
 
 export default {
@@ -578,6 +546,7 @@ export default {
     NovaTurma,
     PageTitle,
     ModalEditTurma,
+    NavTab,
   },
   data() {
     return {
@@ -591,7 +560,7 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       semestreAtual: undefined,
-      nav_ativo: "perfis",
+      modalTabAtiva: "Perfis",
       searchCursos: null,
       ordenacaoCurso: { order: "codigo", type: "asc" },
       ordenacaoPerfis: { order: "nome", type: "asc" },
@@ -652,7 +621,7 @@ export default {
       this.$refs.modalEditTurma.show();
     },
     changeTab(tab) {
-      this.nav_ativo = tab;
+      this.modalTabAtiva = tab;
     },
     btnOK() {
       this.btnOKPerfis();
@@ -1017,7 +986,7 @@ export default {
 }
 /* ==== MODAL TABLE ==== */
 .modal-table {
-  display: block !important;
+  display: block;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   font-size: 10px !important;

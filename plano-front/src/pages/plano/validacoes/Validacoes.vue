@@ -19,37 +19,41 @@
       </template>
     </PageTitle>
 
-    <!-- tabs -->
-    <div class="p-0 m-0 w-100" style="height: 30px;">
+    <!-- <div class="p-0 m-0 w-100" style="height: 30px;">
       <ul
         class="nav nav-tabs card-header-tabs m-0"
         style="font-size: 11px !important; height: 30px;"
       >
-        <li class="nav-item" @click="nav_table = 'turmas'">
+        <li class="nav-item" @click="modalTabAtiva = 'turmas'">
           <a
             class="nav-link border border-right-0"
             :class="{
-              active: nav_table === 'turmas',
+              active: modalTabAtiva === 'turmas',
             }"
             >Disciplinas</a
           >
         </li>
-        <li class="nav-item" @click="nav_table = 'docentes'">
+        <li class="nav-item" @click="modalTabAtiva = 'docentes'">
           <a
             class="nav-link border "
             :class="{
-              active: nav_table === 'docentes',
+              active: modalTabAtiva === 'docentes',
             }"
             >Docentes</a
           >
         </li>
       </ul>
-    </div>
+    </div> -->
+    <NavTab
+      :currentTab="modalTabAtiva"
+      :allTabs="['Turmas', 'Docentes']"
+      @change-tab="modalTabAtiva = $event"
+    />
 
     <div class="pl-0 divTable">
       <!-- TABLE DOCENTES -->
       <table
-        v-if="nav_table === 'docentes'"
+        v-show="modalTabAtiva === 'Docentes'"
         class="table main-table table-hover table-sm table-bordered"
       >
         <thead class="thead-light sticky">
@@ -110,7 +114,7 @@
 
       <!-- TABLE TURMAS -->
       <table
-        v-else-if="nav_table === 'turmas'"
+        v-show="modalTabAtiva === 'Turmas'"
         class="table main-table table-hover table-sm table-bordered"
       >
         <thead class="thead-light sticky">
@@ -474,7 +478,9 @@
 import _ from "lodash";
 import ModalTurma from "./ModalTurma.vue";
 import PageTitle from "@/components/PageTitle";
+import NavTab from "@/components/NavTab";
 import { EventBus } from "@/event-bus.js";
+
 const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
   {
@@ -512,6 +518,7 @@ export default {
   components: {
     ModalTurma,
     PageTitle,
+    NavTab,
   },
   data() {
     return {
@@ -522,7 +529,7 @@ export default {
       semestre_1Ativo: true,
       semestre_2Ativo: true,
       turma_clickada: null,
-      nav_table: "turmas",
+      modalTabAtiva: "Turmas",
       ordemTurmas: { order: "periodo", type: "asc" },
       ordemDocentes: { order: "nome", type: "asc" },
       evenCCN: "false",
@@ -1391,7 +1398,7 @@ export default {
   width: max-content;
 }
 .main-table {
-  display: block !important;
+  display: block;
   overflow-y: scroll !important;
   font-size: 11px !important;
   font-weight: normal !important;

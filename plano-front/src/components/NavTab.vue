@@ -8,7 +8,7 @@
         class="nav-item"
       >
         <a
-          class="nav-link border"
+          class="nav-link border border-right-0"
           :class="[
             'clickable',
             {
@@ -47,6 +47,10 @@ export default {
 .nav-tabs .nav-link {
   color: #0079fa !important;
   cursor: pointer;
+  user-select: none;
+}
+.nav-tabs li:last-of-type .nav-link {
+  border-right: 1px solid #dee2e6 !important;
 }
 .nav-tabs .nav-link:hover {
   text-decoration: underline;
