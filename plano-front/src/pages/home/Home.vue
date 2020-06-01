@@ -3,27 +3,19 @@
     <PageTitle :title="'Dashboard'" />
 
     <div class="alert alert-light mt-1" role="alert">
-      <p style="font-size:12px">
+      <p class="user-paragraph" style="">
         Olá {{ getUsuarioFirstName }}! Este é o sistema de gerenciamento de
         Plano Departamental do DCC - Departamento de Ciência da Computação.
         <br />Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
       <div class="row">
-        <LinkList
-          v-if="Admin"
-          :title="'PlANO'"
-          :pages="linksPlanoOrdered"
-        ></LinkList>
-
-        <LinkList
-          :title="'RELATÓRIOS'"
-          :pages="linksRelatoriosOrdered"
-        ></LinkList>
-        <LinkList
+        <LinksList v-if="Admin" :title="'PlANO'" :pages="linksPlanoOrdered" />
+        <LinksList :title="'RELATÓRIOS'" :pages="linksRelatoriosOrdered" />
+        <LinksList
           v-if="Admin"
           :title="'GERENCIAR'"
           :pages="linksGerenciarOrdered"
-        ></LinkList>
+        />
       </div>
     </div>
   </div>
@@ -33,11 +25,11 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import PageTitle from "@/components/PageTitle";
-import LinkList from "./HomeLinkList";
+import LinksList from "./LinksList";
 
 export default {
   name: "DashboardHome",
-  components: { PageTitle, LinkList },
+  components: { PageTitle, LinksList },
   data() {
     return {
       linksPlano: [
@@ -189,5 +181,8 @@ export default {
   font-weight: normal;
   color: black;
   padding-right: 30px;
+}
+.user-paragraph {
+  font-size: 12px;
 }
 </style>

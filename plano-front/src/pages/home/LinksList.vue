@@ -1,10 +1,10 @@
 <template>
-  <div class="pagesList col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
+  <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
     <h3 class="list-title">{{ title }}</h3>
     <ul class="list-group">
       <li
         v-for="page in pages"
-        :key="'pagesList' + page.title"
+        :key="'LinksList' + page.title"
         class="list-group-item"
       >
         <strong>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "HomeLinkList",
+  name: "LinksList",
   props: {
     title: {
       type: String,

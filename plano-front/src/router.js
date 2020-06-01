@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 import store from "./vuex/store";
 
 // Dashboard
-import Login from "@/pages/Dashboard/TheLogin";
-import Dashboard from "@/pages/Dashboard/TheDashboard";
+import Login from "@/pages/dashboard/TheLogin";
+import Dashboard from "@/pages/dashboard/TheDashboard";
 import DashboardHome from "@/pages/home/Home";
 // Plano
 import DashboardTurmasDCC from "@/pages/plano/turmas-dcc/TurmasDCC";
