@@ -9,21 +9,21 @@
         <br />Abaixo segue um resumo das funcionalidade de cada tela:
       </p>
       <div class="row">
-        <pagesList
+        <LinkList
           v-if="Admin"
           :title="'PlANO'"
           :pages="linksPlanoOrdered"
-        ></pagesList>
+        ></LinkList>
 
-        <pagesList
+        <LinkList
           :title="'RELATÓRIOS'"
           :pages="linksRelatoriosOrdered"
-        ></pagesList>
-        <pagesList
+        ></LinkList>
+        <LinkList
           v-if="Admin"
           :title="'GERENCIAR'"
           :pages="linksGerenciarOrdered"
-        ></pagesList>
+        ></LinkList>
       </div>
     </div>
   </div>
@@ -33,11 +33,11 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import PageTitle from "@/components/PageTitle";
-import pagesList from "./HomepagesList";
+import LinkList from "./HomeLinkList";
 
 export default {
   name: "DashboardHome",
-  components: { PageTitle, pagesList },
+  components: { PageTitle, LinkList },
   data() {
     return {
       linksPlano: [

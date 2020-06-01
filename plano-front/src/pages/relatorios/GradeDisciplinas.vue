@@ -765,17 +765,15 @@ export default {
     this.ano = this.$store.state.plano.Plano[0].ano;
     this.novo_ano = this.ano;
     this.runAll();
-  },
-  mounted() {
+
     this.selectAllCursos();
     this.selectAllDisciplinas();
     this.selectAllPerfis();
-
+    // btn ok
     this.disciplinas_ativados = [...this.disciplinas_selecionados];
     this.cursos_ativados = [...this.cursos_selecionados];
     this.nav_ativo = "perfis";
   },
-
   methods: {
     btnOK() {
       this.disciplinas_ativados = [...this.disciplinas_selecionados];

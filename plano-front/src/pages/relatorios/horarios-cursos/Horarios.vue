@@ -28,7 +28,7 @@
     </PageTitle>
 
     <div class="row w-100 m-0">
-      <template v-show="semestre1IsSelected">
+      <div v-show="semestre1IsActived">
         <h2
           v-show="CursosWithHorarios.length"
           class="semestre-title w-100 px-2 bg-custom"
@@ -49,11 +49,11 @@
 
         <template v-if="EletivasIsSelected">
           <h3 class="curso-title pl-1">Eletivas</h3>
-          <TableEletivas :Eletivas="ativos1.Eletivas" />
+          <TableEletivas :Eletivas="horariosAtivos1.Eletivas" />
         </template>
-      </template>
+      </div>
 
-      <template v-show="semestre2IsSelected">
+      <div v-show="semestre2IsActived">
         <h2
           v-show="CursosWithHorarios.length"
           class="semestre-title w-100 px-2 bg-custom"
@@ -73,52 +73,22 @@
         </template>
         <template v-if="EletivasIsSelected">
           <h3 class="curso-title pl-1">Eletivas</h3>
-          <TableEletivas :Eletivas="ativos2.Eletivas" />
+          <TableEletivas :Eletivas="horariosAtivos2.Eletivas" />
         </template>
-      </template>
+      </div>
     </div>
 
-    <!-- MODAL SEMESTRE -->
+    <!-- MODAL FILTROS -->
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
-      <div class="p-0 m-0" style="height: 30px; width: 465px;">
-        <ul
-          class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px !important; height: 30px;"
-        >
-          <li class="nav-item" @click="nav_ativo = 'cursos'">
-            <a
-              class="nav-link border border-right-0"
-              :class="[
-                {
-                  active: nav_ativo == 'cursos',
-                },
-                'clickable',
-              ]"
-              >Cursos</a
-            >
-          </li>
-          <li class="nav-item" @click="nav_ativo = 'semestre'">
-            <a
-              class="nav-link border"
-              :class="[
-                {
-                  active: nav_ativo == 'semestre',
-                },
-                'clickable',
-              ]"
-              >Semestre</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div
-        class="col m-0 p-0"
-        style="width: max-content; height: 450px !important;"
-      >
+      <NavTab
+        :currentTab="modalTabAtiva"
+        :allTabs="['Cursos', 'Semestre']"
+        v-on:change-tab="modalTabAtiva = $event"
+      />
+      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <table
-          v-if="nav_ativo == 'semestre'"
+          v-show="modalTabAtiva === 'Semestre'"
           class="table table-bordered table-sm modal-table"
-          style="max-height: 392px !important;"
         >
           <thead class="thead-light sticky">
             <tr>
@@ -137,7 +107,6 @@
               </div>
             </tr>
           </thead>
-
           <tbody>
             <tr>
               <div style="width: max-content;">
@@ -146,7 +115,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_1Ativo"
+                      v-model="semestresAtivos.primeiro"
                     />
                   </div>
                 </td>
@@ -164,7 +133,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_2Ativo"
+                      v-model="semestresAtivos.segundo"
                     />
                   </div>
                 </td>
@@ -179,13 +148,12 @@
         </table>
         <!-- TABLE CURSOS -->
         <table
-          v-else
+          v-show="modalTabAtiva === 'Cursos'"
           class="table table-sm modal-table table-bordered"
-          style="max-height: 450px !important;"
         >
           <thead class="thead-light sticky">
             <tr>
-              <div style="font-size: 11px !important;" class=" max-content">
+              <div class="max-content sticky">
                 <th>
                   <p style="width: 25px;" class="p-header clickable"></p>
                 </th>
@@ -231,17 +199,16 @@
             </tr>
           </thead>
           <tbody>
-            <!-- v-for em tr -->
             <tr
-              v-for="curso in Cursos_Modal_Filtred"
-              :key="'curso-id-' + curso.value"
+              v-for="curso in CursosModalOrdered"
+              :key="'curso-id-' + curso.codigo"
             >
               <div style="width: max-content; height: 22px !important;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      :value="curso.value"
+                      :value="curso"
                       v-model="cursosSelecionados"
                       class="form-check-input position-static m-0"
                     />
@@ -265,7 +232,7 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <template v-if="nav_ativo == 'semestre'">
+          <template v-if="modalTabAtiva == 'Semestre'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -283,13 +250,13 @@
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
-              @click="toggleAll()"
+              @click="selectAllCursos()"
               >Selecionar Todos</b-button
             >
             <b-button
               class="btn-cinza btn-custom btn-modal"
               variant="secondary"
-              @click="distoggleAll()"
+              @click="selectNoneCursos()"
               >Desmarcar Todos</b-button
             >
           </template>
@@ -329,100 +296,102 @@ import _ from "lodash";
 import TableEletivas from "./TableEletivas.vue";
 import TablesHorarios from "./TablesHorarios.vue";
 import PageTitle from "@/components/PageTitle.vue";
-
+import NavTab from "@/components/NavTab.vue";
 export default {
   name: "DashboardHorarios",
   components: {
     TablesHorarios,
     TableEletivas,
     PageTitle,
+    NavTab,
   },
   data() {
     return {
-      cursos: [],
       error: undefined,
+      cursosAtivados: [],
       cursosSelecionados: [],
+      semestreAtual: 3,
+      modalTabAtiva: "Cursos",
+      ordemCursos: { order: "codigo", type: "asc" },
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
       evenSI: "false",
-      semestre_1Ativo: true,
-      semestre_2Ativo: true,
-      semestreAtual: 3,
-      nav_ativo: "cursos",
-      ordemCursos: { order: "codigo", type: "asc" },
-      ativos1: {
-        CCD: [[], [], [], [], [], [], [], [], [], []],
-        CCN: [[], [], [], [], [], [], [], [], [], []],
-        EC: [[], [], [], [], [], [], [], [], [], []],
-        SI: [[], [], [], [], [], [], [], [], [], []],
-        Eletivas: [],
+      semestresAtivos: {
+        primeiro: true,
+        segundo: true,
       },
-      ativos2: {
-        CCD: [[], [], [], [], [], [], [], [], [], []],
-        CCN: [[], [], [], [], [], [], [], [], [], []],
-        EC: [[], [], [], [], [], [], [], [], [], []],
-        SI: [[], [], [], [], [], [], [], [], [], []],
-        Eletivas: [],
-      },
-      options_Cursos: [
+      AllCursosOptions: [
         {
           nome: "SISTEMAS DE INFORMAÇÃO",
-          value: 3,
           codigo: "76A",
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
-          value: 2,
           codigo: "35A",
         },
         {
           nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
-          value: 1,
           codigo: "65C",
         },
         {
           nome: "ENGENHARIA DA COMPUTAÇÃO",
-          value: 4,
           codigo: "65B",
         },
         {
           nome: "ELETIVAS",
-          value: 5,
           codigo: "-",
         },
       ],
+      horariosAtivos1: {
+        CCD: [[], [], [], [], [], [], [], [], [], []],
+        CCN: [[], [], [], [], [], [], [], [], [], []],
+        EC: [[], [], [], [], [], [], [], [], [], []],
+        SI: [[], [], [], [], [], [], [], [], [], []],
+        Eletivas: [],
+      },
+      horariosAtivos2: {
+        CCD: [[], [], [], [], [], [], [], [], [], []],
+        CCN: [[], [], [], [], [], [], [], [], [], []],
+        EC: [[], [], [], [], [], [], [], [], [], []],
+        SI: [[], [], [], [], [], [], [], [], [], []],
+        Eletivas: [],
+      },
     };
   },
-  beforeMount: function() {
+  beforeMount() {
     this.createHorarios1();
     this.createHorarios2();
-  },
 
-  mounted() {
-    // this.selectAllSemestre();
-    // this.toggleAll();
-    // this.btnOK();
+    this.selectAllSemestre();
+    this.btnOKSemestre();
+    this.selectAllCursos();
+    this.cursosAtivados = [...this.cursosSelecionados];
   },
   methods: {
     btnOK() {
       this.btnOKSemestre();
-      this.cursos = [...this.cursosSelecionados];
-      this.nav_ativo = "cursos";
+      this.cursosAtivados = [...this.cursosSelecionados];
+      this.modalTabAtiva = "Cursos";
       this.$refs.modalFiltros.hide();
     },
     btnOKSemestre() {
-      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
+      if (this.semestresAtivos.primeiro && !this.semestresAtivos.segundo) {
         this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
+      } else if (
+        this.semestresAtivos.segundo &&
+        !this.semestresAtivos.primeiro
+      ) {
         this.semestreAtual = 2;
-      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
+      } else if (
+        this.semestresAtivos.primeiro &&
+        this.semestresAtivos.segundo
+      ) {
         this.semestreAtual = 3;
       } else {
         this.semestreAtual = undefined;
       }
     },
-
     toggleOrdCursos(ord) {
       if (this.ordemCursos.order != ord) {
         this.ordemCursos.order = ord;
@@ -433,61 +402,168 @@ export default {
     },
 
     selectAllSemestre() {
-      this.semestre_1Ativo = true;
-      this.semestre_2Ativo = true;
+      this.semestresAtivos.primeiro = true;
+      this.semestresAtivos.segundo = true;
     },
     selectNoneSemestre() {
-      this.semestre_1Ativo = false;
-      this.semestre_2Ativo = false;
+      this.semestresAtivos.primeiro = false;
+      this.semestresAtivos.segundo = false;
     },
-    distoggleAll() {
-      if (this.cursosSelecionados.length !== 0) {
-        this.cursosSelecionados = [];
-      }
+    selectNoneCursos() {
+      if (this.cursosSelecionados.length !== 0) this.cursosSelecionados = [];
     },
-
-    toggleAll() {
-      if (this.cursosSelecionados.length !== 5)
-        this.cursosSelecionados = [1, 2, 3, 4, 5];
+    selectAllCursos() {
+      this.cursosSelecionados = [...this.AllCursosOptions];
     },
     isEven(number) {
       if (number % 2 === 0) return "true";
       else return "false";
     },
-
-    emptyTurmas() {
-      this.ativos1 = {
-        CCD: [[], [], [], [], [], [], [], [], [], []],
-        CCN: [[], [], [], [], [], [], [], [], [], []],
-        EC: [[], [], [], [], [], [], [], [], [], []],
-        SI: [[], [], [], [], [], [], [], [], [], []],
-        Eletivas: [],
-      };
-
-      this.ativos2 = {
-        CCD: [[], [], [], [], [], [], [], [], [], []],
-        CCN: [[], [], [], [], [], [], [], [], [], []],
-        EC: [[], [], [], [], [], [], [], [], [], []],
-        SI: [[], [], [], [], [], [], [], [], [], []],
-        Eletivas: [],
-      };
-    },
-
-    filterTurmas: function(t) {
-      var check = false;
-      for (var turma in this.ativos1.CCN) {
-        if (turma.id === t.id) check = true;
-      }
-      return check;
-    },
-
     checkTurmaHorario(turma, horario) {
       if (turma.Horario1 == horario || turma.Horario2 == horario) {
         return true;
       } else return false;
     },
+    checkPeriodo(turma, periodo) {
+      for (
+        var g = 0;
+        g < this.$store.state.disciplinaGrade.DisciplinaGrades.length;
+        g++
+      ) {
+        if (
+          this.$store.state.disciplinaGrade.DisciplinaGrades[g].Disciplina ==
+            turma &&
+          this.$store.state.disciplinaGrade.DisciplinaGrades[g].periodo ==
+            periodo
+        ) {
+          return true;
+        }
+      }
+    },
+    updateHorarios() {
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < this.horariosAtivos1.CCD[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos1.CCD[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos1.CCD[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos1.CCN[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos1.CCN[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos1.CCN[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos1.EC[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos1.EC[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos1.EC[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos1.SI[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos1.SI[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos1.SI[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+      }
 
-    createHorarios1: function() {
+      this.$store.commit("redefinirAtivas1", {
+        Ativas: this.horariosAtivos1,
+      });
+
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < this.horariosAtivos2.CCD[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos2.CCD[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos2.CCD[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos2.CCN[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos2.CCN[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos2.CCN[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos2.EC[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos2.EC[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos2.EC[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+        for (let j = 0; j < this.horariosAtivos2.SI[i].length; j++)
+          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
+            if (
+              this.horariosAtivos2.SI[i][j].id ==
+              this.$store.state.turma.Turmas[k].id
+            ) {
+              this.horariosAtivos2.SI[i].splice(
+                j,
+                1,
+                this.$store.state.turma.Turmas[k]
+              );
+            }
+          }
+      }
+
+      this.$store.commit("redefinirAtivas1", {
+        Ativas2: this.horariosAtivos2,
+      });
+
+      this.$store.commit("redefinirAtivas2", {
+        Ativas: this.horariosAtivos2,
+      });
+    },
+    createHorarios1() {
       var grade;
       var grades;
       var inicio = 1;
@@ -587,9 +663,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos1.CCD[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos1.CCD[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -604,9 +680,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos1.CCD[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos1.CCD[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -677,9 +753,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos1.CCN[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos1.CCN[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -694,9 +770,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos1.CCN[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos1.CCN[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -767,9 +843,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos1.SI[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos1.SI[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -784,9 +860,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos1.SI[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos1.SI[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -857,9 +933,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos1.EC[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos1.EC[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -874,9 +950,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos1.EC[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos1.EC[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -894,18 +970,17 @@ export default {
           }
         }
         if (eletiva) {
-          this.ativos1.Eletivas.push(turmas[t]);
+          this.horariosAtivos1.Eletivas.push(turmas[t]);
         } else {
           eletiva = true;
         }
       }
 
       this.$store.commit("redefinirAtivas1", {
-        Ativas: this.ativos1,
+        Ativas: this.horariosAtivos1,
       });
     },
-
-    createHorarios2: function() {
+    createHorarios2() {
       var grade;
       var grades;
       var inicio = 1;
@@ -1004,9 +1079,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos2.CCD[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos2.CCD[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -1021,9 +1096,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos2.CCD[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos2.CCD[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -1094,9 +1169,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos2.CCN[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos2.CCN[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -1111,9 +1186,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos2.CCN[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos2.CCN[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -1184,9 +1259,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos2.SI[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos2.SI[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -1201,9 +1276,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos2.SI[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos2.SI[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -1274,9 +1349,9 @@ export default {
                     pedidos[p].vagasPeriodizadas > 0 &&
                     pedidos[p].Turma == turmas[j].id
                   ) {
-                    this.ativos2.EC[disciplinaGrades[k].periodo - 1].push(
-                      turmas[j]
-                    );
+                    this.horariosAtivos2.EC[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmas[j]);
                   }
                 }
               }
@@ -1291,9 +1366,9 @@ export default {
                     pedidosExternos[p].vagasPeriodizadas > 0 &&
                     pedidosExternos[p].Turma == turmasExternas[j].id
                   ) {
-                    this.ativos2.EC[disciplinaGrades[k].periodo - 1].push(
-                      turmasExternas[j]
-                    );
+                    this.horariosAtivos2.EC[
+                      disciplinaGrades[k].periodo - 1
+                    ].push(turmasExternas[j]);
                   }
                 }
               }
@@ -1311,152 +1386,14 @@ export default {
           }
         }
         if (eletiva) {
-          this.ativos2.Eletivas.push(turmas[t]);
+          this.horariosAtivos2.Eletivas.push(turmas[t]);
         } else {
           eletiva = true;
         }
       }
 
       this.$store.commit("redefinirAtivas2", {
-        Ativas: this.ativos2,
-      });
-    },
-
-    horarioVazio(curso) {
-      if (curso.length != 0) return true;
-      else return false;
-    },
-
-    checkPeriodo(turma, periodo) {
-      for (
-        var g = 0;
-        g < this.$store.state.disciplinaGrade.DisciplinaGrades.length;
-        g++
-      ) {
-        if (
-          this.$store.state.disciplinaGrade.DisciplinaGrades[g].Disciplina ==
-            turma &&
-          this.$store.state.disciplinaGrade.DisciplinaGrades[g].periodo ==
-            periodo
-        ) {
-          return true;
-        }
-      }
-    },
-
-    updateHorarios() {
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < this.ativos1.CCD[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos1.CCD[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos1.CCD[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos1.CCN[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos1.CCN[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos1.CCN[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos1.EC[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos1.EC[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos1.EC[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos1.SI[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos1.SI[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos1.SI[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-      }
-
-      this.$store.commit("redefinirAtivas1", {
-        Ativas: this.ativos1,
-      });
-
-      for (let i = 0; i < 10; i++) {
-        for (let j = 0; j < this.ativos2.CCD[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos2.CCD[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos2.CCD[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos2.CCN[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos2.CCN[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos2.CCN[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos2.EC[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos2.EC[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos2.EC[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-        for (let j = 0; j < this.ativos2.SI[i].length; j++)
-          for (let k = 0; k < this.$store.state.turma.Turmas.length; k++) {
-            if (
-              this.ativos2.SI[i][j].id == this.$store.state.turma.Turmas[k].id
-            ) {
-              this.ativos2.SI[i].splice(
-                j,
-                1,
-                this.$store.state.turma.Turmas[k]
-              );
-            }
-          }
-      }
-
-      this.$store.commit("redefinirAtivas1", {
-        Ativas2: this.ativos2,
-      });
-
-      this.$store.commit("redefinirAtivas2", {
-        Ativas: this.ativos2,
+        Ativas: this.horariosAtivos2,
       });
     },
     pdf() {
@@ -1467,11 +1404,11 @@ export default {
       }
       var tables = [];
       var disciplinas = this.$store.state.disciplina.Disciplinas;
-      var periodosCCD1 = this.ativos1.CCD;
-      var periodosCCN1 = this.ativos1.CCN;
-      var periodosEC1 = this.ativos1.EC;
-      var periodosSI1 = this.ativos1.SI;
-      var eletivas1 = this.ativos1.Eletivas;
+      var periodosCCD1 = this.horariosAtivos1.CCD;
+      var periodosCCN1 = this.horariosAtivos1.CCN;
+      var periodosEC1 = this.horariosAtivos1.EC;
+      var periodosSI1 = this.horariosAtivos1.SI;
+      var eletivas1 = this.horariosAtivos1.Eletivas;
       var seg = "",
         ter = "",
         qua = "",
@@ -3021,11 +2958,11 @@ export default {
         }
       }
 
-      var periodosCCD2 = this.ativos2.CCD;
-      var periodosCCN2 = this.ativos2.CCN;
-      var periodosEC2 = this.ativos2.EC;
-      var periodosSI2 = this.ativos2.SI;
-      var eletivas2 = this.ativos2.Eletivas;
+      var periodosCCD2 = this.horariosAtivos2.CCD;
+      var periodosCCN2 = this.horariosAtivos2.CCN;
+      var periodosEC2 = this.horariosAtivos2.EC;
+      var periodosSI2 = this.horariosAtivos2.SI;
+      var eletivas2 = this.horariosAtivos2.Eletivas;
 
       tables.push({
         text: "2º Semestre",
@@ -4584,18 +4521,15 @@ export default {
   },
 
   computed: {
-    hasCursosSelected() {
-      return this.cursos.length != 0;
-    },
-    semestre1IsSelected() {
+    semestre1IsActived() {
       return this.semestreAtual === 1 || this.semestreAtual === 3;
     },
-    semestre2IsSelected() {
+    semestre2IsActived() {
       return this.semestreAtual === 2 || this.semestreAtual === 3;
     },
-    Cursos_Modal_Filtred() {
+    CursosModalOrdered() {
       return _.orderBy(
-        this.options_Cursos,
+        this.AllCursosOptions,
         this.ordemCursos.order,
         this.ordemCursos.type
       );
@@ -4618,40 +4552,52 @@ export default {
     CursosWithHorarios() {
       const cursosResult = [
         {
-          isSelected: _.indexOf(this.cursos, 1) !== -1,
+          isSelected: _.find(
+            this.cursosAtivados,
+            (curso) => curso.codigo === "65C"
+          ),
           nome: "Ciência da computação Diurno",
           turno: "Diurno",
           codigo: "65C",
           value: 1,
-          horarios1Semestre: this.ativos1.CCD,
-          horarios2Semestre: this.ativos2.CCD,
+          horarios1Semestre: this.horariosAtivos1.CCD,
+          horarios2Semestre: this.horariosAtivos2.CCD,
         },
         {
-          isSelected: _.indexOf(this.cursos, 2) !== -1,
+          isSelected: _.find(
+            this.cursosAtivados,
+            (curso) => curso.codigo === "35A"
+          ),
           nome: "Ciência da computação Noturno",
           codigo: "35A",
           value: 2,
           turno: "Noturno",
-          horarios1Semestre: this.ativos1.CCN,
-          horarios2Semestre: this.ativos2.CCN,
+          horarios1Semestre: this.horariosAtivos1.CCN,
+          horarios2Semestre: this.horariosAtivos2.CCN,
         },
         {
-          isSelected: _.indexOf(this.cursos, 3) !== -1,
+          isSelected: _.find(
+            this.cursosAtivados,
+            (curso) => curso.codigo === "76A"
+          ),
           nome: "Sistemas de Informação",
           codigo: "76A",
           value: 3,
           turno: "Noturno",
-          horarios1Semestre: this.ativos1.SI,
-          horarios2Semestre: this.ativos2.SI,
+          horarios1Semestre: this.horariosAtivos1.SI,
+          horarios2Semestre: this.horariosAtivos2.SI,
         },
         {
-          isSelected: _.indexOf(this.cursos, 4) !== -1,
+          isSelected: _.find(
+            this.cursosAtivados,
+            (curso) => curso.codigo === "65B"
+          ),
           nome: "Engenharia da Computação",
           codigo: "65B",
           value: 4,
           turno: "Diurno",
-          horarios1Semestre: this.ativos1.EC,
-          horarios2Semestre: this.ativos2.EC,
+          horarios1Semestre: this.horariosAtivos1.EC,
+          horarios2Semestre: this.horariosAtivos2.EC,
         },
       ];
       return _.filter(cursosResult, (curso) => curso.isSelected);
@@ -4662,11 +4608,7 @@ export default {
     },
 
     EletivasIsSelected() {
-      return _.indexOf(this.cursos, 5) > -1;
-    },
-
-    CursosSelecionados() {
-      return this.cursos.length;
+      return _.find(this.cursosAtivados, (curso) => curso.codigo === "-");
     },
   },
 
