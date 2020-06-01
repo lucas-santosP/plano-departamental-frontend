@@ -167,31 +167,27 @@ nav.sidebar .title {
   text-transform: uppercase;
 }
 nav.sidebar .nav li {
+  color: #333;
   border-top: rgb(248, 249, 250) solid 0.1px;
   border-bottom: rgb(248, 249, 250) solid 0.1px;
-}
-nav.sidebar .nav li:hover {
-  background-color: #0079fa;
-  color: white;
+  transition: all 100ms ease;
 }
 nav.sidebar .nav li .nav-link {
+  color: inherit;
   font-weight: 500;
-  color: #333;
   font-size: 12px;
   height: 30px;
   padding: 5px;
   padding-left: 8px;
 }
-nav.sidebar .nav li .nav-link:hover {
-  color: white;
+nav.sidebar .nav li:hover {
+  background-color: #0079fa;
+  color: #fff !important;
 }
 nav.sidebar .nav li .nav-link.active {
   background-color: #0055af;
   color: white;
   border-left: #0079fa 10px solid;
-}
-nav.sidebar .nav li .nav-link.active:hover {
-  background-color: #0055af;
 }
 nav.sidebar .nav li .nav-link .icon-nav-link {
   color: inherit;
@@ -199,6 +195,7 @@ nav.sidebar .nav li .nav-link .icon-nav-link {
   height: 18px !important;
   text-align: start;
 }
+
 /* SCROLL BAR CUSTOM */
 nav.sidebar.sidebar ::-webkit-scrollbar-track {
   background-color: #f4f4f4 !important;
