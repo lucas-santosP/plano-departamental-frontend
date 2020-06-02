@@ -30,17 +30,12 @@
     </PageTitle>
 
     <div class="row w-100 m-0">
-      <template
-        v-if="
-          LaboratoriosAtivados.length != 0 &&
-            (semestreAtual == 1 || semestreAtual == 3)
-        "
-      >
-        <h2 class="semestre-title w-100 px-2 bg-custom">
+      <div v-show="hasLaboratorioAtivos && semestre1IsActived" class="w-100">
+        <h2 class="semestre-title w-100 px-1 bg-custom">
           1º SEMESTRE
         </h2>
         <div class="container-horarios pl-1">
-          <template v-for="lab in LaboratoriosAtivados">
+          <template v-for="lab in filtroLaboratorios.ativados">
             <div class="div-table p-0" :key="'1-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
               <TableHorariosLab
@@ -50,19 +45,14 @@
             </div>
           </template>
         </div>
-      </template>
+      </div>
 
-      <template
-        v-if="
-          LaboratoriosAtivados.length != 0 &&
-            (semestreAtual == 2 || semestreAtual == 3)
-        "
-      >
-        <h2 class="semestre-title w-100 px-2 bg-custom">
+      <div v-show="hasLaboratorioAtivos && semestre2IsActived" class="w-100">
+        <h2 class="semestre-title w-100 px-1 bg-custom">
           2º SEMESTRE
         </h2>
         <div class="container-horarios pl-1">
-          <template v-for="lab in LaboratoriosAtivados">
+          <template v-for="lab in filtroLaboratorios.ativados">
             <div class="div-table p-0" :key="'2-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
 
@@ -73,48 +63,23 @@
             </div>
           </template>
         </div>
-      </template>
+      </div>
     </div>
 
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
-      <div class="p-0 m-0" style="height: 30px; width: 465px;">
-        <ul
-          class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px !important; height: 30px;"
-        >
-          <li class="nav-item" @click="nav_ativo = 'labs'">
-            <a
-              class="nav-link border border-right-0"
-              :class="[
-                {
-                  active: nav_ativo == 'labs',
-                },
-                'clickable',
-              ]"
-              >Laborátorios</a
-            >
-          </li>
-          <li class="nav-item" @click="nav_ativo = 'semestre'">
-            <a
-              class="nav-link border"
-              :class="[
-                {
-                  active: nav_ativo == 'semestre',
-                },
-                'clickable',
-              ]"
-              >Semestre</a
-            >
-          </li>
-        </ul>
-      </div>
+      <NavTab
+        :currentTab="modalTabAtiva"
+        :allTabs="['Laborátorios', 'Semestre']"
+        @change-tab="modalTabAtiva = $event"
+      />
+
       <div
         class="col m-0 p-0"
         style="width: max-content; height: 450px !important;"
       >
         <table
-          v-if="nav_ativo == 'semestre'"
-          class="table table-bordered table-sm modal-table"
+          v-show="modalTabAtiva === 'Semestre'"
+          class="modal-table table table-bordered table-sm"
           style="max-height: 392px !important;"
         >
           <thead class="thead-light sticky">
@@ -142,7 +107,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_1Ativo"
+                      v-model="filtroSemestres.primeiro"
                     />
                   </div>
                 </td>
@@ -158,7 +123,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestre_2Ativo"
+                      v-model="filtroSemestres.segundo"
                     />
                   </div>
                 </td>
@@ -171,8 +136,8 @@
         </table>
         <!-- TABLE LABS -->
         <table
-          v-else
-          class="table table-sm modal-table table-bordered"
+          v-show="modalTabAtiva === 'Laborátorios'"
+          class="modal-table table table-sm table-bordered"
           style="max-height: 392px !important;"
         >
           <thead class="thead-light sticky">
@@ -184,18 +149,11 @@
                 <th>
                   <p
                     class="p-header clickable"
-                    @click="toggleOrdLab()"
+                    @click="toggleOrder(ordenacaoLabs, 'nome')"
                     style="width: 435px; text-align: start;"
                   >
                     Nome
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemLab.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                      "
-                    ></i>
+                    <i :class="setIconByOrder(ordenacaoLabs, 'nome')"></i>
                   </p>
                 </th>
               </div>
@@ -211,7 +169,7 @@
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="LaboratoriosSelecionados"
+                      v-model="filtroLaboratorios.selecionados"
                       :value="laboratorio"
                       class="form-check-input position-static m-0"
                     />
@@ -233,7 +191,7 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <template v-if="nav_ativo == 'semestre'">
+          <template v-if="modalTabAtiva == 'Semestre'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -247,18 +205,17 @@
               >Desmarcar Todos</b-button
             >
           </template>
-
           <template v-else>
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
-              @click="selectAll()"
+              @click="selectAllLabs()"
               >Selecionar Todos</b-button
             >
             <b-button
               class="btn-cinza btn-custom btn-modal"
               variant="secondary"
-              @click="selectNone()"
+              @click="selectNoneLabs()"
               >Desmarcar Todos</b-button
             >
           </template>
@@ -310,71 +267,84 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
-import PageTitle from "@/components/PageTitle";
 import TableHorariosLab from "./TableHorariosLab";
+import ordenacaoMixin from "@/ordenacao-mixin";
+import PageTitle from "@/components/PageTitle";
+import NavTab from "@/components/NavTab";
+
 export default {
   name: "DashboardLaboratoriosAlocacao",
+  mixins: [ordenacaoMixin],
   components: {
     PageTitle,
+    NavTab,
     TableHorariosLab,
   },
   data() {
     return {
-      value: 0,
-      LaboratoriosSelecionados: [],
-      LaboratoriosAtivados: [],
-      semestre_1Ativo: true,
-      semestre_2Ativo: true,
-      semestreAtual: 3,
-      nav_ativo: "labs",
-      ordemLab: { order: "nome", type: "asc" },
+      filtroLaboratorios: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroSemestres: {
+        primeiro: true,
+        segundo: true,
+        ativo: 3,
+      },
+      modalTabAtiva: "Laborátorios",
+      ordenacaoLabs: { order: "nome", type: "asc" },
     };
   },
+  beforeMount() {
+    this.selectAllLabs();
+    this.filtroLaboratorios.ativados = [
+      ..._.orderBy(this.filtroLaboratorios.selecionados, "nome"),
+    ];
+  },
   methods: {
-    btnOKSemestre() {
-      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
-        this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
-        this.semestreAtual = 2;
-      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
-        this.semestreAtual = 3;
+    setSemestreAtivo() {
+      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo) {
+        this.filtroSemestres.ativo = 1;
+      } else if (
+        this.filtroSemestres.segundo &&
+        !this.filtroSemestres.primeiro
+      ) {
+        this.filtroSemestres.ativo = 2;
+      } else if (
+        this.filtroSemestres.primeiro &&
+        this.filtroSemestres.primeiro
+      ) {
+        this.filtroSemestres.ativo = 3;
       } else {
-        this.semestreAtual = undefined;
+        this.filtroSemestres.ativo = undefined;
       }
     },
-    toggleOrdLab() {
-      this.ordemLab.type = this.ordemLab.type == "asc" ? "desc" : "asc";
-    },
     selectAllSemestre() {
-      this.semestre_1Ativo = true;
-      this.semestre_2Ativo = true;
+      this.filtroSemestres.primeiro = true;
+      this.filtroSemestres.segundo = true;
     },
     selectNoneSemestre() {
-      this.semestre_1Ativo = false;
-      this.semestre_2Ativo = false;
+      this.filtroSemestres.primeiro = false;
+      this.filtroSemestres.segundo = false;
     },
     btnOK() {
-      this.btnOKSemestre();
-      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.LaboratoriosAtivados = [
-        ..._.orderBy(this.LaboratoriosSelecionados, "id"),
+      this.setSemestreAtivo();
+      this.filtroLaboratorios.ativados = [
+        ..._.orderBy(this.filtroLaboratorios.selecionados, "nome"),
       ];
-      this.nav_ativo = "labs";
+      this.modalTabAtiva = "Laborátorios";
       this.$refs.modalFiltros.hide();
     },
-
-    selectAll() {
-      let labs = _.filter(this.$store.state.sala.Salas, ["laboratorio", true]);
-      if (this.LaboratoriosSelecionados != [])
-        this.LaboratoriosSelecionados = [];
-      for (var i = 0; i < labs.length; i++)
-        this.LaboratoriosSelecionados.push(labs[i]);
+    selectAllLabs() {
+      const allLaboratorios = _.filter(this.$store.state.sala.Salas, [
+        "laboratorio",
+        true,
+      ]);
+      this.filtroLaboratorios.selecionados = [...allLaboratorios];
     },
-
-    selectNone() {
-      this.LaboratoriosSelecionados = [];
+    selectNoneLabs() {
+      this.filtroLaboratorios.selecionados = [];
     },
-
     pdf() {
       pdfs.pdfAlocacaoLabs();
     },
@@ -383,22 +353,33 @@ export default {
     Laboratorios() {
       return _.orderBy(
         _.filter(this.$store.state.sala.Salas, ["laboratorio", true]),
-        this.ordemLab.order,
-        this.ordemLab.type
+        this.ordenacaoLabs.order,
+        this.ordenacaoLabs.type
       );
     },
-
     Turmas1() {
       return _.concat(
         _.filter(this.$store.state.turma.Turmas, ["periodo", 1]),
         _.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 1])
       );
     },
-
     Turmas2() {
       return _.concat(
         _.filter(this.$store.state.turma.Turmas, ["periodo", 3]),
         _.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 3])
+      );
+    },
+    hasLaboratorioAtivos() {
+      return this.filtroLaboratorios.ativados.length !== 0;
+    },
+    semestre1IsActived() {
+      return (
+        this.filtroSemestres.ativo === 1 || this.filtroSemestres.ativo === 3
+      );
+    },
+    semestre2IsActived() {
+      return (
+        this.filtroSemestres.ativo === 2 || this.filtroSemestres.ativo === 3
       );
     },
   },
@@ -422,7 +403,6 @@ export default {
   font-size: 12px !important;
   font-weight: bold !important;
 }
-
 .container-horarios {
   width: 100% !important;
   max-width: 1550px !important;
@@ -449,12 +429,6 @@ export default {
 @media screen and (min-width: 1906px) and (max-width: 1965px) {
   .container-horarios {
     margin-right: 22% !important;
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .div-titulo {
-    height: 70px !important;
   }
 }
 </style>
