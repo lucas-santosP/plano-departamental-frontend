@@ -35,7 +35,7 @@
           style="width:65px;"
           id="disciplinaCod"
           v-model="turmaForm.Disciplina"
-          @change="checkDisciplina()"
+          @change="handleChangeDisciplina()"
         >
           <option v-if="DisciplinasOrederedByCod.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
@@ -57,7 +57,7 @@
           style="width:325px;"
           id="disciplina"
           v-model="turmaForm.Disciplina"
-          @change="checkDisciplina()"
+          @change="handleChangeDisciplina()"
         >
           <option v-if="Disciplinas.length === 0" type="text" value
             >Nenhuma Disciplina Encontrada</option
@@ -155,6 +155,7 @@
             style="width: 75px; margin-bottom:1px"
             id="horario1"
             v-model="turmaForm.Horario1"
+            v-on:change="setTurnoByHorario(1)"
           >
             <option
               v-if="!disciplinaIsIntegralEAD"
@@ -176,6 +177,7 @@
             style="width: 75px"
             id="horario2"
             v-model="turmaForm.Horario2"
+            v-on:change="setTurnoByHorario(2)"
           >
             <option
               v-if="!disciplinaIsIntegralEAD && !disciplinaIsParcialEAD"
@@ -290,15 +292,12 @@ export default {
     EventBus.$off("addTurma");
   },
   methods: {
-    isEmpty(value) {
-      return value === null || value === undefined || value === "";
-    },
     findDisciplinaById(id) {
       return _.find(this.Disciplinas, (disciplina) => disciplina.id == id);
     },
-    checkDisciplina() {
+    handleChangeDisciplina() {
       this.clearInputs();
-      this.setInfos();
+      this.setInputValues();
     },
     clearInputs() {
       this.turmaForm.turno1 = null;
@@ -307,7 +306,7 @@ export default {
       this.turmaForm.Docente1 = null;
       this.turmaForm.Docente2 = null;
     },
-    setInfos() {
+    setInputValues() {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
@@ -316,20 +315,7 @@ export default {
         this.turmaForm.Horario2 = 31;
       }
     },
-    onlyA_Z($event) {
-      let key = $event.key ? $event.key.toUpperCase() : $event.which;
-      if (!key.match(/[A-Z]/i)) $event.preventDefault();
-    },
-    changeTurmaEmptyStringToNull(turma) {
-      if (turma.Docente1 === "") turma.Docente1 = null;
-      if (turma.Docente2 === "") turma.Docente2 = null;
-      if (turma.Horario1 === "") turma.Horario1 = null;
-      if (turma.Horario2 === "") turma.Horario2 = null;
-      if (turma.Sala1 === "") turma.Sala111 = null;
-      if (turma.Sala2 === "") turma.Sala2 = null;
-      if (turma.letra === "") turma.letra = null;
-    },
-    checkTurmaInputsValue(turma) {
+    checkNewTurmaInputsValue(turma) {
       let campoInvalido = false;
       if (turma.Disciplina === null) campoInvalido = "disciplina";
       else if (turma.letra === null) campoInvalido = "letra";
@@ -346,10 +332,59 @@ export default {
       }
       return true;
     },
-    addTurma() {
-      this.changeTurmaEmptyStringToNull(this.turmaForm);
+    setTurnoByHorario(horarioAtual) {
+      if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
+      else if (!this.disciplinaIsParcialEAD)
+        this.adjustTurno(this.turmaForm.Horario2);
+    },
+    adjustTurno(horario) {
+      if (horario === null || horario === "" || horario === undefined) {
+        this.turmaForm.turno1 = null;
+      } else if (horario == 31 && this.disciplinaIsIntegralEAD) {
+        this.turmaForm.turno1 = "EAD";
+      } else if (
+        horario == 1 ||
+        horario == 2 ||
+        horario == 7 ||
+        horario == 8 ||
+        horario == 13 ||
+        horario == 14 ||
+        horario == 19 ||
+        horario == 20 ||
+        horario == 25 ||
+        horario == 26 ||
+        horario == 3 ||
+        horario == 4 ||
+        horario == 9 ||
+        horario == 10 ||
+        horario == 15 ||
+        horario == 16 ||
+        horario == 21 ||
+        horario == 22 ||
+        horario == 27 ||
+        horario == 28
+      ) {
+        this.turmaForm.turno1 = "Diurno";
+      } else {
+        this.turmaForm.turno1 = "Noturno";
+      }
+    },
 
-      if (!this.checkTurmaInputsValue(this.turmaForm)) return;
+    isEmpty(value) {
+      return value === "" || value === undefined ? true : false;
+    },
+    convertEmptyToNull(turma) {
+      if (this.isEmpty(turma.Docente1)) turma.Docente1 = null;
+      if (this.isEmpty(turma.Docente2)) turma.Docente2 = null;
+      if (this.isEmpty(turma.Horario1)) turma.Horario1 = null;
+      if (this.isEmpty(turma.Horario2)) turma.Horario2 = null;
+      if (this.isEmpty(turma.Sala1)) turma.Sala1 = null;
+      if (this.isEmpty(turma.Sala2)) turma.Sala2 = null;
+      if (this.isEmpty(turma.turno1)) turma.turno1 = null;
+    },
+    addTurma() {
+      this.convertEmptyToNull(this.turmaForm);
+      if (!this.checkNewTurmaInputsValue(this.turmaForm)) return;
 
       let turmasLivres = _.filter(
         this.$store.state.turma.Turmas,
@@ -359,7 +394,7 @@ export default {
       this.turmaForm.id = turmasLivres[0].id;
       this.editTurma(this.turmaForm, this.currentDisciplina.nome);
       this.semestre = this.turmaForm.periodo;
-      this.cleanTurma();
+      this.cleanTurmaForm();
     },
     editTurma(turma, disciplinaNome) {
       turmaService
@@ -381,11 +416,15 @@ export default {
           }
         });
     },
-    cleanTurma() {
+    cleanTurmaForm() {
       this.turmaForm = _.clone(emptyTurma);
       this.turmaForm.periodo = this.semestre;
       this.turmaForm.letra = "A";
       this.error = undefined;
+    },
+    onlyA_Z($event) {
+      let key = $event.key ? $event.key.toUpperCase() : $event.which;
+      if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
   },
   computed: {

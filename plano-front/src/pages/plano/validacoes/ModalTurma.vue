@@ -115,7 +115,7 @@
             style="max-width: 100px"
             id="horario1"
             v-model="turmaForm.Horario1"
-            v-on:change="checkHorario(1)"
+            v-on:change="checkHorario(1), setTurnoByHorario(1)"
           >
             <option
               v-if="!disciplinaIsIntegralEAD"
@@ -141,7 +141,7 @@
             style="max-width: 100px"
             id="horario2"
             v-model="turmaForm.Horario2"
-            v-on:change="checkHorario(2)"
+            v-on:change="checkHorario(2), setTurnoByHorario(2)"
           >
             <template v-if="disciplinaIsParcialEAD">
               <option
@@ -264,40 +264,22 @@
           <p
             class="p-header clickable"
             style="width: 50px; text-align: start;"
-            @click="toggleOrdVagas('codigo')"
+            @click="toggleOrder(ordemVagas, 'codigo')"
             title="Clique para ordenar por código"
           >
             Cód.
-            <i
-              :class="
-                ordemVagas.order === 'codigo'
-                  ? ordemVagas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-              style="font-size: 0.6rem; text-align: right;"
-            ></i>
+            <i :class="setIconByOrder(ordemVagas, 'codigo')"></i>
           </p>
         </th>
         <th>
           <p
             class="p-header clickable"
-            v-on:click="toggleOrdVagas('nome')"
+            v-on:click="toggleOrder(ordemVagas, 'nome')"
             title="Clique para ordenar por nome"
             style="width: 320px; text-align: start;"
           >
             Nome
-            <i
-              :class="
-                ordemVagas.order === 'nome'
-                  ? ordemVagas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-              style="font-size: 0.6rem; text-align: right;"
-            ></i>
+            <i :class="setIconByOrder(ordemVagas, 'nome')"></i>
           </p>
         </th>
 
@@ -306,19 +288,11 @@
             class="p-header clickable"
             style="width: 70px; text-align: center;"
             title="Vagas periodizadas / Não periodizadas"
-            @click="toggleOrdVagas('VagasTotais', 'desc')"
+            @click="toggleOrder(ordemVagas, 'VagasTotais', 'desc')"
           >
             Vagas
-            <i
-              :class="
-                ordemVagas.order === 'VagasTotais'
-                  ? ordemVagas.type == 'asc'
-                    ? 'fas fa-arrow-down fa-sm'
-                    : 'fas fa-arrow-up fa-sm'
-                  : 'fas fa-arrow-down fa-sm low-opacity'
-              "
-              style="font-size: 0.6rem; text-align: right;"
-            ></i>
+
+            <i :class="setIconByOrder(ordemVagas, 'VagasTotais')"></i>
           </p>
         </th>
       </template#thead>
@@ -397,16 +371,21 @@ export default {
     resetInputs() {
       this.turmaForm = _.clone(this.turma);
     },
-
-    closeModalTurma(eventName) {
-      EventBus.$emit(eventName);
-    },
-    toggleOrdVagas(ord, type = "asc") {
-      if (this.ordemVagas.order != ord) {
-        this.ordemVagas.order = ord;
-        this.ordemVagas.type = type;
+    toggleOrder(currentOrder, newOrder, type = "asc") {
+      if (currentOrder.order != newOrder) {
+        currentOrder.order = newOrder;
+        currentOrder.type = type;
       } else {
-        this.ordemVagas.type = this.ordemVagas.type == "asc" ? "desc" : "asc";
+        currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
+      }
+    },
+    setIconByOrder(currentOrder, orderToCheck) {
+      if (currentOrder.order === orderToCheck) {
+        return currentOrder.type === "asc"
+          ? "fas fa-arrow-down fa-sm"
+          : "fas fa-arrow-up fa-sm";
+      } else {
+        return "fas fa-arrow-down fa-sm low-opacity";
       }
     },
     curso(pedido) {
@@ -448,7 +427,40 @@ export default {
       }
       return t;
     },
-
+    setTurnoByHorario(horarioAtual) {
+      if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
+      else if (!this.disciplinaIsParcialEAD)
+        this.adjustTurno(this.turmaForm.Horario2);
+    },
+    adjustTurno(horario) {
+      if (horario == 31 && this.disciplinaIsIntegralEAD) {
+        this.turmaForm.turno1 = "EAD";
+      } else if (
+        horario == 1 ||
+        horario == 2 ||
+        horario == 7 ||
+        horario == 8 ||
+        horario == 13 ||
+        horario == 14 ||
+        horario == 19 ||
+        horario == 20 ||
+        horario == 25 ||
+        horario == 26 ||
+        horario == 3 ||
+        horario == 4 ||
+        horario == 9 ||
+        horario == 10 ||
+        horario == 15 ||
+        horario == 16 ||
+        horario == 21 ||
+        horario == 22 ||
+        horario == 27 ||
+        horario == 28
+      ) {
+        this.turmaForm.turno1 = "Diurno";
+      } else if (horario !== null && horario !== "" && horario !== undefined)
+        this.turmaForm.turno1 = "Noturno";
+    },
     checkHorariosPeriodo() {
       if (!this.checkHorarioDocente(1) && !this.checkHorarioSala(1)) {
         if (!this.checkHorarioDocente(2) && !this.checkHorarioSala(2)) {
@@ -1291,17 +1303,29 @@ export default {
       }
       return false;
     },
-    changeTurmaFormEmptyStringToNull() {
-      if (this.turmaForm.Docente1 === "") this.turmaForm.Docente1 = null;
-      if (this.turmaForm.Docente2 === "") this.turmaForm.Docente2 = null;
-      if (this.turmaForm.Horario1 === "") this.turmaForm.Horario1 = null;
-      if (this.turmaForm.Horario2 === "") this.turmaForm.Horario2 = null;
-      if (this.turmaForm.Sala1 === "") this.turmaForm.Sala111 = null;
-      if (this.turmaForm.Sala2 === "") this.turmaForm.Sala2 = null;
-      if (this.turmaForm.turno1 === "") this.turmaForm.turno1 = null;
+    isEmpty(value) {
+      return value === "" || value === undefined ? true : false;
+    },
+    convertEmptyToNull(turma) {
+      if (this.isEmpty(turma.Docente1)) turma.Docente1 = null;
+      if (this.isEmpty(turma.Docente2)) turma.Docente2 = null;
+      if (this.isEmpty(turma.Horario1)) turma.Horario1 = null;
+      if (this.isEmpty(turma.Horario2)) turma.Horario2 = null;
+      if (this.isEmpty(turma.Sala1)) turma.Sala1 = null;
+      if (this.isEmpty(turma.Sala2)) turma.Sala2 = null;
+      if (this.isEmpty(turma.turno1)) turma.turno1 = null;
     },
     editTurma() {
-      this.changeTurmaFormEmptyStringToNull();
+      this.convertEmptyToNull(this.turmaForm);
+      if (this.turmaForm.turno1 === null) {
+        this.$notify({
+          group: "second",
+          title: "Erro",
+          text: "Nenhum turno alocado!",
+          type: "error",
+        });
+        return;
+      }
 
       turmaService
         .update(this.turma.id, this.turmaForm)
@@ -1457,41 +1481,6 @@ export default {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
   },
-
-  // setTurnoByHorario(horarioAtual) {
-  //   if (horarioAtual === 1) this.adjustTurno(this.turmaForm.Horario1);
-  //   else this.adjustTurno(this.turmaForm.Horario2);
-  // },
-  // adjustTurno(horario) {
-  //   if (horario == undefined || horario == "") this.turmaForm.turno1 = "";
-  //   else if (horario == 31) this.turmaForm.turno1 = "EAD";
-  //   else if (
-  //     horario == 1 ||
-  //     horario == 2 ||
-  //     horario == 7 ||
-  //     horario == 8 ||
-  //     horario == 13 ||
-  //     horario == 14 ||
-  //     horario == 19 ||
-  //     horario == 20 ||
-  //     horario == 25 ||
-  //     horario == 26 ||
-  //     horario == 3 ||
-  //     horario == 4 ||
-  //     horario == 9 ||
-  //     horario == 10 ||
-  //     horario == 15 ||
-  //     horario == 16 ||
-  //     horario == 21 ||
-  //     horario == 22 ||
-  //     horario == 27 ||
-  //     horario == 28
-  //   ) {
-  //     this.turmaForm.turno1 = "Diurno";
-  //   } else {
-  //     this.turmaForm.turno1 = "Noturno";
-  //   }
-  // },
 };
 </script>
 
