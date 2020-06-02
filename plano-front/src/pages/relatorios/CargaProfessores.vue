@@ -372,7 +372,9 @@
             </template>
           </template>
 
-          <template v-if="turmasSemAlocacao().length > 0 && SemAlocacao">
+          <template
+            v-if="turmasSemAlocacao().length > 0 && docenteSemAlocacao.ativado"
+          >
             <div class="max-content">
               <td class="prof-td">
                 <div style="width: 130px;">SEM ALOCAÇÃO</div>
@@ -634,7 +636,7 @@
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="SemAlocacaoCheck"
+                      v-model="docenteSemAlocacao.selecionado"
                       class="form-check-input position-static m-0"
                     />
                   </div>
@@ -705,13 +707,15 @@ export default {
   mixins: [ordenacaoMixin],
   data() {
     return {
+      searchDocentes: null,
       filtrosDocentes: {
         ativados: [],
         selecionados: [],
       },
-      SemAlocacao: false,
-      SemAlocacaoCheck: false,
-      searchDocentes: null,
+      docenteSemAlocacao: {
+        ativado: true,
+        selecionado: true,
+      },
       ordenacaoDocentesModal: { order: "apelido", type: "asc" },
       orednacaoDocentesMain: { order: "apelido", type: "asc" },
     };
@@ -719,36 +723,36 @@ export default {
   beforeMount() {
     this.selectAllDocentes();
     this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
-    this.SemAlocacao = this.SemAlocacaoCheck;
+    this.docenteSemAlocacao.ativado = this.docenteSemAlocacao.selecionado;
   },
   methods: {
     pdf(opt) {
       if (opt === 1) {
         pdfs.pdfCargaProfessores({
           Docentes: this.filtrosDocentes.ativados,
-          SemAlocacao: this.SemAlocacao,
+          SemAlocacao: this.docenteSemAlocacao.ativado,
         });
       }
       if (opt === 2) {
         pdfs.pdfCargaProfessores({
-          Docentes: this.Docentes,
+          Docentes: this.DocentesInCreditos,
           SemAlocacao: true,
         });
       }
     },
     btnOK() {
       this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
-      this.SemAlocacao = this.SemAlocacaoCheck;
+      this.docenteSemAlocacao.ativado = this.docenteSemAlocacao.selecionado;
       this.$refs.modalFiltros.hide();
       this.clearSearchDocentes();
     },
     selectAllDocentes() {
-      this.filtrosDocentes.selecionados = [...this.Docentes];
-      this.SemAlocacaoCheck = true;
+      this.filtrosDocentes.selecionados = [...this.DocentesInCreditos];
+      this.docenteSemAlocacao.selecionado = true;
     },
     selectNone() {
       this.filtrosDocentes.selecionados.length = 0;
-      this.SemAlocacaoCheck = false;
+      this.docenteSemAlocacao.selecionado = false;
     },
     turmaInDocentes(docente) {
       let turmasResult = _.filter(this.Turmas, (turma) => {
@@ -906,25 +910,26 @@ export default {
       if (this.searchDocentes != null && this.searchDocentes != "") {
         const searchNormalized = this.normalizeText(this.searchDocentes);
 
-        return this.Docentes.filter((docente) => {
+        return this.DocentesInCreditos.filter((docente) => {
           const docenteApelido = this.normalizeText(docente.apelido);
 
           return docenteApelido.match(searchNormalized) ? true : false;
         });
       }
-      return this.Docentes;
+      return this.DocentesInCreditos;
+    },
+    DocentesInCreditos() {
+      return this.$store.state.docente.Docentes.map((docente) => {
+        const creditos = this.calculaCreditos(docente);
+        return {
+          ...docente,
+          cred1: creditos.periodo1,
+          cred2: creditos.periodo2,
+        };
+      });
     },
     Docentes() {
-      let result = _.filter(this.$store.state.docente.Docentes, [
-        "ativo",
-        true,
-      ]);
-      result.forEach((prof) => {
-        let creditos = this.calculaCreditos(prof);
-        prof.cred1 = creditos.periodo1;
-        prof.cred2 = creditos.periodo2;
-      });
-      return result;
+      return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
     },
     Turmas() {
       return this.$store.state.turma.Turmas;
