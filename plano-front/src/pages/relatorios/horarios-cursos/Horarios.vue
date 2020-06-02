@@ -321,7 +321,7 @@ export default {
         primeiro: true,
         segundo: true,
       },
-      AllCursosOptions: [
+      allCursosOptions: [
         {
           nome: "SISTEMAS DE INFORMAÇÃO",
           codigo: "76A",
@@ -413,7 +413,7 @@ export default {
       if (this.cursosSelecionados.length !== 0) this.cursosSelecionados = [];
     },
     selectAllCursos() {
-      this.cursosSelecionados = [...this.AllCursosOptions];
+      this.cursosSelecionados = [...this.allCursosOptions];
     },
     isEven(number) {
       if (number % 2 === 0) return "true";
@@ -4529,7 +4529,7 @@ export default {
     },
     CursosModalOrdered() {
       return _.orderBy(
-        this.AllCursosOptions,
+        this.allCursosOptions,
         this.ordemCursos.order,
         this.ordemCursos.type
       );
