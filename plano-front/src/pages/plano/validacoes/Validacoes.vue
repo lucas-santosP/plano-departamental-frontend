@@ -19,31 +19,6 @@
       </template>
     </PageTitle>
 
-    <!-- <div class="p-0 m-0 w-100" style="height: 30px;">
-      <ul
-        class="nav nav-tabs card-header-tabs m-0"
-        style="font-size: 11px !important; height: 30px;"
-      >
-        <li class="nav-item" @click="modalTabAtiva = 'turmas'">
-          <a
-            class="nav-link border border-right-0"
-            :class="{
-              active: modalTabAtiva === 'turmas',
-            }"
-            >Disciplinas</a
-          >
-        </li>
-        <li class="nav-item" @click="modalTabAtiva = 'docentes'">
-          <a
-            class="nav-link border "
-            :class="{
-              active: modalTabAtiva === 'docentes',
-            }"
-            >Docentes</a
-          >
-        </li>
-      </ul>
-    </div> -->
     <NavTab
       :currentTab="modalTabAtiva"
       :allTabs="['Turmas', 'Docentes']"
@@ -56,9 +31,9 @@
         v-show="modalTabAtiva === 'Docentes'"
         class="table main-table table-hover table-sm table-bordered"
       >
-        <thead class="thead-light sticky">
+        <thead class="thead-light max-content sticky">
           <tr>
-            <div style="font-size: 11px !important;" class="max-content sticky">
+            <div class="max-content sticky">
               <th>
                 <p
                   style="width: 696px; text-align: start;"
@@ -117,9 +92,9 @@
         v-show="modalTabAtiva === 'Turmas'"
         class="table main-table table-hover table-sm table-bordered"
       >
-        <thead class="thead-light sticky">
+        <thead class="thead-light max-content sticky">
           <tr>
-            <div style="font-size: 11px !important;" class="max-content sticky">
+            <div class="max-content sticky">
               <th>
                 <p
                   style="width: 35px; text-align: center;"

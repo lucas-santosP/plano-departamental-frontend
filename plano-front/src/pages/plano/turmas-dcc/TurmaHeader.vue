@@ -16,9 +16,12 @@
       class="clickable"
       @click.stop="$emit('toggle-order-perfil', setOrderPerfil)"
     >
-      <p style="width: 80px" class="t-start">
+      <p
+        style="width: 80px"
+        class="t-start d-flex justify-content-between align-items-center"
+      >
         <i
-          class="fas fa-thumbtack mr-1"
+          class="fas fa-thumbtack"
           :class="currentOrderPerfil.order === null ? 'low-opacity' : ''"
         ></i>
         Perfil

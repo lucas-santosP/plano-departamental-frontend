@@ -27,7 +27,7 @@
         <select
           :disabled="Admin ? false : true"
           id="2periodo"
-          style="width: 40px;"
+          style="width: 45px;"
           v-model="turmaForm.periodo"
           v-on:change="checkHorariosPeriodo()"
         >
@@ -1412,7 +1412,7 @@ input[type="checkbox"] {
   height: 100%;
 }
 .btn-table {
-  font-size: 14px;
+  font-size: 12px;
   margin: 0 !important;
   margin-left: 2px !important;
   padding: 0 !important;
