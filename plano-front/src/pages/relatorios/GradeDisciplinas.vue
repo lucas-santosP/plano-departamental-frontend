@@ -42,12 +42,17 @@
           <thead class="thead-light max-content sticky">
             <tr>
               <div style="font-size:11px!important" class="max-content sticky">
-                <th @click="toggleOrder(ordenacaoPerfisMain, 'perfilNome')">
+                <th @click="setFixedOrderPerfil()">
                   <p
-                    class="p-header clickable d-flex"
-                    style="width:80px; justify-content: space-between; align-items:center"
+                    class="p-header clickable d-flex justify-content-between align-items-center"
+                    style="width:80px"
                   >
-                    <i class="fas fa-thumbtack" style=""></i>
+                    <i
+                      class="fas fa-thumbtack"
+                      :class="
+                        ordenacaoPerfisMain.order === null ? 'low-opacity' : ''
+                      "
+                    ></i>
                     Perfil
                     <i
                       :class="setIconByOrder(ordenacaoPerfisMain, 'perfilNome')"
@@ -359,12 +364,9 @@
             </tr>
 
             <tr>
-              <div style="font-size: 11px !important;" class="max-content">
+              <div class="max-content sticky2">
                 <th>
-                  <p
-                    style="width: 25px; text-align: center;"
-                    class="p-header"
-                  ></p>
+                  <p style="width: 25px" class="p-header"></p>
                 </th>
                 <th>
                   <p
@@ -458,10 +460,7 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="max-content sticky"
-              >
+              <div class="max-content sticky">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -686,6 +685,13 @@ export default {
       this.modalTabAtiva = "Perfis";
       this.$refs.modalFiltros.hide();
     },
+    setFixedOrderPerfil() {
+      if (this.ordenacaoPerfisMain.type === "desc") {
+        this.toggleOrder(this.ordenacaoPerfisMain, null);
+      } else {
+        this.toggleOrder(this.ordenacaoPerfisMain, "perfilNome");
+      }
+    },
     toggleOrder(currentOrder, newOrder, type = "asc") {
       if (currentOrder.order != newOrder) {
         currentOrder.order = newOrder;
@@ -722,7 +728,7 @@ export default {
       if (this.disciplinasSelecionadas.length !== 0)
         this.disciplinasSelecionadas = [];
     },
-    runNovoAno: function() {
+    runNovoAno() {
       //executa runAll, modificando o ano
       if (this.ano != this.novoAno) {
         this.ano = this.novoAno;
@@ -731,7 +737,7 @@ export default {
         this.novoAno = this.ano;
       }
     },
-    runAll: function() {
+    runAll() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
         this.disciplinasGrades[d.id] = [
@@ -745,7 +751,7 @@ export default {
       this.get1Periodo();
       this.get2Periodo();
     },
-    getGrades: function() {
+    getGrades() {
       //popula as grades disponíveis de cada curso em um objeto
       for (let i = 1; i <= 4; i++) {
         this.grades[i] = _.orderBy(
@@ -755,7 +761,7 @@ export default {
         );
       }
     },
-    get1Periodo: function() {
+    get1Periodo() {
       //Armazena os períodos de cada disciplina no primeiro semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -833,7 +839,7 @@ export default {
         }
       });
     },
-    get2Periodo: function() {
+    get2Periodo() {
       //Armazena os períodos de cada disciplina no segundo semestre
       //retorna lista com os ids das disciplinas
       let disciplinas = Object.keys(this.disciplinasGrades);
@@ -912,6 +918,12 @@ export default {
         }
       });
     },
+    somaPeriodos(periodo1, periodo2) {
+      const periodo1Number = periodo1.length ? periodo1[0] : 100;
+      const periodo2Number = periodo2.length ? periodo2[0] : 100;
+
+      return periodo1Number + periodo2Number;
+    },
   },
   computed: {
     Disciplinas() {
@@ -956,36 +968,35 @@ export default {
       return disciplinaResult;
     },
     DisciplinasOrderedMain() {
+      let disciplinasResult = this.DisciplinasFiltredMain;
+
       if (this.ordenacaoDisciplinasMain.order.includes("grade")) {
-        return _.orderBy(
-          this.DisciplinasFiltredMain,
-          [
-            (disciplina) => {
-              const semestre1Number = disciplina[
-                this.ordenacaoDisciplinasMain.order
-              ].semestre1.length
-                ? disciplina[this.ordenacaoDisciplinasMain.order].semestre1[0]
-                : 100;
-
-              const semestre2Number = disciplina[
-                this.ordenacaoDisciplinasMain.order
-              ].semestre2.length
-                ? disciplina[this.ordenacaoDisciplinasMain.order].semestre2[0]
-                : 100;
-
-              const result = semestre1Number + semestre2Number;
-              return result;
-            },
-            this.ordenacaoPerfisMain.order,
-          ],
-          [this.ordenacaoDisciplinasMain.type, this.ordenacaoPerfisMain.type]
+        disciplinasResult = _.orderBy(
+          disciplinasResult,
+          (disciplina) => {
+            return this.somaPeriodos(
+              disciplina[this.ordenacaoDisciplinasMain.order].semestre1,
+              disciplina[this.ordenacaoDisciplinasMain.order].semestre2
+            );
+          },
+          this.ordenacaoDisciplinasMain.type
+        );
+      } else {
+        disciplinasResult = _.orderBy(
+          disciplinasResult,
+          this.ordenacaoDisciplinasMain.order,
+          this.ordenacaoDisciplinasMain.type
         );
       }
-      return _.orderBy(
-        this.DisciplinasFiltredMain,
-        [this.ordenacaoPerfisMain.order, this.ordenacaoDisciplinasMain.order],
-        [this.ordenacaoPerfisMain.type, this.ordenacaoDisciplinasMain.type]
-      );
+
+      if (this.ordenacaoPerfisMain.order != null) {
+        disciplinasResult = _.orderBy(
+          disciplinasResult,
+          this.ordenacaoPerfisMain.order,
+          this.ordenacaoPerfisMain.type
+        );
+      }
+      return disciplinasResult;
     },
     DisciplinasFiltredModal() {
       let result = this.DisciplinasComPerfil;
@@ -1032,17 +1043,8 @@ export default {
     Perfis() {
       return _.orderBy(this.$store.state.perfil.Perfis);
     },
-    Docentes() {
-      return _.orderBy(
-        _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
-        "apelido"
-      );
-    },
     Horarios() {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
-    },
-    Cursos() {
-      return _.orderBy(this.$store.state.curso.Cursos, "nome");
     },
     AnoAtual() {
       return this.$store.state.plano.Plano[0].ano;
@@ -1075,10 +1077,13 @@ export default {
   watch: {
     perfisAtivados() {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
-      this.disciplinasSelecionadas = [];
+      this.selectNoneDisciplinas();
 
       this.perfisAtivados.forEach((perfil) => {
         this.DisciplinasComPerfil.forEach((discip) => {
+          if (this.disciplinasSelecionadas.includes(discip)) {
+            console.log("!!!!!!");
+          }
           if (
             discip.Perfil == perfil.id &&
             !this.disciplinasSelecionadas.includes(discip)
