@@ -177,11 +177,11 @@
                       class="form-control"
                       style="border-right: none;"
                       placeholder="Pesquise nome ou codigo de uma disciplina..."
-                      v-model="modalSearchCursos"
+                      v-model="searchCursosModal"
                     />
                     <div
                       class="input-group-append"
-                      @click="clearModalSearchCursos()"
+                      @click="clearsearchCursosModal()"
                     >
                       <span
                         class="input-group-text search-text"
@@ -517,7 +517,7 @@ export default {
       },
       semestreAtual: 3,
       modalTabAtiva: "Perfis",
-      modalSearchCursos: null,
+      searchCursosModal: null,
       modalOrdenacaoCursos: { order: "codigo", type: "asc" },
       modalOrdenacaoPerfis: { order: "nome", type: "asc" },
     };
@@ -586,7 +586,7 @@ export default {
       this.setSemestreAtual();
       this.filtroPerfis.ativados = [...this.filtroPerfis.selecionados];
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-      this.clearModalSearchCursos();
+      this.clearsearchCursosModal();
       this.$refs.modalFiltros.hide();
     },
     selectAllPerfis() {
@@ -609,8 +609,8 @@ export default {
       this.semestresAtivos.primeiro = false;
       this.semestresAtivos.segundo = false;
     },
-    clearModalSearchCursos() {
-      this.modalSearchCursos = null;
+    clearsearchCursosModal() {
+      this.searchCursosModal = null;
     },
     setSemestreAtual() {
       if (this.semestresAtivos.primeiro && !this.semestresAtivos.segundo) {
@@ -733,6 +733,12 @@ export default {
     toggleAdd() {
       this.turmaAddIsVisible = !this.turmaAddIsVisible;
     },
+    normalizeText(text) {
+      return text
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    },
   },
 
   computed: {
@@ -793,18 +799,16 @@ export default {
       return this.$store.state.curso.Cursos;
     },
     ModalCursosFiltred() {
-      if (this.modalSearchCursos != null) {
-        let searchNormalized = this.modalSearchCursos
-          .toUpperCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
+      if (this.searchCursosModal != null || this.searchCursosModal == "") {
+        const searchNormalized = this.normalizeText(this.searchCursosModal);
 
         return _.filter(this.Cursos, (curso) => {
+          const cursoNome = this.normalizeText(curso.nome);
+          const cursoCodigo = this.normalizeText(curso.codigo);
+
           return (
-            curso.nome
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .match(searchNormalized) || curso.codigo.match(searchNormalized)
+            cursoNome.match(searchNormalized) ||
+            cursoCodigo.match(searchNormalized)
           );
         });
       }
