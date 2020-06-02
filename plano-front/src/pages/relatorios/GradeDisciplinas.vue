@@ -673,8 +673,6 @@ export default {
 
     this.selectAllCursos();
     this.selectAllDisciplinas();
-    this.selectAllPerfis();
-    // btn ok
     this.disciplinasAtivadas = [...this.disciplinasSelecionadas];
     this.cursosAtivados = [...this.cursosSelecionados];
   },

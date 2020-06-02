@@ -917,24 +917,24 @@ export default {
       ordemPerfis: { order: "nome", type: "asc" },
     };
   },
-
+  beforeMount() {
+    this.selectAllDisciplinas();
+    this.DisciplinasAtivados = [...this.DisciplinasSelecionados];
+  },
   methods: {
     changeTab(tab) {
       this.nav_ativo = tab;
-      // this.searchDisciplinas = null;
+    },
+    setSemestreAtivo() {
+      if (this.semestre_1Ativo && !this.semestre_2Ativo) this.semestreAtual = 1;
+      else if (this.semestre_2Ativo && !this.semestre_1Ativo)
+        this.semestreAtual = 2;
+      else if (this.semestre_1Ativo && this.semestre_1Ativo)
+        this.semestreAtual = 3;
+      else this.semestreAtual = undefined;
     },
     btnOK() {
-      //Atualiza semestre selecionados
-      if (this.semestre_1Ativo && !this.semestre_2Ativo) {
-        this.semestreAtual = 1;
-      } else if (this.semestre_2Ativo && !this.semestre_1Ativo) {
-        this.semestreAtual = 2;
-      } else if (this.semestre_1Ativo && this.semestre_1Ativo) {
-        this.semestreAtual = 3;
-      } else {
-        this.semestreAtual = undefined;
-      }
-      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
+      this.setSemestreAtivo();
       this.DisciplinasAtivados = [...this.DisciplinasSelecionados];
 
       this.$refs.modalFiltros.hide();
