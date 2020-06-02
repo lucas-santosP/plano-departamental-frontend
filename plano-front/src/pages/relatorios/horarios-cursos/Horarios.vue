@@ -31,7 +31,7 @@
       <div v-show="semestre1IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length"
-          class="semestre-title w-100 px-2 bg-custom"
+          class="semestre-title w-100 px-1 bg-custom"
         >
           1º SEMESTRE
         </h2>
@@ -56,7 +56,7 @@
       <div v-show="semestre2IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length"
-          class="semestre-title w-100 px-2 bg-custom"
+          class="semestre-title w-100 px-1 bg-custom"
         >
           2º SEMESTRE
         </h2>
@@ -297,6 +297,7 @@ import TableEletivas from "./TableEletivas.vue";
 import TablesHorarios from "./TablesHorarios.vue";
 import PageTitle from "@/components/PageTitle.vue";
 import NavTab from "@/components/NavTab.vue";
+
 export default {
   name: "DashboardHorarios",
   components: {
@@ -310,13 +311,13 @@ export default {
       error: undefined,
       cursosAtivados: [],
       cursosSelecionados: [],
-      semestreAtual: 3,
       modalTabAtiva: "Cursos",
       ordemCursos: { order: "codigo", type: "asc" },
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
       evenSI: "false",
+      semestreAtual: 3,
       semestresAtivos: {
         primeiro: true,
         segundo: true,
@@ -363,8 +364,6 @@ export default {
     this.createHorarios1();
     this.createHorarios2();
 
-    this.selectAllSemestre();
-    this.btnOKSemestre();
     this.selectAllCursos();
     this.cursosAtivados = [...this.cursosSelecionados];
   },

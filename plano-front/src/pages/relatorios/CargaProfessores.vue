@@ -616,7 +616,7 @@
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="filtrosDocentes.selecionados"
+                      v-model="filtroDocentes.selecionados"
                       :value="docente"
                       class="form-check-input position-static m-0"
                     />
@@ -708,7 +708,7 @@ export default {
   data() {
     return {
       searchDocentes: null,
-      filtrosDocentes: {
+      filtroDocentes: {
         ativados: [],
         selecionados: [],
       },
@@ -722,14 +722,14 @@ export default {
   },
   beforeMount() {
     this.selectAllDocentes();
-    this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
+    this.filtroDocentes.ativados = [...this.filtroDocentes.selecionados];
     this.docenteSemAlocacao.ativado = this.docenteSemAlocacao.selecionado;
   },
   methods: {
     pdf(opt) {
       if (opt === 1) {
         pdfs.pdfCargaProfessores({
-          Docentes: this.filtrosDocentes.ativados,
+          Docentes: this.filtroDocentes.ativados,
           SemAlocacao: this.docenteSemAlocacao.ativado,
         });
       }
@@ -741,17 +741,17 @@ export default {
       }
     },
     btnOK() {
-      this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
+      this.filtroDocentes.ativados = [...this.filtroDocentes.selecionados];
       this.docenteSemAlocacao.ativado = this.docenteSemAlocacao.selecionado;
       this.$refs.modalFiltros.hide();
       this.clearSearchDocentes();
     },
     selectAllDocentes() {
-      this.filtrosDocentes.selecionados = [...this.DocentesInCreditos];
+      this.filtroDocentes.selecionados = [...this.DocentesInCreditos];
       this.docenteSemAlocacao.selecionado = true;
     },
     selectNone() {
-      this.filtrosDocentes.selecionados.length = 0;
+      this.filtroDocentes.selecionados.length = 0;
       this.docenteSemAlocacao.selecionado = false;
     },
     turmaInDocentes(docente) {
@@ -894,7 +894,7 @@ export default {
   computed: {
     DocentesOrderedMain() {
       return _.orderBy(
-        this.filtrosDocentes.ativados,
+        this.filtroDocentes.ativados,
         this.orednacaoDocentesMain.order,
         this.orednacaoDocentesMain.type
       );
@@ -1127,12 +1127,6 @@ tbody {
 .input-group-text {
   background-color: #ffffff;
   border-left: none;
-}
-
-@media screen and (max-width: 355px) {
-  .div-titulo {
-    height: 70px !important;
-  }
 }
 
 /* APENAS NO FIREFOX */

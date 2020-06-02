@@ -1081,9 +1081,6 @@ export default {
 
       this.perfisAtivados.forEach((perfil) => {
         this.DisciplinasComPerfil.forEach((discip) => {
-          if (this.disciplinasSelecionadas.includes(discip)) {
-            console.log("!!!!!!");
-          }
           if (
             discip.Perfil == perfil.id &&
             !this.disciplinasSelecionadas.includes(discip)
@@ -1217,11 +1214,5 @@ tbody {
 .search-text {
   background-color: #ffffff;
   border-left: none;
-}
-
-@media screen and (max-width: 519px) {
-  .div-titulo {
-    height: 70px !important;
-  }
 }
 </style>

@@ -1417,9 +1417,4 @@ tbody {
 .modal-content .modal-header {
   padding: 0 !important;
 }
-@media screen and (max-width: 378px) {
-  .div-titulo {
-    height: 70px !important;
-  }
-}
 </style>
