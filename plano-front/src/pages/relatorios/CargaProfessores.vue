@@ -38,16 +38,12 @@
                 <p
                   class="p-header clickable"
                   style="width: 130px; text-align: start !important;"
-                  @click="toggleOrdProf_Main"
+                  @click="toggleOrder(orednacaoDocentesMain, 'apelido')"
                 >
                   Nome
                   <i
                     style="font-size: 0.6rem;"
-                    :class="
-                      ordemProf_Main.type == 'asc'
-                        ? 'fas fa-arrow-down fa-sm'
-                        : 'fas fa-arrow-up fa-sm'
-                    "
+                    :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"
                   ></i>
                 </p>
               </th>
@@ -100,7 +96,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-for="professor in Docentes_Ativados_filtred">
+          <template v-for="professor in DocentesOrderedMain">
             <tr class="prof-td" :key="professor.apelido">
               <div class="max-content">
                 <td>
@@ -137,7 +133,7 @@
               </div>
             </tr>
 
-            <template v-for="turma in turmasInProf1(professor)">
+            <template v-for="turma in turmasInDocentes1Semestre(professor)">
               <tr :key="'turma' + turma.id + professor.apelido">
                 <div class="max-content">
                   <td>
@@ -256,7 +252,7 @@
               </tr>
             </template>
 
-            <template v-for="turma in turmasInProf2(professor)">
+            <template v-for="turma in turmasInDocentes2Semestre(professor)">
               <tr :key="'turma' + turma.id + professor.apelido">
                 <div class="max-content">
                   <td>
@@ -570,9 +566,12 @@
                       class="form-control"
                       style="border-right: none;"
                       placeholder="Pesquise o nome de um docente..."
-                      v-model="searchProf"
+                      v-model="searchDocentes"
                     />
-                    <div class="input-group-append" @click="clearSearchProf()">
+                    <div
+                      class="input-group-append"
+                      @click="clearSearchDocentes()"
+                    >
                       <span
                         class="input-group-text"
                         style="height: 25px; font-size: 18px; cursor: pointer;"
@@ -593,16 +592,12 @@
                   <p
                     class="p-header clickable"
                     style="width: 436px; text-align: start;"
-                    @click="toggleOrdProf_Modal()"
+                    @click="toggleOrder(ordenacaoDocentesModal, 'apelido')"
                   >
                     Nome
                     <i
                       style="font-size: 0.6rem;"
-                      :class="
-                        ordemProf_Modal.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                      "
+                      :class="setIconByOrder(ordenacaoDocentesModal, 'apelido')"
                     ></i>
                   </p>
                 </th>
@@ -611,7 +606,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="docente in Docentes_Modal_Filtred"
+              v-for="docente in DocentesOrderedModal"
               :key="`docente${docente.id}`"
             >
               <div class="max-content">
@@ -619,7 +614,7 @@
                   <div style="width: 25px; height: inherit;" class="px-1">
                     <input
                       type="checkbox"
-                      v-model="DocentesSelecionados"
+                      v-model="filtrosDocentes.selecionados"
                       :value="docente"
                       class="form-check-input position-static m-0"
                     />
@@ -658,7 +653,7 @@
           <b-button
             class="btn-azul btn-custom btn-modal"
             variant="success"
-            @click="selectAll()"
+            @click="selectAllDocentes()"
             >Selecionar Todos</b-button
           >
           <b-button
@@ -702,33 +697,35 @@
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import PageTitle from "@/components/PageTitle";
+import ordenacaoMixin from "@/ordenacao-mixin";
+
 export default {
   name: "DashboardCargaProfessores",
   components: { PageTitle },
+  mixins: [ordenacaoMixin],
   data() {
     return {
-      DocentesSelecionados: [],
-      DocentesAtivados: [],
+      filtrosDocentes: {
+        ativados: [],
+        selecionados: [],
+      },
       SemAlocacao: false,
       SemAlocacaoCheck: false,
-      searchProf: null,
-      ordemProf_Modal: { order: "apelido", type: "asc" },
-      ordemProf_Main: { order: "apelido", type: "asc" },
-      credito1Atual: 0,
-      credito2Atual: 0,
-      onLoading: true,
+      searchDocentes: null,
+      ordenacaoDocentesModal: { order: "apelido", type: "asc" },
+      orednacaoDocentesMain: { order: "apelido", type: "asc" },
     };
   },
-  created() {
-    setTimeout(() => {
-      this.onLoading = false;
-    }, 100);
+  beforeMount() {
+    this.selectAllDocentes();
+    this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
+    this.SemAlocacao = this.SemAlocacaoCheck;
   },
   methods: {
     pdf(opt) {
       if (opt === 1) {
         pdfs.pdfCargaProfessores({
-          Docentes: this.DocentesAtivados,
+          Docentes: this.filtrosDocentes.ativados,
           SemAlocacao: this.SemAlocacao,
         });
       }
@@ -739,72 +736,49 @@ export default {
         });
       }
     },
-    toggleOrdProf_Modal() {
-      if (this.ordemProf_Modal.type == "asc") {
-        this.ordemProf_Modal.type = "desc";
-      } else {
-        this.ordemProf_Modal.type = "asc";
-      }
-    },
-    toggleOrdProf_Main() {
-      if (this.ordemProf_Main.type == "asc") {
-        this.ordemProf_Main.type = "desc";
-      } else {
-        this.ordemProf_Main.type = "asc";
-      }
-    },
     btnOK() {
-      //Somente atualiza o vetor de perfis ativados quando o botão OK for clickado
-      this.DocentesAtivados = [...this.DocentesSelecionados];
+      this.filtrosDocentes.ativados = [...this.filtrosDocentes.selecionados];
       this.SemAlocacao = this.SemAlocacaoCheck;
       this.$refs.modalFiltros.hide();
-      this.searchProf = null;
+      this.clearSearchDocentes();
     },
-    selectAll() {
-      this.DocentesSelecionados = [...this.Docentes];
+    selectAllDocentes() {
+      this.filtrosDocentes.selecionados = [...this.Docentes];
       this.SemAlocacaoCheck = true;
     },
     selectNone() {
-      this.DocentesSelecionados.length = 0;
+      this.filtrosDocentes.selecionados.length = 0;
       this.SemAlocacaoCheck = false;
     },
-    turmasInProf(professor) {
-      return _.orderBy(
-        _.filter(this.Turmas, (turma) => {
-          if (
-            turma.Docente1 === professor.id ||
-            turma.Docente2 === professor.id
-          ) {
-            _.find(this.Disciplinas, (disciplina) => {
-              if (turma.Disciplina === disciplina.id) {
-                const { nome, codigo, cargaTeorica, cargaPratica } = disciplina;
-                turma.disciplina_nome = nome;
-                turma.disciplina_codigo = codigo;
-                turma.disciplina_cargaTeorica = cargaTeorica;
-                turma.disciplina_cargaPratica = cargaPratica;
-                return true;
-              }
-            });
-            return true;
-          }
-          return false;
-        }),
-        ["periodo", "Disciplina", "letra"]
-      );
-    },
+    turmaInDocentes(docente) {
+      let turmasResult = _.filter(this.Turmas, (turma) => {
+        if (turma.Docente1 === docente.id || turma.Docente2 === docente.id) {
+          _.find(this.Disciplinas, (disciplina) => {
+            if (turma.Disciplina === disciplina.id) {
+              turma.disciplina_nome = disciplina.nome;
+              turma.disciplina_codigo = disciplina.codigo;
+              turma.disciplina_cargaTeorica = disciplina.cargaTeorica;
+              turma.disciplina_cargaPratica = disciplina.cargaPratica;
+              return true;
+            }
+          });
+          return true;
+        }
+        return false;
+      });
 
-    turmasInProf1(professor) {
-      return _.filter(this.turmasInProf(professor), function(t) {
-        return t.periodo == 1 || t.periodo == 2;
+      return _.orderBy(turmasResult, ["periodo", "Disciplina", "letra"]);
+    },
+    turmasInDocentes1Semestre(docente) {
+      return _.filter(this.turmaInDocentes(docente), function(turma) {
+        return turma.periodo == 1 || turma.periodo == 2;
       });
     },
-
-    turmasInProf2(professor) {
-      return _.filter(this.turmasInProf(professor), function(t) {
-        return t.periodo == 3 || t.periodo == 4;
+    turmasInDocentes2Semestre(docente) {
+      return _.filter(this.turmaInDocentes(docente), function(turma) {
+        return turma.periodo == 3 || turma.periodo == 4;
       });
     },
-
     turmasSemAlocacao() {
       return _.orderBy(
         _.filter(this.Turmas, (turma) => {
@@ -828,46 +802,46 @@ export default {
         ["periodo", "Disciplina", "letra"]
       );
     },
-    CalculaCreditos(professor) {
-      var creditos_prof = { periodo1: 0, periodo2: 0 };
+    calculaCreditos(docente) {
+      var creditosTotais = { periodo1: 0, periodo2: 0 };
 
-      for (var t = 0; t < this.Turmas.length; t++) {
+      for (let t = 0; t < this.Turmas.length; t++) {
         if (
-          this.Turmas[t].Docente1 === professor.id ||
-          this.Turmas[t].Docente2 === professor.id
+          this.Turmas[t].Docente1 === docente.id ||
+          this.Turmas[t].Docente2 === docente.id
         ) {
           for (var d = 0; d < this.Disciplinas.length; d++) {
             if (this.Disciplinas[d].id === this.Turmas[t].Disciplina) {
               if (this.Turmas[t].Docente1 > 0 && this.Turmas[t].Docente2 > 0) {
                 //PRIMEIRO PERIODO
                 if (this.Turmas[t].periodo === 1) {
-                  creditos_prof.periodo1 +=
+                  creditosTotais.periodo1 +=
                     parseFloat(this.Disciplinas[d].cargaPratica) / 2;
-                  creditos_prof.periodo1 +=
+                  creditosTotais.periodo1 +=
                     parseFloat(this.Disciplinas[d].cargaTeorica) / 2;
                 } else {
                   //SEGUNDO PERIODO
-                  creditos_prof.periodo2 +=
+                  creditosTotais.periodo2 +=
                     parseFloat(this.Disciplinas[d].cargaPratica) / 2;
-                  creditos_prof.periodo2 +=
+                  creditosTotais.periodo2 +=
                     parseFloat(this.Disciplinas[d].cargaTeorica) / 2;
                 }
               } else {
                 //PRIMEIRO PERIODO
                 if (this.Turmas[t].periodo === 1) {
-                  creditos_prof.periodo1 += parseFloat(
+                  creditosTotais.periodo1 += parseFloat(
                     this.Disciplinas[d].cargaPratica
                   );
-                  creditos_prof.periodo1 += parseFloat(
+                  creditosTotais.periodo1 += parseFloat(
                     this.Disciplinas[d].cargaTeorica
                   );
                 }
                 //SEGUNDO PERIODO
                 else {
-                  creditos_prof.periodo2 += parseFloat(
+                  creditosTotais.periodo2 += parseFloat(
                     this.Disciplinas[d].cargaPratica
                   );
-                  creditos_prof.periodo2 += parseFloat(
+                  creditosTotais.periodo2 += parseFloat(
                     this.Disciplinas[d].cargaTeorica
                   );
                 }
@@ -876,41 +850,82 @@ export default {
           }
         }
       }
-      for (var t = 0; t < this.CargasPos.length; t++) {
-        if (this.CargasPos[t].Docente === professor.id) {
+      for (let t = 0; t < this.CargasPos.length; t++) {
+        if (this.CargasPos[t].Docente === docente.id) {
           if (this.CargasPos[t].trimestre == 3) {
-            creditos_prof.periodo2 += parseFloat(this.CargasPos[t].creditos);
+            creditosTotais.periodo2 += parseFloat(this.CargasPos[t].creditos);
           } else {
-            creditos_prof.periodo1 += parseFloat(this.CargasPos[t].creditos);
+            creditosTotais.periodo1 += parseFloat(this.CargasPos[t].creditos);
           }
         }
       }
-      return creditos_prof;
+      return creditosTotais;
     },
-    CargasPosFiltred(prof_id) {
+    CargasPosFiltred(docenteId) {
       return this.CargasPos.filter((carga) => {
-        return carga.Docente === prof_id;
+        return carga.Docente === docenteId;
       });
     },
-
-    cargasPos1(prof_id) {
-      return _.filter(this.CargasPosFiltred(prof_id), function(c) {
+    cargasPos1(docenteId) {
+      return _.filter(this.CargasPosFiltred(docenteId), function(c) {
         return c.trimestre == 1 || c.trimestre == 2;
       });
     },
-
-    cargasPos2(prof_id) {
-      return _.filter(this.CargasPosFiltred(prof_id), function(c) {
+    cargasPos2(docenteId) {
+      return _.filter(this.CargasPosFiltred(docenteId), function(c) {
         return c.trimestre == 3 || c.trimestre == 4;
       });
     },
-
-    clearSearchProf() {
-      this.searchProf = null;
+    clearSearchDocentes() {
+      this.searchDocentes = null;
+    },
+    normalizeText(text) {
+      return text
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
     },
   },
 
   computed: {
+    DocentesOrderedMain() {
+      return _.orderBy(
+        this.filtrosDocentes.ativados,
+        this.orednacaoDocentesMain.order,
+        this.orednacaoDocentesMain.type
+      );
+    },
+    DocentesOrderedModal() {
+      return _.orderBy(
+        this.DocentesFiltredModal,
+        this.ordenacaoDocentesModal.order,
+        this.ordenacaoDocentesModal.type
+      );
+    },
+    DocentesFiltredModal() {
+      if (this.searchDocentes != null && this.searchDocentes != "") {
+        const searchNormalized = this.normalizeText(this.searchDocentes);
+
+        return this.Docentes.filter((docente) => {
+          const docenteApelido = this.normalizeText(docente.apelido);
+
+          return docenteApelido.match(searchNormalized) ? true : false;
+        });
+      }
+      return this.Docentes;
+    },
+    Docentes() {
+      let result = _.filter(this.$store.state.docente.Docentes, [
+        "ativo",
+        true,
+      ]);
+      result.forEach((prof) => {
+        let creditos = this.calculaCreditos(prof);
+        prof.cred1 = creditos.periodo1;
+        prof.cred2 = creditos.periodo2;
+      });
+      return result;
+    },
     Turmas() {
       return this.$store.state.turma.Turmas;
     },
@@ -922,50 +937,6 @@ export default {
     },
     Horarios() {
       return this.$store.state.horario.Horarios;
-    },
-    //Usado na tabela Main
-    Docentes_Ativados_filtred() {
-      return _.orderBy(
-        this.DocentesAtivados,
-        this.ordemProf_Main.order,
-        this.ordemProf_Main.type
-      );
-    },
-    //Usado na tabela Modal
-    Docentes_Modal_Filtred() {
-      //Filtro de ordem
-      return _.orderBy(
-        this.Docentes_Search,
-        this.ordemProf_Modal.order,
-        this.ordemProf_Modal.type
-      );
-    },
-
-    Docentes_Search() {
-      //Filtro do search
-      if (this.searchProf != null && this.searchProf != "") {
-        return this.Docentes.filter((prof) => {
-          return prof.apelido
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .match(this.searchProf.toUpperCase())
-            ? true
-            : false;
-        });
-      }
-      return this.Docentes;
-    },
-    Docentes() {
-      let result = _.filter(this.$store.state.docente.Docentes, [
-        "ativo",
-        true,
-      ]);
-      result.forEach((prof) => {
-        let creditos = this.CalculaCreditos(prof);
-        prof.cred1 = creditos.periodo1;
-        prof.cred2 = creditos.periodo2;
-      });
-      return result;
     },
   },
 };
