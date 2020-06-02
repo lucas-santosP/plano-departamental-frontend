@@ -66,11 +66,11 @@
           <tr>
             <TurmaHeader
               :cursosSelecteds="filtroCursos.ativados"
-              :currentOrder="mainOrdenacaoTurmas"
-              :currentOrderPerfil="mainOrdenacaoPerfis"
-              v-on:toggle-order="toggleOrder(mainOrdenacaoTurmas, $event)"
+              :currentOrder="ordenacaoTurmasMain"
+              :currentOrderPerfil="ordenacaoPerfisMain"
+              v-on:toggle-order="toggleOrder(ordenacaoTurmasMain, $event)"
               v-on:toggle-order-perfil="
-                toggleOrder(mainOrdenacaoPerfis, $event)
+                toggleOrder(ordenacaoPerfisMain, $event)
               "
             />
           </tr>
@@ -124,12 +124,12 @@
                 <th>
                   <p
                     class="p-header clickable t-start"
-                    @click="toggleOrder(modalOrdenacaoPerfis, 'nome')"
+                    @click="toggleOrder(ordenacaoPerfisModal, 'nome')"
                     style="width: 436px"
                   >
                     Nome
                     <i
-                      :class="setIconByOrder(modalOrdenacaoPerfis, 'nome')"
+                      :class="setIconByOrder(ordenacaoPerfisModal, 'nome')"
                     ></i>
                   </p>
                 </th>
@@ -200,23 +200,23 @@
                 </th>
                 <th
                   class="clickable t-center"
-                  @click="toggleOrder(modalOrdenacaoCursos, 'codigo')"
+                  @click="toggleOrder(ordenacaoCursosModal, 'codigo')"
                 >
                   <p style="width: 50px; text-align: start;" class="p-header">
                     Cód.
                     <i
-                      :class="setIconByOrder(modalOrdenacaoCursos, 'codigo')"
+                      :class="setIconByOrder(ordenacaoCursosModal, 'codigo')"
                     ></i>
                   </p>
                 </th>
                 <th
                   class="clickable"
-                  @click="toggleOrder(modalOrdenacaoCursos, 'nome')"
+                  @click="toggleOrder(ordenacaoCursosModal, 'nome')"
                 >
                   <p style="width: 385px; text-align: start;" class="p-header">
                     Nome
                     <i
-                      :class="setIconByOrder(modalOrdenacaoCursos, 'nome')"
+                      :class="setIconByOrder(ordenacaoCursosModal, 'nome')"
                     ></i>
                   </p>
                 </th>
@@ -278,7 +278,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestresAtivos.primeiro"
+                      v-model="filtroSemestres.primeiro"
                     />
                   </div>
                 </td>
@@ -294,7 +294,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input position-static m-0"
-                      v-model="semestresAtivos.segundo"
+                      v-model="filtroSemestres.segundo"
                     />
                   </div>
                 </td>
@@ -501,8 +501,8 @@ export default {
       error: undefined,
       turmaSelected: null,
       turmaAddIsVisible: false,
-      mainOrdenacaoTurmas: { order: "periodo", type: "asc" },
-      mainOrdenacaoPerfis: { order: "perfilNome", type: "asc" },
+      ordenacaoTurmasMain: { order: "periodo", type: "asc" },
+      ordenacaoPerfisMain: { order: "perfilNome", type: "asc" },
       filtroPerfis: {
         ativados: [],
         selecionados: [],
@@ -511,15 +511,15 @@ export default {
         ativados: [],
         selecionados: [],
       },
-      semestresAtivos: {
+      filtroSemestres: {
         primeiro: true,
         segundo: true,
+        ativo: 3,
       },
-      semestreAtual: 3,
       modalTabAtiva: "Perfis",
       searchCursosModal: null,
-      modalOrdenacaoCursos: { order: "codigo", type: "asc" },
-      modalOrdenacaoPerfis: { order: "nome", type: "asc" },
+      ordenacaoCursosModal: { order: "codigo", type: "asc" },
+      ordenacaoPerfisModal: { order: "nome", type: "asc" },
     };
   },
   created() {
@@ -583,7 +583,7 @@ export default {
       this.$refs.modalEditTurma.show();
     },
     btnOkFiltros() {
-      this.setSemestreAtual();
+      this.setSemestreAtivo();
       this.filtroPerfis.ativados = [...this.filtroPerfis.selecionados];
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
       this.clearsearchCursosModal();
@@ -602,31 +602,31 @@ export default {
       this.filtroCursos.selecionados = [];
     },
     selectAllSemestre() {
-      this.semestresAtivos.primeiro = true;
-      this.semestresAtivos.segundo = true;
+      this.filtroSemestres.primeiro = true;
+      this.filtroSemestres.segundo = true;
     },
     selectNoneSemestre() {
-      this.semestresAtivos.primeiro = false;
-      this.semestresAtivos.segundo = false;
+      this.filtroSemestres.primeiro = false;
+      this.filtroSemestres.segundo = false;
     },
     clearsearchCursosModal() {
       this.searchCursosModal = null;
     },
-    setSemestreAtual() {
-      if (this.semestresAtivos.primeiro && !this.semestresAtivos.segundo) {
-        this.semestreAtual = 1;
+    setSemestreAtivo() {
+      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo) {
+        this.filtroSemestres.ativo = 1;
       } else if (
-        this.semestresAtivos.segundo &&
-        !this.semestresAtivos.primeiro
+        this.filtroSemestres.segundo &&
+        !this.filtroSemestres.primeiro
       ) {
-        this.semestreAtual = 2;
+        this.filtroSemestres.ativo = 2;
       } else if (
-        this.semestresAtivos.primeiro &&
-        this.semestresAtivos.primeiro
+        this.filtroSemestres.primeiro &&
+        this.filtroSemestres.primeiro
       ) {
-        this.semestreAtual = 3;
+        this.filtroSemestres.ativo = 3;
       } else {
-        this.semestreAtual = undefined;
+        this.filtroSemestres.ativo = undefined;
       }
     },
     xlsx(pedidos) {
@@ -743,28 +743,28 @@ export default {
 
   computed: {
     TurmasInPerfilOrdered() {
-      if (this.mainOrdenacaoPerfis.order !== null) {
+      if (this.ordenacaoPerfisMain.order !== null) {
         return _.orderBy(
           this.TurmasInPerfilFiltred,
           [
-            this.mainOrdenacaoPerfis.order,
-            this.mainOrdenacaoTurmas.order,
+            this.ordenacaoPerfisMain.order,
+            this.ordenacaoTurmasMain.order,
             "letra",
           ],
-          [this.mainOrdenacaoPerfis.type, this.mainOrdenacaoTurmas.type, "asc"]
+          [this.ordenacaoPerfisMain.type, this.ordenacaoTurmasMain.type, "asc"]
         );
       }
       return _.orderBy(
         this.TurmasInPerfilFiltred,
-        [this.mainOrdenacaoTurmas.order, "periodo", "letra"],
-        [this.mainOrdenacaoTurmas.type, "asc", "asc"]
+        [this.ordenacaoTurmasMain.order, "periodo", "letra"],
+        [this.ordenacaoTurmasMain.type, "asc", "asc"]
       );
     },
     TurmasInPerfilFiltred() {
       return _.filter(this.TurmasInPerfil, (turma) => {
-        if (this.semestreAtual === 1) return turma.periodo === 1;
-        else if (this.semestreAtual === 2) return turma.periodo === 3;
-        else if (this.semestreAtual === 3) return true;
+        if (this.filtroSemestres.ativo === 1) return turma.periodo === 1;
+        else if (this.filtroSemestres.ativo === 2) return turma.periodo === 3;
+        else if (this.filtroSemestres.ativo === 3) return true;
         else return false;
       });
     },
@@ -817,15 +817,15 @@ export default {
     ModalCursosOrdered() {
       return _.orderBy(
         this.ModalCursosFiltred,
-        this.modalOrdenacaoCursos.order,
-        this.modalOrdenacaoCursos.type
+        this.ordenacaoCursosModal.order,
+        this.ordenacaoCursosModal.type
       );
     },
     PerfisOrdered() {
       return _.orderBy(
         this.Perfis,
-        this.modalOrdenacaoPerfis.order,
-        this.modalOrdenacaoPerfis.type
+        this.ordenacaoPerfisModal.order,
+        this.ordenacaoPerfisModal.type
       );
     },
     Perfis() {
