@@ -75,12 +75,17 @@ export default {
 /* Para quebrar de 2 em 2 */
 @media screen and (max-width: 1250px) and (min-width: 1106px) {
   .container-horarios {
-    margin-right: 27% !important;
+    padding-right: 25% !important;
   }
 }
-@media screen and (max-width: 1105px) and (min-width: 944px) {
+@media screen and (max-width: 1150px) and (min-width: 1100px) {
   .container-horarios {
-    margin-right: 15% !important;
+    padding-right: 20% !important;
+  }
+}
+@media screen and (max-width: 1100px) and (min-width: 944px) {
+  .container-horarios {
+    padding-right: 15% !important;
   }
 }
 </style>

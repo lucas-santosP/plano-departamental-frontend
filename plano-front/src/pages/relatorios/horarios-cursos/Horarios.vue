@@ -28,7 +28,7 @@
     </PageTitle>
 
     <div class="row w-100 m-0">
-      <div v-show="semestre1IsActived">
+      <div v-show="semestre1IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length"
           class="semestre-title w-100 px-2 bg-custom"
@@ -53,7 +53,7 @@
         </template>
       </div>
 
-      <div v-show="semestre2IsActived">
+      <div v-show="semestre2IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length"
           class="semestre-title w-100 px-2 bg-custom"
