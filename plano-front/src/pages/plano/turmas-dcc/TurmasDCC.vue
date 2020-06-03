@@ -62,7 +62,7 @@
 
     <div class="divTable" v-if="!isLoading">
       <table class="table main-table table-hover table-sm table-bordered">
-        <thead class="thead-light sticky">
+        <thead class="thead-light max-content sticky">
           <tr>
             <TurmaHeader
               :cursosSelecteds="filtroCursos.ativados"
@@ -117,7 +117,7 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div style="font-size: 11px !important;" class="max-content">
+              <div class="max-content sticky">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -166,10 +166,7 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="max-content sticky"
-              >
+              <div class="max-content sticky">
                 <th>
                   <div class="m-0 input-group input-group-search">
                     <input
@@ -194,7 +191,7 @@
               </div>
             </tr>
             <tr>
-              <div style="font-size: 11px !important;" class=" max-content">
+              <div class="max-content sticky2">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -258,7 +255,7 @@
         >
           <thead class="thead-light sticky">
             <tr>
-              <div style="font-size: 11px !important;" class="max-content">
+              <div class="max-content sticky">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
                 </th>
@@ -478,7 +475,6 @@ import { EventBus } from "@/event-bus.js";
 import { saveAs } from "file-saver";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
-
 import TurmaHeader from "./TurmaHeader.vue";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";

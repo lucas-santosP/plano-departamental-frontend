@@ -371,7 +371,7 @@
         <table class="table table-sm modal-table table-bordered">
           <thead class="thead-light sticky">
             <!-- search bar disciplinas -->
-            <tr v-if="nav_ativo === 'disciplinas'">
+            <tr v-show="nav_ativo === 'disciplinas'">
               <div
                 style="font-size: 11px !important;"
                 class="max-content sticky"
@@ -400,7 +400,7 @@
               </div>
             </tr>
             <!-- perfis -->
-            <tr v-if="nav_ativo === 'perfis'" class="sticky">
+            <tr v-show="nav_ativo === 'perfis'" class="sticky">
               <div class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -425,7 +425,7 @@
               </div>
             </tr>
             <!-- disciplinas -->
-            <tr v-else-if="nav_ativo === 'disciplinas'" class="sticky2">
+            <tr v-show="nav_ativo === 'disciplinas'" class="sticky2">
               <div class="max-content">
                 <th>
                   <p
@@ -496,7 +496,7 @@
               </div>
             </tr>
             <!-- semestre -->
-            <tr v-else class="sticky">
+            <tr v-show="nav_ativo === 'semestre'" class="sticky">
               <div class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -509,7 +509,7 @@
               </div>
             </tr>
           </thead>
-          <tbody v-if="nav_ativo === 'perfis'">
+          <tbody v-show="nav_ativo === 'perfis'">
             <tr v-for="perfil in Perfis_Modal" :key="'perfil-id' + perfil.id">
               <div class="max-content">
                 <td>
@@ -530,7 +530,7 @@
               </div>
             </tr>
           </tbody>
-          <tbody v-else-if="nav_ativo === 'disciplinas'">
+          <tbody v-show="nav_ativo === 'disciplinas'">
             <tr
               v-for="disciplina in Disciplinas_Filtred"
               :key="'disciplina' + disciplina.id"
@@ -565,7 +565,7 @@
               </div>
             </tr>
           </tbody>
-          <tbody v-else>
+          <tbody v-show="nav_ativo === 'semestre'">
             <tr>
               <div style="width: max-content;">
                 <td>
@@ -604,7 +604,7 @@
 
       <div slot="modal-footer" class="w-100 m-0 p-0 d-flex">
         <div class="w-100">
-          <template v-if="nav_ativo == 'disciplinas'">
+          <template v-if="nav_ativo === 'disciplinas'">
             <b-button
               class="btn-azul btn-modal btn-custom"
               variant="success"
@@ -618,7 +618,7 @@
               >Desmarcar Todos</b-button
             >
           </template>
-          <template v-else-if="nav_ativo == 'perfis'">
+          <template v-else-if="nav_ativo === 'perfis'">
             <b-button
               class="btn-azul btn-modal btn-custom"
               variant="success"
