@@ -497,7 +497,7 @@ export default {
       error: undefined,
       turmaSelected: null,
       turmaAddIsVisible: false,
-      ordenacaoTurmasMain: { order: "periodo", type: "asc" },
+      ordenacaoTurmasMain: { order: "disciplinaCodigo", type: "asc" },
       ordenacaoPerfisMain: { order: "perfilNome", type: "asc" },
       filtroPerfis: {
         ativados: [],
@@ -609,21 +609,13 @@ export default {
       this.searchCursosModal = null;
     },
     setSemestreAtivo() {
-      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo) {
+      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
-      } else if (
-        this.filtroSemestres.segundo &&
-        !this.filtroSemestres.primeiro
-      ) {
+      else if (this.filtroSemestres.segundo && !this.filtroSemestres.primeiro)
         this.filtroSemestres.ativo = 2;
-      } else if (
-        this.filtroSemestres.primeiro &&
-        this.filtroSemestres.primeiro
-      ) {
+      else if (this.filtroSemestres.primeiro && this.filtroSemestres.primeiro)
         this.filtroSemestres.ativo = 3;
-      } else {
-        this.filtroSemestres.ativo = undefined;
-      }
+      else this.filtroSemestres.ativo = undefined;
     },
     xlsx(pedidos) {
       xlsx
@@ -739,29 +731,35 @@ export default {
 
   computed: {
     TurmasInPerfilOrdered() {
+      let turmasResult = _.orderBy(
+        this.TurmasInPerfilFiltred,
+        [this.ordenacaoTurmasMain.order, "letra"],
+        [this.ordenacaoTurmasMain.type, "asc"]
+      );
+
       if (this.ordenacaoPerfisMain.order !== null) {
-        return _.orderBy(
-          this.TurmasInPerfilFiltred,
-          [
-            this.ordenacaoPerfisMain.order,
-            this.ordenacaoTurmasMain.order,
-            "letra",
-          ],
-          [this.ordenacaoPerfisMain.type, this.ordenacaoTurmasMain.type, "asc"]
+        turmasResult = _.orderBy(
+          turmasResult,
+          this.ordenacaoPerfisMain.order,
+          this.ordenacaoPerfisMain.type
         );
       }
-      return _.orderBy(
-        this.TurmasInPerfilFiltred,
-        [this.ordenacaoTurmasMain.order, "periodo", "letra"],
-        [this.ordenacaoTurmasMain.type, "asc", "asc"]
-      );
+
+      return _.orderBy(turmasResult, "periodo");
     },
+
     TurmasInPerfilFiltred() {
       return _.filter(this.TurmasInPerfil, (turma) => {
-        if (this.filtroSemestres.ativo === 1) return turma.periodo === 1;
-        else if (this.filtroSemestres.ativo === 2) return turma.periodo === 3;
-        else if (this.filtroSemestres.ativo === 3) return true;
-        else return false;
+        switch (this.filtroSemestres.ativo) {
+          case 1:
+            return turma.periodo === 1;
+          case 2:
+            return turma.periodo === 3;
+          case 3:
+            return true;
+          default:
+            return false;
+        }
       });
     },
     TurmasInPerfil() {

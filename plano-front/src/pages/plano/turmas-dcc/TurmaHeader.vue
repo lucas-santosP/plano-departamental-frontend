@@ -6,10 +6,9 @@
     <th scope="col">
       <p style="width:40px" class="p-header">Editar</p>
     </th>
-    <th class="clickable" @click="$emit('toggle-order', 'periodo')">
+    <th>
       <p style="width:50px" class="p-header" title="Semestre">
         S.
-        <i :class="setIconByOrder(currentOrder, 'periodo')"></i>
       </p>
     </th>
     <th
