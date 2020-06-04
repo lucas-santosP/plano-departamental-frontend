@@ -30,344 +30,259 @@
     </PageTitle>
 
     <div class="divTable p-0" ref="carga">
-      <table class="main-table table table-bordered table-hover table-sm">
-        <thead class="thead-light max-content sticky">
-          <tr>
-            <div style="font-size: 11px !important;" class="max-content sticky">
-              <th scope="col">
-                <p
-                  class="p-header clickable"
-                  style="width: 130px; text-align: start !important;"
-                  @click="toggleOrder(orednacaoDocentesMain, 'apelido')"
-                >
-                  Nome
-                  <i
-                    style="font-size: 0.6rem;"
-                    :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"
-                  ></i>
-                </p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 24px;">S.</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 80px;">Cod</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 300px;">Disciplina</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 24px;">T.</p>
-              </th>
-              <th scope="col">
-                <p class="p-header" style="width: 180px;">Horário</p>
-              </th>
-              <th scope="col" id="IDcreditos1">
-                <p class="p-header" style="width: 32px;">CS1</p>
-                <b-popover
-                  :target="'IDcreditos1'"
-                  placement="bottom"
-                  triggers="hover focus"
-                >
-                  <p>Somatório dos créditos no 1º semestre</p>
-                </b-popover>
-              </th>
-              <th scope="col" id="IDcreditos2">
-                <p class="p-header" style="width: 32px;">CS2</p>
-                <b-popover
-                  :target="'IDcreditos2'"
-                  placement="bottom"
-                  triggers="hover focus"
-                >
-                  <p>Somatório dos créditos no 2º semestre</p>
-                </b-popover>
-              </th>
-              <th scope="col" id="creditostotal">
-                <p class="p-header" style="width: 42px;">CTotal</p>
-                <b-popover
-                  :target="'creditostotal'"
-                  placement="bottom"
-                  triggers="hover focus"
-                >
-                  <p>Somatório total dos créditos</p>
-                </b-popover>
-              </th>
-            </div>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="professor in DocentesOrderedMain">
-            <tr class="prof-td" :key="professor.apelido">
-              <div class="max-content">
-                <td>
-                  <p style="width: 130px; text-align: start !important;">
-                    {{ professor.apelido }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 24px;"></p>
-                </td>
-                <td>
-                  <p style="width: 80px;"></p>
-                </td>
-                <td>
-                  <p style="width: 300px"></p>
-                </td>
-                <td>
-                  <p style="width: 24px;"></p>
-                </td>
-                <td>
-                  <p style="width: 180px;"></p>
-                </td>
-                <td>
-                  <p style="width: 32px;">{{ professor.cred1 }}</p>
-                </td>
-                <td>
-                  <p style="width: 32px;">{{ professor.cred2 }}</p>
-                </td>
-                <td>
-                  <p style="width: 42px;">
-                    {{ professor.cred1 + professor.cred2 }}
-                  </p>
-                </td>
-              </div>
+      <TableMain>
+        <template #thead>
+          <th
+            @click="toggleOrder(orednacaoDocentesMain, 'apelido')"
+            style="width: 130px"
+            class="clickable t-start"
+          >
+            Nome
+            <i :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"></i>
+          </th>
+          <th style="width: 25px">
+            S.
+          </th>
+          <th style="width: 80px">
+            Cód.
+          </th>
+          <th style="width: 300px" class="t-start">
+            Disciplina
+          </th>
+          <th style="width: 25px">
+            T.
+          </th>
+          <th style="width: 180px">
+            Horário
+          </th>
+          <th style="width: 35px" id="IDcreditos1">
+            CS1
+            <b-popover
+              :target="'IDcreditos1'"
+              placement="bottom"
+              triggers="hover focus"
+            >
+              <p>Somatório dos créditos no 1º semestre</p>
+            </b-popover>
+          </th>
+          <th style="width: 35px" id="IDcreditos2">
+            CS2
+            <b-popover
+              :target="'IDcreditos2'"
+              placement="bottom"
+              triggers="hover focus"
+            >
+              <p>Somatório dos créditos no 2º semestre</p>
+            </b-popover>
+          </th>
+          <th style="width: 45px" id="creditostotal">
+            CTotal
+            <b-popover
+              :target="'creditostotal'"
+              placement="bottom"
+              triggers="hover focus"
+            >
+              <p>Somatório total dos créditos</p>
+            </b-popover>
+          </th>
+        </template>
+        <template #tbody>
+          <template v-for="docente in DocentesOrderedMain">
+            <tr class="docente-tr" :key="'docentes' + docente.apelido">
+              <td style="width: 130px" class="t-start">
+                {{ docente.apelido }}
+              </td>
+              <td style="width: 25px"></td>
+              <td style="width: 80px"></td>
+              <td style="width: 300px" class="t-start"></td>
+              <td style="width: 25px"></td>
+              <td style="width: 180px"></td>
+              <td style="width: 35px">
+                {{ docente.cred1 }}
+              </td>
+              <td style="width: 35px">
+                {{ docente.cred2 }}
+              </td>
+              <td style="width: 45px">
+                {{ docente.cred1 + docente.cred2 }}
+              </td>
             </tr>
 
-            <template v-for="turma in turmasInDocentes1Semestre(professor)">
-              <tr :key="'turma' + turma.id + professor.apelido">
-                <div class="max-content">
-                  <td>
-                    <p style="width: 130px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.periodo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 80px;">{{ turma.disciplina_codigo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 300px;">{{ turma.disciplina_nome }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.letra }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 180px">
-                      <span v-for="horario in Horarios" :key="horario.id">
-                        {{
-                          horario.id === turma.Horario1 ? horario.horario : ""
-                        }}
-                        {{
-                          horario.id === turma.Horario2
-                            ? " / " + horario.horario
-                            : ""
-                        }}
-                      </span>
-                    </p>
-                  </td>
+            <template v-for="turma in turmasInDocentes1Semestre(docente)">
+              <tr :key="'1turmas' + turma.id + docente.apelido">
+                <td style="width: 130px"></td>
+                <td style="width: 25px">
+                  {{ turma.periodo }}
+                </td>
+                <td style="width: 80px">
+                  {{ turma.disciplina_codigo }}
+                </td>
+                <td style="width: 300px" class="t-start">
+                  {{ turma.disciplina_nome }}
+                </td>
+                <td style="width: 25px">
+                  {{ turma.letra }}
+                </td>
+                <td style="width: 180px">
+                  <span v-for="horario in Horarios" :key="horario.id">
+                    {{ horario.id === turma.Horario1 ? horario.horario : "" }}
+                    {{
+                      horario.id === turma.Horario2
+                        ? " / " + horario.horario
+                        : ""
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      <span v-if="turma.periodo === 1">
-                        {{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  <span v-if="turma.periodo === 1">
+                    {{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width:32px">
-                      <span v-if="turma.periodo === 3"
-                        >{{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width:35px">
+                  <span v-if="turma.periodo === 3"
+                    >{{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 42px;"></p>
-                  </td>
-                </div>
+                <td style="width: 45px"></td>
               </tr>
             </template>
 
-            <template v-for="carga in cargasPos1(professor.id)">
-              <tr :key="'cargaPos' + carga.id + 'professor' + professor.id">
-                <div class="max-content">
-                  <td>
-                    <p style="width: 130px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ carga.trimestre }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 80px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 300px;" class="toUpperCase">
-                      Disciplina do {{ carga.programa }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 180px;"></p>
-                  </td>
+            <template v-for="carga in cargasPos1(docente.id)">
+              <tr :key="'1cargaPos' + carga.id + docente.id">
+                <td style="width: 130px"></td>
+                <td style="width: 25px">
+                  {{ carga.trimestre }}
+                </td>
+                <td style="width: 80px"></td>
+                <td style="width: 300px" class="t-start toUpperCase">
+                  Disciplina do {{ carga.programa }}
+                </td>
+                <td style="width: 25px"></td>
+                <td style="width: 180px"></td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      {{
-                        carga.trimestre == 1 || carga.trimestre == 2
-                          ? carga.creditos
-                          : ""
-                      }}
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  {{
+                    carga.trimestre == 1 || carga.trimestre == 2
+                      ? carga.creditos
+                      : ""
+                  }}
+                </td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      {{
-                        carga.trimestre == 3 || carga.trimestre == 4
-                          ? carga.creditos
-                          : ""
-                      }}
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  {{
+                    carga.trimestre == 3 || carga.trimestre == 4
+                      ? carga.creditos
+                      : ""
+                  }}
+                </td>
 
-                  <td><p style="width: 42px;"></p></td>
-                </div>
+                <td style="width: 45px"></td>
               </tr>
             </template>
 
-            <template v-for="turma in turmasInDocentes2Semestre(professor)">
-              <tr :key="'turma' + turma.id + professor.apelido">
-                <div class="max-content">
-                  <td>
-                    <p style="width: 130px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.periodo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 80px;">{{ turma.disciplina_codigo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 300px;">{{ turma.disciplina_nome }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.letra }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 180px">
-                      <span v-for="horario in Horarios" :key="horario.id">
-                        {{
-                          horario.id === turma.Horario1 ? horario.horario : ""
-                        }}
-                        {{
-                          horario.id === turma.Horario2
-                            ? " / " + horario.horario
-                            : ""
-                        }}
-                      </span>
-                    </p>
-                  </td>
+            <template v-for="turma in turmasInDocentes2Semestre(docente)">
+              <tr :key="'2turmas' + turma.id + docente.apelido">
+                <td style="width: 130px"></td>
+                <td style="width: 25px">
+                  {{ turma.periodo }}
+                </td>
+                <td style="width: 80px">
+                  {{ turma.disciplina_codigo }}
+                </td>
+                <td style="width: 300px" class="t-start">
+                  {{ turma.disciplina_nome }}
+                </td>
+                <td style="width: 25px">
+                  {{ turma.letra }}
+                </td>
+                <td style="width: 180px">
+                  <span v-for="horario in Horarios" :key="horario.id">
+                    {{ horario.id === turma.Horario1 ? horario.horario : "" }}
+                    {{
+                      horario.id === turma.Horario2
+                        ? " / " + horario.horario
+                        : ""
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      <span v-if="turma.periodo === 1">
-                        {{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  <span v-if="turma.periodo === 1">
+                    {{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width:32px">
-                      <span v-if="turma.periodo === 3"
-                        >{{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width:35px">
+                  <span v-if="turma.periodo === 3"
+                    >{{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 42px;"></p>
-                  </td>
-                </div>
+                <td style="width: 45px"></td>
               </tr>
             </template>
 
-            <template v-for="carga in cargasPos2(professor.id)">
-              <tr :key="'cargaPos' + carga.id + 'professor' + professor.id">
-                <div class="max-content">
-                  <td>
-                    <p style="width: 130px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ carga.trimestre }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 80px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 300px;" class="toUpperCase">
-                      Disciplina do {{ carga.programa }}
-                    </p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 180px;"></p>
-                  </td>
+            <template v-for="carga in cargasPos2(docente.id)">
+              <tr :key="'2cargaPos' + carga.id + docente.id">
+                <td style="width: 130px"></td>
+                <td style="width: 25px">
+                  {{ carga.trimestre }}
+                </td>
+                <td style="width: 80px"></td>
+                <td style="width: 300px" class="t-start toUpperCase">
+                  Disciplina do {{ carga.programa }}
+                </td>
+                <td style="width: 25px"></td>
+                <td style="width: 180px"></td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      {{
-                        carga.trimestre == 1 || carga.trimestre == 2
-                          ? carga.creditos
-                          : ""
-                      }}
-                    </p>
-                  </td>
+                <td style="width: 32px">
+                  {{
+                    carga.trimestre == 1 || carga.trimestre == 2
+                      ? carga.creditos
+                      : ""
+                  }}
+                </td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      {{
-                        carga.trimestre == 3 || carga.trimestre == 4
-                          ? carga.creditos
-                          : ""
-                      }}
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  {{
+                    carga.trimestre == 3 || carga.trimestre == 4
+                      ? carga.creditos
+                      : ""
+                  }}
+                </td>
 
-                  <td><p style="width: 42px;"></p></td>
-                </div>
+                <td style="width: 45px"></td>
               </tr>
             </template>
           </template>
@@ -375,119 +290,78 @@
           <template
             v-if="turmasSemAlocacao().length > 0 && docenteSemAlocacao.ativado"
           >
-            <div class="max-content">
-              <td class="prof-td">
-                <div style="width: 130px;">SEM ALOCAÇÃO</div>
+            <tr class="docente-tr">
+              <td style="width: 130px" class="t-start">
+                SEM ALOCAÇÃO
               </td>
-              <td class="prof-td">
-                <div style="width: 24px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 80px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 300px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 24px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 180px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 32px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 32px;"></div>
-              </td>
-              <td class="prof-td">
-                <div style="width: 42px;"></div>
-              </td>
-            </div>
+              <td style="width: 25px"></td>
+              <td style="width: 80px"></td>
+              <td style="width: 300px"></td>
+              <td style="width: 25px"></td>
+              <td style="width: 180px"></td>
+              <td style="width: 35px"></td>
+              <td style="width: 35px"></td>
+              <td style="width: 45px"></td>
+            </tr>
 
             <template v-for="turma in turmasSemAlocacao()">
-              <tr :key="'turma' + turma.id + 'semAlocacao'">
-                <div class="max-content">
-                  <td>
-                    <p style="width: 130px;"></p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.periodo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 80px;">{{ turma.disciplina_codigo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 300px;">{{ turma.disciplina_nome }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 24px;">{{ turma.letra }}</p>
-                  </td>
-                  <td>
-                    <p style="width:180px">
-                      <template v-for="horario in Horarios">
-                        <span :key="horario.id">
-                          {{
-                            horario.id === turma.Horario1 ? horario.horario : ""
-                          }}
-                          {{
-                            horario.id === turma.Horario2
-                              ? " / " + horario.horario
-                              : ""
-                          }}
-                        </span>
-                      </template>
-                    </p>
-                  </td>
+              <tr :key="'semAlocacao' + turma.id">
+                <td style="width: 130px"></td>
+                <td style="width: 25px">
+                  {{ turma.periodo }}
+                </td>
+                <td style="width: 80px">
+                  {{ turma.disciplina_codigo }}
+                </td>
+                <td style="width: 300px" class="t-start">
+                  {{ turma.disciplina_nome }}
+                </td>
+                <td style="width: 25px">
+                  {{ turma.letra }}
+                </td>
+                <td style="width:180px">
+                  <span v-for="horario in Horarios" :key="horario.id">
+                    {{ horario.id === turma.Horario1 ? horario.horario : "" }}
+                    {{
+                      horario.id === turma.Horario2
+                        ? " / " + horario.horario
+                        : ""
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 32px">
-                      <span v-if="turma.periodo === 1">
-                        {{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  <span v-if="turma.periodo === 1">
+                    {{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <p style="width: 32px;">
-                      <span v-if="turma.periodo === 3">
-                        {{
-                          turma.Docente1 > 0 && turma.Docente2 > 0
-                            ? (turma.disciplina_cargaTeorica +
-                                turma.disciplina_cargaPratica) /
-                              2
-                            : turma.disciplina_cargaTeorica +
-                              turma.disciplina_cargaPratica
-                        }}
-                      </span>
-                    </p>
-                  </td>
+                <td style="width: 35px">
+                  <span v-if="turma.periodo === 3">
+                    {{
+                      turma.Docente1 > 0 && turma.Docente2 > 0
+                        ? (turma.disciplina_cargaTeorica +
+                            turma.disciplina_cargaPratica) /
+                          2
+                        : turma.disciplina_cargaTeorica +
+                          turma.disciplina_cargaPratica
+                    }}
+                  </span>
+                </td>
 
-                  <td>
-                    <div style="width: 42px;"></div>
-                  </td>
-                </div>
+                <td style="width: 45px"></td>
               </tr>
             </template>
           </template>
-
-          <template v-if="Docentes.length === 0">
-            <tr>
-              <td colspan="2" class="text-center">
-                <i class="fas fa-exclamation-triangle"></i> Nenhum curso
-                encontrado!
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+        </template>
+      </TableMain>
     </div>
 
     <b-modal
@@ -521,7 +395,7 @@
       </div>
     </b-modal>
 
-    <!-- Modals do botão para escolher docentes -->
+    <!-- MODAL FILTROS -->
     <b-modal
       id="modalFiltros"
       ref="modalFiltros"
@@ -529,16 +403,7 @@
       size="md"
       title="Filtros"
     >
-      <div class="p-0 m-0" style="height: 30px; width: 465px;">
-        <ul
-          class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px !important; height: 30px;"
-        >
-          <li class="nav-item">
-            <a class="nav-link active border clickable">Docentes</a>
-          </li>
-        </ul>
-      </div>
+      <NavTab :currentTab="'Docentes'" :allTabs="['Docentes']" />
 
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <!-- TABLE PROFS -->
@@ -699,11 +564,13 @@
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import PageTitle from "@/components/PageTitle";
+import NavTab from "@/components/NavTab";
+import TableMain from "@/components/TableMain";
 import ordenacaoMixin from "@/ordenacao-mixin";
 
 export default {
   name: "DashboardCargaProfessores",
-  components: { PageTitle },
+  components: { PageTitle, TableMain, NavTab },
   mixins: [ordenacaoMixin],
   data() {
     return {
@@ -948,114 +815,14 @@ export default {
 </script>
 
 <style scoped>
-.main-table .p-header {
-  padding: 0 5px 0 5px !important;
-  margin: 0 !important;
-  font-size: 11px !important;
-  text-align: center;
-  height: 18px;
-}
-.divTable {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
-
-.main-table {
-  display: block !important;
-  overflow-y: scroll !important;
-  overflow-x: auto !important;
-  font-size: 11px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
-}
-tbody {
-  max-height: 100%;
-  width: 100%;
-}
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-}
-
-.main-table p {
-  margin-bottom: 0 !important;
-  text-align: center;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.main-table tr thead {
-  display: block;
-}
-.main-table thead th {
-  padding: 0 !important;
-  font-size: 14px;
-  text-align: center;
-  height: 18px !important;
-}
-.main-table select {
-  height: 15px !important;
-  text-align: left;
-}
-.main-table input {
-  height: 18px !important;
-  text-align: center !important;
-}
-.main-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-}
-
-.sticky {
-  display: block !important;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 0 !important;
-  display: block !important;
-  overflow: hidden !important;
-  z-index: 3;
-}
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-
 .toUpperCase {
   text-transform: uppercase;
 }
-.prof-td {
+.docente-tr {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
 }
 
-/* Formularios no topo da tela */
-.form-inline {
-  width: auto;
-}
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block !important;
@@ -1131,7 +898,7 @@ tbody {
 
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
-  .main-table select {
+  /* .main-table select {
     height: 15px !important;
     text-align: left;
     -moz-box-sizing: border-box;
@@ -1154,7 +921,7 @@ tbody {
     -moz-border-radius: 2px;
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
-  }
+  } */
 }
 .list-group-item:hover {
   text-decoration: underline;
