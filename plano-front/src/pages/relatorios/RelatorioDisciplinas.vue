@@ -1,5 +1,5 @@
 <template>
-  <div class="DashboardRelatorioDisciplinas row p-0">
+  <div class="main-component row p-0">
     <PageTitle :title="'Plano Departamental'">
       <template #aside>
         <b-button
@@ -29,7 +29,7 @@
       </template>
     </PageTitle>
 
-    <div class="divTable p-0">
+    <div class="div-table p-0">
       <table class="main-table table table-bordered table-hover table-sm">
         <thead class="thead-light max-content sticky">
           <tr>
@@ -1303,27 +1303,6 @@ export default {
 </script>
 
 <style scoped>
-.DashboardRelatorioDisciplinas {
-  max-width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
-.titulo {
-  font-size: 25px;
-  font-weight: normal;
-  padding-left: 0;
-  margin: 0 !important;
-}
-/* main-table */
-.divTable {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
 .main-table {
   display: block !important;
   overflow-y: scroll !important;

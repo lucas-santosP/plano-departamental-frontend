@@ -31,12 +31,12 @@
 
     <div class="row w-100 m-0">
       <div v-show="hasLaboratorioAtivos && semestre1IsActived" class="w-100">
-        <h2 class="semestre-title w-100 px-1 bg-custom">
+        <h2 class="semestre-title pl-1 bg-custom">
           1º SEMESTRE
         </h2>
         <div class="container-horarios pl-1">
           <template v-for="lab in filtroLaboratorios.ativados">
-            <div class="div-table p-0" :key="'1-lab-id' + lab.id">
+            <div class="div-table" :key="'1-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
               <TableHorariosLab
                 :laboratorio="lab"
@@ -48,12 +48,12 @@
       </div>
 
       <div v-show="hasLaboratorioAtivos && semestre2IsActived" class="w-100">
-        <h2 class="semestre-title w-100 px-1 bg-custom">
+        <h2 class="semestre-title pl-1 bg-custom">
           2º SEMESTRE
         </h2>
         <div class="container-horarios pl-1">
           <template v-for="lab in filtroLaboratorios.ativados">
-            <div class="div-table p-0" :key="'2-lab-id' + lab.id">
+            <div class="div-table" :key="'2-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
 
               <TableHorariosLab
@@ -68,9 +68,9 @@
 
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
       <NavTab
-        :currentTab="modalTabAtiva"
+        :currentTab="tabAtivaModal"
         :allTabs="['Laborátorios', 'Semestre']"
-        @change-tab="modalTabAtiva = $event"
+        @change-tab="tabAtivaModal = $event"
       />
 
       <div
@@ -78,7 +78,7 @@
         style="width: max-content; height: 450px !important;"
       >
         <table
-          v-show="modalTabAtiva === 'Semestre'"
+          v-show="tabAtivaModal === 'Semestre'"
           class="modal-table table table-bordered table-sm"
           style="max-height: 392px !important;"
         >
@@ -136,7 +136,7 @@
         </table>
         <!-- TABLE LABS -->
         <table
-          v-show="modalTabAtiva === 'Laborátorios'"
+          v-show="tabAtivaModal === 'Laborátorios'"
           class="modal-table table table-sm table-bordered"
           style="max-height: 392px !important;"
         >
@@ -191,7 +191,7 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <template v-if="modalTabAtiva == 'Semestre'">
+          <template v-if="tabAtivaModal == 'Semestre'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -291,7 +291,7 @@ export default {
         segundo: true,
         ativo: 3,
       },
-      modalTabAtiva: "Laborátorios",
+      tabAtivaModal: "Laborátorios",
       ordenacaoLabs: { order: "nome", type: "asc" },
     };
   },
@@ -332,7 +332,7 @@ export default {
       this.filtroLaboratorios.ativados = [
         ..._.orderBy(this.filtroLaboratorios.selecionados, "nome"),
       ];
-      this.modalTabAtiva = "Laborátorios";
+      this.tabAtivaModal = "Laborátorios";
       this.$refs.modalFiltros.hide();
     },
     selectAllLabs() {
@@ -388,47 +388,24 @@ export default {
 
 <style scoped>
 .semestre-title {
-  clear: both;
-  display: block;
-  padding-top: 0px;
-  text-align: start !important;
+  width: 100%;
+  font-size: 18px !important;
   font-weight: bold;
-  font-size: 18px;
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
+  text-align: start;
 }
 .lab-title {
   width: 100%;
-  text-align: start !important;
+  text-align: start;
   font-size: 12px !important;
-  font-weight: bold !important;
+  font-weight: bold;
 }
 .container-horarios {
   width: 100% !important;
-  max-width: 1550px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-}
-.container-horarios .div-table {
-  min-width: max-content;
-}
-
-@media screen and (min-width: 1570px) and (max-width: 1741px) {
-  .container-horarios {
-    margin-right: 10% !important;
-  }
-}
-@media screen and (min-width: 1741px) and (max-width: 1905px) {
-  .container-horarios {
-    margin-right: 18% !important;
-  }
-}
-@media screen and (min-width: 1906px) and (max-width: 1965px) {
-  .container-horarios {
-    margin-right: 22% !important;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 381px);
+  justify-content: space-between;
+  grid-gap: 5px;
+  grid-row-gap: 20px;
+  margin-bottom: 20px;
 }
 </style>

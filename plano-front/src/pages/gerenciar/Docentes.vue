@@ -13,8 +13,8 @@
     </PageTitle>
 
     <div class="row w-100 m-0">
-      <div class="p-0 divTable">
-        <TableMain>
+      <div class="p-0 div-table">
+        <BaseTable>
           <template #thead>
             <th
               class="clickable t-start"
@@ -75,7 +75,7 @@
               </tr>
             </template>
           </template>
-        </TableMain>
+        </BaseTable>
       </div>
 
       <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
@@ -274,7 +274,7 @@ import _ from "lodash";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import PageTitle from "@/components/PageTitle";
-import TableMain from "@/components/TableMain";
+import BaseTable from "@/components/BaseTable";
 import Card from "@/components/Card";
 
 const emptyDocente = {
@@ -292,7 +292,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardDocente",
-  components: { PageTitle, TableMain, Card },
+  components: { PageTitle, BaseTable, Card },
   data() {
     return {
       docenteForm: _.clone(emptyDocente),
@@ -306,7 +306,7 @@ export default {
   created() {
     if (!this.Admin) {
       this.$notify({
-        group: "second",
+        group: "general",
         title: "Erro",
         text:
           "Acesso negado! Usuário não possui permissão para acessar esta página!",
@@ -437,7 +437,9 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `O Perfil ${perfilData.nome} foi associado ao Docente ${this.docenteForm.apelido}!`,
+            text: `O Perfil ${perfilData.nome} foi associado ao Docente ${
+              this.docenteForm.apelido
+            }!`,
             type: "success",
           });
         })
@@ -463,7 +465,9 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `O Perfil ${perfilData.nome} foi exluído do Docente ${this.docenteForm.apelido}!`,
+            text: `O Perfil ${perfilData.nome} foi exluído do Docente ${
+              this.docenteForm.apelido
+            }!`,
             type: "success",
           });
         })

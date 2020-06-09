@@ -81,13 +81,13 @@
     <!-- MODAL FILTROS -->
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
       <NavTab
-        :currentTab="modalTabAtiva"
+        :currentTab="tabAtivaModal"
         :allTabs="['Cursos', 'Semestre']"
-        v-on:change-tab="modalTabAtiva = $event"
+        v-on:change-tab="tabAtivaModal = $event"
       />
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <table
-          v-show="modalTabAtiva === 'Semestre'"
+          v-show="tabAtivaModal === 'Semestre'"
           class="table table-bordered table-sm modal-table"
         >
           <thead class="thead-light sticky">
@@ -148,7 +148,7 @@
         </table>
         <!-- TABLE CURSOS -->
         <table
-          v-show="modalTabAtiva === 'Cursos'"
+          v-show="tabAtivaModal === 'Cursos'"
           class="table table-sm modal-table table-bordered"
         >
           <thead class="thead-light sticky">
@@ -232,7 +232,7 @@
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
-          <template v-if="modalTabAtiva == 'Semestre'">
+          <template v-if="tabAtivaModal == 'Semestre'">
             <b-button
               class="btn-azul btn-custom btn-modal"
               variant="success"
@@ -311,7 +311,7 @@ export default {
       error: undefined,
       cursosAtivados: [],
       cursosSelecionados: [],
-      modalTabAtiva: "Cursos",
+      tabAtivaModal: "Cursos",
       ordemCursos: { order: "codigo", type: "asc" },
       evenCCN: "false",
       evenCCD: "false",
@@ -371,7 +371,7 @@ export default {
     btnOK() {
       this.btnOKSemestre();
       this.cursosAtivados = [...this.cursosSelecionados];
-      this.modalTabAtiva = "Cursos";
+      this.tabAtivaModal = "Cursos";
       this.$refs.modalFiltros.hide();
     },
     btnOKSemestre() {
@@ -4641,13 +4641,10 @@ export default {
   font-size: 12px;
   font-weight: normal;
 }
-
 ::v-deep .container-horarios .div-table .tg {
   border-collapse: collapse;
   border-spacing: 0;
   border-color: #ccc;
-  margin-right: 5px !important;
-  margin-bottom: 20px !important;
 }
 ::v-deep .container-horarios .div-table .tg td {
   font-family: Arial, sans-serif;

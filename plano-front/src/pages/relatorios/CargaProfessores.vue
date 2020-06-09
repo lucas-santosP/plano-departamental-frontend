@@ -29,8 +29,8 @@
       </template>
     </PageTitle>
 
-    <div class="divTable p-0" ref="carga">
-      <TableMain>
+    <div class="div-table p-0" ref="carga">
+      <BaseTable>
         <template #thead>
           <th
             @click="toggleOrder(orednacaoDocentesMain, 'apelido')"
@@ -361,7 +361,7 @@
             </template>
           </template>
         </template>
-      </TableMain>
+      </BaseTable>
     </div>
 
     <b-modal
@@ -403,123 +403,123 @@
       size="md"
       title="Filtros"
     >
-      <NavTab :currentTab="'Docentes'" :allTabs="['Docentes']" />
+      <NavTab
+        :currentTab="tabAtiva"
+        :allTabs="['Docentes', 'Semestre']"
+        @change-tab="tabAtiva = $event"
+      />
 
-      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
-        <!-- TABLE PROFS -->
-        <table
-          class="table table-sm modal-table table-bordered"
-          style="max-height: 450px !important;"
-        >
-          <thead class="thead-light sticky">
-            <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="max-content sticky"
-              >
-                <th>
-                  <div
-                    class="m-0 input-group"
-                    style="
-                      width: 462px;
-                      height: 35px;
-                      padding-left: 4px;
-                      padding-right: 20px;
-                      padding-top: 4px;
-                    "
-                  >
-                    <input
-                      type="text"
-                      class="form-control"
-                      style="border-right: none;"
-                      placeholder="Pesquise o nome de um docente..."
-                      v-model="searchDocentes"
-                    />
-                    <div
-                      class="input-group-append"
-                      @click="clearSearchDocentes()"
-                    >
-                      <span
-                        class="input-group-text"
-                        style="height: 25px; font-size: 18px; cursor: pointer;"
-                        >&times;</span
-                      >
-                    </div>
-                  </div>
-                </th>
-              </div>
-            </tr>
-
-            <tr>
-              <div style="font-size: 11px !important;" class="max-content">
-                <th>
-                  <p style="width: 25px;" class="p-header"></p>
-                </th>
-                <th>
-                  <p
-                    class="p-header clickable"
-                    style="width: 436px; text-align: start;"
-                    @click="toggleOrder(ordenacaoDocentesModal, 'apelido')"
-                  >
-                    Nome
-                    <i
-                      style="font-size: 0.6rem;"
-                      :class="setIconByOrder(ordenacaoDocentesModal, 'apelido')"
-                    ></i>
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody>
+      <div class="col m-0 p-0 max-content">
+        <TableModal v-if="tabAtiva === 'Docentes'" :hasSearchBar="true">
+          <template #thead-search>
+            <input
+              type="text"
+              class="form-control input-search"
+              style=""
+              placeholder="Pesquise o nome de um docente..."
+              v-model="searchDocentes"
+            />
+            <button @click="clearSearchDocentes()" class="btn btn-search">
+              &times;
+            </button>
+          </template>
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th
+              class="clickable t-start"
+              style="width: 425px"
+              @click="toggleOrder(ordenacaoDocentesModal, 'apelido')"
+            >
+              Nome
+              <i :class="setIconByOrder(ordenacaoDocentesModal, 'apelido')"></i>
+            </th>
+          </template>
+          <template #tbody>
             <tr
               v-for="docente in DocentesOrderedModal"
               :key="`docente${docente.id}`"
             >
               <div class="max-content">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      v-model="filtroDocentes.selecionados"
-                      :value="docente"
-                      class="form-check-input position-static m-0"
-                    />
-                  </div>
+                <td style="width: 25px;">
+                  <input
+                    type="checkbox"
+                    v-model="filtroDocentes.selecionados"
+                    :value="docente"
+                    class="form-check-input position-static m-0"
+                  />
                 </td>
-                <td>
-                  <p style="width: 436px; text-align: start;">
-                    {{ docente.apelido }}
-                  </p>
+                <td style="width: 425px;" class="t-start">
+                  {{ docente.apelido }}
                 </td>
               </div>
             </tr>
 
             <tr>
-              <div style="width: max-content;">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      v-model="docenteSemAlocacao.selecionado"
-                      class="form-check-input position-static m-0"
-                    />
-                  </div>
+              <div class="max-content">
+                <td style="width: 25px;">
+                  <input
+                    type="checkbox"
+                    v-model="docenteSemAlocacao.selecionado"
+                    class="form-check-input position-static m-0"
+                  />
                 </td>
-                <td>
-                  <p style="width: 436px; text-align: start;">SEM ALOCAÇÃO</p>
+                <td style="width: 425px;" class="t-start">
+                  SEM ALOCAÇÃO
                 </td>
               </div>
             </tr>
-          </tbody>
-        </table>
+          </template>
+        </TableModal>
+        <TableModal v-else>
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th
+              class="clickable t-start"
+              style="width: 425px"
+              @click="toggleOrder(ordenacaoDocentesModal, 'apelido')"
+            >
+              Nome
+              <i :class="setIconByOrder(ordenacaoDocentesModal, 'apelido')"></i>
+            </th>
+          </template>
+          <template #tbody>
+            <tr>
+              <div class="max-content">
+                <td style="width: 25px;">
+                  <input
+                    type="checkbox"
+                    v-model="docenteSemAlocacao.selecionado"
+                    class="form-check-input position-static m-0"
+                  />
+                </td>
+                <td style="width: 425px;" class="t-start">
+                  SEM ALOCAÇÃO
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <div class="max-content">
+                <td style="width: 25px;">
+                  <input
+                    type="checkbox"
+                    v-model="docenteSemAlocacao.selecionado"
+                    class="form-check-input position-static m-0"
+                  />
+                </td>
+                <td style="width: 425px;" class="t-start">
+                  SEM ALOCAÇÃO
+                </td>
+              </div>
+            </tr>
+          </template>
+        </TableModal>
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
         <div class="w-100">
           <b-button
             class="btn-azul btn-custom btn-modal"
-            variant="success"
+            variant="primary"
             @click="selectAllDocentes()"
             >Selecionar Todos</b-button
           >
@@ -539,7 +539,7 @@
       </div>
     </b-modal>
 
-    <!-- Modal para escolher relatório parcial ou completo-->
+    <!-- Modal de relatório parcial ou completo-->
     <b-modal
       id="modalRelatorio"
       ref="relatorioModal"
@@ -565,15 +565,17 @@ import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import PageTitle from "@/components/PageTitle";
 import NavTab from "@/components/NavTab";
-import TableMain from "@/components/TableMain";
+import BaseTable from "@/components/BaseTable";
+import TableModal from "@/components/TableModal";
 import ordenacaoMixin from "@/ordenacao-mixin";
 
 export default {
   name: "DashboardCargaProfessores",
-  components: { PageTitle, TableMain, NavTab },
+  components: { PageTitle, BaseTable, TableModal, NavTab },
   mixins: [ordenacaoMixin],
   data() {
     return {
+      tabAtiva: "Docentes",
       searchDocentes: null,
       filtroDocentes: {
         ativados: [],
@@ -822,80 +824,10 @@ export default {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
 }
-
-/* ==== MODAL TABLE ==== */
-.modal-table {
-  display: block !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  font-size: 10px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
+.list-group-item:hover {
+  text-decoration: underline;
+  background-color: #ebebeb;
 }
-.modal-table tr thead {
-  display: block;
-}
-.modal-table th {
-  padding: 0 !important;
-  text-align: center !important;
-  height: 18px !important;
-}
-
-.modal-table .p-header {
-  padding: 0px 5px 0px 5px !important;
-  margin: 0 !important;
-  text-align: start;
-  height: 18px !important;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
-.modal-table tbody {
-  max-height: 100%;
-  width: 100%;
-}
-.modal-table td {
-  border-top: 0;
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  /* height: 22px !important; */
-}
-.modal-table p {
-  margin: 0 !important;
-  text-align: center;
-  padding: 0 !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-}
-.modal-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 13px !important;
-}
-.form-control {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 2px 5px 2px 5px !important;
-  text-align: start;
-}
-/* FIM MODAL TABLE */
-/* search */
-.input-group-text:hover {
-  color: rgb(102, 102, 102);
-  background-color: #dddddd;
-}
-.input-group-text {
-  background-color: #ffffff;
-  border-left: none;
-}
-
 /* APENAS NO FIREFOX */
 @-moz-document url-prefix() {
   /* .main-table select {
@@ -922,9 +854,5 @@ export default {
     border-radius: 2px;
     background-color: rgb(245, 245, 245);
   } */
-}
-.list-group-item:hover {
-  text-decoration: underline;
-  background-color: #ebebeb;
 }
 </style>
