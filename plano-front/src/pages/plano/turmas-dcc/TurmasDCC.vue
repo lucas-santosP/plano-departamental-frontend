@@ -88,6 +88,12 @@
               @handle-click-in-edit="handleClickInEdit($event)"
             />
           </tr>
+          <tr v-if="TurmasOrdered.length === 0">
+            <td style="width:1090px">
+              <b>Nenhuma turma encontrada</b>, clique no botão de filtros para
+              seleciona-las.
+            </td>
+          </tr>
         </template>
       </BaseTable>
     </div>

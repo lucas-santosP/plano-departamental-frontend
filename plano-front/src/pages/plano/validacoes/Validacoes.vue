@@ -123,7 +123,7 @@
             </tr>
           </template>
           <tr v-show="TurmasValidacoesOrdered.length === 0">
-            <td colspan="7" style="width:690px">
+            <td style="width:690px">
               <b>Nenhum conflito encontrado</b>, clique no botão de filtros para
               seleciona-los.
             </td>
