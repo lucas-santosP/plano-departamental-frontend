@@ -223,7 +223,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-custom btn-modal px-3"
+          class="btn-verde btn-custom btn-modal btn-ok-modal"
           >OK</b-button
         >
       </div>

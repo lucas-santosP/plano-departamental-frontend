@@ -647,7 +647,7 @@
         <b-button
           variant="success"
           @click="btnOK()"
-          class="btn-verde btn-modal btn-custom px-3"
+          class="btn-verde btn-modal btn-custom btn-ok-modal"
           >OK</b-button
         >
       </div>

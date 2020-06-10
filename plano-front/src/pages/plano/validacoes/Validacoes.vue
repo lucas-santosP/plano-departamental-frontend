@@ -285,7 +285,7 @@
         <b-button
           variant="success"
           @click="btnOkFiltros()"
-          class="btn-custom btn-modal btn-verde px-3"
+          class="btn-custom btn-modal btn-verde btn-ok-modal"
           >OK</b-button
         >
       </div>

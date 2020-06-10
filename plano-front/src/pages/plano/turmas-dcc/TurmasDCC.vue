@@ -270,7 +270,7 @@
         <b-button
           variant="success"
           @click="btnOkFiltros()"
-          class="btn-verde btn-custom btn-modal px-3"
+          class="btn-verde btn-custom btn-modal btn-ok-modal"
           >OK</b-button
         >
       </div>

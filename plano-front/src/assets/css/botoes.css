@@ -29,6 +29,10 @@ button {
   width: max-content;
   padding: 0 5px !important;
 }
+.btn-ok-modal {
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+}
 .btn-modal + .btn-modal {
   margin-left: 10px !important;
 }
