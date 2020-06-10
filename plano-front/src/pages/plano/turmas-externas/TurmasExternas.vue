@@ -342,7 +342,7 @@
 
       <div slot="modal-footer" style="display: none;"></div>
     </b-modal>
-    <!-- MODAL SEMESTRE -->
+    <!-- MODAL FILTROS -->
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
       <NavTab
         :currentTab="modalTabAtiva"
@@ -384,6 +384,82 @@
             </tr>
           </template>
         </BaseTable>
+        <!-- <BaseTable
+          v-show="tabAtivaModal === 'Disciplinas'"
+          :tableType="'modal-table'"
+          :hasSearchBar="true"
+        >
+          <template #thead-search>
+            <input
+              type="text"
+              class="form-control input-search"
+              placeholder="Pesquise nome ou codigo de uma disciplina..."
+              v-model="searchDisciplinaModal"
+            />
+            <button
+              @click="clearsearchDisciplinaModal()"
+              class="btn btn-search"
+            >
+              &times;
+            </button>
+          </template>
+          <template #thead>
+            <th style="width: 25px;"></th>
+            <th
+              @click="toggleOrder(ordenacaoDisciplinaModal, 'codigo')"
+              class="clickable"
+              style="width: 50px;"
+            >
+              Cód.
+              <i
+                :class="setIconByOrder(ordenacaoDisciplinaModal, 'codigo')"
+              ></i>
+            </th>
+            <th
+              @click="toggleOrder(ordenacaoDisciplinaModal, 'nome')"
+              class="clickable t-start"
+              style="width: 375px"
+            >
+              Nome
+              <i :class="setIconByOrder(ordenacaoDisciplinaModal, 'nome')"></i>
+            </th>
+            <th
+              class="clickable t-start"
+              style="width:85px"
+              @click="toggleOrder(ordenacaoDisciplinaModal, 'perfilNome')"
+            >
+              Perfil
+              <i :class="setIconByOrder(ordenacaoDisciplinaModal, 'nome')"></i>
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="curso in ModalCursosOrdered"
+              :key="'cursoMd' + curso.id"
+              @click="addOrRemoveItem(curso, filtroCursos.selecionados)"
+            >
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  v-model="filtroCursos.selecionados"
+                  :value="curso"
+                  class="form-check-input position-static m-0"
+                />
+              </td>
+              <td style="width: 50px;">
+                {{ curso.codigo }}
+              </td>
+              <td style="width: 375px" class="t-start">
+                {{ curso.nome }}
+              </td>
+            </tr>
+            <tr v-show="ModalCursosOrdered.length === 0">
+              <td colspan="3" style="width:450px">
+                NENHUM CURSO ENCONTRADO.
+              </td>
+            </tr>
+          </template>
+        </BaseTable> -->
       </div>
 
       <div slot="modal-footer" class="w-100 m-0 d-flex">
