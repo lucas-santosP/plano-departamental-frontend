@@ -125,7 +125,7 @@
           <tr v-show="TurmasValidacoesOrdered.length === 0">
             <td style="width:690px">
               <b>Nenhum conflito encontrado</b>, clique no botão de filtros para
-              seleciona-los.
+              selecioná-los.
             </td>
           </tr>
         </template>

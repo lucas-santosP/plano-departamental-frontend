@@ -91,7 +91,7 @@
           <tr v-if="TurmasOrdered.length === 0">
             <td style="width:1090px">
               <b>Nenhuma turma encontrada</b>, clique no botão de filtros para
-              seleciona-las.
+              selecioná-las.
             </td>
           </tr>
         </template>
