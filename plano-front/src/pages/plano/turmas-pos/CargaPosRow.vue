@@ -11,7 +11,12 @@
       />
     </td>
     <td style="width: 55px">
-      <select type="text" id="programa" v-model="carga.trimestre">
+      <select
+        type="text"
+        id="programa"
+        v-model="cargaPosForm.trimestre"
+        v-on:change="editCarga()"
+      >
         <option type="text" value="1">1</option>
         <option type="text" value="2">2</option>
         <option type="text" value="3">3</option>
@@ -19,7 +24,12 @@
     </td>
 
     <td style="width: 145px">
-      <select type="text" id="docente1" v-model="carga.Docente">
+      <select
+        type="text"
+        id="docente1"
+        v-model="cargaPosForm.Docente"
+        v-on:change="editCarga()"
+      >
         <option v-if="Docentes.length === 0" type="text" value
           >Nenhum Docente Encontrado</option
         >
@@ -31,33 +41,101 @@
         >
       </select>
     </td>
+
     <td style="width: 50px">
       <input
         type="text"
         id="creditos"
-        v-model="carga.creditos"
+        v-model="cargaPosForm.creditos"
         @keypress="onlyNumber"
+        v-on:change="editCarga()"
       />
     </td>
   </div>
 </template>
+
 <script>
 import _ from "lodash";
+import cargaPosService from "@/common/services/cargaPos";
+
+const emptyCarga = {
+  id: null,
+  trimestre: null,
+  Docente: null,
+  programa: null,
+  creditos: null,
+};
 
 export default {
   name: "CargaPosRow",
   props: {
     carga: Object,
   },
-
   data() {
     return {
       ativo: false,
-      search: "",
+      cargaPosForm: _.clone(emptyCarga),
+      currentCarga: null,
     };
   },
-
+  mounted() {
+    this.cargaPosForm = _.clone(this.carga);
+    this.currentCarga = _.clone(this.carga);
+  },
   methods: {
+    isEmpty(value) {
+      return value === "" || value === undefined ? true : false;
+    },
+    convertEmptyKeysToNull(object) {
+      Object.keys(object).forEach((key) => {
+        if (this.isEmpty(object[key])) object[key] = null;
+      });
+    },
+    validateCargaPos(carga) {
+      if (
+        carga.trimestre === null ||
+        carga.Docente === null ||
+        carga.programa === null ||
+        carga.creditos === null
+      ) {
+        this.$notify({
+          title: "Erro!",
+          text: `Cadastro da carga inválido ou incompleto.`,
+          type: "error",
+          group: "general",
+        });
+        return false;
+      }
+
+      return true;
+    },
+    editCarga() {
+      const newCarga = _.clone(this.cargaPosForm);
+
+      this.convertEmptyKeysToNull(newCarga);
+      if (!this.validateCargaPos(newCarga)) {
+        this.cargaPosForm = _.clone(this.currentCarga);
+        return;
+      }
+
+      cargaPosService
+        .update(newCarga.id, newCarga)
+        .then((response) => {
+          this.$notify({
+            group: "general",
+            title: `Sucesso!`,
+            text: `A Carga ${response.CargaPos.programa} foi atualizada!`,
+            type: "success",
+          });
+        })
+        .catch((error) => {
+          this.error = "<b>Erro ao atualizar Carga</b>";
+          if (error.response.data.fullMessage) {
+            this.error +=
+              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+          }
+        });
+    },
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {

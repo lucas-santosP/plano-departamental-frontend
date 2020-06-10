@@ -14,7 +14,7 @@
           v-show="isAdding"
           title="Salvar"
           class="btn-custom btn-icon addbtn"
-          @click.prevent="toggleAdd"
+          @click.prevent="addNovaCarga()"
         >
           <i class="fas fa-check"></i>
         </b-button>
@@ -70,58 +70,7 @@
           </template>
 
           <template #tbody>
-            <tr v-show="isAdding" class="novaturma stickyAdd ">
-              <div class="max-content stickyAdd">
-                <td style="width:70px" class="less-padding">
-                  <select
-                    type="text"
-                    id="programa"
-                    v-model="cargaPosForm.programa"
-                  >
-                    <option type="text" value="PGMC">PGMC</option>
-                    <option type="text" value="PGCC">PGCC</option>
-                    <option type="text" value="PGEM">PGEM</option>
-                  </select>
-                </td>
-                <td style="width:25px"><div style="height:30px"></div></td>
-                <td style="width:55px" class="less-padding">
-                  <select
-                    type="text"
-                    id="programa"
-                    v-model="cargaPosForm.trimestre"
-                  >
-                    <option type="text" value="1">1</option>
-                    <option type="text" value="2">2</option>
-                    <option type="text" value="3">3</option>
-                  </select>
-                </td>
-                <td style="width:145px" class="less-padding">
-                  <select
-                    type="text"
-                    id="docente1"
-                    v-model="cargaPosForm.Docente"
-                  >
-                    <option v-if="Docentes.length === 0" type="text" value
-                      >Nenhum Docente Encontrado</option
-                    >
-                    <option
-                      v-for="docente in Docentes"
-                      :key="'id docente' + docente.id"
-                      :value="docente.id"
-                      >{{ docente.apelido }}</option
-                    >
-                  </select>
-                </td>
-                <td style="width:50px" class="less-padding">
-                  <input
-                    type="text"
-                    id="creditos"
-                    v-model="cargaPosForm.creditos"
-                    @keypress="onlyNumber"
-                  />
-                </td>
-              </div>
-            </tr>
+            <CargaPosNovaRow v-show="isAdding" />
 
             <tr class="bg-custom">
               <div class="max-content">
@@ -135,8 +84,6 @@
                   <tr
                     v-if="checkPGMC(carga, docente, t)"
                     :key="'MC-docente' + docente.id + 'carga' + carga.id + t"
-                    v-on:click="handleClickInTurma(carga, docente.apelido)"
-                    :class="{ 'bg-custom': linhaClickada == carga.id }"
                   >
                     <template
                       v-if="
@@ -179,8 +126,6 @@
                   <tr
                     v-if="checkPGCC(carga, docente, t)"
                     :key="'CC-docente' + docente.id + 'carga' + carga.id + t"
-                    v-on:click="handleClickInTurma(carga, docente.apelido)"
-                    :class="{ 'bg-custom': linhaClickada == carga.id }"
                   >
                     <template
                       v-if="
@@ -223,8 +168,6 @@
                   <tr
                     v-if="checkPGEM(carga, docente, t)"
                     :key="'EM-docente' + docente.id + 'carga' + carga.id + t"
-                    v-on:click="handleClickInTurma(carga, docente.apelido)"
-                    :class="{ 'bg-custom': linhaClickada == carga.id }"
                   >
                     <template
                       v-if="
@@ -258,138 +201,116 @@
         </BaseTable>
       </div>
 
-      <!-- Card -->
-      <div class="div-card p-0 mt-0 mb-2 col-auto">
-        <div class="card mr-3 ml-auto">
-          <div class="card-header">
-            <h2 class="card-title">Creditação Pós</h2>
+      <!-- <form>
+        <div class="row mb-2 mx-0">
+          <div class="form-group col-4 m-0 px-0">
+            <label for="trimestre" class="col-form-label">Trimestre</label>
+            <input
+              type="text"
+              class="inputMenor form-control form-control-sm"
+              id="trimestre"
+              v-model="cargaPosForm.trimestre"
+              @keypress="onlyNumber"
+            />
           </div>
-          <div class="card-body">
-            <form>
-              <div class="row mb-2 mx-0">
-                <div class="form-group col-4 m-0 px-0">
-                  <label for="trimestre" class="col-form-label"
-                    >Trimestre</label
-                  >
-                  <input
-                    type="text"
-                    class="inputMenor form-control form-control-sm"
-                    id="trimestre"
-                    v-model="cargaPosForm.trimestre"
-                    @keypress="onlyNumber"
-                  />
-                </div>
 
-                <div class="form-group col-8 m-0 px-0">
-                  <label for="docente" class="col-form-label">Docente</label>
-                  <select
-                    type="text"
-                    class="form-control form-control-sm selectMenor"
-                    id="docente1"
-                    v-model="cargaPosForm.Docente"
-                  >
-                    <option v-if="Docentes.length === 0" type="text" value
-                      >Nenhum Docente Encontrado</option
-                    >
-                    <option
-                      v-for="docente in Docentes"
-                      :key="'id docente' + docente.id"
-                      :value="docente.id"
-                      >{{ docente.apelido }}</option
-                    >
-                  </select>
-                </div>
-              </div>
-
-              <div class="row mb-2 mx-0">
-                <div class="form-group col-4 m-0 px-0">
-                  <label for="creditos" class="col-form-label">Créditos</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm inputMenor"
-                    id="creditos"
-                    v-model="cargaPosForm.creditos"
-                    @keypress="onlyNumber"
-                  />
-                </div>
-
-                <div class="form-group col-8 m-0 px-0">
-                  <label for="programa" class="col-form-label">Programa</label>
-                  <select
-                    type="text"
-                    class="form-control form-control-sm"
-                    id="programa"
-                    v-model="cargaPosForm.programa"
-                  >
-                    <option type="text" value="PGMC">PGMC</option>
-                    <option type="text" value="PGCC">PGCC</option>
-                    <option type="text" value="PGEM">PGEM</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Botões -->
-              <div class="row mb-0 mt-3 mx-0">
-                <div class="d-flex mr-0 ml-auto">
-                  <template v-if="isEditing">
-                    <button
-                      type="button"
-                      title="Salvar"
-                      class="btn-custom btn-icon addbtn"
-                      v-on:click.prevent="editCarga(cargaPosForm)"
-                      style="max-width:80px;"
-                    >
-                      <i class="fas fa-check"></i>
-                    </button>
-                    <button
-                      type="button"
-                      title="Deletar"
-                      class="btn-custom btn-icon delbtn"
-                      v-b-modal.modalConfirma2
-                      style="max-width:80px;"
-                    >
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="btn-custom btn-icon cancelbtn"
-                      v-on:click.prevent="cleanCarga"
-                      style="max-width:80px;"
-                    >
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </template>
-
-                  <template v-else>
-                    <button
-                      type="button"
-                      title="Adicionar"
-                      class="btn-custom btn-icon addbtn"
-                      v-on:click.prevent="addCarga"
-                      style="max-width:80px;"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
-                    <button
-                      type="button"
-                      title="Cancelar"
-                      class="btn-custom btn-icon cancelbtn"
-                      v-on:click.prevent="cleanCarga"
-                      style="max-width:80px;"
-                    >
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </template>
-                </div>
-              </div>
-            </form>
+          <div class="form-group col-8 m-0 px-0">
+            <label for="docente" class="col-form-label">Docente</label>
+            <select
+              type="text"
+              class="form-control form-control-sm selectMenor"
+              id="docente1"
+              v-model="cargaPosForm.Docente"
+            >
+              <option v-if="Docentes.length === 0" type="text" value
+                >Nenhum Docente Encontrado</option
+              >
+              <option
+                v-for="docente in Docentes"
+                :key="'id docente' + docente.id"
+                :value="docente.id"
+                >{{ docente.apelido }}</option
+              >
+            </select>
           </div>
         </div>
-      </div>
+
+        <div class="row mb-2 mx-0">
+          <div class="form-group col-4 m-0 px-0">
+            <label for="creditos" class="col-form-label">Créditos</label>
+            <input
+              type="text"
+              class="form-control form-control-sm inputMenor"
+              id="creditos"
+              v-model="cargaPosForm.creditos"
+              @keypress="onlyNumber"
+            />
+          </div>
+
+          <div class="form-group col-8 m-0 px-0">
+            <label for="programa" class="col-form-label">Programa</label>
+            <select
+              type="text"
+              class="form-control form-control-sm"
+              id="programa"
+              v-model="cargaPosForm.programa"
+            >
+              <option type="text" value="PGMC">PGMC</option>
+              <option type="text" value="PGCC">PGCC</option>
+              <option type="text" value="PGEM">PGEM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-0 mt-3 mx-0">
+          <div class="d-flex mr-0 ml-auto">
+            <template v-if="isEditing">
+              <button
+                type="button"
+                title="Salvar"
+                class="btn-custom btn-icon addbtn"
+                v-on:click.prevent="editCarga(cargaPosForm)"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button
+                type="button"
+                title="Cancelar"
+                class="btn-custom btn-icon cancelbtn"
+                v-on:click.prevent="cleanCarga"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </template>
+
+            <template v-else>
+              <button
+                type="button"
+                title="Adicionar"
+                class="btn-custom btn-icon addbtn"
+                v-on:click.prevent="addCarga"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                type="button"
+                title="Cancelar"
+                class="btn-custom btn-icon cancelbtn"
+                v-on:click.prevent="cleanCarga"
+                style="max-width:80px;"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </template>
+          </div>
+        </div>
+      </form> -->
     </div>
 
-    <!-- MODAL CONFIRMA de varias carga  -->
     <b-modal id="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
       <template v-if="Deletar.length === 0">
         <p class="my-4">Nenhuma carga selecionada!</p>
@@ -412,22 +333,6 @@
           </template>
         </template>
       </template>
-    </b-modal>
-
-    <!-- MODAL CONFIRMA de uma carga  -->
-    <b-modal
-      id="modalConfirma2"
-      title="Confirmar Seleção"
-      @ok="deleteCarga(cargaPosForm)"
-    >
-      <p class="my-4">Tem certeza que deseja deletar esta carga ?</p>
-      <p>
-        Docente:{{ apelidoDocenteClikado }}
-        <br />
-        Programa:{{ cargaPosForm.programa }}
-        <br />
-        Trimestre:{{ cargaPosForm.trimestre }}
-      </p>
     </b-modal>
 
     <!-- MODAL SEMESTRE -->
@@ -545,35 +450,36 @@
 
 <script>
 import _ from "lodash";
+import { EventBus } from "@/event-bus.js";
 import cargaPosService from "@/common/services/cargaPos";
 import CargaPosRow from "./CargaPosRow.vue";
-import PageTitle from "@/components/PageTitle.vue";
-import BaseTable from "@/components/BaseTable.vue";
-import NavTab from "@/components/NavTab.vue";
-
-const emptyCarga = {
-  id: undefined,
-  trimestre: undefined,
-  Docente: undefined,
-  programa: undefined,
-  creditos: undefined,
-};
+import CargaPosNovaRow from "./CargaPosNovaRow.vue";
+import { PageTitle, BaseTable, NavTab, Card } from "@/components/index.js";
 
 export default {
   name: "DashboardCargaPos",
   components: {
     CargaPosRow,
+    CargaPosNovaRow,
     PageTitle,
     BaseTable,
     NavTab,
+    Card,
   },
   data() {
     return {
       isAdding: false,
-      cargaPosForm: _.clone(emptyCarga),
       error: undefined,
-      atual: undefined,
       trimestre: 1,
+      filtroProgramas: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroSemestres: {
+        primeiro: true,
+        segundo: true,
+        ativo: 3,
+      },
       programa: "PGCC",
       vetorPeriodosPGMC: [1, 2, 3, 4],
       vetorPeriodosPGCC: [1, 2, 3, 4],
@@ -581,15 +487,6 @@ export default {
       ordenacaoAtualPGMC: "periodo",
       ordenacaoAtualPGCC: "periodo",
       ordenacaoAtualPGEM: "periodo",
-      scrollSize: undefined,
-      isEditing: false,
-      linhaClickada: null,
-      apelidoDocenteClikado: null,
-      filtroSemestres: {
-        primeiro: true,
-        segundo: true,
-        ativo: 3,
-      },
       modalTabAtiva: "Semestres",
       modalSelectAll: {
         Semestres: () => {
@@ -619,6 +516,14 @@ export default {
   },
 
   methods: {
+    // v-on:click="handleClickInTurma(carga, docente.apelido)"
+    // handleClickInTurma(carga, apelido) {
+    //   this.linhaClickada = carga.id;
+    //   this.cargaPosForm = _.clone(carga);
+    // },
+    addNovaCarga() {
+      EventBus.$emit("add-carga-pos");
+    },
     toggleAdd() {
       this.isAdding = !this.isAdding;
     },
@@ -640,18 +545,6 @@ export default {
       if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
         $event.preventDefault();
       }
-    },
-    clearClick() {
-      this.isEditing = false;
-      this.linhaClickada = null;
-    },
-    handleClickInTurma(carga, apelido) {
-      this.cleanCarga();
-
-      this.isEditing = true;
-      this.linhaClickada = carga.id;
-      this.apelidoDocenteClikado = apelido;
-      this.cargaPosForm = _.clone(carga);
     },
 
     toggleOrdenacaoPGMC(ordenacao) {
@@ -700,26 +593,6 @@ export default {
       else return carga.Docente === docente.id;
     },
 
-    editCarga(carga) {
-      cargaPosService
-        .update(carga.id, this.cargaPosForm)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Carga ${response.CargaPos.programa} foi atualizada!`,
-            type: "success",
-          });
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao atualizar Carga</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
-
     deleteCarga(carga) {
       cargaPosService
         .delete(carga.id)
@@ -730,7 +603,6 @@ export default {
             text: `A Carga ${response.CargaPos.programa} foi excluída!`,
             type: "success",
           });
-          this.cleanCarga();
         })
         .catch(() => {
           this.error = "<b>Erro ao excluir Carga</b>";
@@ -743,37 +615,6 @@ export default {
         this.deleteCarga(cargas[i]);
       }
       this.$store.commit("emptyDeleteCarga");
-    },
-
-    addCarga() {
-      cargaPosService
-        .create(this.cargaPosForm)
-        .then((response) => {
-          this.trimestre = response.CargaPos.trimestre;
-          this.programa = response.CargaPos.programa;
-          this.cleanCarga();
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Carga ${response.CargaPos.programa} foi criada!`,
-            type: "success",
-          });
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao criar Carga</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
-    cleanCarga() {
-      this.clearClick();
-      this.cargaPosForm = _.clone(emptyCarga);
-      this.cargaPosForm.trimestre = "";
-      this.cargaPosForm.id = "";
-      this.cargaPosForm.programa = "";
-      this.error = undefined;
     },
   },
 
@@ -895,6 +736,9 @@ export default {
       }
       return total;
     },
+    allCargas() {
+      return this.$store.state.cargaPos.Cargas;
+    },
 
     Docentes() {
       return _.orderBy(
@@ -913,7 +757,6 @@ export default {
         "trimestre"
       );
     },
-
     CargasPGMC() {
       return _.orderBy(
         _.filter(this.$store.state.cargaPos.Cargas, ["programa", "PGMC"]),
@@ -944,43 +787,6 @@ export default {
 </script>
 
 <style scoped>
-.novaturma {
-  font-size: 11px !important;
-  background-color: #cecece;
-}
-.novaturma td {
-  margin: 0 !important;
-  padding: 0 5px;
-  vertical-align: middle !important;
-  text-align: center;
-  word-break: break-word;
-}
-.novaturma .less-padding {
-  padding: 0 2px;
-}
-.novaturma select {
-  padding: 0 0 !important;
-  font-size: 11px !important;
-  width: 100% !important;
-  height: 18px !important;
-}
-.novaturma input[type="text"] {
-  font-size: 11px !important;
-  width: 100% !important;
-  height: 18px !important;
-  text-align: center !important;
-}
-.stickyAdd {
-  background-color: #cecece;
-  display: block;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 19px !important;
-  overflow: hidden !important;
-  z-index: 5 !important;
-}
-
 .div-card {
   margin-left: auto;
 }
