@@ -172,20 +172,6 @@
           </template>
         </template>
       </BaseTable>
-      <b-modal
-        id="modalEditTurma"
-        ref="modalEditTurma"
-        scrollable
-        title="Edição de Turma"
-        hide-footer
-      >
-        <template v-if="turmaClickada !== null">
-          <ModalTurma
-            :key="turmaClickada.id + 'modalTurma'"
-            :turma="turmaClickada"
-          ></ModalTurma
-        ></template>
-      </b-modal>
     </div>
 
     <!-- Modal Filtros -->
@@ -291,7 +277,20 @@
       </div>
     </b-modal>
     <!-- modal turma edit -->
-
+    <b-modal
+      id="modalEditTurma"
+      ref="modalEditTurma"
+      scrollable
+      title="Edição de Turma"
+      hide-footer
+    >
+      <template v-if="turmaClickada !== null">
+        <ModalTurma
+          :key="turmaClickada.id + 'modalTurma'"
+          :turma="turmaClickada"
+        ></ModalTurma
+      ></template>
+    </b-modal>
     <!-- MODAL AJUDA -->
     <b-modal id="modalAjuda" title="Ajuda" scrollable hide-footer>
       <div class="modal-body">
