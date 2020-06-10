@@ -25,7 +25,7 @@
       @change-tab="tabAtivaMain = $event"
     />
 
-    <div class="div-table">
+    <div class="div-table" v-if="!isLoading">
       <BaseTable
         v-show="tabAtivaMain === 'Turmas'"
         :tableHeight="'height: calc(100vh - 130px)'"
@@ -41,12 +41,12 @@
             <i :class="setIconByOrder(ordemTurmas, 'periodo')"></i>
           </th>
           <th
-            @click="toggleOrder(ordemTurmas, 'disciplina_perfil')"
+            @click="toggleOrder(ordemTurmas, 'disciplinaPerfil')"
             class="t-start clickable"
             style="width: 70px"
           >
             Perfil
-            <i :class="setIconByOrder(ordemTurmas, 'disciplina_perfil')"></i>
+            <i :class="setIconByOrder(ordemTurmas, 'disciplinaPerfil')"></i>
           </th>
           <th
             @click="toggleOrder(ordemTurmas, 'disciplinaCodigo')"
@@ -58,12 +58,12 @@
             <i :class="setIconByOrder(ordemTurmas, 'disciplinaCodigo')"></i>
           </th>
           <th
-            @click="toggleOrder(ordemTurmas, 'disciplina_nome')"
+            @click="toggleOrder(ordemTurmas, 'disciplinaNome')"
             class="t-start clickable"
             style="width: 300px"
           >
             Disciplina
-            <i :class="setIconByOrder(ordemTurmas, 'disciplina_nome')"></i>
+            <i :class="setIconByOrder(ordemTurmas, 'disciplinaNome')"></i>
           </th>
           <th style="width: 35px" class="t-staty" title="Turma">
             T.
@@ -80,21 +80,21 @@
                 {{ validacaoTurma.periodo }}
               </td>
               <td style="width: 70px;" class="t-start">
-                {{ validacaoTurma.disciplina_perfil }}
+                {{ validacaoTurma.disciplinaPerfil }}
               </td>
               <td style="width: 70px;" class="t-start">
                 {{ validacaoTurma.disciplinaCodigo }}
               </td>
               <td style="width: 300px;" class="t-start">
-                {{ validacaoTurma.disciplina_nome }}
+                {{ validacaoTurma.disciplinaNome }}
               </td>
               <td style="width: 35px">
                 {{ validacaoTurma.letra }}
               </td>
               <td style="width: 130px">
-                {{ validacaoTurma.docente1_apelido }}
+                {{ validacaoTurma.docente1Apelido }}
                 <br />
-                {{ validacaoTurma.docente2_apelido }}
+                {{ validacaoTurma.docente2Apelido }}
               </td>
               <td
                 style="width: 50px"
@@ -106,8 +106,8 @@
               </td>
             </tr>
             <tr
-              v-for="conflito in validacaoTurma.conflitos"
-              :key="'conflitos' + validacaoTurma.id + conflito.type"
+              v-for="(conflito, i) in validacaoTurma.conflitos"
+              :key="'conflito' + i + validacaoTurma.id + conflito.type"
             >
               <td style="width: 35px;">
                 <i
@@ -172,6 +172,20 @@
           </template>
         </template>
       </BaseTable>
+      <b-modal
+        id="modalEditTurma"
+        ref="modalEditTurma"
+        scrollable
+        title="Edição de Turma"
+        hide-footer
+      >
+        <template v-if="turmaClickada !== null">
+          <ModalTurma
+            :key="turmaClickada.id + 'modalTurma'"
+            :turma="turmaClickada"
+          ></ModalTurma
+        ></template>
+      </b-modal>
     </div>
 
     <!-- Modal Filtros -->
@@ -277,20 +291,7 @@
       </div>
     </b-modal>
     <!-- modal turma edit -->
-    <b-modal
-      id="modalTurma"
-      ref="modalTurma"
-      scrollable
-      title="Edição de Turma"
-      hide-footer
-    >
-      <template v-if="turmaClickada != undefined">
-        <ModalTurma
-          :key="turmaClickada.id + 'modalTurma'"
-          :turma="turmaClickada"
-        ></ModalTurma
-      ></template>
-    </b-modal>
+
     <!-- MODAL AJUDA -->
     <b-modal id="modalAjuda" title="Ajuda" scrollable hide-footer>
       <div class="modal-body">
@@ -423,7 +424,7 @@ export default {
   },
   mounted() {
     EventBus.$on("close-modal-turma", () => {
-      this.$bvModal.hide("modalTurma");
+      this.$refs.modalEditTurma.hide();
     });
     //define grades ativas por periodo
     let g;
@@ -596,7 +597,7 @@ export default {
     },
     openModalEditTurma(turma) {
       this.turmaClickada = { ...turma };
-      this.$refs.modalTurma.show();
+      this.$refs.modalEditTurma.show();
     },
     findPerfilById(id) {
       let perfil = _.find(this.Perfis, (p) => p.id == id);
@@ -632,18 +633,18 @@ export default {
       return {
         //Turmas
         ...turma,
-        docente1_apelido: this.findDocenteApelidoById(turma.Docente1),
-        docente2_apelido: this.findDocenteApelidoById(turma.Docente2),
-        pedidos_totais: this.totalPedidos(turma.id),
+        docente1Apelido: this.findDocenteApelidoById(turma.Docente1),
+        docente2Apelido: this.findDocenteApelidoById(turma.Docente2),
+        pedidosTotais: this.totalPedidos(turma.id),
         //Disciplinas
-        disciplina_nome: disciplina.nome,
-        disciplina_creditoTotal:
+        disciplinaNome: disciplina.nome,
+        disciplinaCodigo: disciplina.codigo,
+        disciplinaEad: disciplina.ead,
+        disciplinaLaboratorio: disciplina.laboratorio,
+        disciplinaCreditoTotal:
           parseInt(disciplina.cargaTeorica, 10) +
           parseInt(disciplina.cargaPratica, 10),
-        disciplinaCodigo: disciplina.codigo,
-        disciplina_ead: disciplina.ead,
-        disciplina_laboratorio: disciplina.laboratorio,
-        disciplina_perfil: this.findPerfilById(disciplina.Perfil).abreviacao,
+        disciplinaPerfil: this.findPerfilById(disciplina.Perfil).abreviacao,
         conflitos: [],
       };
     },
@@ -653,25 +654,25 @@ export default {
       check = this.checkTurno(validacao.turno1);
       if (check) validacao.conflitos.push(check);
       //Compatibilidade do turno com disciplina
-      check = this.checkTurnoEAD(validacao.disciplina_ead, validacao.turno1);
+      check = this.checkTurnoEAD(validacao.disciplinaEad, validacao.turno1);
       if (check) validacao.conflitos.push(check);
       //Horarios
       check = this.checkHorarios(
-        validacao.disciplina_ead,
-        validacao.disciplina_creditoTotal,
+        validacao.disciplinaEad,
+        validacao.disciplinaCreditoTotal,
         validacao.Horario1,
         validacao.Horario2
       );
       if (check) validacao.conflitos.push(check);
       //Docente
       check = this.checkDocentes(
-        validacao.docente1_apelido,
-        validacao.docente2_apelido
+        validacao.docente1Apelido,
+        validacao.docente2Apelido
       );
       if (check) validacao.conflitos.push(check);
       //Salas
       check = this.checkSalasLab(
-        validacao.disciplina_laboratorio,
+        validacao.disciplinaLaboratorio,
         validacao.Sala1,
         validacao.Sala2
       );
@@ -679,20 +680,20 @@ export default {
 
       //Lotação das salas
       // sala 1
-      check = this.checkVagaSala(validacao.Sala1, validacao.pedidos_totais);
+      check = this.checkVagaSala(validacao.Sala1, validacao.pedidosTotais);
       if (check) validacao.conflitos.push(check);
       // sala 2
       if (validacao.Sala1 != validacao.Sala2) {
-        check = this.checkVagaSala(validacao.Sala2, validacao.pedidos_totais);
+        check = this.checkVagaSala(validacao.Sala2, validacao.pedidosTotais);
         if (check) validacao.conflitos.push(check);
       }
 
       // Pedidos - 7
-      check = this.checkPedidos(validacao.pedidos_totais);
+      check = this.checkPedidos(validacao.pedidosTotais);
       if (check) validacao.conflitos.push(check);
       // EAD com salas - 8
       check = this.checkSalasInEAD(
-        validacao.disciplina_ead,
+        validacao.disciplinaEad,
         validacao.Sala1,
         validacao.Sala2
       );
@@ -750,25 +751,25 @@ export default {
           : false;
       }
     },
-    checkVagaSala(sala_id, pedidos_totais) {
+    checkVagaSala(sala_id, pedidosTotais) {
       let sala;
       if (sala_id != null) sala = _.find(this.Salas, (s) => sala_id == s.id);
 
       if (sala != undefined) {
-        if (sala.lotacao_maxima < pedidos_totais) {
+        if (sala.lotacao_maxima < pedidosTotais) {
           return {
             type: 7,
             msg: `Limite da sala ${
               sala.nome
-            } execedido. Vagas: ${pedidos_totais} - Lotação: ${
+            } execedido. Vagas: ${pedidosTotais} - Lotação: ${
               sala.lotacao_maxima
             } `,
           };
         }
       }
     },
-    checkPedidos(pedidos_totais) {
-      return pedidos_totais <= 4 ? this.allConflitos[7] : false;
+    checkPedidos(pedidosTotais) {
+      return pedidosTotais <= 4 ? this.allConflitos[7] : false;
     },
     checkSalasInEAD(isEAD, sala1, sala2) {
       if (isEAD == 1) {
@@ -1214,6 +1215,9 @@ export default {
     },
     Docentes() {
       return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
+    },
+    isLoading() {
+      return this.$store.state.isLoading;
     },
     Admin() {
       if (this.$store.state.auth.Usuario.admin === 1) return true;

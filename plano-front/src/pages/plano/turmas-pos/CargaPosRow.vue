@@ -1,23 +1,17 @@
 <template>
-  <div class="turmarow max-content">
+  <div class="turmarow max-content ">
     <td style="width:70px"><div style="height:30px"></div></td>
     <td style="width: 25px">
       <input
         type="checkbox"
         name="ativa"
         value="true"
-        class="form-control"
         v-on:click="checkDelete(carga)"
         v-model="ativo"
       />
     </td>
     <td style="width: 55px">
-      <select
-        type="text"
-        class="form-control form-control-sm"
-        id="programa"
-        v-model="carga.trimestre"
-      >
+      <select type="text" id="programa" v-model="carga.trimestre">
         <option type="text" value="1">1</option>
         <option type="text" value="2">2</option>
         <option type="text" value="3">3</option>
@@ -25,12 +19,7 @@
     </td>
 
     <td style="width: 145px">
-      <select
-        type="text"
-        id="docente1"
-        class="form-control form-control-sm"
-        v-model="carga.Docente"
-      >
+      <select type="text" id="docente1" v-model="carga.Docente">
         <option v-if="Docentes.length === 0" type="text" value
           >Nenhum Docente Encontrado</option
         >
@@ -46,7 +35,6 @@
       <input
         type="text"
         id="creditos"
-        class="form-control form-control-sm"
         v-model="carga.creditos"
         @keypress="onlyNumber"
       />
@@ -100,12 +88,12 @@ export default {
   padding: 0 0 !important;
   font-size: 11px !important;
   width: 100% !important;
-  height: 20px !important;
+  height: 18px !important;
 }
 .turmarow input[type="text"] {
   font-size: 11px !important;
   width: 100% !important;
-  height: 20px !important;
+  height: 18px !important;
   text-align: center !important;
 }
 .turmarow td {

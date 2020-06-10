@@ -70,12 +70,11 @@
           </template>
 
           <template #tbody>
-            <tr v-show="isAdding" class="novaturma stickyAdd">
+            <tr v-show="isAdding" class="novaturma stickyAdd ">
               <div class="max-content stickyAdd">
                 <td style="width:70px" class="less-padding">
                   <select
                     type="text"
-                    class="form-control form-control-sm"
                     id="programa"
                     v-model="cargaPosForm.programa"
                   >
@@ -84,11 +83,10 @@
                     <option type="text" value="PGEM">PGEM</option>
                   </select>
                 </td>
-                <td style="width:25px"><div style="height:43px"></div></td>
+                <td style="width:25px"><div style="height:30px"></div></td>
                 <td style="width:55px" class="less-padding">
                   <select
                     type="text"
-                    class="form-control form-control-sm"
                     id="programa"
                     v-model="cargaPosForm.trimestre"
                   >
@@ -101,7 +99,6 @@
                   <select
                     type="text"
                     id="docente1"
-                    class="form-control form-control-sm"
                     v-model="cargaPosForm.Docente"
                   >
                     <option v-if="Docentes.length === 0" type="text" value
@@ -119,7 +116,6 @@
                   <input
                     type="text"
                     id="creditos"
-                    class="form-control form-control-sm"
                     v-model="cargaPosForm.creditos"
                     @keypress="onlyNumber"
                   />
@@ -950,7 +946,7 @@ export default {
 <style scoped>
 .novaturma {
   font-size: 11px !important;
-  background-color: #e9e9e9;
+  background-color: #cecece;
 }
 .novaturma td {
   margin: 0 !important;
@@ -966,15 +962,16 @@ export default {
   padding: 0 0 !important;
   font-size: 11px !important;
   width: 100% !important;
-  height: 20px !important;
+  height: 18px !important;
 }
 .novaturma input[type="text"] {
   font-size: 11px !important;
   width: 100% !important;
-  height: 20px !important;
+  height: 18px !important;
   text-align: center !important;
 }
 .stickyAdd {
+  background-color: #cecece;
   display: block;
   overflow: hidden !important;
   position: sticky !important;

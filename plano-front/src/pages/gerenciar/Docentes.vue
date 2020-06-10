@@ -536,4 +536,56 @@ export default {
     margin-left: 0px !important;
   }
 }
+
+/* ==== MODAL TABLE ==== */
+.modal-table {
+  display: block;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  font-size: 10px !important;
+  font-weight: normal !important;
+  background-color: white;
+  margin: 0 !important;
+}
+.modal-table tr thead {
+  display: block;
+}
+.modal-table th {
+  padding: 0 !important;
+  text-align: center !important;
+  height: 18px !important;
+}
+
+.modal-table .p-header {
+  padding: 0px 5px 0px 5px !important;
+  margin: 0 !important;
+  text-align: start;
+  height: 18px !important;
+}
+.modal-table tbody {
+  max-height: 100%;
+  width: 100%;
+}
+.modal-table td {
+  border-top: 0;
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  /* height: 22px !important; */
+}
+.modal-table p {
+  margin: 0 !important;
+  text-align: center;
+  padding: 0 !important;
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+.modal-table input[type="checkbox"] {
+  margin-left: 0 !important;
+  margin-top: 4px !important;
+  margin-bottom: auto !important;
+  height: 13px !important;
+}
+/* FIM MODAL TABLE */
 </style>

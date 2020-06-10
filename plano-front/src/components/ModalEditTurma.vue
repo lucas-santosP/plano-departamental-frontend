@@ -493,7 +493,6 @@ export default {
       if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
     totalPedidos() {
-      console.log(this.turma);
       var t = 0;
       var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
       for (var p = 0; p < pedidos.length; p++) {

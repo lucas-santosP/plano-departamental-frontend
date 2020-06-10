@@ -272,13 +272,13 @@
 
     <!-- MODAL TURMA -->
     <b-modal
-      id="modalEditTurma"
-      ref="modalEditTurma"
+      id="modalTurma"
+      ref="modalTurma"
       scrollable
       title="Edição de Turma"
       hide-footer
     >
-      <template v-if="turmaClickada != null">
+      <template v-if="turmaClickada !== null">
         <ModalEditTurma
           :key="turmaClickada.id + 'modalTurma'"
           :turma="turmaClickada"
@@ -513,7 +513,7 @@ export default {
     },
     handleClickInEdit(turmaClicked) {
       this.turmaClickada = turmaClicked;
-      this.$refs.modalEditTurma.show();
+      this.$refs.modalTurma.show();
     },
     btnOkFiltros() {
       this.setSemestreAtivo();

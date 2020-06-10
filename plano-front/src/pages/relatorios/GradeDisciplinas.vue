@@ -183,12 +183,16 @@
                     <p style="width: 140px">
                       {{
                         disciplina.gradeSI.semestre1.length !== 0
-                          ? `${disciplina.gradeSI.semestre1}º Período: 1º Semestre`
+                          ? `${
+                              disciplina.gradeSI.semestre1
+                            }º Período: 1º Semestre`
                           : ""
                       }}
                       {{
                         disciplina.gradeSI.semestre2.length !== 0
-                          ? `${disciplina.gradeSI.semestre2}º Período: 2º Semestre`
+                          ? `${
+                              disciplina.gradeSI.semestre2
+                            }º Período: 2º Semestre`
                           : ""
                       }}
                     </p>
@@ -198,12 +202,16 @@
                     <p style="width: 140px">
                       {{
                         disciplina.gradeCCN.semestre1.length !== 0
-                          ? `${disciplina.gradeCCN.semestre1}º Período: 1º Semestre`
+                          ? `${
+                              disciplina.gradeCCN.semestre1
+                            }º Período: 1º Semestre`
                           : ""
                       }}
                       {{
                         disciplina.gradeCCN.semestre2.length !== 0
-                          ? `${disciplina.gradeCCN.semestre2}º Período: 2º Semestre`
+                          ? `${
+                              disciplina.gradeCCN.semestre2
+                            }º Período: 2º Semestre`
                           : ""
                       }}
                     </p>
@@ -213,12 +221,16 @@
                     <p style="width: 140px">
                       {{
                         disciplina.gradeCCD.semestre1.length !== 0
-                          ? `${disciplina.gradeCCD.semestre1}º Período: 1º Semestre`
+                          ? `${
+                              disciplina.gradeCCD.semestre1
+                            }º Período: 1º Semestre`
                           : ""
                       }}
                       {{
                         disciplina.gradeCCD.semestre2.length !== 0
-                          ? `${disciplina.gradeCCD.semestre2}º Período: 2º Semestre`
+                          ? `${
+                              disciplina.gradeCCD.semestre2
+                            }º Período: 2º Semestre`
                           : ""
                       }}
                     </p>
@@ -228,12 +240,16 @@
                     <p style="width: 140px">
                       {{
                         disciplina.gradeEC.semestre1.length !== 0
-                          ? `${disciplina.gradeEC.semestre1}º Período: 1º Semestre`
+                          ? `${
+                              disciplina.gradeEC.semestre1
+                            }º Período: 1º Semestre`
                           : ""
                       }}
                       {{
                         disciplina.gradeEC.semestre2.length !== 0
-                          ? `${disciplina.gradeEC.semestre2}º Período: 2º Semestre`
+                          ? `${
+                              disciplina.gradeEC.semestre2
+                            }º Período: 2º Semestre`
                           : ""
                       }}
                     </p>
@@ -738,12 +754,7 @@ export default {
     runAll() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
-        this.disciplinasGrades[d.id] = [
-          [[], []],
-          [[], []],
-          [[], []],
-          [[], []],
-        ]; //inisializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
+        this.disciplinasGrades[d.id] = [[[], []], [[], []], [[], []], [[], []]]; //inisializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
       this.get1Periodo();
@@ -1151,7 +1162,7 @@ tbody {
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
   overflow-x: hidden !important;
   font-size: 10px !important;
   font-weight: normal !important;

@@ -29,7 +29,7 @@
       </template>
     </PageTitle>
 
-    <div class="div-table p-0" ref="carga">
+    <div class="div-table" ref="carga">
       <BaseTable>
         <template #thead>
           <th
@@ -364,37 +364,6 @@
       </BaseTable>
     </div>
 
-    <b-modal
-      id="modalAjuda"
-      ref="ajudaModal"
-      scrollable
-      title="Ajuda"
-      hide-footer
-    >
-      <div class="modal-body">
-        <ul class="listas list-group">
-          <li class="list-group-item">
-            <strong>Para exibir conteúdo na Tabela:</strong> Clique em Docentes
-            <i
-              class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px;"
-            ></i>
-            e selecione o(s) professor(es) que deseja ver, em seguida confirme
-            em OK. Caso queira ver todos basta clicar em Selecionar Todos.
-          </li>
-          <li class="list-group-item">
-            <strong>Para gerar relatório:</strong> Clique no botão Relatório
-            <i
-              class="far fa-file-pdf relatbtn px-1"
-              style="font-size: 12px;"
-            ></i>
-            e selecione se deseja o relatório completo, com todos os docentess,
-            ou apenas o relatório parcial, com os docentes selecionados.
-          </li>
-        </ul>
-      </div>
-    </b-modal>
-
     <!-- MODAL FILTROS -->
     <b-modal
       id="modalFiltros"
@@ -408,9 +377,14 @@
         :allTabs="['Docentes', 'Semestre']"
         @change-tab="tabAtiva = $event"
       />
+      <!-- BaseTable -->
 
-      <div class="col m-0 p-0 max-content">
-        <TableModal v-if="tabAtiva === 'Docentes'" :hasSearchBar="true">
+      <div class="div-table">
+        <BaseTable
+          v-show="tabAtiva === 'Docentes'"
+          :tableType="'modal-table'"
+          :hasSearchBar="true"
+        >
           <template #thead-search>
             <input
               type="text"
@@ -469,8 +443,8 @@
               </div>
             </tr>
           </template>
-        </TableModal>
-        <TableModal v-else>
+        </BaseTable>
+        <BaseTable v-show="tabAtiva === 'Semestre'" :tableType="'modal-table'">
           <template #thead>
             <th style="width: 25px"></th>
             <th
@@ -512,7 +486,7 @@
               </div>
             </tr>
           </template>
-        </TableModal>
+        </BaseTable>
       </div>
 
       <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
@@ -538,7 +512,37 @@
         >
       </div>
     </b-modal>
-
+    <!-- MODAL AJUDA -->
+    <b-modal
+      id="modalAjuda"
+      ref="ajudaModal"
+      scrollable
+      title="Ajuda"
+      hide-footer
+    >
+      <div class="modal-body">
+        <ul class="listas list-group">
+          <li class="list-group-item">
+            <strong>Para exibir conteúdo na Tabela:</strong> Clique em Docentes
+            <i
+              class="fas fa-list-ul cancelbtn px-1"
+              style="font-size: 12px;"
+            ></i>
+            e selecione o(s) professor(es) que deseja ver, em seguida confirme
+            em OK. Caso queira ver todos basta clicar em Selecionar Todos.
+          </li>
+          <li class="list-group-item">
+            <strong>Para gerar relatório:</strong> Clique no botão Relatório
+            <i
+              class="far fa-file-pdf relatbtn px-1"
+              style="font-size: 12px;"
+            ></i>
+            e selecione se deseja o relatório completo, com todos os docentess,
+            ou apenas o relatório parcial, com os docentes selecionados.
+          </li>
+        </ul>
+      </div>
+    </b-modal>
     <!-- Modal de relatório parcial ou completo-->
     <b-modal
       id="modalRelatorio"
@@ -566,12 +570,11 @@ import pdfs from "@/common/services/pdfs";
 import PageTitle from "@/components/PageTitle";
 import NavTab from "@/components/NavTab";
 import BaseTable from "@/components/BaseTable";
-import TableModal from "@/components/TableModal";
 import ordenacaoMixin from "@/ordenacao-mixin";
 
 export default {
   name: "DashboardCargaProfessores",
-  components: { PageTitle, BaseTable, TableModal, NavTab },
+  components: { PageTitle, BaseTable, NavTab },
   mixins: [ordenacaoMixin],
   data() {
     return {
@@ -827,32 +830,5 @@ export default {
 .list-group-item:hover {
   text-decoration: underline;
   background-color: #ebebeb;
-}
-/* APENAS NO FIREFOX */
-@-moz-document url-prefix() {
-  /* .main-table select {
-    height: 15px !important;
-    text-align: left;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(133, 133, 133);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  }
-  .main-table input {
-    height: 18px !important;
-    text-align: center;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    line-height: 8px;
-    border: 0.5px solid rgb(92, 92, 92);
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: rgb(245, 245, 245);
-  } */
 }
 </style>

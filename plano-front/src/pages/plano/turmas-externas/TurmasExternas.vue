@@ -2,14 +2,6 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - Outros'">
       <template #aside>
-        <b-button
-          v-b-modal.modalFiltros
-          title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
-        >
-          <i class="fas fa-list-ul"></i>
-        </b-button>
-
         <button
           v-show="isAdd"
           type="button"
@@ -47,6 +39,13 @@
         >
           <i class="far fa-trash-alt"></i>
         </button>
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
+        >
+          <i class="fas fa-list-ul"></i>
+        </b-button>
 
         <b-button
           v-b-modal.modalAjuda
