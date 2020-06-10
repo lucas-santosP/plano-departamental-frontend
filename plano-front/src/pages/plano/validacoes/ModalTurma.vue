@@ -297,7 +297,7 @@
             <PedidosTableModal
               v-bind:index="curso.indiceVaga"
               v-bind:turma="turma"
-            ></PedidosTableModal>
+            />
           </td>
         </tr>
       </template#tbody>
@@ -311,25 +311,25 @@ import TableModal from "@/components/TableModal.vue";
 import PedidosTableModal from "@/components/PedidosTableModal.vue";
 
 const emptyTurma = {
-  id: "",
-  periodo: "",
-  letra: "",
-  turno1: "",
-  turno2: "",
-  Disciplina: "",
-  Docente1: "",
-  Docente2: "",
-  Horario1: "",
-  Horario2: "",
-  Sala1: "",
-  Sala2: "",
+  id: null,
+  periodo: null,
+  letra: null,
+  turno1: null,
+  turno2: null,
+  Disciplina: null,
+  Docente1: null,
+  Docente2: null,
+  Horario1: null,
+  Horario2: null,
+  Sala1: null,
+  Sala2: null,
 };
 
 export default {
   name: "ModalTurma",
   components: { TableModal, PedidosTableModal },
   props: {
-    turma: { type: Object, required: true },
+    turma: { type: Object },
   },
   data() {
     return {
@@ -1347,8 +1347,9 @@ export default {
         return true;
     },
     CursosTableOrdered() {
-      let result = this.CursosFiltred;
-      result.forEach((curso) => {
+      let cursosResultantes = this.CursosFiltred;
+
+      cursosResultantes.forEach((curso) => {
         for (let index = 0; index < this.Pedidos.length; index++) {
           if (this.Pedidos[index].Curso === curso.id) {
             curso.VagasTotais =
@@ -1359,7 +1360,11 @@ export default {
           }
         }
       });
-      return _.orderBy(result, this.ordemVagas.order, this.ordemVagas.type);
+      return _.orderBy(
+        cursosResultantes,
+        this.ordemVagas.order,
+        this.ordemVagas.type
+      );
     },
     CursosFiltred() {
       if (this.searchCursos != null) {
@@ -1441,7 +1446,6 @@ export default {
       return _.filter(this.Horarios, { id: 31 });
     },
     Pedidos() {
-      console.log(this.$store.state.pedido.Pedidos);
       return this.$store.state.pedido.Pedidos[this.turma.id];
     },
 

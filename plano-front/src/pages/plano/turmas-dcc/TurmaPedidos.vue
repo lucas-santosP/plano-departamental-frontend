@@ -49,7 +49,7 @@ const emptyPedido = {
 };
 
 export default {
-  name: "TurmaPedido",
+  name: "TurmaPedidos",
   props: {
     turma: Object,
     index: Number,

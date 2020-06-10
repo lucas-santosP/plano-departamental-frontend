@@ -13,7 +13,7 @@
     <td style="width:40px">
       <i
         v-if="Admin"
-        @click="$emit('handle-click-in-edit', turma)"
+        @click.stop="$emit('handle-click-in-edit', turma)"
         class="fas fa-edit btn-table clickable"
       ></i>
     </td>
@@ -205,11 +205,11 @@
       <td class="p-0" style="width:35px;" :key="'1-id-curso' + curso.id">
         <template v-for="(pedido, index) in Pedidos">
           <template v-if="pedido.Curso === curso.id">
-            <turmaPedido
+            <turmaPedidos
               :key="'index' + index"
               v-bind:index="index"
               v-bind:turma="turma"
-            ></turmaPedido>
+            ></turmaPedidos>
           </template>
         </template>
       </td>
@@ -219,7 +219,7 @@
 
 <script>
 import turmaService from "@/common/services/turma";
-import turmaPedido from "./TurmaPedido.vue";
+import turmaPedidos from "./TurmaPedidos.vue";
 import _ from "lodash";
 
 const emptyTurma = {
@@ -247,21 +247,21 @@ export default {
     return {
       ativo: false,
       valorAtual: undefined,
-      turmaForm: _.clone(emptyTurma),
       currentData: undefined,
+      turmaForm: _.clone(emptyTurma),
     };
   },
   components: {
-    turmaPedido,
+    turmaPedidos,
   },
   mounted() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
-    this.autoSetInputs();
+    this.setInputs();
   },
 
   methods: {
-    autoSetInputs() {
+    setInputs() {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;

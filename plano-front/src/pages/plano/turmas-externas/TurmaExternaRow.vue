@@ -188,7 +188,7 @@ export default {
     };
   },
 
-  created() {
+  mounted() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = this.TurmaForm;
   },

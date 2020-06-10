@@ -421,7 +421,6 @@ import PageTitle from "@/components/PageTitle.vue";
 import BaseTable from "@/components/BaseTable.vue";
 import NavTab from "@/components/NavTab.vue";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
-import notifyMixin from "@/notification-mixin";
 import ordenacaoMixin from "@/ordenacao-mixin";
 
 const emptyTurma = {
@@ -444,7 +443,7 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [notifyMixin, ordenacaoMixin],
+  mixins: [ordenacaoMixin],
   components: {
     TurmaExternaRow,
     PageTitle,
@@ -579,10 +578,12 @@ export default {
     openModalConfirma() {
       if (this.Deletar.length) this.$refs.modalConfirma.show();
       else
-        this.showNotification(
-          "error",
-          "Nenhuma turma selecionada para exclusão"
-        );
+        this.$notify({
+          group: "general",
+          type: "error",
+          title: "Erro!",
+          text: "Nenhuma turma selecionada para exclusão",
+        });
     },
     deleteSelected() {
       var turmas = this.$store.state.turmaExterna.Deletar;
@@ -601,10 +602,12 @@ export default {
     },
     validateTurma(turma) {
       if (turma.Disciplina === null || turma.letra === null) {
-        this.showNotification(
-          "error",
-          "Cadastro da turma inválido ou incompleto."
-        );
+        this.$notify({
+          group: "general",
+          type: "error",
+          title: "Erro!",
+          text: "Cadastro da turma inválido ou incompleto.",
+        });
         return false;
       }
       return true;
@@ -627,21 +630,30 @@ export default {
               .create(pedido)
               .then()
               .catch((error) => {
-                this.showNotification(
-                  "error",
-                  `Erro ao criar pedido:<br>${error}`
-                );
+                this.$notify({
+                  group: "general",
+                  type: "error",
+                  title: "Erro!",
+                  text: `Erro ao criar pedido:<br>${error}`,
+                });
               });
           }
           this.cleanTurmaForm();
 
-          this.showNotification(
-            "success",
-            `A Turma: ${response.Turma.letra} foi criada!`
-          );
+          this.$notify({
+            group: "general",
+            type: "success",
+            title: "Sucesso!",
+            text: `A Turma: ${response.Turma.letra} foi criada!`,
+          });
         })
         .catch((error) => {
-          this.showNotification("error", `${error}`);
+          this.$notify({
+            group: "general",
+            type: "error",
+            title: "Erro!",
+            text: `${error}`,
+          });
 
           this.error = "<b>Erro ao criar Turma</b>";
           if (error.response.data.fullMessage) {

@@ -82,10 +82,10 @@
             :style="{ 'background-color': turma.perfilCor }"
           >
             <TurmaRow
-              ref="turma"
-              v-on:handle-click-in-edit="handleClickInEdit($event)"
-              v-bind:turma="turma"
-              v-bind:cursosSelecteds="filtroCursos.ativados"
+              :key="turma.id + 'turmarow'"
+              :turma="turma"
+              :cursosSelecteds="filtroCursos.ativados"
+              @handle-click-in-edit="handleClickInEdit($event)"
             />
           </tr>
         </template>
@@ -278,7 +278,12 @@
       title="Edição de Turma"
       hide-footer
     >
-      <ModalEditTurma :turma="turmaSelecionada" />
+      <template v-if="turmaClickada != null">
+        <ModalEditTurma
+          :key="turmaClickada.id + 'modalTurma'"
+          :turma="turmaClickada"
+        />
+      </template>
     </b-modal>
 
     <!-- MODAL DELETAR -->
@@ -414,7 +419,7 @@ export default {
   data() {
     return {
       error: undefined,
-      turmaSelecionada: null,
+      turmaClickada: null,
       turmaAddIsVisible: false,
       ordenacaoTurmasMain: { order: "disciplinaCodigo", type: "asc" },
       ordenacaoPerfisMain: { order: "perfilNome", type: "asc" },
@@ -475,12 +480,6 @@ export default {
     }
   },
   mounted() {
-    // this.filtroCursos.selecionados = [this.Cursos[0]];
-    this.filtroPerfis.selecionados = [this.Perfis[this.Perfis.length - 1]];
-
-    this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-    this.filtroPerfis.ativados = [...this.filtroPerfis.selecionados];
-
     ls.set("toggle", -1);
     ls.on("toggle", () => {
       var val = ls.get("toggle");
@@ -513,7 +512,7 @@ export default {
       else array.splice(index, 1);
     },
     handleClickInEdit(turmaClicked) {
-      this.turmaSelecionada = turmaClicked;
+      this.turmaClickada = turmaClicked;
       this.$refs.modalEditTurma.show();
     },
     btnOkFiltros() {

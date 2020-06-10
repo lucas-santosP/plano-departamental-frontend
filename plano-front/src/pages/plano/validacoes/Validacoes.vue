@@ -98,16 +98,16 @@
               </td>
               <td
                 style="width: 50px"
-                @click="openModalEditTurma(validacaoTurma)"
                 class="clickable"
                 title="Editar turma"
+                @click.stop="openModalEditTurma(validacaoTurma)"
               >
                 <i class="fas fa-edit btn-table"></i>
               </td>
             </tr>
             <tr
-              v-for="(conflito, index) in validacaoTurma.conflitos"
-              :key="'conflitos' + index + validacaoTurma.id + conflito.type"
+              v-for="conflito in validacaoTurma.conflitos"
+              :key="'conflitos' + validacaoTurma.id + conflito.type"
             >
               <td style="width: 35px;">
                 <i
@@ -285,7 +285,10 @@
       hide-footer
     >
       <template v-if="turmaClickada != undefined">
-        <ModalTurma :turma="turmaClickada"></ModalTurma
+        <ModalTurma
+          :key="turmaClickada.id + 'modalTurma'"
+          :turma="turmaClickada"
+        ></ModalTurma
       ></template>
     </b-modal>
     <!-- MODAL AJUDA -->
@@ -355,20 +358,7 @@ const AllConflitosTurmas = [
   { type: 10, msg: "Conflito de horarios na grade" },
   { type: 11, msg: "Disciplina de curso presencial não pode ter turno EAD" },
 ];
-const emptyTurma = {
-  id: "",
-  periodo: "",
-  letra: "",
-  turno1: "",
-  turno2: "",
-  Disciplina: "",
-  Docente1: "",
-  Docente2: "",
-  Horario1: "",
-  Horario2: "",
-  Sala1: "",
-  Sala2: "",
-};
+
 export default {
   name: "Validacoes",
   mixins: [ordenacaoMixin],
@@ -384,7 +374,7 @@ export default {
       allConflitos: _.clone(AllConflitosTurmas),
       grades1Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
-      turmaClickada: _.clone(emptyTurma),
+      turmaClickada: null,
       tabAtivaModal: "Conflitos",
       ordemTurmas: { order: "periodo", type: "asc" },
       ordemDocentes: { order: "nome", type: "asc" },
@@ -605,8 +595,8 @@ export default {
       else this.filtroSemestres.ativo = undefined;
     },
     openModalEditTurma(turma) {
-      this.turmaClickada = _.clone(turma);
-      this.$bvModal.show("modalTurma");
+      this.turmaClickada = { ...turma };
+      this.$refs.modalTurma.show();
     },
     findPerfilById(id) {
       let perfil = _.find(this.Perfis, (p) => p.id == id);

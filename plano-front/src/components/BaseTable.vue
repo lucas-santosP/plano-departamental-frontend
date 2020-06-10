@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "TableMain",
+  name: "BaseTable",
   props: {
     tableType: { type: String, default: "main-table" },
     tableHeight: { type: String, default: "height: calc(100vh - 100px)" },
