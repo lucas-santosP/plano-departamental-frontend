@@ -461,6 +461,7 @@
         >
       </div>
     </b-modal>
+
     <!-- MODAL AJUDA -->
     <b-modal
       id="modalAjuda"
@@ -492,7 +493,8 @@
         </ul>
       </div>
     </b-modal>
-    <!-- Modal de relatório parcial ou completo-->
+
+    <!-- MODAL RELATORIO-->
     <b-modal
       id="modalRelatorio"
       ref="relatorioModal"
@@ -519,12 +521,12 @@ import pdfs from "@/common/services/pdfs";
 import PageTitle from "@/components/PageTitle";
 import NavTab from "@/components/NavTab";
 import BaseTable from "@/components/BaseTable";
-import ordenacaoMixin from "@/ordenacao-mixin";
+import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 
 export default {
   name: "DashboardCargaProfessores",
   components: { PageTitle, BaseTable, NavTab },
-  mixins: [ordenacaoMixin],
+  mixins: [toggleOrdinationMixin],
   data() {
     return {
       tabAtivaModal: "Docentes",

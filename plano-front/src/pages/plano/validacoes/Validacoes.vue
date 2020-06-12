@@ -320,7 +320,7 @@
 <script>
 import _ from "lodash";
 import { EventBus } from "@/event-bus.js";
-import ordenacaoMixin from "@/ordenacao-mixin";
+import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 import PageTitle from "@/components/PageTitle";
 import NavTab from "@/components/NavTab";
 import ModalTurma from "./ModalTurma.vue";
@@ -361,7 +361,7 @@ const AllConflitosTurmas = [
 
 export default {
   name: "Validacoes",
-  mixins: [ordenacaoMixin],
+  mixins: [toggleOrdinationMixin],
   components: {
     ModalTurma,
     PageTitle,

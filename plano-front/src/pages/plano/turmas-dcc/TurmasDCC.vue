@@ -395,24 +395,26 @@
 
 <script>
 import _ from "lodash";
-import xlsx from "@/common/services/xlsx";
-import ls from "local-storage";
+import {
+  PageTitle,
+  BaseTable,
+  NavTab,
+  ModalEditTurma,
+} from "@/components/index.js";
+import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 import { EventBus } from "@/event-bus.js";
-import ordenacaoMixin from "@/ordenacao-mixin";
 import { saveAs } from "file-saver";
+import ls from "local-storage";
+import xlsx from "@/common/services/xlsx";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
 import TurmaHeader from "./TurmaHeader.vue";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
-import NavTab from "@/components/NavTab.vue";
-import PageTitle from "@/components/PageTitle.vue";
-import BaseTable from "@/components/BaseTable.vue";
-import ModalEditTurma from "@/components/ModalEditTurma.vue";
 
 export default {
   name: "DashboardPrototipo",
-  mixins: [ordenacaoMixin],
+  mixins: [toggleOrdinationMixin],
   components: {
     TurmaRow,
     TurmaHeader,

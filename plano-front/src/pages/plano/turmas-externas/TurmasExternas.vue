@@ -490,13 +490,13 @@
 
 <script>
 import _ from "lodash";
+import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 import turmaExternaService from "@/common/services/turmaExterna";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import PageTitle from "@/components/PageTitle.vue";
 import BaseTable from "@/components/BaseTable.vue";
 import NavTab from "@/components/NavTab.vue";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
-import ordenacaoMixin from "@/ordenacao-mixin";
 
 const emptyTurma = {
   id: null,
@@ -518,7 +518,7 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [ordenacaoMixin],
+  mixins: [toggleOrdinationMixin],
   components: {
     TurmaExternaRow,
     PageTitle,
