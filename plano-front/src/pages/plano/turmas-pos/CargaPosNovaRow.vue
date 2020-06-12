@@ -2,7 +2,7 @@
   <tr class="novaturma stickyAdd ">
     <div class="max-content stickyAdd">
       <td style="width:70px" class="less-padding">
-        <select type="text" id="programa" v-model="cargaPosForm.programa">
+        <select type="text" v-model="cargaPosForm.programa">
           <option type="text" value="PGMC">PGMC</option>
           <option type="text" value="PGCC">PGCC</option>
           <option type="text" value="PGEM">PGEM</option>
@@ -10,14 +10,14 @@
       </td>
       <td style="width:25px"><div style="height:30px"></div></td>
       <td style="width:55px" class="less-padding">
-        <select type="text" id="programa" v-model="cargaPosForm.trimestre">
+        <select type="text" v-model="cargaPosForm.trimestre">
           <option type="text" value="1">1</option>
           <option type="text" value="2">2</option>
           <option type="text" value="3">3</option>
         </select>
       </td>
       <td style="width:145px" class="less-padding">
-        <select type="text" id="docente1" v-model="cargaPosForm.Docente">
+        <select type="text" v-model="cargaPosForm.Docente">
           <option v-if="DocentesOrdered.length === 0" type="text" value
             >Nenhum Docente Encontrado</option
           >
@@ -33,7 +33,7 @@
         <input
           type="text"
           id="creditos"
-          v-model="cargaPosForm.creditos"
+          v-model.number="cargaPosForm.creditos"
           @keypress="onlyNumber"
         />
       </td>
@@ -44,6 +44,7 @@
 <script>
 import _ from "lodash";
 import { EventBus } from "@/event-bus.js";
+import notificationMixin from "@/mixins/notification.js";
 import cargaPosService from "@/common/services/cargaPos";
 
 const emptyCarga = {
@@ -56,7 +57,7 @@ const emptyCarga = {
 
 export default {
   name: "CargaPosNovaRow",
-
+  mixins: [notificationMixin],
   data() {
     return {
       cargaPosForm: _.clone(emptyCarga),
@@ -90,11 +91,10 @@ export default {
         carga.programa === null ||
         carga.creditos === null
       ) {
-        this.$notify({
-          title: "Erro!",
-          text: `Cadastro da nova carga inválido ou incompleto.`,
+        this.showNotication({
           type: "error",
-          group: "general",
+          title: "Erro!",
+          message: "Cadastro da nova carga inválido ou incompleto.",
         });
         return false;
       }
@@ -111,24 +111,17 @@ export default {
         .create(newCarga)
         .then((response) => {
           this.cleanCarga();
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Carga ${response.CargaPos.programa} foi criada!`,
+
+          this.showNotication({
             type: "success",
+            message: `A carga ${response.CargaPos.programa} foi criada!`,
           });
         })
         .catch((error) => {
-          let errorText = "<b>Erro ao criar Carga</b>";
-          if (error.response.data.fullMessage) {
-            errorText +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-          this.$notify({
-            title: "Erro!",
-            text: `${errorText}`,
+          this.showNotication({
             type: "error",
-            group: "general",
+            title: "Erro ao criar nova carga!",
+            message: error,
           });
         });
     },

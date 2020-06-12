@@ -1,5 +1,5 @@
 <template>
-  <div class="turmarow max-content ">
+  <div class="cargaPos-row max-content ">
     <td style="width:70px"><div style="height:30px"></div></td>
     <td style="width: 25px">
       <input
@@ -13,9 +13,8 @@
     <td style="width: 55px">
       <select
         type="text"
-        id="programa"
         v-model="cargaPosForm.trimestre"
-        v-on:change="editCarga()"
+        v-on:change="editCargaPos()"
       >
         <option type="text" value="1">1</option>
         <option type="text" value="2">2</option>
@@ -26,9 +25,8 @@
     <td style="width: 145px">
       <select
         type="text"
-        id="docente1"
         v-model="cargaPosForm.Docente"
-        v-on:change="editCarga()"
+        v-on:change="editCargaPos()"
       >
         <option v-if="Docentes.length === 0" type="text" value
           >Nenhum Docente Encontrado</option
@@ -45,10 +43,9 @@
     <td style="width: 50px">
       <input
         type="text"
-        id="creditos"
-        v-model="cargaPosForm.creditos"
+        v-model.number="cargaPosForm.creditos"
         @keypress="onlyNumber"
-        v-on:change="editCarga()"
+        v-on:change="editCargaPos()"
       />
     </td>
   </div>
@@ -57,6 +54,7 @@
 <script>
 import _ from "lodash";
 import cargaPosService from "@/common/services/cargaPos";
+import notificationMixin from "@/mixins/notification.js";
 
 const emptyCarga = {
   id: null,
@@ -68,6 +66,7 @@ const emptyCarga = {
 
 export default {
   name: "CargaPosRow",
+  mixins: [notificationMixin],
   props: {
     carga: Object,
   },
@@ -75,12 +74,10 @@ export default {
     return {
       ativo: false,
       cargaPosForm: _.clone(emptyCarga),
-      currentCarga: null,
     };
   },
   mounted() {
     this.cargaPosForm = _.clone(this.carga);
-    this.currentCarga = _.clone(this.carga);
   },
   methods: {
     isEmpty(value) {
@@ -91,49 +88,46 @@ export default {
         if (this.isEmpty(object[key])) object[key] = null;
       });
     },
-    validateCargaPos(carga) {
+    validateCargaPos(cargaPos) {
       if (
-        carga.trimestre === null ||
-        carga.Docente === null ||
-        carga.programa === null ||
-        carga.creditos === null
+        cargaPos.trimestre === null ||
+        cargaPos.Docente === null ||
+        cargaPos.programa === null ||
+        cargaPos.creditos === null
       ) {
-        this.$notify({
-          title: "Erro!",
-          text: `Cadastro da carga inválido ou incompleto.`,
+        this.showNotication({
           type: "error",
-          group: "general",
+          title: "Erro!",
+          message: "Cadastro da carga inválido ou incompleto.",
         });
         return false;
       }
 
       return true;
     },
-    editCarga() {
-      const newCarga = _.clone(this.cargaPosForm);
+    editCargaPos() {
+      const newCargaPos = _.clone(this.cargaPosForm);
 
-      this.convertEmptyKeysToNull(newCarga);
-      if (!this.validateCargaPos(newCarga)) {
-        this.cargaPosForm = _.clone(this.currentCarga);
+      this.convertEmptyKeysToNull(newCargaPos);
+      if (!this.validateCargaPos(newCargaPos)) {
+        this.cargaPosForm = _.clone(this.carga);
         return;
       }
 
       cargaPosService
-        .update(newCarga.id, newCarga)
+        .update(newCargaPos.id, newCargaPos)
         .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Carga ${response.CargaPos.programa} foi atualizada!`,
+          this.showNotication({
             type: "success",
+            message: `A carga ${response.CargaPos.programa} foi atualizada!`,
           });
         })
         .catch((error) => {
-          this.error = "<b>Erro ao atualizar Carga</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
+          this.showNotication({
+            type: "error",
+            title: "Erro ao atualizar Carga!",
+            message: error,
+          });
         });
     },
     onlyNumber($event) {
@@ -144,7 +138,6 @@ export default {
     },
     checkDelete(carga) {
       this.$store.commit("checkDeleteCarga", { CargaPos: carga });
-      console.log(this.$store.state.cargaPos.Deletar);
     },
   },
   computed: {
@@ -159,22 +152,22 @@ export default {
 </script>
 
 <style scoped>
-.turmarow {
+.cargaPos-row {
   font-size: 11px !important;
 }
-.turmarow select {
+.cargaPos-row select {
   padding: 0 0 !important;
   font-size: 11px !important;
   width: 100% !important;
   height: 18px !important;
 }
-.turmarow input[type="text"] {
+.cargaPos-row input[type="text"] {
   font-size: 11px !important;
   width: 100% !important;
   height: 18px !important;
   text-align: center !important;
 }
-.turmarow td {
+.cargaPos-row td {
   margin: 0 !important;
   padding: 0 5px;
   vertical-align: middle !important;
@@ -182,7 +175,7 @@ export default {
   word-break: break-word;
 }
 
-.turmarow input[type="checkbox"] {
+.cargaPos-row input[type="checkbox"] {
   width: 13px !important;
   height: 13px !important;
   text-align: center !important;
