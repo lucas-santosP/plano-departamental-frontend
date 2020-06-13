@@ -29,7 +29,7 @@
       </template>
     </PageTitle>
 
-    <div class="div-table" ref="carga">
+    <div class="div-table" v-if="!isLoading">
       <BaseTable>
         <template #thead>
           <th
@@ -531,6 +531,16 @@ export default {
     return {
       tabAtivaModal: "Docentes",
       searchDocentes: "",
+      ordenacaoDocentesModal: { order: "apelido", type: "asc" },
+      orednacaoDocentesMain: { order: "apelido", type: "asc" },
+      filtroDocentes: {
+        ativados: [],
+        selecionados: [],
+      },
+      docenteSemAlocacao: {
+        ativado: true,
+        selecionado: true,
+      },
       modalSelectAll: {
         Docentes: () => {
           this.filtroDocentes.selecionados = [...this.DocentesModal];
@@ -543,16 +553,6 @@ export default {
           this.docenteSemAlocacao.selecionado = false;
         },
       },
-      filtroDocentes: {
-        ativados: [],
-        selecionados: [],
-      },
-      docenteSemAlocacao: {
-        ativado: true,
-        selecionado: true,
-      },
-      ordenacaoDocentesModal: { order: "apelido", type: "asc" },
-      orednacaoDocentesMain: { order: "apelido", type: "asc" },
     };
   },
   beforeMount() {
@@ -800,6 +800,9 @@ export default {
     },
     Horarios() {
       return this.$store.state.horario.Horarios;
+    },
+    isLoading() {
+      return this.$store.state.isLoading;
     },
   },
 };
