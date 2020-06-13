@@ -498,7 +498,6 @@ import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
-import TurmaHeader from "./TurmaHeader.vue";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
 
@@ -507,7 +506,6 @@ export default {
   mixins: [toggleOrdinationMixin, toggleItemInArrayMixin],
   components: {
     TurmaRow,
-    TurmaHeader,
     NovaTurma,
     PageTitle,
     ModalEditTurma,
