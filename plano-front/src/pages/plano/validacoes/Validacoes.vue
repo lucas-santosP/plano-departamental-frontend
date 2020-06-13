@@ -124,8 +124,8 @@
           </template>
           <tr v-show="TurmasValidacoesOrdered.length === 0">
             <td style="width:690px">
-              <b>Nenhum conflito encontrado</b>, clique no botão de filtros para
-              selecioná-los.
+              <b>Nenhum conflito encontrado.</b> Clique no botão de filtros
+              <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
             </td>
           </tr>
         </template>
@@ -197,7 +197,7 @@
               v-for="conflito in ConflitosOrdered"
               :key="'conflitosModal' + conflito.type"
               @click="
-                addOrRemoveItem(conflito.type, filtroConflitos.selecionados)
+                toggleItemInArray(conflito.type, filtroConflitos.selecionados)
               "
               style="text-transform: uppercase"
             >

@@ -221,7 +221,7 @@
             <tr
               v-for="perfil in PerfisOrdered"
               :key="'perfilId' + perfil.id"
-              @click="addOrRemoveItem(perfil, filtroPerfis.selecionados)"
+              @click="toggleItemInArray(perfil, filtroPerfis.selecionados)"
             >
               <td style="width: 25px">
                 <input
@@ -277,7 +277,7 @@
             <tr
               v-for="curso in ModalCursosOrdered"
               :key="'cursoMd' + curso.id"
-              @click="addOrRemoveItem(curso, filtroCursos.selecionados)"
+              @click="toggleItemInArray(curso, filtroCursos.selecionados)"
             >
               <td style="width: 25px">
                 <input
@@ -474,11 +474,6 @@
         </ul>
       </div>
     </b-modal>
-
-    <div id="loading" v-if="isLoading">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
   </div>
 </template>
 

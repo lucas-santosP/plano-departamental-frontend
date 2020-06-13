@@ -3,14 +3,6 @@
     <PageTitle :title="'Pós Graduação'">
       <template #aside>
         <b-button
-          v-b-modal.modalFiltros
-          title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
-        >
-          <i class="fas fa-list-ul"></i>
-        </b-button>
-        <!--  -->
-        <b-button
           v-show="isAdding"
           title="Salvar"
           class="btn-custom btn-icon addbtn"
@@ -47,7 +39,13 @@
         >
           <i class="far fa-trash-alt"></i>
         </button>
-
+        <b-button
+          v-b-modal.modalFiltros
+          title="Filtros"
+          class="btn-custom btn-icon cancelbtn"
+        >
+          <i class="fas fa-list-ul"></i>
+        </b-button>
         <b-button
           v-b-modal.modalAjuda
           title="Ajuda"
@@ -198,7 +196,7 @@
               v-for="programaPos in AllProgramasPosOrdered"
               :key="programaPos"
               @click="
-                addOrRemoveItem(programaPos, filtroProgramas.selecionados)
+                toggleItemInArray(programaPos, filtroProgramas.selecionados)
               "
             >
               <td style="width:25px">
