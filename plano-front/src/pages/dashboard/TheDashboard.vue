@@ -539,7 +539,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100vh;
-  background-color: rgba(73, 73, 73, 0.897);
+  background-color: #343a40;
   z-index: 2005;
   cursor: progress;
   transition: all 300ms ease;
