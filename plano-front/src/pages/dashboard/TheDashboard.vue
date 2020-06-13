@@ -20,7 +20,7 @@
         @click="closeSideBar()"
         role="main"
         class="col-12 p-0 px-2"
-        v-show="!isLoading"
+        v-if="!isLoading"
       >
         <router-view></router-view>
       </main>
