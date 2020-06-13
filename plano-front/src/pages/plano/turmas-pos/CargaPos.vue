@@ -287,6 +287,7 @@
 <script>
 import _ from "lodash";
 import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
+import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
 import notificationMixin from "@/mixins/notification.js";
 import { PageTitle, BaseTable, NavTab, Card } from "@/components/index.js";
 import { EventBus } from "@/event-bus.js";
@@ -298,7 +299,7 @@ const allProgramasPos = ["PGCC", "PGMC", "PGEM"];
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [toggleOrdinationMixin, notificationMixin],
+  mixins: [toggleOrdinationMixin, notificationMixin, toggleItemInArrayMixin],
   components: {
     CargaPosRow,
     CargaPosNovaRow,
@@ -356,11 +357,6 @@ export default {
   },
 
   methods: {
-    addOrRemoveItem(item, array) {
-      const index = array.indexOf(item);
-      if (index === -1) array.push(item);
-      else array.splice(index, 1);
-    },
     addNovaCarga() {
       EventBus.$emit("add-carga-pos");
     },

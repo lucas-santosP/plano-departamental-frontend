@@ -321,6 +321,7 @@
 import _ from "lodash";
 import { EventBus } from "@/event-bus.js";
 import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
+import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
 import PageTitle from "@/components/PageTitle";
 import NavTab from "@/components/NavTab";
 import ModalTurma from "./ModalTurma.vue";
@@ -361,7 +362,7 @@ const AllConflitosTurmas = [
 
 export default {
   name: "Validacoes",
-  mixins: [toggleOrdinationMixin],
+  mixins: [toggleOrdinationMixin, toggleItemInArrayMixin],
   components: {
     ModalTurma,
     PageTitle,
@@ -574,11 +575,6 @@ export default {
     EventBus.$off("close-modal-turma");
   },
   methods: {
-    addOrRemoveItem(item, array) {
-      const index = array.indexOf(item);
-      if (index === -1) array.push(item);
-      else array.splice(index, 1);
-    },
     btnOkFiltros() {
       this.btnOkSemestre();
       this.filtroConflitos.ativados = [...this.filtroConflitos.selecionados];

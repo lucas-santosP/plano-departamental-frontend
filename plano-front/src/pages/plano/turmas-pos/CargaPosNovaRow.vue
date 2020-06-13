@@ -79,7 +79,7 @@ export default {
     isEmpty(value) {
       return value === "" || value === undefined ? true : false;
     },
-    convertEmptyKeysToNull(object) {
+    setEmptyKeysToNull(object) {
       Object.keys(object).forEach((key) => {
         if (this.isEmpty(object[key])) object[key] = null;
       });
@@ -104,7 +104,7 @@ export default {
     addCarga() {
       const newCarga = _.clone(this.cargaPosForm);
 
-      this.convertEmptyKeysToNull(newCarga);
+      this.setEmptyKeysToNull(newCarga);
       if (!this.validateCargaPos(newCarga)) return;
 
       cargaPosService

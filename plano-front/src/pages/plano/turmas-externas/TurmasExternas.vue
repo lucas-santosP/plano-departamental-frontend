@@ -362,7 +362,7 @@
             </th>
           </template>
           <template #tbody>
-            <tr>
+            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
               <td style="width: 25px">
                 <input
                   type="checkbox"
@@ -372,7 +372,7 @@
               </td>
               <td style="width: 425px" class="t-start">PRIMEIRO</td>
             </tr>
-            <tr>
+            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
               <td style="width: 25px">
                 <input
                   type="checkbox"
@@ -491,6 +491,7 @@
 <script>
 import _ from "lodash";
 import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
+import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
 import turmaExternaService from "@/common/services/turmaExterna";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import PageTitle from "@/components/PageTitle.vue";
@@ -518,7 +519,7 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdinationMixin],
+  mixins: [toggleOrdinationMixin, toggleItemInArrayMixin],
   components: {
     TurmaExternaRow,
     PageTitle,
