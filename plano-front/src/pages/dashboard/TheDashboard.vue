@@ -6,11 +6,6 @@
       @toggle-sidebar="toggleSidebar"
       @show-modal="showModal[$event]()"
     />
-    <div
-      class="bg-base-modal"
-      v-if="hasModalOpen"
-      @click.stop="closeModal()"
-    ></div>
 
     <div class="container-fluid">
       <transition
@@ -31,7 +26,11 @@
       </main>
     </div>
     <LoadingPage v-if="isLoading || $root.onLoad" />
-
+    <div
+      class="bg-base-modal"
+      v-if="hasModalOpen"
+      @click.stop="closeModal()"
+    ></div>
     <b-modal
       id="modal-download"
       ref="modalDownload"
