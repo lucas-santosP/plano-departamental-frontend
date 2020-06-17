@@ -11,10 +11,10 @@
         </b-button>
 
         <b-button
-                v-b-modal.modalRelatorio
-                type="button"
-                class="btn-custom btn-icon relatbtn"
-                title="Relatório"
+          v-b-modal.modalRelatorio
+          type="button"
+          class="btn-custom btn-icon relatbtn"
+          title="Relatório"
         >
           <i class="far fa-file-pdf"></i>
         </b-button>
@@ -258,12 +258,12 @@
     </b-modal>
     <!-- MODAL RELATORIO-->
     <b-modal
-            id="modalRelatorio"
-            ref="relatorioModal"
-            size="sm"
-            scrollable
-            title="Relatório"
-            hide-footer
+      id="modalRelatorio"
+      ref="relatorioModal"
+      size="sm"
+      scrollable
+      title="Relatório"
+      hide-footer
     >
       <ul class="listas list-group">
         <li class="list-group-item clickable" v-on:click="pdf(1)">
@@ -357,12 +357,12 @@ export default {
     pdf(opt) {
       if (opt === 1) {
         pdfs.pdfAlocacaoLabs({
-          laboratorios: this.filtroLaboratorios.ativados
+          laboratorios: this.filtroLaboratorios.ativados,
         });
       }
       if (opt === 2) {
         pdfs.pdfAlocacaoLabs({
-          laboratorios: this.Laboratorios
+          laboratorios: this.LaboratoriosOrdered,
         });
       }
     },
