@@ -30,7 +30,7 @@
     <div class="row w-100 m-0">
       <div v-show="semestre1IsActived" class="w-100">
         <h2
-          v-show="CursosWithHorarios.length"
+          v-show="CursosWithHorarios.length || EletivasIsSelected"
           class="semestre-title w-100 px-1 bg-custom"
         >
           1º SEMESTRE
@@ -55,7 +55,7 @@
 
       <div v-show="semestre2IsActived" class="w-100">
         <h2
-          v-show="CursosWithHorarios.length"
+          v-show="CursosWithHorarios.length || EletivasIsSelected"
           class="semestre-title w-100 px-1 bg-custom"
         >
           2º SEMESTRE
