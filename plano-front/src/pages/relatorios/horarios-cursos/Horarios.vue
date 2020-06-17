@@ -9,14 +9,14 @@
         >
           <i class="fas fa-list-ul"></i>
         </b-button>
-        <button
-          type="button"
-          class="btn-custom btn-icon relatbtn"
-          v-on:click.prevent="pdf"
-          title="Relatório"
+        <b-button
+                v-b-modal.modalRelatorio
+                type="button"
+                class="btn-custom btn-icon relatbtn"
+                title="Relatório"
         >
           <i class="far fa-file-pdf"></i>
-        </button>
+        </b-button>
         <b-button
           v-b-modal.modalAjuda
           title="Ajuda"
@@ -287,6 +287,24 @@
       </div>
 
       <div slot="modal-footer" style="display: none;"></div>
+    </b-modal>
+    <!-- MODAL RELATORIO-->
+    <b-modal
+            id="modalRelatorio"
+            ref="relatorioModal"
+            size="sm"
+            scrollable
+            title="Relatório"
+            hide-footer
+    >
+      <ul class="listas list-group">
+        <li class="list-group-item clickable" v-on:click="pdf(false)">
+          <strong>Parcial</strong>
+        </li>
+        <li class="list-group-item clickable" v-on:click="pdf(true)">
+          <strong>Completo</strong>
+        </li>
+      </ul>
     </b-modal>
   </div>
 </template>
@@ -1396,7 +1414,7 @@ export default {
         Ativas: this.horariosAtivos2,
       });
     },
-    pdf() {
+    pdf(completo) {
       var pdfMake = require("pdfmake/build/pdfmake.js");
       if (pdfMake.vfs == undefined) {
         var pdfFonts = require("pdfmake/build/vfs_fonts.js");
@@ -1433,1777 +1451,1787 @@ export default {
           }
         ]
       })
-      tables.push({
-        text: "Ciência da Computação Diurno",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosCCD1[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 0; d < 4; d++) {
-            for (let j = 0; j < periodosCCD1[i].length; j++) {
-              if (this.checkTurmaHorario(periodosCCD1[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD1[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD1[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD1[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD1[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD1[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Ciência da Computação Noturno",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosCCN1[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 4; d < 6; d++) {
-            for (let j = 0; j < periodosCCN1[i].length; j++) {
-              if (this.checkTurmaHorario(periodosCCN1[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN1[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN1[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN1[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN1[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN1[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Engenharia Computacional",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosEC1[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 0; d < 4; d++) {
-            for (let j = 0; j < periodosEC1[i].length; j++) {
-              if (this.checkTurmaHorario(periodosEC1[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC1[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC1[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC1[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC1[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC1[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Sistemas de Informação",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosSI1[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 4; d < 6; d++) {
-            for (let j = 0; j < periodosSI1[i].length; j++) {
-              if (this.checkTurmaHorario(periodosSI1[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI1[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI1[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI1[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI1[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI1[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI1[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Eletivas",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      if (eletivas1.length === 0) {
-        vazio = vazio + 1;
-      } else {
-        let tableHorariosBody = [
-          [
-            {
-              text: "Hora",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Segunda",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Terça",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Quarta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Quinta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Sexta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-          ],
-        ]
-        for (let d = 0; d < 8; d++) {
-          for (let j = 0; j < eletivas1.length; j++) {
-            if (
-                    this.checkTurmaHorario(
-                            eletivas1[j],
-                            (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas1[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + eletivas1[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas1[j],
-                            (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas1[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + eletivas1[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas1[j],
-                            (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas1[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + eletivas1[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas1[j],
-                            (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas1[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + eletivas1[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas1[j],
-                            (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas1[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + eletivas1[j].letra;
-                }
-              }
-            }
-          }
-          switch (d) {
-            case 0:
-              tableHorariosBody.push([
-                {
-                  text: "08 - 10",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 1:
-              tableHorariosBody.push([
-                {
-                  text: "10 - 12",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 2:
-              tableHorariosBody.push([
-                {
-                  text: "14 - 16",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 3:
-              tableHorariosBody.push([
-                {
-                  text: "16 - 18",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 4:
-              tableHorariosBody.push([
-                {
-                  text: "17 - 19",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 5:
-              tableHorariosBody.push([
-                {
-                  text: "18 - 20",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 6:
-              tableHorariosBody.push([
-                {
-                  text: "19 - 21",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 7:
-              tableHorariosBody.push([
-                {
-                  text: "21 - 23",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-          }
-          seg = ter = qua = qui = sex = "";
-        }
-
+      if(_.find(this.cursosAtivados, {codigo: '65C'}) || completo) {
         tables.push({
-          table: {
-            widths: ["*", "*", "*", "*", "*", "*"],
-            headerRows: 1,
-            color: "#426",
-            body: tableHorariosBody
-          },
+          text: "Ciência da Computação Diurno",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
         });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosCCD1[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 0; d < 4; d++) {
+              for (let j = 0; j < periodosCCD1[i].length; j++) {
+                if (this.checkTurmaHorario(periodosCCD1[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD1[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD1[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD1[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD1[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD1[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '35A'}) || completo) {
+        tables.push({
+          text: "Ciência da Computação Noturno",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosCCN1[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 4; d < 6; d++) {
+              for (let j = 0; j < periodosCCN1[i].length; j++) {
+                if (this.checkTurmaHorario(periodosCCN1[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN1[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN1[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN1[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN1[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN1[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '65B'}) || completo) {
+        tables.push({
+          text: "Engenharia Computacional",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosEC1[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 0; d < 4; d++) {
+              for (let j = 0; j < periodosEC1[i].length; j++) {
+                if (this.checkTurmaHorario(periodosEC1[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC1[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC1[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC1[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC1[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC1[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '76A'}) || completo) {
+        tables.push({
+          text: "Sistemas de Informação",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosSI1[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 4; d < 6; d++) {
+              for (let j = 0; j < periodosSI1[i].length; j++) {
+                if (this.checkTurmaHorario(periodosSI1[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI1[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI1[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI1[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI1[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI1[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI1[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '-'}) || completo) {
+        tables.push({
+          text: "Eletivas",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        if (eletivas1.length === 0) {
+          vazio = vazio + 1;
+        } else {
+          let tableHorariosBody = [
+            [
+              {
+                text: "Hora",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Segunda",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Terça",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Quarta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Quinta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Sexta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+            ],
+          ]
+          for (let d = 0; d < 8; d++) {
+            for (let j = 0; j < eletivas1.length; j++) {
+              if (
+                      this.checkTurmaHorario(
+                              eletivas1[j],
+                              (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas1[j].Disciplina === disciplinas[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg = seg + disciplinas[k].codigo + " " + eletivas1[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas1[j],
+                              (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas1[j].Disciplina === disciplinas[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter = ter + disciplinas[k].codigo + " " + eletivas1[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas1[j],
+                              (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas1[j].Disciplina === disciplinas[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua = qua + disciplinas[k].codigo + " " + eletivas1[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas1[j],
+                              (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas1[j].Disciplina === disciplinas[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui = qui + disciplinas[k].codigo + " " + eletivas1[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas1[j],
+                              (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas1[j].Disciplina === disciplinas[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex = sex + disciplinas[k].codigo + " " + eletivas1[j].letra;
+                  }
+                }
+              }
+            }
+            switch (d) {
+              case 0:
+                tableHorariosBody.push([
+                  {
+                    text: "08 - 10",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 1:
+                tableHorariosBody.push([
+                  {
+                    text: "10 - 12",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 2:
+                tableHorariosBody.push([
+                  {
+                    text: "14 - 16",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 3:
+                tableHorariosBody.push([
+                  {
+                    text: "16 - 18",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 4:
+                tableHorariosBody.push([
+                  {
+                    text: "17 - 19",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 5:
+                tableHorariosBody.push([
+                  {
+                    text: "18 - 20",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 6:
+                tableHorariosBody.push([
+                  {
+                    text: "19 - 21",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 7:
+                tableHorariosBody.push([
+                  {
+                    text: "21 - 23",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+            }
+            seg = ter = qua = qui = sex = "";
+          }
+
+          tables.push({
+            table: {
+              widths: ["*", "*", "*", "*", "*", "*"],
+              headerRows: 1,
+              color: "#426",
+              body: tableHorariosBody
+            },
+          });
+        }
       }
 
       var periodosCCD2 = this.horariosAtivos2.CCD;
@@ -3230,1777 +3258,1788 @@ export default {
           }
         ]
       })
-      tables.push({
-        text: "Ciência da Computação Diurno",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-      });
 
-      for (let i = 0; i < 10; i++) {
-        if (periodosCCD2[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 0; d < 4; d++) {
-            for (let j = 0; j < periodosCCD2[i].length; j++) {
-              if (this.checkTurmaHorario(periodosCCD2[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD2[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD2[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD2[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCD2[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCD2[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Ciência da Computação Noturno",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosCCN2[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 4; d < 6; d++) {
-            for (let j = 0; j < periodosCCN2[i].length; j++) {
-              if (this.checkTurmaHorario(periodosCCN2[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN2[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN2[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN2[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosCCN2[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosCCN2[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Engenharia Computacional",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosEC2[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 0; d < 4; d++) {
-            for (let j = 0; j < periodosEC2[i].length; j++) {
-              if (this.checkTurmaHorario(periodosEC2[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC2[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC2[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC2[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosEC2[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosEC2[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Sistemas de Informação",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      for (let i = 0; i < 10; i++) {
-        if (periodosSI2[i].length === 0) {
-          vazio = vazio + 1;
-        } else {
-          tables.push({
-            text: i + 1 + "º Período",
-            fontSize: 8,
-            bold: true,
-            margin: [0, 5, 0, 5],
-          });
-          let tableHorariosBody = [
-            [
-              {
-                text: "Hora",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Segunda",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Terça",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quarta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Quinta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-              {
-                text: "Sexta",
-                alignment: "center",
-                fontSize: 8,
-                bold: true,
-              },
-            ],
-          ]
-          for (let d = 4; d < 6; d++) {
-            for (let j = 0; j < periodosSI2[i].length; j++) {
-              if (this.checkTurmaHorario(periodosSI2[i][j], 1 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
-                    if (seg !== "") seg = seg + " ";
-                    seg =
-                            seg +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI2[i][j], 7 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
-                    if (ter != "") ter = ter + " ";
-                    ter =
-                            ter +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI2[i][j], 13 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qua != "") qua = qua + " ";
-                    qua =
-                            qua +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI2[i][j], 19 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
-                    if (qui != "") qui = qui + " ";
-                    qui =
-                            qui +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI2[i][j].letra;
-                  }
-                }
-              }
-              if (this.checkTurmaHorario(periodosSI2[i][j], 25 + d)) {
-                for (let k = 0; k < disciplinas.length; k++) {
-                  if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
-                    if (sex != "") sex = sex + " ";
-                    sex =
-                            sex +
-                            disciplinas[k].codigo +
-                            " " +
-                            periodosSI2[i][j].letra;
-                  }
-                }
-              }
-            }
-
-            switch (d) {
-              case 0:
-                tableHorariosBody.push([
-                  {
-                    text: "08 - 10",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 1:
-                tableHorariosBody.push([
-                  {
-                    text: "10 - 12",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 2:
-                tableHorariosBody.push([
-                  {
-                    text: "14 - 16",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 3:
-                tableHorariosBody.push([
-                  {
-                    text: "16 - 18",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 4:
-                tableHorariosBody.push([
-                  {
-                    text: "19 - 21",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-              case 5:
-                tableHorariosBody.push([
-                  {
-                    text: "21 - 23",
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: seg,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: ter,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qua,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: qui,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                  {
-                    text: sex,
-                    alignment: "center",
-                    fontSize: 8,
-                  },
-                ]);
-                break;
-            }
-            seg = ter = qua = qui = sex = "";
-          }
-
-          tables.push({
-            table: {
-              widths: ["*", "*", "*", "*", "*", "*"],
-              headerRows: 1,
-              color: "#426",
-              body: tableHorariosBody
-            },
-          });
-        }
-      }
-
-      tables.push({
-        text: "Eletivas",
-        bold: true,
-        margin: [0, 10, 0, 5],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-
-      if (eletivas2.length === 0) {
-        vazio = vazio + 1;
-      } else {
-        let tableHorariosBody = [
-          [
-            {
-              text: "Hora",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Segunda",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Terça",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Quarta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Quinta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Sexta",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-          ],
-        ]
-        for (let d = 0; d < 8; d++) {
-          for (let j = 0; j < eletivas2.length; j++) {
-            if (
-                    this.checkTurmaHorario(
-                            eletivas2[j],
-                            (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas2[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + eletivas2[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas2[j],
-                            (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas2[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + eletivas2[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas2[j],
-                            (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas2[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + eletivas2[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas2[j],
-                            (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas2[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + eletivas2[j].letra;
-                }
-              }
-            }
-            if (
-                    this.checkTurmaHorario(
-                            eletivas2[j],
-                            (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
-                    )
-            ) {
-              for (let k = 0; k < disciplinas.length; k++) {
-                if (eletivas2[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + eletivas2[j].letra;
-                }
-              }
-            }
-          }
-          switch (d) {
-            case 0:
-              tableHorariosBody.push([
-                {
-                  text: "08 - 10",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 1:
-              tableHorariosBody.push([
-                {
-                  text: "10 - 12",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 2:
-              tableHorariosBody.push([
-                {
-                  text: "14 - 16",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 3:
-              tableHorariosBody.push([
-                {
-                  text: "16 - 18",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 4:
-              tableHorariosBody.push([
-                {
-                  text: "17 - 19",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 5:
-              tableHorariosBody.push([
-                {
-                  text: "18 - 20",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 6:
-              tableHorariosBody.push([
-                {
-                  text: "19 - 21",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-            case 7:
-              tableHorariosBody.push([
-                {
-                  text: "21 - 23",
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: ter,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qua,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                {
-                  text: sex,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-              ]);
-              break;
-          }
-          seg = ter = qua = qui = sex = "";
-        }
-
+      if(_.find(this.cursosAtivados, {codigo: '65C'}) || completo) {
         tables.push({
-          table: {
-            widths: ["*", "*", "*", "*", "*", "*"],
-            headerRows: 1,
-            color: "#426",
-            body: tableHorariosBody
-          },
+          text: "Ciência da Computação Diurno",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
         });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosCCD2[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 0; d < 4; d++) {
+              for (let j = 0; j < periodosCCD2[i].length; j++) {
+                if (this.checkTurmaHorario(periodosCCD2[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD2[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD2[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD2[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCD2[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCD2[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '35A'}) || completo) {
+        tables.push({
+          text: "Ciência da Computação Noturno",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosCCN2[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 4; d < 6; d++) {
+              for (let j = 0; j < periodosCCN2[i].length; j++) {
+                if (this.checkTurmaHorario(periodosCCN2[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN2[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN2[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN2[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosCCN2[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosCCN2[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '65B'}) || completo) {
+        tables.push({
+          text: "Engenharia Computacional",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosEC2[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 0; d < 4; d++) {
+              for (let j = 0; j < periodosEC2[i].length; j++) {
+                if (this.checkTurmaHorario(periodosEC2[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC2[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC2[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC2[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosEC2[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosEC2[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '76A'}) || completo) {
+        tables.push({
+          text: "Sistemas de Informação",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        for (let i = 0; i < 10; i++) {
+          if (periodosSI2[i].length === 0) {
+            vazio = vazio + 1;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorariosBody = [
+              [
+                {
+                  text: "Hora",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Segunda",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Terça",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quarta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Quinta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+                {
+                  text: "Sexta",
+                  alignment: "center",
+                  fontSize: 8,
+                  bold: true,
+                },
+              ],
+            ]
+            for (let d = 4; d < 6; d++) {
+              for (let j = 0; j < periodosSI2[i].length; j++) {
+                if (this.checkTurmaHorario(periodosSI2[i][j], 1 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
+                      if (seg !== "") seg = seg + " ";
+                      seg =
+                              seg +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI2[i][j], 7 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
+                      if (ter != "") ter = ter + " ";
+                      ter =
+                              ter +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI2[i][j], 13 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qua != "") qua = qua + " ";
+                      qua =
+                              qua +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI2[i][j], 19 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
+                      if (qui != "") qui = qui + " ";
+                      qui =
+                              qui +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI2[i][j].letra;
+                    }
+                  }
+                }
+                if (this.checkTurmaHorario(periodosSI2[i][j], 25 + d)) {
+                  for (let k = 0; k < disciplinas.length; k++) {
+                    if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
+                      if (sex != "") sex = sex + " ";
+                      sex =
+                              sex +
+                              disciplinas[k].codigo +
+                              " " +
+                              periodosSI2[i][j].letra;
+                    }
+                  }
+                }
+              }
+
+              switch (d) {
+                case 0:
+                  tableHorariosBody.push([
+                    {
+                      text: "08 - 10",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 1:
+                  tableHorariosBody.push([
+                    {
+                      text: "10 - 12",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 2:
+                  tableHorariosBody.push([
+                    {
+                      text: "14 - 16",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 3:
+                  tableHorariosBody.push([
+                    {
+                      text: "16 - 18",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 4:
+                  tableHorariosBody.push([
+                    {
+                      text: "19 - 21",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+                case 5:
+                  tableHorariosBody.push([
+                    {
+                      text: "21 - 23",
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: seg,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: ter,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qua,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: qui,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                    {
+                      text: sex,
+                      alignment: "center",
+                      fontSize: 8,
+                    },
+                  ]);
+                  break;
+              }
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorariosBody
+              },
+            });
+          }
+        }
+      }
+
+      if(_.find(this.cursosAtivados, {codigo: '-'}) || completo) {
+        tables.push({
+          text: "Eletivas",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+
+        if (eletivas2.length === 0) {
+          vazio = vazio + 1;
+        } else {
+          let tableHorariosBody = [
+            [
+              {
+                text: "Hora",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Segunda",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Terça",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Quarta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Quinta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+              {
+                text: "Sexta",
+                alignment: "center",
+                fontSize: 8,
+                bold: true,
+              },
+            ],
+          ]
+          for (let d = 0; d < 8; d++) {
+            for (let j = 0; j < eletivas2.length; j++) {
+              if (
+                      this.checkTurmaHorario(
+                              eletivas2[j],
+                              (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas2[j].Disciplina === disciplinas[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg = seg + disciplinas[k].codigo + " " + eletivas2[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas2[j],
+                              (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas2[j].Disciplina === disciplinas[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter = ter + disciplinas[k].codigo + " " + eletivas2[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas2[j],
+                              (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas2[j].Disciplina === disciplinas[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua = qua + disciplinas[k].codigo + " " + eletivas2[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas2[j],
+                              (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas2[j].Disciplina === disciplinas[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui = qui + disciplinas[k].codigo + " " + eletivas2[j].letra;
+                  }
+                }
+              }
+              if (
+                      this.checkTurmaHorario(
+                              eletivas2[j],
+                              (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d)
+                      )
+              ) {
+                for (let k = 0; k < disciplinas.length; k++) {
+                  if (eletivas2[j].Disciplina === disciplinas[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex = sex + disciplinas[k].codigo + " " + eletivas2[j].letra;
+                  }
+                }
+              }
+            }
+            switch (d) {
+              case 0:
+                tableHorariosBody.push([
+                  {
+                    text: "08 - 10",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 1:
+                tableHorariosBody.push([
+                  {
+                    text: "10 - 12",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 2:
+                tableHorariosBody.push([
+                  {
+                    text: "14 - 16",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 3:
+                tableHorariosBody.push([
+                  {
+                    text: "16 - 18",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 4:
+                tableHorariosBody.push([
+                  {
+                    text: "17 - 19",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 5:
+                tableHorariosBody.push([
+                  {
+                    text: "18 - 20",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 6:
+                tableHorariosBody.push([
+                  {
+                    text: "19 - 21",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+              case 7:
+                tableHorariosBody.push([
+                  {
+                    text: "21 - 23",
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: seg,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: ter,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qua,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: qui,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                  {
+                    text: sex,
+                    alignment: "center",
+                    fontSize: 8,
+                  },
+                ]);
+                break;
+            }
+            seg = ter = qua = qui = sex = "";
+          }
+
+          tables.push({
+            table: {
+              widths: ["*", "*", "*", "*", "*", "*"],
+              headerRows: 1,
+              color: "#426",
+              body: tableHorariosBody
+            },
+          });
+        }
       }
 
       var docDefinition = {

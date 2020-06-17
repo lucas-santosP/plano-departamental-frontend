@@ -61,7 +61,7 @@ export default {
             return false
     },
 
-    pdfAlocacaoLabs() {
+    pdfAlocacaoLabs(data) {
         var pdfMake = require('pdfmake/build/pdfmake.js')
         if (pdfMake.vfs == undefined){
             var pdfFonts = require('pdfmake/build/vfs_fonts.js')
@@ -86,7 +86,7 @@ export default {
                 }
             ]
         })
-        var laboratorios = _.filter(store.state.sala.Salas, ['laboratorio', true])
+        var laboratorios = data.laboratorios
         var disciplinas = _.orderBy(store.state.disciplina.Disciplinas, ['nome'])
         var turmas1 = _.filter(store.state.turma.Turmas, ['periodo', 1])
         var turmas2 = _.filter(store.state.turma.Turmas, ['periodo', 3])
