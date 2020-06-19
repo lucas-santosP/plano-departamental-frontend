@@ -44,6 +44,7 @@ button i.fas,
 button i.far {
   font-size: 25px;
 }
+
 .addbtn {
   background-color: white !important;
   color: #a0e7a0 !important;
@@ -102,11 +103,13 @@ button i.far {
 
 .cancelbtn {
   background-color: white !important;
-  color: #cfcfc4 !important;
+  color: #c3c3c3 !important;
 }
 .cancelbtn:hover {
-  color: #a1a09b !important;
-  background-color: white !important;
+  color: #8a8a8a !important;
+}
+.cancelbtn:focus {
+  color: #8a8a8a !important;
 }
 
 .delbtn {

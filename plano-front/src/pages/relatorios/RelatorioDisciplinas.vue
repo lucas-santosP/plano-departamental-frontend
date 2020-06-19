@@ -1362,16 +1362,6 @@ tbody {
   height: 18px !important;
 }
 /* fim table */
-.listas {
-  line-height: 30px;
-  font-size: 12px;
-  text-align: justify;
-  line-height: inherit;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
-}
-.ajuda-strong {
-  color: #007bff;
-}
 .disciplina-tr {
   background-color: rgba(0, 0, 0, 0.089);
   color: black;
