@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-custom">
+    <div :class="modalClass" :style="modalStyle">
       <header class="modal-custom-header w-100">
         <h2 class="title">
           {{ modalOptions.title }}
@@ -8,7 +8,7 @@
         <button
           type="button"
           class="btn-custom btn-close"
-          @click="close()"
+          @click="closeModal()"
           aria-label="Close modal"
         >
           &times;
@@ -19,24 +19,24 @@
         <slot name="modal-body">Modal Body</slot>
       </main>
 
-      <footer v-if="hasFooter" class="modal-custom-footer w-100">
+      <footer v-if="modalOptions.hasFooter" class="modal-custom-footer w-100">
         <slot name="footer">
           <div class="div">
             <button
               class="btn btn-custom btn-modal btn-azul"
-              @click="$emit('select-all')"
+              @click="emitSelectAll()"
             >
               Selecionar Todos
             </button>
             <button
               class="btn btn-custom btn-modal btn-cinza"
-              @click="$emit('select-none')"
+              @click="emitSelectNone()"
             >
               Desmarcar Todos
             </button>
           </div>
           <button
-            @click="$emit('btn-ok'), close()"
+            @click="emitOk()"
             class="btn btn-modal btn-verde btn-ok-modal"
           >
             OK
@@ -53,82 +53,102 @@ import { EventBus } from "@/event-bus.js";
 export default {
   name: "BaseModal",
   props: {
-    modalOptions: { type: Object, required: true },
-    hasFooter: { type: Boolean, default: false },
+    modalOptions: {
+      type: Object,
+      required: true,
+    },
+    classes: {
+      type: [String, Array],
+      default: () => [],
+    },
+    styles: {
+      type: [String, Array, Object],
+    },
   },
   data() {
     return {};
   },
   mounted() {
-    EventBus.$emit("toggle-bg-modal", true);
-    EventBus.$on("close-modal", () => {
-      this.close();
-    });
+    window.addEventListener("keyup", this.onEscKeyUp);
+    //Remove background events
+    if (this.modalConfigs.hasBackground) {
+      EventBus.$emit("toggle-bg-modal", true);
+      EventBus.$on("close-modal", () => {
+        this.closeModal();
+      });
+    }
   },
   beforeDestroy() {
-    EventBus.$emit("toggle-bg-modal", false);
-    EventBus.$off("close-modal");
+    window.removeEventListener("keyup", this.onEscKeyUp);
+    this.$emit("on-close");
+    //Remove background events
+    if (this.modalConfigs.hasBackground) {
+      EventBus.$emit("toggle-bg-modal", false);
+      EventBus.$off("close-modal");
+    }
   },
-  computed: {},
   methods: {
-    close() {
+    onEscKeyUp(event) {
+      const { code } = event;
+      const { type } = this.modalOptions;
+
+      if (code === "Escape") {
+        this.closeModal();
+      } else if (type === "filtros" && code === "Backquote") {
+        this.emitSelectAll();
+      }
+    },
+    closeModal() {
       this.modalOptions.visibility = false;
     },
-    dragMouseDown(event) {
-      event.preventDefault();
-
-      // get the mouse cursor position at startup:
-      this.positions.clientX = event.clientX;
-      this.positions.clientY = event.clientY;
-      document.onmousemove = this.elementDrag;
-      document.onmouseup = this.closeDragElement;
+    emitSelectAll() {
+      this.$emit("select-all");
     },
-    elementDrag(event) {
-      this.$refs.draggableContainer.style.cursor = "all-scroll";
-      event.preventDefault();
-      this.positions.movementX = this.positions.clientX - event.clientX;
-      this.positions.movementY = this.positions.clientY - event.clientY;
-      this.positions.clientX = event.clientX;
-      this.positions.clientY = event.clientY;
+    emitSelectNone() {
+      this.$emit("select-none");
+    },
+    emitOk() {
+      this.$emit("btn-ok");
+      // this.closeModal();
+    },
+  },
+  computed: {
+    modalClass() {
+      return ["modal-custom", this.classes];
+    },
+    modalStyle() {
+      const { position, type } = this.modalConfigs;
+      let styles = "";
 
-      let top = this.$refs.draggableContainer.offsetTop;
-      let bottom = top + this.$refs.draggableContainer.offsetHeight;
-      // console.log("bottom", bottom);
-      // console.log("top", top);
-      // console.log(event.clientY);
-
-      let right =
-        this.$refs.draggableContainer.offsetLeft +
-        this.$refs.draggableContainer.offsetWidth;
-      console.log(event.clientX);
-      if (top <= 310 && event.clientY < 100) {
-        this.positions.movementY = 0;
-      } else if (bottom >= 1230 && event.clientY > 300) {
-        this.positions.movementY = 0;
+      if (position === "center") {
+        styles +=
+          "top: 50px;left:50%; transform: translateX(-50%); z-index: 1000;";
+      } else if (position === "right") {
+        styles += "top: 5vh; right: 10px;z-index: 900;";
       }
 
-      // if (right >= 2155 && event.clientX >= 1425) {
-      //   this.positions.movementX = 0;
-      // }
-
-      this.$refs.draggableContainer.style.top =
-        this.$refs.draggableContainer.offsetTop -
-        this.positions.movementY +
-        "px";
-      if (right >= 2150) {
-        this.$refs.draggableContainer.style.left =
-          this.$refs.draggableContainer.offsetLeft - 1 + "px";
+      if (type === "filtros") {
+        styles += "max-width:500px; min-height:600px;";
+      } else if (position === "editTurma") {
+        styles += "max-width:500px;min-height: 800px;";
       } else {
-        this.$refs.draggableContainer.style.left =
-          this.$refs.draggableContainer.offsetLeft -
-          this.positions.movementX +
-          "px";
+        styles += "max-width:500px; height:auto;";
       }
+
+      return styles;
     },
-    closeDragElement() {
-      this.$refs.draggableContainer.style.cursor = "default";
-      document.onmouseup = null;
-      document.onmousemove = null;
+    modalConfigs() {
+      return {
+        visibility: false,
+        title: "Nenhum titulo recebido!",
+        dimensionTyp: "default",
+        position: "center",
+        hasBackground:
+          this.modalOptions.position === "center" || !this.modalOptions.position
+            ? true
+            : false,
+        ...this.modalOptions,
+      };
     },
   },
 };
@@ -136,19 +156,14 @@ export default {
 
 <style scoped>
 .modal-custom {
-  z-index: 1050;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
   background: #ffffff;
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  max-width: 500px;
-  min-height: 800px;
   border-radius: 5px;
 }
 .modal-custom-header,
@@ -164,7 +179,7 @@ export default {
   min-height: 56px;
 }
 .modal-custom-body {
-  padding: 20px 15px;
+  padding: 15px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -191,7 +206,6 @@ export default {
   min-height: 55px;
   width: 70px;
   font-size: 22px;
-  padding: 20px;
   border: none;
   color: #2d2e2e;
   font-weight: bold;

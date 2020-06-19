@@ -497,7 +497,7 @@ export default {
 <style scoped>
 .bg-base-modal {
   position: absolute;
-  z-index: 100;
+  z-index: 950;
   height: 100vh !important;
   width: 100% !important;
   background-color: rgba(58, 58, 58, 0.239);
