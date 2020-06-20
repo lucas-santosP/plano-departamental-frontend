@@ -21,6 +21,9 @@ button {
   background: none !important;
   box-shadow: none !important;
 }
+.btn-icon:focus {
+  box-shadow: 0 0 1pt 2pt #9ec0f7 !important;
+}
 .btn-modal {
   font-size: 12px !important;
   height: 25px !important;

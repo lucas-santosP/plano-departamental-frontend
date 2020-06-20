@@ -3,18 +3,16 @@
     <PageTitle :title="'Validações do Plano'">
       <template #aside>
         <b-button
-          @click.stop="openModal('filtros')"
-          :class="{ 'btn-modal-active': optionsModalFiltros.visibility }"
+          @click.stop="$refs.modalFiltros.toggle()"
           title="Filtros"
           class="cancelbtn btn-custom btn-icon"
         >
           <i class="fas fa-list-ul"></i>
         </b-button>
         <b-button
-          @click.stop="openModal('ajuda')"
-          :class="{ 'btn-modal-active': optionsModalAjuda.visibility }"
           title="Ajuda"
           class="relatbtn btn-custom btn-icon"
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </b-button>
@@ -77,11 +75,7 @@
         </template>
         <template #tbody>
           <template v-for="validacaoTurma in TurmasValidacoesOrdered">
-            <tr
-              :key="'turmaId' + validacaoTurma.id"
-              :class="{ 'tr-selected': trIsSelected(validacaoTurma.id) }"
-              class="test bg-custom"
-            >
+            <tr :key="'turmaId' + validacaoTurma.id" class="bg-custom">
               <td style="width: 35px;">
                 {{ validacaoTurma.periodo }}
               </td>
@@ -102,15 +96,13 @@
                 <br />
                 {{ validacaoTurma.docente2Apelido }}
               </td>
-              <td
-                style="width: 50px"
-                class="clickable"
-                title="Editar turma"
-                @click.stop="openModalEditTurma(validacaoTurma)"
-              >
-                <div class="btn-table-div">
+              <td style="width: 50px" class="clickable" title="Editar turma">
+                <button
+                  class="btn-table"
+                  @click.stop="openModalEditTurma(validacaoTurma)"
+                >
                   <i class="fas fa-edit btn-table-icon"></i>
-                </div>
+                </button>
               </td>
             </tr>
             <tr
@@ -184,8 +176,13 @@
 
     <!-- Modal Filtros -->
     <BaseModal
-      v-if="optionsModalFiltros.visibility"
-      :modalOptions="optionsModalFiltros"
+      ref="modalFiltros"
+      :modalType="'filtros'"
+      :modalOptions="{
+        type: 'filtros',
+        title: 'Filtros',
+        hasFooter: true,
+      }"
       :hasFooter="true"
       @on-close="tabAtivaModal = 'Conflitos'"
       @btn-ok="btnOkFiltros()"
@@ -274,11 +271,15 @@
 
     <!-- modal turma edit -->
     <BaseModal
-      v-if="optionsModalEditTurma.visibility"
-      :modalOptions="optionsModalEditTurma"
+      ref="modalEditTurma"
+      :modalOptions="{
+        type: 'editTurma',
+        title: 'Edição de Turma',
+      }"
     >
       <template #modal-body>
         <BodyModalEditTurma
+          v-if="turmaClickada != null"
           :hasEditDisciplina="false"
           :key="turmaClickada.id + 'modalTurma'"
           :turma="turmaClickada"
@@ -287,8 +288,11 @@
     </BaseModal>
 
     <BaseModal
-      v-if="optionsModalAjuda.visibility"
-      :modalOptions="optionsModalAjuda"
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
     >
       <template #modal-body>
         <ul class="listas list-group">
@@ -416,24 +420,6 @@ export default {
           this.filtroSemestres.primeiro = false;
           this.filtroSemestres.segundo = false;
         },
-      },
-      optionsModalEditTurma: {
-        type: "editTurma",
-        visibility: false,
-        title: "Edição de Turma",
-      },
-      optionsModalFiltros: {
-        type: "filtros",
-        position: "right",
-        visibility: false,
-        title: "Filtros",
-        hasFooter: true,
-      },
-      optionsModalAjuda: {
-        type: "ajuda",
-        position: "right",
-        visibility: false,
-        title: "Ajuda",
       },
     };
   },
@@ -596,18 +582,6 @@ export default {
     }
   },
   methods: {
-    trIsSelected(turmaId) {
-      return this.turmaClickada ? this.turmaClickada.id === turmaId : false;
-    },
-    openModal(modalName) {
-      if (modalName === "filtros") {
-        this.optionsModalFiltros.visibility = true;
-        this.optionsModalAjuda.visibility = false;
-      } else {
-        this.optionsModalAjuda.visibility = true;
-        this.optionsModalFiltros.visibility = false;
-      }
-    },
     btnOkFiltros() {
       this.btnOkSemestre();
       this.filtroConflitos.ativados = [...this.filtroConflitos.selecionados];
@@ -623,7 +597,7 @@ export default {
     },
     openModalEditTurma(turma) {
       this.turmaClickada = { ...turma };
-      this.optionsModalEditTurma.visibility = true;
+      this.$refs.modalEditTurma.open();
     },
     findPerfilById(id) {
       let perfil = _.find(this.Perfis, (p) => p.id == id);
@@ -1254,24 +1228,20 @@ export default {
 </script>
 
 <style scoped>
-.btn-table-div {
+.btn-table {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  border: none;
+  background: none;
 }
 .btn-table-icon {
   font-size: 12px;
 }
-
-.tr-selected {
-  outline-offset: -1px;
-  outline: 1px solid #9ec0f7;
-}
-.btn-modal-active {
-  box-shadow: 0 0 1pt 2pt #9ec0f7 !important;
-}
-.btn-table .edit-icon {
+.btn-table-icon:focus {
+  outline-offset: -1px !important;
+  outline: 1px solid #9ec0f7 !important;
 }
 </style>

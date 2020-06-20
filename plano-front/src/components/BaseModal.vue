@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div :class="modalClass" :style="modalStyle">
+    <div v-if="visibility" :class="modalClass" :style="modalStyle">
       <header class="modal-custom-header w-100">
         <h2 class="title">
           {{ modalOptions.title }}
@@ -8,7 +8,7 @@
         <button
           type="button"
           class="btn-custom btn-close"
-          @click="closeModal()"
+          @click="close()"
           aria-label="Close modal"
         >
           &times;
@@ -61,45 +61,33 @@ export default {
       type: [String, Array],
       default: () => [],
     },
-    styles: {
-      type: [String, Array, Object],
-    },
   },
   data() {
-    return {};
+    return {
+      positions: {
+        right: "top: 5vh; right: 10px;z-index: 900;",
+        center:
+          "top: 50px;left:50%; transform: translateX(-50%); z-index: 1000;",
+      },
+      visibility: false,
+    };
   },
   mounted() {
     window.addEventListener("keyup", this.onEscKeyUp);
-    //Remove background events
-    if (this.modalConfigs.hasBackground) {
-      EventBus.$emit("toggle-bg-modal", true);
-      EventBus.$on("close-modal", () => {
-        this.closeModal();
-      });
-    }
   },
   beforeDestroy() {
+    this.$off("on-close");
     window.removeEventListener("keyup", this.onEscKeyUp);
-    this.$emit("on-close");
-    //Remove background events
-    if (this.modalConfigs.hasBackground) {
-      EventBus.$emit("toggle-bg-modal", false);
-      EventBus.$off("close-modal");
-    }
   },
   methods: {
-    onEscKeyUp(event) {
-      const { code } = event;
-      const { type } = this.modalOptions;
-
-      if (code === "Escape") {
-        this.closeModal();
-      } else if (type === "filtros" && code === "Backquote") {
-        this.emitSelectAll();
-      }
+    close() {
+      this.visibility = false;
     },
-    closeModal() {
-      this.modalOptions.visibility = false;
+    open() {
+      this.visibility = true;
+    },
+    toggle() {
+      this.visibility = !this.visibility;
     },
     emitSelectAll() {
       this.$emit("select-all");
@@ -109,30 +97,38 @@ export default {
     },
     emitOk() {
       this.$emit("btn-ok");
-      // this.closeModal();
+    },
+    onEscKeyUp(event) {
+      const { code } = event;
+      const { type } = this.modalOptions;
+
+      if (code === "Escape") {
+        this.close();
+      } else if (type === "filtros" && code === "Backquote") {
+        this.emitSelectAll();
+      }
     },
   },
   computed: {
-    modalClass() {
-      return ["modal-custom", this.classes];
-    },
     modalStyle() {
       const { position, type } = this.modalConfigs;
       let styles = "";
 
-      if (position === "center") {
-        styles +=
-          "top: 50px;left:50%; transform: translateX(-50%); z-index: 1000;";
-      } else if (position === "right") {
-        styles += "top: 5vh; right: 10px;z-index: 900;";
-      }
-
-      if (type === "filtros") {
-        styles += "max-width:500px; min-height:600px;";
-      } else if (position === "editTurma") {
-        styles += "max-width:500px;min-height: 800px;";
-      } else {
-        styles += "max-width:500px; height:auto;";
+      styles += this.positions ? this.positions[position] : "";
+      // modal type overwrite the position prop
+      switch (type) {
+        case "editTurma":
+          styles = this.positions.center + "max-width:500px;min-height: 800px;";
+          break;
+        case "filtros":
+          styles = this.positions.right + "max-width:500px; min-height:600px;";
+          break;
+        case "ajuda":
+          styles = this.positions.right + "max-width:500px; height:auto;";
+          break;
+        default:
+          styles += "max-width:500px; height:auto;";
+          break;
       }
 
       return styles;
@@ -141,14 +137,29 @@ export default {
       return {
         visibility: false,
         title: "Nenhum titulo recebido!",
-        dimensionTyp: "default",
         position: "center",
-        hasBackground:
-          this.modalOptions.position === "center" || !this.modalOptions.position
-            ? true
-            : false,
+        hasBackground: this.modalOptions.type === "editTurma" ? true : false,
         ...this.modalOptions,
       };
+    },
+    modalClass() {
+      return ["modal-custom", this.classes];
+    },
+  },
+  watch: {
+    visibility(newValue) {
+      if (this.modalConfigs.hasBackground) {
+        if (newValue) {
+          EventBus.$emit("toggle-bg-modal", true);
+          EventBus.$on("close-modal", this.close);
+        } else {
+          EventBus.$emit("toggle-bg-modal", false);
+          EventBus.$off("close-modal");
+        }
+      }
+      if (!newValue) {
+        this.$emit("on-close");
+      }
     },
   },
 };

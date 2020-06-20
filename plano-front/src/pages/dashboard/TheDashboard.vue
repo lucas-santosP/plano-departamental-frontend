@@ -31,6 +31,7 @@
       v-if="hasModalOpen"
       @click.stop="closeModal()"
     ></div>
+
     <b-modal
       id="modal-download"
       ref="modalDownload"
@@ -214,7 +215,7 @@ import { saveAs } from "file-saver";
 import { EventBus } from "@/event-bus.js";
 import TheNavbar from "./TheNavbar.vue";
 import TheSidebar from "./sidebar/TheSidebar.vue";
-import LoadingPage from "@/components/LoadingPage.vue";
+import { BaseModal, LoadingPage } from "@/components/index.js";
 
 const emptyUser = {
   nome: undefined,
@@ -229,7 +230,7 @@ const emptyPlano = {
 
 export default {
   name: "TheDashboard",
-  components: { TheSidebar, TheNavbar, LoadingPage },
+  components: { TheSidebar, TheNavbar, LoadingPage, BaseModal },
 
   data: function() {
     return {
@@ -500,7 +501,7 @@ export default {
   z-index: 950;
   height: 100vh !important;
   width: 100% !important;
-  background-color: rgba(58, 58, 58, 0.239);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .TheDashboard {
   width: 100% !important;
