@@ -1,5 +1,8 @@
 :root {
   --navbar-height: 30px;
+  --dark-blue: #0055af;
+  --light-blue: #0079fa;
+  --light-gray: #dee2e6;
 }
 @media screen and (max-width: 470px) {
   :root {

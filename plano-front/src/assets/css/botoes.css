@@ -31,6 +31,7 @@ button {
   width: -moz-max-content;
   width: max-content;
   padding: 0 5px !important;
+  color: white !important;
 }
 .btn-ok-modal {
   padding-right: 15px !important;
@@ -87,6 +88,7 @@ button i.far {
 }
 
 .btn-cinza {
+  color: white !important;
   background-color: #999999 !important;
   border-color: #c3c3c3 !important;
 }
