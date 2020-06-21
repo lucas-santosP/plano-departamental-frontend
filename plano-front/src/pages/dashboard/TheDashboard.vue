@@ -26,6 +26,7 @@
       </main>
     </div>
     <LoadingPage v-if="isLoading || $root.onLoad" />
+
     <div
       class="bg-base-modal"
       v-if="hasModalOpen"
@@ -153,57 +154,14 @@
         >
       </div>
     </b-modal>
-    <b-modal
-      id="modal-user"
-      ref="modalUser"
-      title="Usuário"
-      ok-only
-      ok-title="Cancelar"
-      ok-variant="secondary"
-    >
-      <template v-if="userModalMode === 0">
-        <b-button v-on:click="createMode()">Criar Usuário</b-button>
-        <br />
-        <br />
-        <b-button v-on:click="editMode()">Editar Usuário</b-button>
-      </template>
-      <template v-if="userModalMode === 1">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" v-model="userForm.nome" />
-        <br />
-        <label for="login">Login:</label>
-        <input type="text" id="login" v-model="userForm.login" />
-        <br />
-        <label for="senha">Senha:</label>
-        <input type="text" id="senha" v-model="userForm.senha" />
-        <div slot="modal-footer">
-          <b-button variant="success" v-on:click="createUser()">Criar</b-button>
-          <b-button v-on:click="cancelMode()">Cancelar</b-button>
-        </div>
-      </template>
-      <template v-if="userModalMode === 2">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" v-model="userForm.nome" />
-        <br />
-        <label for="login">Login:</label>
-        <input type="text" id="login" v-model="userForm.login" />
-        <br />
-        <label for="senhaAtual">Senha Atual:</label>
-        <input type="text" id="senhaAtual" v-model="userForm.senhaAtual" />
-        <br />
-        <label for="senha">Senha:</label>
-        <input type="text" id="senha" v-model="userForm.senha" />
-        <div slot="modal-footer">
-          <b-button variant="success" v-on:click="editUser()">Editar</b-button>
-          <b-button v-on:click="cancelMode()">Cancelar</b-button>
-        </div>
-      </template>
-    </b-modal>
+
+    <ModalUser ref="modalUser" />
   </div>
 </template>
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
 import bddumpService from "@/common/services/bddump";
 import userService from "@/common/services/usuario";
@@ -215,14 +173,10 @@ import { saveAs } from "file-saver";
 import { EventBus } from "@/event-bus.js";
 import TheNavbar from "./TheNavbar.vue";
 import TheSidebar from "./sidebar/TheSidebar.vue";
+import ModalUser from "./modais/ModalUser.vue";
 import { BaseModal, LoadingPage } from "@/components/index.js";
+import { notification } from "@/mixins/index.js";
 
-const emptyUser = {
-  nome: undefined,
-  login: undefined,
-  senha: undefined,
-  senhaAtual: undefined,
-};
 const emptyPlano = {
   ano: undefined,
   obs: undefined,
@@ -230,16 +184,16 @@ const emptyPlano = {
 
 export default {
   name: "TheDashboard",
-  components: { TheSidebar, TheNavbar, LoadingPage, BaseModal },
-
+  components: { TheSidebar, TheNavbar, LoadingPage, BaseModal, ModalUser },
+  mixins: [notification],
   data: function() {
     return {
       hasModalOpen: false,
       files: [],
       filename: "",
       isLoadingFile: false,
-      userModalMode: 0,
-      userForm: _.clone(emptyUser),
+      userModalMode: "",
+
       downloadState: 0,
       planoForm: _.clone(emptyPlano),
       sidebarVisibility: false,
@@ -262,7 +216,8 @@ export default {
           this.$refs.modalSave.show();
         },
         user: () => {
-          this.$refs.modalUser.show();
+          // this.$refs.modalUser.show();
+          this.$refs.modalUser.openModal();
         },
       },
     };
@@ -425,24 +380,6 @@ export default {
       });
     },
 
-    createUser() {
-      userService.create(this.userForm).then(() => {
-        console.log("usuário criado");
-        this.hideModalUser();
-        this.userModalMode = 0;
-      });
-    },
-
-    editUser() {
-      userService
-        .update(this.$store.state.auth.Usuario.id, this.userForm)
-        .then(() => {
-          console.log("usuário editado");
-          this.hideModalUser();
-          this.userModalMode = 0;
-        });
-    },
-
     hideModalLoad() {
       this.$refs.modalLoad.hide();
     },
@@ -451,30 +388,12 @@ export default {
       this.$refs.modalSave.hide();
     },
 
-    hideModalUser() {
-      this.$refs.modalUser.hide();
-    },
-
     selectFile(filename) {
       this.filename = filename;
     },
-
-    createMode() {
-      this.userModalMode = 1;
-    },
-
-    editMode() {
-      console.log(this.$store.state.auth.Usuario);
-      this.userForm.nome = this.$store.state.auth.Usuario.nome;
-      this.userForm.login = this.$store.state.auth.Usuario.login;
-      this.userModalMode = 2;
-    },
-
-    cancelMode() {
-      this.userModalMode = 0;
-    },
   },
   computed: {
+    ...mapGetters(["getUsuarioFirstName"]),
     year() {
       if (!_.isEmpty(this.$store.state.plano.Plano)) {
         if (typeof this.$store.state.plano.Plano[0].ano === "string")
@@ -540,7 +459,6 @@ export default {
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-
 /*Download Files Loading animation*/
 .loadingEllipsis:after {
   overflow: hidden;

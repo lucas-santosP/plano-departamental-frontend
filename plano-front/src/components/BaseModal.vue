@@ -1,6 +1,10 @@
 <template>
   <transition name="modal-fade">
-    <div v-if="visibility" :class="modalClass" :style="modalStyle">
+    <div
+      v-if="visibility"
+      :class="modalClass"
+      :style="modalStyle + customStyles"
+    >
       <header class="modal-custom-header w-100">
         <h2 class="title">
           {{ modalOptions.title }}
@@ -61,6 +65,10 @@ export default {
       type: [String, Array],
       default: () => [],
     },
+    customStyles: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -76,6 +84,7 @@ export default {
     window.addEventListener("keyup", this.onEscKeyUp);
   },
   beforeDestroy() {
+    EventBus.$emit("toggle-bg-modal", false);
     this.$off("on-close");
     window.removeEventListener("keyup", this.onEscKeyUp);
   },
@@ -148,16 +157,16 @@ export default {
   },
   watch: {
     visibility(newValue) {
-      if (this.modalConfigs.hasBackground) {
-        if (newValue) {
+      if (newValue) {
+        if (this.modalConfigs.hasBackground) {
           EventBus.$emit("toggle-bg-modal", true);
           EventBus.$on("close-modal", this.close);
-        } else {
+        }
+      } else {
+        if (this.modalConfigs.hasBackground) {
           EventBus.$emit("toggle-bg-modal", false);
           EventBus.$off("close-modal");
         }
-      }
-      if (!newValue) {
         this.$emit("on-close");
       }
     },
@@ -168,7 +177,6 @@ export default {
 <style scoped>
 .modal-custom {
   position: absolute;
-
   background: #ffffff;
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
@@ -190,12 +198,13 @@ export default {
   min-height: 56px;
 }
 .modal-custom-body {
-  padding: 15px;
-  height: 100%;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: flex-start;
+  align-items: flex-start;
+  padding: 15px;
 }
 .modal-custom-footer {
   justify-content: space-between;
