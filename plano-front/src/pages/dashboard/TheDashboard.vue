@@ -88,38 +88,8 @@
         <!-- variant "success"-->
       </div>
     </b-modal>
-    <b-modal
-      id="modal-download-all"
-      ref="modalDownloadAll"
-      title="Download iniciado"
-    >
-      <p
-        v-if="downloadState >= 0"
-        v-bind:class="{ loadingEllipsis: downloadState === 0 }"
-      >
-        Preparando arquivos
-      </p>
-      <p
-        v-if="downloadState >= 1"
-        v-bind:class="{ loadingEllipsis: downloadState === 1 }"
-      >
-        Tabelas criadas
-      </p>
-      <p
-        v-if="downloadState >= 2"
-        v-bind:class="{ loadingEllipsis: downloadState === 2 }"
-      >
-        Relatórios criados
-      </p>
-      <p
-        v-if="downloadState >= 3"
-        v-bind:class="{ loadingEllipsis: downloadState === 3 }"
-      >
-        Arquivo .zip criado
-      </p>
-      <p v-if="downloadState >= 4">Download concluído</p>
-      <div slot="modal-footer"></div>
-    </b-modal>
+    <!--  -->
+    <!-- Carregar -->
     <b-modal id="modal-load" ref="modalLoad" title="Selecione um Arquivo">
       <p
         v-for="value in files"
@@ -135,6 +105,8 @@
         >
       </div>
     </b-modal>
+    <!--  -->
+    <!-- Salvar -->
     <b-modal
       id="modal-save"
       ref="modalSave"
@@ -156,24 +128,21 @@
     </b-modal>
 
     <ModalUser ref="modalUser" />
+    <ModalDownload ref="modalDownload" />
   </div>
 </template>
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { EventBus } from "@/event-bus.js";
 import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
 import bddumpService from "@/common/services/bddump";
-import userService from "@/common/services/usuario";
-import downloadService from "@/common/services/download";
-import xlsxService from "@/common/services/xlsx";
 import novoPlanoService from "@/common/services/novoPlano";
 import planoService from "@/common/services/plano";
-import { saveAs } from "file-saver";
-import { EventBus } from "@/event-bus.js";
 import TheNavbar from "./TheNavbar.vue";
 import TheSidebar from "./sidebar/TheSidebar.vue";
 import ModalUser from "./modais/ModalUser.vue";
+import ModalDownload from "./modais/ModalDownload.vue";
 import { BaseModal, LoadingPage } from "@/components/index.js";
 import { notification } from "@/mixins/index.js";
 
@@ -184,7 +153,14 @@ const emptyPlano = {
 
 export default {
   name: "TheDashboard",
-  components: { TheSidebar, TheNavbar, LoadingPage, BaseModal, ModalUser },
+  components: {
+    TheSidebar,
+    TheNavbar,
+    LoadingPage,
+    BaseModal,
+    ModalUser,
+    ModalDownload,
+  },
   mixins: [notification],
   data: function() {
     return {
@@ -192,9 +168,6 @@ export default {
       files: [],
       filename: "",
       isLoadingFile: false,
-      userModalMode: "",
-
-      downloadState: 0,
       planoForm: _.clone(emptyPlano),
       sidebarVisibility: false,
       showModal: {
@@ -207,8 +180,7 @@ export default {
           this.$refs.modalNovoPlano.show();
         },
         download: () => {
-          this.$refs.modalDownloadAll.show();
-          this.startDownload();
+          this.$refs.modalDownload.openModal();
         },
         save: () => {
           this.filename = "";
@@ -216,7 +188,6 @@ export default {
           this.$refs.modalSave.show();
         },
         user: () => {
-          // this.$refs.modalUser.show();
           this.$refs.modalUser.openModal();
         },
       },
@@ -322,51 +293,6 @@ export default {
         });
     },
 
-    async download() {
-      return new Promise((resolve) => {
-        this.downloadState = 0;
-        let pedidos = this.$store.state.pedido.Pedidos;
-        xlsxService
-          .downloadTable({ pedidos: pedidos })
-          .then(() => {
-            console.log("Tabela Gerada");
-            this.downloadState++;
-            downloadService
-              .generatePdf()
-              .then(() => {
-                console.log("PDFs Gerados");
-                this.downloadState++;
-                downloadService
-                  .download()
-                  .then(() => {
-                    console.log("done");
-                    this.downloadState++;
-                    fetch("http://200.131.219.57:3000/api/download/all", {
-                      method: "GET",
-                      headers: {
-                        Authorization: `Bearer ${this.$store.state.auth.token}`,
-                      },
-                    })
-                      .then((r) => r.blob())
-                      .then((blob) => {
-                        saveAs(blob, "data.zip");
-                        this.downloadState++;
-                        resolve();
-                      })
-                      .catch((e) => console.log(e));
-                  })
-                  .catch((e) => console.log(e));
-              })
-              .catch((e) => console.log(e));
-          })
-          .catch((e) => console.log(e));
-      });
-    },
-
-    async startDownload() {
-      await this.download();
-    },
-
     returnFiles() {
       bddumpService.returnFiles().then((response) => {
         this.files = response.Files.filter(function(elm) {
@@ -393,7 +319,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUsuarioFirstName"]),
     year() {
       if (!_.isEmpty(this.$store.state.plano.Plano)) {
         if (typeof this.$store.state.plano.Plano[0].ano === "string")
@@ -458,37 +383,5 @@ export default {
   -moz-animation-fill-mode: both;
   -o-animation-fill-mode: both;
   animation-fill-mode: both;
-}
-/*Download Files Loading animation*/
-.loadingEllipsis:after {
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: bottom;
-  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
-  -moz-animation: ellipsis steps(4, end) 900ms infinite;
-  -o-animation: ellipsis steps(4, end) 900ms infinite;
-  animation: ellipsis steps(4, end) 900ms infinite;
-  content: "\2026"; /* ascii code for the ellipsis character */
-  width: 0px;
-}
-@-moz-keyframes ellipsis {
-  to {
-    width: 1.25em;
-  }
-}
-@-o-keyframes ellipsis {
-  to {
-    width: 1.25em;
-  }
-}
-@keyframes ellipsis {
-  to {
-    width: 1.25em;
-  }
-}
-@-webkit-keyframes ellipsis {
-  to {
-    width: 1.25em;
-  }
 }
 </style>

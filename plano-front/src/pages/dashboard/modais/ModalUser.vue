@@ -1,6 +1,6 @@
 <template>
   <BaseModal
-    ref="baseModal"
+    ref="baseModalUser"
     :customStyles="'width:350px;'"
     @on-close="resetForm()"
     :modalOptions="{
@@ -185,7 +185,7 @@ export default {
   },
   methods: {
     openModal() {
-      this.$refs.baseModal.open();
+      this.$refs.baseModalUser.open();
     },
     changeTab(newTab) {
       if (newTab === "edit") this.resetUserForm();
