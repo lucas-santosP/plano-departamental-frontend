@@ -1460,4 +1460,19 @@ tbody {
   height: 13px !important;
 }
 /* FIM MODAL TABLE */
+/* nav-tab */
+.nav-tabs .nav-link {
+  color: #0079fa !important;
+  cursor: pointer;
+}
+.nav-tabs .nav-link:hover {
+  text-decoration: underline;
+}
+.nav-tabs .active {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  cursor: default !important;
+  text-decoration: none !important;
+  transition: background-color 200ms;
+}
 </style>
