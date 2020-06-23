@@ -177,7 +177,6 @@
     <!-- Modal Filtros -->
     <BaseModal
       ref="modalFiltros"
-      :modalType="'filtros'"
       :modalOptions="{
         type: 'filtros',
         title: 'Filtros',
@@ -195,7 +194,7 @@
           :allTabs="['Conflitos', 'Semestres']"
           @change-tab="tabAtivaModal = $event"
         />
-        <div class="col m-0 p-0">
+        <div class="div-table">
           <BaseTable
             v-show="tabAtivaModal === 'Conflitos'"
             :tableType="'modal-table'"
@@ -295,7 +294,7 @@
       }"
     >
       <template #modal-body>
-        <ul class="listas list-group">
+        <ul class="list-ajuda list-group ">
           <li class="list-group-item">
             <b>Para selecionar um conflito:</b> clique no ícone de filtros
             <i class="fas fa-list-ul"></i>
@@ -330,7 +329,6 @@ import _ from "lodash";
 import loadingHooks from "@/mixins/loadingHooks.js";
 import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
-
 import {
   PageTitle,
   BaseTable,
@@ -384,14 +382,14 @@ export default {
   },
   data() {
     return {
-      tabAtivaMain: "Turmas",
       allConflitos: _.clone(AllConflitosTurmas),
       grades1Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
-      turmaClickada: null,
-      tabAtivaModal: "Conflitos",
       ordemTurmas: { order: "periodo", type: "asc" },
       ordemDocentes: { order: "nome", type: "asc" },
+      turmaClickada: null,
+      tabAtivaMain: "Turmas",
+      tabAtivaModal: "Conflitos",
       filtroConflitos: {
         ativados: [],
         selecionados: [],
