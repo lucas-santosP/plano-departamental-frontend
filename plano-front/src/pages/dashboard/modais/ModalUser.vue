@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     ref="baseModalUser"
-    :customStyles="'width:350px;'"
+    :customStyles="'width:370px;'"
     @on-close="resetForm()"
     :modalOptions="{
       title: 'Usuário',

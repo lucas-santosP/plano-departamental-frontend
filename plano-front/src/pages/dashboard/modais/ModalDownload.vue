@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     ref="baseModalDownload"
-    :customStyles="'width:350px'"
+    :customStyles="'width:370px'"
     @on-close="resetOnClose()"
     :modalOptions="{
       title: 'Download',

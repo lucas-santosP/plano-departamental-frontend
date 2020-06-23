@@ -24,7 +24,7 @@
       </main>
 
       <footer v-if="modalOptions.hasFooter" class="modal-custom-footer w-100">
-        <slot name="footer">
+        <slot name="modal-footer">
           <div class="div">
             <button
               class="btn btn-custom btn-modal btn-azul"
@@ -127,16 +127,16 @@ export default {
       // modal type overwrite the position prop
       switch (type) {
         case "editTurma":
-          styles = this.positions.center + "max-width:500px;min-height: 800px;";
+          styles = this.positions.center + "max-width:510px;min-height: 800px;";
           break;
         case "filtros":
-          styles = this.positions.right + "max-width:500px; min-height:600px;";
+          styles = this.positions.right + "max-width:510px; min-height:510px;";
           break;
         case "ajuda":
-          styles = this.positions.right + "max-width:500px; height:auto;";
+          styles = this.positions.right + "max-width:510px; height:auto;";
           break;
         default:
-          styles += "max-width:500px; height:auto;";
+          styles += "max-width:510px; height:auto;";
           break;
       }
 
@@ -204,19 +204,19 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 15px;
+  padding: 15px 20px;
 }
 .modal-custom-footer {
   justify-content: space-between;
   margin-top: auto;
-  padding: 15px;
+  padding: 10px 20px;
   border-top: 1px solid #eeeeee;
   align-items: center;
 }
 
 .title {
   width: 100%;
-  padding-left: 15px;
+  padding-left: 20px;
   padding-right: 5px;
   margin: 0;
   font-size: 20px;
