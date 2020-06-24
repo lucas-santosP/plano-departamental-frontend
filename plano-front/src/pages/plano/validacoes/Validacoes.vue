@@ -326,9 +326,11 @@
 
 <script>
 import _ from "lodash";
-import loadingHooks from "@/mixins/loadingHooks.js";
-import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
-import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  loadingHooks,
+} from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -372,7 +374,7 @@ const AllConflitosTurmas = [
 
 export default {
   name: "Validacoes",
-  mixins: [toggleOrdinationMixin, toggleItemInArrayMixin, loadingHooks],
+  mixins: [toggleOrdination, toggleItemInArray, loadingHooks],
   components: {
     BodyModalEditTurma,
     PageTitle,
