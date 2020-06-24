@@ -543,7 +543,7 @@ export default {
       },
       modalSelectAll: {
         Docentes: () => {
-          this.filtroDocentes.selecionados = [...this.DocentesModal];
+          this.filtroDocentes.selecionados = [...this.Docentes];
           this.docenteSemAlocacao.selecionado = true;
         },
       },
@@ -764,21 +764,15 @@ export default {
       );
     },
     DocentesFiltredModal() {
-      if (this.searchDocentes === "") return this.DocentesModal;
+      if (this.searchDocentes === "") return this.Docentes;
 
       const searchNormalized = this.normalizeText(this.searchDocentes);
 
-      return this.DocentesModal.filter((docente) => {
+      return this.Docentes.filter((docente) => {
         const docenteApelido = this.normalizeText(docente.apelido);
 
         return docenteApelido.match(searchNormalized);
       });
-    },
-    DocentesModal() {
-      return _.map(this.Docentes, (docente) => ({
-        apelido: docente.apelido,
-        id: docente.id,
-      }));
     },
     DocentesInCreditos() {
       return this.Docentes.map((docente) => {
