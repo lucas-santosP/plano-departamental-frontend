@@ -183,7 +183,6 @@
         hasFooter: true,
       }"
       :hasFooter="true"
-      @on-close="tabAtivaModal = 'Conflitos'"
       @btn-ok="btnOkFiltros()"
       @select-all="modalSelectAll[tabAtivaModal]"
       @select-none="modalSelectNone[tabAtivaModal]"
@@ -294,7 +293,7 @@
       }"
     >
       <template #modal-body>
-        <ul class="list-ajuda list-group ">
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para selecionar um conflito:</b> clique no ícone de filtros
             <i class="fas fa-list-ul"></i>
