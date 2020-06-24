@@ -143,5 +143,6 @@ input {
   height: 20px !important;
   text-align: center !important;
   margin-top: 1px;
+  border-color: var(--light-gray) !important;
 }
 </style>

@@ -9,6 +9,12 @@
     --navbar-height: 60px;
   }
 }
+*:focus {
+  border-color: #80bdff !important;
+  outline: 0 !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
 .main-component {
   width: 100%;
   overflow: hidden !important;

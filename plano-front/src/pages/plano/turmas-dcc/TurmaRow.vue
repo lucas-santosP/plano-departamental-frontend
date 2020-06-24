@@ -1,9 +1,13 @@
 <template>
-  <tr v-if="Admin" class="turmarow max-content" :style="{ 'background-color': turma.perfilCor }">
+  <tr
+    v-if="Admin"
+    class="turmarow max-content"
+    :style="{ 'background-color': turma.perfilCor }"
+  >
     <td style="width: 25px;">
       <input
         type="checkbox"
-        class="form-check-input position-static m-0"
+        class=" form-check-input position-static m-0"
         name="ativa"
         value="true"
         v-model="ativo"
@@ -20,7 +24,6 @@
     <td style="width: 55px;" class="less-padding">
       <select
         id="2periodo"
-        style=";"
         v-model="turmaForm.periodo"
         v-on:change="checkHorariosPeriodo()"
       >
@@ -1156,14 +1159,18 @@ export default {
           this.currentData = _.clone(this.turmaForm);
         })
         .catch((error) => {
-          let errormsg = (_.find(error.response.data.errors, {field: 'unique_name'}) ? 'A combinação de disciplina, semestre e turma deve ser única':'')
+          let errormsg = _.find(error.response.data.errors, {
+            field: "unique_name",
+          })
+            ? "A combinação de disciplina, semestre e turma deve ser única"
+            : "";
           this.$notify({
             group: "general",
             title: `Erro ao atualizar Turma`,
             text: errormsg,
             type: "error",
           });
-          this.turmaForm = this.turma
+          this.turmaForm = this.turma;
         });
     },
     checkDelete(turma) {
@@ -1319,11 +1326,16 @@ export default {
 .turmarow td {
   margin: 0 !important;
   padding: 0 5px;
-  /* height: 43px !important; */
   vertical-align: middle !important;
   text-align: center;
   word-break: break-word;
 }
+select,
+input {
+  font-size: 11px !important;
+  color: #495057;
+}
+
 .turmarow tbody tr input[type="checkbox"] {
   width: 14px !important;
   height: 14px !important;
