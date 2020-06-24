@@ -192,7 +192,7 @@ export default {
   justify-content: flex-start;
   max-height: calc(100% - 3.5rem);
   background: #ffffff;
-  box-shadow: 2px 2px 20px 1px;
+  box-shadow: 0 2px 10px 0;
   border-radius: 5px;
 }
 /* header */
