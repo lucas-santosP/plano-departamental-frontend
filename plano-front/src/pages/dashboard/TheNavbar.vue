@@ -125,6 +125,7 @@ export default {
   font-size: 15px;
   color: #cdced0 !important;
 }
+
 .brand .btn-navbar {
   width: 40px !important;
   height: 30px;
@@ -132,8 +133,6 @@ export default {
   margin: 0px !important;
   height: 30px !important;
   border: none;
-  -webkit-box-shadow: inset -1px 0 0 #00000040;
-  box-shadow: inset -1px 0 0 #00000040;
   outline: none;
   color: #cdced0 !important;
   background-color: #00000040 !important;
@@ -142,6 +141,7 @@ export default {
 .brand .btn-navbar i.fas {
   font-size: 20px !important;
 }
+
 .brand .navbar-brand .brand-title:hover,
 .brand .btn-navbar:hover {
   color: #ffffff !important;
