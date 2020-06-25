@@ -60,7 +60,7 @@
       </template>
     </PageTitle>
 
-    <div class="div-table" v-if="!isLoading">
+    <div class="div-table">
       <BaseTable>
         <template #thead>
           <th style="width:25px"></th>
@@ -162,19 +162,22 @@
             </b-popover>
           </template>
         </template>
-
         <template #tbody>
           <NovaTurma
             v-show="turmaAddIsVisible"
             :cursosAtivadosLength="filtroCursos.ativados.length"
           />
-          <TurmaRow
-            v-for="turma in TurmasOrdered"
-            :key="'turmaRow' + turma.id + turma.disciplinaCodigo + turma.letra"
-            :turma="turma"
-            :cursosAtivados="filtroCursos.ativados"
-            @handle-click-in-edit="handleClickInEdit($event)"
-          />
+          <template v-if="!$root.onLoad">
+            <TurmaRow
+              v-for="turma in TurmasOrdered"
+              :key="
+                'turmaRow' + turma.id + turma.disciplinaCodigo + turma.letra
+              "
+              :turma="turma"
+              :cursosAtivados="filtroCursos.ativados"
+              @handle-click-in-edit="handleClickInEdit($event)"
+            />
+          </template>
 
           <tr v-show="TurmasOrdered.length === 0">
             <td style="width:1090px">
@@ -557,6 +560,7 @@ import {
   BaseModal,
   NavTab,
   BodyModalEditTurma,
+  LoadingPage,
 } from "@/components/index.js";
 import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
 import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
@@ -580,6 +584,7 @@ export default {
     NavTab,
     BaseTable,
     BaseModal,
+    LoadingPage,
   },
   data() {
     return {
@@ -644,6 +649,7 @@ export default {
   },
 
   created() {
+    this.$root.onLoad = false;
     if (!this.Admin) {
       this.$notify({
         group: "general",
@@ -696,6 +702,7 @@ export default {
       this.$refs.modalTurma.show();
     },
     btnOkFiltros() {
+      this.$root.onLoad = true;
       this.setSemestreAtivo();
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionadas,
@@ -703,11 +710,14 @@ export default {
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
       this.clearSearch("searchCursosModal");
       this.clearSearch("searchDisciplinasModal");
+
+      setTimeout(() => {
+        this.$root.onLoad = false;
+      }, 500);
     },
     clearSearch(searchName) {
       this[searchName] = "";
     },
-
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
