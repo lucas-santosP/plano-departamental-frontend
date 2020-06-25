@@ -14,12 +14,13 @@
         v-on:click="checkDelete(turma)"
       />
     </td>
-    <td style="width:40px">
-      <i
-        v-if="Admin"
+    <td style="width:40px" class="p-0">
+      <button
+        class="btn-table"
         @click.stop="$emit('handle-click-in-edit', turma)"
-        class="fas fa-edit btn-table clickable"
-      ></i>
+      >
+        <i class="fas fa-edit btn-table-icon"></i>
+      </button>
     </td>
     <td style="width: 55px;" class="less-padding">
       <select
@@ -56,7 +57,6 @@
     <td style="width: 130px;" class="less-padding">
       <select
         type="text"
-        style="margin-bottom:1px;"
         id="docente1"
         v-model="turmaForm.Docente1"
         v-on:change="checkDocente()"
@@ -110,7 +110,6 @@
     <td style="width:85px" class="less-padding">
       <select
         type="text"
-        style="; margin-bottom:1px"
         id="horario1"
         v-model="turmaForm.Horario1"
         v-on:change="checkHorario(1)"
@@ -157,7 +156,6 @@
       <template v-if="!disciplinaIsIntegralEAD">
         <select
           type="text"
-          style="; margin-bottom:1px;"
           id="sala1"
           v-model="turmaForm.Sala1"
           v-on:change="checkSala()"
@@ -1321,7 +1319,7 @@ export default {
 </script>
 <style scoped>
 .turmarow {
-  font-size: 11px !important;
+  font-size: 11px;
 }
 .turmarow td {
   margin: 0 !important;
@@ -1330,46 +1328,49 @@ export default {
   text-align: center;
   word-break: break-word;
 }
-select,
-input {
-  font-size: 11px !important;
-  color: #495057;
-}
 
-.turmarow tbody tr input[type="checkbox"] {
+.turmarow select,
+.turmarow input {
+  font-size: 11px !important;
+  border: 1px solid #525252 !important;
+  color: #414141;
+  border-radius: 0px !important;
+}
+.turmarow select {
+  height: 18px !important;
+  width: 100% !important;
+}
+.turmarow select + select {
+  margin-top: 2px !important;
+}
+.turmarow input[type="checkbox"] {
   width: 14px !important;
   height: 14px !important;
-  text-align: center !important;
   margin: 0;
   margin-top: 5px !important;
-  margin-bottom: auto !important;
 }
+.turmarow .input-letra {
+  margin: 0;
+  margin-top: 4px !important;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+}
+
 .turmarow .less-padding {
   padding: 0 2px;
 }
-.turmarow select {
-  width: 100% !important;
-  height: 18px;
-}
-.input-letra {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 25px !important;
-  width: 20px;
-  text-align: center !important;
-}
 
-.div-btn {
+.btn-table {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   height: 100%;
+  border: none;
+  background: none;
 }
-.btn-table {
+.btn-table-icon {
   font-size: 12px;
-  margin: 0 !important;
-  margin-left: 2px !important;
-  padding: 0 !important;
 }
 </style>
