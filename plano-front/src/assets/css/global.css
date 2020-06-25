@@ -15,7 +15,7 @@
   -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
 }
-.main-component {
+main .main-component {
   width: 100%;
   overflow: hidden !important;
   margin: 0 !important;

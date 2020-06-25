@@ -24,7 +24,7 @@ export default {
   overflow: hidden;
   background-color: #343a40ad;
   z-index: 2005;
-  cursor: progress;
+  cursor: wait;
   transition: all 300ms ease;
 }
 .lds-ring {

@@ -24,23 +24,6 @@
         <i class="fas fa-user"></i>
         <span>Usuário</span>
       </li>
-
-      <li
-        class="nav-link"
-        v-on:click="$emit('show-modal', 'load')"
-        v-if="Admin"
-      >
-        <i class="fas fa-folder-open"></i>
-        <span>Carregar</span>
-      </li>
-      <li
-        class="nav-link"
-        v-on:click="$emit('show-modal', 'save')"
-        v-if="Admin"
-      >
-        <i class="fas fa-file"></i>
-        <span>Salvar</span>
-      </li>
       <li class="nav-link" v-on:click="$emit('show-modal', 'download')">
         <i class="fas fa-save"></i>
         <span>Download</span>
