@@ -29,7 +29,7 @@
           <button
             title="Deletar"
             class="btn-custom btn-icon delbtn"
-            @click="openModalConfirma()"
+            @click="$refs.modalConfirma.show()"
           >
             <i class="far fa-trash-alt"></i>
           </button>
@@ -162,12 +162,12 @@
             </b-popover>
           </template>
         </template>
+
         <template #tbody>
           <NovaTurma
             v-show="turmaAddIsVisible"
             :cursosAtivadosLength="filtroCursos.ativados.length"
           />
-
           <TurmaRow
             v-for="turma in TurmasOrdered"
             :key="'turmaRow' + turma.id + turma.disciplinaCodigo + turma.letra"
@@ -175,7 +175,8 @@
             :cursosAtivados="filtroCursos.ativados"
             @handle-click-in-edit="handleClickInEdit($event)"
           />
-          <tr v-if="TurmasOrdered.length === 0">
+
+          <tr v-show="TurmasOrdered.length === 0">
             <td style="width:1090px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
@@ -227,7 +228,7 @@
             </template>
             <template #tbody>
               <tr
-                v-for="perfil in PerfisOrdered"
+                v-for="perfil in PerfisOrderedModal"
                 :key="'perfilId' + perfil.id"
                 @click="toggleItemInArray(perfil, filtroPerfis.selecionados)"
               >
@@ -473,7 +474,7 @@
       id="modalConfirma"
       ref="modalConfirma"
       title="Confirmar Seleção"
-      @ok="deleteSelected"
+      @ok="deleteSelected()"
     >
       <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
       <template v-if="Deletar.length > 0">
@@ -702,7 +703,6 @@ export default {
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
       this.clearSearch("searchCursosModal");
       this.clearSearch("searchDisciplinasModal");
-      this.tabAtivaModal = "Perfis";
     },
     clearSearch(searchName) {
       this[searchName] = "";
@@ -717,42 +717,40 @@ export default {
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
     },
-    openModalConfirma() {
-      if (this.Deletar.length) this.$refs.modalConfirma.show();
-      else
+    async xlsx(pedidos) {
+      try {
+        await xlsx.downloadTable({ pedidos: pedidos });
+        const tableData = await fetch(
+          "http://200.131.219.57:3000/api/xlsx/download",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${this.$store.state.auth.token}`,
+            },
+          }
+        );
+        const tableDataBlobed = await tableData.blob();
+        await saveAs(tableDataBlobed, "tabela.xlsx");
+      } catch (error) {
+        this.$notify({
+          group: "general",
+          title: `Erro!`,
+          text: `Erro ao gerar a tabela!\n ${error}`,
+          type: "error",
+        });
+      }
+    },
+    deleteSelected() {
+      let turmas = this.$store.state.turma.Deletar;
+      if (!turmas.length) {
         this.$notify({
           group: "general",
           title: `Erro!`,
           text: `Nenhuma turma selecionada para exclusão`,
           type: "error",
         });
-    },
-    xlsx(pedidos) {
-      xlsx
-        .downloadTable({
-          pedidos: pedidos,
-        })
-        .then(() => {
-          fetch("http://200.131.219.57:3000/api/xlsx/download", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${this.$store.state.auth.token}`,
-            },
-          })
-            .then((r) => r.blob())
-            .then((blob) => saveAs(blob, "tabela.xlsx"));
-        })
-        .catch((error) => {
-          this.$notify({
-            group: "general",
-            title: `Erro!`,
-            text: `Erro ao gerar a tabela!\n ${error}`,
-            type: "error",
-          });
-        });
-    },
-    deleteSelected() {
-      let turmas = this.$store.state.turma.Deletar;
+        return;
+      }
       for (let i = 0; i < turmas.length; i++) {
         this.deleteTurma(turmas[i]);
       }
@@ -878,25 +876,20 @@ export default {
       let turmasResultantes = [];
 
       _.forEach(this.Turmas, (turma) => {
-        const disciplinaEcontrada = _.find(
-          this.Disciplinas,
+        const disciplinaInPerfilFounded = _.find(
+          this.DisciplinasInPerfis,
           (disciplina) => disciplina.id === turma.Disciplina
         );
 
-        const perfilEncontrado = _.find(
-          this.Perfis,
-          (perfil) => perfil.id === disciplinaEcontrada.Perfil
-        );
-
-        if (disciplinaEcontrada && perfilEncontrado) {
+        if (disciplinaInPerfilFounded) {
           turmasResultantes.push({
             ...turma,
-            disciplinaNome: disciplinaEcontrada.nome,
-            disciplinaCodigo: disciplinaEcontrada.codigo,
-            disciplinaPerfil: disciplinaEcontrada.Perfil,
-            perfilCor: perfilEncontrado.cor,
-            perfilNome: perfilEncontrado.nome,
-            perfilAbreviacao: perfilEncontrado.abreviacao,
+            disciplinaNome: disciplinaInPerfilFounded.nome,
+            disciplinaCodigo: disciplinaInPerfilFounded.codigo,
+            disciplinaPerfil: disciplinaInPerfilFounded.Perfil,
+            perfilCor: disciplinaInPerfilFounded.perfilCor,
+            perfilNome: disciplinaInPerfilFounded.perfilNome,
+            perfilAbreviacao: disciplinaInPerfilFounded.perfilAbreviacao,
           });
         }
       });
@@ -925,6 +918,18 @@ export default {
         );
       });
     },
+    Perfis() {
+      return _.filter(
+        this.$store.state.perfil.Perfis,
+        (perfil) => perfil.id !== 13 && perfil.id !== 15
+      );
+    },
+    Disciplinas() {
+      return _.filter(
+        this.$store.state.disciplina.Disciplinas,
+        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
+      );
+    },
     DisciplinasInPerfis() {
       const disciplinasResultantes = [];
 
@@ -937,6 +942,7 @@ export default {
         if (perfilFounded) {
           disciplinasResultantes.push({
             ...disciplina,
+            perfilNome: perfilFounded.nome,
             perfilAbreviacao: perfilFounded.abreviacao,
             perfilCor: perfilFounded.cor,
           });
@@ -944,7 +950,6 @@ export default {
       });
       return disciplinasResultantes;
     },
-
     ModalCursosOrdered() {
       return _.orderBy(
         this.ModalCursosFiltred,
@@ -978,7 +983,7 @@ export default {
         return "perfilAbreviacao";
       }
     },
-    PerfisOrdered() {
+    PerfisOrderedModal() {
       return _.orderBy(
         this.Perfis,
         this.ordenacaoPerfisModal.order,
@@ -988,14 +993,8 @@ export default {
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-    Perfis() {
-      return this.$store.state.perfil.Perfis;
-    },
-    Disciplinas() {
-      return this.$store.state.disciplina.Disciplinas;
-    },
     DisciplinasId() {
-      return _.map(this.Disciplinas, (disciplina) => disciplina.id);
+      return _.map(this.DisciplinasDCC, (disciplina) => disciplina.id);
     },
     Turmas() {
       return _.filter(
