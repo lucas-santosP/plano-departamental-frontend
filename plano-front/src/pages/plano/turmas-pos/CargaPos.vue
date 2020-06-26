@@ -30,7 +30,7 @@
           v-show="!isAdding"
           title="Deletar selecionados"
           class="btn-custom btn-icon delbtn"
-          @click="$refs.modalConfirma.toggle()"
+          @click="$refs.modalDelete.toggle()"
         >
           <i class="far fa-trash-alt"></i>
         </button>
@@ -113,7 +113,7 @@
     </div>
 
     <BaseModal
-      ref="modalConfirma"
+      ref="modalDelete"
       :modalOptions="{
         title: 'Confirmar seleção',
         position: 'center',
@@ -158,7 +158,7 @@
       <template #modal-footer>
         <button
           class="btn-custom btn-modal btn-cinza"
-          @click="$refs.modalConfirma.close()"
+          @click="$refs.modalDelete.close()"
         >
           Cancelar
         </button>
@@ -455,13 +455,13 @@ export default {
       cargaPosService
         .delete(cargaId)
         .then((response) => {
-          this.showNotication({
+          this.showNotification({
             type: "success",
             message: `A carga ${response.CargaPos.programa} foi excluída!`,
           });
         })
         .catch((error) => {
-          this.showNotication({
+          this.showNotification({
             type: "error",
             title: "Error ao deletar carga!",
             message: error,
@@ -471,7 +471,7 @@ export default {
     deleteSelectedTurmas() {
       let cargas = this.$store.state.cargaPos.Deletar;
       if (!cargas.length) {
-        this.showNotication({
+        this.showNotification({
           type: "error",
           title: "Erro!",
           message: "Nenhuma turma selecionada.",

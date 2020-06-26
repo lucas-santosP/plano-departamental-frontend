@@ -86,6 +86,13 @@ main .main-component {
   color: #2a2a2a;
 }
 
+.list-deletar .list-group-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  word-wrap: break-word;
+}
 /* notification */
 .vue-notification {
   padding: 10px;

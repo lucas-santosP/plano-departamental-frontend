@@ -82,12 +82,12 @@ export default {
           pedido.Turma,
           pedido
         );
-        this.showNotication({
+        this.showNotification({
           type: "success",
           message: responde.message,
         });
       } catch (error) {
-        this.showNotication({
+        this.showNotification({
           type: "error",
           title: "Erro ao atualizar Pedido!",
           message: error,

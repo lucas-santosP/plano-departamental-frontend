@@ -217,7 +217,7 @@ export default {
       user.senhaAtual = "senha-atual";
 
       if (!this.validateUser(user)) {
-        this.showNotication({
+        this.showNotification({
           type: "error",
           message: `Preencha os campos obrigátorios.`,
         });
@@ -225,7 +225,7 @@ export default {
       }
 
       userService.create(user).then(() => {
-        this.showNotication({
+        this.showNotification({
           type: "success",
           message: `Usuário criado.`,
         });
@@ -235,18 +235,18 @@ export default {
       const user = _.clone(this.userForm);
 
       if (!this.validateUser(user)) {
-        this.showNotication({
+        this.showNotification({
           type: "error",
           message: `Preencha os campos obrigátorios.`,
         });
         return;
       }
-      this.showNotication({
+      this.showNotification({
         type: "success",
         message: `Usuário atualizado.`,
       });
       userService.update(this.$store.state.auth.Usuario.id, user).then(() => {
-        this.showNotication({
+        this.showNotification({
           type: "success",
           message: `Usuário atualizado.`,
         });
