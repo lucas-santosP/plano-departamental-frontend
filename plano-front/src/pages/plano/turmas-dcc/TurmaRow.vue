@@ -4,14 +4,13 @@
     class="turmarow max-content"
     :style="{ 'background-color': turma.perfilCor }"
   >
-    <td style="width: 25px;">
+    <td style="width: 25px">
       <input
         type="checkbox"
         class=" form-check-input position-static m-0"
         name="ativa"
-        value="true"
-        v-model="ativo"
-        v-on:click="checkDelete(turma)"
+        :v-model="ativo"
+        @click="checkDelete(turma)"
       />
     </td>
     <td style="width:40px" class="p-0">
@@ -22,7 +21,7 @@
         <i class="fas fa-edit btn-table-icon"></i>
       </button>
     </td>
-    <td style="width: 55px;" class="less-padding">
+    <td style="width: 55px" class="less-padding">
       <select
         id="2periodo"
         v-model="turmaForm.periodo"
@@ -32,16 +31,16 @@
         <option value="3">3</option>
       </select>
     </td>
-    <td style="width: 75px">
+    <td style="width: 80px" class="less-padding">
       {{ turma.perfilAbreviacao }}
     </td>
-    <td style="width:70px;">
+    <td style="width:80px" class="less-padding">
       {{ currentDisciplina.codigo }}
     </td>
-    <td style="width: 330px;" class="t-start">
+    <td style="width: 330px" class="t-start">
       {{ currentDisciplina.nome }}
     </td>
-    <td style="width: 25px;">
+    <td style="width: 25px">
       {{ totalCarga }}
     </td>
     <td style="width: 35px">
@@ -151,7 +150,6 @@
         </template>
       </select>
     </td>
-
     <td style="width: 95px" class="less-padding">
       <template v-if="!disciplinaIsIntegralEAD">
         <select
@@ -191,7 +189,6 @@
         </select>
       </template>
     </td>
-
     <td style="width:45px" class="less-padding">
       <div style="height: 43px;" class="py-1">
         <span style="font-weight:bold"> {{ totalPedidos() }}</span>
@@ -201,7 +198,6 @@
         </p>
       </div>
     </td>
-
     <template v-for="curso in cursosAtivados">
       <td class="p-0" style="width:35px;" :key="'1-id-curso' + curso.id">
         <template v-for="(pedido, index) in Pedidos">
@@ -1224,7 +1220,6 @@ export default {
     Disciplinas() {
       return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
-
     Docentes() {
       return _.orderBy(
         _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
@@ -1270,53 +1265,28 @@ export default {
     Horarios() {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
     },
-
     HorariosEAD() {
       return _.filter(this.$store.state.horario.Horarios, { id: 31 });
     },
-
-    // HorariosDiurnos() {
-    //   return _.orderBy(
-    //     _.filter(this.$store.state.horario.Horarios, function(h) {
-    //       if (parseInt(h.horario.slice(3, 5)) < 17) return true;
-    //       if (h.id === 31) return true;
-    //     }),
-    //     "horario"
-    //   );
-    // },
-
-    // HorariosNoturnos() {
-    //   return _.orderBy(
-    //     _.filter(this.$store.state.horario.Horarios, function(h) {
-    //       if (parseInt(h.horario.slice(3, 5)) >= 17) return true;
-    //       if (h.id === 31) return true;
-    //     }),
-    //     "horario"
-    //   );
-    // },
-
+    Deletar() {
+      return this.$store.state.turma.Deletar;
+    },
     Pedidos() {
       return this.$store.state.pedido.Pedidos[this.turma.id];
     },
-
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
-
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
-
     Perfis() {
       return _.orderBy(this.$store.state.perfil.Perfis, "nome");
     },
   },
 };
 </script>
+
 <style scoped>
 .turmarow {
   font-size: 11px;

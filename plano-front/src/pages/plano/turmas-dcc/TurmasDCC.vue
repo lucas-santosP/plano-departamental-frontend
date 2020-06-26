@@ -2,18 +2,18 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
       <template #aside>
-        <template v-if="turmaAddIsVisible">
+        <template v-if="isAdding">
           <button
             title="Salvar"
             class="btn-custom btn-icon addbtn"
-            v-on:click.prevent="addTurma"
+            @click.prevent="addTurma"
           >
             <i class="fas fa-check"></i>
           </button>
           <button
             title="Cancelar"
             class="btn-custom btn-icon cancelbtn"
-            v-on:click.prevent="toggleAddTurma"
+            @click.prevent="toggleIsAdding()"
           >
             <i class="fas fa-times"></i>
           </button>
@@ -22,14 +22,14 @@
           <button
             title="Adicionar"
             class="btn-custom btn-icon addbtn"
-            v-on:click.prevent="toggleAddTurma"
+            @click.prevent="toggleIsAdding()"
           >
             <i class="fas fa-plus"></i>
           </button>
           <button
             title="Deletar"
             class="btn-custom btn-icon delbtn"
-            @click="$refs.modalConfirma.show()"
+            @click="$refs.modalDelete.open()"
           >
             <i class="far fa-trash-alt"></i>
           </button>
@@ -46,14 +46,14 @@
         <button
           title="XLSX"
           class="btn-custom btn-icon relatbtn"
-          v-on:click.prevent="xlsx(Pedidos)"
+          @click.prevent="xlsx(Pedidos)"
         >
           <i class="far fa-file-pdf"></i>
         </button>
         <button
-          @click="openSideModal('ajuda')"
           title="Ajuda"
           class="btn-custom btn-icon relatbtn"
+          @click.prevent="openSideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
         </button>
@@ -68,7 +68,7 @@
           <th style="width:55px" title="Semestre">S.</th>
           <th
             @click="toggleOrder(ordenacaoPerfisMain, setFixedOrderPerfil)"
-            style="width: 75px"
+            style="width: 80px"
             class="clickable t-center"
           >
             <div class="d-flex justify-content-between align-items-center">
@@ -88,7 +88,7 @@
           <th
             class="clickable"
             @click="toggleOrder(ordenacaoTurmasMain, 'disciplinaCodigo')"
-            style="width:70px"
+            style="width:80px"
             title="Código"
           >
             Cód.
@@ -164,7 +164,7 @@
         </template>
         <template #tbody>
           <NovaTurma
-            v-show="turmaAddIsVisible"
+            v-show="isAdding"
             :cursosAtivadosLength="filtroCursos.ativados.length"
           />
           <template v-if="!$root.onLoad">
@@ -473,30 +473,59 @@
     </b-modal>
 
     <!-- MODAL DELETAR -->
-    <b-modal
-      id="modalConfirma"
-      ref="modalConfirma"
-      title="Confirmar Seleção"
-      @ok="deleteSelected()"
+    <BaseModal
+      ref="modalDelete"
+      :modalOptions="{
+        title: 'Confirmar seleção',
+        position: 'center',
+        hasBackground: true,
+        hasFooter: true,
+      }"
+      :customStyles="'width:400px'"
     >
-      <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-      <template v-if="Deletar.length > 0">
-        <template v-for="turma in Deletar">
-          <template v-for="disciplina in Disciplinas">
-            <template v-if="disciplina.id === turma.Disciplina">
-              <p
-                :key="'disciplina' + disciplina.id + 'turma' + turma.id"
-                style="width: 80px;"
-              >
-                Disciplina:{{ disciplina.codigo }}
-                <br />
-                Turma:{{ turma.letra }}
-              </p>
+      <template #modal-body>
+        <p class="w-100 mb-2" style="font-size:14px">
+          {{
+            Deletar.length
+              ? "Tem certeza que deseja deletar as turmas selecionadas?"
+              : "Nenhuma turma selecionada!"
+          }}
+        </p>
+        <template v-if="Deletar.length">
+          <ul class="list-group list-deletar w-100">
+            <template v-for="turma in Deletar">
+              <li class="list-group-item" :key="'deletarTurma' + turma.id">
+                <span class="mr-1">
+                  <b> Semestre: </b>{{ turma.periodo }}
+                </span>
+                <span class="mr-1"
+                  ><b> Disciplina: </b>{{ turma.disciplinaNome }} -
+                  <b>{{ turma.letra }}</b>
+                </span>
+              </li>
             </template>
-          </template>
+          </ul>
         </template>
       </template>
-    </b-modal>
+      <template #modal-footer>
+        <div class="w-100">
+          <button
+            class="btn-custom btn-modal btn-cinza btn-ok-modal"
+            @click="$refs.modalDelete.close()"
+          >
+            Fechar
+          </button>
+        </div>
+        <button
+          v-show="Deletar.length"
+          class="btn-custom btn-modal btn-vermelho btn-ok-modal"
+          @click="deleteSelectedTurma()"
+        >
+          Deletar
+        </button>
+      </template>
+    </BaseModal>
+
     <!-- MODAL AJUDA -->
     <BaseModal
       ref="modalAjuda"
@@ -562,8 +591,11 @@ import {
   BodyModalEditTurma,
   LoadingPage,
 } from "@/components/index.js";
-import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
-import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  notification,
+} from "@/mixins/index.js";
 import { EventBus } from "@/event-bus.js";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
@@ -575,7 +607,7 @@ import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "DashboardPrototipo",
-  mixins: [toggleOrdinationMixin, toggleItemInArrayMixin],
+  mixins: [toggleOrdination, toggleItemInArray, notification],
   components: {
     TurmaRow,
     NovaTurma,
@@ -590,7 +622,7 @@ export default {
     return {
       error: undefined,
       turmaClickada: null,
-      turmaAddIsVisible: false,
+      isAdding: false,
       ordenacaoTurmasMain: { order: "disciplinaCodigo", type: "asc" },
       ordenacaoPerfisMain: { order: "perfilNome", type: "asc" },
       tabAtivaModal: "Perfis",
@@ -750,43 +782,14 @@ export default {
         });
       }
     },
-    deleteSelected() {
-      let turmas = this.$store.state.turma.Deletar;
-      if (!turmas.length) {
-        this.$notify({
-          group: "general",
-          title: `Erro!`,
-          text: `Nenhuma turma selecionada para exclusão`,
-          type: "error",
-        });
-        return;
-      }
-      for (let i = 0; i < turmas.length; i++) {
-        this.deleteTurma(turmas[i]);
-      }
+    clearDelete() {
       this.$store.commit("emptyDelete");
     },
-    addTurma() {
-      EventBus.$emit("addTurma");
-    },
-    editTurma(turma) {
-      turmaService
-        .update(turma.id, turma)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "warn",
-          });
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao atualizar Turma</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
+    deleteSelectedTurma() {
+      for (let i = 0; i < this.Deletar.length; i++) {
+        this.deleteTurma(this.Deletar[i]);
+      }
+      this.clearDelete();
     },
     deleteTurma(turma) {
       const turmaToDelete = _.clone(turma);
@@ -818,18 +821,35 @@ export default {
             .update(pedidos[i].Curso, pedidos[i].Turma, pedidos[i])
             .then(() => {})
             .catch((error) => {
-              this.error = "<b>Erro ao atualizar Pedido</b>";
-              if (error.response.data.fullMessage) {
-                this.error +=
-                  "<br/>" +
-                  error.response.data.fullMessage.replace("\n", "<br/>");
-              }
+              this.showNotification({
+                type: "error",
+                message: error,
+              });
             });
         }
       }
     },
-    toggleAddTurma() {
-      this.turmaAddIsVisible = !this.turmaAddIsVisible;
+    addTurma() {
+      EventBus.$emit("addTurma");
+    },
+    editTurma(turma) {
+      turmaService
+        .update(turma.id, turma)
+        .then((response) => {
+          this.showNotification({
+            type: "success",
+            message: response.message,
+          });
+        })
+        .catch((error) => {
+          this.showNotification({
+            type: "error",
+            message: error,
+          });
+        });
+    },
+    toggleIsAdding() {
+      this.isAdding = !this.isAdding;
     },
     normalizeText(text) {
       return text
