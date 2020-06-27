@@ -104,7 +104,7 @@
               <td style="width: 35px">
                 {{ docente.cred2 }}
               </td>
-              <td style="width: 45px">
+              <td style="width: 50px">
                 {{ docente.cred1 + docente.cred2 }}
               </td>
             </tr>
@@ -161,7 +161,7 @@
                 </span>
               </td>
 
-              <td style="width: 45px"></td>
+              <td style="width: 50px"></td>
             </tr>
 
             <tr
@@ -195,7 +195,7 @@
                 }}
               </td>
 
-              <td style="width: 45px"></td>
+              <td style="width: 50px"></td>
             </tr>
 
             <tr
@@ -250,7 +250,7 @@
                 </span>
               </td>
 
-              <td style="width: 45px"></td>
+              <td style="width: 50px"></td>
             </tr>
 
             <tr
@@ -284,7 +284,7 @@
                 }}
               </td>
 
-              <td style="width: 45px"></td>
+              <td style="width: 50px"></td>
             </tr>
           </template>
 
@@ -397,7 +397,7 @@
                 v-model="searchDocentes"
               />
               <button @click="clearSearchDocentes()" class="btn btn-search">
-                &times;
+                <i class="fas fa-times"></i>
               </button>
             </template>
             <template #thead>
@@ -562,7 +562,7 @@ export default {
       },
     };
   },
-  beforeMount() {
+  mounted() {
     this.activeAllFiltros();
   },
   methods: {

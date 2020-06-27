@@ -152,7 +152,7 @@ export default {
   color: rgb(75, 75, 75);
   background-color: #fff;
   border: 1px solid #ced4da;
-  border-left: none;
+  border-left-color: transparent;
   cursor: pointer;
   box-shadow: none !important;
   border-bottom-left-radius: 0 !important;
