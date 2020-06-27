@@ -44,7 +44,7 @@
           title="Filtros"
           :type="'icon'"
           :color="'gray'"
-          @click="openHeaderModal('filtros')"
+          @click="openSideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
         </BaseButton>
@@ -53,7 +53,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          @click="openHeaderModal('ajuda')"
+          @click="openSideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -86,7 +86,6 @@
             <i :class="setIconByOrder(ordenacaoCargaPos, 'creditos')"></i>
           </th>
         </template>
-
         <template #tbody>
           <CargaPosNovaRow v-show="isAdding" />
 
@@ -243,8 +242,8 @@
               <tr
                 v-for="trimestre in Trimestres"
                 :key="'MdTrimestre' + trimestre.valor"
-                @click="
-                  toggleItemInArray(trimestre, filtroTrimestres.selecionados)
+                @click.stop="
+                  selectTrimestre(trimestre, filtroTrimestres.selecionados)
                 "
               >
                 <td style="width: 25px">
@@ -252,6 +251,9 @@
                     type="checkbox"
                     class="form-check-input position-static m-0"
                     :value="trimestre"
+                    @click.stop="
+                      selectTrimestre(trimestre, filtroTrimestres.selecionados)
+                    "
                     v-model="filtroTrimestres.selecionados"
                   />
                 </td>
@@ -273,21 +275,23 @@
               </th>
             </template>
             <template #tbody>
-              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+              <tr @click.stop="selectSemestre('primeiro')">
                 <td style="width: 25px">
                   <input
                     type="checkbox"
                     class="form-check-input position-static m-0"
+                    @click.stop="selectSemestre('primeiro')"
                     v-model="filtroSemestres.primeiro"
                   />
                 </td>
                 <td style="width: 425px" class="t-start">PRIMEIRO</td>
               </tr>
-              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+              <tr @click.stop="selectSemestre('segundo')">
                 <td style="width: 25px">
                   <input
                     type="checkbox"
                     class="form-check-input position-static m-0"
+                    @click.stop="selectSemestre('segundo')"
                     v-model="filtroSemestres.segundo"
                   />
                 </td>
@@ -358,6 +362,7 @@ import {
   toggleOrdination,
   toggleItemInArray,
   notification,
+  redirectNotAdmin,
 } from "@/mixins/index.js";
 import {
   PageTitle,
@@ -371,7 +376,7 @@ const allProgramasPos = ["PGCC", "PGMC", "PGEM"];
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [toggleOrdination, toggleItemInArray, notification],
+  mixins: [toggleOrdination, toggleItemInArray, notification, redirectNotAdmin],
   components: {
     CargaPosRow,
     CargaPosNovaRow,
@@ -405,10 +410,12 @@ export default {
         },
         Trimestres: () => {
           this.filtroTrimestres.selecionados = [...this.Trimestres];
+          this.connectTrimestreInSemestre();
         },
         Semestres: () => {
           this.filtroSemestres.primeiro = true;
           this.filtroSemestres.segundo = true;
+          this.connectSemestreInTrimestre();
         },
       },
       modalSelectNone: {
@@ -417,32 +424,24 @@ export default {
         },
         Trimestres: () => {
           this.filtroTrimestres.selecionados = [];
+          this.connectTrimestreInSemestre();
         },
         Semestres: () => {
           this.filtroSemestres.primeiro = false;
           this.filtroSemestres.segundo = false;
+          this.connectSemestreInTrimestre();
         },
       },
     };
   },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
+  mounted() {
+    this.connectSemestreInTrimestre();
   },
-
   methods: {
     addNovaCarga() {
       EventBus.$emit("add-carga-pos");
     },
-    openHeaderModal(modalName) {
+    openSideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
         this.$refs.modalAjuda.close();
@@ -457,9 +456,7 @@ export default {
     btnOkFiltros() {
       this.filtroProgramas.ativados = [...this.filtroProgramas.selecionados];
       this.filtroTrimestres.ativados = [...this.filtroTrimestres.selecionados];
-      this.tabAtivaModal = "Programas";
     },
-
     deleteCarga(cargaId) {
       cargaPosService
         .delete(cargaId)
@@ -514,6 +511,51 @@ export default {
     },
     allCreditosCarga(cargas) {
       return _.reduce(cargas, (acc, carga) => acc + carga.creditos, 0);
+    },
+
+    selectSemestre(semestre) {
+      this.filtroSemestres[semestre] = !this.filtroSemestres[semestre];
+      this.connectSemestreInTrimestre();
+    },
+    connectSemestreInTrimestre() {
+      const findTrimestre = (array, trimestreValor) =>
+        _.find(array, (item) => item.valor === trimestreValor);
+
+      const allTrimestres = this.Trimestres;
+      this.filtroTrimestres.selecionados = [];
+
+      if (this.filtroSemestres.primeiro) {
+        this.filtroTrimestres.selecionados.push(
+          findTrimestre(allTrimestres, 1),
+          findTrimestre(allTrimestres, 2)
+        );
+      }
+
+      if (this.filtroSemestres.segundo) {
+        this.filtroTrimestres.selecionados.push(
+          findTrimestre(allTrimestres, 3),
+          findTrimestre(allTrimestres, 4)
+        );
+      }
+    },
+
+    selectTrimestre(newItem, array) {
+      this.toggleItemInArray(newItem, array);
+      this.connectTrimestreInSemestre();
+    },
+    connectTrimestreInSemestre() {
+      const findTrimestre = (array, trimestreValor) =>
+        _.find(array, (item) => item.valor === trimestreValor);
+
+      const { selecionados } = this.filtroTrimestres;
+
+      if (findTrimestre(selecionados, 1) && findTrimestre(selecionados, 2))
+        this.filtroSemestres.primeiro = true;
+      else this.filtroSemestres.primeiro = false;
+
+      if (findTrimestre(selecionados, 3) && findTrimestre(selecionados, 4))
+        this.filtroSemestres.segundo = true;
+      else this.filtroSemestres.segundo = false;
     },
   },
 
@@ -599,25 +641,6 @@ export default {
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
-    },
-  },
-  watch: {
-    filtroSemestres: {
-      handler(semestre) {
-        let filtro = [];
-        this.filtroTrimestres.selecionados = [...this.Trimestres];
-
-        if (semestre.primeiro && !semestre.segundo) filtro = [1, 2];
-        else if (!semestre.primeiro && semestre.segundo) filtro = [3, 4];
-        else if (semestre.primeiro && semestre.primeiro) filtro = [1, 2, 3, 4];
-
-        this.filtroTrimestres.selecionados = _.filter(
-          this.filtroTrimestres.selecionados,
-          (trimestre) => _.find(filtro, (valor) => valor === trimestre.valor)
-        );
-      },
-      deep: true,
-      immediate: true,
     },
   },
 };
