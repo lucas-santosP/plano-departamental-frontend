@@ -1,5 +1,5 @@
 <template>
-  <div class="container-loading">
+  <div class="container-loading" @click.stop="" @keydown.prevent="">
     <div class="lds-ring">
       <div></div>
       <div></div>
