@@ -2,34 +2,36 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Perfis'">
       <template #aside>
-        <b-button
-          v-b-modal.modalAjuda
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+          :type="'icon'"
+          :color="'lightblue'"
+          v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
+
     <div class="row w-100 m-0 p-0">
       <div class="div-table">
         <BaseTable :tableHeight="'max-content'">
           <template #thead>
             <th
-              @click="toggleOrder('nome')"
+              @click="toggleOrder(ordenacaoPerfisMain, 'nome')"
               style="width: 350px"
               class="clickable t-start"
             >
               Nome
-              <i :class="setIconByOrder('nome')"></i>
+              <i :class="setIconByOrder(ordenacaoPerfisMain, 'nome')"></i>
             </th>
             <th
-              @click="toggleOrder('abreviacao')"
+              @click="toggleOrder(ordenacaoPerfisMain, 'abreviacao')"
               style="width: 90px;"
               class="clickable"
             >
               Abreviação
-              <i :class="setIconByOrder('abreviacao')"></i>
+              <i :class="setIconByOrder(ordenacaoPerfisMain, 'abreviacao')"></i>
             </th>
             <th style="width: 60px;">
               Cor
@@ -204,9 +206,8 @@
 <script>
 import _ from "lodash";
 import perfilService from "@/common/services/perfil";
-import PageTitle from "@/components/PageTitle";
-import BaseTable from "@/components/BaseTable";
-import Card from "@/components/Card";
+import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
 
 const emptyPerfil = {
   id: undefined,
@@ -217,55 +218,29 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardPerfis",
+  mixins: [toggleOrdination, redirectNotAdmin],
   components: {
     PageTitle,
     BaseTable,
     Card,
+    BaseButton,
   },
   data() {
     return {
       perfilForm: _.clone(emptyPerfil),
       error: undefined,
       perfilSelectedId: "",
-      ordenacao: { order: "nome", type: "asc" },
+      ordenacaoPerfisMain: { order: "nome", type: "asc" },
     };
   },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
-  },
   methods: {
-    setIconByOrder(orderToCheck) {
-      if (this.ordenacao.order === orderToCheck) {
-        return this.ordenacao.type == "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
-    },
     handleClickInPerfil(perfil) {
       console.log(perfil.id);
       this.perfilSelectedId = perfil.id;
       console.log(this.perfilSelectedId);
       this.showPerfil(perfil);
     },
-    toggleOrder(newOrder, type = "asc") {
-      if (this.ordenacao.order != newOrder) {
-        this.ordenacao.order = newOrder;
-        this.ordenacao.type = type;
-      } else {
-        this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
-      }
-    },
+
     clearClick() {
       this.perfilSelectedId = "";
     },
@@ -363,8 +338,8 @@ export default {
     Perfis() {
       return _.orderBy(
         this.$store.state.perfil.Perfis,
-        this.ordenacao.order,
-        this.ordenacao.type
+        this.ordenacaoPerfisMain.order,
+        this.ordenacaoPerfisMain.type
       );
     },
     isEdit() {

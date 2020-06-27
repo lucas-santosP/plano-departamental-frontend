@@ -3,60 +3,69 @@
     <PageTitle :title="'Graduação - DCC'">
       <template #aside>
         <template v-if="isAdding">
-          <button
+          <BaseButton
             title="Salvar"
-            class="btn-custom btn-icon addbtn"
-            @click.prevent="addTurma"
+            :type="'icon'"
+            :color="'green'"
+            @click="addTurma()"
           >
             <i class="fas fa-check"></i>
-          </button>
-          <button
-            title="Cancelar"
-            class="btn-custom btn-icon cancelbtn"
-            @click.prevent="toggleIsAdding()"
+          </BaseButton>
+          <BaseButton
+            title="Adicionar"
+            :type="'icon'"
+            :color="'red'"
+            @click="toggleIsAdding()"
           >
             <i class="fas fa-times"></i>
-          </button>
+          </BaseButton>
         </template>
         <template v-else>
-          <button
-            title="Adicionar"
-            class="btn-custom btn-icon addbtn"
-            @click.prevent="toggleIsAdding()"
+          <BaseButton
+            title="Cancelar"
+            :type="'icon'"
+            :color="'green'"
+            @click="toggleIsAdding()"
           >
             <i class="fas fa-plus"></i>
-          </button>
-          <button
-            title="Deletar"
-            class="btn-custom btn-icon delbtn"
+          </BaseButton>
+
+          <BaseButton
+            title="Deletar selecionados"
+            :type="'icon'"
+            :color="'red'"
             @click="$refs.modalDelete.open()"
           >
-            <i class="far fa-trash-alt"></i>
-          </button>
+            <i class="fas fa-trash"></i>
+          </BaseButton>
         </template>
 
-        <button
-          @click="openSideModal('filtros')"
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          @click="openSideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
-        </button>
+        </BaseButton>
 
-        <button
-          title="XLSX"
-          class="btn-custom btn-icon relatbtn"
-          @click.prevent="xlsx(Pedidos)"
+        <BaseButton
+          title="Relátorio"
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="xlsx(Pedidos)"
         >
-          <i class="far fa-file-pdf"></i>
-        </button>
-        <button
+          <i class="fas fa-file-alt"></i>
+        </BaseButton>
+
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
-          @click.prevent="openSideModal('ajuda')"
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="openSideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
-        </button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -517,7 +526,7 @@
           </button>
         </div>
         <button
-          v-show="Deletar.length"
+          v-if="Deletar.length"
           class="btn-custom btn-modal btn-vermelho btn-ok-modal"
           @click="deleteSelectedTurma()"
         >
@@ -561,7 +570,7 @@
             <b>Para deletar disciplinas da Tabela:</b> Marque a(s) disciplina(s)
             que deseja deletar através da caixa de seleção à esquerda e em
             seguida clique em Deletar
-            <i class="far fa-trash-alt delbtn"></i>
+            <i class="far fa-trash delbtn"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
@@ -583,6 +592,18 @@
 
 <script>
 import _ from "lodash";
+import { EventBus } from "@/event-bus.js";
+import { saveAs } from "file-saver";
+import ls from "local-storage";
+import xlsx from "@/common/services/xlsx";
+import turmaService from "@/common/services/turma";
+import pedidoService from "@/common/services/pedido";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  redirectNotAdmin,
+  notification,
+} from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -590,24 +611,14 @@ import {
   NavTab,
   BodyModalEditTurma,
   LoadingPage,
+  BaseButton,
 } from "@/components/index.js";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  notification,
-} from "@/mixins/index.js";
-import { EventBus } from "@/event-bus.js";
-import { saveAs } from "file-saver";
-import ls from "local-storage";
-import xlsx from "@/common/services/xlsx";
-import turmaService from "@/common/services/turma";
-import pedidoService from "@/common/services/pedido";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "DashboardPrototipo",
-  mixins: [toggleOrdination, toggleItemInArray, notification],
+  mixins: [toggleOrdination, toggleItemInArray, redirectNotAdmin, notification],
   components: {
     TurmaRow,
     NovaTurma,
@@ -617,6 +628,7 @@ export default {
     BaseTable,
     BaseModal,
     LoadingPage,
+    BaseButton,
   },
   data() {
     return {
@@ -678,20 +690,6 @@ export default {
         },
       },
     };
-  },
-
-  created() {
-    this.$root.onLoad = false;
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
   },
   mounted() {
     ls.set("toggle", -1);

@@ -2,14 +2,14 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Cursos'">
       <template #aside>
-        <button
-          type="button"
-          class="btn-custom btn-icon relatbtn"
+        <BaseButton
           title="Ajuda"
+          :type="'icon'"
+          :color="'lightblue'"
           v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -18,48 +18,54 @@
         <BaseTable>
           <template #thead>
             <th
-              @click="toggleOrder('codigo')"
+              @click="toggleOrder(ordenacaoCursosMain, 'codigo')"
               title="Clique para ordenar por nome"
               class="clickable t-start"
               style="width: 65px"
             >
               Código
-              <i :class="setIconByOrder('codigo')"></i>
+              <i :class="setIconByOrder(ordenacaoCursosMain, 'codigo')"></i>
             </th>
             <th
-              @click="toggleOrder('nome')"
+              @click="toggleOrder(ordenacaoCursosMain, 'nome')"
               title="Clique para ordenar por nome"
               class="clickable t-start"
               style="width:300px"
             >
               Nome
-              <i :class="setIconByOrder('nome')"></i>
+              <i :class="setIconByOrder(ordenacaoCursosMain, 'nome')"></i>
             </th>
             <th
               class="clickable"
               style="width:65px"
-              @click="toggleOrder('turno')"
+              @click="toggleOrder(ordenacaoCursosMain, 'turno')"
             >
               Turno
-              <i :class="setIconByOrder('turno')"></i>
+              <i :class="setIconByOrder(ordenacaoCursosMain, 'turno')"></i>
             </th>
             <th
               class="clickable"
               style="width: 70px"
               title="Entrada de alunos 1º Semestre"
-              @click="toggleOrder('alunosEntrada', 'desc')"
+              @click="toggleOrder(ordenacaoCursosMain, 'alunosEntrada', 'desc')"
             >
               1º Sem.
-              <i :class="setIconByOrder('alunosEntrada')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoCursosMain, 'alunosEntrada')"
+              ></i>
             </th>
             <th
               class="clickable"
               style="width: 70px"
               title="Entrada de alunos 2º Semestre"
-              @click="toggleOrder('alunosEntrada2', 'desc')"
+              @click="
+                toggleOrder(ordenacaoCursosMain, 'alunosEntrada2', 'desc')
+              "
             >
               2º Sem.
-              <i :class="setIconByOrder('alunosEntrada2')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoCursosMain, 'alunosEntrada2')"
+              ></i>
             </th>
           </template>
           <template #tbody>
@@ -274,9 +280,8 @@ import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import pedidoService from "@/common/services/pedido";
-import PageTitle from "@/components/PageTitle";
-import BaseTable from "@/components/BaseTable";
-import Card from "@/components/Card";
+import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
 
 const emptyCurso = {
   id: undefined,
@@ -298,28 +303,18 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardCursos",
-  components: { PageTitle, BaseTable, Card },
+  mixins: [toggleOrdination, redirectNotAdmin],
+  components: { PageTitle, BaseTable, Card, BaseButton },
 
   data() {
     return {
       cursoForm: _.clone(emptyCurso),
       error: undefined,
       cursoClickado: "",
-      ordenacao: { order: "codigo", type: "asc" },
+      ordenacaoCursosMain: { order: "codigo", type: "asc" },
     };
   },
   created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
-
     this.ultimo =
       this.$store.state.curso.Cursos[this.$store.state.curso.Cursos.length - 1]
         .id + 1;
@@ -330,23 +325,6 @@ export default {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (keyCode < 48 || keyCode > 57) {
         $event.preventDefault();
-      }
-    },
-    setIconByOrder(orderToCheck) {
-      if (this.ordenacao.order === orderToCheck) {
-        return this.ordenacao.type == "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
-    },
-    toggleOrder(newOrder, type = "asc") {
-      if (this.ordenacao.order != newOrder) {
-        this.ordenacao.order = newOrder;
-        this.ordenacao.type = type;
-      } else {
-        this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
       }
     },
     handleClickInCurso(curso) {
@@ -400,7 +378,7 @@ export default {
             console.log(pedido);
             pedidoService
               .create(pedido)
-              .then((response) => {})
+              .then(() => {})
               .catch((error) => {
                 console.log("erro ao criar pedido: " + error);
               });
@@ -500,8 +478,8 @@ export default {
     Cursos() {
       return _.orderBy(
         this.$store.state.curso.Cursos,
-        this.ordenacao.order,
-        this.ordenacao.type
+        this.ordenacaoCursosMain.order,
+        this.ordenacaoCursosMain.type
       );
     },
     Admin() {

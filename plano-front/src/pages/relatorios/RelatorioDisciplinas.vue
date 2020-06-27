@@ -2,30 +2,27 @@
   <div class="main-component row p-0">
     <PageTitle :title="'Plano Departamental'">
       <template #aside>
-        <b-button
-          v-b-modal.modalFiltros
+        <BaseButton
           title="Filtros"
-          class="cancelbtn btn-icon btn-custom"
+          :type="'icon'"
+          :color="'gray'"
+          v-b-modal.modalFiltros
         >
           <i class="fas fa-list-ul"></i>
-        </b-button>
+        </BaseButton>
 
-        <b-button
+        <BaseButton
+          title="Relátorio"
+          :type="'icon'"
+          :color="'lightblue'"
           v-b-modal.modalRelatorio
-          type="button"
-          class="relatbtn btn-icon btn-custom"
-          title="Relatório"
         >
-          <i class="far fa-file-pdf"></i>
-        </b-button>
+          <i class="far fa-file-alt"></i>
+        </BaseButton>
 
-        <b-button
-          v-b-modal.modalAjuda
-          title="Ajuda"
-          class="relatbtn btn-icon btn-custom"
-        >
+        <BaseButton :type="'icon'" :color="'lightblue'" v-b-modal.modalAjuda>
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -38,7 +35,7 @@
                 <p
                   class="p-header clickable"
                   style="width: 80px;"
-                  @click="toggleOrdDiscip('codigo')"
+                  @click="toggleOrder(ordemDiscip, 'codigo')"
                   title="Clique para ordenar por código"
                 >
                   Cód.
@@ -58,7 +55,7 @@
                 <p
                   class="p-header clickable"
                   style="width: 350px;"
-                  @click="toggleOrdDiscip('nome')"
+                  @click="toggleOrder(ordemDiscip, 'nome')"
                   title="Clique para ordenar por nome"
                 >
                   Nome
@@ -79,7 +76,7 @@
                 <p
                   class="p-header clickable"
                   style="width: 65px;"
-                  @click="toggleOrdDiscip('perfil')"
+                  @click="toggleOrder(ordemDiscip, 'perfil')"
                   title="Clique para ordenar por nome"
                 >
                   Perfil
@@ -333,45 +330,18 @@
       title="Filtros"
     >
       <div class="p-0 m-0" style="height: 30px; width: 465px;">
-        <ul
-          class="nav nav-tabs card-header-tabs m-0"
-          style="font-size: 11px !important; height: 30px;"
-        >
-          <li class="nav-item" @click="changeTab('perfis')">
-            <a
-              class="nav-link border border-right-0"
-              :class="{
-                active: nav_ativo === 'perfis',
-              }"
-              >Perfis</a
-            >
-          </li>
-          <li class="nav-item" @click="changeTab('disciplinas')">
-            <a
-              class="nav-link border border-right-0"
-              :class="{
-                active: nav_ativo === 'disciplinas',
-              }"
-              >Disciplinas</a
-            >
-          </li>
-          <li class="nav-item" @click="changeTab('semestre')">
-            <a
-              class="nav-link border"
-              :class="{
-                active: nav_ativo === 'semestre',
-              }"
-              >Semestre</a
-            >
-          </li>
-        </ul>
+        <NavTab
+          :currentTab="modalTabAtiva"
+          :allTabs="['Perfis', 'Disciplinas', 'Semestres']"
+          @change-tab="modalTabAtiva = $event"
+        />
       </div>
 
       <div class="col m-0 p-0 max-content" style="height: 450px !important;">
         <table class="table table-sm modal-table table-bordered">
           <thead class="thead-light sticky">
             <!-- search bar disciplinas -->
-            <tr v-if="nav_ativo === 'disciplinas'">
+            <tr v-if="modalTabAtiva === 'Disciplinas'">
               <th>
                 <div class="max-content">
                   <div class="m-0  input-group input-group-search">
@@ -397,7 +367,7 @@
               </th>
             </tr>
             <!-- perfis -->
-            <tr v-if="nav_ativo === 'perfis'" class="sticky">
+            <tr v-if="modalTabAtiva === 'Perfis'" class="sticky">
               <div class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -406,23 +376,16 @@
                   <p
                     class="p-header clickable"
                     style="width: 435px; text-align: start;"
-                    @click="toggleOrdPerfis()"
+                    @click="toggleOrder(ordemPerfis, 'abreviacao')"
                   >
                     Nome
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemPerfis.type == 'asc'
-                          ? 'fas fa-arrow-down fa-sm'
-                          : 'fas fa-arrow-up fa-sm'
-                      "
-                    ></i>
+                    <i :class="setIconByOrder(ordemPerfis, 'abreviacao')"></i>
                   </p>
                 </th>
               </div>
             </tr>
-            <!-- disciplinas -->
-            <tr v-if="nav_ativo === 'disciplinas'" class="sticky2">
+            <!-- Disciplinas -->
+            <tr v-if="modalTabAtiva === 'Disciplinas'" class="sticky2">
               <div class="max-content">
                 <th>
                   <p
@@ -434,66 +397,39 @@
                   <p
                     class="p-header clickable"
                     style="width: 70px; text-align: start;"
-                    @click="toggleOrdDiscip('codigo')"
+                    @click="toggleOrder(ordemDiscip, 'codigo')"
                     title="Clique para ordenar por código"
                   >
                     Cód.
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemDiscip.order == 'codigo'
-                          ? ordemDiscip.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
+                    <i :class="setIconByOrder(ordemDiscip, 'codigo')"></i>
                   </p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
                     style="width: 280px; text-align: start;"
-                    @click="toggleOrdDiscip('nome')"
+                    @click="toggleOrder(ordemDiscip, 'nome')"
                     title="Clique para ordenar por nome"
                   >
                     Nome
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemDiscip.order == 'nome'
-                          ? ordemDiscip.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
+                    <i :class="setIconByOrder(ordemDiscip, 'nome')"></i>
                   </p>
                 </th>
                 <th>
                   <p
                     class="p-header clickable"
                     style="width: 85px; text-align: start;"
-                    @click="toggleOrdDiscip('perfil')"
+                    @click="toggleOrder(ordemDiscip, 'perfil')"
                     title="Clique para ordenar por nome"
                   >
                     Perfil
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemDiscip.order == 'perfil'
-                          ? ordemDiscip.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
+                    <i :class="setIconByOrder(ordemDiscip, 'perfil')"></i>
                   </p>
                 </th>
               </div>
             </tr>
             <!-- semestre -->
-            <tr v-if="nav_ativo === 'semestre'" class="sticky">
+            <tr v-if="modalTabAtiva === 'Semestres'" class="sticky">
               <div class="max-content">
                 <th>
                   <p style="width: 25px;" class="p-header"></p>
@@ -506,8 +442,12 @@
               </div>
             </tr>
           </thead>
-          <tbody v-if="nav_ativo === 'perfis'">
-            <tr v-for="perfil in Perfis_Modal" :key="'perfil-id' + perfil.id">
+          <tbody v-if="modalTabAtiva === 'Perfis'">
+            <tr
+              @click="toggleItemInArray(perfil, PerfisAtivados)"
+              v-for="perfil in Perfis_Modal"
+              :key="'perfil-id' + perfil.id"
+            >
               <div class="max-content">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -527,11 +467,11 @@
               </div>
             </tr>
           </tbody>
-          <tbody v-if="nav_ativo === 'disciplinas'">
+          <tbody v-if="modalTabAtiva === 'Disciplinas'">
             <tr
               v-for="disciplina in Disciplinas_Filtred"
               :key="'disciplina' + disciplina.id"
-              value="disciplina.id"
+              @click="toggleItemInArray(disciplina, DisciplinasSelecionados)"
             >
               <div class="max-content">
                 <td>
@@ -562,8 +502,8 @@
               </div>
             </tr>
           </tbody>
-          <tbody v-if="nav_ativo === 'semestre'">
-            <tr>
+          <tbody v-if="modalTabAtiva === 'Semestres'">
+            <tr @click="semestre_1Ativo = !semestre_1Ativo">
               <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -579,7 +519,7 @@
                 </td>
               </div>
             </tr>
-            <tr>
+            <tr @click="semestre_2Ativo = !semestre_2Ativo">
               <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -601,7 +541,7 @@
 
       <div slot="modal-footer" class="w-100 m-0 p-0 d-flex">
         <div class="w-100">
-          <template v-if="nav_ativo === 'disciplinas'">
+          <template v-if="modalTabAtiva === 'Disciplinas'">
             <b-button
               class="btn-azul btn-modal btn-custom"
               variant="success"
@@ -615,7 +555,7 @@
               >Desmarcar Todos</b-button
             >
           </template>
-          <template v-else-if="nav_ativo === 'perfis'">
+          <template v-else-if="modalTabAtiva === 'Perfis'">
             <b-button
               class="btn-azul btn-modal btn-custom"
               variant="success"
@@ -893,11 +833,13 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
-import PageTitle from "@/components/PageTitle";
+import { toggleItemInArray, toggleOrdination } from "@/mixins/index.js";
+import { BaseButton, PageTitle, NavTab } from "@/components/index.js";
 
 export default {
   name: "DashboardRelatorioDisciplinas",
-  components: { PageTitle },
+  mixins: [toggleItemInArray, toggleOrdination],
+  components: { PageTitle, NavTab, BaseButton },
   data() {
     return {
       PerfisAtivados: [],
@@ -907,21 +849,19 @@ export default {
       semestre_2Ativo: true,
       semestreAtual: 3,
       turmaSelecionada: undefined,
-      nav_ativo: "perfis",
+      modalTabAtiva: "Perfis",
       searchDisciplinas: null,
       ordemDiscip: { order: "codigo", type: "asc" },
       ordemVagas: { order: "codigo", type: "asc" },
-      ordemPerfis: { order: "nome", type: "asc" },
+      ordemPerfis: { order: "abreviacao", type: "asc" },
     };
   },
-  beforeMount() {
+  mounted() {
     this.selectAllDisciplinas();
+    this.selectAllPerfis();
     this.DisciplinasAtivados = [...this.DisciplinasSelecionados];
   },
   methods: {
-    changeTab(tab) {
-      this.nav_ativo = tab;
-    },
     setSemestreAtivo() {
       if (this.semestre_1Ativo && !this.semestre_2Ativo) this.semestreAtual = 1;
       else if (this.semestre_2Ativo && !this.semestre_1Ativo)
@@ -937,34 +877,6 @@ export default {
       this.$refs.modalFiltros.hide();
       this.searchDisciplinas = null;
     },
-    // Ordem disciplinas Main table
-    toggleOrdDiscip(ord) {
-      if (this.ordemDiscip.order != ord) {
-        this.ordemDiscip.order = ord;
-        this.ordemDiscip.type = "asc";
-      } else {
-        this.ordemDiscip.type = this.ordemDiscip.type == "asc" ? "desc" : "asc";
-      }
-    },
-
-    // Ordem Perfis Modal
-    toggleOrdPerfis() {
-      if (this.ordemPerfis.type == "asc") {
-        this.ordemPerfis.type = "desc";
-      } else {
-        this.ordemPerfis.type = "asc";
-      }
-    },
-    // Ordem Vagas Modal
-    toggleOrdVagas(ord) {
-      if (this.ordemVagas.order != ord) {
-        this.ordemVagas.order = ord;
-        this.ordemVagas.type = "asc";
-      } else {
-        this.ordemVagas.type = this.ordemVagas.type == "asc" ? "desc" : "asc";
-      }
-    },
-    //Select Semestre
     selectAllSemestre() {
       this.semestre_1Ativo = true;
       this.semestre_2Ativo = true;
@@ -973,7 +885,6 @@ export default {
       this.semestre_1Ativo = false;
       this.semestre_2Ativo = false;
     },
-    //Select Perfis
     selectAllPerfis() {
       if (this.PerfisAtivados != []) this.PerfisAtivados = [];
       for (var i = 0; i < this.$store.state.perfil.Perfis.length; i++)
@@ -982,7 +893,6 @@ export default {
     selectNonePerfis() {
       this.PerfisAtivados = [];
     },
-    //select Disciplinas
     selectAllDisciplinas() {
       if (this.DisciplinasSelecionados != []) this.DisciplinasSelecionados = [];
       for (var i = 0; i < this.$store.state.disciplina.Disciplinas.length; i++)
@@ -1268,19 +1178,9 @@ export default {
     Horarios() {
       return this.$store.state.horario.Horarios;
     },
-    //Função para adicionar ao clickar no <tr>
-    // addInDisci(disciplina) {
-    //   let indice = this.DisciplinasSelecionados.indexOf(disciplina);
-
-    //   if (indice === -1) {
-    //     this.DisciplinasSelecionados.push(disciplina);
-    //   } else {
-    //     this.DisciplinasSelecionados.splice(indice, 1);
-    //   }
-    // },
   },
   watch: {
-    PerfisAtivados(newValue, oldValue) {
+    PerfisAtivados(newValue) {
       //Apaga todas disciplinas selecionadas sempre que um novo perfil é selecionado
       this.DisciplinasSelecionados = [];
 
@@ -1458,21 +1358,5 @@ tbody {
   margin-top: 4px !important;
   margin-bottom: auto !important;
   height: 13px !important;
-}
-/* FIM MODAL TABLE */
-/* nav-tab */
-.nav-tabs .nav-link {
-  color: #0079fa !important;
-  cursor: pointer;
-}
-.nav-tabs .nav-link:hover {
-  text-decoration: underline;
-}
-.nav-tabs .active {
-  background-color: #e9ecef !important;
-  color: #495057 !important;
-  cursor: default !important;
-  text-decoration: none !important;
-  transition: background-color 200ms;
 }
 </style>

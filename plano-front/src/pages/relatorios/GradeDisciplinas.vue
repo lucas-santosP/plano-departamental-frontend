@@ -2,7 +2,7 @@
   <div class="main-component row">
     <PageTitle :title="'Grades Disciplinas'">
       <template #aside>
-        <div class="input-group m-0 mr-3 ml-auto p-0">
+        <div class="input-group d-flex align-items-center m-0 mr-3 ml-auto p-0">
           <div class="input-group-prepend">
             <label class="input-group-text">Ano</label>
           </div>
@@ -19,247 +19,178 @@
             >
           </select>
         </div>
-        <b-button
-          v-b-modal.modalFiltros
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          v-b-modal.modalFiltros
         >
           <i class="fas fa-list-ul"></i>
-        </b-button>
-        <b-button
-          v-b-modal.modalAjuda
-          title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
-        >
+        </BaseButton>
+
+        <BaseButton :type="'icon'" :color="'lightblue'" v-b-modal.modalAjuda>
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
-    <div class="row w-100 m-0 p-0">
-      <div class="div-table p-0">
-        <table class="main-table table table-sm table-hover table-bordered">
-          <thead class="thead-light max-content sticky">
-            <tr>
-              <div style="font-size:11px!important" class="max-content sticky">
-                <th @click="setFixedOrderPerfil()">
-                  <p
-                    class="p-header clickable d-flex justify-content-between align-items-center"
-                    style="width:80px"
-                  >
-                    <i
-                      class="fas fa-thumbtack"
-                      :class="
-                        ordenacaoPerfisMain.order === null ? 'low-opacity' : ''
-                      "
-                    ></i>
-                    Perfil
-                    <i
-                      :class="setIconByOrder(ordenacaoPerfisMain, 'perfilNome')"
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    class="p-header clickable"
-                    style="width: 100px;"
-                    @click="toggleOrder(ordenacaoDisciplinasMain, 'codigo')"
-                  >
-                    Cód.
-                    <i
-                      :class="
-                        setIconByOrder(ordenacaoDisciplinasMain, 'codigo')
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    class="p-header clickable"
-                    style="width: 380px; text-align: start;"
-                    @click="toggleOrder(ordenacaoDisciplinasMain, 'nome')"
-                  >
-                    Disciplina
-                    <i
-                      :class="setIconByOrder(ordenacaoDisciplinasMain, 'nome')"
-                    ></i>
-                  </p>
-                </th>
-                <th
-                  v-if="activeSI"
-                  class="clickable"
-                  @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeSI')"
-                >
-                  <p
-                    class="p-header"
-                    style="width: 140px;"
-                    title="Sistemas de informação"
-                  >
-                    76A
-                    <i
-                      :class="
-                        setIconByOrder(ordenacaoDisciplinasMain, 'gradeSI')
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th
-                  v-if="activeCCN"
-                  class="clickable"
-                  @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeCCN')"
-                >
-                  <p
-                    class="p-header"
-                    style="width: 140px;"
-                    title="Ciência da Computação Noturno"
-                  >
-                    35A
-                    <i
-                      :class="
-                        setIconByOrder(ordenacaoDisciplinasMain, 'gradeCCN')
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th
-                  v-if="activeCCD"
-                  class="clickable"
-                  @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeCCD')"
-                >
-                  <p
-                    class="p-header"
-                    style="width: 140px;"
-                    title="Ciência da Computação Noturno"
-                  >
-                    65C
-                    <i
-                      :class="
-                        setIconByOrder(ordenacaoDisciplinasMain, 'gradeCCD')
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th
-                  v-if="activeEC"
-                  class="clickable"
-                  @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeEC')"
-                >
-                  <p
-                    class="p-header"
-                    style="width: 140px;"
-                    title="Engenharia da Computação"
-                  >
-                    65B
-                    <i
-                      :class="
-                        setIconByOrder(ordenacaoDisciplinasMain, 'gradeEC')
-                      "
-                    ></i>
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-for="disciplina in DisciplinasOrderedMain">
-              <tr :key="disciplina.id">
-                <div class="max-content">
-                  <td v-bind:style="{ backgroundColor: disciplina.cor }">
-                    <p style="width: 80px ">
-                      {{ disciplina.perfilNome }}
-                    </p>
-                  </td>
+    <div class="div-table">
+      <BaseTable>
+        <template #thead>
+          <th
+            style="width:80px"
+            class="clickable"
+            @click="toggleOrder(ordenacaoPerfisMain, setFixedOrderPerfil)"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <i
+                class="fas fa-thumbtack"
+                :class="ordenacaoPerfisMain.order === null ? 'low-opacity' : ''"
+              ></i>
+              <span>
+                Perfil
+              </span>
 
-                  <td>
-                    <p style="width: 100px;">{{ disciplina.codigo }}</p>
-                  </td>
-                  <td>
-                    <p style="width: 380px; text-align: start;">
-                      {{ disciplina.nome }}
-                    </p>
-                  </td>
-                  <!-- 76A-  -->
-                  <td v-if="activeSI">
-                    <p style="width: 140px">
-                      {{
-                        disciplina.gradeSI.semestre1.length !== 0
-                          ? `${
-                              disciplina.gradeSI.semestre1
-                            }º Período: 1º Semestre`
-                          : ""
-                      }}
-                      {{
-                        disciplina.gradeSI.semestre2.length !== 0
-                          ? `${
-                              disciplina.gradeSI.semestre2
-                            }º Período: 2º Semestre`
-                          : ""
-                      }}
-                    </p>
-                  </td>
-                  <!-- 35A-  -->
-                  <td v-if="activeCCN">
-                    <p style="width: 140px">
-                      {{
-                        disciplina.gradeCCN.semestre1.length !== 0
-                          ? `${
-                              disciplina.gradeCCN.semestre1
-                            }º Período: 1º Semestre`
-                          : ""
-                      }}
-                      {{
-                        disciplina.gradeCCN.semestre2.length !== 0
-                          ? `${
-                              disciplina.gradeCCN.semestre2
-                            }º Período: 2º Semestre`
-                          : ""
-                      }}
-                    </p>
-                  </td>
-                  <!-- 65C -->
-                  <td v-if="activeCCD">
-                    <p style="width: 140px">
-                      {{
-                        disciplina.gradeCCD.semestre1.length !== 0
-                          ? `${
-                              disciplina.gradeCCD.semestre1
-                            }º Período: 1º Semestre`
-                          : ""
-                      }}
-                      {{
-                        disciplina.gradeCCD.semestre2.length !== 0
-                          ? `${
-                              disciplina.gradeCCD.semestre2
-                            }º Período: 2º Semestre`
-                          : ""
-                      }}
-                    </p>
-                  </td>
-                  <!-- 65B -->
-                  <td v-if="activeEC">
-                    <p style="width: 140px">
-                      {{
-                        disciplina.gradeEC.semestre1.length !== 0
-                          ? `${
-                              disciplina.gradeEC.semestre1
-                            }º Período: 1º Semestre`
-                          : ""
-                      }}
-                      {{
-                        disciplina.gradeEC.semestre2.length !== 0
-                          ? `${
-                              disciplina.gradeEC.semestre2
-                            }º Período: 2º Semestre`
-                          : ""
-                      }}
-                    </p>
-                  </td>
-                </div>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
+              <i
+                :class="setIconByOrder(ordenacaoPerfisMain, 'perfilAbreviacao')"
+              ></i>
+            </div>
+          </th>
+          <th
+            class="clickable"
+            style="width: 100px;"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'codigo')"
+          >
+            Cód.
+            <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'codigo')"></i>
+          </th>
+          <th
+            class="t-start clickable"
+            style="width: 380px"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'nome')"
+          >
+            Disciplina
+            <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'nome')"></i>
+          </th>
+          <th
+            title="Sistemas de informação"
+            v-if="activeSI"
+            class="clickable"
+            style="width: 140px;"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeSI')"
+          >
+            76A
+            <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'gradeSI')"></i>
+          </th>
+          <th
+            title="Ciência da Computação Noturno"
+            v-if="activeCCN"
+            class="clickable"
+            style="width: 140px;"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeCCN')"
+          >
+            35A
+            <i
+              :class="setIconByOrder(ordenacaoDisciplinasMain, 'gradeCCN')"
+            ></i>
+          </th>
+          <th
+            title="Ciência da Computação Noturno"
+            v-if="activeCCD"
+            class="clickable"
+            style="width: 140px;"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeCCD')"
+          >
+            65C
+            <i
+              :class="setIconByOrder(ordenacaoDisciplinasMain, 'gradeCCD')"
+            ></i>
+          </th>
+          <th
+            title="Engenharia da Computação"
+            v-if="activeEC"
+            class="clickable"
+            style="width: 140px;"
+            @click="toggleOrder(ordenacaoDisciplinasMain, 'gradeEC')"
+          >
+            65B
+            <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'gradeEC')"></i>
+          </th>
+        </template>
+        <template #tbody>
+          <tr v-for="disciplina in DisciplinasOrderedMain" :key="disciplina.id">
+            <td style="width: 80px">
+              {{ disciplina.perfilAbreviacao }}
+            </td>
+
+            <td style="width: 100px">
+              {{ disciplina.codigo }}
+            </td>
+            <td style="width: 380px" class="t-start">
+              {{ disciplina.nome }}
+            </td>
+            <!-- 76A-  -->
+            <td v-if="activeSI" style="width: 140px">
+              {{
+                disciplina.gradeSI.semestre1.length !== 0
+                  ? `${disciplina.gradeSI.semestre1}º Período: 1º Semestre`
+                  : ""
+              }}
+              {{
+                disciplina.gradeSI.semestre2.length !== 0
+                  ? `${disciplina.gradeSI.semestre2}º Período: 2º Semestre`
+                  : ""
+              }}
+            </td>
+            <!-- 35A-  -->
+            <td v-if="activeCCN" style="width: 140px">
+              {{
+                disciplina.gradeCCN.semestre1.length !== 0
+                  ? `${disciplina.gradeCCN.semestre1}º Período: 1º Semestre`
+                  : ""
+              }}
+              {{
+                disciplina.gradeCCN.semestre2.length !== 0
+                  ? `${disciplina.gradeCCN.semestre2}º Período: 2º Semestre`
+                  : ""
+              }}
+            </td>
+            <!-- 65C -->
+            <td v-if="activeCCD" style="width: 140px">
+              {{
+                disciplina.gradeCCD.semestre1.length !== 0
+                  ? `${disciplina.gradeCCD.semestre1}º Período: 1º Semestre`
+                  : ""
+              }}
+              {{
+                disciplina.gradeCCD.semestre2.length !== 0
+                  ? `${disciplina.gradeCCD.semestre2}º Período: 2º Semestre`
+                  : ""
+              }}
+            </td>
+            <!-- 65B -->
+            <td v-if="activeEC" style="width: 140px">
+              {{
+                disciplina.gradeEC.semestre1.length !== 0
+                  ? `${disciplina.gradeEC.semestre1}º Período: 1º Semestre`
+                  : ""
+              }}
+              {{
+                disciplina.gradeEC.semestre2.length !== 0
+                  ? `${disciplina.gradeEC.semestre2}º Período: 2º Semestre`
+                  : ""
+              }}
+            </td>
+          </tr>
+
+          <tr v-show="!DisciplinasOrderedMain.length">
+            <td style="width:1120px">
+              <b>Nenhuma disciplina encontrada.</b> Clique no botão de filtros
+              <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
+            </td>
+          </tr>
+        </template>
+      </BaseTable>
     </div>
 
     <!-- MODAL FILTROS -->
@@ -313,6 +244,7 @@
             <tr
               v-for="perfil in PerfisOrderedModal"
               :key="'perfil-id' + perfil.id"
+              @click="toggleItemInArray(perfil, perfisAtivados)"
             >
               <div style="width: max-content;">
                 <td>
@@ -417,14 +349,17 @@
                     class="p-header clickable"
                     style="width: 85px; text-align: start;"
                     @click="
-                      toggleOrder(modalOrdenacaoDisciplinas, 'perfilNome')
+                      toggleOrder(modalOrdenacaoDisciplinas, 'perfilAbreviacao')
                     "
                     title="Clique para ordenar por nome"
                   >
                     Perfil
                     <i
                       :class="
-                        setIconByOrder(modalOrdenacaoDisciplinas, 'perfilNome')
+                        setIconByOrder(
+                          modalOrdenacaoDisciplinas,
+                          'perfilAbreviacao'
+                        )
                       "
                     ></i>
                   </p>
@@ -436,7 +371,7 @@
             <tr
               v-for="disciplina in DisciplinasOrderedModal"
               :key="'disciplina' + disciplina.id"
-              value="disciplina.id"
+              @click="toggleItemInArray(disciplina, disciplinasSelecionadas)"
             >
               <div class="max-content">
                 <td>
@@ -461,7 +396,7 @@
                 </td>
                 <td>
                   <p style="width: 85px; text-align: start;">
-                    {{ disciplina.perfilNome }}
+                    {{ disciplina.perfilAbreviacao }}
                   </p>
                 </td>
               </div>
@@ -516,6 +451,7 @@
             <tr
               v-for="curso in CursosOrderedModal"
               :key="'curso-codigo' + curso.codigo"
+              @click="toggleItemInArray(curso, cursosSelecionados)"
             >
               <div style="width: max-content; height: 22px !important;">
                 <td>
@@ -630,12 +566,18 @@
 
 <script>
 import _ from "lodash";
-import PageTitle from "@/components/PageTitle";
-import NavTab from "@/components/NavTab";
+import { toggleItemInArray, toggleOrdination } from "@/mixins/index.js";
+import {
+  BaseButton,
+  BaseTable,
+  PageTitle,
+  NavTab,
+} from "@/components/index.js";
 
 export default {
   name: "GradeDisciplinas",
-  components: { PageTitle, NavTab },
+  mixins: [toggleItemInArray, toggleOrdination],
+  components: { PageTitle, BaseTable, NavTab, BaseButton },
   data() {
     return {
       error: undefined,
@@ -683,7 +625,7 @@ export default {
       modalOrdenacaoDisciplinas: { order: "codigo", type: "asc" },
       modalOrdenacaoCursos: { order: "codigo", type: "asc" },
       ordenacaoDisciplinasMain: { order: "codigo", type: "asc" },
-      ordenacaoPerfisMain: { order: "perfilNome", type: "asc" },
+      ordenacaoPerfisMain: { order: "perfilAbreviacao", type: "asc" },
     };
   },
 
@@ -691,9 +633,11 @@ export default {
     this.ano = this.$store.state.plano.Plano[0].ano;
     this.novoAno = this.ano;
     this.runAll();
-
+  },
+  mounted() {
     this.selectAllCursos();
     this.selectAllDisciplinas();
+    this.selectAllPerfis();
     this.disciplinasAtivadas = [...this.disciplinasSelecionadas];
     this.cursosAtivados = [...this.cursosSelecionados];
   },
@@ -703,30 +647,6 @@ export default {
       this.cursosAtivados = [...this.cursosSelecionados];
       this.tabAtivaModal = "Perfis";
       this.$refs.modalFiltros.hide();
-    },
-    setFixedOrderPerfil() {
-      if (this.ordenacaoPerfisMain.type === "desc") {
-        this.toggleOrder(this.ordenacaoPerfisMain, null);
-      } else {
-        this.toggleOrder(this.ordenacaoPerfisMain, "perfilNome");
-      }
-    },
-    toggleOrder(currentOrder, newOrder, type = "asc") {
-      if (currentOrder.order != newOrder) {
-        currentOrder.order = newOrder;
-        currentOrder.type = type;
-      } else {
-        currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
-      }
-    },
-    setIconByOrder(currentOrder, orderToCheck) {
-      if (currentOrder.order === orderToCheck) {
-        return currentOrder.type === "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
     },
     selectAllPerfis() {
       this.perfisAtivados = [...this.Perfis];
@@ -944,13 +864,13 @@ export default {
       return this.$store.state.disciplina.Disciplinas;
     },
     DisciplinasComPerfil() {
-      //Todas disciplinas não só do DCC, com perfilNome e cor
+      //Todas disciplinas não só do DCC, com perfilAbreviacao e cor
       let disciplinasResult = this.Disciplinas;
 
       disciplinasResult.forEach((disciplina) => {
         _.find(this.Perfis, (perfil) => {
           if (disciplina.Perfil === perfil.id) {
-            disciplina.perfilNome = perfil.abreviacao;
+            disciplina.perfilAbreviacao = perfil.abreviacao;
             disciplina.cor = perfil.cor;
             return true;
           }
@@ -1033,6 +953,10 @@ export default {
       }
       return result;
     },
+    setFixedOrderPerfil() {
+      if (this.ordenacaoPerfisMain.type === "desc") return null;
+      else return "perfilAbreviacao";
+    },
     DisciplinasOrderedModal() {
       return _.orderBy(
         this.DisciplinasFiltredModal,
@@ -1108,62 +1032,6 @@ export default {
 };
 </script>
 <style scoped>
-.div-table {
-  overflow: hidden;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-}
-.main-table {
-  display: block !important;
-  overflow-y: scroll !important;
-  overflow-x: auto !important;
-  font-size: 11px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-  height: -webkit-calc(100vh - 95px);
-  height: -moz-calc(100vh - 95px);
-  height: calc(100vh - 95px);
-}
-.main-table .p-header {
-  height: 18px;
-}
-.main-table p {
-  padding: 0 5px 0 5px !important;
-  margin: 0 !important;
-  font-size: 11px !important;
-  text-align: center;
-}
-tbody {
-  max-height: 100% !important;
-  width: 100% !important;
-}
-.main-table td {
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  height: 22px !important;
-}
-.main-table tr thead {
-  display: block !important;
-}
-.main-table thead th {
-  padding: 0 !important;
-  font-size: 14px;
-  text-align: center;
-  height: 18px !important;
-}
-.main-table input[type="checkbox"] {
-  width: 13px !important;
-  height: 13px !important;
-  text-align: center !important;
-  margin: 0 !important;
-  margin-top: 4px !important;
-}
 /* ==== MODAL TABLE ==== */
 .modal-table {
   display: block;

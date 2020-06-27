@@ -2,13 +2,14 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Grades'">
       <template #aside>
-        <b-button
-          v-b-modal.modalAjuda
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+          :type="'icon'"
+          :color="'lightblue'"
+          v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -245,9 +246,8 @@
 <script>
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
-import Card from "@/components/Card";
-import PageTitle from "@/components/PageTitle";
-import BaseTable from "@/components/BaseTable";
+import { redirectNotAdmin } from "@/mixins/index.js";
+import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
 
 const emptyGrade = {
   id: undefined,
@@ -262,7 +262,8 @@ const emptyDisciplinaGrade = {
 };
 export default {
   name: "DashboardGrade",
-  components: { PageTitle, Card, BaseTable },
+  mixins: [redirectNotAdmin],
+  components: { PageTitle, Card, BaseTable, BaseButton },
   data() {
     return {
       error: undefined,
@@ -270,18 +271,6 @@ export default {
       disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
       currentGrade: undefined,
     };
-  },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
   },
   methods: {
     addGrade() {
@@ -430,7 +419,7 @@ export default {
 .card-input-menor {
   width: 70px;
 }
-@media screen and (max-width: 606px) {
+@media screen and (max-width: 621px) {
   .div-card {
     margin-left: 0px !important;
   }

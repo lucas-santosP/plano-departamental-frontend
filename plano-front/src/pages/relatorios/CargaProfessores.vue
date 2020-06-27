@@ -2,30 +2,31 @@
   <div class="main-component row p-0" v-if="!$root.onLoad">
     <PageTitle :title="'Carga Professores'">
       <template #aside>
-        <button
-          @click="openHeaderModal('filtros')"
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          @click="openSideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
-        </button>
+        </BaseButton>
 
-        <button
-          @click="$refs.modalRelatorio.toggle()"
-          type="button"
-          class="btn-custom btn-icon relatbtn"
+        <BaseButton
           title="Relatório"
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="$refs.modalRelatorio.toggle()"
         >
-          <i class="far fa-file-pdf"></i>
-        </button>
+          <i class="fas fa-file-alt"></i>
+        </BaseButton>
 
-        <button
-          @click="openHeaderModal('ajuda')"
-          title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+        <BaseButton
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="openSideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
-        </button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -521,12 +522,18 @@ import {
   toggleItemInArray,
   loadingHooks,
 } from "@/mixins/index.js";
-import { PageTitle, BaseTable, NavTab, BaseModal } from "@/components/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  NavTab,
+  BaseModal,
+  BaseButton,
+} from "@/components/index.js";
 
 export default {
   name: "DashboardCargaProfessores",
-  components: { PageTitle, BaseTable, NavTab, BaseModal },
   mixins: [toggleOrdination, toggleItemInArray, loadingHooks],
+  components: { PageTitle, BaseTable, NavTab, BaseModal, BaseButton },
   data() {
     return {
       tabAtivaModal: "Docentes",
@@ -559,7 +566,7 @@ export default {
     this.activeAllFiltros();
   },
   methods: {
-    openHeaderModal(modalName) {
+    openSideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
         this.$refs.modalAjuda.close();
@@ -737,7 +744,6 @@ export default {
         .replace(/[\u0300-\u036f]/g, "");
     },
   },
-
   computed: {
     DocentesOrderedMain() {
       return _.orderBy(

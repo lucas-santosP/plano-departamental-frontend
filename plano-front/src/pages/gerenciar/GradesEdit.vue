@@ -2,13 +2,14 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Disciplina na Grade'">
       <template #aside>
-        <b-button
-          v-b-modal.modalAjuda
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+          :type="'icon'"
+          :color="'lightblue'"
+          v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -19,26 +20,38 @@
             <th
               style="width:35px"
               class="clickable"
-              @click="toggleOrder('periodo')"
+              @click="toggleOrder(ordenacaoDisciplinasMain, 'periodo')"
             >
               P.
-              <i :class="setIconByOrder('periodo')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoDisciplinasMain, 'periodo')"
+              ></i>
             </th>
             <th
               style="width:75px"
               class="clickable"
-              @click="toggleOrder('disciplina_codigo')"
+              @click="
+                toggleOrder(ordenacaoDisciplinasMain, 'disciplina_codigo')
+              "
             >
               Código
-              <i :class="setIconByOrder('disciplina_codigo')"></i>
+              <i
+                :class="
+                  setIconByOrder(ordenacaoDisciplinasMain, 'disciplina_codigo')
+                "
+              ></i>
             </th>
             <th
               style="width:400px"
               class="clickable t-start"
-              @click="toggleOrder('disciplina_nome')"
+              @click="toggleOrder(ordenacaoDisciplinasMain, 'disciplina_nome')"
             >
               Disciplina
-              <i :class="setIconByOrder('disciplina_nome')"></i>
+              <i
+                :class="
+                  setIconByOrder(ordenacaoDisciplinasMain, 'disciplina_nome')
+                "
+              ></i>
             </th>
           </template>
           <template #tbody>
@@ -276,9 +289,8 @@
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
-import PageTitle from "@/components/PageTitle.vue";
-import Card from "@/components/Card.vue";
-import BaseTable from "@/components/BaseTable.vue";
+import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
 
 const emptyGrade = {
   id: undefined,
@@ -293,10 +305,12 @@ const emptyDisciplinaGrade = {
 };
 export default {
   name: "DashboardGradeEdit",
+  mixins: [toggleOrdination, redirectNotAdmin],
   components: {
     PageTitle,
     BaseTable,
     Card,
+    BaseButton,
   },
   data() {
     return {
@@ -307,39 +321,10 @@ export default {
       currentCursoId: undefined,
       disciplinaSelectedId: "",
       nomeDisciplinaAtual: undefined,
-      ordenacao: { order: "periodo", type: "asc" },
+      ordenacaoDisciplinasMain: { order: "periodo", type: "asc" },
     };
   },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
-  },
   methods: {
-    setIconByOrder(orderToCheck) {
-      if (this.ordenacao.order === orderToCheck) {
-        return this.ordenacao.type == "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
-    },
-    toggleOrder(newOrder, type = "asc") {
-      if (this.ordenacao.order != newOrder) {
-        this.ordenacao.order = newOrder;
-        this.ordenacao.type = type;
-      } else {
-        this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
-      }
-    },
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;
       if (keyCode < 48 || keyCode > 57) {
@@ -560,8 +545,8 @@ export default {
     DisciplinaGradesOrdered() {
       return _.orderBy(
         this.DisciplinaGradesFiltred,
-        this.ordenacao.order,
-        this.ordenacao.type
+        this.ordenacaoDisciplinasMain.order,
+        this.ordenacaoDisciplinasMain.type
       );
     },
     DisciplinaGradesFiltred() {

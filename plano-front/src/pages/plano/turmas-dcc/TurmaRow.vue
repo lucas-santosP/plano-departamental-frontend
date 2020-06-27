@@ -191,7 +191,9 @@
     </td>
     <td style="width:45px" class="less-padding">
       <div style="height: 43px;" class="py-1">
-        <span style="font-weight:bold"> {{ totalPedidos() }}</span>
+        <span style="font-weight:bold">
+          {{ totalPedidosPeriodizados + totalPedidosNaoPeriodizados }}</span
+        >
         <br />
         <p class="mt-1">
           {{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}
@@ -274,16 +276,6 @@ export default {
       let key = $event.key ? $event.key : $event.which;
       if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
-    totalPedidos() {
-      var t = 0;
-      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
-      for (var p = 0; p < pedidos.length; p++) {
-        t += parseInt(pedidos[p].vagasPeriodizadas, 10);
-        t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
-      }
-      return t;
-    },
-
     checkHorariosPeriodo() {
       if (!this.checkHorarioDocente(1) && !this.checkHorarioSala(1)) {
         if (!this.checkHorarioDocente(2) && !this.checkHorarioSala(2)) {
@@ -1178,21 +1170,22 @@ export default {
   },
   computed: {
     totalPedidosPeriodizados() {
-      var t = 0;
-      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
+      let total = 0;
+      const pedidos = this.Pedidos[this.turma.id];
       for (var p = 0; p < pedidos.length; p++) {
-        t += parseInt(pedidos[p].vagasPeriodizadas, 10);
+        total += parseInt(pedidos[p].vagasPeriodizadas, 10);
       }
-      return t;
+      return total;
     },
 
     totalPedidosNaoPeriodizados() {
-      var t = 0;
-      var pedidos = this.$store.state.pedido.Pedidos[this.turma.id];
+      let total = 0;
+      const pedidos = this.Pedidos[this.turma.id];
+
       for (var p = 0; p < pedidos.length; p++) {
-        t += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
+        total += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
       }
-      return t;
+      return total;
     },
     disciplinaIsIntegralEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;

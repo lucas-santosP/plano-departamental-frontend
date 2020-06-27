@@ -2,53 +2,61 @@
   <div class="main-component row">
     <PageTitle :title="'Pós Graduação'">
       <template #aside>
-        <button
+        <BaseButton
           v-show="isAdding"
           title="Salvar"
-          class="btn-custom btn-icon addbtn"
-          @click.prevent="addNovaCarga()"
+          :type="'icon'"
+          :color="'green'"
+          @click="addNovaCarga()"
         >
           <i class="fas fa-check"></i>
-        </button>
-        <button
-          v-show="!isAdding"
-          title="Adicionar"
-          class="btn-custom btn-icon addbtn"
-          @click="toggleAdd"
-        >
-          <i class="fas fa-plus"></i>
-        </button>
-        <button
+        </BaseButton>
+        <BaseButton
           v-show="isAdding"
           title="Cancelar"
-          class="btn-custom btn-icon cancelbtn"
-          @click="toggleAdd"
+          :type="'icon'"
+          :color="'red'"
+          @click="toggleAdd()"
         >
           <i class="fas fa-times"></i>
-        </button>
-        <button
+        </BaseButton>
+
+        <BaseButton
+          v-show="!isAdding"
+          title="Adicionar"
+          :type="'icon'"
+          :color="'green'"
+          @click="toggleAdd()"
+        >
+          <i class="fas fa-plus"></i>
+        </BaseButton>
+        <BaseButton
           v-show="!isAdding"
           title="Deletar selecionados"
-          class="btn-custom btn-icon delbtn"
-          @click="$refs.modalDelete.toggle()"
+          :type="'icon'"
+          :color="'red'"
+          @click="$refs.modalDelete.open()"
         >
-          <i class="far fa-trash-alt"></i>
-        </button>
-        <!--  -->
-        <button
-          @click="openHeaderModal('filtros')"
+          <i class="fas fa-trash"></i>
+        </BaseButton>
+
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          @click="openHeaderModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
-        </button>
-        <button
-          @click="openHeaderModal('ajuda')"
+        </BaseButton>
+
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="openHeaderModal('ajuda')"
         >
           <i class="fas fa-question"></i>
-        </button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -157,6 +165,7 @@
       </template>
       <template #modal-footer>
         <button
+          v-if="Deletar.length"
           class="btn-custom btn-modal btn-cinza"
           @click="$refs.modalDelete.close()"
         >
@@ -330,7 +339,7 @@
             <b>Para deletar uma turma:</b> Marque as turmas que deseja deletar
             através da caixa de seleção presente na primeira coluna da tabela e
             em seguida clique no incone de deletar selecionados
-            <i class="far fa-trash-alt delbtn"></i>
+            <i class="fas fa-trash delbtn"></i>
             e confirme no botão OK.
           </li>
         </ul>
@@ -354,8 +363,8 @@ import {
   PageTitle,
   BaseTable,
   BaseModal,
+  BaseButton,
   NavTab,
-  Card,
 } from "@/components/index.js";
 
 const allProgramasPos = ["PGCC", "PGMC", "PGEM"];
@@ -369,7 +378,7 @@ export default {
     PageTitle,
     BaseTable,
     NavTab,
-    Card,
+    BaseButton,
     BaseModal,
   },
   data() {

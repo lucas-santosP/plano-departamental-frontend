@@ -2,58 +2,61 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - Outros'">
       <template #aside>
-        <button
-          v-show="turmaAddIsVisible"
-          type="button"
+        <BaseButton
+          v-show="isAdding"
           title="Salvar"
-          class="btn-custom btn-icon addbtn"
-          v-on:click.prevent="addTurma"
+          :type="'icon'"
+          :color="'green'"
+          @click="addTurma()"
         >
           <i class="fas fa-check"></i>
-        </button>
-        <button
-          v-show="turmaAddIsVisible"
-          type="button"
+        </BaseButton>
+        <BaseButton
+          v-show="isAdding"
           title="Cancelar"
-          class="btn-custom btn-icon cancelbtn"
-          v-on:click.prevent="toggleAdd"
+          :type="'icon'"
+          :color="'red'"
+          @click="toggleAdd()"
         >
           <i class="fas fa-times"></i>
-        </button>
+        </BaseButton>
 
-        <button
-          v-show="!turmaAddIsVisible"
-          type="button"
+        <BaseButton
+          v-show="!isAdding"
           title="Adicionar"
-          class="btn-custom btn-icon addbtn"
-          v-on:click.prevent="toggleAdd"
+          :type="'icon'"
+          :color="'green'"
+          @click="toggleAdd()"
         >
           <i class="fas fa-plus"></i>
-        </button>
-        <button
-          v-show="!turmaAddIsVisible"
-          type="button"
-          title="Deletar"
-          class="btn-custom btn-icon delbtn"
-          @click="openModalConfirma()"
+        </BaseButton>
+        <BaseButton
+          v-show="!isAdding"
+          title="Deletar selecionados"
+          :type="'icon'"
+          :color="'red'"
+          @click="$refs.modalDelete.open()"
         >
-          <i class="far fa-trash-alt"></i>
-        </button>
-        <b-button
-          v-b-modal.modalFiltros
+          <i class="fas fa-trash"></i>
+        </BaseButton>
+
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          v-b-modal.modalFiltros
         >
           <i class="fas fa-list-ul"></i>
-        </b-button>
+        </BaseButton>
 
-        <b-button
-          v-b-modal.modalAjuda
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
+          :type="'icon'"
+          :color="'lightblue'"
+          v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -142,7 +145,7 @@
           </template>
         </template>
         <template #tbody>
-          <tr v-show="turmaAddIsVisible" class="novaturma stickyAdd">
+          <tr v-show="isAdding" class="novaturma stickyAdd">
             <td style="width: 25px"></td>
             <td style="width: 55px" class="less-padding">
               <select id="2periodo" v-model="turmaForm.periodo">
@@ -285,25 +288,59 @@
         </template>
       </BaseTable>
     </div>
-
-    <!-- MODAL CONFIRMA -->
-    <b-modal ref="modalConfirma" title="Confirmar Seleção" @ok="deleteSelected">
-      <p class="my-4">Tem certeza que deseja deletar as turmas selecionadas?</p>
-      <template v-for="turma in Deletar">
-        <template v-for="disciplina in DisciplinasExternas">
-          <template v-if="disciplina.id === turma.Disciplina">
-            <p
-              :key="'disciplina' + disciplina.id + 'turma' + turma.id"
-              style="width: 80px;"
-            >
-              Disciplina:{{ disciplina.codigo }}
-              <br />
-              Turma:{{ turma.letra }}
-            </p>
-          </template>
+    <!-- MODAL DELETAR -->
+    <BaseModal
+      ref="modalDelete"
+      :modalOptions="{
+        title: 'Confirmar seleção',
+        position: 'center',
+        hasBackground: true,
+        hasFooter: true,
+      }"
+      :customStyles="'width:400px'"
+    >
+      <template #modal-body>
+        <p class="w-100 mb-2" style="font-size:14px">
+          {{
+            Deletar.length
+              ? "Tem certeza que deseja deletar as turmas selecionadas?"
+              : "Nenhuma turma selecionada!"
+          }}
+        </p>
+        <template v-if="Deletar.length">
+          <ul class="list-group list-deletar w-100">
+            <template v-for="turma in Deletar">
+              <li class="list-group-item" :key="'deletarTurma' + turma.id">
+                <span class="mr-1">
+                  <b> Semestre: </b>{{ turma.periodo }}
+                </span>
+                <span class="mr-1"
+                  ><b> Disciplina: </b>{{ turma.disciplinaNome }} -
+                  <b>{{ turma.letra }}</b>
+                </span>
+              </li>
+            </template>
+          </ul>
         </template>
       </template>
-    </b-modal>
+      <template #modal-footer>
+        <div class="w-100">
+          <button
+            class="btn-custom btn-modal btn-cinza btn-ok-modal"
+            @click="$refs.modalDelete.close()"
+          >
+            Fechar
+          </button>
+        </div>
+        <button
+          v-if="Deletar.length"
+          class="btn-custom btn-modal btn-vermelho btn-ok-modal"
+          @click="deleteSelectedTurma()"
+        >
+          Deletar
+        </button>
+      </template>
+    </BaseModal>
 
     <!-- MODAL FILTROS -->
     <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
@@ -461,10 +498,7 @@
             <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s)
             disciplina(s) que deseja deletar através da caixa de seleção à
             esquerda e em seguida clique em Deletar
-            <i
-              class="far fa-trash-alt delbtn px-1"
-              style="font-size: 12px;"
-            ></i>
+            <i class="fas fa-trash delbtn px-1" style="font-size: 12px;"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
@@ -490,13 +524,20 @@
 
 <script>
 import _ from "lodash";
-import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
-import toggleItemInArrayMixin from "@/mixins/toggleItemInArray.js";
 import turmaExternaService from "@/common/services/turmaExterna";
 import pedidoExternoService from "@/common/services/pedidoExterno";
-import PageTitle from "@/components/PageTitle.vue";
-import BaseTable from "@/components/BaseTable.vue";
-import NavTab from "@/components/NavTab.vue";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  redirectNotAdmin,
+} from "@/mixins/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseModal,
+  NavTab,
+  BaseButton,
+} from "@/components/index.js";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 
 const emptyTurma = {
@@ -519,19 +560,21 @@ const emptyPedido = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdinationMixin, toggleItemInArrayMixin],
+  mixins: [toggleOrdination, toggleItemInArray, redirectNotAdmin],
   components: {
     TurmaExternaRow,
     PageTitle,
     BaseTable,
+    BaseModal,
     NavTab,
+    BaseButton,
   },
   data() {
     return {
       error: undefined,
       ordenacaoTurmasMain: { order: "disciplinaCodigo", type: "asc" },
       turmaForm: _.clone(emptyTurma),
-      turmaAddIsVisible: false,
+      isAdding: false,
       semestre: 1,
       searchDisciplinasModal: "",
       filtroSemestres: {
@@ -564,18 +607,6 @@ export default {
         },
       },
     };
-  },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
   },
   mounted() {
     // this.$store.commit('emptyDelete')
@@ -666,20 +697,9 @@ export default {
         if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
       }
     },
-    openModalConfirma() {
-      if (this.Deletar.length) this.$refs.modalConfirma.show();
-      else
-        this.$notify({
-          group: "general",
-          type: "error",
-          title: "Erro!",
-          text: "Nenhuma turma selecionada para exclusão",
-        });
-    },
-    deleteSelected() {
-      var turmas = this.$store.state.turmaExterna.Deletar;
-      for (var i = 0; i < turmas.length; i++) {
-        this.deleteTurma(turmas[i]);
+    deleteSelectedTurma() {
+      for (var i = 0; i < this.Deletar.length; i++) {
+        this.deleteTurma(this.Deletar[i]);
       }
       this.$store.commit("emptyDeleteExterno");
     },
@@ -704,13 +724,13 @@ export default {
       return true;
     },
     addTurma() {
-      const newTurma = _.clone(this.turmaForm);
+      this.setEmptyKeysToNull(this.turmaForm);
+      if (!this.validateTurma(this.turmaForm)) return;
 
-      this.setEmptyKeysToNull(newTurma);
-      if (!this.validateTurma(newTurma)) return;
+      console.log(this.turmaForm);
 
       turmaExternaService
-        .create(newTurma)
+        .create(this.turmaForm)
         .then((response) => {
           this.semestre = response.Turma.periodo;
           for (let i = 0; i < 4; i++) {
@@ -745,12 +765,6 @@ export default {
             title: "Erro!",
             text: `${error}`,
           });
-
-          this.error = "<b>Erro ao criar Turma</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
         });
     },
     editTurma(turma) {
@@ -773,8 +787,10 @@ export default {
         });
     },
     deleteTurma(turma) {
+      const turmaToDelete = _.clone(turma);
+
       turmaExternaService
-        .delete(turma.id, turma)
+        .delete(turmaToDelete.id, turmaToDelete)
         .then((response) => {
           this.$notify({
             group: "general",
@@ -792,7 +808,7 @@ export default {
       this.error = undefined;
     },
     toggleAdd() {
-      this.turmaAddIsVisible = !this.turmaAddIsVisible;
+      this.isAdding = !this.isAdding;
     },
     normalizeText(text) {
       return text

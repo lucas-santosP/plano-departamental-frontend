@@ -2,7 +2,7 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Logs'">
       <template #aside>
-        <div class="input-group mx-2 p-0">
+        <div class="input-group d-flex align-items-center mx-2 p-0">
           <div class="input-group-prepend">
             <label class="input-group-text">Operação</label>
           </div>
@@ -14,13 +14,14 @@
           </select>
         </div>
 
-        <b-button
+        <BaseButton
+          title="Filtros"
+          :type="'icon'"
+          :color="'lightblue'"
           v-b-modal.modalFiltros
-          title="Tabelas"
-          class="btn-custom btn-icon cancelbtn ml-2"
         >
           <i class="fas fa-list-ul"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -151,14 +152,22 @@
 
 <script>
 import _ from "lodash";
-import { PageTitle, BaseTable, NavTab } from "@/components/index.js";
+import { redirectNotAdmin } from "@/mixins/index.js";
+import {
+  PageTitle,
+  NavTab,
+  BaseTable,
+  BaseButton,
+} from "@/components/index.js";
 
 export default {
   name: "DashboardHistory",
+  mixins: [redirectNotAdmin],
   components: {
     PageTitle,
     BaseTable,
     NavTab,
+    BaseButton,
   },
   data() {
     return {
@@ -181,18 +190,6 @@ export default {
       TabelasAtivadas: [],
       operacoes: "Todos",
     };
-  },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
   },
   methods: {
     btnOK() {
@@ -523,13 +520,8 @@ export default {
         ["desc"]
       );
     },
-
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

@@ -2,30 +2,27 @@
   <div class="main-component row p-0">
     <PageTitle :title="'Horários - Laborátorios'">
       <template #aside>
-        <b-button
-          v-b-modal.modalFiltros
+        <BaseButton
           title="Filtros"
-          class="btn-custom btn-icon cancelbtn"
+          :type="'icon'"
+          :color="'gray'"
+          v-b-modal.modalFiltros
         >
           <i class="fas fa-list-ul"></i>
-        </b-button>
+        </BaseButton>
 
-        <b-button
+        <BaseButton
+          title="Relátorio"
+          :type="'icon'"
+          :color="'lightblue'"
           v-b-modal.modalRelatorio
-          type="button"
-          class="btn-custom btn-icon relatbtn"
-          title="Relatório"
         >
-          <i class="far fa-file-pdf"></i>
-        </b-button>
+          <i class="far fa-file-alt"></i>
+        </BaseButton>
 
-        <b-button
-          v-b-modal.modalAjuda
-          title="Ajuda"
-          class="btn-custom btn-icon relatbtn"
-        >
+        <BaseButton :type="'icon'" :color="'lightblue'" v-b-modal.modalAjuda>
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -100,7 +97,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
               <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -116,7 +113,7 @@
                 </td>
               </div>
             </tr>
-            <tr>
+            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
               <div style="width: max-content;">
                 <td>
                   <div style="width: 25px; height: inherit;" class="px-1">
@@ -158,6 +155,9 @@
             <tr
               v-for="laboratorio in LaboratoriosOrdered"
               :key="`laboratorio${laboratorio.id}`"
+              @click="
+                toggleItemInArray(laboratorio, filtroLaboratorios.selecionados)
+              "
             >
               <div style="width: max-content;">
                 <td>
@@ -280,18 +280,18 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
+import { toggleItemInArray } from "@/mixins/index.js";
+import { BaseButton, PageTitle, NavTab } from "@/components/index.js";
 import TableHorariosLab from "./TableHorariosLab";
-import toggleOrdinationMixin from "@/mixins/toggleOrdination.js";
-import PageTitle from "@/components/PageTitle";
-import NavTab from "@/components/NavTab";
 
 export default {
   name: "DashboardLaboratoriosAlocacao",
-  mixins: [toggleOrdinationMixin],
+  mixins: [toggleItemInArray],
   components: {
     PageTitle,
     NavTab,
     TableHorariosLab,
+    BaseButton,
   },
   data() {
     return {
@@ -308,7 +308,7 @@ export default {
       ordenacaoLabs: { order: "nome", type: "asc" },
     };
   },
-  beforeMount() {
+  mounted() {
     this.selectAllLabs();
     this.filtroLaboratorios.ativados = [
       ...this.filtroLaboratorios.selecionados,

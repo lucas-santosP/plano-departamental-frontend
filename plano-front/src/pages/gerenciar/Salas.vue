@@ -2,13 +2,14 @@
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Salas'">
       <template #aside>
-        <b-button
-          v-b-modal.modalAjuda
+        <BaseButton
           title="Ajuda"
-          class="btn-custom btn-icon relatbtn mt-1"
+          :type="'icon'"
+          :color="'lightblue'"
+          v-b-modal.modalAjuda
         >
           <i class="fas fa-question"></i>
-        </b-button>
+        </BaseButton>
       </template>
     </PageTitle>
 
@@ -19,26 +20,28 @@
             <th
               style="width: 82px"
               class="clickable t-start"
-              @click="toggleOrder('nome')"
+              @click="toggleOrder(ordenacaoSalasMain, 'nome')"
             >
               Nome
-              <i :class="setIconByOrder('nome')"></i>
+              <i :class="setIconByOrder(ordenacaoSalasMain, 'nome')"></i>
             </th>
             <th
               style="width: 90px"
               class="clickable"
-              @click="toggleOrder('laboratorio', 'desc')"
+              @click="toggleOrder(ordenacaoSalasMain, 'laboratorio', 'desc')"
             >
               Laboratório
-              <i :class="setIconByOrder('laboratorio')"></i>
+              <i :class="setIconByOrder(ordenacaoSalasMain, 'laboratorio')"></i>
             </th>
             <th
               style="width: 100px"
               class="clickable"
-              @click="toggleOrder('lotacao_maxima', 'desc')"
+              @click="toggleOrder(ordenacaoSalasMain, 'lotacao_maxima', 'desc')"
             >
               Lotação Max.
-              <i :class="setIconByOrder('lotacao_maxima')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoSalasMain, 'lotacao_maxima')"
+              ></i>
             </th>
           </template>
           <template #tbody>
@@ -207,9 +210,8 @@
 <script>
 import _ from "lodash";
 import salaService from "@/common/services/sala";
-import PageTitle from "@/components/PageTitle";
-import BaseTable from "@/components/BaseTable";
-import Card from "@/components/Card";
+import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
 
 const emptySala = {
   id: undefined,
@@ -220,49 +222,22 @@ const emptySala = {
 
 export default {
   name: "DashboardSalas",
+  mixins: [toggleOrdination, redirectNotAdmin],
   components: {
     PageTitle,
     BaseTable,
     Card,
+    BaseButton,
   },
   data() {
     return {
       salaForm: _.clone(emptySala),
       error: undefined,
       salaClickada: "",
-      ordenacao: { order: "nome", type: "asc" },
+      ordenacaoSalasMain: { order: "nome", type: "asc" },
     };
   },
-  created() {
-    if (!this.Admin) {
-      this.$notify({
-        group: "general",
-        title: "Erro",
-        text:
-          "Acesso negado! Usuário não possui permissão para acessar esta página!",
-        type: "error",
-      });
-      this.$router.push({ name: "dashboard" });
-    }
-  },
   methods: {
-    toggleOrder(newOrder, type = "asc") {
-      if (this.ordenacao.order != newOrder) {
-        this.ordenacao.order = newOrder;
-        this.ordenacao.type = type;
-      } else {
-        this.ordenacao.type = this.ordenacao.type == "asc" ? "desc" : "asc";
-      }
-    },
-    setIconByOrder(orderToCheck) {
-      if (this.ordenacao.order === orderToCheck) {
-        return this.ordenacao.type == "asc"
-          ? "fas fa-arrow-down fa-sm"
-          : "fas fa-arrow-up fa-sm";
-      } else {
-        return "fas fa-arrow-down fa-sm low-opacity";
-      }
-    },
     booleanToText(isLab) {
       return isLab ? "Sim" : "-";
     },
@@ -373,8 +348,8 @@ export default {
     Salas() {
       return _.orderBy(
         this.$store.state.sala.Salas,
-        this.ordenacao.order,
-        this.ordenacao.type
+        this.ordenacaoSalasMain.order,
+        this.ordenacaoSalasMain.type
       );
     },
 
@@ -383,11 +358,7 @@ export default {
     },
 
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };
