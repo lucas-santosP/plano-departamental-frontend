@@ -41,7 +41,7 @@
       {{ currentDisciplina.nome }}
     </td>
     <td style="width: 25px">
-      {{ totalCarga }}
+      {{ totalCreditos }}
     </td>
     <td style="width: 35px">
       <input
@@ -289,7 +289,6 @@ export default {
         this.turmaForm.periodo = this.currentData.periodo;
       }
     },
-
     checkHorario(horario) {
       if (
         !this.checkHorarioDocente(horario) &&
@@ -301,7 +300,6 @@ export default {
         else this.turmaForm.Horario2 = this.currentData.Horario2;
       }
     },
-
     checkDocente() {
       let d1 = !this.checkHorarioDocente(1),
         d2 = !this.checkHorarioDocente(2);
@@ -1118,9 +1116,6 @@ export default {
       }
       return false;
     },
-    isEmpty(value) {
-      return value === null || value === undefined || value === "";
-    },
     changeTurmaEmptyStringToNull(turma) {
       if (turma.Docente1 === "") turma.Docente1 = null;
       if (turma.Docente2 === "") turma.Docente2 = null;
@@ -1171,22 +1166,19 @@ export default {
   computed: {
     totalPedidosPeriodizados() {
       let total = 0;
-      const pedidos = this.Pedidos[this.turma.id];
-      for (var p = 0; p < pedidos.length; p++) {
-        total += parseInt(pedidos[p].vagasPeriodizadas, 10);
+      for (var p = 0; p < this.Pedidos.length; p++) {
+        total += parseInt(this.Pedidos[p].vagasPeriodizadas, 10);
       }
       return total;
     },
-
     totalPedidosNaoPeriodizados() {
       let total = 0;
-      const pedidos = this.Pedidos[this.turma.id];
-
-      for (var p = 0; p < pedidos.length; p++) {
-        total += parseInt(pedidos[p].vagasNaoPeriodizadas, 10);
+      for (var p = 0; p < this.Pedidos.length; p++) {
+        total += parseInt(this.Pedidos[p].vagasNaoPeriodizadas, 10);
       }
       return total;
     },
+
     disciplinaIsIntegralEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 1 : false;
     },
@@ -1199,7 +1191,7 @@ export default {
       });
     },
 
-    totalCarga() {
+    totalCreditos() {
       return (
         parseInt(this.currentDisciplina.cargaTeorica) +
         parseInt(this.currentDisciplina.cargaPratica)
@@ -1207,7 +1199,7 @@ export default {
     },
 
     hasMoreThan4Creditos() {
-      return this.totalCarga >= 4;
+      return this.totalCreditos >= 4;
     },
 
     Disciplinas() {
@@ -1219,7 +1211,6 @@ export default {
         "apelido"
       );
     },
-    //filtro do cadastro EAD da disciplina
     HorariosFiltredByCadastroEAD() {
       let horariosResultante = this.Horarios;
 

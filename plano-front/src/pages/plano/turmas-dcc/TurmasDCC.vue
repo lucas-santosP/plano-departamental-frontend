@@ -179,9 +179,7 @@
           <template v-if="!$root.onLoad">
             <TurmaRow
               v-for="turma in TurmasOrdered"
-              :key="
-                'turmaRow' + turma.id + turma.disciplinaCodigo + turma.letra
-              "
+              :key="turma.id + turma.disciplinaCodigo + turma.letra"
               :turma="turma"
               :cursosAtivados="filtroCursos.ativados"
               @handle-click-in-edit="handleClickInEdit($event)"
@@ -189,7 +187,7 @@
           </template>
 
           <tr v-show="TurmasOrdered.length === 0">
-            <td style="width:1090px">
+            <td style="width:1105px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
             </td>
