@@ -7,8 +7,10 @@ import PedidosTableModal from "./PedidosTableModal.vue";
 import BaseModal from "./BaseModal.vue";
 import BaseButton from "./BaseButton.vue";
 import LoadingPage from "./LoadingPage.vue";
+import PasswordInput from "./PasswordInput.vue";
 
 export {
+  PasswordInput,
   BaseTable,
   Card,
   NavTab,

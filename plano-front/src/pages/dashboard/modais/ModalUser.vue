@@ -2,7 +2,7 @@
   <BaseModal
     ref="baseModalUser"
     :customStyles="'width:370px;'"
-    @on-close="resetForm()"
+    @on-close="clearAllForm()"
     :modalOptions="{
       type: 'fromNavbar',
       title: 'Usuário',
@@ -68,37 +68,46 @@
               <label for="senhaAtual"
                 >Senha atual <i title="Campo obrigatório">*</i></label
               >
-              <input
-                class="form-control"
-                type="password"
-                id="senhaAtual"
+              <PasswordInput
+                :isInvalid="false"
+                :inputId="'senhaAtual'"
                 v-model="userForm.senhaAtual"
-              />
+              ></PasswordInput>
             </div>
+
             <div class="form-row">
-              <label for="senha"
+              <label for="novaSenha"
                 >Nova senha <i title="Campo obrigatório">*</i></label
               >
-              <input
-                class="form-control"
-                type="password"
-                id="senha"
+              <PasswordInput
+                :inputId="'novaSenha'"
                 v-model="userForm.senha"
-              />
+              ></PasswordInput>
+            </div>
+
+            <div class="form-row">
+              <label for="confirmaSenha"
+                >Confirmar nova senha <i title="Campo obrigatório">*</i></label
+              >
+              <PasswordInput
+                :isInvalid="confirmaSenha != userForm.senha"
+                :inputId="'confirmaSenha'"
+                v-model="confirmaSenha"
+              ></PasswordInput>
             </div>
 
             <div class="mt-3 mb-1 d-flex justify-content-end">
+              <button
+                class="px-3 btn btn-secondary btn-custom btn-modal"
+                @click="clearEditUserForm()"
+              >
+                Cancelar
+              </button>
               <button
                 class="px-3 btn btn-primary btn-custom btn-modal"
                 @click="editUser()"
               >
                 Salvar
-              </button>
-              <button
-                class="px-3 btn btn-secondary btn-custom btn-modal"
-                @click="resetUserForm()"
-              >
-                Cancelar
               </button>
             </div>
           </template>
@@ -127,26 +136,29 @@
               <label for="senha"
                 >Senha <i title="Campo obrigatório">*</i></label
               >
-              <input
-                class="form-control"
-                type="password"
-                id="senha"
+              <PasswordInput
+                :isInvalid="false"
+                :inputId="'senha'"
                 v-model="userForm.senha"
-              />
+              ></PasswordInput>
+            </div>
+            <div class="form-row d-flex align-items-center">
+              <label for="admin" class="m-0 mr-2">Admin</label>
+              <input type="checkbox" id="admin" v-model="isAdmin" />
             </div>
 
             <div class="mt-3 mb-1 d-flex justify-content-end">
+              <button
+                class="btn px-3 btn-secondary btn-custom btn-modal "
+                @click="clearCreateUserForm()"
+              >
+                Cancelar
+              </button>
               <button
                 class="btn px-3 btn-success btn-custom btn-modal btn-verde"
                 @click="createUser()"
               >
                 Criar
-              </button>
-              <button
-                class="btn px-3 btn-secondary btn-custom btn-modal "
-                @click="clearUserForm()"
-              >
-                Cancelar
               </button>
             </div>
           </template>
@@ -161,7 +173,7 @@ import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { mapGetters } from "vuex";
 import { notification } from "@/mixins/index.js";
-import { BaseModal } from "@/components/index.js";
+import { BaseModal, PasswordInput } from "@/components/index.js";
 
 const emptyUser = {
   nome: "",
@@ -172,54 +184,51 @@ const emptyUser = {
 export default {
   name: "ModalUser",
   mixins: [notification],
-  components: { BaseModal },
+  components: { BaseModal, PasswordInput },
   data() {
     return {
-      currentTab: "edit",
       userForm: _.clone(emptyUser),
+      currentTab: "edit",
+      confirmaSenha: "teste",
+      isAdmin: false,
     };
   },
   mounted() {
-    this.resetUserForm();
+    this.clearAllForm();
   },
   methods: {
     openModal() {
       this.$refs.baseModalUser.open();
     },
     changeTab(newTab) {
-      if (newTab === "edit") this.resetUserForm();
-      else if (newTab === "create") this.clearUserForm();
+      if (newTab === "edit") this.clearEditUserForm();
+      else if (newTab === "create") this.clearCreateUserForm();
 
       this.currentTab = newTab;
     },
-    clearUserForm() {
+    clearCreateUserForm() {
       this.userForm = _.clone(emptyUser);
+      this.isAdmin = "";
     },
-    resetUserForm() {
+    clearEditUserForm() {
       this.userForm = _.clone(emptyUser);
       this.userForm.nome = this.$store.state.auth.Usuario.nome;
       this.userForm.login = this.$store.state.auth.Usuario.login;
+      this.confirmaSenha = "";
     },
-    resetForm() {
-      this.currentTab = "edit";
-      this.resetUserForm();
-    },
-    validateUser(user) {
-      for (const value of Object.values(user)) {
-        if (value === "" || value === null) return false;
-      }
-      return true;
+    clearAllForm() {
+      this.clearCreateUserForm();
+      this.changeTab("edit");
     },
     createUser() {
       const user = _.clone(this.userForm);
-
       //Para passar na validação pois novo usuario não tem senha atual
       user.senhaAtual = "senha-atual";
 
       if (!this.validateUser(user)) {
         this.showNotification({
           type: "error",
-          message: `Preencha os campos obrigátorios.`,
+          message: `Campos obrigátorios incompletos ou inválidos.`,
         });
         return;
       }
@@ -229,28 +238,33 @@ export default {
           type: "success",
           message: `Usuário criado.`,
         });
+        this.clearCreateUserForm();
       });
     },
     editUser() {
       const user = _.clone(this.userForm);
 
-      if (!this.validateUser(user)) {
+      if (!this.validateUser(user) || this.confirmaSenha !== user.senha) {
         this.showNotification({
           type: "error",
-          message: `Preencha os campos obrigátorios.`,
+          message: `Campos obrigátorios incompletos ou inválidos.`,
         });
         return;
       }
-      this.showNotification({
-        type: "success",
-        message: `Usuário atualizado.`,
-      });
+
       userService.update(this.$store.state.auth.Usuario.id, user).then(() => {
         this.showNotification({
           type: "success",
           message: `Usuário atualizado.`,
         });
+        this.clearEditUserForm();
       });
+    },
+    validateUser(user) {
+      for (const value of Object.values(user)) {
+        if (value === "" || value === null) return false;
+      }
+      return true;
     },
     routerLogout() {
       this.$router.push({ name: "logout" });
@@ -313,20 +327,27 @@ export default {
   background-color: var(--light-blue);
 }
 .user-container .form-row {
+  position: relative;
   margin: 0 !important;
   margin-bottom: 10px !important;
 }
 .form-row label {
   font-weight: bold;
 }
-.form-row label i {
+.form-row label > i {
   color: #f30000;
 }
-.user-container .form-row input {
-  height: 30px;
-  font-size: 14px;
+::v-deep .form-row input.form-control {
+  height: 30px !important;
+  font-size: 14px !important;
   padding: 2px 8px !important;
-  text-align: start;
+  text-align: start !important;
+}
+.form-row input[type="checkbox"] {
+  height: 14px !important;
+  font-size: 10px !important;
+  padding: 2px 8px !important;
+  text-align: start !important;
 }
 .user-container p {
   margin: 0;
