@@ -12,6 +12,16 @@
           <i class="fas fa-check"></i>
         </BaseButton>
         <BaseButton
+          v-show="!isAdding"
+          title="Adicionar"
+          :type="'icon'"
+          :color="'green'"
+          @click="toggleAdd()"
+        >
+          <i class="fas fa-plus"></i>
+        </BaseButton>
+
+        <BaseButton
           v-show="isAdding"
           title="Cancelar"
           :type="'icon'"
@@ -21,15 +31,6 @@
           <i class="fas fa-times"></i>
         </BaseButton>
 
-        <BaseButton
-          v-show="!isAdding"
-          title="Adicionar"
-          :type="'icon'"
-          :color="'green'"
-          @click="toggleAdd()"
-        >
-          <i class="fas fa-plus"></i>
-        </BaseButton>
         <BaseButton
           v-show="!isAdding"
           title="Deletar selecionados"
@@ -44,7 +45,7 @@
           title="Filtros"
           :type="'icon'"
           :color="'gray'"
-          v-b-modal.modalFiltros
+          @click="openSideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
         </BaseButton>
@@ -53,14 +54,14 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="openSideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
       </template>
     </PageTitle>
 
-    <div class="div-table" v-if="!isLoading">
+    <div class="div-table">
       <BaseTable>
         <template #thead>
           <th style="width: 25px"></th>
@@ -290,6 +291,136 @@
         </template>
       </BaseTable>
     </div>
+    <!-- MODAL FILTROS -->
+    <BaseModal
+      ref="modalFiltros"
+      :modalOptions="{
+        type: 'filtros',
+        title: 'Filtros',
+        hasFooter: true,
+      }"
+      :hasFooter="true"
+      @btn-ok="btnOkFiltros()"
+      @select-all="modalSelectAll[tabAtivaModal]"
+      @select-none="modalSelectNone[tabAtivaModal]"
+    >
+      <template #modal-body>
+        <NavTab
+          :currentTab="tabAtivaModal"
+          :allTabs="['Disciplinas', 'Semestres']"
+          @change-tab="tabAtivaModal = $event"
+        />
+
+        <div class="div-table">
+          <BaseTable
+            v-show="tabAtivaModal === 'Semestres'"
+            :tableType="'modal-table'"
+          >
+            <template #thead>
+              <th style="width: 25px"></th>
+              <th class="t-start" style="width: 425px">
+                Semestre Letivo
+              </th>
+            </template>
+            <template #tbody>
+              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.primeiro"
+                  />
+                </td>
+                <td style="width: 425px" class="t-start">PRIMEIRO</td>
+              </tr>
+              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.segundo"
+                  />
+                </td>
+                <td style="width: 425px" class="t-start">SEGUNDO</td>
+              </tr>
+            </template>
+          </BaseTable>
+          <BaseTable
+            v-show="tabAtivaModal === 'Disciplinas'"
+            :tableType="'modal-table'"
+            :hasSearchBar="true"
+          >
+            <template #thead-search>
+              <input
+                type="text"
+                class="form-control input-search"
+                placeholder="Pesquise nome ou codigo de uma disciplina..."
+                v-model="searchDisciplinasModal"
+              />
+              <button
+                @click="clearsearchDisciplinasModal()"
+                class="btn btn-search"
+              >
+                &times;
+              </button>
+            </template>
+            <template #thead>
+              <th style="width: 25px;"></th>
+              <th
+                @click="toggleOrder(ordenacaoDisciplinasModal, 'codigo')"
+                class="clickable"
+                style="width: 70px;"
+              >
+                Cód.
+                <i
+                  :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"
+                ></i>
+              </th>
+              <th
+                @click="toggleOrder(ordenacaoDisciplinasModal, 'nome')"
+                class="clickable t-start"
+                style="width: 355px"
+              >
+                Nome
+                <i
+                  :class="setIconByOrder(ordenacaoDisciplinasModal, 'nome')"
+                ></i>
+              </th>
+            </template>
+            <template #tbody>
+              <tr
+                v-for="disciplina in DisciplinasExternasOrderedModal"
+                :key="'disciplina' + disciplina.id"
+                @click="
+                  toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)
+                "
+              >
+                <td style="width: 25px;">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroDisciplinas.selecionadas"
+                    :value="disciplina"
+                  />
+                </td>
+                <td style="width: 70px;">
+                  {{ disciplina.codigo }}
+                </td>
+                <td style="width: 355px" class="t-start">
+                  {{ disciplina.nome }}
+                </td>
+              </tr>
+              <tr v-show="DisciplinasExternasOrderedModal.length === 0">
+                <td colspan="3" style="width:450px">
+                  NENHUMA DISCIPLINA ENCONTRADA.
+                </td>
+              </tr>
+            </template>
+          </BaseTable>
+        </div>
+      </template>
+    </BaseModal>
+
     <!-- MODAL DELETAR -->
     <BaseModal
       ref="modalDelete"
@@ -331,7 +462,7 @@
             class="btn-custom btn-modal btn-cinza btn-ok-modal"
             @click="$refs.modalDelete.close()"
           >
-            Fechar
+            Cancelar
           </button>
         </div>
         <button
@@ -344,150 +475,18 @@
       </template>
     </BaseModal>
 
-    <!-- MODAL FILTROS -->
-    <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
-      <NavTab
-        :currentTab="modalTabAtiva"
-        :allTabs="['Disciplinas', 'Semestres']"
-        @change-tab="modalTabAtiva = $event"
-      />
-
-      <div class="div-table">
-        <BaseTable
-          v-show="modalTabAtiva === 'Semestres'"
-          :tableType="'modal-table'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Semestre Letivo
-            </th>
-          </template>
-          <template #tbody>
-            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  v-model="filtroSemestres.primeiro"
-                />
-              </td>
-              <td style="width: 425px" class="t-start">PRIMEIRO</td>
-            </tr>
-            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  v-model="filtroSemestres.segundo"
-                />
-              </td>
-              <td style="width: 425px" class="t-start">SEGUNDO</td>
-            </tr>
-          </template>
-        </BaseTable>
-        <BaseTable
-          v-show="modalTabAtiva === 'Disciplinas'"
-          :tableType="'modal-table'"
-          :hasSearchBar="true"
-        >
-          <template #thead-search>
-            <input
-              type="text"
-              class="form-control input-search"
-              placeholder="Pesquise nome ou codigo de uma disciplina..."
-              v-model="searchDisciplinasModal"
-            />
-            <button
-              @click="clearsearchDisciplinasModal()"
-              class="btn btn-search"
-            >
-              &times;
-            </button>
-          </template>
-          <template #thead>
-            <th style="width: 25px;"></th>
-            <th
-              @click="toggleOrder(ordenacaoDisciplinasModal, 'codigo')"
-              class="clickable"
-              style="width: 70px;"
-            >
-              Cód.
-              <i
-                :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"
-              ></i>
-            </th>
-            <th
-              @click="toggleOrder(ordenacaoDisciplinasModal, 'nome')"
-              class="clickable t-start"
-              style="width: 355px"
-            >
-              Nome
-              <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'nome')"></i>
-            </th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="disciplina in DisciplinasExternasOrderedModal"
-              :key="'disciplina' + disciplina.id"
-              @click="
-                toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)
-              "
-            >
-              <td style="width: 25px;">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  v-model="filtroDisciplinas.selecionadas"
-                  :value="disciplina"
-                />
-              </td>
-              <td style="width: 70px;">
-                {{ disciplina.codigo }}
-              </td>
-              <td style="width: 355px" class="t-start">
-                {{ disciplina.nome }}
-              </td>
-            </tr>
-            <tr v-show="DisciplinasExternasOrderedModal.length === 0">
-              <td colspan="3" style="width:450px">
-                NENHUMA DISCIPLINA ENCONTRADA.
-              </td>
-            </tr>
-          </template>
-        </BaseTable>
-      </div>
-
-      <div slot="modal-footer" class="w-100 m-0 d-flex">
-        <div class="w-100">
-          <b-button
-            class="btn-azul btn-custom btn-modal"
-            variant="success"
-            @click="modalSelectAll[modalTabAtiva]"
-            >Selecionar Todos</b-button
-          >
-          <b-button
-            class="btn-cinza btn-custom btn-modal"
-            variant="secondary"
-            @click="modalSelectNone[modalTabAtiva]"
-            >Desmarcar Todos</b-button
-          >
-        </div>
-        <b-button
-          variant="success"
-          @click="btnOkFiltros()"
-          class="btn-verde btn-custom btn-modal btn-ok-modal"
-          >OK</b-button
-        >
-      </div>
-    </b-modal>
     <!-- MODAL AJUDA -->
-    <b-modal id="modalAjuda" scrollable title="Ajuda">
-      <div class="modal-body">
-        <ul class="listas list-group">
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
+    >
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Tabela:</strong> Clique em
-            Adicionar
+            <b>Para adicionar disciplinas à Tabela:</b> Clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size: 12px;"></i>
             , em seguida, preencha a nova linha que surgirá na tabela. Após
             concluído, clique em Salvar
@@ -497,30 +496,28 @@
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deletar disciplinas da Tabela:</strong> Marque a(s)
-            disciplina(s) que deseja deletar através da caixa de seleção à
-            esquerda e em seguida clique em Deletar
+            <b>Para deletar disciplinas da Tabela:</b> Marque a(s) disciplina(s)
+            que deseja deletar através da caixa de seleção à esquerda e em
+            seguida clique em Deletar
             <i class="fas fa-trash delbtn px-1" style="font-size: 12px;"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">
-            <strong>Para editar disciplinas da Tabela:</strong> Faça as
-            alterações necessárias diretamente na tabela e o sistema irá salvar
+            <b>Para editar disciplinas da Tabela:</b> Faça as alterações
+            necessárias diretamente na tabela e o sistema irá salvar
             automaticamente.
           </li>
           <li class="list-group-item">
-            <strong>Observações:</strong> Em cada coluna de cursos a disciplina
-            adicionada permite a inclusão em dois espaços, sendo acima destinado
-            para alunos na grade, e abaixo para alunos repetentes. Para que uma
+            <b>Observações:</b> Em cada coluna de cursos a disciplina adicionada
+            permite a inclusão em dois espaços, sendo acima destinado para
+            alunos na grade, e abaixo para alunos repetentes. Para que uma
             disciplina externa apareça em Horários de um determinado curso é
             preciso que pelo menos uma vaga para alunos na grade seja destinada
             ao mesmo.
           </li>
         </ul>
-      </div>
-
-      <div slot="modal-footer" style="display: none;"></div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -588,7 +585,7 @@ export default {
         ativadas: [],
         selecionadas: [],
       },
-      modalTabAtiva: "Disciplinas",
+      tabAtivaModal: "Disciplinas",
       ordenacaoDisciplinasModal: { order: "codigo", type: "asc" },
       modalSelectAll: {
         Disciplinas: () => {
@@ -617,13 +614,21 @@ export default {
   },
 
   methods: {
+    openSideModal(modalName) {
+      if (modalName === "filtros") {
+        this.$refs.modalFiltros.toggle();
+        this.$refs.modalAjuda.close();
+      } else if (modalName === "ajuda") {
+        this.$refs.modalAjuda.toggle();
+        this.$refs.modalFiltros.close();
+      }
+    },
     btnOkFiltros() {
       this.$root.onLoad = true;
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionadas,
       ];
       this.setSemestreAtivo();
-      this.$refs.modalFiltros.hide();
 
       setTimeout(() => {
         this.$root.onLoad = false;
@@ -922,9 +927,6 @@ export default {
     },
     Deletar() {
       return this.$store.state.turmaExterna.Deletar;
-    },
-    isLoading() {
-      return this.$store.state.isLoading;
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;

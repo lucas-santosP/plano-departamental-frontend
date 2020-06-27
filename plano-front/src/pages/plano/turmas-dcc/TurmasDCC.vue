@@ -568,7 +568,7 @@
             <b>Para deletar disciplinas da Tabela:</b> Marque a(s) disciplina(s)
             que deseja deletar através da caixa de seleção à esquerda e em
             seguida clique em Deletar
-            <i class="far fa-trash delbtn"></i>
+            <i class="fas fa-trash delbtn"></i>
             e confirme no botão OK.
           </li>
           <li class="list-group-item">

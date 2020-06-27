@@ -60,7 +60,7 @@
       </template>
     </PageTitle>
 
-    <div class="div-table" v-if="!isLoading">
+    <div class="div-table">
       <BaseTable>
         <template #thead>
           <th style="width:70px" class="p-0">Programa</th>
@@ -164,15 +164,15 @@
       </template>
       <template #modal-footer>
         <button
-          v-if="Deletar.length"
-          class="btn-custom btn-modal btn-cinza"
+          class="btn-custom btn-modal btn-cinza btn-ok-modal"
           @click="$refs.modalDelete.close()"
         >
           Cancelar
         </button>
         <button
+          v-if="Deletar.length"
           class="btn-custom btn-modal btn-vermelho btn-ok-modal"
-          @click="deleteSelectedTurmas()"
+          @click="deleteSelectedCargas()"
         >
           Deletar
         </button>
@@ -372,8 +372,6 @@ import {
   NavTab,
 } from "@/components/index.js";
 
-const allProgramasPos = ["PGCC", "PGMC", "PGEM"];
-
 export default {
   name: "DashboardCargaPos",
   mixins: [toggleOrdination, toggleItemInArray, notification, redirectNotAdmin],
@@ -389,7 +387,6 @@ export default {
   data() {
     return {
       isAdding: false,
-      error: undefined,
       filtroProgramas: {
         ativados: [],
         selecionados: [],
@@ -438,9 +435,6 @@ export default {
     this.connectSemestreInTrimestre();
   },
   methods: {
-    addNovaCarga() {
-      EventBus.$emit("add-carga-pos");
-    },
     openSideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -474,23 +468,18 @@ export default {
           });
         });
     },
-    deleteSelectedTurmas() {
+    deleteSelectedCargas() {
       let cargas = this.$store.state.cargaPos.Deletar;
-      if (!cargas.length) {
-        this.showNotification({
-          type: "error",
-          title: "Erro!",
-          message: "Nenhuma turma selecionada.",
-        });
-        return;
-      }
 
       for (let i = 0; i < cargas.length; i++) {
         this.deleteCarga(cargas[i].id);
       }
       this.$store.commit("emptyDeleteCarga");
     },
-    addDocenteIncargaPos(programaNome) {
+    addNovaCarga() {
+      EventBus.$emit("add-carga-pos");
+    },
+    cargaPosInDocente(programaNome) {
       const cargasResultantes = [];
 
       _.forEach(this.CargasPos, (carga) => {
@@ -566,7 +555,7 @@ export default {
       _.forEach(this.AllProgramasPosOrdered, (programaNome) => {
         programasResutantes.push({
           nome: programaNome,
-          carga: this.addDocenteIncargaPos(programaNome),
+          carga: this.cargaPosInDocente(programaNome),
         });
       });
 
@@ -617,7 +606,7 @@ export default {
       return programasResutantes;
     },
     AllProgramasPosOrdered() {
-      return _.orderBy(allProgramasPos, String, "asc");
+      return _.orderBy(["PGCC", "PGMC", "PGEM"], String, "asc");
     },
     Trimestres() {
       return [
@@ -635,9 +624,6 @@ export default {
     },
     Deletar() {
       return this.$store.state.cargaPos.Deletar;
-    },
-    isLoading() {
-      return this.$store.state.isLoading;
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
