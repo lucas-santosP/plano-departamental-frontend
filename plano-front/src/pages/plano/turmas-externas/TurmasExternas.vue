@@ -312,39 +312,7 @@
         />
 
         <div class="div-table">
-          <BaseTable
-            v-show="tabAtivaModal === 'Semestres'"
-            :tableType="'modal-table'"
-          >
-            <template #thead>
-              <th style="width: 25px"></th>
-              <th class="t-start" style="width: 425px">
-                Semestre Letivo
-              </th>
-            </template>
-            <template #tbody>
-              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.primeiro"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">PRIMEIRO</td>
-              </tr>
-              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.segundo"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">SEGUNDO</td>
-              </tr>
-            </template>
-          </BaseTable>
+        
           <BaseTable
             v-show="tabAtivaModal === 'Disciplinas'"
             :tableType="'modal-table'"
@@ -414,6 +382,39 @@
                 <td colspan="3" style="width:450px">
                   NENHUMA DISCIPLINA ENCONTRADA.
                 </td>
+              </tr>
+            </template>
+          </BaseTable>
+            <BaseTable
+            v-show="tabAtivaModal === 'Semestres'"
+            :tableType="'modal-table'"
+          >
+            <template #thead>
+              <th style="width: 25px"></th>
+              <th class="t-start" style="width: 425px">
+                Semestre Letivo
+              </th>
+            </template>
+            <template #tbody>
+              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.primeiro"
+                  />
+                </td>
+                <td style="width: 425px" class="t-start">PRIMEIRO</td>
+              </tr>
+              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.segundo"
+                  />
+                </td>
+                <td style="width: 425px" class="t-start">SEGUNDO</td>
               </tr>
             </template>
           </BaseTable>

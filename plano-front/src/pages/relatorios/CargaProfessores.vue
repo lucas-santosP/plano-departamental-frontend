@@ -392,7 +392,6 @@
               <input
                 type="text"
                 class="form-control input-search"
-                style=""
                 placeholder="Pesquise o nome de um docente..."
                 v-model="searchDocentes"
               />
