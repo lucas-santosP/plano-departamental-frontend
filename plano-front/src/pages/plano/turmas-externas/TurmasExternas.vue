@@ -270,15 +270,17 @@
             ></td>
           </tr>
 
-          <TurmaExternaRow
-            v-for="turma in TurmasExternasOrdered"
-            :key="'turma' + turma.id"
-            :turma="turma"
-            :options="{
-              CursosDCC: CursosDCC,
-              DisciplinasExternas: DisciplinasExternas,
-            }"
-          />
+          <template v-if="!$root.onLoad">
+            <TurmaExternaRow
+              v-for="turma in TurmasExternasOrdered"
+              :key="'turma' + turma.id"
+              :turma="turma"
+              :options="{
+                CursosDCC: CursosDCC,
+                DisciplinasExternas: DisciplinasExternas,
+              }"
+            />
+          </template>
           <tr v-if="TurmasExternasOrdered.length === 0">
             <td style="width:980px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
@@ -616,11 +618,16 @@ export default {
 
   methods: {
     btnOkFiltros() {
+      this.$root.onLoad = true;
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionadas,
       ];
       this.setSemestreAtivo();
       this.$refs.modalFiltros.hide();
+
+      setTimeout(() => {
+        this.$root.onLoad = false;
+      }, 500);
     },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
