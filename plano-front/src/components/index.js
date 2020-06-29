@@ -8,6 +8,7 @@ import BaseModal from "./BaseModal.vue";
 import BaseButton from "./BaseButton.vue";
 import LoadingPage from "./LoadingPage.vue";
 import PasswordInput from "./PasswordInput.vue";
+import ModalRelatorio from "./ModalRelatorio.vue";
 
 export {
   PasswordInput,
@@ -20,4 +21,5 @@ export {
   BaseModal,
   LoadingPage,
   BaseButton,
+  ModalRelatorio,
 };

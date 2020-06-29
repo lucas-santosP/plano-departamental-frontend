@@ -10,14 +10,20 @@
     <div class="container-fluid" @click="closeSideBar()">
       <transition
         name="custom-transition"
-        enter-active-class="animated slideInLeft sidebar-animation"
-        leave-active-class="animated slideOutLeft sidebar-animation"
+        enter-active-class="animated animate__slideInLeft sidebar-animation"
+        leave-active-class="animated animate__slideOutLeft sidebar-animation"
+        mode="out-in"
       >
         <TheSidebar v-show="sidebarVisibility" :year="year" />
       </transition>
-
       <main v-if="!isLoading" role="main" class="col-12 p-0 px-2">
-        <router-view></router-view>
+        <transition
+          enter-active-class="animated animate__fadeIn routerview-animation"
+          leave-active-class="animated animate__fadeOut routerview-animation"
+          mode="out-in"
+        >
+          <router-view></router-view>
+        </transition>
       </main>
     </div>
 
@@ -145,6 +151,7 @@ export default {
   transition: all 200ms ease;
 }
 .dashboard main {
+  position: unset !important;
   overflow-y: auto !important;
   height: -webkit-calc(100vh - var(--navbar-height));
   height: -moz-calc(100vh - var(--navbar-height));
@@ -158,14 +165,13 @@ export default {
   width: 100% !important;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
 .sidebar-animation {
-  -webkit-animation-duration: 0.3s;
-  -moz-animation-duration: 0.3s;
-  -o-animation-duration: 0.3s;
+  animation-duration: 0.25s;
+  animation-fill-mode: both;
+}
+.routerview-animation {
   animation-duration: 0.3s;
-  -webkit-animation-fill-mode: both;
-  -moz-animation-fill-mode: both;
-  -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
 </style>
