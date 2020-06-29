@@ -6,7 +6,7 @@
           title="Filtros"
           :type="'icon'"
           :color="'gray'"
-          v-b-modal.modalFiltros
+          @click="openSideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
         </BaseButton>
@@ -15,12 +15,16 @@
           title="Relátorio"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalRelatorio
+          @click="openSideModal('relatorio')"
         >
           <i class="far fa-file-alt"></i>
         </BaseButton>
 
-        <BaseButton :type="'icon'" :color="'lightblue'" v-b-modal.modalAjuda>
+        <BaseButton
+          :type="'icon'"
+          :color="'lightblue'"
+          @click="openSideModal('ajuda')"
+        >
           <i class="fas fa-question"></i>
         </BaseButton>
       </template>
@@ -78,205 +82,124 @@
     </div>
 
     <!-- MODAL FILTROS -->
-    <b-modal id="modalFiltros" ref="modalFiltros" scrollable title="Filtros">
-      <NavTab
-        :currentTab="tabAtivaModal"
-        :allTabs="['Cursos', 'Semestre']"
-        v-on:change-tab="tabAtivaModal = $event"
-      />
-      <div class="col m-0 p-0 max-content" style="height: 450px !important;">
-        <!-- TABLE CURSOS -->
-        <table
-          v-show="tabAtivaModal === 'Cursos'"
-          class="table table-sm modal-table table-bordered"
-        >
-          <thead class="thead-light sticky">
-            <tr>
-              <div class="max-content sticky">
-                <th>
-                  <p style="width: 25px;" class="p-header clickable"></p>
-                </th>
-                <th>
-                  <p
-                    class="p-header clickable"
-                    style="width: 50px; text-align: center;"
-                    @click="toggleOrder(ordemCursos, 'codigo')"
-                  >
-                    Cód.
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemCursos.order == 'codigo'
-                          ? ordemCursos.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-                <th>
-                  <p
-                    class="p-header clickable"
-                    style="width: 385px;"
-                    @click="toggleOrder(ordemCursos, 'nome')"
-                  >
-                    Nome
-                    <i
-                      style="font-size: 0.6rem; text-align: right;"
-                      :class="
-                        ordemCursos.order == 'nome'
-                          ? ordemCursos.type == 'asc'
-                            ? 'fas fa-arrow-down fa-sm'
-                            : 'fas fa-arrow-up fa-sm'
-                          : 'fas fa-arrow-down fa-sm low-opacity'
-                      "
-                    ></i>
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="curso in CursosModalOrdered"
-              :key="'curso-id-' + curso.codigo"
-              @click="toggleItemInArray(curso, cursosSelecionados)"
-            >
-              <div style="width: max-content; height: 22px !important;">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      :value="curso"
-                      v-model="cursosSelecionados"
-                      class="form-check-input position-static m-0"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <p style="width: 50px;">
-                    {{ curso.codigo }}
-                  </p>
-                </td>
-                <td>
-                  <p style="width: 385px; text-align: start;">
-                    {{ curso.nome }}
-                  </p>
-                </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
-        <table
-          v-show="tabAtivaModal === 'Semestre'"
-          class="table table-bordered table-sm modal-table"
-        >
-          <thead class="thead-light sticky">
-            <tr>
-              <div
-                style="font-size: 11px !important;"
-                class="max-content sticky"
+    <BaseModal
+      ref="modalFiltros"
+      :modalOptions="{
+        type: 'filtros',
+        title: 'Filtros',
+        hasFooter: true,
+      }"
+      :hasFooter="true"
+      @btn-ok="btnOkFiltros()"
+      @select-all="modalSelectAll[tabAtivaModal]"
+      @select-none="modalSelectNone[tabAtivaModal]"
+    >
+      <template #modal-body>
+        <NavTab
+          :currentTab="tabAtivaModal"
+          :allTabs="['Cursos', 'Semestres']"
+          v-on:change-tab="tabAtivaModal = $event"
+        />
+        <div class="div-table">
+          <BaseTable
+            v-show="tabAtivaModal === 'Cursos'"
+            :tableType="'modal-table'"
+          >
+            <template #thead>
+              <th style="width: 25px"></th>
+              <th
+                class="clickable t-start"
+                style="width: 50px"
+                @click="toggleOrder(ordemCursos, 'codigo')"
               >
-                <th>
-                  <p style="width: 25px;" class="p-header"></p>
-                </th>
-                <th>
-                  <p class="p-header" style="width: 435px; text-align: start;">
-                    Semestre Letivo
-                  </p>
-                </th>
-              </div>
-            </tr>
-          </thead>
-          <tbody>
-            <tr @click="semestresAtivos.primeiro = !semestresAtivos.primeiro">
-              <div style="width: max-content;">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      class="form-check-input position-static m-0"
-                      v-model="semestresAtivos.primeiro"
-                    />
-                  </div>
+                Cód.
+                <i :class="setIconByOrder(ordemCursos, 'codigo')"></i>
+              </th>
+              <th
+                class="clickable t-start"
+                style="width: 375px;"
+                @click="toggleOrder(ordemCursos, 'nome')"
+              >
+                Nome
+                <i :class="setIconByOrder(ordemCursos, 'nome')"></i>
+              </th>
+            </template>
+            <template #tbody>
+              <tr
+                v-for="curso in CursosModalOrdered"
+                :key="'curso-id-' + curso.codigo"
+                @click="toggleItemInArray(curso, filtroCursos.selecionados)"
+              >
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    :value="curso"
+                    v-model="filtroCursos.selecionados"
+                    class="form-check-input position-static m-0"
+                  />
                 </td>
-                <td>
-                  <p style="width: 435px; text-align: start;">
-                    PRIMEIRO
-                  </p>
+                <td style="width: 50px">
+                  {{ curso.codigo }}
                 </td>
-              </div>
-            </tr>
-            <tr @click="semestresAtivos.segundo = !semestresAtivos.segundo">
-              <div style="width: max-content;">
-                <td>
-                  <div style="width: 25px; height: inherit;" class="px-1">
-                    <input
-                      type="checkbox"
-                      class="form-check-input position-static m-0"
-                      v-model="semestresAtivos.segundo"
-                    />
-                  </div>
+                <td style="width: 375px" class="t-start">
+                  {{ curso.nome }}
                 </td>
-                <td>
-                  <p style="width: 435px; text-align: start;">
-                    SEGUNDO
-                  </p>
+              </tr>
+            </template>
+          </BaseTable>
+          <BaseTable
+            v-show="tabAtivaModal === 'Semestres'"
+            :tableType="'modal-table'"
+          >
+            <template #thead>
+              <th style="width: 25px"></th>
+              <th style="width: 425px" class="t-start">
+                Semestre Letivo
+              </th>
+            </template>
+            <template #tbody>
+              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.primeiro"
+                  />
                 </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div slot="modal-footer" class="w-100 m-0" style="display: flex;">
-        <div class="w-100">
-          <template v-if="tabAtivaModal == 'Semestre'">
-            <b-button
-              class="btn-azul btn-custom btn-modal"
-              variant="success"
-              @click="selectAllSemestre()"
-              >Selecionar Todos</b-button
-            >
-            <b-button
-              class="btn-cinza btn-custom btn-modal"
-              variant="secondary"
-              @click="selectNoneSemestre()"
-              >Desmarcar Todos</b-button
-            >
-          </template>
-          <template v-else>
-            <b-button
-              class="btn-azul btn-custom btn-modal"
-              variant="success"
-              @click="selectAllCursos()"
-              >Selecionar Todos</b-button
-            >
-            <b-button
-              class="btn-cinza btn-custom btn-modal"
-              variant="secondary"
-              @click="selectNoneCursos()"
-              >Desmarcar Todos</b-button
-            >
-          </template>
+                <td style="width: 425px" class="t-start">
+                  PRIMEIRO
+                </td>
+              </tr>
+              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+                <td style="width: 25px">
+                  <input
+                    type="checkbox"
+                    class="form-check-input position-static m-0"
+                    v-model="filtroSemestres.segundo"
+                  />
+                </td>
+                <td style="width: 425px" class="t-start">
+                  SEGUNDO
+                </td>
+              </tr>
+            </template>
+          </BaseTable>
         </div>
-
-        <b-button
-          variant="success"
-          @click="btnOK()"
-          class="btn-verde btn-custom btn-modal btn-ok-modal"
-          >OK</b-button
-        >
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
 
     <!-- MODAL AJUDA -->
-    <b-modal id="modalAjuda" ref="ajudaModal" scrollable title="Ajuda">
-      <div class="modal-body">
-        <ul class="listas list-group">
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
+    >
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tela:</strong> Clique em Cursos
+            <b>Para exibir conteúdo na tela:</b> Clique em Cursos
             <i
               class="fas fa-graduation-cap cancelbtn"
               style="font-size: 12px;"
@@ -284,38 +207,51 @@
             e selecione quais deseja visualizar, em seguida confirme em OK.
           </li>
         </ul>
-      </div>
+      </template>
+    </BaseModal>
 
-      <div slot="modal-footer" style="display: none;"></div>
-    </b-modal>
     <!-- MODAL RELATORIO-->
-    <b-modal
-      id="modalRelatorio"
-      ref="relatorioModal"
-      size="sm"
-      scrollable
-      title="Relatório"
-      hide-footer
-    >
-      <ul class="listas list-group">
-        <li class="list-group-item clickable" v-on:click="pdf(false)">
-          <strong>Parcial</strong>
-        </li>
-        <li class="list-group-item clickable" v-on:click="pdf(true)">
-          <strong>Completo</strong>
-        </li>
-      </ul>
-    </b-modal>
+    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
   </div>
 </template>
 
 <script>
 import _ from "lodash";
 import { toggleItemInArray, toggleOrdination } from "@/mixins/index.js";
-import { BaseButton, PageTitle, NavTab } from "@/components/index.js";
+import {
+  BaseButton,
+  BaseModal,
+  BaseTable,
+  PageTitle,
+  NavTab,
+  ModalRelatorio,
+} from "@/components/index.js";
 import TableEletivas from "./TableEletivas.vue";
 import TablesHorarios from "./TablesHorarios.vue";
 import store from "@/vuex/store";
+
+const allCursosOptions = [
+  {
+    nome: "SISTEMAS DE INFORMAÇÃO",
+    codigo: "76A",
+  },
+  {
+    nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
+    codigo: "35A",
+  },
+  {
+    nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
+    codigo: "65C",
+  },
+  {
+    nome: "ENGENHARIA DA COMPUTAÇÃO",
+    codigo: "65B",
+  },
+  {
+    nome: "ELETIVAS",
+    codigo: "-",
+  },
+];
 
 export default {
   name: "DashboardHorarios",
@@ -326,44 +262,27 @@ export default {
     PageTitle,
     NavTab,
     BaseButton,
+    BaseModal,
+    ModalRelatorio,
+    BaseTable,
   },
   data() {
     return {
-      cursosAtivados: [],
-      cursosSelecionados: [],
       tabAtivaModal: "Cursos",
       ordemCursos: { order: "codigo", type: "asc" },
       evenCCN: "false",
       evenCCD: "false",
       evenEC: "false",
       evenSI: "false",
-      semestreAtual: 3,
-      semestresAtivos: {
+      filtroCursos: {
+        selecionados: [],
+        ativados: [],
+      },
+      filtroSemestres: {
         primeiro: true,
         segundo: true,
+        ativo: 3,
       },
-      allCursosOptions: [
-        {
-          nome: "SISTEMAS DE INFORMAÇÃO",
-          codigo: "76A",
-        },
-        {
-          nome: "CIÊNCIA DA COMPUTAÇÃO NOTURNO",
-          codigo: "35A",
-        },
-        {
-          nome: "CIÊNCIA DA COMPUTAÇÃO DIURNO",
-          codigo: "65C",
-        },
-        {
-          nome: "ENGENHARIA DA COMPUTAÇÃO",
-          codigo: "65B",
-        },
-        {
-          nome: "ELETIVAS",
-          codigo: "-",
-        },
-      ],
       horariosAtivos1: {
         CCD: [[], [], [], [], [], [], [], [], [], []],
         CCN: [[], [], [], [], [], [], [], [], [], []],
@@ -378,52 +297,62 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
+      modalSelectAll: {
+        Cursos: () => {
+          this.filtroCursos.selecionados = [...allCursosOptions];
+        },
+        Semestres: () => {
+          this.filtroSemestres.primeiro = true;
+          this.filtroSemestres.segundo = true;
+        },
+      },
+      modalSelectNone: {
+        Cursos: () => {
+          this.filtroCursos.selecionados = [];
+        },
+        Semestres: () => {
+          this.filtroSemestres.primeiro = false;
+          this.filtroSemestres.segundo = false;
+        },
+      },
     };
   },
+
   mounted() {
     this.createHorarios1();
     this.createHorarios2();
 
-    this.selectAllCursos();
-    this.cursosAtivados = [...this.cursosSelecionados];
+    this.modalSelectAll.Cursos();
+    this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
   },
+
   methods: {
-    btnOK() {
-      this.btnOKSemestre();
-      this.cursosAtivados = [...this.cursosSelecionados];
-      this.tabAtivaModal = "Cursos";
-      this.$refs.modalFiltros.hide();
-    },
-    btnOKSemestre() {
-      if (this.semestresAtivos.primeiro && !this.semestresAtivos.segundo) {
-        this.semestreAtual = 1;
-      } else if (
-        this.semestresAtivos.segundo &&
-        !this.semestresAtivos.primeiro
-      ) {
-        this.semestreAtual = 2;
-      } else if (
-        this.semestresAtivos.primeiro &&
-        this.semestresAtivos.segundo
-      ) {
-        this.semestreAtual = 3;
-      } else {
-        this.semestreAtual = undefined;
+    openSideModal(modalName) {
+      if (modalName === "filtros") {
+        this.$refs.modalFiltros.toggle();
+        this.$refs.modalAjuda.close();
+        this.$refs.modalRelatorio.close();
+      } else if (modalName === "ajuda") {
+        this.$refs.modalAjuda.toggle();
+        this.$refs.modalFiltros.close();
+        this.$refs.modalRelatorio.close();
+      } else if (modalName === "relatorio") {
+        this.$refs.modalRelatorio.toggle();
+        this.$refs.modalAjuda.close();
+        this.$refs.modalFiltros.close();
       }
     },
-    selectAllSemestre() {
-      this.semestresAtivos.primeiro = true;
-      this.semestresAtivos.segundo = true;
+    btnOkFiltros() {
+      this.setSemestreAtivo();
+      this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
     },
-    selectNoneSemestre() {
-      this.semestresAtivos.primeiro = false;
-      this.semestresAtivos.segundo = false;
-    },
-    selectNoneCursos() {
-      if (this.cursosSelecionados.length !== 0) this.cursosSelecionados = [];
-    },
-    selectAllCursos() {
-      this.cursosSelecionados = [...this.allCursosOptions];
+    setSemestreAtivo() {
+      const { primeiro, segundo } = this.filtroSemestres;
+
+      if (primeiro && !segundo) this.filtroSemestres.ativo = 1;
+      else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
+      else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
+      else this.filtroSemestres.ativo = undefined;
     },
     isEven(number) {
       if (number % 2 === 0) return "true";
@@ -584,7 +513,7 @@ export default {
       var turmas = _.filter(this.$store.state.turma.Turmas, ["periodo", 1]);
       var turmasExternas = this.$store.state.turmaExterna.Turmas;
       var anoAtual = this.$store.state.plano.Plano[0].ano;
-      var semestreAtual = 1;
+      var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
         this.evenCCN = "false";
@@ -646,7 +575,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -736,7 +665,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -826,7 +755,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -916,7 +845,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -1001,7 +930,7 @@ export default {
       var turmas = _.filter(this.$store.state.turma.Turmas, ["periodo", 3]);
       var turmasExternas = this.$store.state.turmaExterna.Turmas;
       var anoAtual = this.$store.state.plano.Plano[0].ano;
-      var semestreAtual = 1;
+      var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
         this.evenCCN = "true";
@@ -1062,7 +991,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -1152,7 +1081,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -1242,7 +1171,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -1332,7 +1261,7 @@ export default {
             2 *
               (parseInt(anoAtual, 10) -
                 parseInt(grades[i].periodoInicio.slice(0, 4), 10)) +
-            (parseInt(semestreAtual, 10) -
+            (parseInt(currentSemestres, 10) -
               parseInt(grades[i].periodoInicio.slice(5, 6), 10)) /
               2;
         else
@@ -1461,7 +1390,7 @@ export default {
           },
         ],
       });
-      if (_.find(this.cursosAtivados, { codigo: "65C" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
           text: "Ciência da Computação Diurno",
           bold: true,
@@ -1844,7 +1773,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "35A" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
           text: "Ciência da Computação Noturno",
           bold: true,
@@ -2227,7 +2156,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "65B" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -2610,7 +2539,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "76A" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -2993,7 +2922,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "-" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -3451,7 +3380,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "65C" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
           text: "Ciência da Computação Diurno",
           bold: true,
@@ -3834,7 +3763,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "35A" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
           text: "Ciência da Computação Noturno",
           bold: true,
@@ -4217,7 +4146,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "65B" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -4600,7 +4529,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "76A" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -4983,7 +4912,7 @@ export default {
         ],
       });
 
-      if (_.find(this.cursosAtivados, { codigo: "-" }) || completo) {
+      if (_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -5422,14 +5351,18 @@ export default {
 
   computed: {
     semestre1IsActived() {
-      return this.semestreAtual === 1 || this.semestreAtual === 3;
+      return (
+        this.filtroSemestres.ativo === 1 || this.filtroSemestres.ativo === 3
+      );
     },
     semestre2IsActived() {
-      return this.semestreAtual === 2 || this.semestreAtual === 3;
+      return (
+        this.filtroSemestres.ativo === 2 || this.filtroSemestres.ativo === 3
+      );
     },
     CursosModalOrdered() {
       return _.orderBy(
-        this.allCursosOptions,
+        allCursosOptions,
         this.ordemCursos.order,
         this.ordemCursos.type
       );
@@ -5453,7 +5386,7 @@ export default {
       const cursosResult = [
         {
           isSelected: _.find(
-            this.cursosAtivados,
+            this.filtroCursos.ativados,
             (curso) => curso.codigo === "65C"
           ),
           nome: "Ciência da computação Diurno",
@@ -5465,7 +5398,7 @@ export default {
         },
         {
           isSelected: _.find(
-            this.cursosAtivados,
+            this.filtroCursos.ativados,
             (curso) => curso.codigo === "35A"
           ),
           nome: "Ciência da computação Noturno",
@@ -5477,7 +5410,7 @@ export default {
         },
         {
           isSelected: _.find(
-            this.cursosAtivados,
+            this.filtroCursos.ativados,
             (curso) => curso.codigo === "76A"
           ),
           nome: "Sistemas de Informação",
@@ -5489,7 +5422,7 @@ export default {
         },
         {
           isSelected: _.find(
-            this.cursosAtivados,
+            this.filtroCursos.ativados,
             (curso) => curso.codigo === "65B"
           ),
           nome: "Engenharia da Computação",
@@ -5508,7 +5441,10 @@ export default {
     },
 
     EletivasIsSelected() {
-      return _.find(this.cursosAtivados, (curso) => curso.codigo === "-");
+      return _.find(
+        this.filtroCursos.ativados,
+        (curso) => curso.codigo === "-"
+      );
     },
   },
 
@@ -5527,7 +5463,7 @@ export default {
   padding-top: 0px;
   text-align: start !important;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 5px !important;
   padding-bottom: 5px !important;
 }
@@ -5585,56 +5521,4 @@ export default {
   padding-left: 1px !important;
   margin: 0 !important;
 }
-
-/* ==== MODAL TABLE ==== */
-.modal-table {
-  display: block;
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
-  font-size: 10px !important;
-  font-weight: normal !important;
-  background-color: white;
-  margin: 0 !important;
-}
-.modal-table tr thead {
-  display: block;
-}
-.modal-table th {
-  padding: 0 !important;
-  text-align: center !important;
-  height: 18px !important;
-}
-
-.modal-table .p-header {
-  padding: 0px 5px 0px 5px !important;
-  margin: 0 !important;
-  text-align: start;
-  height: 18px !important;
-}
-.modal-table tbody {
-  max-height: 100%;
-  width: 100%;
-}
-.modal-table td {
-  border-top: 0;
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  /* height: 22px !important; */
-}
-.modal-table p {
-  margin: 0 !important;
-  text-align: center;
-  padding: 0 !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-}
-.modal-table input[type="checkbox"] {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 13px !important;
-}
-/* FIM MODAL TABLE */
 </style>
