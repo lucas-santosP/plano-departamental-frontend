@@ -45,7 +45,7 @@
           title="Filtros"
           :type="'icon'"
           :color="'gray'"
-          @click="openSideModal('filtros')"
+          @click="openAsideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
         </BaseButton>
@@ -54,7 +54,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          @click="openSideModal('ajuda')"
+          @click="openAsideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -312,7 +312,6 @@
         />
 
         <div class="div-table">
-        
           <BaseTable
             v-show="tabAtivaModal === 'Disciplinas'"
             :tableType="'modal-table'"
@@ -385,7 +384,7 @@
               </tr>
             </template>
           </BaseTable>
-            <BaseTable
+          <BaseTable
             v-show="tabAtivaModal === 'Semestres'"
             :tableType="'modal-table'"
           >
@@ -615,7 +614,7 @@ export default {
   },
 
   methods: {
-    openSideModal(modalName) {
+    openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
         this.$refs.modalAjuda.close();

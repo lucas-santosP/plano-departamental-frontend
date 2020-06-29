@@ -6,7 +6,7 @@
           title="Filtros"
           :type="'icon'"
           :color="'gray'"
-          @click="openSideModal('filtros')"
+          @click="openAsideModal('filtros')"
         >
           <i class="fas fa-list-ul"></i>
         </BaseButton>
@@ -15,7 +15,7 @@
           title="Relátorio"
           :type="'icon'"
           :color="'lightblue'"
-          @click="openSideModal('relatorio')"
+          @click="openAsideModal('relatorio')"
         >
           <i class="far fa-file-alt"></i>
         </BaseButton>
@@ -23,7 +23,7 @@
         <BaseButton
           :type="'icon'"
           :color="'lightblue'"
-          @click="openSideModal('ajuda')"
+          @click="openAsideModal('ajuda')"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -327,7 +327,7 @@ export default {
   },
 
   methods: {
-    openSideModal(modalName) {
+    openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
         this.$refs.modalAjuda.close();
