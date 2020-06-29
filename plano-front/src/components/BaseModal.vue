@@ -1,5 +1,5 @@
 <template>
-  <transition name="modal-fade">
+  <transition :name="customAnimatedClass + '-modal'">
     <div
       v-if="visibility"
       :class="modalClass"
@@ -73,9 +73,9 @@ export default {
   data() {
     return {
       positions: {
-        right: "top: 5vh; right: 10px;z-index: 900;",
+        right: "top: 80px; right: 20px; z-index: 900;",
         center:
-          "top: 5px;left:50%; transform: translateX(-50%); z-index: 1000;",
+          "top: 25px; left:50%; transform: translateX(-50%); z-index: 1000;",
         centerNavbar:
           "top: 40px;left:50%; transform: translateX(-50%); z-index: 1000;",
       },
@@ -164,6 +164,20 @@ export default {
     modalClass() {
       return ["modal-custom", this.classes];
     },
+    customAnimatedClass() {
+      const { position, type } = this.modalConfigs;
+      switch (type) {
+        case "editTurma":
+          return "center";
+        case "filtros":
+        case "ajuda":
+          return "right";
+        case "fromNavbar":
+          return "fromNavbar";
+        default:
+          return position;
+      }
+    },
   },
   watch: {
     visibility(newValue) {
@@ -185,6 +199,8 @@ export default {
 </script>
 
 <style scoped>
+@import "../assets/css/base-modal-animations.css";
+
 .modal-custom {
   position: absolute;
   display: flex;
@@ -246,15 +262,5 @@ export default {
   margin-top: auto;
   padding: 0 20px;
   height: 45px;
-}
-
-/* open/close transition */
-.modal-fade-enter,
-.modal-fade-leave-active {
-  opacity: 0;
-}
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease;
 }
 </style>
