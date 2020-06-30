@@ -6,7 +6,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -69,43 +69,39 @@
             </th>
           </template>
           <template #tbody>
-            <template v-if="Cursos.length > 0">
-              <tr
-                v-for="curso in Cursos"
-                :key="'table-cursos: cod-' + curso.codigo"
-                @click.prevent="
-                  showCurso(curso), handleClickInCurso(curso.codigo)
-                "
-                :class="[
-                  { 'bg-selected': cursoClickado === curso.codigo },
-                  'clickable',
-                ]"
-              >
-                <td style="width: 65px" class="t-start">
-                  {{ curso.codigo }}
-                </td>
-                <td style="width: 300px" class="t-start">
-                  {{ curso.nome }}
-                </td>
-                <td style="width: 65px">
-                  {{ curso.turno }}
-                </td>
-                <td style="width: 70px;">
-                  {{ curso.alunosEntrada }}
-                </td>
-                <td style="width: 70px;">
-                  {{ curso.alunosEntrada2 }}
-                </td>
-              </tr>
-            </template>
-            <template v-else>
-              <tr>
-                <td colspan="2" class="text-center">
-                  <i class="fas fa-exclamation-triangle"></i> Nenhum curso
-                  encontrado!
-                </td>
-              </tr>
-            </template>
+            <tr
+              v-for="curso in Cursos"
+              :key="'table-cursos: cod-' + curso.codigo"
+              @click.prevent="
+                showCurso(curso), handleClickInCurso(curso.codigo)
+              "
+              :class="[
+                { 'bg-selected': cursoClickado === curso.codigo },
+                'clickable',
+              ]"
+            >
+              <td style="width: 65px" class="t-start">
+                {{ curso.codigo }}
+              </td>
+              <td style="width: 300px" class="t-start">
+                {{ curso.nome }}
+              </td>
+              <td style="width: 65px">
+                {{ curso.turno }}
+              </td>
+              <td style="width: 70px;">
+                {{ curso.alunosEntrada }}
+              </td>
+              <td style="width: 70px;">
+                {{ curso.alunosEntrada2 }}
+              </td>
+            </tr>
+            <tr v-if="!Cursos.length">
+              <td colspan="5" style="width:570px" class="text-center">
+                <i class="fas fa-exclamation-triangle"></i> Nenhum curso
+                encontrado!
+              </td>
+            </tr>
           </template>
         </BaseTable>
       </div>
@@ -236,20 +232,26 @@
       </div>
     </div>
 
-    <!-- MODAL DE AJUDA -->
-    <b-modal id="modalAjuda" scrollable title="Ajuda" hide-footer>
-      <div class="modal-body">
-        <ul class="listas list-group">
+    <!-- MODAL AJUDA -->
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
+    >
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para adicionar cursos:</strong> Com o cartão à direita em
-            branco, preencha-o. Em seguida, clique em Adicionar
+            <b>Para adicionar cursos:</b> Com o cartão à direita em branco,
+            preencha-o. Em seguida, clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size: 12px;"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar um curso:</strong> Na tabela, clique
-            no curso que deseja alterar. Logo após, no cartão à direita, altere
-            as informações que desejar e clique em Salvar
+            <b>Para editar ou deletar um curso:</b> Na tabela, clique no curso
+            que deseja alterar. Logo após, no cartão à direita, altere as
+            informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size: 12px;"></i>
             ou, para excluí-lo, clique em Deletar
             <i
@@ -259,19 +261,19 @@
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à
-            direita, clique em Cancelar
+            <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
+            em Cancelar
             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px;"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para alterar a ordenação:</strong> Clique em Nome no
-            cabeçalho da tabela para ordenar por ordem alfabética ou em Código
-            para ordem numérica do código do curso.
+            <b>Para alterar a ordenação:</b> Clique em Nome no cabeçalho da
+            tabela para ordenar por ordem alfabética ou em Código para ordem
+            numérica do código do curso.
           </li>
         </ul>
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -280,8 +282,18 @@ import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import pedidoService from "@/common/services/pedido";
-import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
-import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
+import {
+  toggleOrdination,
+  redirectNotAdmin,
+  notification,
+} from "@/mixins/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseModal,
+  BaseButton,
+  Card,
+} from "@/components/index.js";
 
 const emptyCurso = {
   id: undefined,
@@ -301,15 +313,15 @@ const emptyPedido = {
   ultimo: undefined,
   selectAll: undefined,
 };
+
 export default {
   name: "DashboardCursos",
-  mixins: [toggleOrdination, redirectNotAdmin],
-  components: { PageTitle, BaseTable, Card, BaseButton },
+  mixins: [toggleOrdination, redirectNotAdmin, notification],
+  components: { PageTitle, BaseTable, Card, BaseButton, BaseModal },
 
   data() {
     return {
       cursoForm: _.clone(emptyCurso),
-      error: undefined,
       cursoClickado: "",
       ordenacaoCursosMain: { order: "codigo", type: "asc" },
     };
@@ -349,6 +361,18 @@ export default {
         ls.set("toggle", true);
       }
     },
+    validateCurso(curso) {
+      for (const key of Object.keys(curso)) {
+        if (key !== "id")
+          if (
+            curso[key] === "" ||
+            curso[key] === null ||
+            curso[key] === undefined
+          )
+            return false;
+      }
+      return true;
+    },
     addCurso() {
       this.cursoForm.posicao = this.ultimo;
       this.ultimo = this.ultimo + 1;
@@ -368,6 +392,16 @@ export default {
       )
         this.cursoForm.semestreInicial = 1;
       else this.cursoForm.semestreInicial = 3;
+
+      if (!this.validateCurso(this.cursoForm)) {
+        this.showNotification({
+          type: "error",
+          title: "Erro ao criar Curso!",
+          message: "Campos obrigátorios incompletos ou inválidos.",
+        });
+        return;
+      }
+
       cursoService
         .create(this.cursoForm)
         .then((response) => {
@@ -384,6 +418,7 @@ export default {
               });
           }
           this.cleanCurso();
+
           this.$notify({
             group: "general",
             title: `Sucesso!`,
@@ -392,16 +427,10 @@ export default {
           });
         })
         .catch((error) => {
-          this.error = "<b>Erro ao criar Curso</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-          this.$notify({
-            group: "general",
-            title: `Erro!`,
-            text: this.error,
+          this.showNotification({
             type: "error",
+            title: "Erro ao criar Curso!",
+            message: error,
           });
         });
     },
@@ -433,12 +462,10 @@ export default {
           });
         })
         .catch((error) => {
-          this.error = "<b>Erro ao atualizar Curso</b>";
-          this.$notify({
-            group: "general",
-            title: `Erro!`,
-            text: this.error,
+          this.showNotification({
             type: "error",
+            title: "Erro ao atualizar Curso!",
+            message: error,
           });
         });
     },
@@ -454,20 +481,17 @@ export default {
             type: "success",
           });
         })
-        .catch(() => {
-          this.error = "<b>Erro ao excluir Curso</b>";
-          this.$notify({
-            group: "general",
-            title: `Erro!`,
-            text: this.error,
+        .catch((error) => {
+          this.showNotification({
             type: "error",
+            title: "Erro ao excluir Curso!",
+            message: error,
           });
         });
     },
     cleanCurso() {
       this.clearClick();
       this.cursoForm = _.clone(emptyCurso);
-      this.error = undefined;
     },
     showCurso(curso) {
       this.cleanCurso();
