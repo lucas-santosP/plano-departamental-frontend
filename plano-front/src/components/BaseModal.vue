@@ -131,6 +131,11 @@ export default {
         case "editTurma":
           styles = this.positions.center + "max-width:510px;height: auto;";
           break;
+        case "editVagas":
+          styles =
+            this.positions.right +
+            "width:580px;min-height: auto; z-index: 1000;";
+          break;
         case "filtros":
           styles = this.positions.right + "width:510px; height:610px;";
           break;
@@ -142,7 +147,7 @@ export default {
             this.positions.centerNavbar + "max-width:510px; height:auto;";
           break;
         default:
-          styles += "max-width:510px; height:auto;";
+          styles += "max-width:510px; height:auto;z-index: 750;";
           break;
       }
 
@@ -171,6 +176,7 @@ export default {
           return "center";
         case "filtros":
         case "ajuda":
+        case "editVagas":
           return "right";
         case "fromNavbar":
           return "fromNavbar";

@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     ref="baseModalRelatorio"
-    :customStyles="'width:370px'"
+    :customStyles="'width:300px;z-index:900;'"
     :modalOptions="{
       title: 'Relátorio',
       position: 'right',

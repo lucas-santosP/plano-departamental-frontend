@@ -862,7 +862,7 @@ export default {
       );
     },
     Perfis() {
-      return _.orderBy(this.$store.state.perfil.Perfis);
+      return this.$store.state.perfil.Perfis;
     },
     Horarios() {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
