@@ -133,7 +133,7 @@ export default {
           break;
         case "editVagas":
           styles =
-            this.positions.right +
+            this.positions.center +
             "width:580px;min-height: auto; z-index: 1000;";
           break;
         case "filtros":
@@ -160,7 +160,8 @@ export default {
         position: "center",
         hasBackground:
           this.modalOptions.type === "editTurma" ||
-          this.modalOptions.type === "fromNavbar"
+          this.modalOptions.type === "fromNavbar" ||
+          this.modalOptions.type === "editVagas"
             ? true
             : false,
         ...this.modalOptions,
@@ -173,10 +174,10 @@ export default {
       const { position, type } = this.modalConfigs;
       switch (type) {
         case "editTurma":
+        case "editVagas":
           return "center";
         case "filtros":
         case "ajuda":
-        case "editVagas":
           return "right";
         case "fromNavbar":
           return "fromNavbar";
