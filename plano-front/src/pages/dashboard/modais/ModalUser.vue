@@ -71,7 +71,7 @@
               <PasswordInput
                 :isInvalid="false"
                 :inputId="'senhaAtual'"
-                v-model="userForm.senhaAtual"
+                v-model="senhaAtual"
               ></PasswordInput>
             </div>
 
@@ -144,7 +144,7 @@
             </div>
             <div class="form-row d-flex align-items-center">
               <label for="admin" class="m-0 mr-2">Admin</label>
-              <input type="checkbox" id="admin" v-model="isAdmin" />
+              <input type="checkbox" id="admin" v-model="userForm.admin" />
             </div>
 
             <div class="mt-3 mb-1 d-flex justify-content-end">
@@ -179,7 +179,7 @@ const emptyUser = {
   nome: "",
   login: "",
   senha: "",
-  senhaAtual: "",
+  admin: false,
 };
 export default {
   name: "ModalUser",
@@ -189,8 +189,8 @@ export default {
     return {
       userForm: _.clone(emptyUser),
       currentTab: "edit",
-      confirmaSenha: "teste",
-      isAdmin: false,
+      confirmaSenha: "",
+      senhaAtual: "",
     };
   },
   mounted() {
@@ -201,64 +201,29 @@ export default {
       this.$refs.baseModalUser.open();
     },
     changeTab(newTab) {
-      if (newTab === "edit") this.clearEditUserForm();
-      else if (newTab === "create") this.clearCreateUserForm();
+      if (this.currentTab === newTab) return;
 
       this.currentTab = newTab;
+      if (newTab === "edit") this.clearEditUserForm();
+      else if (newTab === "create") this.clearCreateUserForm();
     },
     clearCreateUserForm() {
       this.userForm = _.clone(emptyUser);
-      this.isAdmin = "";
     },
     clearEditUserForm() {
       this.userForm = _.clone(emptyUser);
       this.userForm.nome = this.$store.state.auth.Usuario.nome;
       this.userForm.login = this.$store.state.auth.Usuario.login;
+      this.userForm.admin = this.$store.state.auth.Usuario.admin;
       this.confirmaSenha = "";
+      this.senhaAtual = "";
     },
     clearAllForm() {
       this.clearCreateUserForm();
-      this.changeTab("edit");
+      this.clearEditUserForm();
     },
-    createUser() {
-      const user = _.clone(this.userForm);
-      //Para passar na validação pois novo usuario não tem senha atual
-      user.senhaAtual = "senha-atual";
-
-      if (!this.validateUser(user)) {
-        this.showNotification({
-          type: "error",
-          message: `Campos obrigátorios incompletos ou inválidos.`,
-        });
-        return;
-      }
-
-      userService.create(user).then(() => {
-        this.showNotification({
-          type: "success",
-          message: `Usuário criado.`,
-        });
-        this.clearCreateUserForm();
-      });
-    },
-    editUser() {
-      const user = _.clone(this.userForm);
-
-      if (!this.validateUser(user) || this.confirmaSenha !== user.senha) {
-        this.showNotification({
-          type: "error",
-          message: `Campos obrigátorios incompletos ou inválidos.`,
-        });
-        return;
-      }
-
-      userService.update(this.$store.state.auth.Usuario.id, user).then(() => {
-        this.showNotification({
-          type: "success",
-          message: `Usuário atualizado.`,
-        });
-        this.clearEditUserForm();
-      });
+    validateEditUser(user) {
+      return this.confirmaSenha === user.senha && this.validateUser(user);
     },
     validateUser(user) {
       for (const value of Object.values(user)) {
@@ -268,6 +233,60 @@ export default {
     },
     routerLogout() {
       this.$router.push({ name: "logout" });
+    },
+
+    async createUser() {
+      const user = _.clone(this.userForm);
+
+      if (!this.validateUser(user)) {
+        this.showNotification({
+          type: "error",
+          message: `Campos obrigátorios incompletos ou inválidos.`,
+        });
+        return;
+      }
+
+      try {
+        await userService.create(user);
+
+        this.showNotification({
+          type: "success",
+          message: `Usuário criado.`,
+        });
+        this.clearCreateUserForm();
+      } catch (error) {
+        this.showNotification({
+          type: "error",
+          message: error,
+        });
+      }
+    },
+    async editUser() {
+      const user = _.clone(this.userForm);
+      user.senhaAtual = this.senhaAtual;
+
+      if (!this.validateEditUser(user)) {
+        this.showNotification({
+          type: "error",
+          message: `Campos obrigátorios incompletos ou inválidos.`,
+        });
+        return;
+      }
+
+      try {
+        await userService.update(this.$store.state.auth.Usuario.id, user);
+
+        this.showNotification({
+          type: "success",
+          message: `Usuário atualizado.`,
+        });
+        this.clearEditUserForm();
+      } catch (error) {
+        this.showNotification({
+          type: "error",
+          message: error,
+        });
+      }
     },
   },
   computed: {
