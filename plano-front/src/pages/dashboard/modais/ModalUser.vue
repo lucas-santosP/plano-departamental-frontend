@@ -257,6 +257,7 @@ export default {
       } catch (error) {
         this.showNotification({
           type: "error",
+          title: "Erro ao criar usuário",
           message: error,
         });
       }
@@ -275,7 +276,6 @@ export default {
 
       try {
         await userService.update(this.$store.state.auth.Usuario.id, user);
-
         this.showNotification({
           type: "success",
           message: `Usuário atualizado.`,
@@ -284,6 +284,7 @@ export default {
       } catch (error) {
         this.showNotification({
           type: "error",
+          title: "Erro ao editar usuário",
           message: error,
         });
       }
