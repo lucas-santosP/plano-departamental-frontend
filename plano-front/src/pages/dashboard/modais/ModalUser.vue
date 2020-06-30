@@ -219,8 +219,8 @@ export default {
       this.senhaAtual = "";
     },
     clearAllForm() {
-      this.clearCreateUserForm();
       this.clearEditUserForm();
+      this.changeTab("edit");
     },
     validateEditUser(user) {
       return this.confirmaSenha === user.senha && this.validateUser(user);
