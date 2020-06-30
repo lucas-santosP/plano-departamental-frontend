@@ -265,6 +265,7 @@ export default {
     async editUser() {
       const user = _.clone(this.userForm);
       user.senhaAtual = this.senhaAtual;
+      user.admin = this.$store.state.auth.Usuario.admin
 
       if (!this.validateEditUser(user)) {
         this.showNotification({
@@ -278,7 +279,7 @@ export default {
         await userService.update(this.$store.state.auth.Usuario.id, user);
         this.showNotification({
           type: "success",
-          message: `Usuário atualizado.`,
+          message: `Usuário ${this.$store.state.auth.Usuario.nome} atualizado.`,
         });
         this.clearEditUserForm();
       } catch (error) {
