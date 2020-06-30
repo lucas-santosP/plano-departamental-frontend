@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     modalStyle() {
-      const { position, type } = this.modalConfigs;
+      const { position, type, hasBackground } = this.modalConfigs;
       let styles = "";
 
       styles += this.positions ? this.positions[position] : "";
@@ -147,7 +147,9 @@ export default {
             this.positions.centerNavbar + "max-width:510px; height:auto;";
           break;
         default:
-          styles += "max-width:510px; height:auto;z-index: 750;";
+          styles += `max-width:510px; height:auto; z-index:${
+            hasBackground ? "955" : "750"
+          };`;
           break;
       }
 

@@ -75,7 +75,7 @@ main .main-component {
 }
 .modal-custom .list-ajuda i {
   font-size: 12px !important;
-  margin: 0 1px;
+  margin: 0 1px !important;
   color: #585858;
 }
 #modalAjuda .list-group .list-group-item strong,

@@ -94,6 +94,11 @@ export default {
         },
       ],
       linksGerenciar: [
+        {
+          title: "Usuarios",
+          routerName: "usuarios",
+          icon: "fa-user",
+        },
         { title: "Cursos ", routerName: "cursos", icon: "fa-graduation-cap" },
         {
           title: "Disciplinas ",
