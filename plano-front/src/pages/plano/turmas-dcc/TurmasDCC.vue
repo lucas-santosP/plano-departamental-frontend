@@ -122,7 +122,7 @@
           <th style="width:25px" title="Créditos">
             C.
           </th>
-          <th style="width:35px" class="p-0" title="Turma">T.</th>
+          <th style="width:45px" class="p-0" title="Turma">T.</th>
           <th style="width:130px">Docente</th>
           <th style="width:80px">Turno</th>
           <th style="width:85px">Horário</th>

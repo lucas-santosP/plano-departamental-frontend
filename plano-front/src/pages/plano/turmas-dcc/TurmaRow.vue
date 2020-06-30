@@ -25,7 +25,7 @@
       <select
         id="2periodo"
         v-model="turmaForm.periodo"
-        v-on:change="checkHorariosPeriodo()"
+        @change="checkHorariosPeriodo()"
       >
         <option value="1">1</option>
         <option value="3">3</option>
@@ -43,14 +43,14 @@
     <td style="width: 25px">
       {{ totalCreditos }}
     </td>
-    <td style="width: 35px">
+    <td style="width: 45px">
       <input
         type="text"
         class="input-letra"
         style="text-transform: uppercase"
         v-model="turmaForm.letra"
-        @keypress="onlyA_Z"
-        v-on:blur="editTurma(turma)"
+        @keypress="onlyA_Z($event), limitLenght($event)"
+        @blur="editTurma(turma)"
       />
     </td>
     <td style="width: 130px;" class="less-padding">
@@ -58,7 +58,7 @@
         type="text"
         id="docente1"
         v-model="turmaForm.Docente1"
-        v-on:change="checkDocente()"
+        @change="checkDocente()"
       >
         <option v-if="Docentes.length === 0" type="text" value=""
           >Nenhum Docente Encontrado</option
@@ -76,7 +76,7 @@
         type="text"
         id="docente2"
         v-model="turmaForm.Docente2"
-        v-on:change="checkDocente()"
+        @change="checkDocente()"
       >
         <option v-if="Docentes.length === 0" type="text" value=""
           >Nenhum Docente Encontrado</option
@@ -95,7 +95,7 @@
         type="text"
         id="SelectTurno"
         v-model="turmaForm.turno1"
-        v-on:change="editTurma(turma)"
+        @change="editTurma(turma)"
       >
         <template v-if="disciplinaIsIntegralEAD">
           <option value="EAD">EAD</option>
@@ -111,7 +111,7 @@
         type="text"
         id="horario1"
         v-model="turmaForm.Horario1"
-        v-on:change="checkHorario(1)"
+        @change="checkHorario(1)"
       >
         <option v-if="!disciplinaIsIntegralEAD" type="text" value=""></option>
 
@@ -128,7 +128,7 @@
         type="text"
         id="horario2"
         v-model="turmaForm.Horario2"
-        v-on:change="checkHorario(2)"
+        @change="checkHorario(2)"
       >
         <template v-if="disciplinaIsParcialEAD">
           <option
@@ -156,7 +156,7 @@
           type="text"
           id="sala1"
           v-model="turmaForm.Sala1"
-          v-on:change="checkSala()"
+          @change="checkSala()"
         >
           <option v-if="Salas.length === 0" type="text" value=""
             >Nenhuma Sala Encontrada</option
@@ -174,7 +174,7 @@
           type="text"
           id="sala2"
           v-model="turmaForm.Sala2"
-          v-on:change="checkSala()"
+          @change="checkSala()"
         >
           <option v-if="Salas.length === 0" type="text" value=""
             >Nenhuma Sala Encontrada</option
@@ -271,6 +271,9 @@ export default {
     },
     findDisciplinaById(id) {
       return _.find(this.Disciplinas, (d) => d.id == id);
+    },
+    limitLenght($event) {
+      if ($event.target.value.length >= 3) $event.preventDefault();
     },
     onlyA_Z($event) {
       let key = $event.key ? $event.key : $event.which;
@@ -1124,6 +1127,7 @@ export default {
       if (turma.Sala1 === "") turma.Sala111 = null;
       if (turma.Sala2 === "") turma.Sala2 = null;
       if (turma.turno1 === "") turma.turno1 = null;
+      if (turma.letra === "") turma.letra = this.currentData.letra;
     },
     editTurma() {
       this.changeTurmaEmptyStringToNull(this.turmaForm);
@@ -1306,8 +1310,8 @@ export default {
 .turmarow .input-letra {
   margin: 0;
   margin-top: 4px !important;
-  height: 25px;
-  width: 20px;
+  height: 18px;
+  width: 30px;
   text-align: center;
 }
 
