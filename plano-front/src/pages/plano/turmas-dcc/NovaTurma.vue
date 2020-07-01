@@ -52,7 +52,7 @@
         {{ currentDisciplina.cargaPratica + currentDisciplina.cargaTeorica }}
       </template>
     </td>
-    <td style="width: 35px">
+    <td style="width: 45px">
       <input
         class="input-letra"
         type="text"
@@ -202,6 +202,7 @@
 import _ from "lodash";
 import turmaService from "@/common/services/turma";
 import { EventBus } from "@/event-bus.js";
+import { notification } from "@/mixins/index.js";
 
 const emptyTurma = {
   id: null,
@@ -219,19 +220,17 @@ const emptyTurma = {
 };
 export default {
   name: "NovaTurma",
+  mixins: [notification],
   props: { cursosAtivadosLength: Number, default: 0 },
-
   data() {
     return {
+      error: undefined,
       turmaForm: _.clone(emptyTurma),
       semestre: 1,
-      error: undefined,
     };
   },
   mounted() {
-    EventBus.$on("addTurma", () => {
-      this.addTurma();
-    });
+    EventBus.$on("addTurma", this.addTurma);
     this.turmaForm.periodo = this.semestre;
     this.turmaForm.letra = "A";
   },
@@ -239,9 +238,6 @@ export default {
     EventBus.$off("addTurma");
   },
   methods: {
-    findDisciplinaById(id) {
-      return _.find(this.Disciplinas, (disciplina) => disciplina.id == id);
-    },
     handleChangeDisciplina() {
       this.clearInputs();
       this.setInputValues();
@@ -262,20 +258,14 @@ export default {
         this.turmaForm.Horario2 = 31;
       }
     },
-    checkNewTurmaInputsValue(turma) {
+    validateNewTurma(turma) {
       if (
         turma.Disciplina === null ||
         turma.letra === null ||
         turma.turno1 === null
-      ) {
-        this.$notify({
-          group: "general",
-          title: "Cadastro da turma inválido ou incompleto.",
-          text: "Disciplina, turno e letra da turma são obrigatório",
-          type: "error",
-        });
+      )
         return false;
-      }
+
       return true;
     },
     setTurnoByHorario(horarioAtual) {
@@ -315,7 +305,6 @@ export default {
         this.turmaForm.turno1 = "Noturno";
       }
     },
-
     isEmpty(value) {
       return value === "" || value === undefined ? true : false;
     },
@@ -327,43 +316,51 @@ export default {
       if (this.isEmpty(turma.Sala1)) turma.Sala1 = null;
       if (this.isEmpty(turma.Sala2)) turma.Sala2 = null;
       if (this.isEmpty(turma.turno1)) turma.turno1 = null;
+      if (this.isEmpty(turma.letra)) turma.letra = null;
     },
     addTurma() {
-      this.convertEmptyToNull(this.turmaForm);
-      if (!this.checkNewTurmaInputsValue(this.turmaForm)) return;
+      const turma = _.clone(this.turmaForm);
+      this.convertEmptyToNull(turma);
+      if (!this.validateNewTurma(turma)) {
+        this.showNotification({
+          type: "error",
+          title: "Cadastro da turma inválido ou incompleto!",
+          message: "Disciplina, turno e letra da turma são obrigatório",
+        });
+        return;
+      }
 
-      this.turmaForm.Plano = parseInt(localStorage.getItem('Plano'), 10)
-      console.log(this.turmaForm)
-      turmaService.create(this.turmaForm)
-              .then((response) => {
-                this.$store.dispatch('fetchAllPedidos')
-                this.$notify({
-                  group: "general",
-                  title: `Sucesso!`,
-                  text: `A Turma ${response.Turma.letra} foi criada!`,
-                  type: "success",
-                });
-              })
-              .catch((error) => {
-                this.error = "<b>Erro ao criar Turma</b>";
-                if (error.response.data.fullMessage) {
-                  this.error +=
-                          "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-                }
-              });
-      this.semestre = this.turmaForm.periodo;
-    },
-    editTurma(turma, disciplinaNome) {
+      this.turmaForm.Plano = parseInt(localStorage.getItem("Plano"), 10);
+      console.log(this.turmaForm);
       turmaService
-        .update(turma.id, turma)
+        .create(this.turmaForm)
         .then((response) => {
+          this.$store.dispatch("fetchAllPedidos");
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Turma ${
-              response.Turma.letra
-            } da disciplina ${disciplinaNome} foi adicionada!`,
+            text: `A Turma ${response.Turma.letra} foi criada!`,
             type: "success",
+          });
+        })
+        .catch((error) => {
+          this.error = "<b>Erro ao criar Turma</b>";
+          if (error.response.data.fullMessage) {
+            this.error +=
+              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+          }
+        });
+      this.semestre = this.turmaForm.periodo;
+    },
+    editTurma(turma) {
+      turmaService
+        .update(turma.id, turma)
+        .then((response) => {
+          this.showNotification({
+            type: "success",
+            message: `A turma ${response.Turma.letra} - ${
+              this.currentDisciplina.nome
+            } foi adicionada`,
           });
           console.log("Nova turma adiciona:", turma);
           this.cleanTurmaForm();
@@ -372,13 +369,13 @@ export default {
           let errormsg = _.find(error.response.data.errors, {
             field: "unique_name",
           })
-            ? "A combinação de disciplina, semestre e turma deve ser única"
+            ? "A combinação de disciplina, semestre e turma deve ser única."
             : "";
-          this.$notify({
-            group: "general",
-            title: `Erro ao atualizar Turma`,
-            text: errormsg,
+
+          this.showNotification({
             type: "error",
+            title: `Erro ao adicionar turma!`,
+            message: errormsg,
           });
         });
     },
@@ -386,7 +383,6 @@ export default {
       this.turmaForm = _.clone(emptyTurma);
       this.turmaForm.periodo = this.semestre;
       this.turmaForm.letra = "A";
-      this.error = undefined;
     },
     onlyA_Z($event) {
       let key = $event.key ? $event.key.toUpperCase() : $event.which;
@@ -522,12 +518,11 @@ export default {
   text-align: center;
 }
 .novaturma .input-letra {
-  margin-left: 0 !important;
+  margin: 0;
   margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 25px !important;
-  width: 20px;
-  text-align: center !important;
+  height: 18px;
+  width: 30px;
+  text-align: center;
 }
 .stickyAdd {
   display: block;
