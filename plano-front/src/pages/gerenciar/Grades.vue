@@ -6,7 +6,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -214,32 +214,38 @@
       </div>
     </div>
 
-    <!-- MODAL DE AJUDA -->
-    <b-modal id="modalAjuda" title="Ajuda" scrollable hide-footer>
-      <div class="modal-body">
-        <ul class="listas list-group">
+    <!-- MODAL AJUDA -->
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
+    >
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para adicionar grades:</strong> Com o cartão a direita em
-            branco, preencha-o. Em seguida, clique em Adicionar
+            <b>Para adicionar grades:</b> Com o cartão a direita em branco,
+            preencha-o. Em seguida, clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>.
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar uma grade:</strong> Na tabela, clique
-            na grade que deseja alterar. Logo após, no cartão à direita, altere
-            as informações que desejar e clique em Salvar
+            <b>Para editar ou deletar uma grade:</b> Na tabela, clique na grade
+            que deseja alterar. Logo após, no cartão à direita, altere as
+            informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou, para excluí-la, clique em Deletar
             <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à
-            direita, clique em Cancelar
+            <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
+            em Cancelar
             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>.
           </li>
         </ul>
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -247,7 +253,13 @@
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import { redirectNotAdmin } from "@/mixins/index.js";
-import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseButton,
+  BaseModal,
+  Card,
+} from "@/components/index.js";
 
 const emptyGrade = {
   id: undefined,
@@ -263,7 +275,7 @@ const emptyDisciplinaGrade = {
 export default {
   name: "DashboardGrade",
   mixins: [redirectNotAdmin],
-  components: { PageTitle, Card, BaseTable, BaseButton },
+  components: { PageTitle, Card, BaseTable, BaseModal, BaseButton },
   data() {
     return {
       error: undefined,
