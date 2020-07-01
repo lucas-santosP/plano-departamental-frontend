@@ -469,20 +469,22 @@
     </BaseModal>
 
     <!-- MODAL TURMA -->
-    <b-modal
-      id="modalTurma"
-      ref="modalTurma"
-      scrollable
-      title="Edição de Turma"
-      hide-footer
+    <BaseModal
+      ref="modalEditTurma"
+      :modalOptions="{
+        type: 'editTurma',
+        title: 'Edição de Turma',
+      }"
     >
-      <template v-if="turmaClickada !== null">
-        <BodyModalEditTurma
-          :key="turmaClickada.id + 'modalTurma'"
-          :turma="turmaClickada"
-        />
+      <template #modal-body>
+        <template v-if="turmaClickada !== null">
+          <BodyModalEditTurma
+            :key="turmaClickada.id + 'modalTurma'"
+            :turma="turmaClickada"
+          />
+        </template>
       </template>
-    </b-modal>
+    </BaseModal>
 
     <!-- MODAL DELETAR -->
     <BaseModal
@@ -736,7 +738,7 @@ export default {
     },
     handleClickInEdit(turmaClicked) {
       this.turmaClickada = turmaClicked;
-      this.$refs.modalTurma.show();
+      this.$refs.modalEditTurma.open();
     },
     btnOkFiltros() {
       this.tableIsReady = false;
