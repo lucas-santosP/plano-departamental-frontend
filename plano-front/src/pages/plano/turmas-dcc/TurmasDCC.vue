@@ -192,7 +192,7 @@
           </template>
 
           <tr v-show="TurmasOrdered.length === 0">
-            <td style="width:1105px">
+            <td style="width:1115px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
             </td>
