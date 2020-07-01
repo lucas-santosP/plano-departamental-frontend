@@ -265,7 +265,7 @@ export default {
     async editUser() {
       const user = _.clone(this.userForm);
       user.senhaAtual = this.senhaAtual;
-      user.admin = this.$store.state.auth.Usuario.admin
+      user.admin = this.$store.state.auth.Usuario.admin;
 
       if (!this.validateEditUser(user)) {
         this.showNotification({
