@@ -111,7 +111,7 @@
             ></i>
           </th>
           <th
-            title="Engenharia da Computação"
+            title="Engenharia Computacional"
             v-if="activeEC"
             class="clickable"
             style="width: 140px;"
@@ -365,7 +365,7 @@
                 <i :class="setIconByOrder(ordenacaoCursosModal, 'codigo')"></i>
               </th>
               <th
-                class="clickable"
+                class="clickable t-start"
                 style="width: 375px;"
                 @click="toggleOrder(ordenacaoCursosModal, 'nome')"
               >
@@ -456,7 +456,7 @@ const allCursosDCC = [
     codigo: "65C",
   },
   {
-    nome: "ENGENHARIA DA COMPUTAÇÃO",
+    nome: "ENGENHARIA COMPUTACIONAL",
     codigo: "65B",
   },
 ];
@@ -525,7 +525,9 @@ export default {
     };
   },
   mounted() {
-    this.ano = _.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'), 10)}).ano;
+    this.ano = _.find(this.$store.state.plano.Plano, {
+      id: parseInt(localStorage.getItem("Plano"), 10),
+    }).ano;
     this.novoAno = this.ano;
     this.runAll();
     //ativa todos filtros
@@ -568,7 +570,7 @@ export default {
       this.getGrades();
       this.get1Periodo();
       this.get2Periodo();
-      this.disciplinasGrades = Object.assign({}, this.disciplinasGrades)
+      this.disciplinasGrades = Object.assign({}, this.disciplinasGrades);
     },
     getGrades() {
       //popula as grades disponíveis de cada curso em um objeto
@@ -869,7 +871,9 @@ export default {
       return _.orderBy(this.$store.state.horario.Horarios, "horario");
     },
     AnoAtual() {
-      return _.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'), 10)}).ano;
+      return _.find(this.$store.state.plano.Plano, {
+        id: parseInt(localStorage.getItem("Plano"), 10),
+      }).ano;
     },
     activeCCD() {
       return (
