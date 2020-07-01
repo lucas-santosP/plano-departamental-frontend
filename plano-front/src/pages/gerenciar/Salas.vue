@@ -6,7 +6,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -171,39 +171,39 @@
     </div>
 
     <!-- MODAL AJUDA -->
-    <b-modal
-      id="modalAjuda"
-      ref="ajudaModal"
-      scrollable
-      title="Ajuda"
-      hide-footer
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
     >
-      <div class="modal-body">
-        <ul class="listas list-group">
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para adicionar sala: </strong> Com o cartão à direita em
-            branco, preencha-o. Em seguida, clique em Adicionar
+            <b>Para adicionar sala: </b> Com o cartão à direita em branco,
+            preencha-o. Em seguida, clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar uma sala: </strong>Na tabela, clique
-            na sala que deseja alterar. Logo após, no cartão à direita, altere
-            as informações que desejar e clique em Salvar
+            <b>Para editar ou deletar uma sala: </b>Na tabela, clique na sala
+            que deseja alterar. Logo após, no cartão à direita, altere as
+            informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou, para excluí-la, clique em Deletar
             <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à
-            direita, clique em Cancelar
+            <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
+            em Cancelar
             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
         </ul>
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -211,7 +211,13 @@
 import _ from "lodash";
 import salaService from "@/common/services/sala";
 import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
-import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseButton,
+  Card,
+  BaseModal,
+} from "@/components/index.js";
 
 const emptySala = {
   id: undefined,
@@ -228,6 +234,7 @@ export default {
     BaseTable,
     Card,
     BaseButton,
+    BaseModal,
   },
   data() {
     return {

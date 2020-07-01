@@ -6,7 +6,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -161,45 +161,44 @@
       </div>
     </div>
 
-    <!-- MODAL DE AJUDA -->
-    <b-modal
-      id="modalAjuda"
-      ref="ajudaModal"
-      title="Ajuda"
-      scrollable
-      hide-footer
+    <!-- MODAL AJUDA -->
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
     >
-      <div class="modal-body">
-        <ul class="listas list-group">
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para adicionar perfis: </strong> Com o cartão à direita em
-            branco, preencha-o. Em seguida, clique em Adicionar
+            <b>Para adicionar perfis: </b> Com o cartão à direita em branco,
+            preencha-o. Em seguida, clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar um perfil: </strong>Na tabela, clique
-            no perfil que deseja alterar. Logo após, no cartão à direita, altere
-            as informações que desejar e clique em Salvar
+            <b>Para editar ou deletar um perfil: </b>Na tabela, clique no perfil
+            que deseja alterar. Logo após, no cartão à direita, altere as
+            informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou, para excluí-lo, clique em Deletar
             <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à
-            direita, clique em Cancelar
+            <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
+            em Cancelar
             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para alterar a ordenação:</strong> Clique em Nome ou
-            Abreviação no cabeçalho da tabela para ordenação alfabética do
-            mesmo.
+            <b>Para alterar a ordenação:</b> Clique em Nome ou Abreviação no
+            cabeçalho da tabela para ordenação alfabética do mesmo.
           </li>
         </ul>
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -207,7 +206,13 @@
 import _ from "lodash";
 import perfilService from "@/common/services/perfil";
 import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
-import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseButton,
+  Card,
+  BaseModal,
+} from "@/components/index.js";
 
 const emptyPerfil = {
   id: undefined,
@@ -224,6 +229,7 @@ export default {
     BaseTable,
     Card,
     BaseButton,
+    BaseModal,
   },
   data() {
     return {

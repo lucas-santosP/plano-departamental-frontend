@@ -22,6 +22,9 @@ main .main-component {
   padding: 0 !important;
 }
 
+.less-padding {
+  padding: 0 2px !important;
+}
 .form-inline .titulo {
   font-size: 25px;
   font-weight: normal !important;
