@@ -50,7 +50,7 @@
           id="NovoAno"
           type="text"
           v-model="planoForm.ano"
-          style="margin-right: 10px; width: 60px;"
+          style="margin-right: 10px; width: 60px; height:30px"
         ></b-form-input>
       </b-form-group>
       <b-form-group
@@ -63,52 +63,60 @@
           id="ObsNovoPlano"
           type="text"
           v-model="planoForm.obs"
-          style="margin-right: 10px;"
+          style="margin-right: 10px; margin-bottom:15px"
         ></b-form-textarea>
-        <!-- TABLE DISCIPLINAS -->
 
+        <!-- TABLE DISCIPLINAS -->
         <BaseTable :tableType="'modal-table'" :hasSearchBar="true">
           <template #thead-search>
             <input
               type="text"
               class="form-control input-search"
-              placeholder="Pesquise nome ou codigo de um curso..."
-              v-model="searchDisciplinas"
+              placeholder="Pesquise nome ou codigo de uma disciplina..."
+              v-model="searchDisciplinasModal"
             />
-            <button @click="searchDisciplinas = ''" class="btn btn-search">
+            <button
+              @click="searchDisciplinasModal = ''"
+              class="btn btn-search"
+              style="font-weight: bold "
+            >
               <i class="fas fa-times"></i>
             </button>
           </template>
           <template #thead>
             <th style="width: 25px"></th>
             <th
+              title="Código"
               class="t-start clickable"
               style="width: 70px"
-              @click="toggleOrder(ordenacaoModalDisciplinas, 'codigo')"
-              title="Código"
+              @click="toggleOrder(ordenacaoModal.disciplinas, 'codigo')"
             >
               Cód.
               <i
-                :class="setIconByOrder(ordenacaoModalDisciplinas, 'codigo')"
+                :class="setIconByOrder(ordenacaoModal.disciplinas, 'codigo')"
               ></i>
             </th>
             <th
-              class="clickable t-start"
+              class="t-start clickable"
               style="width: 270px"
-              @click="toggleOrder(ordenacaoModalDisciplinas, 'nome')"
+              @click="toggleOrder(ordenacaoModal.disciplinas, 'nome')"
             >
               Nome
-              <i :class="setIconByOrder(ordenacaoModalDisciplinas, 'nome')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoModal.disciplinas, 'nome')"
+              ></i>
             </th>
             <th
-              class="clickable t-start"
+              class="t-start clickable"
               style="width: 85px"
-              @click="toggleOrder(ordenacaoModalDisciplinas, 'perfil_nome')"
+              @click="
+                toggleOrder(ordenacaoModal.disciplinas, 'perfilAbreviacao')
+              "
             >
               Perfil
               <i
                 :class="
-                  setIconByOrder(ordenacaoModalDisciplinas, 'perfil_nome')
+                  setIconByOrder(ordenacaoModal.disciplinas, 'perfilAbreviacao')
                 "
               ></i>
             </th>
@@ -116,24 +124,35 @@
           <template #tbody>
             <tr
               v-for="disciplina in DisciplinasOrderedModal"
-              :key="'disciplina' + disciplina.id"
+              :key="'MdDisciplina' + disciplina.id"
+              @click="
+                toggleItemInArray(
+                  disciplina.id,
+                  disciplinasNovoPlanoSelecionadas
+                )
+              "
             >
               <td style="width: 25px">
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
                   v-model="disciplinasNovoPlanoSelecionadas"
-                  :value="disciplina"
+                  :value="disciplina.id"
                 />
               </td>
               <td style="width: 70px" class="t-start">
                 {{ disciplina.codigo }}
               </td>
-              <td style="width: 280px" class="t-start">
+              <td style="width: 270px" class="t-start">
                 {{ disciplina.nome }}
               </td>
               <td style="width: 85px" class="t-start">
                 {{ disciplina.perfilAbreviacao }}
+              </td>
+            </tr>
+            <tr v-if="DisciplinasOrderedModal.length === 0">
+              <td colspan="3" style="width:450px">
+                NENHUMA DISCIPLINA ENCONTRADA.
               </td>
             </tr>
           </template>
@@ -159,8 +178,12 @@ import TheNavbar from "./TheNavbar.vue";
 import TheSidebar from "./sidebar/TheSidebar.vue";
 import ModalUser from "./modais/ModalUser.vue";
 import ModalDownload from "./modais/ModalDownload.vue";
-import { BaseModal, LoadingPage, BaseTable } from "@/components/index.js";
-import { notification, toggleOrdination } from "@/mixins/index.js";
+import { BaseModal, BaseTable, LoadingPage } from "@/components/index.js";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  notification,
+} from "@/mixins/index.js";
 import planoService from "@/common/services/plano";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
@@ -179,22 +202,25 @@ export default {
     TheNavbar,
     LoadingPage,
     BaseModal,
+    BaseTable,
     ModalUser,
     ModalDownload,
     BaseTable,
   },
-  mixins: [notification, toggleOrdination],
+  mixins: [toggleOrdination, toggleItemInArray, notification],
   data() {
     return {
       hasModalOpen: false,
       sidebarVisibility: false,
       plano: undefined,
       planoForm: _.clone(emptyPlano),
+      searchDisciplinasModal: "",
       disciplinasNovoPlanoSelecionadas: [],
       grades1semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
-      searchDisciplinas: "",
-      ordenacaoModalDisciplinas: { order: "codigo", type: "asc" },
+      ordenacaoModal: {
+        disciplinas: { order: "codigo", type: "asc" },
+      },
       showModal: {
         download: () => {
           this.$refs.modalDownload.openModal();
@@ -837,9 +863,10 @@ export default {
             });
         });
         let turmasCopiar = _.filter(this.$store.state.turma.Turmas, (t) => {
-          let disciplina = _.find(this.disciplinasNovoPlanoSelecionadas, {
-            id: t.Disciplina,
-          });
+          let disciplina = _.includes(
+            this.disciplinasNovoPlanoSelecionadas,
+            t.Disciplina
+          );
           if (disciplina) return true;
           else return false;
         });
@@ -930,6 +957,12 @@ export default {
         //console.log(this.files.filter( function( elm ) {return elm.match(/.*\.(sql)/ig)}))
       });
     },
+    normalizeText(text) {
+      return text
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    },
   },
   computed: {
     year() {
@@ -970,31 +1003,26 @@ export default {
     Perfis() {
       return this.$store.state.perfil.Perfis;
     },
-    DisciplinasFiltredBySearch() {
-      if (this.searchDisciplinas === "") return this.DisciplinasInPerfis;
+    DisciplinasFiltredModal() {
+      if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
 
-      let searchUpperCase = this.searchDisciplinas
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+      const searchNormalized = this.normalizeText(this.searchDisciplinasModal);
 
-      return _.filter(this.DisciplinasInPerfis, (disci) => {
+      return _.filter(this.DisciplinasInPerfis, (disciplina) => {
+        const disciplinaNome = this.normalizeText(disciplina.nome);
+        const disciplinaCodigo = this.normalizeText(disciplina.codigo);
+
         return (
-          disci.nome
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .match(searchUpperCase) ||
-          disci.nome.match(searchUpperCase) ||
-          disci.codigo.match(searchUpperCase)
+          disciplinaNome.match(searchNormalized) ||
+          disciplinaCodigo.match(searchNormalized)
         );
       });
     },
-
     DisciplinasOrderedModal() {
       return _.orderBy(
-        this.DisciplinasFiltredBySearch,
-        this.ordenacaoModalDisciplinas.order,
-        this.ordenacaoModalDisciplinas.type
+        this.DisciplinasFiltredModal,
+        this.ordenacaoModal.disciplinas.order,
+        this.ordenacaoModal.disciplinas.type
       );
     },
   },
