@@ -36,11 +36,11 @@
         v-model="turmaForm.Disciplina"
         @change="handleChangeDisciplina()"
       >
-        <option v-if="Disciplinas.length === 0" type="text" value
+        <option v-if="DisciplinasDCC.length === 0" type="text" value
           >Nenhuma Disciplina Encontrada</option
         >
         <option
-          v-for="disciplina in Disciplinas"
+          v-for="disciplina in DisciplinasDCC"
           :key="'2-' + disciplina.id"
           :value="disciplina.id"
           >{{ disciplina.nome }}</option
@@ -59,7 +59,7 @@
         style="text-transform: uppercase"
         id="turma"
         v-model="turmaForm.letra"
-        @keypress="onlyA_Z"
+        @keypress="onlyA_Z($event), limitLenght($event)"
       />
     </td>
     <td style="width:130px" class="less-padding">
@@ -388,6 +388,9 @@ export default {
       let key = $event.key ? $event.key.toUpperCase() : $event.which;
       if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
+    limitLenght($event) {
+      if ($event.target.value.length >= 3) $event.preventDefault();
+    },
   },
   computed: {
     perfilBackgroundColor() {
@@ -396,7 +399,7 @@ export default {
         : ``;
     },
     currentDisciplina() {
-      let disciplinaFounded = _.find(this.$store.state.disciplina.Disciplinas, {
+      let disciplinaFounded = _.find(this.DisciplinasDCC, {
         id: this.turmaForm.Disciplina,
       });
       if (disciplinaFounded) {
@@ -429,11 +432,14 @@ export default {
     disciplinaIsParcialEAD() {
       return this.currentDisciplina ? this.currentDisciplina.ead === 2 : false;
     },
-    Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
+    DisciplinasDCC() {
+      return _.filter(
+        this.$store.state.disciplina.Disciplinas,
+        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
+      );
     },
     DisciplinasOrederedByCod() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "codigo");
+      return _.orderBy(this.DisciplinasDCC, "codigo");
     },
     Docentes() {
       return _.orderBy(
