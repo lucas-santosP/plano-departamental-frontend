@@ -224,6 +224,7 @@ export default {
   props: { cursosAtivadosLength: Number, default: 0 },
   data() {
     return {
+      error: undefined,
       turmaForm: _.clone(emptyTurma),
       semestre: 1,
     };
@@ -319,7 +320,6 @@ export default {
     },
     addTurma() {
       const turma = _.clone(this.turmaForm);
-
       this.convertEmptyToNull(turma);
       if (!this.validateNewTurma(turma)) {
         this.showNotification({
@@ -330,14 +330,27 @@ export default {
         return;
       }
 
-      const turmasLivres = _.filter(
-        this.$store.state.turma.Turmas,
-        (turma) => turma.Disciplina === null
-      );
-
-      turma.id = turmasLivres[0].id;
-      this.editTurma(turma);
-      this.semestre = turma.periodo;
+      this.turmaForm.Plano = parseInt(localStorage.getItem("Plano"), 10);
+      console.log(this.turmaForm);
+      turmaService
+        .create(this.turmaForm)
+        .then((response) => {
+          this.$store.dispatch("fetchAllPedidos");
+          this.$notify({
+            group: "general",
+            title: `Sucesso!`,
+            text: `A Turma ${response.Turma.letra} foi criada!`,
+            type: "success",
+          });
+        })
+        .catch((error) => {
+          this.error = "<b>Erro ao criar Turma</b>";
+          if (error.response.data.fullMessage) {
+            this.error +=
+              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+          }
+        });
+      this.semestre = this.turmaForm.periodo;
     },
     editTurma(turma) {
       turmaService
