@@ -6,7 +6,7 @@
           title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
-          v-b-modal.modalAjuda
+          @click="$refs.modalAjuda.toggle()"
         >
           <i class="fas fa-question"></i>
         </BaseButton>
@@ -251,37 +251,43 @@
       </div>
     </div>
 
-    <!-- MODAL DE AJUDA -->
-    <b-modal id="modalAjuda" title="Ajuda" scrollable hide-footer>
-      <div class="modal-body">
-        <ul class="listas list-group">
+    <!-- MODAL AJUDA -->
+    <BaseModal
+      ref="modalAjuda"
+      :modalOptions="{
+        type: 'ajuda',
+        title: 'Ajuda',
+      }"
+    >
+      <template #modal-body>
+        <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <strong>Para exibir conteúdo na tabela:</strong> Comece selecionando
-            o curso desejado. Em seguida, selecione a grade que quer visualizar.
+            <b>Para exibir conteúdo na tabela:</b> Comece selecionando o curso
+            desejado. Em seguida, selecione a grade que quer visualizar.
           </li>
           <li class="list-group-item">
-            <strong>Para adicionar disciplinas à Grade:</strong> Com o cartão a
-            direita em branco, preencha-o. Em seguida, clique em Adicionar
+            <b>Para adicionar disciplinas à Grade:</b> Com o cartão a direita em
+            branco, preencha-o. Em seguida, clique em Adicionar
             <i class="fas fa-plus addbtn px-1" style="font-size:12px"></i>.
           </li>
           <li class="list-group-item">
-            <strong>Para editar ou deletar uma disciplina:</strong> Na tabela,
-            clique na disciplina que deseja modificar. Logo após, no cartão à
-            direita, altere as informações que desejar e clique em Salvar
+            <b>Para editar ou deletar uma disciplina:</b> Na tabela, clique na
+            disciplina que deseja modificar. Logo após, no cartão à direita,
+            altere as informações que desejar e clique em Salvar
             <i class="fas fa-check addbtn px-1" style="font-size:12px"></i>
             ou, para excluí-la, clique em Deletar
             <i class="far fa-trash-alt delbtn px-1" style="font-size: 12px"></i>
             .
           </li>
           <li class="list-group-item">
-            <strong>Para deixar o cartão em branco:</strong> No cartão, à
-            direita, clique em Cancelar
+            <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
+            em Cancelar
             <i class="fas fa-times cancelbtn px-1" style="font-size: 12px"></i>
             .
           </li>
         </ul>
-      </div>
-    </b-modal>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -290,7 +296,13 @@ import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
-import { PageTitle, BaseTable, BaseButton, Card } from "@/components/index.js";
+import {
+  PageTitle,
+  BaseTable,
+  BaseButton,
+  BaseModal,
+  Card,
+} from "@/components/index.js";
 
 const emptyGrade = {
   id: undefined,
@@ -311,6 +323,7 @@ export default {
     BaseTable,
     Card,
     BaseButton,
+    BaseModal,
   },
   data() {
     return {
