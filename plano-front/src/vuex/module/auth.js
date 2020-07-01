@@ -19,6 +19,9 @@ const mutations = {
   [SOCKET_USUARIO_UPDATED] (state, data) {
     if(state.Usuario.id === data.Usuario.id){
       state.Usuario = data.Usuario
+      if(data.Usuario.admin === true){
+        state.Usuario.admin = 1
+      }
     }
   },
 
