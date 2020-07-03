@@ -44,6 +44,9 @@ export default {
         el.addEventListener("focus", () => {
           if (el.value == 0) el.value = "";
         });
+        el.addEventListener("blur", () => {
+          if (el.value == "") el.value = 0;
+        });
       },
     },
   },

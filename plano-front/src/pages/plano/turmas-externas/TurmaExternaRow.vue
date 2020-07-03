@@ -44,7 +44,7 @@
       {{ totalCarga }}
     </td>
 
-    <td style="width: 35px;">
+    <td style="width: 45px;">
       <input
         type="text"
         class="input-letra"
@@ -71,12 +71,7 @@
     </td>
 
     <td style="width:85px" class="less-padding">
-      <select
-        type="text"
-        style="margin-bottom: 1px;"
-        id="horario1"
-        v-model="turmaForm.Horario1"
-      >
+      <select type="text" id="horario1" v-model="turmaForm.Horario1">
         <!-- v-on:change="checkHorario(1)" -->
         <option
           v-for="horario in HorariosFiltredByTurno"
@@ -105,7 +100,6 @@
       <template v-if="!disciplinaIsIntegralEAD">
         <select
           type="text"
-          style="margin-bottom: 1px;"
           id="sala1"
           v-model="turmaForm.Sala1"
           v-on:change="checkSala(1)"
@@ -803,32 +797,39 @@ export default {
 .turmarow td {
   margin: 0 !important;
   padding: 0 5px;
-  /* height: 43px !important; */
   vertical-align: middle !important;
   text-align: center;
   word-break: break-word;
 }
-.turmarow tbody tr input[type="checkbox"] {
+
+.turmarow select,
+.turmarow input {
+  font-size: 11px !important;
+  border: 1px solid #525252 !important;
+  color: #414141;
+  border-radius: 0px !important;
+}
+.turmarow select {
+  height: 18px !important;
+  width: 100% !important;
+}
+.turmarow select + select {
+  margin-top: 2px !important;
+}
+.turmarow input[type="checkbox"] {
   width: 14px !important;
   height: 14px !important;
-  text-align: center !important;
   margin: 0;
   margin-top: 5px !important;
-  margin-bottom: auto !important;
+}
+.turmarow .input-letra {
+  margin: 0;
+  margin-top: 4px !important;
+  height: 18px;
+  width: 30px;
+  text-align: center;
 }
 .turmarow .less-padding {
   padding: 0 2px;
-}
-.turmarow select {
-  width: 100% !important;
-  height: 18px;
-}
-.input-letra {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  text-align: center !important;
-  height: 25px !important;
-  width: 20px;
 }
 </style>

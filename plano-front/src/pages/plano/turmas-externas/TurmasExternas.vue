@@ -92,7 +92,7 @@
           <th style="width: 25px;" title="Créditos">
             C.
           </th>
-          <th style="width: 35px" title="Turma">
+          <th style="width: 45px" title="Turma">
             T.
           </th>
           <th style="width: 80px" title="Total de vagas">
@@ -283,7 +283,7 @@
             />
           </template>
           <tr v-if="TurmasExternasOrdered.length === 0">
-            <td style="width:980px">
+            <td style="width:990px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
             </td>
@@ -299,7 +299,6 @@
         title: 'Filtros',
         hasFooter: true,
       }"
-      :hasFooter="true"
       @btn-ok="btnOkFiltros()"
       @select-all="modalSelectAll[tabAtivaModal]"
       @select-none="modalSelectNone[tabAtivaModal]"
@@ -430,7 +429,7 @@
         hasBackground: true,
         hasFooter: true,
       }"
-      :customStyles="'width:400px'"
+      :customStyles="'width:450px'"
     >
       <template #modal-body>
         <p class="w-100 mb-2" style="font-size:14px">
@@ -448,9 +447,9 @@
                   <b> Semestre: </b>{{ turma.periodo }}
                 </span>
                 <span class="mr-1"
-                  ><b> Disciplina: </b>{{ turma.disciplinaNome }} -
-                  <b>{{ turma.letra }}</b>
+                  ><b> Disciplina: </b>{{ turma.disciplinaNome }}
                 </span>
+                <span class="mr-1"><b> Turma: </b> {{ turma.letra }} </span>
               </li>
             </template>
           </ul>
@@ -524,7 +523,6 @@
 <script>
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
-import pedidoExternoService from "@/common/services/pedidoExterno";
 import {
   toggleOrdination,
   toggleItemInArray,
@@ -550,12 +548,6 @@ const emptyTurma = {
   Horario2: null,
   Sala1: null,
   Sala2: null,
-};
-const emptyPedido = {
-  vagasPeriodizadas: 0,
-  vagasNaoPeriodizadas: 0,
-  Curso: undefined,
-  Turma: undefined,
 };
 export default {
   name: "DashboardTurmasExternas",
@@ -736,10 +728,9 @@ export default {
       return true;
     },
     addTurma() {
-
       this.setEmptyKeysToNull(this.turmaForm);
       if (!this.validateTurma(this.turmaForm)) return;
-      this.turmaForm.Plano = localStorage.getItem('Plano')
+      this.turmaForm.Plano = localStorage.getItem("Plano");
 
       console.log(this.turmaForm);
 
@@ -747,7 +738,7 @@ export default {
         .create(this.turmaForm)
         .then((response) => {
           this.semestre = response.Turma.periodo;
-          this.$store.dispatch('fetchAllPedidosExternos')
+          this.$store.dispatch("fetchAllPedidosExternos");
           this.cleanTurmaForm();
 
           this.$notify({
