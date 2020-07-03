@@ -126,9 +126,9 @@ export default {
   height: 18px;
   font-size: 11px;
   text-align: center;
-  color: #414141;
+  color: #414141 !important;
+  border: 1px solid #414141 !important;
   background-color: #e7e7e7;
-  border: 1px solid #525252 !important;
 }
 .turma-pedidos .pedido-empty {
   color: #dadada;
