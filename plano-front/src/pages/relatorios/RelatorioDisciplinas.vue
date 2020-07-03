@@ -411,6 +411,7 @@
 
     <BaseModal
       ref="modalVagas"
+      :classes="'modal-vagas'"
       :modalOptions="{
         type: 'editVagas',
         title: 'Vagas',
@@ -492,7 +493,7 @@
                   ></i>
                 </th>
                 <th
-                  class="clickable t-start less-padding"
+                  class="clickable less-padding"
                   style="width: 55px"
                   @click="
                     toggleOrder(
@@ -910,6 +911,9 @@ export default {
   font-weight: bold;
   font-size: 14px;
   width: 100%;
+}
+.modal-vagas .modal-table tbody tr td {
+  height: 20px !important;
 }
 .vagas-header .input-form {
   display: flex;
