@@ -25,7 +25,15 @@
             <i :class="setIconByOrder(ordenacaoMainUsuarios, 'nome')"></i>
           </th>
           <th
-            style="width: 60px"
+            style="width: 100px"
+            class="t-start clickable"
+            @click="toggleOrder(ordenacaoMainUsuarios, 'login')"
+          >
+            Login
+            <i :class="setIconByOrder(ordenacaoMainUsuarios, 'login')"></i>
+          </th>
+          <th
+            style="width: 65px"
             class="clickable less-padding"
             @click="toggleOrder(ordenacaoMainUsuarios, 'admin', 'desc')"
           >
@@ -36,15 +44,16 @@
         </template>
         <template #tbody>
           <tr
-            v-for="(usuario, index) in UsuariosOrdered"
-            :key="index + usuario.nome"
+            v-for="usuario in UsuariosOrdered"
+            :key="usuario.login + usuario.nome"
           >
             <td style="width: 100px" class="t-start">{{ usuario.nome }}</td>
-            <td style="width: 60px">{{ usuario.admin ? "Sim" : "-" }}</td>
+            <td style="width: 100px" class="t-start">{{ usuario.login }}</td>
+            <td style="width: 65px">{{ usuario.admin ? "Sim" : "-" }}</td>
 
             <td style="width: 50px">
               <button
-                v-if="!isCurrentUser(usuario.id) && !usuario.admin"
+                v-if="!isCurrentUser(usuario.id)"
                 class="btn-table"
                 @click.stop="openModalDeleteUser(usuario)"
               >
@@ -254,11 +263,18 @@ export default {
       return usuariosResultantes;
     },
     UsuariosOrdered() {
-      return _.orderBy(
-        this.Usuarios,
-        this.ordenacaoMainUsuarios.order,
-        this.ordenacaoMainUsuarios.type
-      );
+      const { order, type } = this.ordenacaoMainUsuarios;
+      const usuarioSorter = (usuario) => {
+        switch (order) {
+          case "nome":
+          case "login":
+            return usuario[order].toLowerCase();
+          default:
+            return usuario[order];
+        }
+      };
+
+      return _.orderBy(this.Usuarios, usuarioSorter, type);
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
