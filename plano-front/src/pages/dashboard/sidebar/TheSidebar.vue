@@ -1,38 +1,49 @@
 <template>
-  <nav class="sidebar bg-light col" @click.stop="">
-    <SidebarMenu :menuPages="linkDashboard" />
+  <transition
+    enter-active-class="animated animate__slideInLeft sidebar-animation"
+    leave-active-class="animated animate__slideOutLeft sidebar-animation"
+    mode="out-in"
+  >
+    <nav v-show="visibility" class="sidebar bg-light col" @click.stop="">
+      <SidebarMenu :menuPages="linkDashboard" />
 
-    <SidebarMenu
-      v-if="Admin"
-      :menuTitle="'Plano'"
-      :menuPages="linksPlanoOrdered"
-    >
-      <template #aside-title>
-        <div class="aside-title d-flex align-items-center">
-          <i class="far fa-calendar-alt mr-1"></i>
+      <SidebarMenu
+        v-if="Admin"
+        :menuTitle="'Plano'"
+        :menuPages="linksPlanoOrdered"
+      >
+        <template #aside-title>
+          <div class="aside-title d-flex align-items-center">
+            <i class="far fa-calendar-alt mr-1"></i>
             <select type="text" v-model="Plano" v-on:change="changePlano()">
-                <option v-for="plano in Planos" :value="plano.id" :key="plano.id">{{plano.ano}}</option>
+              <option
+                v-for="plano in Planos"
+                :value="plano.id"
+                :key="plano.id"
+                >{{ plano.ano }}</option
+              >
             </select>
-        </div>
-      </template>
-    </SidebarMenu>
+          </div>
+        </template>
+      </SidebarMenu>
 
-    <SidebarMenu
-      :menuTitle="'Relatórios'"
-      :menuPages="linksRelatoriosOrdered"
-    />
-    <SidebarMenu
-      v-if="Admin"
-      :menuTitle="'Gerenciar'"
-      :menuPages="linksGerenciarOrdered"
-    />
-  </nav>
+      <SidebarMenu
+        :menuTitle="'Relatórios'"
+        :menuPages="linksRelatoriosOrdered"
+      />
+      <SidebarMenu
+        v-if="Admin"
+        :menuTitle="'Gerenciar'"
+        :menuPages="linksGerenciarOrdered"
+      />
+    </nav>
+  </transition>
 </template>
 
 <script>
 import _ from "lodash";
 import SidebarMenu from "./SidebarMenu.vue";
-
+import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
 export default {
   name: "TheSidebar",
   components: {
@@ -40,6 +51,7 @@ export default {
   },
   props: {
     year: Number,
+    visibility: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -121,24 +133,25 @@ export default {
       ],
     };
   },
-  created: function() {
-    this.Plano = parseInt(localStorage.getItem('Plano'), 10)
+  created() {
+    this.Plano = parseInt(localStorage.getItem("Plano"), 10);
   },
 
   methods: {
-    changePlano(){
-      localStorage.setItem('Plano', this.Plano)
-      this.$store
-              .dispatch("fetchAll")
-              .then(() => {
-                this.$socket.open();
-                this.$store.commit(COMPONENT_LOADED);
-              })
-              .catch((response) => {
-                console.log("ERRORRR");
-                console.log(response);
-              });
-    }
+    async changePlano() {
+      try {
+        this.$store.commit(COMPONENT_LOADING);
+
+        setTimeout(async () => {
+          await localStorage.setItem("Plano", this.Plano);
+          await this.$store.dispatch("fetchAll");
+          this.$socket.open();
+          this.$store.commit(COMPONENT_LOADED);
+        }, 300);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   computed: {
@@ -155,15 +168,11 @@ export default {
     },
 
     Planos() {
-      return _.orderBy(this.$store.state.plano.Plano, 'ano')
+      return _.orderBy(this.$store.state.plano.Plano, "ano");
     },
 
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };
@@ -203,8 +212,6 @@ nav.sidebar .aside-title {
 }
 nav.sidebar .nav li {
   color: #333;
-  border-top: rgb(248, 249, 250) solid 0.1px;
-  border-bottom: rgb(248, 249, 250) solid 0.1px;
   transition: all 100ms ease;
 }
 nav.sidebar .nav li .nav-link {
@@ -214,15 +221,25 @@ nav.sidebar .nav li .nav-link {
   height: 30px;
   padding: 5px;
   padding-left: 8px;
+  transition: all 100ms ease;
 }
-nav.sidebar .nav li:hover {
+nav.sidebar .nav li .nav-link:focus {
+  transition: border 100ms ease;
+  box-shadow: none !important;
+  border-color: var(--light-blue) !important;
+  border-left: var(--light-blue) 10px solid !important;
+  outline: var(--light-blue) solid 1px !important;
+  outline-offset: -1px !important;
+}
+nav.sidebar .nav li .nav-link:hover {
   background-color: #0079fa;
   color: #fff !important;
 }
+
 nav.sidebar .nav li .nav-link.active {
   background-color: #0055af;
+  border-left: var(--light-blue) 10px solid;
   color: white;
-  border-left: #0079fa 10px solid;
 }
 nav.sidebar .nav li .nav-link .icon-nav-link {
   color: inherit;
@@ -241,5 +258,13 @@ nav.sidebar.sidebar::-webkit-scrollbar {
 }
 nav.sidebar.sidebar::-webkit-scrollbar-thumb {
   background: #666 !important;
+}
+.sidebar-animation {
+  animation-duration: 0.25s;
+  animation-fill-mode: both;
+}
+.routerview-animation {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
 }
 </style>

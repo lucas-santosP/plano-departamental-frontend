@@ -17,11 +17,11 @@
 
     <ul class="navbar-nav">
       <li
-              v-if="Admin"
-              class="nav-link"
-              v-on:click="$emit('show-modal', 'novoPlano')"
+        v-if="Admin"
+        class="nav-link"
+        v-on:click="$emit('show-modal', 'novoPlano')"
       >
-        <i class="fas fa-user"></i>
+        <i class="fas fa-graduation-cap"></i>
         <span>Novo Plano</span>
       </li>
 

@@ -149,26 +149,26 @@
 
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
-                <label for="alunosEntrada" class="col-form-label"
+                <label for="alunosEntrada1" class="col-form-label"
                   >Alunos 1º Sem.</label
                 >
                 <input
                   type="text"
                   class="form-control form-control-sm input-menor"
-                  id="alunosEnrada"
+                  id="alunosEnrada1"
                   @keypress="onlyNumber"
                   v-model="cursoForm.alunosEntrada"
                 />
               </div>
 
               <div class="form-group col m-0 px-0">
-                <label for="alunosEntrada" class="col-form-label"
+                <label for="alunosEntrada2" class="col-form-label"
                   >Alunos 2º Sem.</label
                 >
                 <input
                   type="text"
                   class="form-control form-control-sm input-menor"
-                  id="alunosEnrada"
+                  id="alunosEntrada2"
                   @keypress="onlyNumber"
                   v-model="cursoForm.alunosEntrada2"
                 />
