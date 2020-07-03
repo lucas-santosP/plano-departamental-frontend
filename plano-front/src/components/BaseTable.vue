@@ -100,10 +100,10 @@ export default {
   position: relative !important;
   border-width: 1px !important ;
   margin-left: 0 !important;
-  margin-top: 4px !important;
+  margin-top: 4.2px !important;
   margin-bottom: auto !important;
-  height: 13px !important;
-  width: 13px !important;
+  height: 12px !important;
+  width: 12px !important;
   -webkit-box-shadow: 0px 0px 0px 0.005px #555;
   -moz-box-shadow: 0px 0px 0px 0.005px #555;
   box-shadow: 0px 0px 0px 0.005px #555;

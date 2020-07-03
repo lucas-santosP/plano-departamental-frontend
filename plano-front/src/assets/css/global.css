@@ -15,6 +15,13 @@
   -webkit-box-shadow: 0 0 0 0.2rem #007bff40 !important;
   box-shadow: 0 0 0 0.2rem #007bff40 !important;
 }
+input[type="checkbox"]:focus {
+  border-color: #80bdff !important;
+  outline: 0 !important;
+  -webkit-box-shadow: 0 0 0 0.1rem #007bff40 !important;
+  box-shadow: 0 0 0 0.1rem #007bff40 !important;
+}
+
 main .main-component {
   width: 100%;
   overflow: hidden !important;

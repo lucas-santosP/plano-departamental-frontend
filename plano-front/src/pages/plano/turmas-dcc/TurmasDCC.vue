@@ -212,10 +212,6 @@
         title: 'Filtros',
         hasFooter: true,
       }"
-      :hasFooter="true"
-      @btn-ok="btnOkFiltros()"
-      @select-all="modalSelectAll[tabAtivaModal]"
-      @select-none="modalSelectNone[tabAtivaModal]"
     >
       <template #modal-body>
         <NavTab
@@ -226,11 +222,11 @@
 
         <div class="div-table">
           <BaseTable
-            :tableType="'modal-table'"
             v-show="tabAtivaModal === 'Perfis'"
+            :tableType="'modal-table'"
           >
             <template #thead>
-              <th style="width: 25px;"></th>
+              <th style="width:25px"></th>
               <th
                 @click="toggleOrder(ordenacaoModal.perfis, 'nome')"
                 class="clickable t-start"
@@ -281,8 +277,8 @@
                 <i class="fas fa-times"></i>
               </button>
             </template>
-            <template #thead>
-              <th style="width: 25px"></th>
+            <template #thead
+              ><th style="width:25px"></th>
               <th
                 title="Código"
                 class="t-start clickable"
@@ -378,8 +374,8 @@
                 <i class="fas fa-times"></i>
               </button>
             </template>
-            <template #thead>
-              <th style="width: 25px;"></th>
+            <template #thead
+              ><th style="width:25px"></th>
               <th
                 @click="toggleOrder(ordenacaoModal.cursos, 'codigo')"
                 class="clickable t-start"
@@ -464,6 +460,41 @@
             </template>
           </BaseTable>
         </div>
+      </template>
+
+      <template #modal-footer>
+        <div class="w-100">
+          <BaseButton
+            type="text"
+            color="lightblue"
+            @click="modalSelectAll[tabAtivaModal]()"
+          >
+            Selecionar Todos
+          </BaseButton>
+          <BaseButton
+            type="text"
+            color="gray"
+            @click="modalSelectNone[tabAtivaModal]()"
+          >
+            Desmarcar Todos
+          </BaseButton>
+          <BaseButton
+            v-if="tabAtivaModal === 'Cursos'"
+            type="text"
+            color="gray"
+            @click="selectCursosDCC()"
+          >
+            Selecionar cursos DCC
+          </BaseButton>
+        </div>
+        <BaseButton
+          class="px-4"
+          type="text"
+          color="green"
+          @click="btnOkFiltros()"
+        >
+          OK
+        </BaseButton>
       </template>
     </BaseModal>
 
@@ -759,6 +790,9 @@ export default {
         }, 500);
       });
     },
+    selectCursosDCC() {
+      this.filtroCursos.selecionados = [...this.CursosDCC];
+    },
     clearSearch(searchName) {
       this[searchName] = "";
     },
@@ -878,6 +912,16 @@ export default {
     },
   },
   computed: {
+    CursosDCC() {
+      const cursosResultantes = [];
+      cursosResultantes.push(
+        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO NOTURNO"]),
+        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO DIURNO"]),
+        _.find(this.Cursos, ["nome", "SISTEMAS DE INFORMAÇÃO"]),
+        _.find(this.Cursos, ["nome", "ENGENHARIA COMPUTACIONAL"])
+      );
+      return cursosResultantes;
+    },
     TurmasOrdered() {
       let turmasResult = _.orderBy(
         this.TurmasFiltredByDisciplinas,

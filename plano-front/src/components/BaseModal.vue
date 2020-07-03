@@ -26,25 +26,16 @@
       <footer v-if="modalOptions.hasFooter" class="modal-custom-footer w-100">
         <slot name="modal-footer">
           <div class="w-100">
-            <button
-              class="btn btn-custom btn-modal btn-azul"
-              @click="emitSelectAll()"
-            >
+            <BaseButton type="text" color="lightblue" @click="emitSelectAll()">
               Selecionar Todos
-            </button>
-            <button
-              class="btn btn-custom btn-modal btn-cinza"
-              @click="emitSelectNone()"
-            >
+            </BaseButton>
+            <BaseButton type="text" color="gray" @click="emitSelectNone()">
               Desmarcar Todos
-            </button>
+            </BaseButton>
           </div>
-          <button
-            @click="emitOk()"
-            class="btn btn-modal btn-verde btn-ok-modal"
-          >
+          <BaseButton class="px-4" type="text" color="green" @click="emitOk()">
             OK
-          </button>
+          </BaseButton>
         </slot>
       </footer>
     </div>
@@ -53,9 +44,10 @@
 
 <script>
 import { EventBus } from "@/event-bus.js";
-
+import { BaseButton } from "@/components/index.js";
 export default {
   name: "BaseModal",
+  components: { BaseButton },
   props: {
     modalOptions: {
       type: Object,
