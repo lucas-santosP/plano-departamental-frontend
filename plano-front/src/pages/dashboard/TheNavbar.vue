@@ -84,7 +84,7 @@ export default {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 800;
+  z-index: 945;
 }
 .brand {
   width: max-content;
@@ -105,9 +105,6 @@ export default {
   padding: 0;
   cursor: pointer;
   background-color: #00000040;
-  -webkit-box-shadow: inset -1px 0 0 #00000040;
-  -moz-box-shadow: inset -1px 0 0 #00000040;
-  box-shadow: inset -1px 0 0 #00000040;
 }
 .brand .navbar-brand .brand-title {
   text-decoration: none;
@@ -130,7 +127,11 @@ export default {
   background-color: #00000040 !important;
   font-size: 20px !important;
 }
-.brand .btn-navbar i.fas {
+.brand .btn-navbar:focus,
+.brand .navbar-brand .brand-title:focus {
+  box-shadow: none !important;
+}
+.brand .btn-navbar i {
   font-size: 20px !important;
 }
 
