@@ -57,10 +57,13 @@
 
 <script>
 import { EventBus } from "@/event-bus.js";
-import { BaseButton } from "@/components/index.js";
+import BaseButton from "./BaseButton.vue";
+
 export default {
   name: "BaseModal",
-  components: { BaseButton },
+  components: {
+    BaseButton,
+  },
   props: {
     modalOptions: {
       type: Object,

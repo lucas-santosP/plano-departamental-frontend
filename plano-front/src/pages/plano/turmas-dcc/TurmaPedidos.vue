@@ -3,18 +3,18 @@
     <input
       type="text"
       :class="{ 'pedido-empty': pedidoForm.vagasPeriodizadas == 0 }"
-      v-focus-pedido
       v-model.number="pedidoForm.vagasPeriodizadas"
-      @keypress="onlyNumber()"
+      v-focus-pedido
+      @keypress="onlyNumber"
       @change="editPedido(pedido)"
     />
 
     <input
       type="text"
       :class="{ 'pedido-empty': pedidoForm.vagasNaoPeriodizadas == 0 }"
-      v-focus-pedido
       v-model.number="pedidoForm.vagasNaoPeriodizadas"
-      @keypress="onlyNumber()"
+      v-focus-pedido
+      @keypress="onlyNumber"
       @change="editPedido(pedido)"
     />
   </div>
@@ -74,7 +74,6 @@ export default {
     async editPedido() {
       const pedido = _.clone(this.pedidoForm);
       this.validatePedido(pedido);
-      console.log(pedido);
 
       try {
         const responde = await pedidoService.update(

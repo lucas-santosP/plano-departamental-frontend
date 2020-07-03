@@ -128,7 +128,7 @@
       </template>
     </td>
 
-    <td style="width: 40px;">
+    <td style="width: 40px;" class="p-0">
       <div style="height: 43px;" class="py-1">
         <span style="font-weight:bold">
           {{ totalPedidosNaoPeriodizados + totalPedidosPeriodizados }}</span
