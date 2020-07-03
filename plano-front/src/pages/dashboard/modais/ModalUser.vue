@@ -197,7 +197,7 @@ export default {
     this.clearAllForm();
   },
   methods: {
-    openModal() {
+    open() {
       this.$refs.baseModalUser.open();
     },
     changeTab(newTab) {

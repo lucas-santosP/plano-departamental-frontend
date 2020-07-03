@@ -19,7 +19,7 @@ export default {
     buttonClasses() {
       const { type, color } = this;
 
-      if (type === "icon" || type === "modal")
+      if (type === "icon" || type === "text")
         return `btn-${type} ${type}-${color}`;
       else return "";
     },
@@ -38,16 +38,8 @@ export default {
   text-align: center;
   transition: all 200ms ease;
 }
-.base-btn:focus {
-  outline: 0 !important;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.4) !important;
-  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.4) !important;
-}
 
 /* ### types ### */
-.btn-icon:hover {
-  background-color: rgb(238, 238, 238) !important;
-}
 .btn-icon {
   width: 32px !important;
   height: 30px;
@@ -65,24 +57,29 @@ export default {
   background: none !important;
   box-shadow: none !important; */
 }
-
 .base-btn.btn-icon i {
   font-size: 16px !important;
 }
-.btn-modal {
+.btn-icon:focus {
+  outline: 0 !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.4) !important;
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.4) !important;
+}
+.btn-icon:hover {
+  background-color: rgb(238, 238, 238) !important;
+}
+/*  */
+.btn-text {
   height: 25px !important;
   width: max-content !important;
-  padding: 0 5px;
+  padding: 0 10px;
   border-radius: 0.25rem !important;
   border: none !important;
   font-size: 12px !important;
   color: white !important;
+  word-break: keep-all !important;
 }
-.btn-modal.extra-padding {
-  padding-right: 20px !important;
-  padding-left: 20px !important;
-}
-.btn-modal + .btn-modal {
+.btn-text + .btn-text {
   margin-left: 10px !important;
 }
 
@@ -116,32 +113,32 @@ export default {
   color: #ff5f48 !important;
 }
 
-/* ### modal-cores ### */
-.modal-red {
-  background-color: #df4139;
+/* ### text-cores ### */
+.text-green {
+  background-color: #70b670 !important;
 }
-.modal-red:hover {
-  background-color: #c73129;
+.text-green:hover {
+  background-color: #4c8a4c !important;
 }
 
-.modal-lightblue {
+.text-lightblue {
   background-color: #718de0 !important;
 }
-.modal-lightblue:hover {
+.text-lightblue:hover {
   background-color: rgb(74, 101, 190) !important;
 }
 
-.modal-cinza {
+.text-gray {
   background-color: #999999 !important;
 }
-.modal-cinza:hover {
+.text-gray:hover {
   background-color: #747474 !important;
 }
 
-.modal-verde {
-  background-color: #70b670 !important;
+.text-red {
+  background-color: #df4139;
 }
-.modal-verde:hover {
-  background-color: #4c8a4c !important;
+.text-red:hover {
+  background-color: #c73129;
 }
 </style>

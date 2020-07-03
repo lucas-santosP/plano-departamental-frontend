@@ -184,7 +184,7 @@ export default {
         case "fromNavbar":
           return "fromNavbar";
         default:
-          return position;
+          return position === "centerNavbar" ? "fromNavbar" : position;
       }
     },
   },
