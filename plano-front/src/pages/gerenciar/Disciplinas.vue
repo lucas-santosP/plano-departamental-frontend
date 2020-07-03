@@ -19,23 +19,46 @@
           <template #thead>
             <th
               style="width: 82px; text-align:start"
-              @click="toggleOrder(ordenacaoDisciplinasMain, 'codigo')"
+              @click="toggleOrder(ordenacaoMain.disciplinas, 'codigo')"
               class="clickable"
               title="Clique para ordenar por código"
             >
               Código
               <i
-                :class="setIconByOrder(ordenacaoDisciplinasMain, 'codigo')"
+                :class="setIconByOrder(ordenacaoMain.disciplinas, 'codigo')"
               ></i>
             </th>
             <th
-              @click="toggleOrder(ordenacaoDisciplinasMain, 'nome')"
+              @click="toggleOrder(ordenacaoMain.disciplinas, 'nome')"
               style="width: 300px; text-align:start"
               class="clickable"
               title="Clique para ordenar por nome"
             >
               Nome
-              <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'nome')"></i>
+              <i :class="setIconByOrder(ordenacaoMain.disciplinas, 'nome')"></i>
+            </th>
+            <th
+              style="width: 80px"
+              class="clickable t-start"
+              @click="toggleOrder(ordenacaoMain.perfis, setFixedOrderPerfil)"
+            >
+              <div class="d-flex justify-content-between align-items-center">
+                <i
+                  class="fas fa-thumbtack"
+                  :class="
+                    ordenacaoMain.perfis.order === null ? 'low-opacity' : ''
+                  "
+                ></i>
+                <span>
+                  Perfil
+                </span>
+
+                <i
+                  :class="
+                    setIconByOrder(ordenacaoMain.perfis, 'perfilAbreviacao')
+                  "
+                ></i>
+              </div>
             </th>
             <th style="width: 40px" title="Carga Teórica">
               C.T.
@@ -43,34 +66,27 @@
             <th style="width: 40px" title="Carga Prática">
               C.P.
             </th>
-            <th
-              style="width: 230px"
-              class="clickable t-start"
-              @click="toggleOrder(ordenacaoDisciplinasMain, 'perfil_nome')"
-            >
-              Perfil
-              <i
-                :class="setIconByOrder(ordenacaoDisciplinasMain, 'perfil_nome')"
-              ></i>
-            </th>
+
             <th
               style="width: 70px"
               class="clickable"
-              @click="toggleOrder(ordenacaoDisciplinasMain, 'ead', 'desc')"
+              @click="toggleOrder(ordenacaoMain.disciplinas, 'ead', 'desc')"
             >
               EAD
-              <i :class="setIconByOrder(ordenacaoDisciplinasMain, 'ead')"></i>
+              <i :class="setIconByOrder(ordenacaoMain.disciplinas, 'ead')"></i>
             </th>
             <th
               style="width: 70px"
               class="clickable"
               @click="
-                toggleOrder(ordenacaoDisciplinasMain, 'laboratorio', 'desc')
+                toggleOrder(ordenacaoMain.disciplinas, 'laboratorio', 'desc')
               "
             >
               Lab
               <i
-                :class="setIconByOrder(ordenacaoDisciplinasMain, 'laboratorio')"
+                :class="
+                  setIconByOrder(ordenacaoMain.disciplinas, 'laboratorio')
+                "
               ></i>
             </th>
           </template>
@@ -90,6 +106,9 @@
                 <td style="width: 300px" class="t-start">
                   {{ disciplina.nome }}
                 </td>
+                <td style="width: 80px" class="t-start">
+                  {{ disciplina.perfilAbreviacao }}
+                </td>
                 <td style="width: 40px">
                   {{ disciplina.cargaTeorica }}
                 </td>
@@ -97,9 +116,6 @@
                   {{ disciplina.cargaPratica }}
                 </td>
 
-                <td style="width: 230px" class="t-start">
-                  {{ disciplina.perfil_nome }}
-                </td>
                 <td style="width: 70px">
                   {{ textoEad(disciplina.ead) }}
                 </td>
@@ -347,7 +363,10 @@ export default {
       disciplinaForm: _.clone(emptyDisciplina),
       error: undefined,
       disciplinaClickada: "",
-      ordenacaoDisciplinasMain: { order: "codigo", type: "asc" },
+      ordenacaoMain: {
+        disciplinas: { order: "codigo", type: "asc" },
+        perfis: { order: null, type: "asc" },
+      },
     };
   },
   methods: {
@@ -476,39 +495,46 @@ export default {
   },
   computed: {
     DisciplinasComPerfil() {
-      let disciplinasResultante = this.$store.state.disciplina.Disciplinas;
-      disciplinasResultante.forEach((disciplina) => {
+      let disciplinasResultantes = this.$store.state.disciplina.Disciplinas;
+
+      disciplinasResultantes.forEach((disciplina) => {
         _.find(this.Perfis, (perfil) => {
           if (perfil.id === disciplina.Perfil) {
-            disciplina.perfil_nome = perfil.nome;
+            disciplina.perfilAbreviacao = perfil.abreviacao;
             return true;
           }
         });
       });
-      return disciplinasResultante;
+      return disciplinasResultantes;
     },
     DisciplinasOrdered() {
-      return _.orderBy(
+      const disciplinasResultantes = _.orderBy(
         this.DisciplinasComPerfil,
-        this.ordenacaoDisciplinasMain.order,
-        this.ordenacaoDisciplinasMain.type
+        this.ordenacaoMain.disciplinas.order,
+        this.ordenacaoMain.disciplinas.type
       );
-    },
 
+      if (this.ordenacaoMain.perfis.order !== null) {
+        return _.orderBy(
+          disciplinasResultantes,
+          this.ordenacaoMain.perfis.order,
+          this.ordenacaoMain.perfis.type
+        );
+      }
+      return disciplinasResultantes;
+    },
+    setFixedOrderPerfil() {
+      if (this.ordenacaoMain.perfis.type === "desc") return null;
+      else return "perfilAbreviacao";
+    },
     Perfis() {
       return this.$store.state.perfil.Perfis;
     },
-
     isEdit() {
       return this.disciplinaForm.id !== undefined;
     },
-
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };
