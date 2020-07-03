@@ -8,9 +8,8 @@
       <SidebarMenu :menuPages="linkDashboard" />
 
       <SidebarMenu
-        v-if="Admin"
         :menuTitle="'Plano'"
-        :menuPages="linksPlanoOrdered"
+        :menuPages="Admin ? linksPlanoOrdered : []"
       >
         <template #aside-title>
           <div class="aside-title d-flex align-items-center">
@@ -26,6 +25,25 @@
           </div>
         </template>
       </SidebarMenu>
+
+      <!-- <div class="sidebar-menu">
+        <h3
+          class="title pr-3 pl-2 mt-3 mb-0 text-muted d-flex justify-content-between align-items-center"
+        >
+          Plano
+          <div class="aside-title d-flex align-items-center">
+            <i class="far fa-calendar-alt mr-1"></i>
+            <select type="text" v-model="Plano" v-on:change="changePlano()">
+              <option
+                v-for="plano in Planos"
+                :value="plano.id"
+                :key="plano.id"
+                >{{ plano.ano }}</option
+              >
+            </select>
+          </div>
+        </h3>
+      </div> -->
 
       <SidebarMenu
         :menuTitle="'Relatórios'"
@@ -202,50 +220,10 @@ nav.sidebar {
 nav.sidebar .sidebar-menu:last-of-type {
   margin-bottom: 2rem;
 }
-nav.sidebar .title {
+.sidebar-menu .title {
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
-}
-nav.sidebar .aside-title {
-  color: var(--light-blue);
-}
-nav.sidebar .nav li {
-  color: #333;
-  transition: all 100ms ease;
-}
-nav.sidebar .nav li .nav-link {
-  color: inherit;
-  font-weight: 500;
-  font-size: 12px;
-  height: 30px;
-  padding: 5px;
-  padding-left: 8px;
-  transition: all 100ms ease;
-}
-nav.sidebar .nav li .nav-link:focus {
-  transition: border 100ms ease;
-  box-shadow: none !important;
-  border-color: var(--light-blue) !important;
-  border-left: var(--light-blue) 10px solid !important;
-  outline: var(--light-blue) solid 1px !important;
-  outline-offset: -1px !important;
-}
-nav.sidebar .nav li .nav-link:hover {
-  background-color: #0079fa;
-  color: #fff !important;
-}
-
-nav.sidebar .nav li .nav-link.active {
-  background-color: #0055af;
-  border-left: var(--light-blue) 10px solid;
-  color: white;
-}
-nav.sidebar .nav li .nav-link .icon-nav-link {
-  color: inherit;
-  width: 18px !important;
-  height: 18px !important;
-  text-align: start;
 }
 
 /* SCROLL BAR CUSTOM */
