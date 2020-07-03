@@ -26,14 +26,27 @@
       <footer v-if="modalOptions.hasFooter" class="modal-custom-footer w-100">
         <slot name="modal-footer">
           <div class="w-100">
-            <BaseButton type="text" color="lightblue" @click="emitSelectAll()">
+            <BaseButton
+              :type="'text'"
+              :color="'lightblue'"
+              @click="emitSelectAll()"
+            >
               Selecionar Todos
             </BaseButton>
-            <BaseButton type="text" color="gray" @click="emitSelectNone()">
+            <BaseButton
+              :type="'text'"
+              :color="'gray'"
+              @click="emitSelectNone()"
+            >
               Desmarcar Todos
             </BaseButton>
           </div>
-          <BaseButton class="px-4" type="text" color="green" @click="emitOk()">
+          <BaseButton
+            class="px-4"
+            :type="'text'"
+            :color="'green'"
+            @click="emitOk()"
+          >
             OK
           </BaseButton>
         </slot>
