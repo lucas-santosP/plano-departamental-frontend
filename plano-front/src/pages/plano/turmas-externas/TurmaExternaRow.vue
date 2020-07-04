@@ -49,7 +49,8 @@
         type="text"
         class="input-letra"
         v-model="turmaForm.letra"
-        v-on:blur="editTurma(turmaForm)"
+        @keypress="onlyA_Z($event), limitLenght($event)"
+        @blur="editTurma(turmaForm)"
       />
     </td>
 
@@ -188,6 +189,13 @@ export default {
   },
 
   methods: {
+    limitLenght($event) {
+      if ($event.target.value.length >= 3) $event.preventDefault();
+    },
+    onlyA_Z($event) {
+      let key = $event.key ? $event.key : $event.which;
+      if (!key.match(/[A-Z]/i)) $event.preventDefault();
+    },
     isEmpty(value) {
       return value === "" || value === undefined ? true : false;
     },
@@ -241,11 +249,9 @@ export default {
           }
         });
     },
-
     checkDelete(turma) {
       this.$store.commit("checkDeleteExterno", { Turma: turma });
     },
-
     editPedido(pedido) {
       pedidoExternoService
         .update(pedido.Curso, pedido.Turma, pedido)
@@ -265,7 +271,6 @@ export default {
           }
         });
     },
-
     checkHorario(horario) {
       if (!this.checkHorarioSala(horario)) this.editTurma(this.turmaForm);
       else {
@@ -273,7 +278,6 @@ export default {
         else this.turmaForm.Horario2 = this.currentData.Horario2;
       }
     },
-
     checkSala(sala) {
       if (!this.checkHorarioSala(sala)) this.editTurma(this.turmaForm);
       else {
@@ -281,7 +285,6 @@ export default {
         else this.turmaForm.Sala2 = this.currentData.Sala2;
       }
     },
-
     checkHorarioSala(horario) {
       let horarios1618 = [4, 10, 16, 22, 28];
       let horarios1719 = [32, 34, 36, 38, 40];
@@ -352,7 +355,6 @@ export default {
       }
       return false;
     },
-
     notifyHorarioSala(horario, sala) {
       let h =
         horario === 1
@@ -377,7 +379,6 @@ export default {
         type: "error",
       });
     },
-
     checkHorarioSala1618(horario, sala) {
       let conflitos = _.filter(
         _.concat(
@@ -437,7 +438,6 @@ export default {
       }
       return false;
     },
-
     checkHorarioSala1719(horario, sala) {
       let conflitos = _.filter(
         _.concat(
@@ -501,7 +501,6 @@ export default {
       }
       return false;
     },
-
     checkHorarioSala1820(horario, sala) {
       let conflitos = _.filter(
         _.concat(
@@ -565,7 +564,6 @@ export default {
       }
       return false;
     },
-
     checkHorarioSala1921(horario, sala) {
       let conflitos = _.filter(
         _.concat(
@@ -625,7 +623,6 @@ export default {
       }
       return false;
     },
-
     checkHorarioSalaGeral(horario, sala) {
       let conflitos = _.filter(
         _.concat(

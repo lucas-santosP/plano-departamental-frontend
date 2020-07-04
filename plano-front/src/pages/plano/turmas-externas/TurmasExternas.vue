@@ -189,12 +189,13 @@
                 }}</template>
               </template>
             </td>
-            <td style="width: 35px;">
+            <td style="width: 45px;">
               <input
                 type="text"
                 class="input-letra"
                 id="turma"
                 v-model="turmaForm.letra"
+                @keypress="onlyA_Z($event), limitLenght($event)"
               />
             </td>
             <td style="width: 80px;">
@@ -212,7 +213,6 @@
             <td style="width: 85px;" class="less-padding">
               <select
                 type="text"
-                style="margin-bottom: 1px;"
                 id="horario1"
                 v-model="turmaForm.Horario1"
                 v-on:change="adjustTurno1"
@@ -239,12 +239,7 @@
               </select>
             </td>
             <td style="width: 95px;" class="less-padding">
-              <select
-                type="text"
-                style="margin-bottom: 1px"
-                id="sala1"
-                v-model="turmaForm.Sala1"
-              >
+              <select type="text" id="sala1" v-model="turmaForm.Sala1">
                 <option
                   v-for="sala in SalasOrdered"
                   :key="'1-sala-id' + sala.id"
@@ -600,9 +595,8 @@ export default {
     };
   },
   mounted() {
-    // this.$store.commit('emptyDelete')
-    // console.log(this.$store.state.turma.Deletar)
-    // this.$store.commit(COMPONENT_LOADED)
+    this.$store.commit("emptyDeleteExterno");
+    console.log(this.$store.state.turma.Deletar);
   },
 
   methods: {
@@ -706,6 +700,13 @@ export default {
         this.deleteTurma(this.Deletar[i]);
       }
       this.$store.commit("emptyDeleteExterno");
+    },
+    limitLenght($event) {
+      if ($event.target.value.length >= 3) $event.preventDefault();
+    },
+    onlyA_Z($event) {
+      let key = $event.key ? $event.key : $event.which;
+      if (!key.match(/[A-Z]/i)) $event.preventDefault();
     },
     isEmpty(value) {
       return value === "" || value === undefined ? true : false;
@@ -921,18 +922,49 @@ export default {
 .novaturma .less-padding {
   padding: 0 2px;
 }
-.novaturma .input-letra {
-  margin-left: 0 !important;
-  margin-top: 4px !important;
-  margin-bottom: auto !important;
-  height: 25px !important;
-  width: 20px;
-  text-align: center !important;
+/*  */
+/*  */
+.novaturma td {
+  margin: 0 !important;
+  padding: 0 5px;
+  vertical-align: middle !important;
+  text-align: center;
+  word-break: break-word;
+}
+
+.novaturma select,
+.novaturma input {
+  font-size: 11px !important;
+  border: 1px solid #414141 !important;
+  color: #414141 !important;
+  border-radius: 0px !important;
 }
 .novaturma select {
-  height: 18px;
-  width: 100%;
+  height: 18px !important;
+  width: 100% !important;
 }
+.novaturma select + select {
+  margin-top: 2px !important;
+}
+.novaturma input[type="checkbox"] {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 0;
+  margin-top: 5px !important;
+}
+.novaturma .input-letra {
+  margin: 0;
+  margin-top: 4px !important;
+  height: 18px;
+  width: 30px;
+  text-align: center;
+}
+.novaturma .less-padding {
+  padding: 0 2px;
+}
+/*  */
+/*  */
+
 .stickyAdd {
   display: block;
   overflow: hidden !important;
