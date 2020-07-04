@@ -13,56 +13,227 @@
       </template>
     </PageTitle>
 
-    <div class="div-table">
-      <BaseTable>
-        <template #thead>
-          <th
-            style="width: 100px"
-            class="t-start clickable"
-            @click="toggleOrder(ordenacaoMainUsuarios, 'nome')"
-          >
-            Nome
-            <i :class="setIconByOrder(ordenacaoMainUsuarios, 'nome')"></i>
-          </th>
-          <th
-            style="width: 100px"
-            class="t-start clickable"
-            @click="toggleOrder(ordenacaoMainUsuarios, 'login')"
-          >
-            Login
-            <i :class="setIconByOrder(ordenacaoMainUsuarios, 'login')"></i>
-          </th>
-          <th
-            style="width: 65px"
-            class="clickable less-padding"
-            @click="toggleOrder(ordenacaoMainUsuarios, 'admin', 'desc')"
-          >
-            Admin
-            <i :class="setIconByOrder(ordenacaoMainUsuarios, 'admin')"></i>
-          </th>
-          <th style="width: 50px" class="less-padding">Deletar</th>
-        </template>
-        <template #tbody>
-          <tr
-            v-for="usuario in UsuariosOrdered"
-            :key="usuario.login + usuario.nome"
-          >
-            <td style="width: 100px" class="t-start">{{ usuario.nome }}</td>
-            <td style="width: 100px" class="t-start">{{ usuario.login }}</td>
-            <td style="width: 65px">{{ usuario.admin ? "Sim" : "-" }}</td>
+    <div class="flex-container">
+      <div class="div-table">
+        <BaseTable>
+          <template #thead>
+            <th
+              style="width: 150px"
+              class="t-start clickable"
+              @click="toggleOrder(ordenacaoMainUsers, 'nome')"
+            >
+              Nome
+              <i :class="setIconByOrder(ordenacaoMainUsers, 'nome')"></i>
+            </th>
+            <th
+              style="width: 120px"
+              class="t-start clickable"
+              @click="toggleOrder(ordenacaoMainUsers, 'login')"
+            >
+              Login
+              <i :class="setIconByOrder(ordenacaoMainUsers, 'login')"></i>
+            </th>
+            <th
+              style="width: 65px"
+              class="clickable less-padding"
+              @click="toggleOrder(ordenacaoMainUsers, 'admin', 'desc')"
+            >
+              Admin
+              <i :class="setIconByOrder(ordenacaoMainUsers, 'admin')"></i>
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="user in UsersOrdered"
+              :key="user.login + user.nome"
+              @click="handleClickInUser(user)"
+              :class="{ 'bg-selected': user.id === userSelected }"
+            >
+              <td style="width: 150px" class="t-start">{{ user.nome }}</td>
+              <td style="width: 120px" class="t-start">{{ user.login }}</td>
+              <td style="width: 65px">{{ user.admin ? "Sim" : "-" }}</td>
+            </tr>
+          </template>
+        </BaseTable>
+      </div>
 
-            <td style="width: 50px">
-              <button
-                v-if="!isCurrentUser(usuario.id)"
-                class="btn-table"
-                @click.stop="openModalDeleteUser(usuario)"
+      <Card :title="'Usuário'">
+        <template #form-group>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="nome">Nome <i title="Campo obrigatório">*</i></label>
+              <input
+                class="form-control"
+                type="text"
+                id="nome"
+                v-model="userForm.nome"
+              />
+            </div>
+          </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="login"
+                >Login <i title="Campo obrigatório">*</i></label
               >
-                <i class="fas fa-times delbtn"></i>
+              <input
+                class="form-control"
+                type="text"
+                id="login"
+                v-model="userForm.login"
+              />
+            </div>
+          </div>
+          <!-- Create -->
+          <template v-if="!isEdit">
+            <!-- senha -->
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 px-0">
+                <label for="novaSenha"
+                  >Senha<i title="Campo obrigatório">*</i></label
+                >
+                <PasswordInput
+                  :iconSize="11"
+                  :inputId="'novaSenha'"
+                  v-model="userForm.senha"
+                ></PasswordInput>
+              </div>
+            </div>
+            <!-- confirmar senha -->
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 px-0">
+                <label for="confirmaSenha">
+                  Confirmar senha <i title="Campo obrigatório">*</i></label
+                >
+                <PasswordInput
+                  :iconSize="11"
+                  :isInvalid="confirmaSenha != userForm.senha"
+                  :inputId="'confirmaSenha'"
+                  v-model="confirmaSenha"
+                ></PasswordInput>
+              </div>
+            </div>
+          </template>
+          <!-- Edit -->
+          <template v-else-if="isEdit">
+            <!-- senha atual -->
+            <div class="row mb-2 mx-0">
+              <div class="form-group col m-0 px-0">
+                <label for="senhaAtual"
+                  >Senha atual <i title="Campo obrigatório">*</i></label
+                >
+                <PasswordInput
+                  :iconSize="11"
+                  :isInvalid="false"
+                  :inputId="'senhaAtual'"
+                  v-model="senhaAtual"
+                ></PasswordInput>
+              </div>
+            </div>
+            <!-- btn edit senha -->
+            <hr class="w-100 m-0 my-1 mt-3" />
+            <div class="container-edit-senha">
+              <span>Editar senha</span>
+
+              <button
+                type="button"
+                @click.prevent="toggleEditSenha()"
+                class="btn-custom btn-edit-senha"
+              >
+                <i
+                  class="fas fa-chevron-left"
+                  style="font-size:15px!important"
+                  :style="`transform: rotate(${isEditingSenha ? -90 : 0}deg)`"
+                ></i>
               </button>
-            </td>
-          </tr>
+            </div>
+            <hr class="w-100 m-0 my-1 mb-2" />
+            <!-- edit senha -->
+            <template v-if="isEditingSenha">
+              <div :key="'senha'" class="row mb-2 mx-0">
+                <div class="form-group col m-0 px-0">
+                  <label for="novaSenha">
+                    Nova senha <i title="Campo obrigatório">*</i>
+                  </label>
+                  <PasswordInput
+                    :iconSize="11"
+                    :inputId="'novaSenha'"
+                    v-model="novaSenha"
+                  ></PasswordInput>
+                  <!-- v-model="userForm.senha" -->
+                </div>
+              </div>
+              <!-- confirma nova senha -->
+              <div :key="'confirma'" class="row mb-2 mx-0">
+                <div class="form-group col m-0 px-0">
+                  <label for="confirmaSenha"
+                    >Confirmar nova senha
+                    <i title="Campo obrigatório">*</i></label
+                  >
+                  <PasswordInput
+                    :iconSize="11"
+                    :isInvalid="confirmaSenha != novaSenha"
+                    :inputId="'confirmaSenha'"
+                    v-model="confirmaSenha"
+                  ></PasswordInput>
+                </div>
+              </div>
+            </template>
+          </template>
+
+          <div class="row mb-2 mt-2 mx-0">
+            <div class="form-check form-check-inline col m-0 px-0 pl-1">
+              <label class="form-check-label mr-2" for="isAdmin">Admin</label>
+              <input
+                type="checkbox"
+                id="isAdmin"
+                class="form-check-input"
+                v-model="userForm.admin"
+              />
+            </div>
+          </div>
         </template>
-      </BaseTable>
+
+        <template #footer>
+          <BaseButton
+            v-show="!isEdit"
+            title="Adicionar"
+            :type="'icon'"
+            :color="'green'"
+            @click="createUser()"
+          >
+            <i class="fas fa-plus"></i>
+          </BaseButton>
+
+          <BaseButton
+            v-show="isEdit"
+            title="Salvar"
+            :type="'icon'"
+            :color="'green'"
+            @click="editUser()"
+          >
+            <i class="fas fa-check"></i>
+          </BaseButton>
+
+          <BaseButton
+            v-show="isEdit"
+            title="Deletar"
+            :type="'icon'"
+            :color="'red'"
+            @click="openModalDelete()"
+          >
+            <i class="fas fa-trash"></i>
+          </BaseButton>
+
+          <BaseButton
+            title="Cancelar"
+            :type="'icon'"
+            :color="'gray'"
+            @click="cleanUser()"
+          >
+            <i class="fas fa-times"></i>
+          </BaseButton>
+        </template>
+      </Card>
     </div>
 
     <BaseModal
@@ -73,7 +244,6 @@
         hasBackground: true,
         hasFooter: true,
       }"
-      :classes="'modal-edit-user'"
       :hasFooter="true"
     >
       <template #modal-body>
@@ -84,11 +254,12 @@
       <template #modal-footer>
         <button
           class="btn-custom btn-modal btn-cinza btn-ok-modal"
-          @click="$refs.modalDeleteUser.close()"
+          @click="closeModalDelete()"
         >
           Cancelar
         </button>
         <button
+          v-if="isEdit"
           class="btn-custom btn-modal btn-vermelho btn-ok-modal"
           @click="deleteUser()"
         >
@@ -132,6 +303,7 @@ import {
   PageTitle,
   BaseButton,
   PasswordInput,
+  Card,
 } from "@/components/index.js";
 
 const emptyUser = {
@@ -144,31 +316,57 @@ const emptyUser = {
 export default {
   name: "Usuarios",
   mixins: [notification, redirectNotAdmin, toggleOrdination],
-  components: { BaseTable, PageTitle, BaseButton, BaseModal, PasswordInput },
+  components: {
+    BaseTable,
+    PageTitle,
+    BaseButton,
+    BaseModal,
+    Card,
+    PasswordInput,
+  },
   data() {
     return {
+      isEditingSenha: false,
+      userSelected: null,
       userForm: _.clone(emptyUser),
+      novaSenha: "",
       confirmaSenha: "",
       senhaAtual: "",
-      ordenacaoMainUsuarios: { order: "nome", type: "asc" },
+      ordenacaoMainUsers: { order: "nome", type: "asc" },
     };
   },
   methods: {
-    isCurrentUser(usuarioId) {
-      return this.$store.state.auth.Usuario.id === usuarioId;
+    toggleEditSenha() {
+      this.isEditingSenha = !this.isEditingSenha;
+      this.novaSenha = "";
+      this.confirmaSenha = "";
     },
-    openModalDeleteUser(user) {
-      this.userForm = { ...user };
-      this.$refs.modalDeleteUser.toggle();
+    handleClickInUser(user) {
+      this.cleanUser();
+      this.userSelected = user.id;
+      this.showUser(user);
     },
-    closeModalDeleteUser() {
-      this.$refs.modalDeleteUser.close();
+    showUser(user) {
+      this.userForm = _.clone(user);
     },
-    clearUserForm() {
+    cleanUser() {
+      this.userSelected = null;
+      this.confirmaSenha = "";
+      this.senhaAtual = "";
+      this.isEditingSenha = false;
       this.userForm = _.clone(emptyUser);
     },
+    openModalDelete() {
+      this.$refs.modalDeleteUser.open();
+    },
+    closeModalDelete() {
+      this.$refs.modalDeleteUser.close();
+    },
     validateEditUser(user) {
-      return this.confirmaSenha === user.senha && this.validateUser(user);
+      return (
+        (!this.isEditingSenha || this.confirmaSenha === this.novaSenha) &&
+        this.validateUser(user)
+      );
     },
     validateUser(user) {
       for (const value of Object.values(user)) {
@@ -189,12 +387,11 @@ export default {
 
       try {
         await userService.create(user);
-
         this.showNotification({
           type: "success",
           message: `Usuário criado.`,
         });
-        // this.clearCreateUserForm();
+        this.cleanUser();
       } catch (error) {
         this.showNotification({
           type: "error",
@@ -204,8 +401,10 @@ export default {
     },
     async editUser() {
       const user = _.clone(this.userForm);
-
       user.senhaAtual = this.senhaAtual;
+
+      if (this.isEditingSenha) user.senha = this.novaSenha;
+      else user.senha = this.senhaAtual;
 
       if (!this.validateEditUser(user)) {
         this.showNotification({
@@ -216,17 +415,18 @@ export default {
       }
 
       try {
-        await userService.update(this.$store.state.auth.Usuario.id, user);
-
+        await userService.update(user.id, user);
         this.showNotification({
           type: "success",
           message: `Usuário atualizado.`,
         });
-        this.clearEditUserForm();
+        this.novaSenha = "";
+        this.confirmaSenha = "";
+        this.senhaAtual = "";
       } catch (error) {
         this.showNotification({
           type: "error",
-          message: error,
+          message: "Login ou senha inválida",
         });
       }
     },
@@ -239,9 +439,7 @@ export default {
           type: "success",
           message: `Usuário ${user.nome} foi removido.`,
         });
-
-        this.closeModalDeleteUser();
-        this.clearUserForm();
+        this.cleanUser();
       } catch (error) {
         this.showNotification({
           type: "error",
@@ -251,55 +449,75 @@ export default {
     },
   },
   computed: {
-    Usuarios() {
-      const usuariosResultantes = [];
+    Users() {
+      const usersResultantes = [];
 
-      this.$store.state.usuario.Usuarios.forEach((usuario) => {
-        usuariosResultantes.push({
-          ...usuario,
+      this.$store.state.usuario.Usuarios.forEach((user) => {
+        usersResultantes.push({
+          ...user,
           senha: "",
         });
       });
-      return usuariosResultantes;
+      return usersResultantes;
     },
-    UsuariosOrdered() {
-      const { order, type } = this.ordenacaoMainUsuarios;
-      const usuarioSorter = (usuario) => {
+    UsersOrdered() {
+      const { order, type } = this.ordenacaoMainUsers;
+      const userSorter = (user) => {
         switch (order) {
           case "nome":
           case "login":
-            return usuario[order].toLowerCase();
+            return user[order].toLowerCase();
           default:
-            return usuario[order];
+            return user[order];
         }
       };
 
-      return _.orderBy(this.Usuarios, usuarioSorter, type);
+      return _.orderBy(this.Users, userSorter, type);
     },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
+    },
+    isEdit() {
+      return this.userSelected != null;
     },
   },
 };
 </script>
 
 <style scoped>
-.less-padding {
-  padding: 0 2px !important;
-}
-.btn-table {
+.flex-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
-  height: 100%;
-  border: none;
-  background: none;
 }
-.btn-table i {
-  font-size: 14px;
+.container-edit-senha {
+  font-size: 12px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.modal-edit-user {
-  font-size: 13px;
+::v-deep .card input[type="text"],
+::v-deep .card input[type="password"] {
+  width: 200px !important;
+  height: 25px !important;
+  padding: 0px 5px !important;
+  font-size: 11px !important;
+  text-align: start;
+}
+.form-group label > i {
+  color: #f30000;
+}
+.btn-edit-senha {
+  background-color: transparent !important;
+  padding: 0 5px !important;
+}
+.btn-edit-senha i {
+  transition: all 0.25s ease !important;
+}
+.btn-edit-senha:focus {
+  box-shadow: 0 0 0 0.15rem #007bff40 !important;
 }
 </style>
