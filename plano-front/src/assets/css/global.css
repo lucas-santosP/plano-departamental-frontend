@@ -68,7 +68,7 @@ main .main-component {
 }
 
 .clickable {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .max-content {
   width: -webkit-max-content !important;

@@ -1,5 +1,5 @@
 <template>
-  <div class="card mr-3 ml-auto">
+  <div class="card ml-auto">
     <div class="card-header">
       <h1 class="card-title">{{ title }}</h1>
     </div>
