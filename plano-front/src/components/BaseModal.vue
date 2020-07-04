@@ -1,7 +1,7 @@
 <template>
   <transition :name="customAnimatedClass + '-modal'">
     <div
-      v-if="visibility"
+      v-show="visibility"
       :class="modalClass"
       :style="modalStyle + customStyles"
     >

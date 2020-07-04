@@ -934,7 +934,7 @@ export default {
       let yearsArry = [];
       let firstYear = 2019;
       let currentYear = new Date().getFullYear();
-      let lastYear = currentYear + 20;
+      let lastYear = currentYear + 5;
 
       while (firstYear <= lastYear) {
         yearsArry.push(parseInt(firstYear, 10));
