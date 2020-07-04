@@ -472,19 +472,19 @@
             Selecionar Todos
           </BaseButton>
           <BaseButton
+            v-if="tabAtivaModal === 'Cursos'"
+            type="text"
+            color="lightblue"
+            @click="selectCursosDCC()"
+          >
+            Cursos DCC
+          </BaseButton>
+          <BaseButton
             type="text"
             color="gray"
             @click="modalSelectNone[tabAtivaModal]()"
           >
             Desmarcar Todos
-          </BaseButton>
-          <BaseButton
-            v-if="tabAtivaModal === 'Cursos'"
-            type="text"
-            color="gray"
-            @click="selectCursosDCC()"
-          >
-            Selecionar cursos DCC
           </BaseButton>
         </div>
         <BaseButton
