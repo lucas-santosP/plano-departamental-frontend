@@ -596,7 +596,6 @@ export default {
   },
   mounted() {
     this.$store.commit("emptyDeleteExterno");
-    console.log(this.$store.state.turma.Deletar);
   },
 
   methods: {

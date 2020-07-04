@@ -14,7 +14,9 @@
           <div class="d-flex align-items-center">
             <img class="user-img" src="@/assets/user.png" alt="user" />
             <div class="d-flex flex-column w-100">
-              <p class="mx-2"><b>Nome:</b> {{ getUsuarioFirstName }}</p>
+              <p class="mx-2">
+                <b>Nome:</b> {{ $store.state.auth.Usuario.nome }}
+              </p>
               <p class="mx-2"><b>Admin:</b> {{ Admin ? "Sim" : "Não" }}</p>
             </div>
           </div>
@@ -171,7 +173,6 @@
 <script>
 import _ from "lodash";
 import userService from "@/common/services/usuario";
-import { mapGetters } from "vuex";
 import { notification } from "@/mixins/index.js";
 import { BaseModal, PasswordInput } from "@/components/index.js";
 
@@ -295,7 +296,6 @@ export default {
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
     },
-    ...mapGetters(["getUsuarioFirstName"]),
   },
 };
 </script>
