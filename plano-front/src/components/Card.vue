@@ -1,5 +1,5 @@
 <template>
-  <div class="card ml-auto">
+  <div class="card">
     <div class="card-header">
       <h1 class="card-title">{{ title }}</h1>
     </div>
@@ -31,6 +31,8 @@ export default {
 .card {
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 .card-title {
   font-size: 16px !important;

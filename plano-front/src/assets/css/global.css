@@ -21,12 +21,19 @@ input[type="checkbox"]:focus {
   -webkit-box-shadow: 0 0 0 0.1rem #007bff40 !important;
   box-shadow: 0 0 0 0.1rem #007bff40 !important;
 }
-
 main .main-component {
   width: 100%;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
+}
+.page-content {
+  display: flex;
+  justify-content: space-between;
+  justify-items: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .less-padding {

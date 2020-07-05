@@ -13,7 +13,7 @@
       </template>
     </PageTitle>
 
-    <div class="flex-container">
+    <div class="page-content">
       <div class="div-table">
         <BaseTable>
           <template #thead>
@@ -248,7 +248,13 @@
     >
       <template #modal-body>
         <p class="mb-2" style="font-size:14px">
-          Tem certeza que deseja deletar o usuário <b>{{ userForm.nome }}</b> ?
+          <template v-if="isEdit">
+            Tem certeza que deseja deletar o usuário
+            <b>{{ userForm.nome }}</b> ?
+          </template>
+          <template v-else>
+            Nenhum usuário selecionado!
+          </template>
         </p>
       </template>
       <template #modal-footer>
@@ -268,6 +274,7 @@
       </template>
     </BaseModal>
     <!-- MODAL AJUDA -->
+
     <BaseModal
       ref="modalAjuda"
       :modalOptions="{
@@ -320,9 +327,9 @@ export default {
     BaseTable,
     PageTitle,
     BaseButton,
-    BaseModal,
     Card,
     PasswordInput,
+    BaseModal,
   },
   data() {
     return {
@@ -439,6 +446,7 @@ export default {
           type: "success",
           message: `Usuário ${user.nome} foi removido.`,
         });
+        this.closeModalDelete();
         this.cleanUser();
       } catch (error) {
         this.showNotification({
@@ -485,12 +493,6 @@ export default {
 </script>
 
 <style scoped>
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-}
 .container-edit-senha {
   font-size: 12px;
   width: 100%;
