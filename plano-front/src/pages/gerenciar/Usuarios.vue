@@ -506,7 +506,7 @@ export default {
   width: 200px !important;
   height: 25px !important;
   padding: 0px 5px !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   text-align: start;
 }
 .form-group label > i {

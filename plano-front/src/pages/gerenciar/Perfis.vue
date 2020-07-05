@@ -83,23 +83,24 @@
             </div>
 
             <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 mr-4 px-0">
+              <div class="form-group col-8 m-0 px-0">
                 <label for="abreviacao" class="col-form-label"
                   >Abreviação</label
                 >
                 <input
                   type="text"
                   class="form-control form-control-sm"
-                  style="width:100px"
+                  style="width:150px"
                   id="abreviacao"
                   v-model="perfilForm.abreviacao"
                 />
               </div>
-              <div class="form-group col m-0 mr-4 px-0">
+              <div class="form-group col m-0 px-0">
                 <label for="cor" class="col-form-label">Cor</label>
                 <input
                   type="color"
-                  class="input-menor form-control form-control-sm"
+                  style="width:100%"
+                  class="form-control form-control-sm"
                   id="cor"
                   v-model="perfilForm.cor"
                 />
@@ -108,53 +109,55 @@
           </template>
           <template #footer>
             <template v-if="isEdit">
-              <button
-                type="button"
+              <BaseButton
                 title="Salvar"
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="editPerfil"
+                :type="'icon'"
+                :color="'green'"
+                @click="editPerfil()"
                 :key="1"
               >
                 <i class="fas fa-check"></i>
-              </button>
-              <button
-                type="button"
+              </BaseButton>
+              <BaseButton
                 title="Deletar"
-                class="btn-custom btn-icon delbtn"
-                v-on:click.prevent="deletePerfil()"
+                :type="'icon'"
+                :color="'red'"
+                @click="deletePerfil()"
+                :key="2"
+              >
+                <i class="fas fa-trash"></i>
+              </BaseButton>
+
+              <BaseButton
+                title="Cancelar"
+                :type="'icon'"
+                :color="'gray'"
+                @click="clearClick(), cleanPerfil()"
                 :key="3"
               >
-                <i class="far fa-trash-alt"></i>
-              </button>
-              <button
-                type="button"
-                title="Cancelar"
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="clearClick(), cleanPerfil()"
-                :key="2"
-              >
                 <i class="fas fa-times"></i>
-              </button>
+              </BaseButton>
             </template>
+
             <template v-else>
-              <button
-                type="button"
+              <BaseButton
                 title="Adicionar"
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="addPerfil()"
-                :key="1"
+                :type="'icon'"
+                :color="'green'"
+                @click="addPerfil()"
+                :key="4"
               >
                 <i class="fas fa-plus"></i>
-              </button>
-              <button
-                type="button"
+              </BaseButton>
+              <BaseButton
                 title="Cancelar"
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="cleanPerfil()"
-                :key="2"
+                :type="'icon'"
+                :color="'gray'"
+                @click="cleanPerfil()"
+                :key="5"
               >
                 <i class="fas fa-times"></i>
-              </button>
+              </BaseButton>
             </template>
           </template>
         </Card>
@@ -241,9 +244,7 @@ export default {
   },
   methods: {
     handleClickInPerfil(perfil) {
-      console.log(perfil.id);
       this.perfilSelectedId = perfil.id;
-      console.log(this.perfilSelectedId);
       this.showPerfil(perfil);
     },
 
@@ -352,26 +353,13 @@ export default {
       return this.perfilForm.id !== undefined;
     },
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };
 </script>
 
 <style scoped>
-.card .input-menor {
-  width: 60px;
-  text-align: center;
-}
-.card .input-menor2 {
-  width: 40px;
-  margin-right: 10px;
-  text-align: center;
-}
 .card .input-maior {
   width: 240px;
   text-align: start;

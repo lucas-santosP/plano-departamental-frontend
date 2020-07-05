@@ -58,14 +58,14 @@ export default {
 }
 .card select {
   height: 25px !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   padding: 0px 5px !important;
   text-align: start;
 }
 .card input {
   height: 25px !important;
   padding: 0px 5px !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   text-align: start;
 }
 </style>

@@ -13,7 +13,7 @@
       </template>
     </PageTitle>
 
-    <div class="row w-100 m-0 p-0">
+    <div class="page-content">
       <div class="div-table p-0">
         <BaseTable>
           <template #thead>
@@ -70,104 +70,104 @@
         </BaseTable>
       </div>
 
-      <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
-        <Card :title="'Sala'">
-          <template #form-group>
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label for="nome" class="col-form-label">Nome</label>
-                <input
-                  type="text"
-                  class="input-menor form-control form-control-sm"
-                  id="nome"
-                  v-model="salaForm.nome"
-                />
-              </div>
+      <Card :title="'Sala'">
+        <template #form-group>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="nome" class="col-form-label">Nome</label>
+              <input
+                type="text"
+                class="input-menor form-control form-control-sm"
+                id="nome"
+                v-model="salaForm.nome"
+              />
             </div>
+          </div>
 
-            <div class="row mb-2 mt-3 mx-0">
-              <div class="form-check form-check-inline col m-0 px-0 pl-1">
-                <input
-                  type="checkbox"
-                  id="laboratorio"
-                  class="form-check-input"
-                  v-model="salaForm.laboratorio"
-                  value="1"
-                />
-                <label class="form-check-label" for="laboratorio"
-                  >Laboratório</label
-                >
-              </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="lotacao_maxima" class="col-form-label"
+                >Lotação Máx.</label
+              >
+              <input
+                type="text"
+                class="input-menor form-control form-control-sm"
+                id="lotacao_maxima"
+                @keypress="onlyNumber"
+                v-model="salaForm.lotacao_maxima"
+              />
             </div>
+          </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label for="lotacao_maxima" class="col-form-label"
-                  >Lotação Máx.</label
-                >
-                <input
-                  type="text"
-                  class="input-menor form-control form-control-sm"
-                  id="lotacao_maxima"
-                  v-model="salaForm.lotacao_maxima"
-                />
-              </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-check form-check-inline col m-0 px-0 pl-1">
+              <input
+                type="checkbox"
+                id="laboratorio"
+                class="form-check-input"
+                v-model="salaForm.laboratorio"
+                value="1"
+              />
+              <label class="form-check-label" for="laboratorio"
+                >Laboratório</label
+              >
             </div>
+          </div>
+        </template>
+        <template #footer>
+          <template v-if="isEdit">
+            <BaseButton
+              title="Salvar"
+              :type="'icon'"
+              :color="'green'"
+              @click="editSala()"
+              :key="1"
+            >
+              <i class="fas fa-check"></i>
+            </BaseButton>
+            <BaseButton
+              title="Deletar"
+              :type="'icon'"
+              :color="'red'"
+              @click="deleteSala()"
+              :key="2"
+            >
+              <i class="fas fa-trash"></i>
+            </BaseButton>
+
+            <BaseButton
+              title="Cancelar"
+              :type="'icon'"
+              :color="'gray'"
+              @click="cleanSala()"
+              :key="3"
+            >
+              <i class="fas fa-times"></i>
+            </BaseButton>
           </template>
-          <template #footer>
-            <template v-if="isEdit">
-              <button
-                type="button"
-                title="Salvar"
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="editSala"
-                :key="1"
-              >
-                <i class="fas fa-check"></i>
-              </button>
-              <button
-                type="button"
-                title="Deletar"
-                class="btn-custom btn-icon delbtn"
-                v-on:click.prevent="deleteSala"
-                :key="3"
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-              <button
-                type="button"
-                title="Cancelar"
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="cleanSala"
-                :key="2"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
 
-            <template v-else>
-              <button
-                type="button"
-                title="Adicionar"
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="addSala"
-                :key="1"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
-              <button
-                type="button"
-                title="Cancelar"
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="cleanSala"
-                :key="2"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
+          <template v-else>
+            <BaseButton
+              title="Adicionar"
+              :type="'icon'"
+              :color="'green'"
+              @click="addSala()"
+              :key="4"
+            >
+              <i class="fas fa-plus"></i>
+            </BaseButton>
+            <BaseButton
+              title="Cancelar"
+              :type="'icon'"
+              :color="'gray'"
+              @click="cleanSala()"
+              :key="5"
+            >
+              <i class="fas fa-times"></i>
+            </BaseButton>
           </template>
-        </Card>
-      </div>
+        </template>
+      </Card>
     </div>
 
     <!-- MODAL AJUDA -->
@@ -245,6 +245,12 @@ export default {
     };
   },
   methods: {
+    onlyNumber($event) {
+      let keyCode = $event.keyCode ? $event.keyCode : $event.which;
+      if (keyCode < 48 || keyCode > 57) {
+        $event.preventDefault();
+      }
+    },
     booleanToText(isLab) {
       return isLab ? "Sim" : "-";
     },
@@ -268,14 +274,16 @@ export default {
           });
         })
         .catch((error) => {
-          this.error = "<b>Erro ao criar Sala</b>";
+          this.error = "";
           if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+            this.error += error.response.data.fullMessage.replace(
+              "\n",
+              "<br/>"
+            );
           }
           this.$notify({
             group: "general",
-            title: `Erro!`,
+            title: "Erro ao criar sala!",
             text: this.error,
             type: "error",
           });
@@ -375,10 +383,5 @@ export default {
 .card .input-menor {
   min-width: 100px;
   text-align: start;
-}
-@media screen and (max-width: 337px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
 }
 </style>
