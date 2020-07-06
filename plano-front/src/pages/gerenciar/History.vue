@@ -39,8 +39,8 @@
             <th style="width: 160px">Hora</th>
           </template>
           <template #tbody>
-            <template v-for="h in History">
-              <tr :key="`History${h.id}`">
+            <template v-if="!$root.onLoad">
+              <tr v-for="h in History" :key="`History${h.id}`">
                 <td style="width: 110px">
                   {{ h.tabelaModificada }}
                 </td>
@@ -180,9 +180,17 @@ export default {
       ],
     };
   },
+
   methods: {
     btnOkFiltros() {
+      this.$root.onLoad = true;
       this.TabelasAtivadas = [...this.TabelasSelecionadas];
+
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$root.onLoad = false;
+        }, 500);
+      });
     },
 
     linhaModificada(h) {
