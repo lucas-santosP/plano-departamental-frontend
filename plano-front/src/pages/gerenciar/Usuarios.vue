@@ -199,47 +199,6 @@
             </div>
           </div>
         </template>
-
-        <!-- <template #footer>
-          <BaseButton
-            v-show="!isEdit"
-            title="Adicionar"
-            :type="'icon'"
-            :color="'green'"
-            @click="createUser()"
-          >
-            <i class="fas fa-plus"></i>
-          </BaseButton>
-
-          <BaseButton
-            v-show="isEdit"
-            title="Salvar"
-            :type="'icon'"
-            :color="'green'"
-            @click="editUser()"
-          >
-            <i class="fas fa-check"></i>
-          </BaseButton>
-
-          <BaseButton
-            v-show="isEdit"
-            title="Deletar"
-            :type="'icon'"
-            :color="'red'"
-            @click="openModalDelete()"
-          >
-            <i class="fas fa-trash"></i>
-          </BaseButton>
-
-          <BaseButton
-            title="Cancelar"
-            :type="'icon'"
-            :color="'gray'"
-            @click="cleanUser()"
-          >
-            <i class="fas fa-times"></i>
-          </BaseButton>
-        </template> -->
       </Card>
     </div>
 
