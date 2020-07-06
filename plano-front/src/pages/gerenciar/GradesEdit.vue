@@ -91,10 +91,7 @@
       <Card :title="'Disciplinas'">
         <template #form-group>
           <div class="row mb-2 mx-0">
-            <div
-              class="form-group col m-0 px-0"
-              style="margin-right: 18px!important"
-            >
+            <div class="form-group col m-0 px-0 mr-3">
               <label for="cursoAtual" class="col-form-label">Curso</label>
               <select
                 id="cursoAtual"
@@ -111,27 +108,21 @@
 
             <div class="form-group m-0 px-0">
               <label for="gradeSelect" class="col-form-label">Grade</label>
-              <template v-if="hasCursoSelected">
-                <select
-                  id="gradeSelect"
-                  v-model="currentGradeId"
-                  v-on:change="changeGrade()"
-                  class="form-control form-control-sm input-menor"
+              <select
+                :disabled="!hasCursoSelected"
+                id="gradeSelect"
+                v-model="currentGradeId"
+                @change="changeGrade()"
+                class="form-control form-control-sm input-menor"
+              >
+                <option
+                  v-for="grade in GradesFiltredByCurrentCurso"
+                  :key="'grade-id' + grade.id"
+                  :value="grade.id"
                 >
-                  <template v-for="grade in GradesFiltredByCurrentCurso">
-                    <option :key="'grade-id' + grade.id" :value="grade.id">{{
-                      grade.nome
-                    }}</option>
-                  </template>
-                </select>
-              </template>
-              <template v-else>
-                <select
-                  id="gradeSelect"
-                  disabled
-                  class="form-control form-control-sm input-menor"
-                ></select>
-              </template>
+                  {{ grade.nome }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -191,44 +182,36 @@
           </div>
         </template>
         <template #footer>
-          <template v-if="!hasGradeSelected">
-            <BaseButton :type="'icon'" :disabled="true">
-              <i class="fas fa-plus"></i>
-            </BaseButton>
-            <BaseButton :type="'icon'" :disabled="true">
-              <i class="fas fa-times"></i>
-            </BaseButton>
-          </template>
+          <BaseButton
+            :disabled="!hasGradeSelected"
+            v-show="isNotEditDisciplina"
+            title="Adicionar à Grade"
+            :type="'icon'"
+            :color="'green'"
+            @click="addDisciplinaGrade()"
+          >
+            <i class="fas fa-plus"></i>
+          </BaseButton>
 
-          <template v-else>
-            <BaseButton
-              v-show="isNotEditDisciplina"
-              title="Adicionar à Grade"
-              :type="'icon'"
-              :color="'green'"
-              @click="addDisciplinaGrade()"
-            >
-              <i class="fas fa-plus"></i>
-            </BaseButton>
+          <BaseButton
+            :disabled="!hasGradeSelected"
+            title="Deletar Disciplina"
+            :type="'icon'"
+            :color="'red'"
+            @click="deleteDisciplinaGrade(), clearClick()"
+          >
+            <i class="fas fa-trash"></i>
+          </BaseButton>
 
-            <BaseButton
-              title="Deletar Disciplina"
-              :type="'icon'"
-              :color="'red'"
-              @click="deleteDisciplinaGrade(), clearClick()"
-            >
-              <i class="fas fa-trash"></i>
-            </BaseButton>
-
-            <BaseButton
-              title="Cancelar"
-              :type="'icon'"
-              :color="'gray'"
-              @click="cleanDisciplina()"
-            >
-              <i class="fas fa-times"></i>
-            </BaseButton>
-          </template>
+          <BaseButton
+            :disabled="!hasGradeSelected"
+            title="Cancelar"
+            :type="'icon'"
+            :color="'gray'"
+            @click="cleanDisciplina()"
+          >
+            <i class="fas fa-times"></i>
+          </BaseButton>
         </template>
       </Card>
     </div>
@@ -591,12 +574,11 @@ export default {
 
 <style scoped>
 .card .input-maior {
-  width: 100%;
+  width: 200px;
   text-align: start !important;
 }
 .card .input-maior2 {
-  max-width: 300px;
-  min-width: 300px;
+  width: 300px;
   text-align: start;
 }
 .card .input-menor {
@@ -604,8 +586,7 @@ export default {
   text-align: start !important;
 }
 .card .input-menor2 {
-  max-width: 40px;
-  min-width: 40px;
+  width: 40px;
   margin-right: 10px;
   text-align: center;
 }
