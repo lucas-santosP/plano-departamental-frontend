@@ -8,7 +8,50 @@
         <slot name="form-group"></slot>
 
         <div class="row m-0 mt-3 d-flex justify-content-end">
-          <slot name="footer"></slot>
+          <slot name="footer">
+            <template v-if="toggleFooter">
+              <BaseButton
+                title="Salvar"
+                :type="'icon'"
+                :color="'green'"
+                @click="$emit('btn-salvar')"
+                :key="1"
+              >
+                <i class="fas fa-check"></i>
+              </BaseButton>
+              <BaseButton
+                title="Deletar"
+                :type="'icon'"
+                :color="'red'"
+                @click="$emit('btn-delete')"
+                :key="2"
+              >
+                <i class="fas fa-trash"></i>
+              </BaseButton>
+            </template>
+
+            <template v-else>
+              <BaseButton
+                title="Adicionar"
+                :type="'icon'"
+                :color="'green'"
+                @click="$emit('btn-add')"
+                :key="4"
+              >
+                <i class="fas fa-plus"></i>
+              </BaseButton>
+            </template>
+
+            <BaseButton
+              title="Cancelar"
+              :type="'icon'"
+              :color="'gray'"
+              @click="$emit('btn-clean')"
+              :key="3"
+            >
+              <i class="fas fa-times"></i>
+            </BaseButton>
+          </slot>
         </div>
       </form>
     </div>
@@ -16,13 +59,17 @@
 </template>
 
 <script>
+import BaseButton from "./BaseButton.vue";
+
 export default {
   name: "Card",
+  components: { BaseButton },
   props: {
     title: {
       type: String,
       default: "Nenhum titulo recebido!",
     },
+    toggleFooter: { type: Boolean, default: false },
   },
 };
 </script>
