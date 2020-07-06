@@ -13,7 +13,7 @@
       </template>
     </PageTitle>
 
-    <div class="row w-100 m-0">
+    <div class="page-content">
       <div class="div-table p-0">
         <BaseTable>
           <template #thead>
@@ -96,7 +96,7 @@
                 :key="'table disciplina:' + disciplina.id"
                 @click.prevent="handleClickInDisciplina(disciplina)"
                 :class="[
-                  { 'bg-selected': disciplinaClickada === disciplina.codigo },
+                  { 'bg-selected': disciplinaClickada === disciplina.id },
                   'clickable',
                 ]"
               >
@@ -128,166 +128,119 @@
         </BaseTable>
       </div>
 
-      <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
-        <Card :title="'Disciplina'">
-          <template #form-group>
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 col px-0">
-                <label for="nome" class="col-form-label">Nome</label>
-                <input
-                  type="text"
-                  id="nome"
-                  class="form-control form-control-sm input-maior"
-                  v-model="disciplinaForm.nome"
-                />
-              </div>
+      <Card
+        :title="'Disciplina'"
+        :toggleFooter="isEdit"
+        @btn-salvar="editDisciplina()"
+        @btn-delete="deleteDisciplina()"
+        @btn-add="addDisciplina()"
+        @btn-clean="cleanDisciplina()"
+      >
+        <template #form-group>
+          <div class="row mb-2 mx-0">
+            <div class="form-group m-0 col px-0">
+              <label for="nome" class="col-form-label">Nome</label>
+              <input
+                type="text"
+                id="nome"
+                class="form-control form-control-sm input-maior upper-case"
+                v-model="disciplinaForm.nome"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-2 mx-0">
+            <div class="form-group m-0 col px-0">
+              <label for="codigo" class="col-form-label">Código</label>
+              <input
+                type="text"
+                id="codigo"
+                class="form-control form-control-sm input-medio upper-case"
+                v-model="disciplinaForm.codigo"
+              />
+            </div>
+            <div class="form-group m-0 col px-0">
+              <label for="perfil" class="col-form-label">Perfil</label>
+              <select
+                type="text"
+                id="perfil"
+                style="width:100%"
+                class="form-control form-control-sm  "
+                v-model="disciplinaForm.Perfil"
+              >
+                <option v-if="Perfis.length === 0" type="text" value
+                  >Nenhum Perfil Encontrado</option
+                >
+                <option
+                  v-for="perfil in Perfis"
+                  :key="perfil.id"
+                  :value="perfil.id"
+                  >{{ perfil.abreviacao }}</option
+                >
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-2 mx-0">
+            <div class="form-group m-0 col px-0">
+              <label for="cargaTeorica" class="col-form-label"
+                >Carga Teórica</label
+              >
+              <input
+                type="text"
+                id="cargaTeorica"
+                class="form-control form-control-sm input-medio t-center"
+                @keypress="onlyNumber"
+                v-model="disciplinaForm.cargaTeorica"
+              />
             </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 col px-0">
-                <label for="codigo" class="col-form-label">Código</label>
-                <input
-                  type="text"
-                  id="codigo"
-                  class="form-control form-control-sm input-menor"
-                  v-model="disciplinaForm.codigo"
-                />
-              </div>
+            <div class="form-group m-0 col px-0">
+              <label for="cargaPratica" class="col-form-label"
+                >Carga Prática</label
+              >
+              <input
+                type="text"
+                id="cargaPratica"
+                class="form-control form-control-sm input-medio t-center"
+                @keypress="onlyNumber"
+                v-model="disciplinaForm.cargaPratica"
+              />
             </div>
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 col px-0">
-                <label for="cargaTeorica" class="col-form-label"
-                  >Carga Teórica</label
-                >
-                <input
-                  type="text"
-                  id="cargaTeorica"
-                  class="form-control form-control-sm input-menor"
-                  @keypress="onlyNumber"
-                  v-model="disciplinaForm.cargaTeorica"
-                />
-              </div>
+          </div>
 
-              <div class="form-group m-0 col px-0">
-                <label for="cargaPratica" class="col-form-label"
-                  >Carga Prática</label
-                >
-                <input
-                  type="text"
-                  id="cargaPratica"
-                  class="form-control form-control-sm input-menor"
-                  @keypress="onlyNumber"
-                  v-model="disciplinaForm.cargaPratica"
-                />
-              </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="laboratorio" class="col-form-label"
+                >Laboratório</label
+              >
+              <select
+                type="text"
+                class="form-control form-control-sm input-medio"
+                id="laboratorio"
+                v-model="disciplinaForm.laboratorio"
+              >
+                <option value="0">Não</option>
+                <option value="1">Sim</option>
+                <option value="2">Desejável</option>
+              </select>
             </div>
-            <div class="row mb-2 mx-0">
-              <div class="form-group m-0 col px-0">
-                <label for="perfil" class="col-form-label">Perfil</label>
-                <select
-                  type="text"
-                  id="perfil"
-                  class="form-control form-control-sm input-maior"
-                  v-model="disciplinaForm.Perfil"
-                >
-                  <option v-if="Perfis.length === 0" type="text" value
-                    >Nenhum Perfil Encontrado</option
-                  >
-                  <option
-                    v-for="perfil in Perfis"
-                    :key="perfil.id"
-                    :value="perfil.id"
-                    >{{ perfil.nome }}</option
-                  >
-                </select>
-              </div>
+            <div class="form-group col m-0 px-0">
+              <label for="ead" class="col-form-label">EAD</label>
+              <select
+                type="text"
+                class="form-control form-control-sm input-medio"
+                id="ead"
+                v-model="disciplinaForm.ead"
+              >
+                <option value="0">Não</option>
+                <option value="1">Integral</option>
+                <option value="2">Parcial</option>
+              </select>
             </div>
-
-            <div class="row mb-2 mt-3 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label for="laboratorio" class="col-form-label"
-                  >Laboratório</label
-                >
-                <select
-                  type="text"
-                  class="form-control form-control-sm input-medio"
-                  id="laboratorio"
-                  v-model="disciplinaForm.laboratorio"
-                >
-                  <option value="0">Não</option>
-                  <option value="1">Sim</option>
-                  <option value="2">Desejável</option>
-                </select>
-              </div>
-              <div class="form-group col m-0 px-0">
-                <label for="ead" class="col-form-label">EAD</label>
-                <select
-                  type="text"
-                  class="form-control form-control-sm input-medio"
-                  id="ead"
-                  v-model="disciplinaForm.ead"
-                >
-                  <option value="0">Não</option>
-                  <option value="1">Integral</option>
-                  <option value="2">Parcial</option>
-                </select>
-              </div>
-            </div>
-          </template>
-          <template #footer>
-            <template v-if="isEdit">
-              <button
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="editDisciplina"
-                title="Salvar"
-                type="button"
-                :key="1"
-              >
-                <i class="fas fa-check"></i>
-              </button>
-              <button
-                v-on:click.prevent="deleteDisciplina"
-                class="btn-custom btn-icon delbtn"
-                title="Deletar"
-                type="button"
-                :key="2"
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-              <button
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="cleanDisciplina"
-                title="Cancelar"
-                type="button"
-                :key="3"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
-
-            <template v-else>
-              <button
-                class="btn-custom btn-icon addbtn"
-                v-on:click.prevent="addDisciplina"
-                title="Adicionar"
-                type="button"
-                :key="1"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
-              <button
-                class="btn-custom btn-icon cancelbtn"
-                v-on:click.prevent="cleanDisciplina"
-                title="Cancelar"
-                type="button"
-                :key="3"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-            </template>
-          </template>
-        </Card>
-      </div>
+          </div>
+        </template>
+      </Card>
     </div>
 
     <!-- MODAL AJUDA -->
@@ -378,7 +331,7 @@ export default {
     },
     handleClickInDisciplina(disciplina) {
       this.showDisciplina(disciplina);
-      this.disciplinaClickada = disciplina.codigo;
+      this.disciplinaClickada = disciplina.id;
     },
     clearClick() {
       this.disciplinaClickada = "";
@@ -550,11 +503,5 @@ export default {
 .card .input-menor {
   width: 80px;
   text-align: center !important;
-}
-
-@media screen and (max-width: 1203px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
 }
 </style>
