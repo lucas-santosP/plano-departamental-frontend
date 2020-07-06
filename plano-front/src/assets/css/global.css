@@ -35,7 +35,6 @@ main .main-component {
   width: 100%;
   flex-wrap: wrap;
 }
-
 .less-padding {
   padding: 0 2px !important;
 }
@@ -53,6 +52,9 @@ main .main-component {
 }
 .t-center {
   text-align: center !important;
+}
+.upper-case {
+  text-transform: uppercase;
 }
 
 /* searchDisciplinas */
