@@ -1,5 +1,6 @@
 <template>
   <button
+    :disabled="disabled"
     @click="$emit('click')"
     :class="['btn base-btn', buttonClasses]"
     type="button"
@@ -13,7 +14,8 @@ export default {
   name: "BaseButton",
   props: {
     type: { type: String, required: true },
-    color: { type: String, default: "" },
+    color: { type: String, default: "gray" },
+    disabled: { type: Boolean, default: false },
   },
   computed: {
     buttonClasses() {
@@ -37,6 +39,16 @@ export default {
   cursor: pointer;
   text-align: center;
   transition: all 200ms ease;
+}
+.base-btn:disabled {
+  color: #b3b3b3 !important;
+  cursor: default !important;
+  outline: none !important;
+  pointer-events: none;
+}
+.base-btn:disabled:focus {
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 /* ### types ### */

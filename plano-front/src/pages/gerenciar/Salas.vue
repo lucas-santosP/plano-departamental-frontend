@@ -14,7 +14,7 @@
     </PageTitle>
 
     <div class="page-content">
-      <div class="div-table p-0">
+      <div class="div-table">
         <BaseTable>
           <template #thead>
             <th
@@ -70,7 +70,14 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Sala'">
+      <Card
+        :title="'Sala'"
+        :toggleFooter="isEdit"
+        @btn-salvar="editSala()"
+        @btn-delete="deleteSala()"
+        @btn-add="addSala()"
+        @btn-clean="cleanSala()"
+      >
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
@@ -113,59 +120,6 @@
               >
             </div>
           </div>
-        </template>
-        <template #footer>
-          <template v-if="isEdit">
-            <BaseButton
-              title="Salvar"
-              :type="'icon'"
-              :color="'green'"
-              @click="editSala()"
-              :key="1"
-            >
-              <i class="fas fa-check"></i>
-            </BaseButton>
-            <BaseButton
-              title="Deletar"
-              :type="'icon'"
-              :color="'red'"
-              @click="deleteSala()"
-              :key="2"
-            >
-              <i class="fas fa-trash"></i>
-            </BaseButton>
-
-            <BaseButton
-              title="Cancelar"
-              :type="'icon'"
-              :color="'gray'"
-              @click="cleanSala()"
-              :key="3"
-            >
-              <i class="fas fa-times"></i>
-            </BaseButton>
-          </template>
-
-          <template v-else>
-            <BaseButton
-              title="Adicionar"
-              :type="'icon'"
-              :color="'green'"
-              @click="addSala()"
-              :key="4"
-            >
-              <i class="fas fa-plus"></i>
-            </BaseButton>
-            <BaseButton
-              title="Cancelar"
-              :type="'icon'"
-              :color="'gray'"
-              @click="cleanSala()"
-              :key="5"
-            >
-              <i class="fas fa-times"></i>
-            </BaseButton>
-          </template>
         </template>
       </Card>
     </div>
