@@ -75,6 +75,10 @@ export default {
 </script>
 
 <style scoped>
+.card .btn-icon {
+  margin-right: 0 !important;
+  margin-left: 5px !important;
+}
 .card {
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);

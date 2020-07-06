@@ -57,7 +57,14 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Usuário'">
+      <Card
+        :title="'Usuário'"
+        :toggleFooter="isEdit"
+        @btn-salvar="editUser()"
+        @btn-delete="openModalDelete()"
+        @btn-add="createUser()"
+        @btn-clean="cleanUser()"
+      >
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
@@ -193,7 +200,7 @@
           </div>
         </template>
 
-        <template #footer>
+        <!-- <template #footer>
           <BaseButton
             v-show="!isEdit"
             title="Adicionar"
@@ -232,7 +239,7 @@
           >
             <i class="fas fa-times"></i>
           </BaseButton>
-        </template>
+        </template> -->
       </Card>
     </div>
 
