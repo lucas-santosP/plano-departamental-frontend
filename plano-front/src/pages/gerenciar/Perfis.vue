@@ -13,7 +13,7 @@
       </template>
     </PageTitle>
 
-    <div class="row w-100 m-0 p-0">
+    <div class="page-content">
       <div class="div-table">
         <BaseTable :tableHeight="'max-content'">
           <template #thead>
@@ -67,101 +67,52 @@
         </BaseTable>
       </div>
 
-      <div class="div-card p-0 mt-0 mb-4 ml-auto col-auto">
-        <Card :title="'Perfil'">
-          <template #form-group>
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label for="nome" class="col-form-label">Nome</label>
-                <input
-                  type="text"
-                  class="input-maior form-control form-control-sm"
-                  id="nome"
-                  v-model="perfilForm.nome"
-                />
-              </div>
+      <Card
+        :title="'Perfil'"
+        :toggleFooter="isEdit"
+        @btn-salvar="editPerfil()"
+        @btn-delete="deletePerfil()"
+        @btn-add="addPerfil()"
+        @btn-clean="cleanPerfil()"
+      >
+        <template #form-group>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="nome" class="col-form-label">Nome</label>
+              <input
+                type="text"
+                style="text-transform: uppercase"
+                class="input-maior form-control form-control-sm"
+                id="nome"
+                v-model="perfilForm.nome"
+              />
             </div>
+          </div>
 
-            <div class="row mb-2 mx-0">
-              <div class="form-group col-8 m-0 px-0">
-                <label for="abreviacao" class="col-form-label"
-                  >Abreviação</label
-                >
-                <input
-                  type="text"
-                  class="form-control form-control-sm"
-                  style="width:150px"
-                  id="abreviacao"
-                  v-model="perfilForm.abreviacao"
-                />
-              </div>
-              <div class="form-group col m-0 px-0">
-                <label for="cor" class="col-form-label">Cor</label>
-                <input
-                  type="color"
-                  style="width:100%"
-                  class="form-control form-control-sm"
-                  id="cor"
-                  v-model="perfilForm.cor"
-                />
-              </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col-8 m-0 px-0">
+              <label for="abreviacao" class="col-form-label">Abreviação</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                style="width:150px"
+                id="abreviacao"
+                v-model="perfilForm.abreviacao"
+              />
             </div>
-          </template>
-          <template #footer>
-            <template v-if="isEdit">
-              <BaseButton
-                title="Salvar"
-                :type="'icon'"
-                :color="'green'"
-                @click="editPerfil()"
-                :key="1"
-              >
-                <i class="fas fa-check"></i>
-              </BaseButton>
-              <BaseButton
-                title="Deletar"
-                :type="'icon'"
-                :color="'red'"
-                @click="deletePerfil()"
-                :key="2"
-              >
-                <i class="fas fa-trash"></i>
-              </BaseButton>
-
-              <BaseButton
-                title="Cancelar"
-                :type="'icon'"
-                :color="'gray'"
-                @click="clearClick(), cleanPerfil()"
-                :key="3"
-              >
-                <i class="fas fa-times"></i>
-              </BaseButton>
-            </template>
-
-            <template v-else>
-              <BaseButton
-                title="Adicionar"
-                :type="'icon'"
-                :color="'green'"
-                @click="addPerfil()"
-                :key="4"
-              >
-                <i class="fas fa-plus"></i>
-              </BaseButton>
-              <BaseButton
-                title="Cancelar"
-                :type="'icon'"
-                :color="'gray'"
-                @click="cleanPerfil()"
-                :key="5"
-              >
-                <i class="fas fa-times"></i>
-              </BaseButton>
-            </template>
-          </template>
-        </Card>
-      </div>
+            <div class="form-group col m-0 px-0">
+              <label for="cor" class="col-form-label">Cor</label>
+              <input
+                type="color"
+                style="width:100%"
+                class="form-control form-control-sm"
+                id="cor"
+                v-model="perfilForm.cor"
+              />
+            </div>
+          </div>
+        </template>
+      </Card>
     </div>
 
     <!-- MODAL AJUDA -->
@@ -244,12 +195,20 @@ export default {
   },
   methods: {
     handleClickInPerfil(perfil) {
+      this.cleanPerfil();
       this.perfilSelectedId = perfil.id;
       this.showPerfil(perfil);
     },
-
     clearClick() {
       this.perfilSelectedId = "";
+    },
+    cleanPerfil() {
+      this.clearClick();
+      this.perfilForm = _.clone(emptyPerfil);
+      this.error = undefined;
+    },
+    showPerfil(perfil) {
+      this.perfilForm = _.clone(perfil);
     },
     addPerfil() {
       perfilService
@@ -324,22 +283,6 @@ export default {
           });
         });
     },
-    cleanPerfil() {
-      this.perfilForm = _.clone(emptyPerfil);
-      this.error = undefined;
-    },
-    showPerfil(perfil) {
-      this.cleanPerfil();
-      this.perfilForm = _.clone(perfil);
-      (function smoothscroll() {
-        var currentScroll =
-          document.documentElement.scrollTop || document.body.scrollTop;
-        if (currentScroll > 0) {
-          window.requestAnimationFrame(smoothscroll);
-          window.scrollTo(0, currentScroll - currentScroll / 5);
-        }
-      })();
-    },
   },
   computed: {
     Perfis() {
@@ -363,10 +306,5 @@ export default {
 .card .input-maior {
   width: 240px;
   text-align: start;
-}
-@media screen and (max-width: 849px) {
-  .div-card {
-    margin-left: 0px !important;
-  }
 }
 </style>
