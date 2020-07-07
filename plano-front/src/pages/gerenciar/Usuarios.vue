@@ -136,8 +136,7 @@
                 ></PasswordInput>
               </div>
             </div>
-            <!-- btn edit senha -->
-            <hr class="w-100 m-0 my-1 mt-3" />
+            <!-- toggle edit senha -->
             <div class="container-edit-senha">
               <span>Editar senha</span>
 
@@ -153,7 +152,7 @@
                 ></i>
               </button>
             </div>
-            <hr class="w-100 m-0 my-1 mb-2" />
+
             <!-- edit senha -->
             <template v-if="isEditingSenha">
               <div :key="'senha'" class="row mb-2 mx-0">
@@ -459,14 +458,6 @@ export default {
 </script>
 
 <style scoped>
-.container-edit-senha {
-  font-size: 12px;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 ::v-deep .card input[type="text"],
 ::v-deep .card input[type="password"] {
   width: 200px !important;
@@ -478,9 +469,39 @@ export default {
 .form-group label > i {
   color: #f30000;
 }
+
+.container-edit-senha {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  margin-top: 12px;
+  font-size: 12x;
+  padding: 5px 0;
+}
+.container-edit-senha::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  border-top: 1px solid #dee2e6;
+}
+.container-edit-senha::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid #dee2e6;
+}
 .btn-edit-senha {
-  background-color: transparent !important;
   padding: 0 5px !important;
+  background-color: transparent !important;
+  line-height: 50%;
+  border: none;
+  margin: 0;
+  background: none;
 }
 .btn-edit-senha i {
   transition: all 0.25s ease !important;
