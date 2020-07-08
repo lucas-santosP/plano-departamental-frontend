@@ -514,13 +514,12 @@
     <BaseModal
       ref="modalDelete"
       :modalOptions="{
-        title: 'Confirmar seleção',
+        title: 'Deletar turma',
         position: 'center',
         hasBackground: true,
         hasFooter: true,
       }"
-      :customStyles="'width:450px'"
-      style="font-size:14px"
+      :customStyles="'width:450px; font-size:14px'"
     >
       <template #modal-body>
         <p class="w-100 m-0">
@@ -547,7 +546,7 @@
       <template #modal-footer>
         <div class="w-100">
           <button
-            class="btn-custom btn-modal btn-cinza btn-ok-modal"
+            class="btn-custom btn-modal btn-cinza paddingX-20"
             @click="$refs.modalDelete.close()"
           >
             Cancelar
@@ -555,7 +554,7 @@
         </div>
         <button
           v-if="Deletar.length"
-          class="btn-custom btn-modal btn-vermelho btn-ok-modal"
+          class="btn-custom btn-modal btn-vermelho paddingX-20"
           @click="deleteSelectedTurma()"
         >
           Deletar

@@ -253,13 +253,13 @@
       <!-- Botoes -->
       <div class="form-row w-100 m-0 mt-2">
         <b-button
-          class="btn-custom btn-modal btn-verde btn-ok-modal"
+          class="btn-custom btn-modal btn-verde paddingX-20"
           @click="editTurma()"
         >
           Salvar
         </b-button>
         <b-button
-          class="btn-custom btn-modal btn-cinza btn-ok-modal"
+          class="btn-custom btn-modal btn-cinza paddingX-20"
           @click="resetInputsValues()"
         >
           Cancelar
