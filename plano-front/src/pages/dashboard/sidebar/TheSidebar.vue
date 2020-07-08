@@ -147,6 +147,7 @@ export default {
         { title: "Grades ", routerName: "grades", icon: "fa-sitemap" },
         { title: "Log ", routerName: "history", icon: "fa-history" },
         { title: "Perfis ", routerName: "perfis", icon: "fa-th-list" },
+        { title: "Planos ", routerName: "planos", icon: "fa-calendar-alt" },
         { title: "Salas ", routerName: "salas", icon: "fa-university" },
       ],
     };

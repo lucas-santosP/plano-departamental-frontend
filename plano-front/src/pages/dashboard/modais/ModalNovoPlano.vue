@@ -796,7 +796,7 @@ export default {
         });
         let turmasCopiar = _.filter(this.$store.state.turma.Turmas, (t) => {
           let disciplina = _.includes(
-            this.disciplinasNovoPlanoSelecionadas,
+            this.filtrosDisciplinas,
             t.Disciplina
           );
           if (disciplina) return true;
