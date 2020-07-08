@@ -60,23 +60,31 @@
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label for="ano">Ano <i title="Campo obrigatório">*</i></label>
-              <input
-                class="form-control"
-                type="text"
-                id="ano"
-                v-model="planoForm.ano"
-              />
+              <select
+                id="planoAno"
+                v-model.number="planoForm.ano"
+                class="form-control input-ano"
+              >
+                <option
+                  v-for="year in Years"
+                  :key="'anos' + year"
+                  :value="year"
+                >
+                  {{ year }}</option
+                >
+              </select>
             </div>
           </div>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="obs">Observações</label>
-              <input
-                class="form-control"
-                type="text"
-                id="obs"
+              <label for="planoObs">Observações</label>
+              <textarea
+                id="planoObs"
+                cols="30"
+                rows="3"
                 v-model="planoForm.obs"
-              />
+                class="form-control"
+              ></textarea>
             </div>
           </div>
         </template>
@@ -290,6 +298,18 @@ export default {
 
       return _.orderBy(this.Planos, planoSorter, type);
     },
+    Years() {
+      let yearsArry = [];
+      let firstYear = 2019;
+      let currentYear = new Date().getFullYear();
+      let lastYear = currentYear + 5;
+
+      while (firstYear <= lastYear) {
+        yearsArry.push(parseInt(firstYear, 10));
+        firstYear++;
+      }
+      return yearsArry;
+    },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
     },
@@ -308,6 +328,16 @@ export default {
   padding: 0px 5px !important;
   font-size: 12px !important;
   text-align: start;
+}
+.card select {
+  width: 100px;
+  font-size: 12px !important;
+  height: 25px !important;
+  padding: 0px 5px !important;
+}
+textarea {
+  padding: 0px 5px !important;
+  font-size: 12px !important;
 }
 .form-group label > i {
   color: #f30000;
