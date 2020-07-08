@@ -6,6 +6,7 @@
           >Plano Departamental
         </router-link>
       </div>
+
       <button
         @click.stop="$emit('toggle-sidebar')"
         type="button"
@@ -16,28 +17,31 @@
     </div>
 
     <ul class="navbar-nav">
-      <li
-        v-if="Admin"
-        class="nav-link"
-        v-on:click="$emit('show-modal', 'novoPlano')"
-      >
-        <i class="fas fa-graduation-cap"></i>
-        <span>Novo Plano</span>
+      <li class="nav-link mr-1 pr-0">
+        <label class="m-0 pr-2" for="planoAtual" style="cursor:default">
+          Plano atual
+        </label>
+        <select
+          id="planoAtual"
+          class="input-plano"
+          type="text"
+          v-model.number="currentPlano"
+          @change="changePlano()"
+        >
+          <option v-for="plano in Planos" :value="plano.id" :key="plano.id">
+            {{ plano.ano }}
+          </option>
+        </select>
       </li>
-
-      <li
-        v-if="Admin"
-        class="nav-link"
-        v-on:click="$emit('show-modal', 'user')"
-      >
+      <li v-if="Admin" class="nav-link" @click="$emit('show-modal', 'user')">
         <i class="fas fa-user"></i>
         <span>Usuário</span>
       </li>
-      <li class="nav-link" v-on:click="$emit('show-modal', 'download')">
+      <li class="nav-link" @click="$emit('show-modal', 'download')">
         <i class="fas fa-save"></i>
         <span>Download</span>
       </li>
-      <li class="nav-link" v-on:click="routerLogout()">
+      <li class="nav-link" @click="routerLogout()">
         <i class="fas fa-sign-out-alt"></i>
         <span>Logout</span>
       </li>
@@ -46,14 +50,38 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { EventBus } from "@/event-bus.js";
+import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
 
 export default {
   name: "TheNavbar",
   props: {
     sidebarVisibility: { type: Boolean, required: true },
   },
+  data() {
+    return {
+      currentPlano: null,
+    };
+  },
+  created() {
+    this.currentPlano = parseInt(localStorage.getItem("Plano"), 10);
+  },
   methods: {
+    changePlano() {
+      try {
+        this.$store.commit(COMPONENT_LOADING);
+
+        setTimeout(async () => {
+          await localStorage.setItem("Plano", this.currentPlano);
+          await this.$store.dispatch("fetchAll");
+          this.$socket.open();
+          this.$store.commit(COMPONENT_LOADED);
+        }, 300);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     routerLogout() {
       this.$router.push({ name: "logout" });
     },
@@ -62,6 +90,15 @@ export default {
     },
   },
   computed: {
+    Planos() {
+      const planosResultantes = _.orderBy(this.$store.state.plano.Plano, "ano");
+
+      if (this.onDevelopmentMode) return planosResultantes;
+      else return _.filter(planosResultantes, (plano) => plano.ano != 2099);
+    },
+    onDevelopmentMode() {
+      return window.location.href.includes("localhost");
+    },
     Admin() {
       return this.$store.state.auth.Usuario.admin === 1;
     },
@@ -76,8 +113,6 @@ export default {
   margin: 0;
   padding: 0;
   border-width: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
   border-radius: 0;
   transition: all 300ms ease;
   position: fixed;
@@ -114,7 +149,6 @@ export default {
   font-size: 15px;
   color: #cdced0 !important;
 }
-
 .brand .btn-navbar {
   width: 40px !important;
   height: 30px;
@@ -123,6 +157,8 @@ export default {
   height: 30px !important;
   border: none;
   outline: none;
+  border-left: #202020 2px solid;
+  border-right: #202020 2px solid;
   color: #cdced0 !important;
   background-color: #00000040 !important;
   font-size: 20px !important;
@@ -130,14 +166,30 @@ export default {
 .brand .btn-navbar:focus,
 .brand .navbar-brand .brand-title:focus {
   box-shadow: none !important;
+  border-color: #202020 !important;
 }
 .brand .btn-navbar i {
   font-size: 20px !important;
 }
-
 .brand .navbar-brand .brand-title:hover,
 .brand .btn-navbar:hover {
   color: #ffffff !important;
+}
+
+.input-plano {
+  text-align: start;
+  width: 60px;
+  height: 18px;
+  font-size: 12px;
+  border-radius: 2px;
+  padding: 0 1px;
+  color: #ffffff80;
+  border: solid 1px #b9b9b993;
+  background-color: #343a40;
+}
+.input-plano:hover {
+  color: #ffffffbf;
+  border-color: #ffffffbf;
 }
 
 .navbar-nav {

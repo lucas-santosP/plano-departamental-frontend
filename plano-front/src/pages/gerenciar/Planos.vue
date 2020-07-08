@@ -283,20 +283,16 @@ export default {
   },
   computed: {
     Planos() {
-      return this.$store.state.plano.Plano;
+      if (this.onDevelopmentMode) return this.$store.state.plano.Plano;
+      else
+        return _.filter(
+          this.$store.state.plano.Plano,
+          (plano) => plano.ano != 2099
+        );
     },
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
-      const planoSorter = (plano) => {
-        switch (order) {
-          case "obs":
-          case "ano":
-          default:
-            return plano[order];
-        }
-      };
-
-      return _.orderBy(this.Planos, planoSorter, type);
+      return _.orderBy(this.Planos, order, type);
     },
     Years() {
       let yearsArry = [];
@@ -308,6 +304,10 @@ export default {
         yearsArry.push(parseInt(firstYear, 10));
         firstYear++;
       }
+
+      // Apenas em desenvolvimento
+      if (this.onDevelopmentMode) yearsArry.push(2099);
+
       return yearsArry;
     },
     Admin() {
@@ -315,6 +315,9 @@ export default {
     },
     isEdit() {
       return this.planoSelected != null;
+    },
+    onDevelopmentMode() {
+      return window.location.href.includes("localhost");
     },
   },
 };

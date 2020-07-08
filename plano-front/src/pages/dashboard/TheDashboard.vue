@@ -190,4 +190,8 @@ export default {
   width: 100% !important;
   background-color: rgba(0, 0, 0, 0.3);
 }
+.routerview-animation {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
 </style>

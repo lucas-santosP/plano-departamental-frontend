@@ -933,15 +933,18 @@ export default {
       return this.$store.state.disciplina.Disciplinas;
     },
     Years() {
-      let yearsArry = [];
+      const yearsArry = [];
       let firstYear = 2019;
-      let currentYear = new Date().getFullYear();
-      let lastYear = currentYear + 5;
+      const currentYear = new Date().getFullYear();
+      const lastYear = currentYear + 5;
 
       while (firstYear <= lastYear) {
         yearsArry.push(parseInt(firstYear, 10));
         firstYear++;
       }
+      // Apenas em desenvolvimento
+      if (window.location.href.includes("localhost")) yearsArry.push(2099);
+
       return yearsArry;
     },
   },
