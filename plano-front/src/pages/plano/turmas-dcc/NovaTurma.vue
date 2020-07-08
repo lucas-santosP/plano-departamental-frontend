@@ -422,9 +422,12 @@ export default {
       return this.currentDisciplina ? this.currentDisciplina.ead === 2 : false;
     },
     DisciplinasDCC() {
-      return _.filter(
-        this.$store.state.disciplina.Disciplinas,
-        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
+      return _.orderBy(
+        _.filter(
+          this.$store.state.disciplina.Disciplinas,
+          (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
+        ),
+        "nome"
       );
     },
     DisciplinasOrederedByCod() {
