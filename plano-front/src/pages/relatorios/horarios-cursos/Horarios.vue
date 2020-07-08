@@ -14,13 +14,14 @@
         <BaseButton
           title="Relátorio"
           :type="'icon'"
-          :color="'lightblue'"
+          :color="'gray'"
           @click="openAsideModal('relatorio')"
         >
-          <i class="far fa-file-alt"></i>
+          <i class="fas fa-file-alt"></i>
         </BaseButton>
 
         <BaseButton
+          title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
           @click="openAsideModal('ajuda')"
@@ -512,7 +513,9 @@ export default {
       var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades;
       var turmas = _.filter(this.$store.state.turma.Turmas, ["periodo", 1]);
       var turmasExternas = this.$store.state.turmaExterna.Turmas;
-      var anoAtual = _.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'), 10)}).ano;
+      var anoAtual = _.find(this.$store.state.plano.Plano, {
+        id: parseInt(localStorage.getItem("Plano"), 10),
+      }).ano;
       var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
@@ -929,7 +932,9 @@ export default {
       var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades;
       var turmas = _.filter(this.$store.state.turma.Turmas, ["periodo", 3]);
       var turmasExternas = this.$store.state.turmaExterna.Turmas;
-      var anoAtual = _.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'), 10)}).ano;
+      var anoAtual = _.find(this.$store.state.plano.Plano, {
+        id: parseInt(localStorage.getItem("Plano"), 10),
+      }).ano;
       var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
