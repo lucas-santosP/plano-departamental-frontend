@@ -343,7 +343,7 @@
             v-show="!docenteSemAlocacao.ativado && !DocentesOrderedMain.length"
           >
             <td colspan="9" style="width:870px">
-              <b>Nenhum docente encontrada.</b> Clique no botão de filtros
+              <b>Nenhum docente encontrado.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
             </td>
           </tr>
