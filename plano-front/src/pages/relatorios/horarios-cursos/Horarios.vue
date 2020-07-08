@@ -1367,7 +1367,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1392,7 +1392,7 @@ export default {
       });
       if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
-          text: "Ciência da Computação diurno",
+          text: "Ciência da Computação - integral",
           bold: true,
           margin: [0, 10, 0, 5],
           fontSize: 10,
@@ -1747,7 +1747,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1775,7 +1775,7 @@ export default {
 
       if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
-          text: "Ciência da Computação noturno",
+          text: "Ciência da Computação - noturno",
           bold: true,
           margin: [0, 10, 0, 5],
           fontSize: 10,
@@ -2130,7 +2130,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2513,7 +2513,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2896,7 +2896,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3354,7 +3354,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3382,7 +3382,7 @@ export default {
 
       if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
-          text: "Ciência da Computação diurno",
+          text: "Ciência da Computação - integral",
           bold: true,
           margin: [0, 10, 0, 5],
           fontSize: 10,
@@ -3737,7 +3737,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3765,7 +3765,7 @@ export default {
 
       if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
-          text: "Ciência da Computação noturno",
+          text: "Ciência da Computação - noturno",
           bold: true,
           margin: [0, 10, 0, 5],
           fontSize: 10,
@@ -4120,7 +4120,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4503,7 +4503,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4886,7 +4886,7 @@ export default {
           [
             {
               text:
-                "Horários dos cursos do departamento de Ciência da Computação",
+                "Horários dos cursos do Departamento de Ciência da Computação",
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -5389,7 +5389,7 @@ export default {
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65C"
           ),
-          nome: "Ciência da Computação diurno",
+          nome: "Ciência da Computação - integral",
           turno: "Diurno",
           codigo: "65C",
           value: 1,
@@ -5401,7 +5401,7 @@ export default {
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "35A"
           ),
-          nome: "Ciência da Computação noturno",
+          nome: "Ciência da Computação - noturno",
           codigo: "35A",
           value: 2,
           turno: "Noturno",
