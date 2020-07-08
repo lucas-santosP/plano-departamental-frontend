@@ -174,6 +174,7 @@ export default {
         { text: "PEDIDO", value: "Pedido" },
         { text: "PEDIDO EXTERNO", value: "PedidoExterno" },
         { text: "PERFIL", value: "Perfil" },
+        { text: "PLANO", value: "Plano" },
         { text: "SALA", value: "Sala" },
         { text: "TURMA", value: "Turma" },
         { text: "TURMA EXTERNA", value: "TurmaExterna" },
