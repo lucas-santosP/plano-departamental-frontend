@@ -407,19 +407,12 @@
       <template #modal-body>
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
-            <b>Para exibir conteúdo na Tabela:</b> Clique em Perfis
-            <i
-              class="fas fa-list-ul cancelbtn px-1"
-              style="font-size: 12px;"
-            ></i>
-            e marque quais deseja mostrar, depois clique em OK. Logo após,
-            escolha os Cursos
-            <i
-              class="fas fa-graduation-cap cancelbtn px-1"
-              style="font-size: 12px;"
-            ></i>
-            que quer ver, confirmando a seleção em OK. Caso queira ver todos
-            basta clicar em Selecionar Todos.
+            <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
+            <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+            janela que será aberta utilize as abas para navegar entre os tipos
+            de filtros. Marque em suas respectivas tabelas quais informações
+            deseja visualizar, selecione o ano do plano no cabeçalho e para
+            finalizar clique no botão OK.
           </li>
         </ul>
       </template>
