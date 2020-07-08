@@ -17,7 +17,7 @@
         <BaseButton
           title="Filtros"
           :type="'icon'"
-          :color="'lightblue'"
+          :color="'gray'"
           @click="$refs.modalFiltros.toggle()"
         >
           <i class="fas fa-list-ul"></i>

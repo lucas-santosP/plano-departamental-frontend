@@ -55,7 +55,7 @@ export default {
 .btn-icon {
   width: 32px !important;
   height: 30px;
-  margin: 0 2px;
+  margin: 0 3px;
   display: flex;
   justify-content: center;
   align-items: center;

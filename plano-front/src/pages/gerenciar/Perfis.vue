@@ -81,8 +81,7 @@
               <label for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
-                style="text-transform: uppercase"
-                class="input-maior form-control form-control-sm"
+                class="input-maior form-control form-control-sm upper-case"
                 id="nome"
                 v-model="perfilForm.nome"
               />

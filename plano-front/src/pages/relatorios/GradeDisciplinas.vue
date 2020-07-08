@@ -2,7 +2,7 @@
   <div class="main-component row">
     <PageTitle :title="'Grades Disciplinas'">
       <template #aside>
-        <div class="input-group d-flex align-items-center m-0 mr-3 ml-auto p-0">
+        <div class="input-group d-flex align-items-center m-0 mx-2 ml-auto p-0">
           <div class="input-group-prepend">
             <label class="input-group-text">Ano</label>
           </div>
@@ -29,6 +29,7 @@
         </BaseButton>
 
         <BaseButton
+          title="Ajuda"
           :type="'icon'"
           :color="'lightblue'"
           @click="openAsideModal('ajuda')"

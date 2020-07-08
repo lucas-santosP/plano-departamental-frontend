@@ -67,9 +67,8 @@ export default {
 .sidebar-menu .nav li .nav-link:focus {
   transition: border 100ms ease;
   box-shadow: none !important;
-  border-color: var(--light-blue) !important;
   border-left: var(--light-blue) 10px solid !important;
-  outline: var(--light-blue) solid 1px !important;
+  outline: #007bff40 solid 2px !important;
   outline-offset: -1px !important;
 }
 .sidebar-menu .nav li .nav-link:hover {
