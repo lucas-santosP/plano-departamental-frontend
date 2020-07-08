@@ -15,7 +15,7 @@
 
     <div class="page-content">
       <div class="div-table">
-        <BaseTable>
+        <BaseTable :styles="'height:max-content'">
           <template #thead>
             <th
               style="width: 70px"
