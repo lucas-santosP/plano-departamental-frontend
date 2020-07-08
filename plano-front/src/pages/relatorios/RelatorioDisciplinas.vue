@@ -109,7 +109,6 @@
                   {{ getDisciplinaVagasInCurrentSemestres(disciplina) }}
                 </td>
               </tr>
-              <!--  -->
               <tr :key="'turmasTr' + turma.id">
                 <td style="width: 80px" class="t-start"></td>
                 <td style="width: 350px"></td>
@@ -172,6 +171,7 @@
               </tr>
             </template>
           </template>
+
           <tr v-show="!DisciplinasOrderedMain.length">
             <td colspan="8" style="width: 1000px">
               <b>Nenhuma disciplina encontrada.</b> Clique no botão de filtros
