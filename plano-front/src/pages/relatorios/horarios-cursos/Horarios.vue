@@ -102,10 +102,7 @@
           v-on:change-tab="tabAtivaModal = $event"
         />
         <div class="div-table">
-          <BaseTable
-            v-show="tabAtivaModal === 'Cursos'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Cursos'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th
@@ -148,10 +145,7 @@
               </tr>
             </template>
           </BaseTable>
-          <BaseTable
-            v-show="tabAtivaModal === 'Semestres'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Semestres'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th style="width: 425px" class="t-start">

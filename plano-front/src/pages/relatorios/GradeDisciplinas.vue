@@ -222,10 +222,7 @@
         />
 
         <div class="div-table">
-          <BaseTable
-            v-show="tabAtivaModal === 'Perfis'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Perfis'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th
@@ -260,7 +257,7 @@
 
           <BaseTable
             v-show="tabAtivaModal === 'Disciplinas'"
-            :tableType="'modal-table'"
+            :type="'modal'"
             :hasSearchBar="true"
           >
             <template #thead-search>
@@ -351,10 +348,7 @@
             </template>
           </BaseTable>
 
-          <BaseTable
-            v-show="tabAtivaModal === 'Cursos'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Cursos'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th

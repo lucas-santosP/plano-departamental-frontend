@@ -279,11 +279,7 @@
       </p>
     </div>
     <div class="div-table">
-      <BaseTable
-        :tableType="'modal-table'"
-        :tableHeight="'height:350px'"
-        :hasSearchBar="true"
-      >
+      <BaseTable :type="'modal'" :styles="'height:350px'" :hasSearchBar="true">
         <template #thead-search>
           <input
             type="text"

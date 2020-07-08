@@ -244,7 +244,7 @@
         <div class="div-table">
           <BaseTable
             v-show="tabAtivaModal === 'Disciplinas'"
-            :tableType="'modal-table'"
+            :type="'modal'"
             :hasSearchBar="true"
           >
             <template #thead-search>
@@ -335,10 +335,7 @@
             </template>
           </BaseTable>
 
-          <BaseTable
-            v-show="tabAtivaModal === 'Semestres'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Semestres'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th class="t-start clickable" style="width: 425px">
@@ -371,10 +368,7 @@
             </template>
           </BaseTable>
 
-          <BaseTable
-            :tableType="'modal-table'"
-            v-show="tabAtivaModal === 'Perfis'"
-          >
+          <BaseTable :type="'modal'" v-show="tabAtivaModal === 'Perfis'">
             <template #thead>
               <th style="width: 25px;"></th>
               <th
@@ -452,7 +446,7 @@
             </div>
           </div>
           <div class="div-table">
-            <BaseTable :tableType="'modal-table'">
+            <BaseTable :type="'modal'">
               <template #thead>
                 <th
                   class="clickable t-start"

@@ -36,7 +36,7 @@
       </div>
       <div class="div-table">
         <!-- TABLE DISCIPLINAS -->
-        <BaseTable :tableType="'modal-table'" :hasSearchBar="true">
+        <BaseTable :type="'modal'" :hasSearchBar="true">
           <template #thead-search>
             <input
               type="text"

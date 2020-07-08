@@ -88,10 +88,7 @@
         />
 
         <div class="div-table">
-          <BaseTable
-            v-show="tabAtivaModal === 'Laboratorios'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Laboratorios'" :type="'modal'">
             <template #thead>
               <th style="width: 25px" class="t-start"></th>
               <th style="width: 425px" class="t-start">
@@ -124,10 +121,7 @@
             </template>
           </BaseTable>
 
-          <BaseTable
-            v-show="tabAtivaModal === 'Semestres'"
-            :tableType="'modal-table'"
-          >
+          <BaseTable v-show="tabAtivaModal === 'Semestres'" :type="'modal'">
             <template #thead>
               <th style="width: 25px"></th>
               <th class="t-start clickable" style="width: 425px">
