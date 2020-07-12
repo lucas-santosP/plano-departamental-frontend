@@ -9,6 +9,7 @@
     --navbar-height: 60px;
   }
 }
+
 *:focus {
   border-color: #80bdff !important;
   outline: 0 !important;
@@ -60,6 +61,14 @@ main .main-component {
   padding-right: 20px !important;
   padding-left: 20px !important;
 }
+label[required]:after {
+  content: "*";
+  position: relative;
+  top: 2px;
+  left: 4px;
+  font-size: 16px;
+  color: red;
+}
 
 /* searchDisciplinas */
 .search-text:hover {
@@ -87,6 +96,12 @@ main .main-component {
   width: -webkit-max-content !important;
   width: -moz-max-content !important;
   width: max-content !important;
+}
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
 }
 
 .modal-custom .list-group,

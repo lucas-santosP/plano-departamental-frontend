@@ -33,7 +33,7 @@
           </option>
         </select>
       </li>
-      <li v-if="Admin" class="nav-link" @click="$emit('show-modal', 'user')">
+      <li class="nav-link" @click="$emit('show-modal', 'user')">
         <i class="fas fa-user"></i>
         <span>Usuário</span>
       </li>
