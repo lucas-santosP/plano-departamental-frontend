@@ -22,7 +22,7 @@
               class="t-start clickable"
               @click="toggleOrder(ordenacaoMainPlanos, 'ano')"
             >
-              Nome
+              Ano
               <i :class="setIconByOrder(ordenacaoMainPlanos, 'ano')"></i>
             </th>
             <th
@@ -53,13 +53,13 @@
         :toggleFooter="isEdit"
         @btn-salvar="editPlano()"
         @btn-delete="openModalDelete()"
-        @btn-add="createPlano()"
+        @btn-add="openModalNovoPlano()"
         @btn-clean="cleanPlano()"
       >
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="ano">Ano <i title="Campo obrigatório">*</i></label>
+              <label required for="ano">Ano </label>
               <select
                 id="planoAno"
                 v-model.number="planoForm.ano"
@@ -90,6 +90,8 @@
         </template>
       </Card>
     </div>
+
+    <ModalNovoPlano ref="modalNovoPlano" :plano="planoForm" />
 
     <BaseModal
       ref="modalDeletePlano"
@@ -167,6 +169,7 @@ import {
   PasswordInput,
   Card,
 } from "@/components/index.js";
+import ModalNovoPlano from "./ModalNovoPlano";
 
 const emptyPlano = {
   ano: "",
@@ -183,11 +186,12 @@ export default {
     Card,
     PasswordInput,
     BaseModal,
+    ModalNovoPlano,
   },
   data() {
     return {
-      planoSelected: null,
       planoForm: _.clone(emptyPlano),
+      planoSelected: null,
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
   },
@@ -213,30 +217,15 @@ export default {
     validatePlano(plano) {
       return !(plano.ano === "" || plano.ano === null);
     },
-    async createPlano() {
-      const plano = _.clone(this.planoForm);
-
-      if (!this.validatePlano(plano)) {
+    openModalNovoPlano() {
+      if (!this.validatePlano(this.planoForm)) {
         this.showNotification({
           type: "error",
           message: `Campo ano inválido.`,
         });
         return;
       }
-
-      try {
-        await planoService.create(plano);
-        this.showNotification({
-          type: "success",
-          message: `Plano criado.`,
-        });
-        this.cleanPlano();
-      } catch (error) {
-        this.showNotification({
-          type: "error",
-          message: error,
-        });
-      }
+      this.$refs.modalNovoPlano.open();
     },
     async editPlano() {
       const plano = _.clone(this.planoForm);
@@ -283,6 +272,7 @@ export default {
   },
   computed: {
     Planos() {
+      // Plano 2099 de teste mostrado apenas no localhost
       if (this.onDevelopmentMode) return this.$store.state.plano.Plano;
       else
         return _.filter(
@@ -305,7 +295,7 @@ export default {
         firstYear++;
       }
 
-      // Apenas em desenvolvimento
+      // Plano de teste mostrado apenas no localhost
       if (this.onDevelopmentMode) yearsArry.push(2099);
 
       return yearsArry;
@@ -339,50 +329,7 @@ export default {
   padding: 0px 5px !important;
 }
 textarea {
-  padding: 0px 5px !important;
+  padding: 5px !important;
   font-size: 12px !important;
-}
-.form-group label > i {
-  color: #f30000;
-}
-
-.container-edit-senha {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 10px 0;
-  margin-top: 12px;
-  font-size: 12x;
-  padding: 5px 0;
-}
-.container-edit-senha::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 100%;
-  border-top: 1px solid #dee2e6;
-}
-.container-edit-senha::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 1px solid #dee2e6;
-}
-.btn-edit-senha {
-  padding: 0 5px !important;
-  background-color: transparent !important;
-  line-height: 50%;
-  border: none;
-  margin: 0;
-  background: none;
-}
-.btn-edit-senha i {
-  transition: all 0.25s ease !important;
-}
-.btn-edit-senha:focus {
-  box-shadow: 0 0 0 0.15rem #007bff40 !important;
 }
 </style>

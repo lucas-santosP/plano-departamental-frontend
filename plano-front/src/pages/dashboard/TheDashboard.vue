@@ -30,7 +30,7 @@
     ></div>
 
     <!-- Modais -->
-    <ModalNovoPlano ref="modalNovoPlano" />
+
     <ModalUser ref="modalUser" />
     <ModalDownload ref="modalDownload" />
   </div>
@@ -51,7 +51,6 @@ import TheNavbar from "./TheNavbar.vue";
 import TheSidebar from "./sidebar/TheSidebar.vue";
 import ModalUser from "./modais/ModalUser.vue";
 import ModalDownload from "./modais/ModalDownload.vue";
-import ModalNovoPlano from "./modais/ModalNovoPlano.vue";
 
 export default {
   name: "TheDashboard",
@@ -63,7 +62,6 @@ export default {
     BaseTable,
     ModalUser,
     ModalDownload,
-    ModalNovoPlano,
   },
   mixins: [toggleOrdination, toggleItemInArray, notification],
   data() {
@@ -77,9 +75,6 @@ export default {
         },
         user: () => {
           this.$refs.modalUser.open();
-        },
-        novoPlano: () => {
-          this.$refs.modalNovoPlano.open();
         },
       },
     };

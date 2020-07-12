@@ -61,13 +61,16 @@ main .main-component {
   padding-right: 20px !important;
   padding-left: 20px !important;
 }
+label[required] {
+  position: relative;
+}
 label[required]:after {
   content: "*";
-  position: relative;
-  top: 2px;
-  left: 4px;
+  position: absolute;
+  top: 0;
+  right: -10px;
   font-size: 16px;
-  color: red;
+  color: rgb(255, 0, 0);
 }
 
 /* searchDisciplinas */

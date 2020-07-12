@@ -4,55 +4,31 @@
     :modalOptions="{
       position: 'centerNavbar',
       hasBackground: 'true',
-      title: 'Criar novo plano',
+      title: 'Turmas do novo plano',
       hasFooter: true,
     }"
   >
     <template #modal-body>
-      <div class="form-container">
-        <div class="form-row">
-          <label for="planoAno">Ano: </label>
-
-          <select
-            id="planoAno"
-            v-model.number="planoForm.ano"
-            class="form-control input-ano"
-          >
-            <option v-for="year in Years" :key="'anos' + year" :value="year">
-              {{ year }}</option
-            >
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="planoObs">Observações: </label>
-          <textarea
-            id="planoObs"
-            cols="30"
-            rows="2"
-            v-model="planoForm.obs"
-            class="form-control"
-          ></textarea>
-        </div>
-      </div>
-      <!-- TABLE DISCIPLINAS -->
+      <p class="alert alert-secondary  ">
+        Selecione as disciplinas para quais as turmas do
+        <b> plano atual {{ currentPlano.ano }}</b> serão copiadas para o novo
+        plano
+      </p>
       <div class="div-table">
         <BaseTable
           :type="'modal'"
-          :styles="'height: 400px;'"
+          :styles="'max-height: 500px;height:500px'"
           :hasSearchBar="true"
         >
           <template #thead-search>
             <input
               type="text"
+              ref="inputSearch"
               class="form-control input-search"
               placeholder="Pesquise nome ou codigo de uma disciplina..."
-              v-model="searchDisciplinasModal"
+              @input="handleInputSearch"
             />
-            <button
-              @click="searchDisciplinasModal = ''"
-              class="btn btn-search"
-              style="font-weight: bold "
-            >
+            <button @click="clearSearch" class="btn btn-search">
               <i class="fas fa-times"></i>
             </button>
           </template>
@@ -160,30 +136,26 @@
 
 <script>
 import _ from "lodash";
+import debounce from "@/utils/debounce.js";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import planoService from "@/common/services/plano";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
 import turmaExternaService from "@/common/services/turmaExterna";
 import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  notification,
-} from "@/mixins/index.js";
+import { toggleOrdination, toggleItemInArray } from "@/mixins/index.js";
 import { BaseModal, BaseTable, BaseButton } from "@/components/index.js";
 
-const emptyPlano = {
-  ano: new Date().getFullYear(),
-  obs: "",
-};
 export default {
-  name: "ModalUser",
-  mixins: [notification, toggleItemInArray, toggleOrdination],
+  name: "ModalNovoPlano",
+  mixins: [toggleItemInArray, toggleOrdination],
   components: { BaseModal, BaseTable, BaseButton },
+  props: {
+    plano: { type: Object, required: true },
+  },
   data() {
     return {
-      planoForm: _.clone(emptyPlano),
+      planoForm: _.clone(this.plano),
       searchDisciplinasModal: "",
       filtrosDisciplinas: [],
       ordenacaoModal: {
@@ -193,12 +165,19 @@ export default {
       grades2semestre: { CCD: [], CCN: [], EC: [], SI: [] },
     };
   },
+
   methods: {
     open() {
       this.$refs.baseModalNovoPlano.open();
     },
-    clearPlanoForm() {
-      this.planoForm = _.clone(emptyPlano);
+    clearSearch() {
+      this.$refs.inputSearch.value = "";
+      this.searchDisciplinasModal = "";
+    },
+    handleInputSearch(e) {
+      debounce(() => {
+        this.searchDisciplinasModal = e.target.value;
+      }, 500);
     },
     selectAllDisciplinas() {
       this.filtrosDisciplinas = [
@@ -215,7 +194,6 @@ export default {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/\s/g, "");
     },
-
     gradesAtivas(ano) {
       //define grades ativas por periodo
       let g;
@@ -947,11 +925,33 @@ export default {
 
       return yearsArry;
     },
+    currentPlano() {
+      return _.find(
+        this.$store.state.plano.Plano,
+        (plano) => plano.id === parseInt(localStorage.getItem("Plano"), 10)
+      );
+    },
+  },
+  watch: {
+    plano: {
+      handler(newValue) {
+        this.planoForm = _.clone(newValue);
+      },
+      deep: true,
+    },
   },
 };
 </script>
 
 <style scoped>
+.alert {
+  word-break: break-word;
+  font-size: 12px;
+  padding: 8px 10px;
+  padding-right: 20px;
+  margin-bottom: 0.5rem;
+  background-color: #e9ecef !important;
+}
 .form-container {
   display: flex;
   flex-direction: column;
