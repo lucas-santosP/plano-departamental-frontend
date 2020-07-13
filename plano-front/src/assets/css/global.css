@@ -10,6 +10,33 @@
   }
 }
 
+.div-table {
+  overflow: hidden;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0;
+}
+.sticky {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  top: 0 !important;
+  overflow: hidden !important;
+  z-index: 5 !important;
+}
+.sticky2 {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  top: 37px !important;
+  overflow: hidden !important;
+  z-index: 5;
+}
+
 *:focus {
   border-color: #80bdff !important;
   outline: 0 !important;
@@ -36,14 +63,16 @@ main .main-component {
   width: 100%;
   flex-wrap: wrap;
 }
+.clickable {
+  cursor: pointer !important;
+}
+.max-content {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+}
 .less-padding {
   padding: 0 2px !important;
-}
-.form-inline .titulo {
-  font-size: 25px;
-  font-weight: normal !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
 }
 .low-opacity {
   opacity: 0.4;
@@ -61,6 +90,7 @@ main .main-component {
   padding-right: 20px !important;
   padding-left: 20px !important;
 }
+
 label[required] {
   position: relative;
 }
@@ -73,33 +103,6 @@ label[required]:after {
   color: rgb(255, 0, 0);
 }
 
-/* searchDisciplinas */
-.search-text:hover {
-  color: rgb(102, 102, 102) !important;
-  background-color: #dddddd !important;
-}
-.search-text {
-  background-color: #ffffff !important;
-  border-left: none !important;
-}
-.search-btn {
-  cursor: pointer;
-  height: 25px;
-  background-color: #fff;
-  font-size: 18px;
-}
-.search-btn :hover {
-  background-color: #fff;
-}
-
-.clickable {
-  cursor: pointer !important;
-}
-.max-content {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important;
-}
 img {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
@@ -134,6 +137,7 @@ img {
   align-items: flex-start;
   word-wrap: break-word;
 }
+
 /* notification */
 .vue-notification {
   padding: 10px;

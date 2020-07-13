@@ -911,26 +911,7 @@ export default {
 .input-form label {
   margin: 0;
 }
-.less-padding {
-  padding: 0 2px;
-}
 
-/* Formularios no topo da tela */
-.form-inline .input-group,
-.form-inline {
-  width: auto;
-}
-.form-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-  margin-bottom: 0;
-}
 .form-control {
   height: 25px !important;
   font-size: 12px !important;
