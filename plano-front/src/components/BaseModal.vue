@@ -83,7 +83,7 @@ export default {
       positions: {
         right: "top: 80px; right: 20px; z-index: 900;",
         center:
-          "top: 25px; left:50%; transform: translateX(-50%); z-index: 1000;",
+          "top: 25px; left:50%; transform: translateX(-50%); z-index: 1000; max-height: calc(100% - 3rem);",
         centerNavbar:
           "top: 40px;left:50%; transform: translateX(-50%); z-index: 1000;",
       },
