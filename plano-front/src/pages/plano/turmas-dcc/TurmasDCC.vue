@@ -181,9 +181,8 @@
           />
           <template v-if="tableIsReady">
             <TurmaRow
-              v-cloak
               v-for="turma in TurmasOrdered"
-              :key="turma.id + turma.disciplinaCodigo + turma.letra"
+              :key="turma.id + turma.disciplina.codigo + turma.letra"
               :turma="turma"
               :cursosAtivados="filtroCursos.ativados"
               @handle-click-in-edit="handleClickInEdit($event)"
@@ -317,7 +316,7 @@
             </template>
             <template #tbody>
               <tr
-                v-for="disciplina in DisciplinasOrderedModal"
+                v-for="disciplina in DisciplinasDCCOrderedModal"
                 :key="'MdDisciplina' + disciplina.id"
                 @click="
                   toggleItemInArray(
@@ -344,7 +343,7 @@
                   {{ disciplina.perfilAbreviacao }}
                 </td>
               </tr>
-              <tr v-if="DisciplinasOrderedModal.length === 0">
+              <tr v-if="DisciplinasDCCOrderedModal.length === 0">
                 <td colspan="3" style="width:450px">
                   NENHUMA DISCIPLINA ENCONTRADA.
                 </td>
@@ -392,7 +391,7 @@
             </template>
             <template #tbody>
               <tr
-                v-for="curso in ModalCursosOrdered"
+                v-for="curso in CursosOrderedModal"
                 :key="'cursoMd' + curso.id"
                 @click="toggleItemInArray(curso, filtroCursos.selecionados)"
               >
@@ -411,7 +410,7 @@
                   {{ curso.nome }}
                 </td>
               </tr>
-              <tr v-show="ModalCursosOrdered.length === 0">
+              <tr v-show="CursosOrderedModal.length === 0">
                 <td colspan="3" style="width:450px">
                   NENHUM CURSO ENCONTRADO.
                 </td>
@@ -537,7 +536,7 @@
           >
             <span class="mr-1"> <b> Semestre: </b>{{ turma.periodo }} </span>
             <span class="mr-1">
-              <b> Disciplina: </b>{{ turma.disciplinaNome }}
+              <b> Disciplina: </b>{{ turma.disciplina.nome }}
             </span>
             <span class="mr-1"><b> Turma: </b> {{ turma.letra }} </span>
           </li>
@@ -630,6 +629,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 import { EventBus } from "@/event-bus.js";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
@@ -651,6 +651,7 @@ import {
   LoadingPage,
   BaseButton,
 } from "@/components/index.js";
+import { normalizeText } from "@/utils/index.js";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
 
@@ -694,10 +695,15 @@ export default {
       },
       modalSelectAll: {
         Perfis: () => {
-          this.filtroPerfis.selecionados = [...this.Perfis];
+          this.filtroPerfis.selecionados = [...this.PerfisDCC];
         },
         Disciplinas: () => {
-          this.filtroDisciplinas.selecionados = [...this.DisciplinasId];
+          this.filtroDisciplinas.selecionados = [
+            ..._.map(
+              this.DisciplinasDCCInPerfis,
+              (disciplina) => disciplina.id
+            ),
+          ];
         },
         Cursos: () => {
           this.filtroCursos.selecionados = [...this.Cursos];
@@ -758,7 +764,6 @@ export default {
       ls.off(`${id}`);
     }
   },
-
   methods: {
     openAsideModal(modalName) {
       if (modalName === "filtros") {
@@ -841,6 +846,8 @@ export default {
     },
     deleteTurma(turma) {
       const turmaToDelete = _.clone(turma);
+      delete turmaToDelete.disciplina;
+
       turmaToDelete.periodo = null;
       turmaToDelete.letra = null;
       turmaToDelete.turno1 = null;
@@ -899,29 +906,20 @@ export default {
     toggleIsAdding() {
       this.isAdding = !this.isAdding;
     },
-    normalizeText(text) {
-      return text
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s/g, "");
-    },
     nameIsBig(nome) {
       if (nome.length > 4) return true;
       else return false;
     },
   },
   computed: {
-    CursosDCC() {
-      const cursosResultantes = [];
-      cursosResultantes.push(
-        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO NOTURNO"]),
-        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO DIURNO"]),
-        _.find(this.Cursos, ["nome", "SISTEMAS DE INFORMAÇÃO"]),
-        _.find(this.Cursos, ["nome", "ENGENHARIA COMPUTACIONAL"])
-      );
-      return cursosResultantes;
-    },
+    ...mapGetters([
+      "CursosDCC",
+      "PerfisDCC",
+      "DisciplinasInPerfis",
+      "TurmasInDisciplinasPerfis",
+      "Admin",
+    ]),
+    // Turmas Main Table
     TurmasOrdered() {
       let turmasResult = _.orderBy(
         this.TurmasFiltredByDisciplinas,
@@ -948,7 +946,7 @@ export default {
       );
     },
     TurmasFiltredBySemestres() {
-      return _.filter(this.TurmasInDisciplinas, (turma) => {
+      return _.filter(this.TurmasInDisciplinasPerfis, (turma) => {
         switch (this.filtroSemestres.ativo) {
           case 1:
             return turma.periodo === 1;
@@ -961,45 +959,30 @@ export default {
         }
       });
     },
-    TurmasInDisciplinas() {
-      let turmasResultantes = [];
-
-      _.forEach(this.Turmas, (turma) => {
-        const disciplinaInPerfilFounded = _.find(
-          this.DisciplinasInPerfis,
-          (disciplina) => disciplina.id === turma.Disciplina
-        );
-
-        if (disciplinaInPerfilFounded) {
-          turmasResultantes.push({
-            ...turma,
-            disciplinaNome: disciplinaInPerfilFounded.nome,
-            disciplinaCodigo: disciplinaInPerfilFounded.codigo,
-            disciplinaPerfil: disciplinaInPerfilFounded.Perfil,
-            perfilCor: disciplinaInPerfilFounded.perfilCor,
-            perfilNome: disciplinaInPerfilFounded.perfilNome,
-            perfilAbreviacao: disciplinaInPerfilFounded.perfilAbreviacao,
-          });
-        }
-      });
-      return turmasResultantes;
-    },
-
-    DisciplinasOrderedModal() {
+    // Modal
+    PerfisOrderedModal() {
       return _.orderBy(
-        this.DisciplinasFiltredModal,
+        this.PerfisDCC,
+        this.ordenacaoModal.perfis.order,
+        this.ordenacaoModal.perfis.type
+      );
+    },
+    DisciplinasDCCOrderedModal() {
+      return _.orderBy(
+        this.DisciplinasDCCFiltredModal,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
       );
     },
-    DisciplinasFiltredModal() {
-      if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
+    DisciplinasDCCFiltredModal() {
+      if (this.searchDisciplinasModal === "")
+        return this.DisciplinasDCCInPerfis;
 
-      const searchNormalized = this.normalizeText(this.searchDisciplinasModal);
+      const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return _.filter(this.DisciplinasInPerfis, (disciplina) => {
-        const disciplinaNome = this.normalizeText(disciplina.nome);
-        const disciplinaCodigo = this.normalizeText(disciplina.codigo);
+      return _.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+        const disciplinaNome = normalizeText(disciplina.nome);
+        const disciplinaCodigo = normalizeText(disciplina.codigo);
 
         return (
           disciplinaNome.match(searchNormalized) ||
@@ -1007,54 +990,22 @@ export default {
         );
       });
     },
-    Perfis() {
-      return _.filter(
-        this.$store.state.perfil.Perfis,
-        (perfil) => perfil.id !== 13 && perfil.id !== 15
-      );
-    },
-    Disciplinas() {
-      return _.filter(
-        this.$store.state.disciplina.Disciplinas,
-        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
-      );
-    },
-    DisciplinasInPerfis() {
-      const disciplinasResultantes = [];
-
-      this.Disciplinas.forEach((disciplina) => {
-        const perfilFounded = _.find(
-          this.Perfis,
-          (perfil) => perfil.id === disciplina.Perfil
-        );
-
-        if (perfilFounded) {
-          disciplinasResultantes.push({
-            ...disciplina,
-            perfilNome: perfilFounded.nome,
-            perfilAbreviacao: perfilFounded.abreviacao,
-            perfilCor: perfilFounded.cor,
-          });
-        }
-      });
-      return disciplinasResultantes;
-    },
-    ModalCursosOrdered() {
+    CursosOrderedModal() {
       return _.orderBy(
-        this.ModalCursosFiltred,
+        this.CursosFiltredModal,
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type
       );
     },
-    ModalCursosFiltred() {
+    CursosFiltredModal() {
       let cursosResultantes = this.Cursos;
 
       if (this.searchCursosModal !== "") {
-        const searchNormalized = this.normalizeText(this.searchCursosModal);
+        const searchNormalized = normalizeText(this.searchCursosModal);
 
         cursosResultantes = _.filter(cursosResultantes, (curso) => {
-          const cursoNome = this.normalizeText(curso.nome);
-          const cursoCodigo = this.normalizeText(curso.codigo);
+          const cursoNome = normalizeText(curso.nome);
+          const cursoCodigo = normalizeText(curso.codigo);
 
           return (
             cursoNome.match(searchNormalized) ||
@@ -1064,37 +1015,25 @@ export default {
       }
       return cursosResultantes;
     },
-    setFixedOrderPerfil() {
-      if (this.ordenacaoMain.perfis.type === "desc") return null;
-      else return "perfilAbreviacao";
-    },
-    PerfisOrderedModal() {
-      return _.orderBy(
-        this.Perfis,
-        this.ordenacaoModal.perfis.order,
-        this.ordenacaoModal.perfis.type
-      );
-    },
+
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-    DisciplinasId() {
-      return _.map(this.Disciplinas, (disciplina) => disciplina.id);
-    },
-    Turmas() {
+    DisciplinasDCCInPerfis() {
       return _.filter(
-        this.$store.state.turma.Turmas,
-        (turma) => !_.isNull(turma.Disciplina)
+        this.DisciplinasInPerfis,
+        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
       );
+    },
+    setFixedOrderPerfil() {
+      if (this.ordenacaoMain.perfis.type === "desc") return null;
+      else return "perfilAbreviacao";
     },
     Deletar() {
       return this.$store.state.turma.Deletar;
     },
     Pedidos() {
       return this.$store.state.pedido.Pedidos;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
   watch: {
@@ -1103,10 +1042,9 @@ export default {
     },
     filtroPerfis: {
       handler(perfis) {
-        this.modalSelectNone.Disciplinas();
         const disciplinasResultantes = [];
 
-        this.Disciplinas.forEach((disciplina) => {
+        this.DisciplinasDCCInPerfis.forEach((disciplina) => {
           const perfilFounded = _.find(
             perfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
@@ -1114,6 +1052,7 @@ export default {
 
           if (perfilFounded) disciplinasResultantes.push(disciplina.id);
         });
+
         this.filtroDisciplinas.selecionados = [...disciplinasResultantes];
       },
       deep: true,
