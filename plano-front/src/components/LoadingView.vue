@@ -32,6 +32,8 @@ export default {
 /* Loading page animation */
 .container-loading {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 2005;
   width: 100vw;
   height: 100vh;

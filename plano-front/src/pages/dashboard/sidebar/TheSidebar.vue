@@ -8,7 +8,7 @@
 
       <SidebarMenu
         :menuTitle="'Plano'"
-        :menuPages="isAdmin ? linksPlanoOrdered : []"
+        :menuPages="Admin ? linksPlanoOrdered : []"
       />
 
       <SidebarMenu
@@ -16,7 +16,7 @@
         :menuPages="linksRelatoriosOrdered"
       />
       <SidebarMenu
-        v-if="isAdmin"
+        v-if="Admin"
         :menuTitle="'Gerenciar'"
         :menuPages="linksGerenciarOrdered"
       />
@@ -115,7 +115,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["sidebarVisibility", "isAdmin"]),
+    ...mapGetters(["sidebarVisibility", "Admin"]),
 
     linksPlanoOrdered() {
       return this.linksPlano;

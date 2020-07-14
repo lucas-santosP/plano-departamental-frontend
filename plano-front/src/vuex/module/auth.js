@@ -79,7 +79,7 @@ const getters = {
   getUsuarioFirstName: (state) => {
     return state.Usuario ? _.words(state.Usuario.nome)[0] : "";
   },
-  isAdmin(state) {
+  Admin(state) {
     return state.Usuario.admin === 1;
   },
 };

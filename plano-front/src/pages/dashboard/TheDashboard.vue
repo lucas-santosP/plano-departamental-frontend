@@ -14,6 +14,7 @@
     </main>
 
     <LoadingView :visibility="isLoading || $root.onLoad" />
+
     <div
       v-show="modalOverlayVisibility"
       class="base-modal-overlay"
@@ -58,6 +59,7 @@ export default {
       },
     };
   },
+
   created() {
     this.$store.commit("COMPONENT_LOADING");
     if (!localStorage.getItem("Plano")) localStorage.setItem("Plano", "1");
