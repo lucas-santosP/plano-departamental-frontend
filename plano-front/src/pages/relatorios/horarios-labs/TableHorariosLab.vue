@@ -24,7 +24,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -46,7 +46,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -68,7 +68,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -90,7 +90,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -112,7 +112,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -138,7 +138,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -160,7 +160,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -182,7 +182,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -204,7 +204,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -226,7 +226,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -252,7 +252,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -274,7 +274,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -296,7 +296,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -318,7 +318,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -340,7 +340,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -366,7 +366,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -388,7 +388,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -410,7 +410,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -432,7 +432,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -454,7 +454,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -480,7 +480,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -502,7 +502,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -524,7 +524,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -546,7 +546,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -568,7 +568,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -594,7 +594,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -616,7 +616,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -638,7 +638,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -660,7 +660,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -682,7 +682,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -708,7 +708,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -730,7 +730,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -752,7 +752,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -774,7 +774,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -796,7 +796,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -822,7 +822,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -844,7 +844,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -866,7 +866,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -888,7 +888,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"
@@ -910,7 +910,7 @@
             v-for="disciplina in Disciplinas"
             v-if="turma.Disciplina === disciplina.id"
             :key="turma.letra + disciplina.id"
-            v-b-popover.hover.bottom="{
+            v-b-popover.hover.right="{
               title: disciplina.nome,
               content: findDocenteInTurma(turma),
             }"

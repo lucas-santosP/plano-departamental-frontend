@@ -73,6 +73,58 @@ const getters = {
       (h) => parseInt(h.horario.slice(3, 5)) < 17
     );
   },
+  ListaDeHorariosDiurno() {
+    const listHorarios = [
+      {
+        nome: "08-10",
+        horariosIds: [],
+      },
+      {
+        nome: "10-12",
+        horariosIds: [],
+      },
+      {
+        nome: "14-16",
+        horariosIds: [],
+      },
+      {
+        nome: "16-18",
+        horariosIds: [],
+      },
+    ];
+
+    let initialId = 1;
+    _.forEach(listHorarios, (itemHorario) => {
+      for (let horarioId = initialId; horarioId <= 28; horarioId += 6) {
+        itemHorario.horariosIds.push(horarioId);
+      }
+      initialId++;
+    });
+
+    return listHorarios;
+  },
+  ListaDeHorariosNoturno() {
+    const listHorarios = [
+      {
+        nome: "19-21",
+        horariosIds: [],
+      },
+      {
+        nome: "21-23",
+        horariosIds: [],
+      },
+    ];
+
+    let initialId = 5;
+    _.forEach(listHorarios, (itemHorario) => {
+      for (let horarioId = initialId; horarioId <= 30; horarioId += 6) {
+        itemHorario.horariosIds.push(horarioId);
+      }
+      initialId++;
+    });
+
+    return listHorarios;
+  },
 };
 
 export default {
