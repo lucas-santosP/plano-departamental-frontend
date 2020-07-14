@@ -648,7 +648,6 @@ import {
   BaseModal,
   NavTab,
   BodyModalEditTurma,
-  LoadingPage,
   BaseButton,
 } from "@/components/index.js";
 import NovaTurma from "./NovaTurma.vue";
@@ -665,7 +664,6 @@ export default {
     NavTab,
     BaseTable,
     BaseModal,
-    LoadingPage,
     BaseButton,
   },
   data() {

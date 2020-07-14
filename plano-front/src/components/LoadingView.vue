@@ -1,48 +1,62 @@
 <template>
-  <div class="container-loading" @click.stop="" @keydown.prevent="">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+  <transition
+    enter-active-class="animated animate__fadeIn animationOption"
+    leave-active-class="animated animate__fadeOut animationOption"
+  >
+    <div
+      v-show="visibility"
+      class="container-loading"
+      @click.stop=""
+      @keydown.stop=""
+    >
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 export default {
-  name: "LoadingComponent",
+  name: "LoadingView",
+  props: {
+    visibility: { type: Boolean, default: false },
+  },
 };
 </script>
 
 <style scoped>
 /* Loading page animation */
 .container-loading {
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  z-index: 2005;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-color: #343a40ad;
-  z-index: 2005;
+  backdrop-filter: blur(2px);
   cursor: wait;
-  transition: all 300ms ease;
 }
 .lds-ring {
+  position: fixed;
   display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
+  width: 64px;
+  height: 64px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.lds-ring div {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 64px;
   height: 64px;
-  margin: 8px;
   border: 8px solid #fff;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -64,5 +78,10 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.animationOption {
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
 }
 </style>
