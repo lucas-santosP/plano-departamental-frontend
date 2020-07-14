@@ -94,8 +94,8 @@ export default {
     window.addEventListener("keyup", this.onEscKeyUp);
   },
   beforeDestroy() {
-    EventBus.$emit("toggle-bg-modal", false);
     this.$off("on-close");
+    this.$store.commit("HIDE_MODAL_OVERLAY");
     window.removeEventListener("keyup", this.onEscKeyUp);
   },
   methods: {
@@ -200,15 +200,16 @@ export default {
     visibility(newValue) {
       if (newValue) {
         if (this.modalConfigs.hasBackground) {
-          EventBus.$emit("toggle-bg-modal", true);
+          this.$store.commit("SHOW_MODAL_OVERLAY");
           EventBus.$on("close-modal", this.close);
         }
       } else {
+        this.$emit("on-close");
+
         if (this.modalConfigs.hasBackground) {
-          EventBus.$emit("toggle-bg-modal", false);
+          this.$store.commit("HIDE_MODAL_OVERLAY");
           EventBus.$off("close-modal");
         }
-        this.$emit("on-close");
       }
     },
   },
@@ -219,7 +220,7 @@ export default {
 @import "../assets/css/base-modal-animations.css";
 
 .modal-custom {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

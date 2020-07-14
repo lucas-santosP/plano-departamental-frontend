@@ -1,14 +1,14 @@
 <template>
   <nav class="navbar navbar-dark bg-dark shadow">
     <div class="brand">
-      <div @click="emitCloseSidebar()" class="navbar-brand">
+      <div @click="$store.commit('CLOSE_SIDEBAR')" class="navbar-brand">
         <router-link :to="{ name: 'dashboard' }" class="brand-title"
           >Plano Departamental
         </router-link>
       </div>
 
       <button
-        @click.stop="$emit('toggle-sidebar')"
+        @click.stop="$store.commit('TOGGLE_SIDEBAR')"
         type="button"
         class="btn-navbar"
       >
@@ -18,7 +18,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-link mr-1 pr-0">
-        <label class="m-0 pr-2" for="planoAtual" style="cursor:default">
+        <label class="m-0 pr-2" for="planoAtual">
           Plano atual
         </label>
         <select
@@ -41,7 +41,7 @@
         <i class="fas fa-save"></i>
         <span>Download</span>
       </li>
-      <li class="nav-link" @click="routerLogout()">
+      <li class="nav-link" @click="$router.push({ name: 'logout' })">
         <i class="fas fa-sign-out-alt"></i>
         <span>Logout</span>
       </li>
@@ -51,14 +51,10 @@
 
 <script>
 import _ from "lodash";
-import { EventBus } from "@/event-bus.js";
-import { COMPONENT_LOADING, COMPONENT_LOADED } from "@/vuex/mutation-types";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TheNavbar",
-  props: {
-    sidebarVisibility: { type: Boolean, required: true },
-  },
   data() {
     return {
       currentPlano: null,
@@ -68,28 +64,23 @@ export default {
     this.currentPlano = parseInt(localStorage.getItem("Plano"), 10);
   },
   methods: {
-    changePlano() {
+    async changePlano() {
       try {
-        this.$store.commit(COMPONENT_LOADING);
+        this.$store.commit("COMPONENT_LOADING");
 
         setTimeout(async () => {
           await localStorage.setItem("Plano", this.currentPlano);
           await this.$store.dispatch("fetchAll");
           this.$socket.open();
-          this.$store.commit(COMPONENT_LOADED);
+          this.$store.commit("COMPONENT_LOADED");
         }, 300);
       } catch (error) {
         console.log(error);
       }
     },
-    routerLogout() {
-      this.$router.push({ name: "logout" });
-    },
-    emitCloseSidebar() {
-      EventBus.$emit("close-sidebar");
-    },
   },
   computed: {
+    ...mapGetters(["sidebarVisibility"]),
     Planos() {
       const planosResultantes = _.orderBy(this.$store.state.plano.Plano, "ano");
 
@@ -99,15 +90,16 @@ export default {
     onDevelopmentMode() {
       return window.location.href.includes("localhost");
     },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
-    },
   },
 };
 </script>
 
 <style scoped>
 .navbar {
+  position: fixed;
+  z-index: 945;
+  top: 0;
+  left: 0;
   width: 100%;
   height: var(--navbar-height);
   margin: 0;
@@ -115,11 +107,6 @@ export default {
   border-width: 0;
   border-radius: 0;
   transition: all 300ms ease;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 945;
 }
 .brand {
   width: max-content;

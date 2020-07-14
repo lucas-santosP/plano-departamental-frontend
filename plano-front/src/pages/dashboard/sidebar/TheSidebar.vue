@@ -2,14 +2,13 @@
   <transition
     enter-active-class="animated animate__slideInLeft sidebar-animation"
     leave-active-class="animated animate__slideOutLeft sidebar-animation"
-    mode="out-in"
   >
-    <nav v-show="visibility" class="sidebar bg-light col" @click.stop="">
+    <nav v-show="sidebarVisibility" class="sidebar bg-light col" @click.stop="">
       <SidebarMenu :menuPages="linkDashboard" />
 
       <SidebarMenu
         :menuTitle="'Plano'"
-        :menuPages="Admin ? linksPlanoOrdered : []"
+        :menuPages="isAdmin ? linksPlanoOrdered : []"
       />
 
       <SidebarMenu
@@ -17,7 +16,7 @@
         :menuPages="linksRelatoriosOrdered"
       />
       <SidebarMenu
-        v-if="Admin"
+        v-if="isAdmin"
         :menuTitle="'Gerenciar'"
         :menuPages="linksGerenciarOrdered"
       />
@@ -27,16 +26,13 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 import SidebarMenu from "./SidebarMenu.vue";
 
 export default {
   name: "TheSidebar",
   components: {
     SidebarMenu,
-  },
-  props: {
-    year: Number,
-    visibility: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -119,6 +115,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["sidebarVisibility", "isAdmin"]),
+
     linksPlanoOrdered() {
       return this.linksPlano;
     },
@@ -128,9 +126,6 @@ export default {
     linksGerenciarOrdered() {
       return _.orderBy(this.linksGerenciar, "title");
     },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
-    },
   },
 };
 </script>
@@ -138,12 +133,10 @@ export default {
 <style scoped>
 .sidebar {
   position: fixed;
-  top: 0;
-  bottom: 0;
+  top: var(--navbar-height);
   left: 0;
   height: calc(100vh - var(--navbar-height));
   max-width: 200px;
-  margin-top: var(--navbar-height);
   padding: 0.5rem 0;
   overflow-x: hidden !important;
   overflow-y: auto !important;

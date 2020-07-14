@@ -2,14 +2,14 @@
   --navbar-height: 30px;
   --dark-blue: #0055af;
   --light-blue: #0079fa;
-  --light-gray: #dee2e6;
+  --light-gray: #e9ecef;
+  --dark-gray: #343a40;
 }
 @media screen and (max-width: 470px) {
   :root {
     --navbar-height: 60px;
   }
 }
-
 .div-table {
   overflow: hidden;
   height: -webkit-max-content;
@@ -89,6 +89,19 @@ main .main-component {
 .paddingX-20 {
   padding-right: 20px !important;
   padding-left: 20px !important;
+}
+.popover {
+  font-size: 11px !important;
+}
+.popover .popover-header {
+  font-size: 11px !important;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
+  font-weight: bold;
+}
+.popover .popover-body {
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 label[required] {

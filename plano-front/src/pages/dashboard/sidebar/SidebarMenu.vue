@@ -10,7 +10,7 @@
       <li
         v-for="page in menuPages"
         :key="page.routeName"
-        @click="emitCloseSidebar()"
+        @click="$store.commit('CLOSE_SIDEBAR')"
       >
         <router-link :to="{ name: page.routeName }" class="nav-link">
           <i class="icon-nav-link fas" :class="page.icon"></i>
@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus.js";
-
 export default {
   name: "SidebarMenu",
   props: {
@@ -31,11 +29,6 @@ export default {
     menuTitle: {
       type: String,
       default: "",
-    },
-  },
-  methods: {
-    emitCloseSidebar() {
-      EventBus.$emit("close-sidebar");
     },
   },
 };
