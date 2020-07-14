@@ -18,11 +18,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -37,11 +36,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -56,11 +54,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -75,11 +72,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -94,11 +90,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -117,11 +112,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -136,11 +130,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -155,11 +148,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -174,11 +166,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -193,11 +184,10 @@
             v-if="turma.Disciplina === disciplina.id"
           >
             <p
-              :key="'1-noturno' + turma.Disciplina + '-' + disciplina.id"
-              v-b-popover.html.hover.top="{
-                customClass: 'popoverText',
-                content:
-                  '<b>' + disciplina.nome + '</b> <br> ' + professor(turma),
+              :key="'1-noturno' + turma.Disciplina + disciplina.id"
+              v-b-popover.hover.bottom="{
+                title: disciplina.nome,
+                content: professor(turma),
               }"
             >
               {{ disciplina.codigo }}
@@ -252,10 +242,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.popoverText {
-  font-family: Arial, sans-serif !important;
-  font-size: 11px !important;
-}
-</style>

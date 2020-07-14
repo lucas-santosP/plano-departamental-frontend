@@ -35,7 +35,7 @@
       <div v-show="semestre1IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length || EletivasIsSelected"
-          class="semestre-title w-100 px-1 bg-custom"
+          class="semestre-title w-100"
         >
           1º SEMESTRE
         </h2>
@@ -5462,14 +5462,13 @@ export default {
 
 <style scoped>
 .semestre-title {
-  clear: both;
-  display: block;
-  padding-top: 0px;
-  text-align: start !important;
-  font-weight: bold;
+  position: relative;
+  width: 100%;
   font-size: 16px;
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
+  padding: 5px 2px;
+  background-color: var(--light-gray);
+  text-align: start;
+  font-weight: bold;
 }
 .curso-title {
   width: 100%;
@@ -5490,7 +5489,7 @@ export default {
 ::v-deep .container-horarios .div-table .tg td {
   font-family: Arial, sans-serif;
   font-size: 11px;
-  padding: 0px;
+  padding: 0px !important;
   border-style: solid;
   border-width: 1px;
   overflow: hidden;
@@ -5520,9 +5519,18 @@ export default {
   min-width: 50px !important;
 }
 ::v-deep .container-horarios td p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   min-width: 48px !important;
-  padding-right: 1px !important;
-  padding-left: 1px !important;
+  padding: 0 1px !important;
   margin: 0 !important;
+}
+
+::v-deep .container-horarios td div:hover,
+::v-deep .container-horarios td p:hover {
+  cursor: default;
+  background-color: var(--light-gray) !important;
 }
 </style>
