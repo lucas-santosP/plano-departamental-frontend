@@ -26,6 +26,14 @@
               <i :class="setIconByOrder(ordenacaoMainPlanos, 'ano')"></i>
             </th>
             <th
+                    style="width: 70px"
+                    class="t-start clickable"
+                    @click="toggleOrder(ordenacaoMainPlanos, 'nome')"
+            >
+              Nome
+              <i :class="setIconByOrder(ordenacaoMainPlanos, 'nome')"></i>
+            </th>
+            <th
               style="width: 300px"
               class="t-start clickable"
               @click="toggleOrder(ordenacaoMainPlanos, 'obs')"
@@ -42,6 +50,7 @@
               :class="{ 'bg-selected': plano.id === planoSelected }"
             >
               <td style="width: 70px" class="t-start">{{ plano.ano }}</td>
+              <td style="width: 70px" class="t-start">{{ plano.nome }}</td>
               <td style="width: 300px" class="t-start">{{ plano.obs }}</td>
             </tr>
           </template>
@@ -73,6 +82,16 @@
                   {{ year }}</option
                 >
               </select>
+            </div>
+          </div>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="planoNome">Nome</label>
+              <input type="text"
+                      id="planoNome"
+                      v-model="planoForm.nome"
+                      class="form-control"
+              >
             </div>
           </div>
           <div class="row mb-2 mx-0">
@@ -173,6 +192,7 @@ import ModalNovoPlano from "./ModalNovoPlano";
 
 const emptyPlano = {
   ano: "",
+  nome: "",
   obs: "",
 };
 
