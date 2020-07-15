@@ -82,13 +82,7 @@ export default {
   computed: {
     ...mapGetters(["sidebarVisibility"]),
     Planos() {
-      const planosResultantes = _.orderBy(this.$store.state.plano.Plano, "ano");
-
-      if (this.onDevelopmentMode) return planosResultantes;
-      else return _.filter(planosResultantes, (plano) => plano.ano != 2099);
-    },
-    onDevelopmentMode() {
-      return window.location.href.includes("localhost");
+      return _.orderBy(this.$store.state.plano.Plano, "ano");
     },
   },
 };

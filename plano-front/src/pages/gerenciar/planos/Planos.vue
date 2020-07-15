@@ -26,9 +26,9 @@
               <i :class="setIconByOrder(ordenacaoMainPlanos, 'ano')"></i>
             </th>
             <th
-                    style="width: 70px"
-                    class="t-start clickable"
-                    @click="toggleOrder(ordenacaoMainPlanos, 'nome')"
+              style="width: 70px"
+              class="t-start clickable"
+              @click="toggleOrder(ordenacaoMainPlanos, 'nome')"
             >
               Nome
               <i :class="setIconByOrder(ordenacaoMainPlanos, 'nome')"></i>
@@ -86,12 +86,13 @@
           </div>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="planoNome">Nome</label>
-              <input type="text"
-                      id="planoNome"
-                      v-model="planoForm.nome"
-                      class="form-control"
-              >
+              <label required for="planoNome">Nome</label>
+              <input
+                type="text"
+                id="planoNome"
+                v-model="planoForm.nome"
+                class="form-control"
+              />
             </div>
           </div>
           <div class="row mb-2 mx-0">
@@ -292,13 +293,7 @@ export default {
   },
   computed: {
     Planos() {
-      // Plano 2099 de teste mostrado apenas no localhost
-      if (this.onDevelopmentMode) return this.$store.state.plano.Plano;
-      else
-        return _.filter(
-          this.$store.state.plano.Plano,
-          (plano) => plano.ano != 2099
-        );
+      return this.$store.state.plano.Plano;
     },
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
@@ -315,9 +310,6 @@ export default {
         firstYear++;
       }
 
-      // Plano de teste mostrado apenas no localhost
-      if (this.onDevelopmentMode) yearsArry.push(2099);
-
       return yearsArry;
     },
     Admin() {
@@ -325,9 +317,6 @@ export default {
     },
     isEdit() {
       return this.planoSelected != null;
-    },
-    onDevelopmentMode() {
-      return window.location.href.includes("localhost");
     },
   },
 };
