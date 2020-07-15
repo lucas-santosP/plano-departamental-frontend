@@ -94,6 +94,11 @@ export default {
       ],
       linksGenrenciar: [
         {
+          title: "Planos",
+          routerName: "planos",
+          description: `Lista todos os planos presentes no sistemas, e permite a adição,edição e exclusão de planos.`,
+        },
+        {
           title: "Cursos",
           routerName: "cursos",
           description: `Lista todos os cursos presentes no sistemas (além dos externos ao
@@ -153,6 +158,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getUsuarioFirstName", "Admin"]),
     linksPlanoOrdered() {
       return this.linksPlano;
     },
@@ -162,14 +168,6 @@ export default {
     linksGerenciarOrdered() {
       return _.orderBy(this.linksGenrenciar, "title");
     },
-    Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    ...mapGetters(["getUsuarioFirstName"]),
   },
 };
 </script>
