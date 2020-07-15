@@ -139,7 +139,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
                 id="nome"
@@ -151,7 +151,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label for="codigo" class="col-form-label">Código</label>
+              <label required for="codigo" class="col-form-label">Código</label>
               <input
                 type="text"
                 id="codigo"
@@ -160,7 +160,7 @@
               />
             </div>
             <div class="form-group m-0 col px-0">
-              <label for="perfil" class="col-form-label">Perfil</label>
+              <label required for="perfil" class="col-form-label">Perfil</label>
               <select
                 type="text"
                 id="perfil"
@@ -183,7 +183,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label for="cargaTeorica" class="col-form-label"
+              <label required for="cargaTeorica" class="col-form-label"
                 >Carga Teórica</label
               >
               <input
@@ -196,7 +196,7 @@
             </div>
 
             <div class="form-group m-0 col px-0">
-              <label for="cargaPratica" class="col-form-label"
+              <label required for="cargaPratica" class="col-form-label"
                 >Carga Prática</label
               >
               <input
@@ -211,7 +211,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="laboratorio" class="col-form-label"
+              <label required for="laboratorio" class="col-form-label"
                 >Laboratório</label
               >
               <select
@@ -226,7 +226,7 @@
               </select>
             </div>
             <div class="form-group col m-0 px-0">
-              <label for="ead" class="col-form-label">EAD</label>
+              <label required for="ead" class="col-form-label">EAD</label>
               <select
                 type="text"
                 class="form-control form-control-sm input-medio"

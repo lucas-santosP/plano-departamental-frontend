@@ -4,7 +4,7 @@
       <div class="card-header">
         <h1 class="card-title">Login</h1>
       </div>
-      <div class="card-body" :class="{ 'pb-5': error != null }">
+      <div class="card-body" :class="{ 'padding-error': error != null }">
         <form class="form-signin" @submit.prevent="doLogin">
           <label for="userLogin" class="sr-only">Usuário</label>
           <input
@@ -126,6 +126,9 @@ export default {
   background-color: #faf8f8;
   transition: all 0.3s;
 }
+.padding-error {
+  padding-bottom: 4rem;
+}
 
 .form-signin {
   width: 100%;
@@ -160,9 +163,8 @@ export default {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   margin: 0 !important;
-  /* padding: 10px auto; */
 }
 </style>

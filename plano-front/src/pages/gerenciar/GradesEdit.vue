@@ -80,7 +80,7 @@
               </tr>
             </template>
             <tr v-show="!hasGradeSelected">
-              <td style="width:510px">
+              <td style="width:515px">
                 <b>Nenhuma disciplina encontrada</b>, selecione uma grade.
               </td>
             </tr>
@@ -130,7 +130,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label for="disciplina" class="col-form-label">Disciplina</label>
+              <label required for="disciplina" class="col-form-label"
+                >Disciplina</label
+              >
               <select
                 :disabled="!hasGradeSelected"
                 type="text"
@@ -155,7 +157,11 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label for="periodoDisciplina" class="col-form-label pb-1">
+              <label
+                required
+                for="periodoDisciplina"
+                class="col-form-label pb-1"
+              >
                 Período
               </label>
               <div class="d-flex align-items-center">

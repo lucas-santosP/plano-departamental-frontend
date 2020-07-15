@@ -78,7 +78,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
                 class="input-maior form-control form-control-sm upper-case"
@@ -90,7 +90,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col-8 m-0 px-0">
-              <label for="abreviacao" class="col-form-label">Abreviação</label>
+              <label required for="abreviacao" class="col-form-label"
+                >Abreviação</label
+              >
               <input
                 type="text"
                 class="form-control form-control-sm"

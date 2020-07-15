@@ -81,7 +81,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
                 class="input-menor form-control form-control-sm"
@@ -93,7 +93,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="lotacao_maxima" class="col-form-label"
+              <label required for="lotacao_maxima" class="col-form-label"
                 >Lotação Máx.</label
               >
               <input
@@ -108,6 +108,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-check form-check-inline col m-0 px-0 pl-1">
+              <label class="form-check-label mr-2" for="laboratorio"
+                >Laboratório</label
+              >
               <input
                 type="checkbox"
                 id="laboratorio"
@@ -115,9 +118,6 @@
                 v-model="salaForm.laboratorio"
                 value="1"
               />
-              <label class="form-check-label" for="laboratorio"
-                >Laboratório</label
-              >
             </div>
           </div>
         </template>

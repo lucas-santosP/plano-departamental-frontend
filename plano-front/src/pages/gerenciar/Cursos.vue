@@ -115,7 +115,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
                 class="input-maior form-control
@@ -128,7 +128,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="codigo" class="col-form-label">Código</label>
+              <label required for="codigo" class="col-form-label">Código</label>
               <input
                 type="text"
                 class="form-control form-control-sm input-menor upper-case"
@@ -137,7 +137,7 @@
               />
             </div>
             <div class="form-group col m-0 px-0">
-              <label for="turno" class="col-form-label">Turno</label>
+              <label required for="turno" class="col-form-label">Turno</label>
               <select
                 type="text"
                 class="form-control form-control-sm input-medio"
@@ -153,7 +153,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="alunosEntrada1" class="col-form-label"
+              <label required for="alunosEntrada1" class="col-form-label"
                 >Alunos 1º Sem.</label
               >
               <input
@@ -166,7 +166,7 @@
             </div>
 
             <div class="form-group col m-0 px-0">
-              <label for="alunosEntrada2" class="col-form-label"
+              <label required for="alunosEntrada2" class="col-form-label"
                 >Alunos 2º Sem.</label
               >
               <input
@@ -183,19 +183,20 @@
     </div>
 
     <BaseModal
-            ref="modalDeleteCurso"
-            :modalOptions="{
+      ref="modalDeleteCurso"
+      :modalOptions="{
         title: 'Deletar curso',
         position: 'center',
         hasBackground: true,
         hasFooter: true,
       }"
-            :customStyles="'width:450px; font-size:14px'"
+      :customStyles="'width:450px; font-size:14px'"
     >
       <template #modal-body>
         <p class="w-100 m-0">
           <template v-if="isEdit">
-            O curso <b>{{cursoForm.codigo}} - {{cursoForm.nome}}</b> possui vagas alocadas. Tem certeza que deseja excluí-lo?
+            O curso <b>{{ cursoForm.codigo }} - {{ cursoForm.nome }}</b> possui
+            vagas alocadas. Tem certeza que deseja excluí-lo?
           </template>
           <template v-else>
             Nenhum curso selecionado!
@@ -204,15 +205,15 @@
       </template>
       <template #modal-footer>
         <button
-                class="btn-custom btn-modal btn-cinza paddingX-20"
-                @click="closeModalDelete()"
+          class="btn-custom btn-modal btn-cinza paddingX-20"
+          @click="closeModalDelete()"
         >
           Cancelar
         </button>
         <button
-                v-if="isEdit"
-                class="btn-custom btn-modal btn-vermelho paddingX-20"
-                @click="deleteCurso()"
+          v-if="isEdit"
+          class="btn-custom btn-modal btn-vermelho paddingX-20"
+          @click="deleteCurso()"
         >
           Deletar
         </button>
@@ -454,34 +455,36 @@ export default {
       this.$refs.modalDeleteCurso.close();
     },
 
-    checkPedidos(){
-      for (let t in this.$store.state.pedido.Pedidos){
+    checkPedidos() {
+      for (let t in this.$store.state.pedido.Pedidos) {
         let pedido = _.find(this.$store.state.pedido.Pedidos[t], (p) => {
-          if(p.Curso === this.cursoForm.id){
-            if(parseInt(p.vagasPeriodizadas, 10) > 0 || parseInt(p.vagasNaoPeriodizadas, 10) > 0){
-              return true
+          if (p.Curso === this.cursoForm.id) {
+            if (
+              parseInt(p.vagasPeriodizadas, 10) > 0 ||
+              parseInt(p.vagasNaoPeriodizadas, 10) > 0
+            ) {
+              return true;
             }
           }
-          return false
-        })
-        if(pedido) return true
+          return false;
+        });
+        if (pedido) return true;
       }
-      return false
+      return false;
     },
 
     checkDeleteCurso() {
-      if(this.checkPedidos()){
-        this.openModalDelete()
-      }
-      else{
-        this.deleteCurso()
+      if (this.checkPedidos()) {
+        this.openModalDelete();
+      } else {
+        this.deleteCurso();
       }
     },
     deleteCurso() {
       cursoService
         .delete(this.cursoForm.id, this.cursoForm)
         .then((response) => {
-          this.closeModalDelete()
+          this.closeModalDelete();
           this.cleanCurso();
           this.$notify({
             group: "general",

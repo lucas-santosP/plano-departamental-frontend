@@ -90,7 +90,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
 
               <input
                 type="text"
@@ -103,7 +103,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 mr-4 px-0">
-              <label for="apelido" class="col-form-label">Apelido</label>
+              <label required for="apelido" class="col-form-label"
+                >Apelido</label
+              >
               <input
                 type="text"
                 id="apelido"
@@ -113,14 +115,14 @@
             </div>
 
             <div class="form-check form-check-inline col m-0 mr-4 mt-4 px-0">
+              <label for="ativo" class="form-check-label mr-2">Ativo</label>
               <input
                 type="checkbox"
                 id="ativo"
                 value="1"
                 v-model="docenteForm.ativo"
-                class="form-check-input my-auto"
+                class="form-check-input"
               />
-              <label for="ativo" class="form-check-label">Ativo</label>
             </div>
           </div>
           <template v-if="isEdit">

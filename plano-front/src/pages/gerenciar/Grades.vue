@@ -128,7 +128,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col-5 m-0 px-0">
-              <label for="nome" class="col-form-label">Nome</label>
+              <label required for="nome" class="col-form-label">Nome</label>
               <input
                 type="text"
                 class="card-input-menor form-control form-control-sm"
@@ -138,7 +138,7 @@
             </div>
 
             <div class="form-group col-7 m-0 px-0">
-              <label for="periodoInicio" class="col-form-label"
+              <label required for="periodoInicio" class="col-form-label"
                 >Período de Início</label
               >
               <input
@@ -153,7 +153,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="curso" class="col-form-label">Curso</label>
+              <label required for="curso" class="col-form-label">Curso</label>
               <select
                 type="text"
                 style="text-align:center;"
