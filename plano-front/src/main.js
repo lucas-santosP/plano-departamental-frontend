@@ -33,7 +33,8 @@ Vue.use(
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
-  // to.name.includes('')
+  // to.name.includes('') //verificar apenas paginas que necessitam de loading,
+  // e verificar se é admin para fazer redirect
   store.commit("SHOW_LOADING_VIEW");
   next();
 });
