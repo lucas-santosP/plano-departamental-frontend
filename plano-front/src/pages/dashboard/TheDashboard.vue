@@ -13,7 +13,7 @@
       </transition>
     </main>
 
-    <LoadingView :visibility="isLoading || $root.onLoad" />
+    <LoadingView :visibility="isLoading || loadingViewVisibility" />
 
     <div
       v-show="modalOverlayVisibility"
@@ -98,7 +98,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["modalOverlayVisibility"]),
+    ...mapGetters(["modalOverlayVisibility", "loadingViewVisibility"]),
     isLoading() {
       return this.$store.state.isLoading;
     },
