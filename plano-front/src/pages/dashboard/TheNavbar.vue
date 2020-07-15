@@ -29,7 +29,7 @@
           @change="changePlano()"
         >
           <option v-for="plano in Planos" :value="plano.id" :key="plano.id">
-            {{ plano.ano }}
+            {{ plano.nome }} - {{ plano.ano }}
           </option>
         </select>
       </li>
@@ -165,7 +165,7 @@ export default {
 
 .input-plano {
   text-align: start;
-  width: 60px;
+  width: 120px;
   height: 18px;
   font-size: 12px;
   border-radius: 2px;
