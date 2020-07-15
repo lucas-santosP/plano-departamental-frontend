@@ -83,7 +83,7 @@ export default {
 }
 
 .animationOption {
-  animation-duration: 0.3s;
+  animation-duration: 200ms;
   animation-timing-function: ease;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Salas'">
       <BaseButton
         title="Ajuda"
@@ -162,7 +162,7 @@
 <script>
 import _ from "lodash";
 import salaService from "@/common/services/sala";
-import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { toggleOrdination } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -180,7 +180,7 @@ const emptySala = {
 
 export default {
   name: "DashboardSalas",
-  mixins: [toggleOrdination, redirectNotAdmin],
+  mixins: [toggleOrdination],
   components: {
     PageTitle,
     BaseTable,
@@ -322,10 +322,6 @@ export default {
 
     isEdit() {
       return this.salaForm.id !== undefined;
-    },
-
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

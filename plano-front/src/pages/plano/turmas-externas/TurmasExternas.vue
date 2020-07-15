@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Graduação - Outros'">
       <BaseButton
         v-show="isAdding"
@@ -518,11 +518,7 @@
 <script>
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  redirectNotAdmin,
-} from "@/mixins/index.js";
+import { toggleOrdination, toggleItemInArray } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -546,7 +542,7 @@ const emptyTurma = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdination, toggleItemInArray, redirectNotAdmin],
+  mixins: [toggleOrdination, toggleItemInArray],
   components: {
     TurmaExternaRow,
     PageTitle,
@@ -905,9 +901,6 @@ export default {
     },
     Deletar() {
       return this.$store.state.turmaExterna.Deletar;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

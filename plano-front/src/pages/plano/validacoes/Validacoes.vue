@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Validações do Plano'">
       <BaseButton
         title="Filtros"
@@ -319,7 +319,6 @@ import {
   toggleOrdination,
   toggleItemInArray,
   loadingHooks,
-  redirectNotAdmin,
 } from "@/mixins/index.js";
 import {
   PageTitle,
@@ -365,7 +364,7 @@ const AllConflitosTurmas = [
 
 export default {
   name: "Validacoes",
-  mixins: [toggleOrdination, toggleItemInArray, loadingHooks, redirectNotAdmin],
+  mixins: [toggleOrdination, toggleItemInArray, loadingHooks],
   components: {
     BaseButton,
     BodyModalEditTurma,
@@ -1206,10 +1205,6 @@ export default {
     },
     Docentes() {
       return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
-    },
-    Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) return true;
-      else return false;
     },
   },
 };

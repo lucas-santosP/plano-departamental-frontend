@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Cursos'">
       <BaseButton
         title="Ajuda"
@@ -267,12 +267,7 @@
 import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
-import pedidoService from "@/common/services/pedido";
-import {
-  toggleOrdination,
-  redirectNotAdmin,
-  notification,
-} from "@/mixins/index.js";
+import { toggleOrdination, notification } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -291,18 +286,10 @@ const emptyCurso = {
   alunosEntrada2: undefined,
   posicao: undefined,
 };
-const emptyPedido = {
-  vagasPeriodizadas: 0,
-  vagasNaoPeriodizadas: 0,
-  Curso: undefined,
-  Turma: undefined,
-  ultimo: undefined,
-  selectAll: undefined,
-};
 
 export default {
   name: "DashboardCursos",
-  mixins: [toggleOrdination, redirectNotAdmin, notification],
+  mixins: [toggleOrdination, notification],
   components: { PageTitle, BaseTable, Card, BaseButton, BaseModal },
 
   data() {
@@ -515,13 +502,6 @@ export default {
         this.ordenacaoCursosMain.order,
         this.ordenacaoCursosMain.type
       );
-    },
-    Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
     },
     isEdit() {
       return this.cursoForm.id !== undefined;

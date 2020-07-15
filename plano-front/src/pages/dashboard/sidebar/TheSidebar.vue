@@ -4,28 +4,24 @@
     leave-active-class="animated animate__slideOutLeft sidebar-animation"
   >
     <nav v-show="sidebarVisibility" class="sidebar bg-light col" @click.stop="">
-      <SidebarMenu :menuPages="linkDashboard" />
-
       <SidebarMenu
-        :menuTitle="'Plano'"
-        :menuPages="Admin ? linksPlanoOrdered : []"
+        :menuPages="[
+          { routeName: 'dashboardHome', icon: 'fa-home', title: 'Dashboard' },
+        ]"
       />
 
-      <SidebarMenu
-        :menuTitle="'Relatórios'"
-        :menuPages="linksRelatoriosOrdered"
-      />
+      <SidebarMenu :menuTitle="'Plano'" :menuPages="Admin ? routesPlano : []" />
+      <SidebarMenu :menuTitle="'Relatórios'" :menuPages="routesRelatorios" />
       <SidebarMenu
         v-if="Admin"
         :menuTitle="'Gerenciar'"
-        :menuPages="linksGerenciarOrdered"
+        :menuPages="routesGerenciar"
       />
     </nav>
   </transition>
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters } from "vuex";
 import SidebarMenu from "./SidebarMenu.vue";
 
@@ -37,95 +33,18 @@ export default {
   data() {
     return {
       linkDashboard: [
-        { routeName: "dashboard", icon: "fa-home", title: "Dashboard" },
-      ],
-      linksPlano: [
-        {
-          title: "Graduação - DCC",
-          routeName: "pedidos",
-          icon: "fa-clipboard",
-        },
-        {
-          title: "Graduação - Outros",
-          routeName: "turmasExternas",
-          icon: "fa-clipboard",
-        },
-        {
-          title: "Pós Graduação",
-          routeName: "cargaPos",
-          icon: "fa-clipboard",
-        },
-        {
-          title: "Validações",
-          routeName: "validacoes",
-          icon: "fa-calendar-check",
-        },
-      ],
-      linksRelatorios: [
-        {
-          title: "Carga Professores",
-          routeName: "cargaProfessores",
-          icon: "fa-file-alt",
-        },
-        {
-          title: "Grades Disciplinas",
-          routeName: "gradeDisciplinas",
-          icon: "fa-file-alt",
-        },
-        {
-          title: "Horários - Cursos",
-          routeName: "horarios",
-          icon: "fa-file-alt",
-        },
-        {
-          title: "Horários - Laboratórios",
-          routeName: "laboratoriosAlocacao",
-          icon: "fa-file-alt",
-        },
-        {
-          title: "Plano Departamental",
-          routeName: "relatorioDisciplinas",
-          icon: "fa-file-alt",
-        },
-      ],
-      linksGerenciar: [
-        {
-          title: "Usuarios",
-          routeName: "usuarios",
-          icon: "fa-user",
-        },
-        { title: "Cursos ", routeName: "cursos", icon: "fa-graduation-cap" },
-        {
-          title: "Disciplinas ",
-          routeName: "disciplinas",
-          icon: "fa-calendar-alt",
-        },
-        {
-          title: "Disciplinas na Grade ",
-          routeName: "gradeEdit",
-          icon: "fa-table",
-        },
-        { title: "Docentes ", routeName: "docentes", icon: "fa-users" },
-        { title: "Grades ", routeName: "grades", icon: "fa-sitemap" },
-        { title: "Log ", routeName: "history", icon: "fa-history" },
-        { title: "Perfis ", routeName: "perfis", icon: "fa-th-list" },
-        { title: "Planos ", routeName: "planos", icon: "fa-calendar-alt" },
-        { title: "Salas ", routeName: "salas", icon: "fa-university" },
+        { routeName: "home", icon: "fa-home", title: "Dashboard" },
       ],
     };
   },
   computed: {
-    ...mapGetters(["sidebarVisibility", "Admin"]),
-
-    linksPlanoOrdered() {
-      return this.linksPlano;
-    },
-    linksRelatoriosOrdered() {
-      return _.orderBy(this.linksRelatorios, "title");
-    },
-    linksGerenciarOrdered() {
-      return _.orderBy(this.linksGerenciar, "title");
-    },
+    ...mapGetters([
+      "sidebarVisibility",
+      "Admin",
+      "routesPlano",
+      "routesRelatorios",
+      "routesGerenciar",
+    ]),
   },
 };
 </script>

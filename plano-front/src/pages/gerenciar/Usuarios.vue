@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component">
+  <div class="main-component">
     <PageTitle :title="'Usuários'">
       <BaseButton
         title="Ajuda"
@@ -264,11 +264,7 @@
 <script>
 import _ from "lodash";
 import userService from "@/common/services/usuario";
-import {
-  toggleOrdination,
-  notification,
-  redirectNotAdmin,
-} from "@/mixins/index.js";
+import { toggleOrdination, notification } from "@/mixins/index.js";
 import {
   BaseTable,
   BaseModal,
@@ -287,7 +283,7 @@ const emptyUser = {
 
 export default {
   name: "Usuarios",
-  mixins: [notification, redirectNotAdmin, toggleOrdination],
+  mixins: [notification, toggleOrdination],
   components: {
     BaseTable,
     PageTitle,
@@ -447,9 +443,7 @@ export default {
 
       return _.orderBy(this.Users, userSorter, type);
     },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
-    },
+
     isEdit() {
       return this.userSelected != null;
     },

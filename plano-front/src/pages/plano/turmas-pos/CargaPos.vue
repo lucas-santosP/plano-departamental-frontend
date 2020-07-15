@@ -344,7 +344,6 @@ import {
   toggleOrdination,
   toggleItemInArray,
   notification,
-  redirectNotAdmin,
 } from "@/mixins/index.js";
 import {
   PageTitle,
@@ -356,7 +355,7 @@ import {
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [toggleOrdination, toggleItemInArray, notification, redirectNotAdmin],
+  mixins: [toggleOrdination, toggleItemInArray, notification],
   components: {
     CargaPosRow,
     CargaPosNovaRow,
@@ -608,9 +607,6 @@ export default {
     },
     Deletar() {
       return this.$store.state.cargaPos.Deletar;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

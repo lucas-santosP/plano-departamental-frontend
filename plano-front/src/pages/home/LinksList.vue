@@ -8,7 +8,7 @@
         class="list-group-item"
       >
         <strong>
-          <router-link :to="{ name: page.routerName }"
+          <router-link :to="{ name: page.routeName }"
             >{{ page.title }}:</router-link
           >
         </strong>

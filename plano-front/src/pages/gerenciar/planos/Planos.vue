@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component">
+  <div class="main-component">
     <PageTitle :title="'Planos'">
       <BaseButton
         title="Ajuda"
@@ -175,7 +175,7 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import planoService from "@/common/services/plano";
-import { toggleOrdination, notification, redirectNotAdmin } from "@/mixins";
+import { toggleOrdination, notification } from "@/mixins";
 import {
   BaseTable,
   BaseModal,
@@ -194,7 +194,7 @@ const emptyPlano = {
 
 export default {
   name: "Planos",
-  mixins: [notification, redirectNotAdmin, toggleOrdination],
+  mixins: [notification, toggleOrdination],
   components: {
     BaseTable,
     PageTitle,
@@ -288,7 +288,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["allPlanos", "AnosDoPlano", "Admin"]),
+    ...mapGetters(["allPlanos", "AnosDoPlano"]),
 
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
       <template v-if="isAdding">
         <BaseButton
@@ -633,12 +633,7 @@ import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
 import turmaService from "@/common/services/turma";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  redirectNotAdmin,
-  notification,
-} from "@/mixins/index.js";
+import { toggleOrdination, toggleItemInArray, notification } from "@/mixins";
 import {
   PageTitle,
   BaseTable,
@@ -646,14 +641,14 @@ import {
   NavTab,
   BodyModalEditTurma,
   BaseButton,
-} from "@/components/index.js";
-import { normalizeText } from "@/utils/index.js";
+} from "@/components";
+import { normalizeText } from "@/utils";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "DashboardPrototipo",
-  mixins: [toggleOrdination, toggleItemInArray, redirectNotAdmin, notification],
+  mixins: [toggleOrdination, toggleItemInArray, notification],
   components: {
     TurmaRow,
     NovaTurma,

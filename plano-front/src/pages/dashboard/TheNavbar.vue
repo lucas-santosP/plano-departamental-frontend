@@ -2,7 +2,7 @@
   <nav class="navbar navbar-dark bg-dark shadow">
     <div class="brand">
       <div @click="$store.commit('CLOSE_SIDEBAR')" class="navbar-brand">
-        <router-link :to="{ name: 'dashboard' }" class="brand-title"
+        <router-link :to="{ name: 'dashboardHome' }" class="brand-title"
           >Plano Departamental
         </router-link>
       </div>
@@ -28,7 +28,7 @@
           v-model.number="currentPlano"
           @change="changePlano()"
         >
-          <option v-for="plano in Planos" :value="plano.id" :key="plano.id">
+          <option v-for="plano in allPlanos" :value="plano.id" :key="plano.id">
             {{ plano.nome }} - {{ plano.ano }}
           </option>
         </select>
@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters } from "vuex";
 
 export default {
@@ -80,10 +79,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["sidebarVisibility"]),
-    Planos() {
-      return _.orderBy(this.$store.state.plano.Plano, "ano");
-    },
+    ...mapGetters(["sidebarVisibility", "allPlanos"]),
   },
 };
 </script>
@@ -160,7 +156,7 @@ export default {
 .input-plano {
   text-align: start;
   width: 120px;
-  height: 18px;
+  height: 20px;
   font-size: 12px;
   border-radius: 2px;
   padding: 0 1px;

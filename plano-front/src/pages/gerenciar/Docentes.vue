@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Docentes'">
       <BaseButton
         title="Ajuda"
@@ -212,11 +212,7 @@
 import _ from "lodash";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
-import {
-  toggleOrdination,
-  redirectNotAdmin,
-  toggleItemInArray,
-} from "@/mixins/index.js";
+import { toggleOrdination, toggleItemInArray } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -240,7 +236,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardDocente",
-  mixins: [toggleOrdination, redirectNotAdmin, toggleItemInArray],
+  mixins: [toggleOrdination, toggleItemInArray],
   components: { PageTitle, BaseTable, Card, BaseButton, BaseModal },
   data() {
     return {
@@ -434,14 +430,6 @@ export default {
 
     isEdit() {
       return this.docenteForm.id !== undefined;
-    },
-
-    Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) {
-        return true;
-      } else {
-        return false;
-      }
     },
   },
 };

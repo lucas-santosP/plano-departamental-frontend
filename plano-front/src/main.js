@@ -32,16 +32,6 @@ Vue.use(
 
 Vue.config.productionTip = false;
 
-router.beforeEach((to, from, next) => {
-  // to.name.includes('') //verificar apenas paginas que necessitam de loading,
-  // e verificar se é admin para fazer redirect
-  store.commit("SHOW_LOADING_VIEW");
-  next();
-});
-router.afterEach(() => {
-  setTimeout(() => store.commit("HIDE_LOADING_VIEW"), 500);
-});
-
 var vm = new Vue({
   data: { onLoad: false },
   router,

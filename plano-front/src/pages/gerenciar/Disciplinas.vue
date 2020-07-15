@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Disciplinas'">
       <BaseButton
         title="Ajuda"
@@ -285,7 +285,7 @@
 <script>
 import _ from "lodash";
 import disciplinaService from "@/common/services/disciplina";
-import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { toggleOrdination } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -307,7 +307,7 @@ const emptyDisciplina = {
 
 export default {
   name: "DashboardDisciplina",
-  mixins: [toggleOrdination, redirectNotAdmin],
+  mixins: [toggleOrdination],
   components: { PageTitle, BaseTable, Card, BaseButton, BaseModal },
   data() {
     return {
@@ -483,9 +483,6 @@ export default {
     },
     isEdit() {
       return this.disciplinaForm.id !== undefined;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

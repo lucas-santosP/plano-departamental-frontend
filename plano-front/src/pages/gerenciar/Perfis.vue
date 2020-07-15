@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Perfis'">
       <BaseButton
         title="Ajuda"
@@ -158,7 +158,7 @@
 <script>
 import _ from "lodash";
 import perfilService from "@/common/services/perfil";
-import { toggleOrdination, redirectNotAdmin } from "@/mixins/index.js";
+import { toggleOrdination } from "@/mixins/index.js";
 import {
   PageTitle,
   BaseTable,
@@ -176,7 +176,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardPerfis",
-  mixins: [toggleOrdination, redirectNotAdmin],
+  mixins: [toggleOrdination],
   components: {
     PageTitle,
     BaseTable,
@@ -293,9 +293,6 @@ export default {
     },
     isEdit() {
       return this.perfilForm.id !== undefined;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };

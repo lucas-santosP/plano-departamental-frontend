@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin" class="main-component row">
+  <div class="main-component row">
     <PageTitle :title="'Logs'">
       <div class="input-group d-flex align-items-center mx-2 p-0">
         <div class="input-group-prepend">
@@ -123,7 +123,7 @@
 
 <script>
 import _ from "lodash";
-import { redirectNotAdmin, toggleItemInArray } from "@/mixins/index.js";
+import { toggleItemInArray } from "@/mixins/index.js";
 import {
   PageTitle,
   NavTab,
@@ -134,7 +134,7 @@ import {
 
 export default {
   name: "DashboardHistory",
-  mixins: [redirectNotAdmin, toggleItemInArray],
+  mixins: [toggleItemInArray],
   components: {
     BaseModal,
     PageTitle,
@@ -498,9 +498,6 @@ export default {
         ["id"],
         ["desc"]
       );
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
 };
