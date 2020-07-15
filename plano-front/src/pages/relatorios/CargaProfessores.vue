@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row p-0" v-if="!$root.onLoad">
+  <div class="main-component row p-0">
     <PageTitle :title="'Carga Professores'">
       <template #aside>
         <BaseButton

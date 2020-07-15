@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Admin && !$root.onLoad" class="main-component row">
+  <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Validações do Plano'">
       <template #aside>
         <BaseButton
