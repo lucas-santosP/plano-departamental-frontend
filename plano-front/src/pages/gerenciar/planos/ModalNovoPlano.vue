@@ -611,7 +611,7 @@ export default {
       );
       let turmasNovoPlano = [];
       disciplinasNovoPlano1Semestre.forEach((d) => {
-        if (!_.find(this.filtrosDisciplinas, { id: d.Disciplina })) {
+        if (!_.includes(this.filtrosDisciplinas, d.Disciplina)) {
           if ((d.CCD || d.EC) && (d.CCN || d.SI)) {
             turmasNovoPlano.push({
               semestre: 1,
@@ -651,7 +651,7 @@ export default {
         }
       });
       disciplinasNovoPlano2Semestre.forEach((d) => {
-        if (!_.find(this.filtrosDisciplinas, { id: d.Disciplina })) {
+        if (!_.includes(this.filtrosDisciplinas, d.Disciplina)) {
           if ((d.CCD || d.EC) && (d.CCN || d.SI)) {
             turmasNovoPlano.push({
               semestre: 3,
@@ -782,6 +782,7 @@ export default {
           if (disciplina) return true;
           else return false;
         });
+        console.log(turmasCopiar)
         turmasCopiar.forEach((t) => {
           turmaService
             .create({
