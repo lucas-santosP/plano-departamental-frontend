@@ -1,34 +1,32 @@
 <template>
   <div class="main-component row p-0" v-if="!$root.onLoad">
     <PageTitle :title="'Carga Professores'">
-      <template #aside>
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('filtros')"
-        >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('filtros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Relatório"
-          :type="'icon'"
-          :color="'gray'"
-          @click="$refs.modalRelatorio.toggle()"
-        >
-          <i class="fas fa-file-alt"></i>
-        </BaseButton>
+      <BaseButton
+        title="Relatório"
+        :type="'icon'"
+        :color="'gray'"
+        @click="$refs.modalRelatorio.toggle()"
+      >
+        <i class="fas fa-file-alt"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('ajuda')"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('ajuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="div-table">

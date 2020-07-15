@@ -1,71 +1,69 @@
 <template>
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Graduação - DCC'">
-      <template #aside>
-        <template v-if="isAdding">
-          <BaseButton
-            title="Salvar"
-            :type="'icon'"
-            :color="'green'"
-            @click="addTurma()"
-          >
-            <i class="fas fa-check"></i>
-          </BaseButton>
-          <BaseButton
-            title="Cancelar"
-            :type="'icon'"
-            :color="'gray'"
-            @click="toggleIsAdding()"
-          >
-            <i class="fas fa-times"></i>
-          </BaseButton>
-        </template>
-        <template v-else>
-          <BaseButton
-            title="Adicionar"
-            :type="'icon'"
-            :color="'green'"
-            @click="toggleIsAdding()"
-          >
-            <i class="fas fa-plus"></i>
-          </BaseButton>
-          <BaseButton
-            title="Deletar selecionados"
-            :type="'icon'"
-            :color="'red'"
-            @click="$refs.modalDelete.open()"
-          >
-            <i class="fas fa-trash"></i>
-          </BaseButton>
-        </template>
-
+      <template v-if="isAdding">
         <BaseButton
-          title="Filtros"
+          title="Salvar"
+          :type="'icon'"
+          :color="'green'"
+          @click="addTurma()"
+        >
+          <i class="fas fa-check"></i>
+        </BaseButton>
+        <BaseButton
+          title="Cancelar"
           :type="'icon'"
           :color="'gray'"
-          @click="openAsideModal('filtros')"
+          @click="toggleIsAdding()"
         >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
-
-        <BaseButton
-          title="Relátorio"
-          :type="'icon'"
-          :color="'gray'"
-          @click="xlsx(Pedidos)"
-        >
-          <i class="fas fa-file-alt"></i>
-        </BaseButton>
-
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('ajuda')"
-        >
-          <i class="fas fa-question"></i>
+          <i class="fas fa-times"></i>
         </BaseButton>
       </template>
+      <template v-else>
+        <BaseButton
+          title="Adicionar"
+          :type="'icon'"
+          :color="'green'"
+          @click="toggleIsAdding()"
+        >
+          <i class="fas fa-plus"></i>
+        </BaseButton>
+        <BaseButton
+          title="Deletar selecionados"
+          :type="'icon'"
+          :color="'red'"
+          @click="$refs.modalDelete.open()"
+        >
+          <i class="fas fa-trash"></i>
+        </BaseButton>
+      </template>
+
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('filtros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
+
+      <BaseButton
+        title="Relátorio"
+        :type="'icon'"
+        :color="'gray'"
+        @click="xlsx(Pedidos)"
+      >
+        <i class="fas fa-file-alt"></i>
+      </BaseButton>
+
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('ajuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="div-table">

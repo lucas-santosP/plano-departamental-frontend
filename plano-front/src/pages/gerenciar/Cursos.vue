@@ -1,16 +1,14 @@
 <template>
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Cursos'">
-      <template #aside>
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="$refs.modalAjuda.toggle()"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="$refs.modalAjuda.toggle()"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="page-content">

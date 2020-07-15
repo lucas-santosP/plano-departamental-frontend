@@ -1,23 +1,21 @@
 <template>
   <div v-if="Admin && !$root.onLoad" class="main-component row">
     <PageTitle :title="'Validações do Plano'">
-      <template #aside>
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('filtros')"
-        >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
-        <BaseButton
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('ajuda')"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('filtros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
+      <BaseButton
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('ajuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <NavTab

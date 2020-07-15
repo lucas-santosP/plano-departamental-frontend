@@ -1,34 +1,32 @@
 <template>
   <div class="main-component row p-0">
     <PageTitle :title="'Horários - Laborátorios'">
-      <template #aside>
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('modalFiltros')"
-        >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('modalFiltros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Relátorio"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('modalRelatorio')"
-        >
-          <i class="fas fa-file-alt"></i>
-        </BaseButton>
+      <BaseButton
+        title="Relátorio"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('modalRelatorio')"
+      >
+        <i class="fas fa-file-alt"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('modalAjuda')"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('modalAjuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="row w-100 m-0">

@@ -1,63 +1,61 @@
 <template>
   <div class="main-component row">
     <PageTitle :title="'Pós Graduação'">
-      <template #aside>
-        <BaseButton
-          v-show="isAdding"
-          title="Salvar"
-          :type="'icon'"
-          :color="'green'"
-          @click="addNovaCarga()"
-        >
-          <i class="fas fa-check"></i>
-        </BaseButton>
-        <BaseButton
-          v-show="isAdding"
-          title="Cancelar"
-          :type="'icon'"
-          :color="'gray'"
-          @click="toggleAdd()"
-        >
-          <i class="fas fa-times"></i>
-        </BaseButton>
+      <BaseButton
+        v-show="isAdding"
+        title="Salvar"
+        :type="'icon'"
+        :color="'green'"
+        @click="addNovaCarga()"
+      >
+        <i class="fas fa-check"></i>
+      </BaseButton>
+      <BaseButton
+        v-show="isAdding"
+        title="Cancelar"
+        :type="'icon'"
+        :color="'gray'"
+        @click="toggleAdd()"
+      >
+        <i class="fas fa-times"></i>
+      </BaseButton>
 
-        <BaseButton
-          v-show="!isAdding"
-          title="Adicionar"
-          :type="'icon'"
-          :color="'green'"
-          @click="toggleAdd()"
-        >
-          <i class="fas fa-plus"></i>
-        </BaseButton>
-        <BaseButton
-          v-show="!isAdding"
-          title="Deletar selecionados"
-          :type="'icon'"
-          :color="'red'"
-          @click="$refs.modalDelete.open()"
-        >
-          <i class="fas fa-trash"></i>
-        </BaseButton>
+      <BaseButton
+        v-show="!isAdding"
+        title="Adicionar"
+        :type="'icon'"
+        :color="'green'"
+        @click="toggleAdd()"
+      >
+        <i class="fas fa-plus"></i>
+      </BaseButton>
+      <BaseButton
+        v-show="!isAdding"
+        title="Deletar selecionados"
+        :type="'icon'"
+        :color="'red'"
+        @click="$refs.modalDelete.open()"
+      >
+        <i class="fas fa-trash"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('filtros')"
-        >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('filtros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('ajuda')"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('ajuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="div-table">

@@ -2,7 +2,7 @@
   <div id="PageTitle" class="w-100 p-0 m-0 mb-2 border-bottom">
     <h1 class="titulo m-0 my-1">{{ title }}</h1>
     <div class="aside form-group m-0 p-0 my-1">
-      <slot name="aside"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>

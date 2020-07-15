@@ -1,42 +1,40 @@
 <template>
   <div class="main-component row">
     <PageTitle :title="'Grades Disciplinas'">
-      <template #aside>
-        <div class="input-group d-flex align-items-center m-0 mx-2 ml-auto p-0">
-          <div class="input-group-prepend">
-            <label class="input-group-text">Ano</label>
-          </div>
-          <select
-            v-model="novoAno"
-            class="form-control form-control-top"
-            v-on:change="runNovoAno()"
-          >
-            <option
-              v-for="i in Array.from(Array(11), (e, i) => i - 5)"
-              :key="i"
-              :value="AnoAtual + i"
-              >{{ AnoAtual + i }}</option
-            >
-          </select>
+      <div class="input-group d-flex align-items-center m-0 mx-2 ml-auto p-0">
+        <div class="input-group-prepend">
+          <label class="input-group-text">Ano</label>
         </div>
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="openAsideModal('filtros')"
+        <select
+          v-model="novoAno"
+          class="form-control form-control-top"
+          v-on:change="runNovoAno()"
         >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
+          <option
+            v-for="i in Array.from(Array(11), (e, i) => i - 5)"
+            :key="i"
+            :value="AnoAtual + i"
+            >{{ AnoAtual + i }}</option
+          >
+        </select>
+      </div>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="openAsideModal('filtros')"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
 
-        <BaseButton
-          title="Ajuda"
-          :type="'icon'"
-          :color="'lightblue'"
-          @click="openAsideModal('ajuda')"
-        >
-          <i class="fas fa-question"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Ajuda"
+        :type="'icon'"
+        :color="'lightblue'"
+        @click="openAsideModal('ajuda')"
+      >
+        <i class="fas fa-question"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="div-table">

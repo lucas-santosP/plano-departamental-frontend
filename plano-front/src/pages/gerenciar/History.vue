@@ -1,28 +1,26 @@
 <template>
   <div v-if="Admin" class="main-component row">
     <PageTitle :title="'Logs'">
-      <template #aside>
-        <div class="input-group d-flex align-items-center mx-2 p-0">
-          <div class="input-group-prepend">
-            <label class="input-group-text">Operação</label>
-          </div>
-          <select class="form-control form-control-top" v-model="operacoes">
-            <option value="Todos">Todas</option>
-            <option value="Create">Create</option>
-            <option value="Delete">Delete</option>
-            <option value="Edit">Edit</option>
-          </select>
+      <div class="input-group d-flex align-items-center mx-2 p-0">
+        <div class="input-group-prepend">
+          <label class="input-group-text">Operação</label>
         </div>
+        <select class="form-control form-control-top" v-model="operacoes">
+          <option value="Todos">Todas</option>
+          <option value="Create">Create</option>
+          <option value="Delete">Delete</option>
+          <option value="Edit">Edit</option>
+        </select>
+      </div>
 
-        <BaseButton
-          title="Filtros"
-          :type="'icon'"
-          :color="'gray'"
-          @click="$refs.modalFiltros.toggle()"
-        >
-          <i class="fas fa-list-ul"></i>
-        </BaseButton>
-      </template>
+      <BaseButton
+        title="Filtros"
+        :type="'icon'"
+        :color="'gray'"
+        @click="$refs.modalFiltros.toggle()"
+      >
+        <i class="fas fa-list-ul"></i>
+      </BaseButton>
     </PageTitle>
 
     <div class="row w-100 m-0 p-0">
