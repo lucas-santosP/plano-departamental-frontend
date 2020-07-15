@@ -45,7 +45,7 @@ export default {
 .container-horarios {
   width: 100% !important;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 301px);
+  grid-template-columns: repeat(auto-fit, 306px);
   justify-content: space-between;
   grid-gap: 5px;
   grid-row-gap: 20px;

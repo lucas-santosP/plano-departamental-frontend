@@ -5374,6 +5374,7 @@ export default {
 
   computed: {
     ...mapGetters(["TurmasInDisciplinasPerfis", "TurmasExternasInDisciplinas"]),
+
     semestre1IsActived() {
       return (
         this.filtroSemestres.ativo === 1 || this.filtroSemestres.ativo === 3
@@ -5382,6 +5383,12 @@ export default {
     semestre2IsActived() {
       return (
         this.filtroSemestres.ativo === 2 || this.filtroSemestres.ativo === 3
+      );
+    },
+    EletivasIsSelected() {
+      return _.find(
+        this.filtroCursos.ativados,
+        (curso) => curso.codigo === "-"
       );
     },
     CursosModalOrdered() {
@@ -5394,11 +5401,9 @@ export default {
     Grades() {
       return this.$store.state.grade.Grades;
     },
-
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-
     Disciplinas() {
       return this.$store.state.disciplina.Disciplinas;
     },
@@ -5455,21 +5460,12 @@ export default {
       ];
       return _.filter(cursosResult, (curso) => curso.isSelected);
     },
-
     DisciplinaGrades() {
       return this.$store.state.disciplinaGrade.DisciplinaGrades;
     },
-
-    EletivasIsSelected() {
-      return _.find(
-        this.filtroCursos.ativados,
-        (curso) => curso.codigo === "-"
-      );
-    },
   },
-
   watch: {
-    Turmas() {
+    TurmasInDisciplinasPerfis() {
       this.updateHorarios();
     },
   },

@@ -75,7 +75,7 @@
                 class="form-control input-ano"
               >
                 <option
-                  v-for="year in Years"
+                  v-for="year in AnosDoPlano"
                   :key="'anos' + year"
                   :value="year"
                 >
@@ -175,12 +175,9 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 import planoService from "@/common/services/plano";
-import {
-  toggleOrdination,
-  notification,
-  redirectNotAdmin,
-} from "@/mixins/index.js";
+import { toggleOrdination, notification, redirectNotAdmin } from "@/mixins";
 import {
   BaseTable,
   BaseModal,
@@ -188,7 +185,7 @@ import {
   BaseButton,
   PasswordInput,
   Card,
-} from "@/components/index.js";
+} from "@/components";
 import ModalNovoPlano from "./ModalNovoPlano";
 
 const emptyPlano = {
@@ -236,16 +233,17 @@ export default {
       this.$refs.modalDeletePlano.close();
     },
     validatePlano(plano) {
-      return !(plano.ano === "" || plano.ano === null);
-    },
-    openModalNovoPlano() {
-      if (!this.validatePlano(this.planoForm)) {
+      if (plano.ano === "" || plano.ano === null) {
         this.showNotification({
           type: "error",
-          message: `Campo ano inválido.`,
+          message: `Campos obrigatórios inválidos ou incompletos.`,
         });
-        return;
-      }
+        return false;
+      } else return true;
+    },
+    openModalNovoPlano() {
+      if (!this.validatePlano(this.planoForm)) return;
+
       this.$refs.modalNovoPlano.open();
     },
     async editPlano() {
@@ -292,28 +290,11 @@ export default {
     },
   },
   computed: {
-    Planos() {
-      return this.$store.state.plano.Plano;
-    },
+    ...mapGetters(["allPlanos", "AnosDoPlano", "Admin"]),
+
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
-      return _.orderBy(this.Planos, order, type);
-    },
-    Years() {
-      let yearsArry = [];
-      let firstYear = 2019;
-      let currentYear = new Date().getFullYear();
-      let lastYear = currentYear + 5;
-
-      while (firstYear <= lastYear) {
-        yearsArry.push(parseInt(firstYear, 10));
-        firstYear++;
-      }
-
-      return yearsArry;
-    },
-    Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
+      return _.orderBy(this.allPlanos, order, type);
     },
     isEdit() {
       return this.planoSelected != null;

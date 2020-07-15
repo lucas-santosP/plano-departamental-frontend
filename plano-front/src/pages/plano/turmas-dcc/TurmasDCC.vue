@@ -652,6 +652,7 @@ import {
 } from "@/components/index.js";
 import NovaTurma from "./NovaTurma.vue";
 import TurmaRow from "./TurmaRow.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DashboardPrototipo",
@@ -778,8 +779,8 @@ export default {
         ...this.filtroDisciplinas.selecionados,
       ];
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-      this.clearSearch("searchCursosModal");
-      this.clearSearch("searchDisciplinasModal");
+      // this.clearSearch("searchCursosModal");
+      // this.clearSearch("searchDisciplinasModal");
 
       this.$nextTick(() => {
         setTimeout(() => {
@@ -888,16 +889,8 @@ export default {
     },
   },
   computed: {
-    CursosDCC() {
-      const cursosResultantes = [];
-      cursosResultantes.push(
-        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO NOTURNO"]),
-        _.find(this.Cursos, ["nome", "CIÊNCIA DA COMPUTAÇÃO DIURNO"]),
-        _.find(this.Cursos, ["nome", "SISTEMAS DE INFORMAÇÃO"]),
-        _.find(this.Cursos, ["nome", "ENGENHARIA COMPUTACIONAL"])
-      );
-      return cursosResultantes;
-    },
+    ...mapGetters(["CursosDCC"]),
+
     TurmasOrdered() {
       let turmasResult = _.orderBy(
         this.TurmasFiltredByDisciplinas,

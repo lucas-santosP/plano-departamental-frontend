@@ -3,6 +3,7 @@ import notification from "./notification";
 import toggleItemInArray from "./toggleItemInArray";
 import toggleOrdination from "./toggleOrdination";
 import redirectNotAdmin from "./redirectNotAdmin";
+import debounceInput from "./debounceInput";
 
 export {
   loadingHooks,
@@ -10,4 +11,5 @@ export {
   toggleItemInArray,
   toggleOrdination,
   redirectNotAdmin,
+  debounceInput,
 };

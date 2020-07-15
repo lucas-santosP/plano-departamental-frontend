@@ -25,7 +25,7 @@
 
       <footer v-if="modalOptions.hasFooter" class="modal-custom-footer w-100">
         <slot name="modal-footer">
-          <div class="w-100">
+          <div>
             <BaseButton
               :type="'text'"
               :color="'lightblue'"
@@ -47,7 +47,7 @@
             :color="'green'"
             @click="emitOk()"
           >
-            OK
+            {{ btnOkText }}
           </BaseButton>
         </slot>
       </footer>
@@ -77,6 +77,8 @@ export default {
       type: String,
       default: "",
     },
+
+    btnOkText: { type: String, default: "OK" },
   },
   data() {
     return {
