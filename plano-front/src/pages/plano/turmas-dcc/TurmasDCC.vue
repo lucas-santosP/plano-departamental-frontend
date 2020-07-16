@@ -6,7 +6,7 @@
           title="Salvar"
           :type="'icon'"
           :color="'green'"
-          @click="addTurma()"
+          @click="$refs.novaTurma.addTurma()"
         >
           <i class="fas fa-check"></i>
         </BaseButton>
@@ -177,6 +177,7 @@
         </template>
         <template #tbody>
           <NovaTurma
+            ref="novaTurma"
             v-show="isAdding"
             :cursosAtivadosLength="filtroCursos.ativados.length"
           />
@@ -630,7 +631,6 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
-import { EventBus } from "@/event-bus.js";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
@@ -846,9 +846,6 @@ export default {
             message: error,
           });
         });
-    },
-    addTurma() {
-      EventBus.$emit("addTurma");
     },
     editTurma(turma) {
       turmaService

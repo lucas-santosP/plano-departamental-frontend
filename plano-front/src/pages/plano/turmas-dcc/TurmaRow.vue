@@ -6,7 +6,7 @@
     <td style="width: 25px">
       <input
         type="checkbox"
-        class=" form-check-input position-static m-0"
+        class="form-check-input position-static m-0"
         name="ativa"
         :v-model="ativo"
         @click="checkDelete(turmaForm)"
@@ -156,12 +156,12 @@
           v-model="turmaForm.Sala1"
           @change="checkSala()"
         >
-          <option v-if="Salas.length === 0" type="text" value=""
+          <option v-if="AllSalas.length === 0" type="text" value=""
             >Nenhuma Sala Encontrada</option
           >
           <option v-else value=""></option>
           <option
-            v-for="sala in Salas"
+            v-for="sala in AllSalas"
             :key="'1-sala-id' + sala.id"
             :value="sala.id"
             >{{ sala.nome }}</option
@@ -174,12 +174,12 @@
           v-model="turmaForm.Sala2"
           @change="checkSala()"
         >
-          <option v-if="Salas.length === 0" type="text" value=""
+          <option v-if="AllSalas.length === 0" type="text" value=""
             >Nenhuma Sala Encontrada</option
           >
           <option v-else value=""></option>
           <option
-            v-for="sala in Salas"
+            v-for="sala in AllSalas"
             :key="'2-sala-id' + sala.id"
             :value="sala.id"
             >{{ sala.nome }}</option
@@ -266,7 +266,7 @@ export default {
   components: {
     InputsPedidos,
   },
-  created() {
+  beforeMount() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
     this.setInputs();
@@ -416,11 +416,11 @@ export default {
     notifyHorarioDocente(horario, docente) {
       let h =
         horario === 1
-          ? _.find(this.$store.state.horario.Horarios, [
+          ? _.find(this.$store.state.horario.AllHorarios, [
               "id",
               this.turmaForm.Horario1,
             ])
-          : _.find(this.$store.state.horario.Horarios, [
+          : _.find(this.$store.state.horario.AllHorarios, [
               "id",
               this.turmaForm.Horario2,
             ]);
@@ -783,18 +783,18 @@ export default {
     notifyHorarioSala(horario, sala) {
       let h =
         horario === 1
-          ? _.find(this.$store.state.horario.Horarios, [
+          ? _.find(this.$store.state.horario.AllHorarios, [
               "id",
               this.turmaForm.Horario1,
             ])
-          : _.find(this.$store.state.horario.Horarios, [
+          : _.find(this.$store.state.horario.AllHorarios, [
               "id",
               this.turmaForm.Horario2,
             ]);
       let s =
         sala === 1
-          ? _.find(this.Salas, ["id", this.turmaForm.Sala1])
-          : _.find(this.Salas, ["id", this.turmaForm.Sala2]);
+          ? _.find(this.AllSalas, ["id", this.turmaForm.Sala1])
+          : _.find(this.AllSalas, ["id", this.turmaForm.Sala2]);
 
       let text = `Conflito no horário ${h.horario} com a sala ${s.nome}`;
       this.$notify({
@@ -1116,7 +1116,7 @@ export default {
       if (turmaResultante.letra === null)
         turmaResultante.letra = this.currentData.letra;
 
-      //Se o horario não estiver presente nos Horarios mostrados
+      //Se o horario não estiver presente nos AllHorarios mostrados
       //nos input, seta como null
       if (
         turmaResultante.Horario1 != 31 &&
@@ -1164,8 +1164,8 @@ export default {
   computed: {
     ...mapGetters([
       "DocentesAtivos",
-      "Salas",
-      "Horarios",
+      "AllSalas",
+      "AllHorarios",
       "HorariosEAD",
       "HorariosNoturno",
       "HorariosDiurno",
@@ -1183,7 +1183,7 @@ export default {
         case "Noturno":
           return this.HorariosNoturno;
         default:
-          return this.Horarios;
+          return this.AllHorarios;
       }
     },
     isIntegralEAD() {
