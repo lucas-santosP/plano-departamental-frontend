@@ -43,9 +43,10 @@
     <td style="width: 45px">
       <input
         type="text"
-        class="input-letra upper-case"
-        v-model="turmaForm.letra"
-        @keypress="inputLetraMask"
+        class="input-letra"
+        :value="turmaForm.letra"
+        @input="turmaForm.letra = $event.target.value.toUpperCase()"
+        @keypress="maskTurmaLetra"
         @blur="editTurma(turma)"
       />
     </td>
@@ -200,7 +201,7 @@
       v-for="curso in cursosAtivados"
       :key="curso.id + curso.codigo"
       class="p-0"
-      style="width:35px;"
+      style="width:35px"
     >
       <template v-for="(pedido, index) in currentTurmaPedidos">
         <InputsPedidos
@@ -216,7 +217,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { setEmptyValuesToNull } from "@/utils/index.js";
+import { setEmptyValuesToNull, maskTurmaLetra } from "@/utils/index.js";
 import { notification } from "@/mixins/index.js";
 import turmaService from "@/common/services/turma";
 import InputsPedidos from "./TurmaPedidos.vue";
@@ -258,6 +259,7 @@ export default {
     return {
       currentData: undefined,
       turmaForm: _.clone(emptyTurma),
+      maskTurmaLetra: maskTurmaLetra,
     };
   },
   components: {
@@ -286,17 +288,12 @@ export default {
         this.turmaForm.Horario2 = 31;
       }
     },
-    inputLetraMask($event) {
-      let key = $event.key ? $event.key : $event.which;
-      if (!key.match(/[A-Z]/i) || $event.target.value.length >= 3)
-        $event.preventDefault();
-    },
     checkHorariosPeriodo() {
       if (!this.checkHorarioDocente(1) && !this.checkHorarioSala(1)) {
         if (!this.checkHorarioDocente(2) && !this.checkHorarioSala(2)) {
           this.editTurma();
         } else {
-          // this.turmaForm.Horario2 = this.currentData.Horario2;
+          this.turmaForm.Horario2 = this.currentData.Horario2;
           this.turmaForm.periodo = this.currentData.periodo;
         }
       } else {
@@ -311,8 +308,8 @@ export default {
       ) {
         this.editTurma();
       } else {
-        // if (horario === 1) this.turmaForm.Horario1 = this.currentData.Horario1;
-        // else this.turmaForm.Horario2 = this.currentData.Horario2;
+        if (horario === 1) this.turmaForm.Horario1 = this.currentData.Horario1;
+        else this.turmaForm.Horario2 = this.currentData.Horario2;
       }
     },
     checkDocente() {
@@ -420,14 +417,8 @@ export default {
     notifyHorarioDocente(horario, docente) {
       let h =
         horario === 1
-          ? _.find(this.$store.state.horario.AllHorarios, [
-              "id",
-              this.turmaForm.Horario1,
-            ])
-          : _.find(this.$store.state.horario.AllHorarios, [
-              "id",
-              this.turmaForm.Horario2,
-            ]);
+          ? _.find(this.AllHorarios, ["id", this.turmaForm.Horario1])
+          : _.find(this.AllHorarios, ["id", this.turmaForm.Horario2]);
       let d =
         docente === 1
           ? _.find(this.DocentesAtivos, ["id", this.turmaForm.Docente1])
@@ -787,14 +778,8 @@ export default {
     notifyHorarioSala(horario, sala) {
       let h =
         horario === 1
-          ? _.find(this.$store.state.horario.AllHorarios, [
-              "id",
-              this.turmaForm.Horario1,
-            ])
-          : _.find(this.$store.state.horario.AllHorarios, [
-              "id",
-              this.turmaForm.Horario2,
-            ]);
+          ? _.find(this.AllHorarios, ["id", this.turmaForm.Horario1])
+          : _.find(this.AllHorarios, ["id", this.turmaForm.Horario2]);
       let s =
         sala === 1
           ? _.find(this.AllSalas, ["id", this.turmaForm.Sala1])
@@ -1114,31 +1099,11 @@ export default {
     checkDelete(turma) {
       this.$store.commit("checkDelete", { Turma: turma });
     },
-    normalizeTurma(turma) {
-      const turmaResultante = _.cloneWith(turma, setEmptyValuesToNull);
-
-      if (turmaResultante.letra === null)
-        turmaResultante.letra = this.currentData.letra;
-
-      //Se o horario não estiver presente nos AllHorarios mostrados
-      //nos input, seta como null
-      if (
-        turmaResultante.Horario1 != 31 &&
-        !_.find(this.HorariosFiltredByTurno, ["id", turmaResultante.Horario1])
-      )
-        turmaResultante.Horario1 = null;
-
-      // console.log(turmaResultante.Horario2);
-      if (
-        turmaResultante.Horario2 != 31 &&
-        !_.find(this.HorariosFiltredByTurno, ["id", turmaResultante.Horario2])
-      )
-        turmaResultante.Horario2 = null;
-      return turmaResultante;
-    },
     async editTurma() {
-      const newTurma = this.normalizeTurma(this.turmaForm);
+      const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
+      if (newTurma.letra === null) newTurma.letra = this.currentData.letra;
 
+      console.log(newTurma);
       try {
         const response = await turmaService.update(newTurma.id, newTurma);
         this.showNotification({
@@ -1220,10 +1185,6 @@ export default {
     },
     currentTurmaPedidos() {
       return this.$store.state.pedido.Pedidos[this.turma.id];
-    },
-    Deletar() {
-      console.log(this.$store.state.turma.Deletar);
-      return this.$store.state.turma.Deletar;
     },
   },
   watch: {
