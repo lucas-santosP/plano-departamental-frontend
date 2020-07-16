@@ -7,9 +7,7 @@
       <input
         type="checkbox"
         class="form-check-input position-static m-0"
-        name="ativa"
-        :v-model="ativo"
-        @click="checkDelete(turmaForm)"
+        @click="selectToDelete(turma)"
       />
     </td>
     <td style="width:40px" class="p-0">
@@ -258,7 +256,6 @@ export default {
   },
   data() {
     return {
-      ativo: false,
       currentData: undefined,
       turmaForm: _.clone(emptyTurma),
     };
@@ -267,13 +264,20 @@ export default {
     InputsPedidos,
   },
   beforeMount() {
+    console.log();
     this.turmaForm = _.clone(this.turma);
     this.currentData = _.clone(this.turmaForm);
-    this.setInputs();
+    this.setDefaultHorarios();
   },
-
   methods: {
-    setInputs() {
+    selectToDelete(turma) {
+      this.$store.commit("checkDeleteTurma", turma);
+    },
+    clearHorarios() {
+      this.turmaForm.Horario1 = null;
+      this.turmaForm.Horario2 = null;
+    },
+    setDefaultHorarios() {
       if (this.turma.disciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
@@ -1156,11 +1160,6 @@ export default {
       }
     },
   },
-  watch: {
-    turma() {
-      this.turmaForm = _.clone(this.turma);
-    },
-  },
   computed: {
     ...mapGetters([
       "DocentesAtivos",
@@ -1223,7 +1222,13 @@ export default {
       return this.$store.state.pedido.Pedidos[this.turma.id];
     },
     Deletar() {
+      console.log(this.$store.state.turma.Deletar);
       return this.$store.state.turma.Deletar;
+    },
+  },
+  watch: {
+    turma() {
+      this.turmaForm = _.clone(this.turma);
     },
   },
 };

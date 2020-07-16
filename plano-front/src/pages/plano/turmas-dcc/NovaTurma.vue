@@ -92,7 +92,7 @@
         v-if="currentDisciplina"
         type="text"
         v-model="turmaForm.turno1"
-        @input="clearHorarios()"
+        @change="clearHorarios()"
       >
         <option v-if="disciplinaIsIntegralEAD" value="EAD">EAD</option>
         <template v-else>
@@ -251,9 +251,9 @@ export default {
       this.turmaForm.Horario2 = null;
       this.turmaForm.Docente1 = null;
       this.turmaForm.Docente2 = null;
-      this.setInputValues();
+      this.setDefaultHorarios();
     },
-    setInputValues() {
+    setDefaultHorarios() {
       if (this.currentDisciplina.ead === 1) {
         this.turmaForm.turno1 = "EAD";
         this.turmaForm.Horario1 = 31;
