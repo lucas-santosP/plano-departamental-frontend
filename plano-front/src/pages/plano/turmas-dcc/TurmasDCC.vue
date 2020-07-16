@@ -32,7 +32,7 @@
           title="Deletar selecionados"
           :type="'icon'"
           :color="'red'"
-          @click="$refs.modalDelete.open()"
+          @click="openModalDelete()"
         >
           <i class="fas fa-trash"></i>
         </BaseButton>
@@ -523,17 +523,13 @@
     >
       <template #modal-body>
         <p class="w-100 m-0">
-          {{
-            Deletar.length
-              ? "Tem certeza que deseja deletar a(s) turma(s) selecionadas?"
-              : "Nenhuma turma selecionada!"
-          }}
+          Tem certeza que deseja deletar a(s) turma(s) selecionadas?
         </p>
-        <ul v-if="Deletar.length" class="list-group list-deletar w-100 mt-2">
+        <ul class="list-group list-deletar w-100 mt-2">
           <li
             v-for="turma in Deletar"
             class="list-group-item"
-            :key="'deletarTurma' + turma.id"
+            :key="'delete' + turma.id"
           >
             <span class="mr-1"> <b> Semestre: </b>{{ turma.periodo }} </span>
             <span class="mr-1">
@@ -547,13 +543,12 @@
         <div class="w-100">
           <button
             class="btn-custom btn-modal btn-cinza paddingX-20"
-            @click="$refs.modalDelete.close()"
+            @click="closeModalDelete()"
           >
             Cancelar
           </button>
         </div>
         <button
-          v-if="Deletar.length"
           class="btn-custom btn-modal btn-vermelho paddingX-20"
           @click="deleteSelectedTurma()"
         >
@@ -790,6 +785,17 @@ export default {
     selectCursosDCC() {
       this.filtroCursos.selecionados = [...this.CursosDCC];
     },
+    closeModalDelete() {
+      this.$refs.modalDelete.close();
+    },
+    openModalDelete() {
+      if (this.Deletar.length) this.$refs.modalDelete.open();
+      else
+        this.showNotification({
+          type: "error",
+          message: "Nenhuma turma selecionada",
+        });
+    },
     clearSearch(searchName) {
       this[searchName] = "";
     },
@@ -825,43 +831,25 @@ export default {
         });
       }
     },
-    deleteSelectedTurma() {
-      for (let i = 0; i < this.Deletar.length; i++) {
-        this.deleteTurma(this.Deletar[i]);
+    async deleteSelectedTurma() {
+      try {
+        this.$store.commit("SHOW_LOADING_VIEW");
+        for (let i = 0; i < this.Deletar.length; i++) {
+          await turmaService.delete(this.Deletar[i].id);
+        }
+        this.$store.commit("emptyDelete");
+        this.showNotification({
+          type: "success",
+          message: "Turma(s) excluída(s).",
+        });
+      } catch (error) {
+        this.showNotification({
+          type: "error",
+          message: error,
+        });
       }
-      this.$store.commit("emptyDelete");
-    },
-    deleteTurma(turma) {
-      turmaService
-        .delete(turma.id)
-        .then((response) => {
-          this.showNotification({
-            type: "success",
-            message: response.message,
-          });
-        })
-        .catch((error) => {
-          this.showNotification({
-            type: "error",
-            message: error,
-          });
-        });
-    },
-    editTurma(turma) {
-      turmaService
-        .update(turma.id, turma)
-        .then((response) => {
-          this.showNotification({
-            type: "success",
-            message: response.message,
-          });
-        })
-        .catch((error) => {
-          this.showNotification({
-            type: "error",
-            message: error,
-          });
-        });
+      this.$store.commit("HIDE_LOADING_VIEW");
+      this.closeModalDelete();
     },
     toggleIsAdding() {
       this.isAdding = !this.isAdding;

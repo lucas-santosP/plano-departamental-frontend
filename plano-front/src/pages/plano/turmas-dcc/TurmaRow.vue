@@ -1124,7 +1124,7 @@ export default {
       )
         turmaResultante.Horario1 = null;
 
-      console.log(turmaResultante.Horario2);
+      // console.log(turmaResultante.Horario2);
       if (
         turmaResultante.Horario2 != 31 &&
         !_.find(this.HorariosFiltredByTurno, ["id", turmaResultante.Horario2])
