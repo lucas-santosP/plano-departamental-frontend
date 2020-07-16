@@ -11,9 +11,13 @@
     <td
       style="width: 80px"
       class="less-padding"
-      :style="turmaForm.disciplina.perfil.cor"
+      :style="
+        `background-color:${
+          currentDisciplina ? currentDisciplina.perfil.cor : ''
+        }`
+      "
     >
-      {{ currentDisciplina ? currentDisciplina.perfilAbreviacao : "" }}
+      {{ currentDisciplina ? currentDisciplina.perfil.abreviacao : "" }}
     </td>
     <td style="width:80px" class="less-padding">
       <select
@@ -233,6 +237,7 @@ export default {
   },
   beforeMount() {
     this.turmaForm = _.clone(emptyTurma);
+    this.turmaForm.periodo = 1;
     this.turmaForm.letra = "A";
   },
   methods: {
@@ -274,7 +279,7 @@ export default {
       try {
         this.$store.commit("SHOW_LOADING_VIEW");
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
-        console.log(newTurma);
+
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
         newTurma.Plano = parseInt(localStorage.getItem("Plano"), 10);
         const response = await turmaService.create(newTurma);
