@@ -51,7 +51,7 @@
         title="Relátorio"
         :type="'icon'"
         :color="'gray'"
-        @click="xlsx(Pedidos)"
+        @click="xlsx()"
       >
         <i class="fas fa-file-alt"></i>
       </BaseButton>
@@ -90,30 +90,33 @@
 
               <i
                 :class="
-                  setIconByOrder(ordenacaoMain.perfis, 'perfilAbreviacao')
+                  setIconByOrder(
+                    ordenacaoMain.perfis,
+                    'disciplina.perfil.abreviacao'
+                  )
                 "
               ></i>
             </div>
           </th>
           <th
             class="clickable"
-            @click="toggleOrder(ordenacaoMain.turmas, 'disciplinaCodigo')"
+            @click="toggleOrder(ordenacaoMain.turmas, 'disciplina.codigo')"
             style="width:80px"
             title="Código"
           >
             Cód.
             <i
-              :class="setIconByOrder(ordenacaoMain.turmas, 'disciplinaCodigo')"
+              :class="setIconByOrder(ordenacaoMain.turmas, 'disciplina.codigo')"
             ></i>
           </th>
           <th
             class="clickable t-start"
             style="width:330px"
-            @click="toggleOrder(ordenacaoMain.turmas, 'disciplinaNome')"
+            @click="toggleOrder(ordenacaoMain.turmas, 'disciplina.nome')"
           >
             Disciplina
             <i
-              :class="setIconByOrder(ordenacaoMain.turmas, 'disciplinaNome')"
+              :class="setIconByOrder(ordenacaoMain.turmas, 'disciplina.nome')"
             ></i>
           </th>
           <th style="width:25px" title="Créditos">
@@ -177,7 +180,7 @@
             v-show="isAdding"
             :cursosAtivadosLength="filtroCursos.ativados.length"
           />
-          <template v-if="tableIsReady">
+          <template v-if="!tableIsLoading">
             <TurmaRow
               v-for="turma in TurmasOrdered"
               :key="turma.id + turma.disciplina.codigo + turma.letra"
@@ -261,12 +264,11 @@
                 type="text"
                 class="form-control input-search"
                 placeholder="Pesquise nome ou codigo de uma disciplina..."
-                v-model="searchDisciplinasModal"
+                @input="debounceInput($event, 'searchDisciplinasModal')"
               />
               <button
-                @click="clearSearch('searchDisciplinasModal')"
+                @click="searchDisciplinasModal = ''"
                 class="btn btn-search"
-                style="font-weight: bold "
               >
                 <i class="fas fa-times"></i>
               </button>
@@ -298,7 +300,10 @@
                 class="t-start clickable"
                 style="width: 85px"
                 @click="
-                  toggleOrder(ordenacaoModal.disciplinas, 'perfilAbreviacao')
+                  toggleOrder(
+                    ordenacaoModal.disciplinas,
+                    'disciplina.perfil.abreviacao'
+                  )
                 "
               >
                 Perfil
@@ -306,7 +311,7 @@
                   :class="
                     setIconByOrder(
                       ordenacaoModal.disciplinas,
-                      'perfilAbreviacao'
+                      'disciplina.perfil.abreviacao'
                     )
                   "
                 ></i>
@@ -338,7 +343,7 @@
                   {{ disciplina.nome }}
                 </td>
                 <td style="width: 85px" class="t-start">
-                  {{ disciplina.perfilAbreviacao }}
+                  {{ disciplina.perfil.abreviacao }}
                 </td>
               </tr>
               <tr v-if="DisciplinasDCCOrderedModal.length === 0">
@@ -359,17 +364,14 @@
                 type="text"
                 class="form-control input-search"
                 placeholder="Pesquise nome ou codigo de um curso..."
-                v-model="searchCursosModal"
+                @input="debounceInput($event, 'searchCursosModal')"
               />
-              <button
-                @click="clearSearch('searchCursosModal')"
-                class="btn btn-search"
-              >
+              <button @click="searchCursosModal = ''" class="btn btn-search">
                 <i class="fas fa-times"></i>
               </button>
             </template>
-            <template #thead
-              ><th style="width:25px"></th>
+            <template #thead>
+              <th style="width:25px"></th>
               <th
                 @click="toggleOrder(ordenacaoModal.cursos, 'codigo')"
                 class="clickable t-start"
@@ -633,7 +635,12 @@ import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
 import turmaService from "@/common/services/turma";
-import { toggleOrdination, toggleItemInArray, notification } from "@/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  notification,
+  debounceInput,
+} from "@/mixins";
 import {
   PageTitle,
   BaseTable,
@@ -648,7 +655,7 @@ import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "DashboardPrototipo",
-  mixins: [toggleOrdination, toggleItemInArray, notification],
+  mixins: [toggleOrdination, toggleItemInArray, notification, debounceInput],
   components: {
     TurmaRow,
     NovaTurma,
@@ -661,7 +668,7 @@ export default {
   },
   data() {
     return {
-      tableIsReady: true,
+      tableIsLoading: false,
       turmaClickada: null,
       isAdding: false,
       tabAtivaModal: "Perfis",
@@ -696,7 +703,7 @@ export default {
           ];
         },
         Cursos: () => {
-          this.filtroCursos.selecionados = [...this.Cursos];
+          this.filtroCursos.selecionados = [...this.AllCursos];
         },
         Semestres: () => {
           this.filtroSemestres.primeiro = true;
@@ -724,24 +731,22 @@ export default {
         perfis: { order: "nome", type: "asc" },
       },
       ordenacaoMain: {
-        turmas: { order: "disciplinaCodigo", type: "asc" },
-        perfis: { order: "perfilAbreviacao", type: "asc" },
+        turmas: { order: "disciplina.codigo", type: "asc" },
+        perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
     };
   },
   mounted() {
     ls.set("toggle", -1);
     ls.on("toggle", () => {
-      var val = ls.get("toggle");
-      if (val === true) {
-        this.$store.dispatch("toggleAllCursosTrue");
-      } else {
-        this.$store.dispatch("toggleAllCursosFalse");
-      }
+      const val = ls.get("toggle");
+      if (val === true) this.$store.dispatch("toggleAllCursosTrue");
+      else this.$store.dispatch("toggleAllCursosFalse");
+
       ls.set("toggle", -1);
     });
-    for (var c = 0; c < this.Cursos.length; c++) {
-      let id = this.Cursos[c].id;
+    for (let c = 0; c < this.AllCursos.length; c++) {
+      const id = this.AllCursos[c].id;
       ls.on(`${id}`, () => {
         this.$store.dispatch("toggleCurso", id);
       });
@@ -749,8 +754,8 @@ export default {
   },
   beforeDestroy() {
     ls.off("toggle");
-    for (var c = 0; c < this.Cursos.length; c++) {
-      let id = this.Cursos[c].id;
+    for (var c = 0; c < this.AllCursos.length; c++) {
+      let id = this.AllCursos[c].id;
       ls.off(`${id}`);
     }
   },
@@ -769,18 +774,16 @@ export default {
       this.$refs.modalEditTurma.open();
     },
     btnOkFiltros() {
-      this.$store.commit("SHOW_LOADING_VIEW");
+      this.tableIsLoading = true;
       this.setSemestreAtivo();
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionados,
       ];
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-      // this.clearSearch("searchCursosModal");
-      // this.clearSearch("searchDisciplinasModal");
 
       this.$nextTick(() => {
         setTimeout(() => {
-          this.$store.commit("HIDE_LOADING_VIEW");
+          this.tableIsLoading = false;
         }, 500);
       });
     },
@@ -799,11 +802,10 @@ export default {
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
     },
-    async xlsx(pedidos) {
+    async xlsx() {
       try {
-        this.$root.onLoad = true;
-
-        await xlsx.downloadTable({ pedidos: pedidos });
+        this.$store.commit("SHOW_LOADING_VIEW");
+        await xlsx.downloadTable({ pedidos: this.$store.state.pedido.Pedidos });
         const tableData = await fetch(
           "http://200.131.219.57:3000/api/xlsx/download",
           {
@@ -815,24 +817,19 @@ export default {
         );
         const tableDataBlobed = await tableData.blob();
         await saveAs(tableDataBlobed, "tabela.xlsx");
-        this.$root.onLoad = false;
+        this.$store.commit("HIDE_LOADING_VIEW");
       } catch (error) {
-        this.$notify({
-          group: "general",
-          title: `Erro!`,
-          text: `Erro ao gerar a tabela!\n ${error}`,
+        this.showNotification({
           type: "error",
+          message: `Erro ao gerar a tabela!\n ${error}`,
         });
       }
-    },
-    clearDelete() {
-      this.$store.commit("emptyDelete");
     },
     deleteSelectedTurma() {
       for (let i = 0; i < this.Deletar.length; i++) {
         this.deleteTurma(this.Deletar[i]);
       }
-      this.clearDelete();
+      this.$store.commit("emptyDelete");
     },
     deleteTurma(turma) {
       turmaService
@@ -879,29 +876,38 @@ export default {
   },
   computed: {
     ...mapGetters([
+      "AllCursos",
       "CursosDCC",
       "PerfisDCC",
-      "DisciplinasInPerfis",
+      "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
       "Admin",
     ]),
     // Turmas Main Table
     TurmasOrdered() {
-      let turmasResult = _.orderBy(
-        this.TurmasFiltredByDisciplinas,
-        [this.ordenacaoMain.turmas.order, "letra"],
-        [this.ordenacaoMain.turmas.type, "asc"]
-      );
-
-      if (this.ordenacaoMain.perfis.order !== null) {
-        turmasResult = _.orderBy(
-          turmasResult,
-          this.ordenacaoMain.perfis.order,
-          this.ordenacaoMain.perfis.type
+      //Se não possui ordenação de perfil
+      if (this.ordenacaoMain.perfis.order === null)
+        return _.orderBy(
+          this.TurmasFiltredByDisciplinas,
+          ["periodo", this.ordenacaoMain.turmas.order, "letra"],
+          ["asc", this.ordenacaoMain.turmas.type, "asc"]
         );
-      }
-
-      return _.orderBy(turmasResult, "periodo");
+      else
+        return _.orderBy(
+          this.TurmasFiltredByDisciplinas,
+          [
+            "periodo",
+            this.ordenacaoMain.perfis.order,
+            this.ordenacaoMain.turmas.order,
+            "letra",
+          ],
+          [
+            "asc",
+            this.ordenacaoMain.perfis.type,
+            this.ordenacaoMain.turmas.type,
+            "asc",
+          ]
+        );
     },
     TurmasFiltredByDisciplinas() {
       return _.filter(this.TurmasFiltredBySemestres, (turma) =>
@@ -964,7 +970,7 @@ export default {
       );
     },
     CursosFiltredModal() {
-      let cursosResultantes = this.Cursos;
+      let cursosResultantes = this.AllCursos;
 
       if (this.searchCursosModal !== "") {
         const searchNormalized = normalizeText(this.searchCursosModal);
@@ -981,30 +987,19 @@ export default {
       }
       return cursosResultantes;
     },
-
-    Cursos() {
-      return this.$store.state.curso.Cursos;
-    },
-    DisciplinasDCCInPerfis() {
-      return _.filter(
-        this.DisciplinasInPerfis,
-        (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
-      );
-    },
+    //Outros
     setFixedOrderPerfil() {
       if (this.ordenacaoMain.perfis.type === "desc") return null;
-      else return "perfilAbreviacao";
+      else return "disciplina.perfil.abreviacao";
     },
     Deletar() {
       return this.$store.state.turma.Deletar;
     },
-    Pedidos() {
-      return this.$store.state.pedido.Pedidos;
-    },
   },
   watch: {
-    tableIsReady(newValue) {
-      this.$root.onLoad = !newValue;
+    tableIsLoading(newValue) {
+      if (newValue) this.$store.commit("SHOW_LOADING_VIEW");
+      else this.$store.commit("HIDE_LOADING_VIEW");
     },
     filtroPerfis: {
       handler(perfis) {

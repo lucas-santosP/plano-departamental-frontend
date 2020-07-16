@@ -1,7 +1,7 @@
 <template>
   <tr
     class="turmarow max-content"
-    :style="{ 'background-color': turmaForm.disciplina.perfilCor }"
+    :style="{ 'background-color': turmaForm.disciplina.perfil.cor }"
   >
     <td style="width: 25px">
       <input
@@ -31,7 +31,7 @@
       </select>
     </td>
     <td style="width: 80px" class="less-padding">
-      {{ turmaForm.disciplina.perfilAbreviacao }}
+      {{ turmaForm.disciplina.perfil.abreviacao }}
     </td>
     <td style="width:80px" class="less-padding">
       {{ turmaForm.disciplina.codigo }}

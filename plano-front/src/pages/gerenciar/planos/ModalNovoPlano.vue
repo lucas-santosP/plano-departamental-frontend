@@ -562,7 +562,7 @@ export default {
       disciplinasNovoPlano1Semestre = _.filter(
         disciplinasNovoPlano1Semestre,
         (d) => {
-          let perfil = _.find(this.allDisciplinas, {
+          let perfil = _.find(this.AllDisciplinas, {
             id: d.Disciplina,
           }).Perfil;
           return perfil !== 13 && perfil !== 15;
@@ -571,7 +571,7 @@ export default {
       disciplinasNovoPlano2Semestre = _.filter(
         disciplinasNovoPlano2Semestre,
         (d) => {
-          let perfil = _.find(this.allDisciplinas, {
+          let perfil = _.find(this.AllDisciplinas, {
             id: d.Disciplina,
           }).Perfil;
           return perfil !== 13 && perfil !== 15;
@@ -830,7 +830,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["allPlanos", "DisciplinasInPerfis", "allDisciplinas"]),
+    ...mapGetters(["allPlanos", "DisciplinasInPerfis", "AllDisciplinas"]),
 
     DisciplinasOrderedModal() {
       return _.orderBy(

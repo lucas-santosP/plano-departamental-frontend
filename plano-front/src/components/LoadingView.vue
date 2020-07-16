@@ -38,8 +38,8 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: rgba(52, 58, 64, 0.68);
-  backdrop-filter: blur(1px);
+  background-color: rgba(250, 250, 250, 0.397);
+  backdrop-filter: blur(0.5px);
   cursor: wait;
 }
 .lds-ring {
@@ -59,10 +59,10 @@ export default {
   left: 0;
   width: 64px;
   height: 64px;
-  border: 8px solid #fff;
+  border: 8px solid var(--dark-gray);
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: var(--dark-gray) transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
