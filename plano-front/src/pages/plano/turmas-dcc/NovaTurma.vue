@@ -186,7 +186,7 @@
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import turmaService from "@/common/services/turma";
 import {
   maskTurmaLetra,
@@ -229,6 +229,7 @@ export default {
   name: "NovaTurma",
   mixins: [notification],
   props: { cursosAtivadosLength: Number, default: 0 },
+
   data() {
     return {
       turmaForm: null,
@@ -240,7 +241,10 @@ export default {
     this.turmaForm.periodo = 1;
     this.turmaForm.letra = "A";
   },
+
   methods: {
+    ...mapActions(["showLoadingView", "hideLoadingView"]),
+
     clearHorarios() {
       this.turmaForm.Horario1 = null;
       this.turmaForm.Horario2 = null;
@@ -277,14 +281,13 @@ export default {
     },
     async addTurma() {
       try {
-        this.$store.commit("SHOW_LOADING_VIEW");
+        this.showLoadingView();
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
-
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
+
         newTurma.Plano = parseInt(localStorage.getItem("Plano"), 10);
         const response = await turmaService.create(newTurma);
         await this.$store.dispatch("fetchAllPedidos");
-
         this.showNotification({
           type: "success",
           message: `Turma ${response.Turma.letra} foi criada!`,
@@ -299,8 +302,9 @@ export default {
           title: "Erro ao criar nova turma!",
           message: erroMsg,
         });
+      } finally {
+        this.hideLoadingView();
       }
-      this.$store.commit("HIDE_LOADING_VIEW");
     },
   },
   computed: {

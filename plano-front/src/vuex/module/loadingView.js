@@ -12,8 +12,15 @@ const mutations = {
     state.loadingViewVisibility = false;
   },
 };
-
-const actions = {};
+// mapActions(['showLoadingView','hideLoadingView'])
+const actions = {
+  showLoadingView({ commit }) {
+    commit("SHOW_LOADING_VIEW");
+  },
+  hideLoadingView({ commit }) {
+    commit("HIDE_LOADING_VIEW");
+  },
+};
 
 const getters = {
   loadingViewVisibility(state) {

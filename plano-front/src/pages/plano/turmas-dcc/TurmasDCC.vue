@@ -130,50 +130,23 @@
           <th style="width:45px" title="Total de vagas">
             Total
           </th>
-          <template v-for="curso in filtroCursos.ativados">
-            <th
-              class="p-0"
-              style="width: 35px"
-              :key="'1-' + curso.id"
-              :id="'curso' + curso.id"
+          <th
+            v-for="curso in filtroCursos.ativados"
+            :key="curso.id + curso.codigo"
+            class="p-0"
+            style="width: 35px"
+            v-b-popover.hover.html.bottom="{
+              title: curso.nome,
+              content: popoverCursoContent(curso),
+            }"
+          >
+            <span
+              class="w-100"
+              :class="{ 'curso-codigo-big': nameIsBig(curso.codigo) }"
             >
-              <span
-                v-bind:class="{ cursoGrande: nameIsBig(curso.codigo) }"
-                v-on.prevent:mouseover
-              >
-                {{ curso.codigo }}
-              </span>
-            </th>
-
-            <b-popover
-              :key="'popover' + curso.id"
-              :target="'curso' + curso.id"
-              placement="bottom"
-              triggers="hover focus"
-            >
-              <span
-                class="w-100 text-center"
-                style="font-size: 11px!important;"
-              >
-                <b>{{ curso.nome }}</b>
-              </span>
-
-              <p
-                class="p-0 m-0 text-center"
-                style="font-size: 11px!important;"
-                v-if="curso.semestreInicial == 1 || curso.semestreInicial == 3"
-              >
-                1º - {{ curso.alunosEntrada }}
-              </p>
-              <p
-                class="p-0 m-0 text-center"
-                style="font-size: 11px!important;"
-                v-if="curso.semestreInicial == 2 || curso.semestreInicial == 3"
-              >
-                2º - {{ curso.alunosEntrada2 }}
-              </p>
-            </b-popover>
-          </template>
+              {{ curso.codigo }}
+            </span>
+          </th>
         </template>
         <template #tbody>
           <NovaTurma
@@ -393,7 +366,7 @@
             <template #tbody>
               <tr
                 v-for="curso in CursosOrderedModal"
-                :key="'cursoMd' + curso.id"
+                :key="curso.id + curso.nome"
                 @click="toggleItemInArray(curso, filtroCursos.selecionados)"
               >
                 <td style="width: 25px">
@@ -625,7 +598,7 @@
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
@@ -755,6 +728,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["showLoadingView", "hideLoadingView"]),
+    popoverCursoContent(curso) {
+      const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
+
+      if (semestreInicial == 1) return `<b>1º</b> - ${alunosEntrada}`;
+      else if (semestreInicial == 2) return `<b>2º</b> - ${alunosEntrada2}`;
+      else
+        return `<b>1º</b> - ${alunosEntrada} <br/> <b>2º</b> - ${alunosEntrada2}`;
+    },
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -810,7 +792,7 @@ export default {
     },
     async xlsx() {
       try {
-        this.$store.commit("SHOW_LOADING_VIEW");
+        this.showLoadingView();
         await xlsx.downloadTable({ pedidos: this.$store.state.pedido.Pedidos });
         const tableData = await fetch(
           "http://200.131.219.57:3000/api/xlsx/download",
@@ -823,17 +805,19 @@ export default {
         );
         const tableDataBlobed = await tableData.blob();
         await saveAs(tableDataBlobed, "tabela.xlsx");
-        this.$store.commit("HIDE_LOADING_VIEW");
       } catch (error) {
         this.showNotification({
           type: "error",
           message: `Erro ao gerar a tabela!\n ${error}`,
         });
+      } finally {
+        this.hideLoadingView();
       }
     },
     async deleteSelectedTurma() {
       try {
-        this.$store.commit("SHOW_LOADING_VIEW");
+        this.showLoadingView();
+
         for (let i = 0; i < this.Deletar.length; i++) {
           await turmaService.delete(this.Deletar[i].id);
         }
@@ -847,9 +831,10 @@ export default {
           type: "error",
           message: error,
         });
+      } finally {
+        this.hideLoadingView();
+        this.closeModalDelete();
       }
-      this.$store.commit("HIDE_LOADING_VIEW");
-      this.closeModalDelete();
     },
     toggleIsAdding() {
       this.isAdding = !this.isAdding;
@@ -983,8 +968,8 @@ export default {
   },
   watch: {
     tableIsLoading(newValue) {
-      if (newValue) this.$store.commit("SHOW_LOADING_VIEW");
-      else this.$store.commit("HIDE_LOADING_VIEW");
+      if (newValue) this.showLoadingView();
+      else this.hideLoadingView();
     },
     filtroPerfis: {
       handler(perfis) {
@@ -1008,34 +993,7 @@ export default {
 </script>
 
 <style scoped>
-.stickyAdd {
-  background-color: #e9e9e9;
-  display: block;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 19px !important;
-  overflow: hidden !important;
-  z-index: 5 !important;
-}
-
-.turma-header {
-  font-size: 11px !important;
-}
-.turma-header th {
-  margin: 0 !important;
-  padding: 0 5px;
-  height: 18px !important;
-  vertical-align: middle !important;
-  text-align: center;
-  word-wrap: none;
-  word-break: break-word;
-  user-select: none;
-}
-.cursoGrande {
+.curso-codigo-big {
   font-size: 7px !important;
-}
-.turma-header p {
-  margin: 0;
 }
 </style>

@@ -88,7 +88,6 @@ td:hover {
   cursor: default;
 }
 .modal-table thead tr th {
-  /* background-color: #e9ecef !important; */
   font-size: 11px !important;
 }
 .main-table tbody tr td {

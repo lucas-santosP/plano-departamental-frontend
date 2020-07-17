@@ -196,7 +196,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  //Adicionar loading apenas nas paginas que necessitam
   store.commit("SHOW_LOADING_VIEW");
   next();
 });
