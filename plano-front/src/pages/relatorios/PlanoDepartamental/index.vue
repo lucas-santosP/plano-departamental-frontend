@@ -550,7 +550,7 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
-import { toggleItemInArray, toggleOrdination } from "@/mixins";
+import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import {
   BaseButton,
   BaseModal,

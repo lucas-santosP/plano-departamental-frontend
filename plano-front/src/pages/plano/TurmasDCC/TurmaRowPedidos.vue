@@ -26,7 +26,7 @@
 <script>
 import _ from "lodash";
 import pedidoService from "@/common/services/pedido";
-import { notification } from "@/mixins";
+import { notification } from "@/common/mixins";
 const emptyPedido = {
   vagasPeriodizadas: 0,
   vagasNaoPeriodizadas: 0,

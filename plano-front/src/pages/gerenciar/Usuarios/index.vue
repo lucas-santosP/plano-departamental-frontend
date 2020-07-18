@@ -264,7 +264,7 @@
 <script>
 import _ from "lodash";
 import userService from "@/common/services/usuario";
-import { toggleOrdination, notification } from "@/mixins";
+import { toggleOrdination, notification } from "@/common/mixins";
 import {
   BaseTable,
   BaseModal,

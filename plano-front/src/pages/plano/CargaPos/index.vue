@@ -6,7 +6,7 @@
         title="Salvar"
         :type="'icon'"
         :color="'green'"
-        @click="addNovaCarga()"
+        @click="$refs.novaCargaPosRow.addCarga()"
       >
         <i class="fas fa-check"></i>
       </BaseButton>
@@ -85,7 +85,7 @@
           </th>
         </template>
         <template #tbody>
-          <NovaCargaPosRow v-show="isAdding" />
+          <NovaCargaPosRow ref="novaCargaPosRow" v-show="isAdding" />
 
           <template v-for="programa in ProgramasInCargaPosOrdered">
             <tr class="bg-custom" :key="programa.nome">
@@ -336,11 +336,14 @@
 
 <script>
 import _ from "lodash";
-import { EventBus } from "@/event-bus.js";
 import cargaPosService from "@/common/services/cargaPos";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
-import { toggleOrdination, toggleItemInArray, notification } from "@/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  notification,
+} from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,
@@ -453,9 +456,6 @@ export default {
         this.deleteCarga(cargas[i].id);
       }
       this.$store.commit("emptyDeleteCarga");
-    },
-    addNovaCarga() {
-      EventBus.$emit("add-carga-pos");
     },
     cargaPosInDocente(programaNome) {
       const cargasResultantes = [];

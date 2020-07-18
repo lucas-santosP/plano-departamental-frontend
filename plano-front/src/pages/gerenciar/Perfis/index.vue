@@ -158,7 +158,7 @@
 <script>
 import _ from "lodash";
 import perfilService from "@/common/services/perfil";
-import { toggleOrdination } from "@/mixins";
+import { toggleOrdination } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

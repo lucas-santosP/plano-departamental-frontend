@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/event-bus.js";
+import { EventBus } from "@/eventBus.js";
 import BaseButton from "./BaseButton.vue";
 
 export default {

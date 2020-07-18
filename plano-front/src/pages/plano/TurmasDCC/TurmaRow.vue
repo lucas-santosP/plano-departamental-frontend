@@ -216,12 +216,12 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapGetters } from "vuex";
 import { setEmptyValuesToNull, maskTurmaLetra } from "@/common/utils";
-import { notification } from "@/mixins";
+import { notification } from "@/common/mixins";
 import turmaService from "@/common/services/turma";
 import TurmaRowPedidos from "./TurmaRowPedidos.vue";
-import _ from "lodash";
 
 const emptyTurma = {
   id: null,

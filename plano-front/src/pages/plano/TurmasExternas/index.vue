@@ -518,7 +518,7 @@
 <script>
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
-import { toggleOrdination, toggleItemInArray } from "@/mixins";
+import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

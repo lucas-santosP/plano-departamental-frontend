@@ -54,7 +54,7 @@
 <script>
 import _ from "lodash";
 import cargaPosService from "@/common/services/cargaPos";
-import notificationMixin from "@/mixins/notification.js";
+import notificationMixin from "@/common/mixins/notification.js";
 
 const emptyCarga = {
   id: null,

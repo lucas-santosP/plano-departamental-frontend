@@ -315,7 +315,11 @@
 
 <script>
 import _ from "lodash";
-import { toggleOrdination, toggleItemInArray, loadingHooks } from "@/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  loadingHooks,
+} from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

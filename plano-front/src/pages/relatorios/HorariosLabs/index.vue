@@ -190,7 +190,7 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
-import { toggleItemInArray } from "@/mixins";
+import { toggleItemInArray } from "@/common/mixins";
 import {
   BaseButton,
   BaseModal,

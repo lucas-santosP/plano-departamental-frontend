@@ -162,7 +162,7 @@
 <script>
 import _ from "lodash";
 import salaService from "@/common/services/sala";
-import { toggleOrdination } from "@/mixins";
+import { toggleOrdination } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

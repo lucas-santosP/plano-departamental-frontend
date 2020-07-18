@@ -29,7 +29,7 @@
 <script>
 import _ from "lodash";
 import bddumpService from "@/common/services/bddump";
-import { EventBus } from "@/event-bus.js";
+import { EventBus } from "@/eventBus.js";
 import { mapGetters } from "vuex";
 import { TheNavbar, TheSidebar, TheLoadingView } from "@/components/layout";
 import ModalUser from "./ModalUser.vue";

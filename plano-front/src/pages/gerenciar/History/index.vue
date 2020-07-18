@@ -123,7 +123,7 @@
 
 <script>
 import _ from "lodash";
-import { toggleItemInArray } from "@/mixins";
+import { toggleItemInArray } from "@/common/mixins";
 import {
   PageHeader,
   NavTab,

@@ -121,7 +121,7 @@
 <script>
 import _ from "lodash";
 import userService from "@/common/services/usuario";
-import { notification } from "@/mixins";
+import { notification } from "@/common/mixins";
 import { BaseModal, PasswordInput } from "@/components/ui";
 
 const emptyUser = {

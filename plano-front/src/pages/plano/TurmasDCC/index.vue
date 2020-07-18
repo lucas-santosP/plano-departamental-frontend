@@ -608,7 +608,7 @@ import {
   toggleItemInArray,
   notification,
   debounceInput,
-} from "@/mixins";
+} from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

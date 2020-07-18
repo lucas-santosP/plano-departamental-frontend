@@ -267,7 +267,7 @@
 import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
-import { toggleOrdination, notification } from "@/mixins";
+import { toggleOrdination, notification } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

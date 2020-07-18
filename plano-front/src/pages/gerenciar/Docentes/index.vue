@@ -212,7 +212,7 @@
 import _ from "lodash";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
-import { toggleOrdination, toggleItemInArray } from "@/mixins";
+import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

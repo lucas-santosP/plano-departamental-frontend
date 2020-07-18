@@ -497,7 +497,11 @@
 <script>
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
-import { toggleOrdination, toggleItemInArray, loadingHooks } from "@/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  loadingHooks,
+} from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

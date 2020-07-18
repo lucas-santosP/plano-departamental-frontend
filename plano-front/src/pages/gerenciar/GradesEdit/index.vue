@@ -264,7 +264,7 @@
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
-import { toggleOrdination } from "@/mixins";
+import { toggleOrdination } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

@@ -285,7 +285,7 @@
 <script>
 import _ from "lodash";
 import disciplinaService from "@/common/services/disciplina";
-import { toggleOrdination } from "@/mixins";
+import { toggleOrdination } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

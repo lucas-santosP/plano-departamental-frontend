@@ -225,7 +225,7 @@
 
 <script>
 import _ from "lodash";
-import { toggleItemInArray, toggleOrdination } from "@/mixins";
+import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import {
   BaseButton,
   BaseModal,

@@ -175,7 +175,7 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import planoService from "@/common/services/plano";
-import { toggleOrdination, notification } from "@/mixins";
+import { toggleOrdination, notification } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,

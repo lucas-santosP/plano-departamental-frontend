@@ -44,9 +44,8 @@
 
 <script>
 import _ from "lodash";
-import { EventBus } from "@/event-bus.js";
-import notificationMixin from "@/mixins/notification.js";
 import cargaPosService from "@/common/services/cargaPos";
+import { notification } from "@/common/mixins";
 
 const emptyCarga = {
   id: null,
@@ -58,17 +57,11 @@ const emptyCarga = {
 
 export default {
   name: "NovaCargaPosRow",
-  mixins: [notificationMixin],
+  mixins: [notification],
   data() {
     return {
       cargaPosForm: _.clone(emptyCarga),
     };
-  },
-  mounted() {
-    EventBus.$on("add-carga-pos", this.addCarga);
-  },
-  beforeDestroy() {
-    EventBus.$off("add-carga-pos");
   },
   methods: {
     onlyNumber($event) {

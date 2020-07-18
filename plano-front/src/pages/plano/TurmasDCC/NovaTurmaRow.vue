@@ -193,7 +193,7 @@ import {
   setEmptyValuesToNull,
   validateObjectKeys,
 } from "@/common/utils";
-import { notification } from "@/mixins";
+import { notification } from "@/common/mixins";
 
 const emptyTurma = {
   id: null,
