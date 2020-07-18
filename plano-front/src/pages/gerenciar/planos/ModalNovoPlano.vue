@@ -114,7 +114,7 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
-import { normalizeText } from "@/utils";
+import { normalizeText } from "@/common/utils";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import turmaExternaService from "@/common/services/turmaExterna";
 import planoService from "@/common/services/plano";
@@ -124,8 +124,8 @@ import {
   toggleOrdination,
   toggleItemInArray,
   debounceInput,
-} from "@/mixins/index.js";
-import { BaseModal, BaseTable, BaseButton } from "@/components/index.js";
+} from "@/common/mixins";
+import { BaseModal, BaseTable, BaseButton } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",
