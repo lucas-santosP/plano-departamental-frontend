@@ -617,7 +617,7 @@ import {
   BodyModalEditTurma,
   BaseButton,
 } from "@/components/ui";
-import { normalizeText } from "@/utils";
+import { normalizeText } from "@/common/utils";
 import NovaTurmaRow from "./NovaTurmaRow.vue";
 import TurmaRow from "./TurmaRow.vue";
 

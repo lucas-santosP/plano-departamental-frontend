@@ -217,7 +217,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { setEmptyValuesToNull, maskTurmaLetra } from "@/utils/index.js";
+import { setEmptyValuesToNull, maskTurmaLetra } from "@/common/utils";
 import { notification } from "@/mixins";
 import turmaService from "@/common/services/turma";
 import TurmaRowPedidos from "./TurmaRowPedidos.vue";

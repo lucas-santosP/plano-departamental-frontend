@@ -192,7 +192,7 @@ import {
   maskTurmaLetra,
   setEmptyValuesToNull,
   validateObjectKeys,
-} from "@/utils";
+} from "@/common/utils";
 import { notification } from "@/mixins";
 
 const emptyTurma = {
