@@ -10,7 +10,7 @@ import DashboardHome from "@/pages/dashboard/Home";
 import PlanoTurmasDCC from "@/pages/plano/TurmasDCC";
 import PlanoTurmasExternas from "@/pages/plano/TurmasExternas";
 import PlanoCargaPos from "@/pages/plano/CargaPos";
-import PlanoValidacoes from "@/pages/plano/Validacoes";
+import PlanoValidacoes from "@/pages/plano/validacoesRename";
 // Relatorios
 import RelatoriosCargaProfessores from "@/pages/relatorios/CargaProfessores";
 import RelatoriosGradeDisciplinas from "@/pages/relatorios/GradeDisciplinas";
