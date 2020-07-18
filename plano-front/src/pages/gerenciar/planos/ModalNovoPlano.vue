@@ -120,12 +120,8 @@ import turmaExternaService from "@/common/services/turmaExterna";
 import planoService from "@/common/services/plano";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  debounceInput,
-} from "@/mixins/index.js";
-import { BaseModal, BaseTable, BaseButton } from "@/components/index.js";
+import { toggleOrdination, toggleItemInArray, debounceInput } from "@/mixins";
+import { BaseModal, BaseTable, BaseButton } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",

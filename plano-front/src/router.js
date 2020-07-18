@@ -3,31 +3,31 @@ import VueRouter from "vue-router";
 import store from "./vuex/store";
 
 // Dashboard
-import Login from "@/pages/dashboard/TheLogin";
-import Dashboard from "@/pages/dashboard/TheDashboard";
-import DashboardHome from "@/pages/home/Home";
+import Login from "@/pages/dashboard/Login";
+import Dashboard from "@/pages/dashboard/Dashboard";
+import DashboardHome from "@/pages/dashboard/Home";
 // Plano
-import DashboardTurmasDCC from "@/pages/plano/turmas-dcc/TurmasDCC";
-import DashboardTurmasExternas from "@/pages/plano/turmas-externas/TurmasExternas";
-import DashboardCargaPos from "@/pages/plano/turmas-pos/CargaPos";
-import DashboardValidacoes from "@/pages/plano/validacoes/Validacoes";
+import PlanoTurmasDCC from "@/pages/plano/TurmasDCC";
+import PlanoTurmasExternas from "@/pages/plano/TurmasExternas";
+import PlanoCargaPos from "@/pages/plano/CargaPos";
+import PlanoValidacoes from "@/pages/plano/Validacoes";
 // Relatorios
-import DashboardCargaProfessores from "@/pages/relatorios/CargaProfessores";
-import DashboardGradeDisciplinas from "@/pages/relatorios/GradeDisciplinas";
-import DashboardHorarios from "@/pages/relatorios/horarios-cursos/Horarios";
-import DashboardHorariosLaboratorios from "@/pages/relatorios/horarios-labs/HorariosLabs";
-import DashboardRelatorioDisciplinas from "@/pages/relatorios/RelatorioDisciplinas";
+import RelatoriosCargaProfessores from "@/pages/relatorios/CargaProfessores";
+import RelatoriosGradeDisciplinas from "@/pages/relatorios/GradeDisciplinas";
+import RelatoriosHorarios from "@/pages/relatorios/HorariosCursos";
+import RelatoriosHorariosLabs from "@/pages/relatorios/HorariosLabs";
+import RelatoriosPlanoDepartamental from "@/pages/relatorios/PlanoDepartamental";
 // Gerenciar
-import DashboardCursos from "@/pages/gerenciar/Cursos";
-import DashboardDocentes from "@/pages/gerenciar/Docentes";
-import DashboardGradesEdit from "@/pages/gerenciar/GradesEdit";
-import DashboardGrades from "@/pages/gerenciar/Grades";
-import DashboardPerfis from "@/pages/gerenciar/Perfis";
-import DashboardDisciplinas from "@/pages/gerenciar/Disciplinas";
-import DashboardSalas from "@/pages/gerenciar/Salas";
-import DashboardHistory from "@/pages/gerenciar/History";
-import DashboardUsuarios from "@/pages/gerenciar/Usuarios";
-import DashboardPlanos from "@/pages/gerenciar/planos/Planos";
+import GerenciarCursos from "@/pages/gerenciar/Cursos";
+import GerenciarDocentes from "@/pages/gerenciar/Docentes";
+import GerenciarGradesEdit from "@/pages/gerenciar/GradesEdit";
+import GerenciarGrades from "@/pages/gerenciar/Grades";
+import GerenciarPerfis from "@/pages/gerenciar/Perfis";
+import GerenciarDisciplinas from "@/pages/gerenciar/Disciplinas";
+import GerenciarSalas from "@/pages/gerenciar/Salas";
+import GerenciarHistory from "@/pages/gerenciar/History";
+import GerenciarUsuarios from "@/pages/gerenciar/Usuarios";
+import GerenciarPlanos from "@/pages/gerenciar/Planos";
 
 import { USER_LOGGED_OUT } from "./vuex/mutation-types";
 Vue.use(VueRouter);
@@ -45,6 +45,7 @@ function requireAuth(to, from, next) {
       });
     });
 }
+
 function requireAdmin(to, from, next) {
   if (!store.getters.Admin) next("/");
   else next();
@@ -64,25 +65,25 @@ const routes = [
       {
         path: "plano/turmasDcc",
         name: "turmasDcc",
-        component: DashboardTurmasDCC,
+        component: PlanoTurmasDCC,
         beforeEnter: requireAdmin,
       },
       {
         path: "plano/turmasExternas",
         name: "turmasExternas",
-        component: DashboardTurmasExternas,
+        component: PlanoTurmasExternas,
         beforeEnter: requireAdmin,
       },
       {
         path: "plano/cargaPos",
         name: "cargaPos",
-        component: DashboardCargaPos,
+        component: PlanoCargaPos,
         beforeEnter: requireAdmin,
       },
       {
         path: "plano/validacoes",
         name: "validacoes",
-        component: DashboardValidacoes,
+        component: PlanoValidacoes,
         beforeEnter: requireAdmin,
       },
 
@@ -90,89 +91,89 @@ const routes = [
       {
         path: "relatorios/cargaProfessores",
         name: "cargaProfessores",
-        component: DashboardCargaProfessores,
+        component: RelatoriosCargaProfessores,
       },
       {
         path: "relatorios/gradeDisciplinas",
         name: "gradeDisciplinas",
-        component: DashboardGradeDisciplinas,
+        component: RelatoriosGradeDisciplinas,
       },
       {
         path: "relatorios/horariosCursos",
         name: "horariosCursos",
-        component: DashboardHorarios,
+        component: RelatoriosHorarios,
       },
       {
         path: "relatorios/horariosLaboratorios",
         name: "horariosLaboratorios",
-        component: DashboardHorariosLaboratorios,
+        component: RelatoriosHorariosLabs,
       },
       {
         path: "relatorios/relatorioDisciplinas",
         name: "relatorioDisciplinas",
-        component: DashboardRelatorioDisciplinas,
+        component: RelatoriosPlanoDepartamental,
       },
 
       //gerenciar
       {
         path: "gerenciar/cursos",
         name: "cursos",
-        component: DashboardCursos,
+        component: GerenciarCursos,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/disciplinas",
         name: "disciplinas",
-        component: DashboardDisciplinas,
+        component: GerenciarDisciplinas,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/docentes",
         name: "docentes",
-        component: DashboardDocentes,
+        component: GerenciarDocentes,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/grades",
         name: "grades",
-        component: DashboardGrades,
+        component: GerenciarGrades,
         beforeEnter: requireAdmin,
       },
 
       {
         path: "gerenciar/perfis",
         name: "perfis",
-        component: DashboardPerfis,
+        component: GerenciarPerfis,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/gradesEdit",
         name: "gradesEdit",
-        component: DashboardGradesEdit,
+        component: GerenciarGradesEdit,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/history",
         name: "history",
-        component: DashboardHistory,
+        component: GerenciarHistory,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/planos",
         name: "planos",
-        component: DashboardPlanos,
+        component: GerenciarPlanos,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/salas",
         name: "salas",
-        component: DashboardSalas,
+        component: GerenciarSalas,
         beforeEnter: requireAdmin,
       },
       {
         path: "gerenciar/usuarios",
         name: "usuarios",
-        component: DashboardUsuarios,
+        component: GerenciarUsuarios,
         beforeEnter: requireAdmin,
       },
     ],
