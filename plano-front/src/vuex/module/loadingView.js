@@ -12,7 +12,7 @@ const mutations = {
     state.loadingViewVisibility = false;
   },
 };
-// mapActions(['showLoadingView','hideLoadingView'])
+
 const actions = {
   showLoadingView({ commit }) {
     commit("SHOW_LOADING_VIEW");
