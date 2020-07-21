@@ -23,12 +23,9 @@
               <p class="mx-2"><b>Admin:</b> {{ Admin ? "Sim" : "Não" }}</p>
             </div>
           </div>
-          <button
-            class="btn btn-custom btn-modal btn-danger"
-            @click="routerLogout()"
-          >
+          <BaseButton :type="'text'" :color="'red'" @click="routerLogout">
             Logout
-          </button>
+          </BaseButton>
         </div>
 
         <div v-if="Admin" class="w-100 border  rounded-bottom py-2 px-3">
@@ -98,18 +95,22 @@
             </template>
 
             <div :key="'btns'" class="mt-3 mb-1 d-flex justify-content-end">
-              <button
-                class="px-3 btn btn-secondary btn-custom btn-modal"
-                @click="close()"
+              <BaseButton
+                class="paddingX-20"
+                :type="'text'"
+                :color="'gray'"
+                @click="close"
               >
                 Cancelar
-              </button>
-              <button
-                class="px-3 btn btn-primary btn-custom btn-modal"
-                @click="editUser()"
+              </BaseButton>
+              <BaseButton
+                class="paddingX-20"
+                :type="'text'"
+                :color="'blue'"
+                @click="editUser"
               >
                 Salvar
-              </button>
+              </BaseButton>
             </div>
           </transition-group>
         </div>
@@ -122,7 +123,7 @@
 import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
-import { BaseModal, PasswordInput } from "@/components/ui";
+import { BaseModal, PasswordInput, BaseButton } from "@/components/ui";
 
 const emptyUser = {
   nome: "",
@@ -133,7 +134,7 @@ const emptyUser = {
 export default {
   name: "ModalUser",
   mixins: [notification],
-  components: { BaseModal, PasswordInput },
+  components: { BaseModal, PasswordInput, BaseButton },
   data() {
     return {
       userForm: _.clone(emptyUser),

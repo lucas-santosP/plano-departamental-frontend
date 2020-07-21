@@ -11,7 +11,7 @@
         </h2>
         <button
           type="button"
-          class="btn-custom btn-close"
+          class="btn-close"
           @click="close()"
           aria-label="Close modal"
         >

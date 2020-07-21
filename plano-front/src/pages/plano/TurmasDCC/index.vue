@@ -513,20 +513,22 @@
         </ul>
       </template>
       <template #modal-footer>
-        <div class="w-100">
-          <button
-            class="btn-custom btn-modal btn-cinza paddingX-20"
-            @click="closeModalDelete()"
-          >
-            Cancelar
-          </button>
-        </div>
-        <button
-          class="btn-custom btn-modal btn-vermelho paddingX-20"
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
+          @click="closeModalDelete()"
+        >
+          Cancelar
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20 ml-auto"
+          :type="'text'"
+          :color="'red'"
           @click="deleteSelectedTurma()"
         >
           Deletar
-        </button>
+        </BaseButton>
       </template>
     </BaseModal>
 

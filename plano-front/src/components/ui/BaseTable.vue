@@ -120,7 +120,7 @@ td:hover {
 .table-custom tbody tr:hover {
   background-color: #dbdbdb;
 }
-.table-custom thead tr th i {
+.table-custom thead tr th svg {
   font-size: 9px;
 }
 .bg-custom {
@@ -174,7 +174,7 @@ td:hover {
   cursor: pointer;
   background-color: #e9ecef;
 }
-.modal-table thead .btn-search i {
+.modal-table thead .btn-search svg {
   margin: 0;
   margin-top: 2px;
   font-size: 11px !important;

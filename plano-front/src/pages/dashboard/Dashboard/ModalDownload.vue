@@ -11,13 +11,14 @@
     <template #modal-body>
       <div class="title-container pl-1">
         <h2 class="title-list">Arquivos inclusos:</h2>
-        <button
+        <BaseButton
+          :type="'text'"
+          :color="'darkblue'"
+          @click="runDownload"
           :disabled="downloadState !== 0 && downloadState !== 5"
-          class="btn btn-custom btn-modal btn-download"
-          @click="runDownload()"
         >
           Iniciar download
-        </button>
+        </BaseButton>
       </div>
 
       <ul class="list-group">
@@ -52,11 +53,11 @@
 import { saveAs } from "file-saver";
 import xlsxService from "@/common/services/xlsx";
 import downloadService from "@/common/services/download";
-import { BaseModal } from "@/components/ui";
+import { BaseModal, BaseButton } from "@/components/ui";
 
 export default {
   name: "ModalDownload",
-  components: { BaseModal },
+  components: { BaseModal, BaseButton },
   data() {
     return {
       downloadState: 0,
@@ -182,23 +183,6 @@ export default {
   font-weight: bold;
   margin: 0;
   text-align: start;
-}
-.btn-download:disabled {
-  cursor: default !important;
-  background: #6e6e6e !important;
-}
-.btn-download {
-  width: max-content;
-  background-color: var(--dark-blue);
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
-.btn-download:hover {
-  background-color: #2584e9;
-}
-.btn-download:disabled {
-  cursor: default !important;
-  background: #6e6e6e !important;
 }
 .list-group {
   margin-bottom: 5px;

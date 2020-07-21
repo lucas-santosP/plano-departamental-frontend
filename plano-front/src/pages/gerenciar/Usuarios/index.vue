@@ -141,13 +141,16 @@
               <button
                 type="button"
                 @click.prevent="toggleEditSenha()"
-                class="btn-custom btn-edit-senha"
+                class="btn-edit-senha"
               >
-                <i
-                  class="fas fa-chevron-left"
-                  style="font-size:15px!important"
+                <div
                   :style="`transform: rotate(${isEditingSenha ? -90 : 0}deg)`"
-                ></i>
+                >
+                  <i
+                    class="fas fa-chevron-left"
+                    style="font-size:15px!important"
+                  ></i>
+                </div>
               </button>
             </div>
 
@@ -223,19 +226,22 @@
         </p>
       </template>
       <template #modal-footer>
-        <button
-          class="btn-custom btn-modal btn-cinza paddingX-20"
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
           @click="closeModalDelete()"
         >
           Cancelar
-        </button>
-        <button
-          v-if="isEdit"
-          class="btn-custom btn-modal btn-vermelho paddingX-20"
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'red'"
           @click="deleteUser()"
         >
           Deletar
-        </button>
+        </BaseButton>
       </template>
     </BaseModal>
     <!-- MODAL AJUDA -->
@@ -490,6 +496,17 @@ export default {
   border-bottom: 1px solid #dee2e6;
 }
 .btn-edit-senha {
+  padding: 0 !important;
+  border: none !important;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  line-height: 50% !important;
+  margin: 0;
+  transition: all 0.3s ease 0s !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  transition: all 200ms ease;
   padding: 0 5px !important;
   background-color: transparent !important;
   line-height: 50%;
@@ -497,7 +514,7 @@ export default {
   margin: 0;
   background: none;
 }
-.btn-edit-senha i {
+.btn-edit-senha div {
   transition: all 0.25s ease !important;
 }
 .btn-edit-senha:focus {

@@ -3,7 +3,7 @@
     <PageHeader :title="'Dashboard'" />
 
     <div class="alert alert-light mt-1" role="alert">
-      <p class="user-paragraph" style="">
+      <p class="user-paragraph">
         Olá {{ usuarioNome }}! Este é o sistema de gerenciamento de Plano
         Departamental do DCC - Departamento de Ciência da Computação.
         <br />Abaixo segue um resumo das funcionalidade de cada tela:

@@ -443,21 +443,25 @@
           </li>
         </ul>
       </template>
-      <template #modal-footer>
-        <div class="w-100">
-          <button
-            class="btn-custom btn-modal btn-cinza paddingX-20"
-            @click="$refs.modalDelete.close()"
-          >
-            Cancelar
-          </button>
-        </div>
-        <button
-          v-if="Deletar.length"
-          class="btn-custom btn-modal btn-vermelho paddingX-20"
+      <template #modal-footer> 
+         <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
+          @click="closeModalDelete()"
+        >
+          Cancelar
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'red'"
           @click="deleteSelectedTurma()"
         >
           Deletar
+        </BaseButton>
+
+     
         </button>
       </template>
     </BaseModal>
@@ -604,6 +608,9 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
+    closeModalDelete(){
+      this.$refs.modalDelete.close()
+    },
     btnOkFiltros() {
       this.$root.onLoad = true;
       this.filtroDisciplinas.ativadas = [
@@ -694,6 +701,7 @@ export default {
       for (var i = 0; i < this.Deletar.length; i++) {
         this.deleteTurma(this.Deletar[i]);
       }
+      this.closeModalDelete()
       this.$store.commit("emptyDeleteExterno");
     },
     limitLenght($event) {

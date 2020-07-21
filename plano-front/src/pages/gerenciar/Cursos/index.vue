@@ -202,19 +202,22 @@
         </p>
       </template>
       <template #modal-footer>
-        <button
-          class="btn-custom btn-modal btn-cinza paddingX-20"
-          @click="closeModalDelete()"
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
+          @click="closeModalDelete"
         >
           Cancelar
-        </button>
-        <button
-          v-if="isEdit"
-          class="btn-custom btn-modal btn-vermelho paddingX-20"
-          @click="deleteCurso()"
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'red'"
+          @click="deleteCurso"
         >
           Deletar
-        </button>
+        </BaseButton>
       </template>
     </BaseModal>
 

@@ -150,19 +150,22 @@
         </ul>
       </template>
       <template #modal-footer>
-        <button
-          class="btn-custom btn-modal btn-cinza paddingX-20"
-          @click="$refs.modalDelete.close()"
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
+          @click="closeModalDelete()"
         >
           Cancelar
-        </button>
-        <button
-          v-if="Deletar.length"
-          class="btn-custom btn-modal btn-vermelho paddingX-20"
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'red'"
           @click="deleteSelectedCargas()"
         >
           Deletar
-        </button>
+        </BaseButton>
       </template>
     </BaseModal>
     <!-- MODAL FILTROS -->
@@ -425,6 +428,9 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
+    closeModalDelete() {
+      this.$refs.modalDelete.close();
+    },
     toggleAdd() {
       this.isAdding = !this.isAdding;
     },
@@ -455,6 +461,7 @@ export default {
       for (let i = 0; i < cargas.length; i++) {
         this.deleteCarga(cargas[i].id);
       }
+      this.closeModalDelete();
       this.$store.commit("emptyDeleteCarga");
     },
     cargaPosInDocente(programaNome) {

@@ -106,7 +106,7 @@
         </div>
       </div>
       <!-- Docente, Horarios e Salas -->
-      <div class="form-row w-100">
+      <div class="form-row w-100 mb-2">
         <div class="form-group col">
           <label for="SelectDocente1">Docentes:</label>
           <select
@@ -251,33 +251,35 @@
         </div>
       </div>
       <!-- Botoes -->
-      <div class="form-row w-100 m-0 mt-2">
-        <b-button
-          class="btn-custom btn-modal btn-verde paddingX-20"
+      <div class="w-100 mb-2">
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'green'"
           @click="editTurma()"
         >
           Salvar
-        </b-button>
-        <b-button
-          class="btn-custom btn-modal btn-cinza paddingX-20"
+        </BaseButton>
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'gray'"
           @click="resetInputsValues()"
         >
           Cancelar
-        </b-button>
+        </BaseButton>
       </div>
     </div>
-    <hr class="my-2 w-100" />
+    <hr class="mb-1 mt-0 w-100" />
     <!-- TURMA VAGAS -->
-    <div class="form-row w-100 my-2 mb-2 mx-0 pr-1">
-      <h3 class="modal-title col p-0 m-0">VAGAS</h3>
+    <div class="w-100 d-flex justify-content-between mb-1">
+      <h3 class="modal-title">VAGAS</h3>
 
-      <p
-        class="col-4 modal-title p-0 m-0 text-right"
-        style="font-weight:normal"
-      >
+      <p class="modal-title" style="font-weight:normal">
         Total: {{ totalPedidos() }}
       </p>
     </div>
+
     <div class="div-table">
       <BaseTable :type="'modal'" :styles="'height:350px'" :hasSearchBar="true">
         <template #thead-search>
@@ -352,7 +354,7 @@
 <script>
 import _ from "lodash";
 import turmaService from "@/common/services/turma";
-import BaseTable from "@/components/ui/BaseTable.vue";
+import { BaseTable, BaseButton } from "@/components/ui";
 import PedidosTableModal from "@/components/ui/PedidosTableModal.vue";
 
 const emptyTurma = {
@@ -372,7 +374,7 @@ const emptyTurma = {
 
 export default {
   name: "BodyModalEditTurma",
-  components: { BaseTable, PedidosTableModal },
+  components: { BaseTable, PedidosTableModal, BaseButton },
   props: {
     turma: { type: Object, required: true },
     hasEditDisciplina: { type: Boolean, default: true },

@@ -41,7 +41,7 @@ export default {
   transition: all 200ms ease;
 }
 .base-btn:disabled {
-  color: #b3b3b3 !important;
+  filter: brightness(75%);
   cursor: default !important;
   outline: none !important;
   pointer-events: none;
@@ -61,13 +61,6 @@ export default {
   align-items: center;
   background-color: #fff;
   border: 1px solid rgb(199, 199, 199);
-  /* old icon btn */
-  /* width: 32px !important;
-  margin: 0 4px !important;
-  outline: none !important;
-  background: none !important;
-  background: none !important;
-  box-shadow: none !important; */
 }
 .base-btn.btn-icon i {
   font-size: 16px !important;
@@ -78,9 +71,9 @@ export default {
   box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.4) !important;
 }
 .btn-icon:hover {
-  background-color: rgb(238, 238, 238) !important;
+  background-color: #e7e7e7 !important;
 }
-/*  */
+
 .btn-text {
   height: 25px !important;
   width: max-content !important;
@@ -93,6 +86,9 @@ export default {
 }
 .btn-text + .btn-text {
   margin-left: 10px !important;
+}
+.btn-text:hover {
+  filter: brightness(85%);
 }
 
 /* ### icon-cores ### */
@@ -129,28 +125,19 @@ export default {
 .text-green {
   background-color: #70b670 !important;
 }
-.text-green:hover {
-  background-color: #4c8a4c !important;
-}
-
 .text-lightblue {
   background-color: #718de0 !important;
 }
-.text-lightblue:hover {
-  background-color: rgb(74, 101, 190) !important;
+.text-blue {
+  background-color: #556fb5 !important;
 }
-
 .text-gray {
-  background-color: #999999 !important;
+  background-color: #8a8a8a !important;
 }
-.text-gray:hover {
-  background-color: #747474 !important;
-}
-
 .text-red {
-  background-color: #df4139;
+  background-color: #cf1b1b;
 }
-.text-red:hover {
-  background-color: #c73129;
+.text-darkblue {
+  background-color: var(--dark-blue);
 }
 </style>

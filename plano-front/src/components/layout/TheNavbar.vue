@@ -145,7 +145,7 @@ export default {
   box-shadow: none !important;
   border-color: #202020 !important;
 }
-.brand .btn-navbar i {
+.brand .btn-navbar svg {
   font-size: 20px !important;
 }
 .brand .navbar-brand .brand-title:hover,
@@ -168,7 +168,10 @@ export default {
   color: #ffffffbf;
   border-color: #ffffffbf;
 }
-
+.navbar-nav li.nav-link span {
+  position: relative;
+  top: 1px;
+}
 .navbar-nav {
   margin-left: auto;
   padding: 0;
@@ -179,7 +182,7 @@ export default {
   height: 30px;
 }
 .navbar-nav li.nav-link {
-  height: 100%;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,13 +192,13 @@ export default {
   padding: 0 6px;
   margin: 0 3px;
 }
-.navbar-nav li.nav-link i {
+.navbar-nav li.nav-link svg {
+  font-size: 12px;
   margin: 0 3px;
 }
 
 @media screen and (max-width: 654px) {
   .navbar-nav li.nav-link span {
-    opacity: 0;
     display: none;
   }
   .navbar-nav li.nav-link {
@@ -203,7 +206,7 @@ export default {
     padding: 0 10px;
   }
 }
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 544px) {
   .brand {
     flex-direction: row-reverse !important;
     width: 100% !important;
@@ -216,12 +219,8 @@ export default {
   .navbar-nav {
     width: 100% !important;
     margin-left: 0 !important;
-    justify-content: space-between !important;
-    padding-left: 40px !important; /* button space */
+    justify-content: space-evenly !important;
     padding-right: 0;
-  }
-  .navbar-nav li.nav-link {
-    flex: 1;
   }
 }
 </style>

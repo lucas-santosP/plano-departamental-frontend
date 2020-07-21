@@ -69,10 +69,10 @@ export default {
   border-left: var(--light-blue) 10px solid;
   color: white;
 }
-.sidebar-menu .nav li .nav-link .icon-nav-link {
+.sidebar-menu .nav li .nav-link svg {
   color: inherit;
+  font-size: 12px;
   width: 18px !important;
-  height: 18px !important;
   text-align: start;
 }
 </style>
