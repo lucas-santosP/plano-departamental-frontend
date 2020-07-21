@@ -14,17 +14,16 @@
     </template>
 
     <template #modal-footer>
-      <BaseButton :type="'text'" :color="'gray'" @click="$emit('btn-cancelar')">
-        Cancelar seleção
-      </BaseButton>
-      <BaseButton
-        class="paddingX-20"
-        :type="'text'"
-        :color="'red'"
-        @click="$emit('btn-deletar')"
-      >
-        Deletar
-      </BaseButton>
+      <div class="ml-auto">
+        <BaseButton
+          class="paddingX-20"
+          :type="'text'"
+          :color="'red'"
+          @click="$emit('btn-deletar')"
+        >
+          Deletar
+        </BaseButton>
+      </div>
     </template>
   </BaseModal2>
 </template>
