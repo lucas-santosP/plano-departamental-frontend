@@ -483,54 +483,26 @@
       </template>
     </BaseModal>
 
-    <!-- MODAL DELETAR -->
-    <BaseModal
+    <ModalDelete
       ref="modalDelete"
-      :modalOptions="{
-        title: 'Deletar turma',
-        position: 'center',
-        hasBackground: true,
-        hasFooter: true,
-      }"
-      :customStyles="'width:450px; font-size:14px'"
+      @btn-cancelar="clearDelete"
+      @btn-deletar="deleteSelectedTurmas"
     >
-      <template #modal-body>
-        <p class="w-100 m-0">
-          Tem certeza que deseja deletar a(s) turma(s) selecionadas?
-        </p>
-        <ul class="list-group list-deletar w-100 mt-2">
-          <li
-            v-for="turma in Deletar"
-            class="list-group-item"
-            :key="'delete' + turma.id"
-          >
-            <span class="mr-1"> <b> Semestre: </b>{{ turma.periodo }} </span>
-            <span class="mr-1">
-              <b> Disciplina: </b>{{ turma.disciplina.nome }}
-            </span>
-            <span class="mr-1"><b> Turma: </b> {{ turma.letra }} </span>
-          </li>
-        </ul>
-      </template>
-      <template #modal-footer>
-        <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'gray'"
-          @click="closeModalDelete()"
-        >
-          Cancelar
-        </BaseButton>
-        <BaseButton
-          class="paddingX-20 ml-auto"
-          :type="'text'"
-          :color="'red'"
-          @click="deleteSelectedTurma()"
-        >
-          Deletar
-        </BaseButton>
-      </template>
-    </BaseModal>
+      <li v-if="!Deletar.length" class="list-group-item">
+        Nenhuma turma selecionada
+      </li>
+      <li
+        v-for="turma in Deletar"
+        class="list-group-item"
+        :key="'delete' + turma.id"
+      >
+        <span>
+          <b> Semestre: </b>{{ turma.periodo }} - <b>Turma: </b>
+          {{ turma.letra }}
+        </span>
+        <span> <b> Disciplina: </b>{{ turma.disciplina.nome }} </span>
+      </li>
+    </ModalDelete>
 
     <!-- MODAL AJUDA -->
     <BaseModal
@@ -613,6 +585,7 @@ import {
   tableLoading,
 } from "@/common/mixins";
 import {
+  ModalDelete,
   PageHeader,
   BaseTable,
   BaseModal,
@@ -634,6 +607,7 @@ export default {
     tableLoading,
   ],
   components: {
+    ModalDelete,
     TurmaRow,
     NovaTurmaRow,
     PageHeader,
@@ -736,15 +710,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setLoadingState"]),
-    popoverCursoContent(curso) {
-      const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
+    ...mapActions(["setLoadingState", "clearDelete"]),
 
-      if (semestreInicial == 1) return `<b>1º</b> - ${alunosEntrada}`;
-      else if (semestreInicial == 2) return `<b>2º</b> - ${alunosEntrada2}`;
-      else
-        return `<b>1º</b> - ${alunosEntrada} <br/> <b>2º</b> - ${alunosEntrada2}`;
-    },
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -770,19 +737,11 @@ export default {
     selectCursosDCC() {
       this.filtroCursos.selecionados = [...this.CursosDCC];
     },
+    openModalDelete() {
+      this.$refs.modalDelete.open();
+    },
     closeModalDelete() {
       this.$refs.modalDelete.close();
-    },
-    openModalDelete() {
-      if (this.Deletar.length) this.$refs.modalDelete.open();
-      else
-        this.showNotification({
-          type: "error",
-          message: "Nenhuma turma selecionada",
-        });
-    },
-    clearSearch(searchName) {
-      this[searchName] = "";
     },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
@@ -792,6 +751,21 @@ export default {
       else if (this.filtroSemestres.primeiro && this.filtroSemestres.primeiro)
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
+    },
+    popoverCursoContent(curso) {
+      const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
+
+      if (semestreInicial == 1) return `<b>1º</b> - ${alunosEntrada}`;
+      else if (semestreInicial == 2) return `<b>2º</b> - ${alunosEntrada2}`;
+      else
+        return `<b>1º</b> - ${alunosEntrada} <br/> <b>2º</b> - ${alunosEntrada2}`;
+    },
+    toggleIsAdding() {
+      this.isAdding = !this.isAdding;
+    },
+    nameIsBig(nome) {
+      if (nome.length > 4) return true;
+      else return false;
     },
     async xlsx() {
       try {
@@ -818,14 +792,16 @@ export default {
         this.setLoadingState("completed");
       }
     },
-    async deleteSelectedTurma() {
+    async deleteSelectedTurmas() {
+      if (!this.Deletar.length) return;
+
       try {
         this.setLoadingState("partial");
 
         for (let i = 0; i < this.Deletar.length; i++) {
           await turmaService.delete(this.Deletar[i].id);
         }
-        this.$store.commit("emptyDelete");
+        this.clearDelete();
         this.showNotification({
           type: "success",
           message: "Turma(s) excluída(s).",
@@ -839,13 +815,6 @@ export default {
         this.setLoadingState("completed");
         this.closeModalDelete();
       }
-    },
-    toggleIsAdding() {
-      this.isAdding = !this.isAdding;
-    },
-    nameIsBig(nome) {
-      if (nome.length > 4) return true;
-      else return false;
     },
   },
   computed: {

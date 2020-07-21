@@ -8,8 +8,10 @@ import BaseModal from "./BaseModal.vue";
 import BaseButton from "./BaseButton.vue";
 import PasswordInput from "./PasswordInput.vue";
 import ModalRelatorio from "./ModalRelatorio.vue";
+import ModalDelete from "./ModalDelete.vue";
 
 export {
+  ModalDelete,
   PageHeader,
   PasswordInput,
   BaseTable,
