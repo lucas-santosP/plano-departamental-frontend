@@ -1,5 +1,5 @@
 <template>
-  <transition :name="customAnimation">
+  <transition :name="customAnimation + '-modal'">
     <div
       @click.stop=""
       v-show="visibility"
@@ -219,6 +219,8 @@ export default {
 </script>
 
 <style scoped>
+@import "../../assets/css/base-modal-animations.css";
+
 .modal-custom {
   position: fixed;
   display: flex;
