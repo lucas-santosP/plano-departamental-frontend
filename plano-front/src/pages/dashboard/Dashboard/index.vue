@@ -1,9 +1,12 @@
 <template>
   <div class="dashboard">
-    <TheNavbar v-if="!isLoading" @show-modal="showModal[$event]()" />
-    <TheSidebar v-if="!isLoading" />
+    <TheNavbar
+      v-if="loadingState !== 'entire'"
+      @show-modal="showModal[$event]()"
+    />
+    <TheSidebar v-if="loadingState !== 'entire'" />
 
-    <main v-if="!isLoading" @click="$store.commit('CLOSE_SIDEBAR')">
+    <main v-if="loadingState !== 'entire'" @click="closeSidebar">
       <transition
         enter-active-class="animated animate__fadeIn routerview-animation"
         leave-active-class="animated animate__fadeOut routerview-animation"
@@ -13,7 +16,7 @@
       </transition>
     </main>
 
-    <TheLoadingView :visibility="isLoading || loadingViewVisibility" />
+    <TheLoadingView :visibility="loadingState !== 'completed'" />
 
     <div
       v-show="modalOverlayVisibility"
@@ -30,7 +33,7 @@
 import _ from "lodash";
 import bddumpService from "@/common/services/bddump";
 import { EventBus } from "@/eventBus.js";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { TheNavbar, TheSidebar, TheLoadingView } from "@/components/layout";
 import ModalUser from "./ModalUser.vue";
 import ModalDownload from "./ModalDownload.vue";
@@ -59,14 +62,14 @@ export default {
   },
 
   created() {
-    this.$store.commit("COMPONENT_LOADING");
+    this.setLoadingState("entire");
     if (!localStorage.getItem("Plano")) localStorage.setItem("Plano", "1");
 
     this.$store
       .dispatch("fetchAll")
       .then(() => {
         this.$socket.open();
-        this.$store.commit("COMPONENT_LOADED");
+        this.setLoadingState("completed");
       })
       .catch((error) => {
         console.log(error);
@@ -79,6 +82,7 @@ export default {
     this.$socket.close();
   },
   methods: {
+    ...mapActions(["setLoadingState", "closeSidebar"]),
     emitCloseCenterModal() {
       EventBus.$emit("close-modal");
     },
@@ -96,10 +100,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "loadingViewVisibility"]),
-    isLoading() {
-      return this.$store.state.isLoading;
-    },
+    ...mapGetters(["modalOverlayVisibility", "loadingState"]),
   },
 };
 </script>

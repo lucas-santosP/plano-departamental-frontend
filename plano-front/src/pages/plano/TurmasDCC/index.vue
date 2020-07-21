@@ -608,6 +608,7 @@ import {
   toggleItemInArray,
   notification,
   debounceInput,
+  tableLoading,
 } from "@/common/mixins";
 import {
   PageHeader,
@@ -623,7 +624,13 @@ import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "TurmasDCC",
-  mixins: [toggleOrdination, toggleItemInArray, notification, debounceInput],
+  mixins: [
+    toggleOrdination,
+    toggleItemInArray,
+    notification,
+    debounceInput,
+    tableLoading,
+  ],
   components: {
     TurmaRow,
     NovaTurmaRow,
@@ -636,7 +643,6 @@ export default {
   },
   data() {
     return {
-      tableIsLoading: false,
       turmaClickada: null,
       isAdding: false,
       tabAtivaModal: "Perfis",
@@ -728,7 +734,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["showLoadingView", "hideLoadingView"]),
+    ...mapActions(["setLoadingState"]),
     popoverCursoContent(curso) {
       const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
 
@@ -751,18 +757,13 @@ export default {
       this.$refs.modalEditTurma.open();
     },
     btnOkFiltros() {
-      this.tableIsLoading = true;
+      this.setTableLoadingState(true);
       this.setSemestreAtivo();
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionados,
       ];
       this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.tableIsLoading = false;
-        }, 500);
-      });
+      this.setTableLoadingState(false);
     },
     selectCursosDCC() {
       this.filtroCursos.selecionados = [...this.CursosDCC];
@@ -792,7 +793,8 @@ export default {
     },
     async xlsx() {
       try {
-        this.showLoadingView();
+        this.setLoadingState("partial");
+
         await xlsx.downloadTable({ pedidos: this.$store.state.pedido.Pedidos });
         const tableData = await fetch(
           "http://200.131.219.57:3000/api/xlsx/download",
@@ -811,12 +813,12 @@ export default {
           message: `Erro ao gerar a tabela!\n ${error}`,
         });
       } finally {
-        this.hideLoadingView();
+        this.setLoadingState("completed");
       }
     },
     async deleteSelectedTurma() {
       try {
-        this.showLoadingView();
+        this.setLoadingState("partial");
 
         for (let i = 0; i < this.Deletar.length; i++) {
           await turmaService.delete(this.Deletar[i].id);
@@ -832,7 +834,7 @@ export default {
           message: error,
         });
       } finally {
-        this.hideLoadingView();
+        this.setLoadingState("completed");
         this.closeModalDelete();
       }
     },
@@ -967,10 +969,6 @@ export default {
     },
   },
   watch: {
-    tableIsLoading(newValue) {
-      if (newValue) this.showLoadingView();
-      else this.hideLoadingView();
-    },
     filtroPerfis: {
       handler(perfis) {
         const disciplinasResultantes = [];
