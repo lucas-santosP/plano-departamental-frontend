@@ -37,7 +37,7 @@
             <th style="width: 160px">Hora</th>
           </template>
           <template #tbody>
-            <template v-if="!$root.onLoad">
+            <template v-if="!tableIsLoading">
               <tr v-for="h in History" :key="`History${h.id}`">
                 <td style="width: 110px">
                   {{ h.tabelaModificada }}
@@ -123,7 +123,7 @@
 
 <script>
 import _ from "lodash";
-import { toggleItemInArray } from "@/common/mixins";
+import { toggleItemInArray, tableLoading } from "@/common/mixins";
 import {
   PageHeader,
   NavTab,
@@ -134,7 +134,7 @@ import {
 
 export default {
   name: "DashboardHistory",
-  mixins: [toggleItemInArray],
+  mixins: [toggleItemInArray, tableLoading],
   components: {
     BaseModal,
     PageHeader,
@@ -179,14 +179,9 @@ export default {
 
   methods: {
     btnOkFiltros() {
-      this.$root.onLoad = true;
+      this.setTableLoadingState(true);
       this.TabelasAtivadas = [...this.TabelasSelecionadas];
-
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.$root.onLoad = false;
-        }, 500);
-      });
+      this.setTableLoadingState(false);
     },
 
     linhaModificada(h) {

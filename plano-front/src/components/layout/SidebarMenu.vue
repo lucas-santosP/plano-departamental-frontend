@@ -7,11 +7,7 @@
       {{ menuTitle }}
     </h3>
     <ul class="nav flex-column mb-2" v-if="menuPages.length">
-      <li
-        v-for="page in menuPages"
-        :key="page.routeName"
-        @click="$store.commit('CLOSE_SIDEBAR')"
-      >
+      <li v-for="page in menuPages" :key="page.routeName" @click="closeSidebar">
         <router-link :to="{ name: page.routeName }" class="nav-link">
           <i class="icon-nav-link fas" :class="page.icon"></i>
           {{ page.title }}
@@ -22,6 +18,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "SidebarMenu",
   props: {
@@ -30,6 +28,9 @@ export default {
       type: String,
       default: "",
     },
+  },
+  methods: {
+    ...mapActions(["closeSidebar"]),
   },
 };
 </script>

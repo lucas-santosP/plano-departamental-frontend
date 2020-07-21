@@ -243,7 +243,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["showLoadingView", "hideLoadingView"]),
+    ...mapActions(["setLoadingState"]),
 
     clearHorarios() {
       this.turmaForm.Horario1 = null;
@@ -281,7 +281,9 @@ export default {
     },
     async addTurma() {
       try {
-        this.showLoadingView();
+        this.setLoadingState("partial");
+
+        delete this.turmaForm.disciplina;
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
 
@@ -294,7 +296,7 @@ export default {
         });
       } catch (error) {
         const erroMsg = error.response
-          ? "Turma já existe no plano atual."
+          ? "Turma já existe no mesmo plano e periodo."
           : error.message;
 
         this.showNotification({
@@ -303,7 +305,7 @@ export default {
           message: erroMsg,
         });
       } finally {
-        this.hideLoadingView();
+        this.setLoadingState("completed");
       }
     },
   },

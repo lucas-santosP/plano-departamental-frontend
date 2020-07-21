@@ -1,17 +1,13 @@
 <template>
   <nav class="navbar navbar-dark bg-dark shadow">
     <div class="brand">
-      <div @click="$store.commit('CLOSE_SIDEBAR')" class="navbar-brand">
+      <div @click="closeSidebar" class="navbar-brand">
         <router-link :to="{ name: 'dashboardHome' }" class="brand-title"
           >Plano Departamental
         </router-link>
       </div>
 
-      <button
-        @click.stop="$store.commit('TOGGLE_SIDEBAR')"
-        type="button"
-        class="btn-navbar"
-      >
+      <button @click.stop="toggleSidebar" type="button" class="btn-navbar">
         <i :class="sidebarVisibility ? 'fas fa-times' : 'fas fa-bars'"></i>
       </button>
     </div>
@@ -50,7 +46,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "TheNavbar",
@@ -63,15 +59,16 @@ export default {
     this.currentPlano = parseInt(localStorage.getItem("Plano"), 10);
   },
   methods: {
+    ...mapActions(["setLoadingState", "closeSidebar", "toggleSidebar"]),
     async changePlano() {
       try {
-        this.$store.commit("COMPONENT_LOADING");
+        this.setLoadingState("entire");
 
         setTimeout(async () => {
           await localStorage.setItem("Plano", this.currentPlano);
           await this.$store.dispatch("fetchAll");
           this.$socket.open();
-          this.$store.commit("COMPONENT_LOADED");
+          this.setLoadingState("completed");
         }, 300);
       } catch (error) {
         console.log(error);

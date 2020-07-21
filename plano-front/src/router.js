@@ -197,12 +197,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit("SHOW_LOADING_VIEW");
+  store.commit("SET_LOADING_STATE", "partial");
   next();
 });
 
 router.afterEach(() => {
-  setTimeout(() => store.commit("HIDE_LOADING_VIEW"), 500);
+  setTimeout(() => store.commit("SET_LOADING_STATE", "completed"), 500);
 });
 
 export default router;

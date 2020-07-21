@@ -1,30 +1,27 @@
-import { SHOW_LOADING_VIEW, HIDE_LOADING_VIEW } from "../mutation-types";
+import { SET_LOADING_STATE } from "../mutation-types";
 
 const state = {
-  loadingViewVisibility: false,
+  loadingState: "complete",
 };
+//'partial' loading sem destruir o componentes main, navbar e sidebar.
+//'entire' loading destruindo componentes citados acima
+//'completed' loading completo
 
 const mutations = {
-  [SHOW_LOADING_VIEW](state) {
-    state.loadingViewVisibility = true;
-  },
-  [HIDE_LOADING_VIEW](state) {
-    state.loadingViewVisibility = false;
+  [SET_LOADING_STATE](state, data) {
+    state.loadingState = data;
   },
 };
 
 const actions = {
-  showLoadingView({ commit }) {
-    commit("SHOW_LOADING_VIEW");
-  },
-  hideLoadingView({ commit }) {
-    commit("HIDE_LOADING_VIEW");
+  setLoadingState({ commit }, payload) {
+    commit("SET_LOADING_STATE", payload);
   },
 };
 
 const getters = {
-  loadingViewVisibility(state) {
-    return state.loadingViewVisibility;
+  loadingState(state) {
+    return state.loadingState;
   },
 };
 

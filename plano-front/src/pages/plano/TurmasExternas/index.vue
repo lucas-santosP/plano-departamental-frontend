@@ -264,7 +264,7 @@
             ></td>
           </tr>
 
-          <template v-if="!$root.onLoad">
+          <template v-if="!tableIsLoading">
             <TurmaExternaRow
               v-for="turma in TurmasExternasOrdered"
               :key="'turma' + turma.id"
@@ -522,7 +522,11 @@
 <script>
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
-import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  tableLoading,
+} from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,
@@ -546,7 +550,7 @@ const emptyTurma = {
 };
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdination, toggleItemInArray],
+  mixins: [toggleOrdination, toggleItemInArray, tableLoading],
   components: {
     TurmaExternaRow,
     PageHeader,
@@ -612,15 +616,12 @@ export default {
       this.$refs.modalDelete.close()
     },
     btnOkFiltros() {
-      this.$root.onLoad = true;
+      this.setTableLoadingState(true);
       this.filtroDisciplinas.ativadas = [
         ...this.filtroDisciplinas.selecionadas,
       ];
       this.setSemestreAtivo();
-
-      setTimeout(() => {
-        this.$root.onLoad = false;
-      }, 500);
+      this.setTableLoadingState(false);
     },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)

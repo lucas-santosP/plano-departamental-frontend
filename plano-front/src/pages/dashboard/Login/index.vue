@@ -39,11 +39,12 @@
         </form>
       </div>
     </div>
-    <TheLoadingView :visibility="isLoading" />
+    <TheLoadingView :visibility="loadingState !== 'completed'" />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { TheLoadingView } from "@/components/layout";
 import { PasswordInput } from "@/components/ui";
 
@@ -75,24 +76,25 @@ export default {
       .catch(() => {});
   },
   methods: {
+    ...mapActions(["setLoadingState"]),
+
     async handleLogin() {
       try {
+        this.setLoadingState("entire");
         await this.$store.dispatch("authenticate", this.form);
-        this.$store.commit("COMPONENT_LOADING");
-
         if (this.$store.state.route.query.redirect)
           this.$router.replace(this.$store.state.route.query.redirect);
         else this.$router.replace("/dashboard");
       } catch (error) {
         if (error.response) this.error = error.response.data.message;
         else this.error = "Erro na requisição! Tente novamente.";
+      } finally {
+        this.setLoadingState("completed");
       }
     },
   },
   computed: {
-    isLoading() {
-      return this.$store.state.isLoading;
-    },
+    ...mapGetters(["loadingState"]),
   },
 };
 </script>
