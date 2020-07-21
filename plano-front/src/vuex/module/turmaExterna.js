@@ -71,6 +71,9 @@ const actions = {
         });
     });
   },
+  clearDeleteExternas({ commit }) {
+    commit("emptyDeleteExterno");
+  },
 };
 
 const getters = {

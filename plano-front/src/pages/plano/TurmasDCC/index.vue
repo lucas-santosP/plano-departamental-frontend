@@ -485,7 +485,7 @@
 
     <ModalDelete ref="modalDelete" @btn-deletar="deleteSelectedTurmas">
       <li v-if="!Deletar.length" class="list-group-item">
-        Nenhuma turma selecionada
+        Nenhuma turma selecionada.
       </li>
       <li
         v-for="turma in Deletar"

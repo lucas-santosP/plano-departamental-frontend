@@ -411,60 +411,22 @@
     </BaseModal>
 
     <!-- MODAL DELETAR -->
-    <BaseModal
-      ref="modalDelete"
-      :modalOptions="{
-        title: 'Deletar turma',
-        position: 'center',
-        hasBackground: true,
-        hasFooter: true,
-      }"
-      :customStyles="'width:450px; font-size:14px'"
-    >
-      <template #modal-body>
-        <p class="w-100 m-0">
-          {{
-            Deletar.length
-              ? "Tem certeza que deseja deletar a(s) turma(s) selecionadas?"
-              : "Nenhuma turma selecionada!"
-          }}
-        </p>
-        <ul v-if="Deletar.length" class="list-group list-deletar w-100 mt-2">
-          <li
-            v-for="turma in Deletar"
-            class="list-group-item"
-            :key="'deletarTurma' + turma.id"
-          >
-            <span class="mr-1"> <b> Semestre: </b>{{ turma.periodo }} </span>
-            <span class="mr-1"
-              ><b> Disciplina: </b>{{ turma.disciplinaNome }}
-            </span>
-            <span class="mr-1"><b> Turma: </b> {{ turma.letra }} </span>
-          </li>
-        </ul>
-      </template>
-      <template #modal-footer> 
-         <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'gray'"
-          @click="closeModalDelete()"
-        >
-          Cancelar
-        </BaseButton>
-        <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'red'"
-          @click="deleteSelectedTurma()"
-        >
-          Deletar
-        </BaseButton>
-
-     
-        </button>
-      </template>
-    </BaseModal>
+    <ModalDelete ref="modalDelete" @btn-deletar="deleteSelectedTurmas">
+      <li v-if="!Deletar.length" class="list-group-item">
+        Nenhuma turma selecionada.
+      </li>
+      <li
+        v-for="turma in Deletar"
+        class="list-group-item"
+        :key="'deletarTurma' + turma.id"
+      >
+        <span>
+          <b>Semestre:</b> {{ turma.periodo }} - <b>Turma:</b>
+          {{ turma.letra }}
+        </span>
+        <span><b> Disciplina: </b>{{ turma.disciplinaNome }} </span>
+      </li>
+    </ModalDelete>
 
     <!-- MODAL AJUDA -->
     <BaseModal
@@ -531,10 +493,12 @@ import {
   PageHeader,
   BaseTable,
   BaseModal,
+  ModalDelete,
   NavTab,
   BaseButton,
 } from "@/components/ui";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
+import { mapActions } from "vuex";
 
 const emptyTurma = {
   id: null,
@@ -548,6 +512,7 @@ const emptyTurma = {
   Sala1: null,
   Sala2: null,
 };
+
 export default {
   name: "DashboardTurmasExternas",
   mixins: [toggleOrdination, toggleItemInArray, tableLoading],
@@ -557,6 +522,7 @@ export default {
     BaseTable,
     BaseModal,
     NavTab,
+    ModalDelete,
     BaseButton,
   },
   data() {
@@ -598,11 +564,9 @@ export default {
       },
     };
   },
-  mounted() {
-    this.$store.commit("emptyDeleteExterno");
-  },
-
   methods: {
+    ...mapActions(["clearDeleteExternas"]),
+
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -612,9 +576,6 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-    closeModalDelete(){
-      this.$refs.modalDelete.close()
-    },
     btnOkFiltros() {
       this.setTableLoadingState(true);
       this.filtroDisciplinas.ativadas = [
@@ -623,87 +584,14 @@ export default {
       this.setSemestreAtivo();
       this.setTableLoadingState(false);
     },
-    setSemestreAtivo() {
-      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
-        this.filtroSemestres.ativo = 1;
-      else if (this.filtroSemestres.segundo && !this.filtroSemestres.primeiro)
-        this.filtroSemestres.ativo = 2;
-      else if (this.filtroSemestres.primeiro && this.filtroSemestres.primeiro)
-        this.filtroSemestres.ativo = 3;
-      else this.filtroSemestres.ativo = undefined;
-    },
-    adjustTurno1() {
-      if (
-        this.turmaForm.Horario1 == 1 ||
-        this.turmaForm.Horario1 == 2 ||
-        this.turmaForm.Horario1 == 7 ||
-        this.turmaForm.Horario1 == 8 ||
-        this.turmaForm.Horario1 == 13 ||
-        this.turmaForm.Horario1 == 14 ||
-        this.turmaForm.Horario1 == 19 ||
-        this.turmaForm.Horario1 == 20 ||
-        this.turmaForm.Horario1 == 25 ||
-        this.turmaForm.Horario1 == 26 ||
-        this.turmaForm.Horario1 == 3 ||
-        this.turmaForm.Horario1 == 4 ||
-        this.turmaForm.Horario1 == 9 ||
-        this.turmaForm.Horario1 == 10 ||
-        this.turmaForm.Horario1 == 15 ||
-        this.turmaForm.Horario1 == 16 ||
-        this.turmaForm.Horario1 == 21 ||
-        this.turmaForm.Horario1 == 22 ||
-        this.turmaForm.Horario1 == 27 ||
-        this.turmaForm.Horario1 == 28
-      ) {
-        this.turmaForm.turno1 = "Diurno";
-      } else if (this.turmaForm.Horario1 == 31) {
-        this.turmaForm.turno1 = "EAD";
-      } else {
-        this.turmaForm.turno1 = "Noturno";
-      }
-    },
-    adjustTurno2() {
-      if (
-        this.turmaForm.Horario2 == 1 ||
-        this.turmaForm.Horario2 == 2 ||
-        this.turmaForm.Horario2 == 7 ||
-        this.turmaForm.Horario2 == 8 ||
-        this.turmaForm.Horario2 == 13 ||
-        this.turmaForm.Horario2 == 14 ||
-        this.turmaForm.Horario2 == 19 ||
-        this.turmaForm.Horario2 == 20 ||
-        this.turmaForm.Horario2 == 25 ||
-        this.turmaForm.Horario2 == 26 ||
-        this.turmaForm.Horario2 == 3 ||
-        this.turmaForm.Horario2 == 4 ||
-        this.turmaForm.Horario2 == 9 ||
-        this.turmaForm.Horario2 == 10 ||
-        this.turmaForm.Horario2 == 15 ||
-        this.turmaForm.Horario2 == 16 ||
-        this.turmaForm.Horario2 == 21 ||
-        this.turmaForm.Horario2 == 22 ||
-        this.turmaForm.Horario2 == 27 ||
-        this.turmaForm.Horario2 == 28
-      ) {
-        this.turmaForm.turno1 = "Diurno";
-      } else if (this.turmaForm.Horario2 == 31) {
-        this.turmaForm.turno1 = "EAD";
-      } else {
-        this.turmaForm.turno1 = "Noturno";
-      }
-    },
-    setEad() {
-      if (this.turmaForm.turno1 === "EAD") {
-        this.turmaForm.Horario1 = 31;
-        if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
-      }
-    },
-    deleteSelectedTurma() {
-      for (var i = 0; i < this.Deletar.length; i++) {
+    deleteSelectedTurmas() {
+      if (!this.Deletar.length) return;
+
+      for (let i = 0; i < this.Deletar.length; i++) {
         this.deleteTurma(this.Deletar[i]);
       }
-      this.closeModalDelete()
-      this.$store.commit("emptyDeleteExterno");
+      this.$refs.modalDelete.close();
+      this.clearDeleteExternas();
     },
     limitLenght($event) {
       if ($event.target.value.length >= 3) $event.preventDefault();
@@ -811,6 +699,81 @@ export default {
     },
     clearsearchDisciplinasModal() {
       this.searchDisciplinasModal = "";
+    },
+    setSemestreAtivo() {
+      if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
+        this.filtroSemestres.ativo = 1;
+      else if (this.filtroSemestres.segundo && !this.filtroSemestres.primeiro)
+        this.filtroSemestres.ativo = 2;
+      else if (this.filtroSemestres.primeiro && this.filtroSemestres.primeiro)
+        this.filtroSemestres.ativo = 3;
+      else this.filtroSemestres.ativo = undefined;
+    },
+    adjustTurno1() {
+      if (
+        this.turmaForm.Horario1 == 1 ||
+        this.turmaForm.Horario1 == 2 ||
+        this.turmaForm.Horario1 == 7 ||
+        this.turmaForm.Horario1 == 8 ||
+        this.turmaForm.Horario1 == 13 ||
+        this.turmaForm.Horario1 == 14 ||
+        this.turmaForm.Horario1 == 19 ||
+        this.turmaForm.Horario1 == 20 ||
+        this.turmaForm.Horario1 == 25 ||
+        this.turmaForm.Horario1 == 26 ||
+        this.turmaForm.Horario1 == 3 ||
+        this.turmaForm.Horario1 == 4 ||
+        this.turmaForm.Horario1 == 9 ||
+        this.turmaForm.Horario1 == 10 ||
+        this.turmaForm.Horario1 == 15 ||
+        this.turmaForm.Horario1 == 16 ||
+        this.turmaForm.Horario1 == 21 ||
+        this.turmaForm.Horario1 == 22 ||
+        this.turmaForm.Horario1 == 27 ||
+        this.turmaForm.Horario1 == 28
+      ) {
+        this.turmaForm.turno1 = "Diurno";
+      } else if (this.turmaForm.Horario1 == 31) {
+        this.turmaForm.turno1 = "EAD";
+      } else {
+        this.turmaForm.turno1 = "Noturno";
+      }
+    },
+    adjustTurno2() {
+      if (
+        this.turmaForm.Horario2 == 1 ||
+        this.turmaForm.Horario2 == 2 ||
+        this.turmaForm.Horario2 == 7 ||
+        this.turmaForm.Horario2 == 8 ||
+        this.turmaForm.Horario2 == 13 ||
+        this.turmaForm.Horario2 == 14 ||
+        this.turmaForm.Horario2 == 19 ||
+        this.turmaForm.Horario2 == 20 ||
+        this.turmaForm.Horario2 == 25 ||
+        this.turmaForm.Horario2 == 26 ||
+        this.turmaForm.Horario2 == 3 ||
+        this.turmaForm.Horario2 == 4 ||
+        this.turmaForm.Horario2 == 9 ||
+        this.turmaForm.Horario2 == 10 ||
+        this.turmaForm.Horario2 == 15 ||
+        this.turmaForm.Horario2 == 16 ||
+        this.turmaForm.Horario2 == 21 ||
+        this.turmaForm.Horario2 == 22 ||
+        this.turmaForm.Horario2 == 27 ||
+        this.turmaForm.Horario2 == 28
+      ) {
+        this.turmaForm.turno1 = "Diurno";
+      } else if (this.turmaForm.Horario2 == 31) {
+        this.turmaForm.turno1 = "EAD";
+      } else {
+        this.turmaForm.turno1 = "Noturno";
+      }
+    },
+    setEad() {
+      if (this.turmaForm.turno1 === "EAD") {
+        this.turmaForm.Horario1 = 31;
+        if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
+      }
     },
   },
   computed: {
