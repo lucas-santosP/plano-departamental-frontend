@@ -32,7 +32,7 @@
               <i :class="setIconByOrder(ordenacaoMainUsers, 'login')"></i>
             </th>
             <th
-              style="width: 65px"
+              style="width: 115px"
               class="clickable less-padding"
               @click="toggleOrder(ordenacaoMainUsers, 'admin', 'desc')"
             >
@@ -49,7 +49,7 @@
             >
               <td style="width: 150px" class="t-start">{{ user.nome }}</td>
               <td style="width: 120px" class="t-start">{{ user.login }}</td>
-              <td style="width: 65px">{{ user.admin ? "Sim" : "-" }}</td>
+              <td style="width: 115px">{{ adminText(user.admin) }}</td>
             </tr>
           </template>
         </BaseTable>
@@ -120,20 +120,7 @@
           </template>
           <!-- Edit -->
           <template v-else-if="isEdit">
-            <!-- senha atual -->
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label for="senhaAtual"
-                  >Senha atual <i title="Campo obrigatório">*</i></label
-                >
-                <PasswordInput
-                  :iconSize="11"
-                  :isInvalid="false"
-                  :inputId="'senhaAtual'"
-                  v-model="senhaAtual"
-                ></PasswordInput>
-              </div>
-            </div>
+
             <!-- toggle edit senha -->
             <div class="container-edit-senha">
               <span>Editar senha</span>
@@ -189,15 +176,16 @@
 
           <div class="row mb-2 mt-2 mx-0">
             <div class="form-check form-check-inline col m-0 px-0 pl-1">
-              <label class="form-check-label mr-2" for="userIsAdmin"
-                >Admin</label
+              <label required for="userAdmin">Admin </label>
+              <select
+                      id="userAdmin"
+                      v-model.number="userForm.admin"
+                      class="form-control"
               >
-              <input
-                type="checkbox"
-                id="userIsAdmin"
-                class="form-check-input"
-                v-model="userForm.admin"
-              />
+                <option value="0">Consulta</option>
+                <option value="1">Comissão</option>
+                <option value="2">Administrador</option>
+              </select>
             </div>
           </div>
         </template>
@@ -284,7 +272,7 @@ const emptyUser = {
   nome: "",
   login: "",
   senha: "",
-  admin: false,
+  admin: 0,
 };
 
 export default {
@@ -305,11 +293,17 @@ export default {
       userForm: _.clone(emptyUser),
       novaSenha: "",
       confirmaSenha: "",
-      senhaAtual: "",
       ordenacaoMainUsers: { order: "nome", type: "asc" },
     };
   },
   methods: {
+    adminText(admin) {
+      switch (admin){
+        case 0: return "Consulta";
+        case 1: return "Comissão";
+        case 2: return "Administrador";
+      }
+    },
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;
       this.novaSenha = "";
@@ -326,7 +320,6 @@ export default {
     cleanUser() {
       this.userSelected = null;
       this.confirmaSenha = "";
-      this.senhaAtual = "";
       this.isEditingSenha = false;
       this.userForm = _.clone(emptyUser);
     },
@@ -343,8 +336,8 @@ export default {
       );
     },
     validateUser(user) {
-      for (const value of Object.values(user)) {
-        if (value === "" || value === null) return false;
+      for (const entry of Object.entries(user)) {
+        if ((entry[1] === "" || entry[1] === null) && entry[0] !== "senha") return false;
       }
       return true;
     },
@@ -375,10 +368,7 @@ export default {
     },
     async editUser() {
       const user = _.clone(this.userForm);
-      user.senhaAtual = this.senhaAtual;
-
-      if (this.isEditingSenha) user.senha = this.novaSenha;
-      else user.senha = this.senhaAtual;
+      user.senha = this.novaSenha
 
       if (!this.validateEditUser(user)) {
         this.showNotification({
@@ -389,14 +379,13 @@ export default {
       }
 
       try {
-        await userService.update(user.id, user);
+        await userService.updateSuper(user.id, user);
         this.showNotification({
           type: "success",
           message: `Usuário atualizado.`,
         });
         this.novaSenha = "";
         this.confirmaSenha = "";
-        this.senhaAtual = "";
       } catch (error) {
         this.showNotification({
           type: "error",

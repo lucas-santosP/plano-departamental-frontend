@@ -51,6 +51,11 @@ function requireAdmin(to, from, next) {
   else next();
 }
 
+function requireSuperAdmin(to, from, next) {
+  if (!store.getters.SuperAdmin) next("/");
+  else next();
+}
+
 const routes = [
   { path: "/", name: "home", redirect: "/dashboard", beforeEnter: requireAuth },
   { path: "/login", name: "login", component: Login },
@@ -81,7 +86,7 @@ const routes = [
         beforeEnter: requireAdmin,
       },
       {
-        path: "plano/validacoes",
+        path: "plano/Validacoes",
         name: "validacoes",
         component: PlanoValidacoes,
         beforeEnter: requireAdmin,
@@ -119,62 +124,62 @@ const routes = [
         path: "gerenciar/cursos",
         name: "cursos",
         component: GerenciarCursos,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/disciplinas",
         name: "disciplinas",
         component: GerenciarDisciplinas,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/docentes",
         name: "docentes",
         component: GerenciarDocentes,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/grades",
         name: "grades",
         component: GerenciarGrades,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
 
       {
         path: "gerenciar/perfis",
         name: "perfis",
         component: GerenciarPerfis,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/gradesEdit",
         name: "gradesEdit",
         component: GerenciarGradesEdit,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/history",
         name: "history",
         component: GerenciarHistory,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
-        path: "gerenciar/planos",
+        path: "gerenciar/Planos",
         name: "planos",
         component: GerenciarPlanos,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/salas",
         name: "salas",
         component: GerenciarSalas,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
       {
         path: "gerenciar/usuarios",
         name: "usuarios",
         component: GerenciarUsuarios,
-        beforeEnter: requireAdmin,
+        beforeEnter: requireSuperAdmin,
       },
     ],
   },

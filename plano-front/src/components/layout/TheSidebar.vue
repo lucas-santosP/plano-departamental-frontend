@@ -13,7 +13,7 @@
       <SidebarMenu :menuTitle="'Plano'" :menuPages="Admin ? routesPlano : []" />
       <SidebarMenu :menuTitle="'Relatórios'" :menuPages="routesRelatorios" />
       <SidebarMenu
-        v-if="Admin"
+        v-if="SuperAdmin"
         :menuTitle="'Gerenciar'"
         :menuPages="routesGerenciar"
       />
@@ -41,6 +41,7 @@ export default {
     ...mapGetters([
       "sidebarVisibility",
       "Admin",
+      "SuperAdmin",
       "routesPlano",
       "routesRelatorios",
       "routesGerenciar",
