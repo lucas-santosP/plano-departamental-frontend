@@ -36,7 +36,7 @@
               class="clickable less-padding"
               @click="toggleOrder(ordenacaoMainUsers, 'admin', 'desc')"
             >
-              Admin
+              Tipo
               <i :class="setIconByOrder(ordenacaoMainUsers, 'admin')"></i>
             </th>
           </template>
@@ -176,7 +176,7 @@
 
           <div class="row mb-2 mt-2 mx-0">
             <div class="form-check form-check-inline col m-0 px-0 pl-1">
-              <label required for="userAdmin">Admin </label>
+              <label required for="userAdmin">Tipo </label>
               <select
                       id="userAdmin"
                       v-model.number="userForm.admin"
