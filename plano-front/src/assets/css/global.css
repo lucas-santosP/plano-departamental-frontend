@@ -5,7 +5,7 @@
   --light-gray: #e9ecef;
   --dark-gray: #343a40;
 }
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 544px) {
   :root {
     --navbar-height: 60px;
   }
@@ -145,19 +145,17 @@ img {
   -o-user-drag: none;
 }
 
-.modal-custom .list-group,
-#modalAjuda .list-group {
+.modal-custom .list-group {
   line-height: 30px;
   font-size: 12px;
   text-align: start;
   line-height: 1.5;
 }
-.modal-custom .list-ajuda i {
+.modal-custom .list-ajuda svg {
   font-size: 12px !important;
   margin: 0 1px !important;
   color: #585858;
 }
-#modalAjuda .list-group .list-group-item strong,
 .list-ajuda .list-group-item b:first-of-type {
   color: var(--light-blue);
 }

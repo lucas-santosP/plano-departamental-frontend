@@ -76,7 +76,7 @@ const actions = {
 };
 
 const getters = {
-  getUsuarioFirstName: (state) => {
+  usuarioNome: (state) => {
     return state.Usuario ? _.words(state.Usuario.nome)[0] : "";
   },
   Admin(state) {
