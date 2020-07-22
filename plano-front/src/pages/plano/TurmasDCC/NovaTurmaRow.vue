@@ -188,12 +188,8 @@
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import turmaService from "@/common/services/turma";
-import {
-  maskTurmaLetra,
-  setEmptyValuesToNull,
-  validateObjectKeys,
-} from "@/common/utils";
-import { notification } from "@/common/mixins";
+import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
+import { notification, maskTurmaLetra } from "@/common/mixins";
 
 const emptyTurma = {
   id: null,
@@ -227,13 +223,12 @@ const emptyTurma = {
 
 export default {
   name: "NovaTurmaRow",
-  mixins: [notification],
+  mixins: [notification, maskTurmaLetra],
   props: { cursosAtivadosLength: Number, default: 0 },
 
   data() {
     return {
       turmaForm: null,
-      maskTurmaLetra: maskTurmaLetra,
     };
   },
   beforeMount() {
@@ -286,8 +281,8 @@ export default {
         delete this.turmaForm.disciplina;
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
-
         newTurma.Plano = parseInt(localStorage.getItem("Plano"), 10);
+
         const response = await turmaService.create(newTurma);
         await this.$store.dispatch("fetchAllPedidos");
         this.showNotification({
@@ -296,7 +291,7 @@ export default {
         });
       } catch (error) {
         const erroMsg = error.response
-          ? "Turma já existe no mesmo plano e periodo."
+          ? "A combinação de disciplina, semestre e turma deve ser única."
           : error.message;
 
         this.showNotification({

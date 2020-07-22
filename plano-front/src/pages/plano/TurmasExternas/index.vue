@@ -192,8 +192,9 @@
                 type="text"
                 class="input-letra"
                 id="turma"
-                v-model="turmaForm.letra"
-                @keypress="onlyA_Z($event), limitLenght($event)"
+                :value="turmaForm.letra"
+                @input="turmaForm.letra = $event.target.value.toUpperCase()"
+                @keypress="maskTurmaLetra"
               />
             </td>
             <td style="width: 80px;">
@@ -201,7 +202,7 @@
                 type="text"
                 id="turno1"
                 v-model="turmaForm.turno1"
-                v-on:change="setEad"
+                @change="setHorarioEad"
               >
                 <option value="Diurno">Diurno</option>
                 <option value="Noturno">Noturno</option>
@@ -411,60 +412,22 @@
     </BaseModal>
 
     <!-- MODAL DELETAR -->
-    <BaseModal
-      ref="modalDelete"
-      :modalOptions="{
-        title: 'Deletar turma',
-        position: 'center',
-        hasBackground: true,
-        hasFooter: true,
-      }"
-      :customStyles="'width:450px; font-size:14px'"
-    >
-      <template #modal-body>
-        <p class="w-100 m-0">
-          {{
-            Deletar.length
-              ? "Tem certeza que deseja deletar a(s) turma(s) selecionadas?"
-              : "Nenhuma turma selecionada!"
-          }}
-        </p>
-        <ul v-if="Deletar.length" class="list-group list-deletar w-100 mt-2">
-          <li
-            v-for="turma in Deletar"
-            class="list-group-item"
-            :key="'deletarTurma' + turma.id"
-          >
-            <span class="mr-1"> <b> Semestre: </b>{{ turma.periodo }} </span>
-            <span class="mr-1"
-              ><b> Disciplina: </b>{{ turma.disciplinaNome }}
-            </span>
-            <span class="mr-1"><b> Turma: </b> {{ turma.letra }} </span>
-          </li>
-        </ul>
-      </template>
-      <template #modal-footer> 
-         <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'gray'"
-          @click="closeModalDelete()"
-        >
-          Cancelar
-        </BaseButton>
-        <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'red'"
-          @click="deleteSelectedTurma()"
-        >
-          Deletar
-        </BaseButton>
-
-     
-        </button>
-      </template>
-    </BaseModal>
+    <ModalDelete ref="modalDelete" @btn-deletar="deleteSelectedTurmas">
+      <li v-if="!Deletar.length" class="list-group-item">
+        Nenhuma turma selecionada.
+      </li>
+      <li
+        v-for="turma in Deletar"
+        class="list-group-item"
+        :key="'deletarTurma' + turma.id"
+      >
+        <span>
+          <b>Semestre:</b> {{ turma.periodo }} - <b>Turma:</b>
+          {{ turma.letra }}
+        </span>
+        <span><b> Disciplina: </b>{{ turma.disciplinaNome }} </span>
+      </li>
+    </ModalDelete>
 
     <!-- MODAL AJUDA -->
     <BaseModal
@@ -522,7 +485,10 @@
 <script>
 import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
+import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
 import {
+  notification,
+  maskTurmaLetra,
   toggleOrdination,
   toggleItemInArray,
   tableLoading,
@@ -531,10 +497,12 @@ import {
   PageHeader,
   BaseTable,
   BaseModal,
+  ModalDelete,
   NavTab,
   BaseButton,
 } from "@/components/ui";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
+import { mapActions } from "vuex";
 
 const emptyTurma = {
   id: null,
@@ -548,20 +516,27 @@ const emptyTurma = {
   Sala1: null,
   Sala2: null,
 };
+
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdination, toggleItemInArray, tableLoading],
+  mixins: [
+    notification,
+    maskTurmaLetra,
+    toggleOrdination,
+    toggleItemInArray,
+    tableLoading,
+  ],
   components: {
     TurmaExternaRow,
     PageHeader,
     BaseTable,
     BaseModal,
     NavTab,
+    ModalDelete,
     BaseButton,
   },
   data() {
     return {
-      error: undefined,
       ordenacaoTurmasMain: { order: "disciplinaCodigo", type: "asc" },
       turmaForm: _.clone(emptyTurma),
       isAdding: false,
@@ -598,11 +573,9 @@ export default {
       },
     };
   },
-  mounted() {
-    this.$store.commit("emptyDeleteExterno");
-  },
-
   methods: {
+    ...mapActions(["clearDeleteExternas", "setLoadingState"]),
+
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -612,9 +585,6 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-    closeModalDelete(){
-      this.$refs.modalDelete.close()
-    },
     btnOkFiltros() {
       this.setTableLoadingState(true);
       this.filtroDisciplinas.ativadas = [
@@ -622,6 +592,18 @@ export default {
       ];
       this.setSemestreAtivo();
       this.setTableLoadingState(false);
+    },
+    toggleAdd() {
+      this.isAdding = !this.isAdding;
+    },
+    normalizeText(text) {
+      return text
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    },
+    clearsearchDisciplinasModal() {
+      this.searchDisciplinasModal = "";
     },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
@@ -692,125 +674,65 @@ export default {
         this.turmaForm.turno1 = "Noturno";
       }
     },
-    setEad() {
+    setHorarioEad() {
       if (this.turmaForm.turno1 === "EAD") {
         this.turmaForm.Horario1 = 31;
         if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
       }
     },
-    deleteSelectedTurma() {
-      for (var i = 0; i < this.Deletar.length; i++) {
-        this.deleteTurma(this.Deletar[i]);
-      }
-      this.closeModalDelete()
-      this.$store.commit("emptyDeleteExterno");
-    },
-    limitLenght($event) {
-      if ($event.target.value.length >= 3) $event.preventDefault();
-    },
-    onlyA_Z($event) {
-      let key = $event.key ? $event.key : $event.which;
-      if (!key.match(/[A-Z]/i)) $event.preventDefault();
-    },
-    isEmpty(value) {
-      return value === "" || value === undefined ? true : false;
-    },
-    setEmptyKeysToNull(turma) {
-      Object.keys(turma).forEach((key) => {
-        if (this.isEmpty(turma[key])) turma[key] = null;
-      });
-    },
-    validateTurma(turma) {
-      if (turma.Disciplina === null || turma.letra === null) {
-        this.$notify({
-          group: "general",
+
+    async deleteSelectedTurmas() {
+      if (!this.Deletar.length) return;
+
+      try {
+        this.setLoadingState("partial");
+
+        for (let i = 0; i < this.Deletar.length; i++) {
+          await turmaExternaService.delete(this.Deletar[i].id, this.Deletar[i]);
+        }
+        this.$refs.modalDelete.close();
+        this.clearDeleteExternas();
+        this.showNotification({
+          type: "success",
+          message: "Turma(s) excluída(s).",
+        });
+      } catch (error) {
+        this.showNotification({
           type: "error",
-          title: "Erro!",
-          text: "Cadastro da turma inválido ou incompleto.",
+          message: "Erro ao excluir turma(s).",
         });
-        return false;
+      } finally {
+        this.setLoadingState("completed");
       }
-      return true;
     },
-    addTurma() {
-      this.setEmptyKeysToNull(this.turmaForm);
-      if (!this.validateTurma(this.turmaForm)) return;
-      this.turmaForm.Plano = localStorage.getItem("Plano");
 
-      turmaExternaService
-        .create(this.turmaForm)
-        .then((response) => {
-          this.semestre = response.Turma.periodo;
-          this.$store.dispatch("fetchAllPedidosExternos");
-          this.cleanTurmaForm();
+    async addTurma() {
+      try {
+        this.setLoadingState("partial");
 
-          this.$notify({
-            group: "general",
-            type: "success",
-            title: "Sucesso!",
-            text: `A Turma: ${response.Turma.letra} foi criada!`,
-          });
-        })
-        .catch((error) => {
-          this.$notify({
-            group: "general",
-            type: "error",
-            title: "Erro!",
-            text: `${error}`,
-          });
-        });
-    },
-    editTurma(turma) {
-      turmaExternaService
-        .update(turma.id, turma)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success",
-          });
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao atualizar Turma</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
-    deleteTurma(turma) {
-      const turmaToDelete = _.clone(turma);
+        const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
+        validateObjectKeys(newTurma, ["Disciplina", "letra"]);
+        newTurma.Plano = localStorage.getItem("Plano");
 
-      turmaExternaService
-        .delete(turmaToDelete.id, turmaToDelete)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi excluída!`,
-            type: "success",
-          });
-        })
-        .catch(() => {
-          this.error = "<b>Erro ao excluir Turma</b>";
+        const response = await turmaExternaService.create(newTurma);
+        await this.$store.dispatch("fetchAllPedidosExternos");
+        this.showNotification({
+          type: "success",
+          message: `Turma ${response.Turma.letra} foi criada!`,
         });
-    },
-    cleanTurmaForm() {
-      this.turmaForm = _.clone(emptyTurma);
-      this.error = undefined;
-    },
-    toggleAdd() {
-      this.isAdding = !this.isAdding;
-    },
-    normalizeText(text) {
-      return text
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-    },
-    clearsearchDisciplinasModal() {
-      this.searchDisciplinasModal = "";
+      } catch (error) {
+        const erroMsg = error.response
+          ? "A combinação de disciplina, semestre e turma deve ser única."
+          : error.message;
+
+        this.showNotification({
+          type: "error",
+          title: "Erro ao criar nova turma!",
+          message: erroMsg,
+        });
+      } finally {
+        this.setLoadingState("completed");
+      }
     },
   },
   computed: {
@@ -921,8 +843,6 @@ export default {
 .novaturma .less-padding {
   padding: 0 2px;
 }
-/*  */
-/*  */
 .novaturma td {
   margin: 0 !important;
   padding: 0 5px;
@@ -930,7 +850,6 @@ export default {
   text-align: center;
   word-break: break-word;
 }
-
 .novaturma select,
 .novaturma input {
   font-size: 11px !important;
@@ -960,10 +879,7 @@ export default {
 }
 .novaturma .less-padding {
   padding: 0 2px;
-}
-/*  */
-/*  */
-
+} 
 .stickyAdd {
   display: block;
   overflow: hidden !important;

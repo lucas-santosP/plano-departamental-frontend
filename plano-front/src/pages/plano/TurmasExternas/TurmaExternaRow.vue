@@ -11,11 +11,7 @@
       />
     </td>
     <td style="width:55px" class="less-padding">
-      <select
-        id="2periodo"
-        v-model="turmaForm.periodo"
-        v-on:change="editTurma(turmaForm)"
-      >
+      <select id="2periodo" v-model="turmaForm.periodo" @change="editTurma()">
         <option value="1">1</option>
         <option value="3">3</option>
       </select>
@@ -29,7 +25,7 @@
         type="text"
         id="disciplina"
         v-model="turmaForm.Disciplina"
-        v-on:change="editTurma(turmaForm)"
+        v-on:change="editTurma()"
       >
         <option
           v-for="disciplina in options.DisciplinasExternas"
@@ -48,9 +44,10 @@
       <input
         type="text"
         class="input-letra"
-        v-model="turmaForm.letra"
-        @keypress="onlyA_Z($event), limitLenght($event)"
-        @blur="editTurma(turmaForm)"
+        :value="turmaForm.letra"
+        @input="turmaForm.letra = $event.target.value.toUpperCase()"
+        @keypress="maskTurmaLetra"
+        @change="editTurma()"
       />
     </td>
 
@@ -59,7 +56,7 @@
         type="text"
         id="turno1"
         v-model="turmaForm.turno1"
-        v-on:change="editTurma(turmaForm)"
+        v-on:change="editTurma()"
       >
         <template v-if="disciplinaIsIntegralEAD">
           <option value="EAD">EAD</option>
@@ -72,8 +69,13 @@
     </td>
 
     <td style="width:85px" class="less-padding">
-      <select type="text" id="horario1" v-model="turmaForm.Horario1">
-        <!-- v-on:change="checkHorario(1)" -->
+      <select
+        type="text"
+        id="horario1"
+        v-model="turmaForm.Horario1"
+        @change="checkHorario(1)"
+      >
+        <option value=""></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
@@ -86,8 +88,9 @@
         type="text"
         id="horario2"
         v-model="turmaForm.Horario2"
+        @change="checkHorario(2)"
       >
-        <!-- v-on:change="checkHorario(2)" -->
+        <option value=""></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
@@ -105,6 +108,7 @@
           v-model="turmaForm.Sala1"
           v-on:change="checkSala(1)"
         >
+          <option value=""></option>
           <option v-for="sala in Salas" :key="sala.id" :value="sala.id">
             {{ sala.nome }}
           </option>
@@ -116,6 +120,7 @@
           v-model="turmaForm.Sala2"
           v-on:change="checkSala(2)"
         >
+          <option value=""></option>
           <option v-for="sala in Salas" :key="sala.id" :value="sala.id">
             {{ sala.nome }}</option
           >
@@ -147,8 +152,10 @@
 </template>
 <script>
 import _ from "lodash";
+import { mapActions } from "vuex";
+import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
+import { notification, maskTurmaLetra } from "@/common/mixins";
 import turmaExternaService from "@/common/services/turmaExterna";
-import pedidoExternoService from "@/common/services/pedidoExterno";
 import TurmaExternaPedidos from "./TurmaExternaPedidos.vue";
 
 const emptyTurma = {
@@ -172,6 +179,7 @@ export default {
     turma: { type: Object, required: true },
     options: { type: Object },
   },
+  mixins: [notification, maskTurmaLetra],
   components: {
     TurmaExternaPedidos,
   },
@@ -182,104 +190,62 @@ export default {
       currentData: undefined,
     };
   },
-
   mounted() {
     this.turmaForm = _.clone(this.turma);
     this.currentData = this.TurmaForm;
   },
 
   methods: {
-    limitLenght($event) {
-      if ($event.target.value.length >= 3) $event.preventDefault();
-    },
-    onlyA_Z($event) {
-      let key = $event.key ? $event.key : $event.which;
-      if (!key.match(/[A-Z]/i)) $event.preventDefault();
-    },
+    ...mapActions(["setLoadingState"]),
+
     isEmpty(value) {
       return value === "" || value === undefined ? true : false;
     },
-    convertEmptyToNull(turma) {
-      Object.keys(turma).forEach((key) => {
-        if (this.isEmpty(turma[key])) turma[key] = null;
-      });
-    },
-    validateTurma(turma) {
-      if (turma.Disciplina === null || turma.letra === null) {
-        this.$notify({
-          group: "general",
+    async editTurma() {
+      try {
+        this.setLoadingState("partial");
+
+        const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
+        validateObjectKeys(newTurma, ["letra"]);
+
+        const response = await turmaExternaService.update(
+          newTurma.id,
+          newTurma
+        );
+        this.currentData = _.clone(newTurma);
+
+        this.showNotification({
+          type: "success",
+          message: `A Turma ${response.Turma.letra} foi atualizada!`,
+        });
+      } catch (error) {
+        this.turmaForm = _.cloneDeep(this.turma);
+
+        const erroMsg = error.response
+          ? "A combinação de disciplina, semestre e turma deve ser única."
+          : error.message;
+        this.showNotification({
           type: "error",
-          title: "Erro!",
-          text: "Cadastro da turma inválido ou incompleto.",
+          title: "Erro ao atualizar turma!",
+          message: erroMsg,
         });
-        return false;
+      } finally {
+        this.setLoadingState("completed");
       }
-      return true;
     },
-    editTurma(turma) {
-      const newTurma = _.clone(turma);
-      this.convertEmptyToNull(newTurma);
 
-      if (!this.validateTurma(newTurma)) {
-        this.turmaForm = _.clone(this.turma);
-        return;
-      }
-
-      if (turma.turno1 === "EAD") {
-        turma.Horario1 = 31;
-        if (turma.Horario2 > 0) turma.Horario2 = null;
-      }
-
-      turmaExternaService
-        .update(newTurma.id, newTurma)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `A Turma ${response.Turma.letra} foi atualizada!`,
-            type: "success",
-          });
-          this.currentData = _.clone(this.turmaForm);
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao atualizar Turma</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
     checkDelete(turma) {
       this.$store.commit("checkDeleteExterno", { Turma: turma });
     },
-    editPedido(pedido) {
-      pedidoExternoService
-        .update(pedido.Curso, pedido.Turma, pedido)
-        .then((response) => {
-          this.$notify({
-            group: "general",
-            title: `Sucesso!`,
-            text: `O pedido foi atualizado!`,
-            type: "success",
-          });
-        })
-        .catch((error) => {
-          this.error = "<b>Erro ao atualizar Pedido</b>";
-          if (error.response.data.fullMessage) {
-            this.error +=
-              "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-          }
-        });
-    },
     checkHorario(horario) {
-      if (!this.checkHorarioSala(horario)) this.editTurma(this.turmaForm);
+      if (!this.checkHorarioSala(horario)) this.editTurma();
       else {
         if (horario === 1) this.turmaForm.Horario1 = this.currentData.Horario1;
         else this.turmaForm.Horario2 = this.currentData.Horario2;
       }
     },
     checkSala(sala) {
-      if (!this.checkHorarioSala(sala)) this.editTurma(this.turmaForm);
+      if (!this.checkHorarioSala(sala)) this.editTurma();
       else {
         if (sala === 1) this.turmaForm.Sala1 = this.currentData.Sala1;
         else this.turmaForm.Sala2 = this.currentData.Sala2;
@@ -782,6 +748,11 @@ export default {
     },
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");
+    },
+  },
+  watch: {
+    turma() {
+      this.turmaForm = _.clone(this.turma);
     },
   },
 };
