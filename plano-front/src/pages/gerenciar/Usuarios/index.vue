@@ -176,15 +176,16 @@
 
           <div class="row mb-2 mt-2 mx-0">
             <div class="form-check form-check-inline col m-0 px-0 pl-1">
-              <label class="form-check-label mr-2" for="userIsAdmin"
-                >Admin</label
+              <label required for="userAdmin">Admin </label>
+              <select
+                      id="userAdmin"
+                      v-model.number="userForm.admin"
+                      class="form-control"
               >
-              <input
-                type="checkbox"
-                id="userIsAdmin"
-                class="form-check-input"
-                v-model="userForm.admin"
-              />
+                <option value="0">Consulta</option>
+                <option value="1">Comissão</option>
+                <option value="2">Administrador</option>
+              </select>
             </div>
           </div>
         </template>
