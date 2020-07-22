@@ -1,6 +1,6 @@
 export default {
   created() {
-    const isAdmin = this.$store.state.auth.Usuario.admin >= 1;
+    const isAdmin = this.$store.state.auth.Usuario.admin === 1;
 
     if (!isAdmin) {
       this.$notify({

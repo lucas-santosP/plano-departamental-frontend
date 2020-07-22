@@ -1070,7 +1070,7 @@ export default {
       return this.$store.state.pedido.Pedidos;
     },
     Admin() {
-      return this.$store.state.auth.Usuario.admin >= 1;
+      return this.$store.state.auth.Usuario.admin === 1;
     },
   },
   watch: {

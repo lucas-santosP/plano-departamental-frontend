@@ -439,7 +439,7 @@ export default {
     },
 
     Admin() {
-      if (this.$store.state.auth.Usuario.admin >= 1) {
+      if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
       } else {
         return false;

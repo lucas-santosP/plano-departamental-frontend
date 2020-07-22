@@ -11,7 +11,7 @@
         <LinksList v-if="Admin" :title="'PLANO'" :pages="linksPlanoOrdered" />
         <LinksList :title="'RELATÓRIOS'" :pages="linksRelatoriosOrdered" />
         <LinksList
-          v-if="SuperAdmin"
+          v-if="Admin"
           :title="'GERENCIAR'"
           :pages="linksGerenciarOrdered"
         />
@@ -163,14 +163,7 @@ export default {
       return _.orderBy(this.linksGenrenciar, "title");
     },
     Admin() {
-      if (this.$store.state.auth.Usuario.admin >= 1) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    SuperAdmin() {
-      if (this.$store.state.auth.Usuario.admin >= 2) {
+      if (this.$store.state.auth.Usuario.admin === 1) {
         return true;
       } else {
         return false;

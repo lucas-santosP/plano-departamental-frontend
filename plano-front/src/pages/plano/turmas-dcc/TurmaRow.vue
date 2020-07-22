@@ -1265,7 +1265,7 @@ export default {
       return this.$store.state.pedido.Pedidos[this.turma.id];
     },
     Admin() {
-      return this.$store.state.auth.Usuario.admin >= 1;
+      return this.$store.state.auth.Usuario.admin === 1;
     },
     Salas() {
       return _.orderBy(this.$store.state.sala.Salas, "nome");

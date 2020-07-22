@@ -450,7 +450,7 @@ export default {
       return _.orderBy(this.Users, userSorter, type);
     },
     Admin() {
-      return this.$store.state.auth.Usuario.admin >= 1;
+      return this.$store.state.auth.Usuario.admin === 1;
     },
     isEdit() {
       return this.userSelected != null;

@@ -313,7 +313,7 @@ export default {
       return yearsArry;
     },
     Admin() {
-      return this.$store.state.auth.Usuario.admin >= 1;
+      return this.$store.state.auth.Usuario.admin === 1;
     },
     isEdit() {
       return this.planoSelected != null;
