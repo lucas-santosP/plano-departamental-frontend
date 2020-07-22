@@ -19,6 +19,7 @@
           <i class="fas fa-times"></i>
         </BaseButton>
       </template>
+
       <template v-else>
         <BaseButton
           title="Adicionar"
