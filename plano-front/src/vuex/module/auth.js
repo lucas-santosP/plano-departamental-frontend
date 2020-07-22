@@ -80,7 +80,10 @@ const getters = {
     return state.Usuario ? _.words(state.Usuario.nome)[0] : "";
   },
   Admin(state) {
-    return state.Usuario.admin === 1;
+    return state.Usuario.admin >= 1;
+  },
+  SuperAdmin(state) {
+    return state.Usuario.admin >= 2;
   },
 };
 

@@ -284,7 +284,7 @@ const emptyUser = {
   nome: "",
   login: "",
   senha: "",
-  admin: false,
+  admin: 0,
 };
 
 export default {
