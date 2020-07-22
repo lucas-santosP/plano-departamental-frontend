@@ -736,9 +736,6 @@ export default {
     openModalDelete() {
       this.$refs.modalDelete.open();
     },
-    closeModalDelete() {
-      this.$refs.modalDelete.close();
-    },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
@@ -797,6 +794,7 @@ export default {
         for (let i = 0; i < this.Deletar.length; i++) {
           await turmaService.delete(this.Deletar[i].id);
         }
+        this.$refs.modalDelete.close();
         this.clearDelete();
         this.showNotification({
           type: "success",
@@ -805,11 +803,10 @@ export default {
       } catch (error) {
         this.showNotification({
           type: "error",
-          message: error,
+          message: "Erro ao excluir turma(s).",
         });
       } finally {
         this.setLoadingState("completed");
-        this.closeModalDelete();
       }
     },
   },
