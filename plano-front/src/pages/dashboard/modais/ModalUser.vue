@@ -215,7 +215,7 @@ export default {
   },
   computed: {
     Admin() {
-      return this.$store.state.auth.Usuario.admin === 1;
+      return this.$store.state.auth.Usuario.admin >= 1;
     },
   },
 };

@@ -1210,7 +1210,7 @@ export default {
       return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
     },
     Admin() {
-      if (this.$store.state.auth.Usuario.admin === 1) return true;
+      if (this.$store.state.auth.Usuario.admin >= 1) return true;
       else return false;
     },
   },
