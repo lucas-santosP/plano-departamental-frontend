@@ -97,7 +97,7 @@
                   >Senha<i title="Campo obrigatório">*</i></label
                 >
                 <PasswordInput
-                  :iconSize="11"
+                  :iconSize="13"
                   :inputId="'novaSenha'"
                   v-model="userForm.senha"
                 ></PasswordInput>
@@ -110,7 +110,7 @@
                   Confirmar senha <i title="Campo obrigatório">*</i></label
                 >
                 <PasswordInput
-                  :iconSize="11"
+                  :iconSize="13"
                   :isInvalid="confirmaSenha != userForm.senha"
                   :inputId="'confirmaSenha'"
                   v-model="confirmaSenha"
@@ -120,7 +120,6 @@
           </template>
           <!-- Edit -->
           <template v-else-if="isEdit">
-
             <!-- toggle edit senha -->
             <div class="container-edit-senha">
               <span>Editar senha</span>
@@ -149,7 +148,7 @@
                     Nova senha <i title="Campo obrigatório">*</i>
                   </label>
                   <PasswordInput
-                    :iconSize="11"
+                    :iconSize="13"
                     :inputId="'novaSenha'"
                     v-model="novaSenha"
                   ></PasswordInput>
@@ -164,7 +163,7 @@
                     <i title="Campo obrigatório">*</i></label
                   >
                   <PasswordInput
-                    :iconSize="11"
+                    :iconSize="13"
                     :isInvalid="confirmaSenha != novaSenha"
                     :inputId="'confirmaSenha'"
                     v-model="confirmaSenha"
@@ -178,9 +177,9 @@
             <div class="form-check form-check-inline col m-0 px-0 pl-1">
               <label required for="userAdmin">Tipo </label>
               <select
-                      id="userAdmin"
-                      v-model.number="userForm.admin"
-                      class="form-control"
+                id="userAdmin"
+                v-model.number="userForm.admin"
+                class="form-control"
               >
                 <option value="0">Consulta</option>
                 <option value="1">Comissão</option>
@@ -298,10 +297,13 @@ export default {
   },
   methods: {
     adminText(admin) {
-      switch (admin){
-        case 0: return "Consulta";
-        case 1: return "Comissão";
-        case 2: return "Administrador";
+      switch (admin) {
+        case 0:
+          return "Consulta";
+        case 1:
+          return "Comissão";
+        case 2:
+          return "Administrador";
       }
     },
     toggleEditSenha() {
@@ -337,7 +339,8 @@ export default {
     },
     validateUser(user) {
       for (const entry of Object.entries(user)) {
-        if ((entry[1] === "" || entry[1] === null) && entry[0] !== "senha") return false;
+        if ((entry[1] === "" || entry[1] === null) && entry[0] !== "senha")
+          return false;
       }
       return true;
     },
@@ -368,7 +371,7 @@ export default {
     },
     async editUser() {
       const user = _.clone(this.userForm);
-      user.senha = this.novaSenha
+      user.senha = this.novaSenha;
 
       if (!this.validateEditUser(user)) {
         this.showNotification({
