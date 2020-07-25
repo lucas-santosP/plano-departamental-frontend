@@ -5,7 +5,7 @@
       :class="['input-pedidos', { empty: pedidoForm.vagasPeriodizadas == 0 }]"
       v-model.number="pedidoForm.vagasPeriodizadas"
       v-focus-pedido
-      @keypress="onlyNumber"
+      @keypress="maskOnlyNumber"
       @change="editPedido(pedido)"
     />
 
@@ -17,7 +17,7 @@
       ]"
       v-model.number="pedidoForm.vagasNaoPeriodizadas"
       v-focus-pedido
-      @keypress="onlyNumber"
+      @keypress="maskOnlyNumber"
       @change="editPedido(pedido)"
     />
   </div>
@@ -26,7 +26,7 @@
 <script>
 import _ from "lodash";
 import pedidoService from "@/common/services/pedido";
-import { notification } from "@/common/mixins";
+import { notification, maskOnlyNumber } from "@/common/mixins";
 const emptyPedido = {
   vagasPeriodizadas: 0,
   vagasNaoPeriodizadas: 0,
@@ -40,7 +40,7 @@ export default {
     turma: Object,
     index: Number,
   },
-  mixins: [notification],
+  mixins: [notification, maskOnlyNumber],
   directives: {
     focusPedido: {
       bind(el) {
@@ -55,23 +55,14 @@ export default {
   },
   data() {
     return {
-      ativo: false,
       pedidoForm: _.clone(emptyPedido),
     };
   },
   mounted() {
-    this.pedidoForm = _.clone(
-      this.$store.state.pedido.Pedidos[this.turma.id][this.index]
-    );
+    this.pedidoForm = _.clone(this.currentTurmaPedidos);
   },
 
   methods: {
-    onlyNumber($event) {
-      let keyCode = $event.keyCode ? $event.keyCode : $event.which;
-      if (keyCode < 48 || keyCode > 57) {
-        $event.preventDefault();
-      }
-    },
     validatePedido(pedido) {
       if (pedido.vagasPeriodizadas == "") pedido.vagasPeriodizadas = 0;
       if (pedido.vagasNaoPeriodizadas == "") pedido.vagasNaoPeriodizadas = 0;
@@ -100,15 +91,13 @@ export default {
     },
   },
   computed: {
-    pedido() {
+    currentTurmaPedidos() {
       return this.$store.state.pedido.Pedidos[this.turma.id][this.index];
     },
   },
   watch: {
-    pedido() {
-      this.pedidoForm = _.clone(
-        this.$store.state.pedido.Pedidos[this.turma.id][this.index]
-      );
+    currentTurmaPedidos(newValue) {
+      this.pedidoForm = _.clone(newValue);
     },
   },
 };
