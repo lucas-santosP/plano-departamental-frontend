@@ -20,7 +20,7 @@
               <p class="mx-2">
                 <b>Login:</b> {{ $store.state.auth.Usuario.login }}
               </p>
-              <p class="mx-2"><b>Admin:</b> {{ Admin ? "Sim" : "Não" }}</p>
+              <p class="mx-2"><b>Tipo:</b> {{ adminText() }}</p>
             </div>
           </div>
           <BaseButton :type="'text'" :color="'red'" @click="routerLogout">
@@ -148,6 +148,13 @@ export default {
     this.clearEditUserForm();
   },
   methods: {
+    adminText() {
+      switch (this.$store.state.auth.Usuario.admin){
+        case 0: return "Consulta";
+        case 1: return "Comissão";
+        case 2: return "Administrador";
+      }
+    },
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;
       this.userForm.senha = "";

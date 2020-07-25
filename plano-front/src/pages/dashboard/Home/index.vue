@@ -11,7 +11,7 @@
       <div class="row">
         <LinkList v-if="Admin" :title="'PLANO'" :pages="routesPlano" />
         <LinkList :title="'RELATÓRIOS'" :pages="routesRelatorios" />
-        <LinkList v-if="Admin" :title="'GERENCIAR'" :pages="routesGerenciar" />
+        <LinkList v-if="SuperAdmin" :title="'GERENCIAR'" :pages="routesGerenciar" />
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@ export default {
   computed: {
     ...mapGetters([
       "Admin",
+      "SuperAdmin",
       "usuarioNome",
       "routesPlano",
       "routesRelatorios",
