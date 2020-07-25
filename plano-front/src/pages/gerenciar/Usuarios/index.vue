@@ -100,7 +100,7 @@
                   :iconSize="13"
                   :inputId="'novaSenha'"
                   v-model="userForm.senha"
-                ></PasswordInput>
+                />
               </div>
             </div>
             <!-- confirmar senha -->
@@ -114,7 +114,7 @@
                   :isInvalid="confirmaSenha != userForm.senha"
                   :inputId="'confirmaSenha'"
                   v-model="confirmaSenha"
-                ></PasswordInput>
+                />
               </div>
             </div>
           </template>
@@ -151,8 +151,7 @@
                     :iconSize="13"
                     :inputId="'novaSenha'"
                     v-model="novaSenha"
-                  ></PasswordInput>
-                  <!-- v-model="userForm.senha" -->
+                  />
                 </div>
               </div>
               <!-- confirma nova senha -->
@@ -167,7 +166,7 @@
                     :isInvalid="confirmaSenha != novaSenha"
                     :inputId="'confirmaSenha'"
                     v-model="confirmaSenha"
-                  ></PasswordInput>
+                  />
                 </div>
               </div>
             </template>
