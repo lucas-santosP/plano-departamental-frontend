@@ -6,7 +6,7 @@ import BodyModalEditTurma from "./BodyModalEditTurma.vue";
 import PedidosTableModal from "./PedidosTableModal.vue";
 import BaseModal from "./BaseModal.vue";
 import BaseButton from "./BaseButton.vue";
-import PasswordInput from "./PasswordInput.vue";
+import InputPassword from "./InputPassword.vue";
 import ModalRelatorio from "./ModalRelatorio.vue";
 import ModalDelete from "./ModalDelete.vue";
 import ButtonSlideSection from "./ButtonSlideSection.vue";
@@ -17,7 +17,7 @@ export {
   ButtonSlideSection,
   ModalDelete,
   PageHeader,
-  PasswordInput,
+  InputPassword,
   BaseTable,
   Card,
   NavTab,

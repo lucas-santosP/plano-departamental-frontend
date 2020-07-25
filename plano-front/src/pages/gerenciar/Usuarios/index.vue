@@ -92,7 +92,7 @@
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
                 <label required for="novaSenha">Senha</label>
-                <PasswordInput
+                <InputPassword
                   :iconSize="13"
                   :inputId="'novaSenha'"
                   v-model="userForm.senha"
@@ -103,7 +103,7 @@
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
                 <label required for="confirmaSenha"> Confirmar senha </label>
-                <PasswordInput
+                <InputPassword
                   :iconSize="13"
                   :isInvalid="confirmaSenha != userForm.senha"
                   :inputId="'confirmaSenha'"
@@ -128,7 +128,7 @@
                     <label required for="novaSenha">
                       Nova senha
                     </label>
-                    <PasswordInput
+                    <InputPassword
                       :iconSize="13"
                       :inputId="'novaSenha'"
                       v-model="novaSenha"
@@ -141,7 +141,7 @@
                     <label required for="confirmaSenha"
                       >Confirmar nova senha
                     </label>
-                    <PasswordInput
+                    <InputPassword
                       :iconSize="13"
                       :isInvalid="confirmaSenha != novaSenha"
                       :inputId="'confirmaSenha'"
@@ -243,7 +243,7 @@ import {
   BaseModal,
   PageHeader,
   BaseButton,
-  PasswordInput,
+  InputPassword,
   Card,
   ButtonSlideSection,
 } from "@/components/ui";
@@ -263,7 +263,7 @@ export default {
     PageHeader,
     BaseButton,
     Card,
-    PasswordInput,
+    InputPassword,
     BaseModal,
     ButtonSlideSection,
   },

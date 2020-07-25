@@ -49,7 +49,7 @@
           </div>
           <div class="form-row">
             <label required for="senhaAtual">Senha atual</label>
-            <PasswordInput
+            <InputPassword
               :isInvalid="false"
               :inputId="'senhaAtual'"
               v-model="senhaAtual"
@@ -65,7 +65,7 @@
             <template v-if="isEditingSenha">
               <div :key="'newPass'" class="form-row">
                 <label required for="novaSenha">Nova senha</label>
-                <PasswordInput
+                <InputPassword
                   :inputId="'novaSenha'"
                   v-model="userForm.senha"
                 />
@@ -75,7 +75,7 @@
                 <label required for="confirmaSenha"
                   >Confirmar nova senha
                 </label>
-                <PasswordInput
+                <InputPassword
                   :isInvalid="confirmaSenha != userForm.senha"
                   :inputId="'confirmaSenha'"
                   v-model="confirmaSenha"
@@ -114,7 +114,7 @@ import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
 import {
   BaseModal,
-  PasswordInput,
+  InputPassword,
   BaseButton,
   ButtonSlideSection,
 } from "@/components/ui";
@@ -128,7 +128,7 @@ const emptyUser = {
 export default {
   name: "ModalUser",
   mixins: [notification],
-  components: { BaseModal, PasswordInput, BaseButton, ButtonSlideSection },
+  components: { BaseModal, InputPassword, BaseButton, ButtonSlideSection },
   data() {
     return {
       userForm: _.clone(emptyUser),

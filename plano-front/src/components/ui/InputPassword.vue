@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "PasswordInput",
+  name: "InputPassword",
   props: {
     value: { type: String, default: "" },
     inputId: { type: String, default: "passwordInpt" },
