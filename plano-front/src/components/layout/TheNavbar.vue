@@ -67,10 +67,11 @@ export default {
           await localStorage.setItem("Plano", this.currentPlano);
           await this.$store.dispatch("fetchAll");
           this.$socket.open();
-          this.setLoadingState("completed");
         }, 300);
       } catch (error) {
         console.log(error);
+      } finally {
+        this.setLoadingState("completed");
       }
     },
   },

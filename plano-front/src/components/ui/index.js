@@ -10,8 +10,10 @@ import PasswordInput from "./PasswordInput.vue";
 import ModalRelatorio from "./ModalRelatorio.vue";
 import ModalDelete from "./ModalDelete.vue";
 import ButtonSlideSection from "./ButtonSlideSection.vue";
+import InputSearch from "./InputSearch.vue";
 
 export {
+  InputSearch,
   ButtonSlideSection,
   ModalDelete,
   PageHeader,

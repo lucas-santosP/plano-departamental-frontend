@@ -311,18 +311,10 @@
             :hasSearchBar="true"
           >
             <template #thead-search>
-              <input
-                type="text"
-                class="form-control input-search"
-                placeholder="Pesquise nome ou codigo de uma disciplina..."
+              <InputSearch
                 v-model="searchDisciplinasModal"
+                placeholder="Pesquise nome ou codigo de uma disciplina..."
               />
-              <button
-                @click="clearsearchDisciplinasModal()"
-                class="btn btn-search"
-              >
-                &times;
-              </button>
             </template>
             <template #thead>
               <th style="width: 25px;"></th>
@@ -500,6 +492,7 @@ import {
   ModalDelete,
   NavTab,
   BaseButton,
+  InputSearch,
 } from "@/components/ui";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 import { mapActions } from "vuex";
@@ -534,6 +527,7 @@ export default {
     NavTab,
     ModalDelete,
     BaseButton,
+    InputSearch,
   },
   data() {
     return {
@@ -601,9 +595,6 @@ export default {
         .toUpperCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
-    },
-    clearsearchDisciplinasModal() {
-      this.searchDisciplinasModal = "";
     },
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
@@ -879,7 +870,7 @@ export default {
 }
 .novaturma .less-padding {
   padding: 0 2px;
-} 
+}
 .stickyAdd {
   display: block;
   overflow: hidden !important;

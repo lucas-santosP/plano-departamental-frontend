@@ -235,18 +235,10 @@
             :hasSearchBar="true"
           >
             <template #thead-search>
-              <input
-                type="text"
-                class="form-control input-search"
+              <InputSearch
+                v-model="searchDisciplinasModal"
                 placeholder="Pesquise nome ou codigo de uma disciplina..."
-                @input="debounceInput($event, 'searchDisciplinasModal')"
               />
-              <button
-                @click="searchDisciplinasModal = ''"
-                class="btn btn-search"
-              >
-                <i class="fas fa-times"></i>
-              </button>
             </template>
             <template #thead
               ><th style="width:25px"></th>
@@ -335,15 +327,10 @@
             :hasSearchBar="true"
           >
             <template #thead-search>
-              <input
-                type="text"
-                class="form-control input-search"
+              <InputSearch
+                v-model="searchCursosModal"
                 placeholder="Pesquise nome ou codigo de um curso..."
-                @input="debounceInput($event, 'searchCursosModal')"
               />
-              <button @click="searchCursosModal = ''" class="btn btn-search">
-                <i class="fas fa-times"></i>
-              </button>
             </template>
             <template #thead>
               <th style="width:25px"></th>
@@ -578,7 +565,6 @@ import {
   toggleOrdination,
   toggleItemInArray,
   notification,
-  debounceInput,
   tableLoading,
 } from "@/common/mixins";
 import {
@@ -589,6 +575,7 @@ import {
   NavTab,
   BodyModalEditTurma,
   BaseButton,
+  InputSearch,
 } from "@/components/ui";
 import { normalizeText } from "@/common/utils";
 import NovaTurmaRow from "./NovaTurmaRow.vue";
@@ -596,13 +583,7 @@ import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "TurmasDCC",
-  mixins: [
-    toggleOrdination,
-    toggleItemInArray,
-    notification,
-    debounceInput,
-    tableLoading,
-  ],
+  mixins: [toggleOrdination, toggleItemInArray, notification, tableLoading],
   components: {
     ModalDelete,
     TurmaRow,
@@ -613,6 +594,7 @@ export default {
     BaseTable,
     BaseModal,
     BaseButton,
+    InputSearch,
   },
   data() {
     return {
