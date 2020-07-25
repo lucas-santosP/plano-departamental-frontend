@@ -66,7 +66,7 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="nome">Nome <i title="Campo obrigatório">*</i></label>
+              <label required for="nome">Nome </label>
               <input
                 class="form-control"
                 type="text"
@@ -77,9 +77,7 @@
           </div>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label for="login"
-                >Login <i title="Campo obrigatório">*</i></label
-              >
+              <label required for="login">Login </label>
               <input
                 class="form-control"
                 type="text"
@@ -93,9 +91,7 @@
             <!-- senha -->
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
-                <label for="novaSenha"
-                  >Senha<i title="Campo obrigatório">*</i></label
-                >
+                <label required for="novaSenha">Senha</label>
                 <PasswordInput
                   :iconSize="13"
                   :inputId="'novaSenha'"
@@ -106,9 +102,7 @@
             <!-- confirmar senha -->
             <div class="row mb-2 mx-0">
               <div class="form-group col m-0 px-0">
-                <label for="confirmaSenha">
-                  Confirmar senha <i title="Campo obrigatório">*</i></label
-                >
+                <label required for="confirmaSenha"> Confirmar senha </label>
                 <PasswordInput
                   :iconSize="13"
                   :isInvalid="confirmaSenha != userForm.senha"
@@ -144,8 +138,8 @@
             <template v-if="isEditingSenha">
               <div :key="'senha'" class="row mb-2 mx-0">
                 <div class="form-group col m-0 px-0">
-                  <label for="novaSenha">
-                    Nova senha <i title="Campo obrigatório">*</i>
+                  <label required for="novaSenha">
+                    Nova senha
                   </label>
                   <PasswordInput
                     :iconSize="13"
@@ -157,10 +151,9 @@
               <!-- confirma nova senha -->
               <div :key="'confirma'" class="row mb-2 mx-0">
                 <div class="form-group col m-0 px-0">
-                  <label for="confirmaSenha"
+                  <label required for="confirmaSenha"
                     >Confirmar nova senha
-                    <i title="Campo obrigatório">*</i></label
-                  >
+                  </label>
                   <PasswordInput
                     :iconSize="13"
                     :isInvalid="confirmaSenha != novaSenha"
@@ -172,9 +165,9 @@
             </template>
           </template>
 
-          <div class="row mb-2 mt-2 mx-0">
-            <div class="form-check form-check-inline col m-0 px-0 pl-1">
-              <label required for="userAdmin">Tipo </label>
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
+              <label for="userAdmin">Tipo </label>
               <select
                 id="userAdmin"
                 v-model.number="userForm.admin"
@@ -449,16 +442,9 @@ export default {
 </script>
 
 <style scoped>
-::v-deep .card input[type="text"],
-::v-deep .card input[type="password"] {
+.card input,
+.card select {
   width: 200px !important;
-  height: 25px !important;
-  padding: 0px 5px !important;
-  font-size: 12px !important;
-  text-align: start;
-}
-.form-group label > i {
-  color: #f30000;
 }
 
 .container-edit-senha {
