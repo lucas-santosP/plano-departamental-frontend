@@ -53,7 +53,7 @@
               :isInvalid="false"
               :inputId="'senhaAtual'"
               v-model="senhaAtual"
-            ></PasswordInput>
+            />
           </div>
           <!-- toggle edit senha -->
           <div class="container-edit-senha">
@@ -79,7 +79,7 @@
                 <PasswordInput
                   :inputId="'novaSenha'"
                   v-model="userForm.senha"
-                ></PasswordInput>
+                />
               </div>
 
               <div :key="'repeatPass'" class="form-row">
@@ -90,7 +90,7 @@
                   :isInvalid="confirmaSenha != userForm.senha"
                   :inputId="'confirmaSenha'"
                   v-model="confirmaSenha"
-                ></PasswordInput>
+                />
               </div>
             </template>
 
@@ -149,10 +149,13 @@ export default {
   },
   methods: {
     adminText() {
-      switch (this.$store.state.auth.Usuario.admin){
-        case 0: return "Consulta";
-        case 1: return "Comissão";
-        case 2: return "Administrador";
+      switch (this.$store.state.auth.Usuario.admin) {
+        case 0:
+          return "Consulta";
+        case 1:
+          return "Comissão";
+        case 2:
+          return "Administrador";
       }
     },
     toggleEditSenha() {
