@@ -115,54 +115,42 @@
           <!-- Edit -->
           <template v-else-if="isEdit">
             <!-- toggle edit senha -->
-            <div class="container-edit-senha">
-              <span>Editar senha</span>
-
-              <button
-                type="button"
-                @click.prevent="toggleEditSenha()"
-                class="btn-edit-senha"
-              >
-                <div
-                  :style="`transform: rotate(${isEditingSenha ? -90 : 0}deg)`"
-                >
-                  <i
-                    class="fas fa-chevron-left"
-                    style="font-size:15px!important"
-                  ></i>
-                </div>
-              </button>
-            </div>
+            <ButtonSlideSection
+              :isOpen="isEditingSenha"
+              @handel-click="toggleEditSenha"
+            />
 
             <!-- edit senha -->
-            <template v-if="isEditingSenha">
-              <div :key="'senha'" class="row mb-2 mx-0">
-                <div class="form-group col m-0 px-0">
-                  <label required for="novaSenha">
-                    Nova senha
-                  </label>
-                  <PasswordInput
-                    :iconSize="13"
-                    :inputId="'novaSenha'"
-                    v-model="novaSenha"
-                  />
+            <transition-group name="slideY" mode="out-in">
+              <template v-if="isEditingSenha">
+                <div :key="'senha'" class="row mb-2 mx-0">
+                  <div class="form-group col m-0 px-0">
+                    <label required for="novaSenha">
+                      Nova senha
+                    </label>
+                    <PasswordInput
+                      :iconSize="13"
+                      :inputId="'novaSenha'"
+                      v-model="novaSenha"
+                    />
+                  </div>
                 </div>
-              </div>
-              <!-- confirma nova senha -->
-              <div :key="'confirma'" class="row mb-2 mx-0">
-                <div class="form-group col m-0 px-0">
-                  <label required for="confirmaSenha"
-                    >Confirmar nova senha
-                  </label>
-                  <PasswordInput
-                    :iconSize="13"
-                    :isInvalid="confirmaSenha != novaSenha"
-                    :inputId="'confirmaSenha'"
-                    v-model="confirmaSenha"
-                  />
+                <!-- confirma nova senha -->
+                <div :key="'confirma'" class="row mb-2 mx-0">
+                  <div class="form-group col m-0 px-0">
+                    <label required for="confirmaSenha"
+                      >Confirmar nova senha
+                    </label>
+                    <PasswordInput
+                      :iconSize="13"
+                      :isInvalid="confirmaSenha != novaSenha"
+                      :inputId="'confirmaSenha'"
+                      v-model="confirmaSenha"
+                    />
+                  </div>
                 </div>
-              </div>
-            </template>
+              </template>
+            </transition-group>
           </template>
 
           <div class="row mb-2 mx-0">
@@ -257,6 +245,7 @@ import {
   BaseButton,
   PasswordInput,
   Card,
+  ButtonSlideSection,
 } from "@/components/ui";
 
 const emptyUser = {
@@ -276,6 +265,7 @@ export default {
     Card,
     PasswordInput,
     BaseModal,
+    ButtonSlideSection,
   },
   data() {
     return {
@@ -442,59 +432,13 @@ export default {
 </script>
 
 <style scoped>
+@import url(../../../assets/css/slideY-section-animation.css);
+
+.card {
+  font-size: 11px;
+}
 .card input,
 .card select {
   width: 200px !important;
-}
-
-.container-edit-senha {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 10px 0;
-  margin-top: 12px;
-  font-size: 12x;
-  padding: 5px 0;
-}
-.container-edit-senha::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 100%;
-  border-top: 1px solid #dee2e6;
-}
-.container-edit-senha::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  border-bottom: 1px solid #dee2e6;
-}
-.btn-edit-senha {
-  padding: 0 !important;
-  border: none !important;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  line-height: 50% !important;
-  margin: 0;
-  transition: all 0.3s ease 0s !important;
-  cursor: pointer !important;
-  text-align: center !important;
-  transition: all 200ms ease;
-  padding: 0 5px !important;
-  background-color: transparent !important;
-  line-height: 50%;
-  border: none;
-  margin: 0;
-  background: none;
-}
-.btn-edit-senha div {
-  transition: all 0.25s ease !important;
-}
-.btn-edit-senha:focus {
-  box-shadow: 0 0 0 0.15rem #007bff40 !important;
 }
 </style>

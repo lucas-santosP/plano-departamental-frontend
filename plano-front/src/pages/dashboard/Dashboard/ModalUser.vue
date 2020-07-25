@@ -56,21 +56,10 @@
             />
           </div>
           <!-- toggle edit senha -->
-          <div class="container-edit-senha">
-            <b>Editar senha</b>
-
-            <button
-              type="button"
-              @click.prevent="toggleEditSenha()"
-              class="btn-edit-senha"
-            >
-              <i
-                class="fas fa-chevron-left"
-                style="font-size:16px!important"
-                :style="`transform: rotate(${isEditingSenha ? -90 : 0}deg)`"
-              ></i>
-            </button>
-          </div>
+          <ButtonSlideSection
+            :isOpen="isEditingSenha"
+            @handel-click="toggleEditSenha"
+          />
 
           <transition-group name="slideY" mode="out-in">
             <template v-if="isEditingSenha">
@@ -123,7 +112,12 @@
 import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
-import { BaseModal, PasswordInput, BaseButton } from "@/components/ui";
+import {
+  BaseModal,
+  PasswordInput,
+  BaseButton,
+  ButtonSlideSection,
+} from "@/components/ui";
 
 const emptyUser = {
   nome: "",
@@ -134,7 +128,7 @@ const emptyUser = {
 export default {
   name: "ModalUser",
   mixins: [notification],
-  components: { BaseModal, PasswordInput, BaseButton },
+  components: { BaseModal, PasswordInput, BaseButton, ButtonSlideSection },
   data() {
     return {
       userForm: _.clone(emptyUser),
@@ -233,6 +227,8 @@ export default {
 </script>
 
 <style scoped>
+@import url(../../../assets/css/slideY-section-animation.css);
+
 .user-container {
   display: flex;
   flex-direction: column;
@@ -247,36 +243,6 @@ export default {
 }
 .user-header .user-img {
   width: 50px;
-}
-.user-container .tab-group {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.tab-group .tab-link {
-  flex: 1;
-  text-align: center;
-  font-weight: bold;
-  transition: all 200ms ease;
-  position: relative;
-  padding: 5px 0;
-  height: 100%;
-  cursor: default;
-}
-.tab-group .tab-link:hover {
-  cursor: pointer;
-  color: var(--light-blue);
-  background-color: rgba(235, 235, 235, 0.733);
-}
-.tab-group .tab-link.tab-active::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: var(--light-blue);
 }
 
 .user-container .form-row {
@@ -345,35 +311,5 @@ export default {
 .user-container p {
   margin: 0;
   word-break: break-all;
-}
-
-.slideY-enter-active {
-  animation: slideDown 0.2s ease;
-}
-.slideY-leave-active {
-  animation: slideUp 0.2s ease;
-}
-.slideY-move {
-  transition: transform 0.3s ease;
-}
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-30%);
-  }
 }
 </style>

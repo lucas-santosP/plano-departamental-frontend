@@ -9,8 +9,10 @@ import BaseButton from "./BaseButton.vue";
 import PasswordInput from "./PasswordInput.vue";
 import ModalRelatorio from "./ModalRelatorio.vue";
 import ModalDelete from "./ModalDelete.vue";
+import ButtonSlideSection from "./ButtonSlideSection.vue";
 
 export {
+  ButtonSlideSection,
   ModalDelete,
   PageHeader,
   PasswordInput,
