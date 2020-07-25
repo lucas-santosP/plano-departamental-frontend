@@ -1097,15 +1097,12 @@ export default {
       }
       return false;
     },
-    checkDelete(turma) {
-      this.$store.commit("checkDelete", { Turma: turma });
-    },
     async editTurma() {
       try {
         this.setLoadingState("partial");
 
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
-        validateObjectKeys(newTurma, ["letra"]);
+        validateObjectKeys(newTurma, ["letra", "Disciplina"]);
 
         const response = await turmaService.update(newTurma.id, newTurma);
         this.currentData = _.clone(newTurma);
