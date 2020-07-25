@@ -2,19 +2,19 @@
   <div class="input-container">
     <input
       :id="inputId"
-      type="password"
-      ref="inputPassword"
+      :type="currentInputType"
       :placeholder="placeholder"
       :class="[classes, { 'input-invalid': isInvalid && isDirty }]"
       @input="updateValue($event)"
       :value="value"
     />
-    <i
-      :class="'fas fa-' + currentPasswordIcon"
+
+    <font-awesome-icon
       class="input-icon"
-      :style="`font-size: ${iconSize}px`"
-      @click="changePasswordVisibility()"
-    ></i>
+      @click="togglePasswordVisibility()"
+      :style="{ width: iconSize + 'px' }"
+      :icon="['fas', currentInputIcon]"
+    />
   </div>
 </template>
 
@@ -25,13 +25,14 @@ export default {
     value: { type: String, default: "" },
     inputId: { type: String, default: "passwordInpt" },
     isInvalid: { type: Boolean, default: false },
-    iconSize: { type: Number, default: 13 },
+    iconSize: { type: Number, default: 16 },
     classes: { type: String, default: "form-control" },
     placeholder: { type: String, default: "" },
   },
   data() {
     return {
-      currentPasswordIcon: "eye-slash",
+      currentInputIcon: "eye-slash",
+      currentInputType: "password",
       isDirty: false,
     };
   },
@@ -40,14 +41,14 @@ export default {
       this.$emit("input", event.target.value);
       this.isDirty = true;
     },
-    changePasswordVisibility() {
-      let inputPassword = this.$refs.inputPassword;
-      inputPassword.type =
-        inputPassword.type === "password" ? "text" : "password";
-
-      this.currentPasswordIcon === "eye"
-        ? (this.currentPasswordIcon = "eye-slash")
-        : (this.currentPasswordIcon = "eye");
+    togglePasswordVisibility() {
+      if (this.currentInputType === "text") {
+        this.currentInputType = "password";
+        this.currentInputIcon = "eye-slash";
+      } else {
+        this.currentInputType = "text";
+        this.currentInputIcon = "eye";
+      }
     },
   },
 };
@@ -62,13 +63,13 @@ export default {
   padding-right: 30px !important;
 }
 .input-icon {
-  cursor: pointer;
   position: absolute;
-  right: 2%;
-  font-size: 13px;
+  right: 1%;
   top: 50%;
   transform: translate(-50%, -50%);
   color: rgb(97, 97, 97);
+  cursor: pointer;
+  user-select: none;
 }
 .input-invalid {
   border-color: rgb(228, 42, 42) !important;

@@ -185,7 +185,6 @@ import {
   BaseTable,
   BaseModal,
   BaseButton,
-  PasswordInput,
   Card,
 } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano";
@@ -204,7 +203,6 @@ export default {
     PageHeader,
     BaseButton,
     Card,
-    PasswordInput,
     BaseModal,
     ModalNovoPlano,
   },
