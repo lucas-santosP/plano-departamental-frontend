@@ -120,6 +120,7 @@ td:hover {
 .table-custom tbody tr:hover {
   background-color: #dbdbdb;
 }
+.table-custom thead tr th i,
 .table-custom thead tr th svg {
   font-size: 9px;
 }
