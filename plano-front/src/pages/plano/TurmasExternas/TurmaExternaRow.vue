@@ -1,34 +1,26 @@
 <template>
   <tr class="turmarow">
-    <td style="width:25px">
+    <td style="width: 25px">
       <input
         type="checkbox"
         class="form-check-input position-static m-0"
-        name="ativa"
-        value="true"
-        v-on:click="checkDelete(turma)"
-        v-model="ativo"
+        @click="selectToDelete(turma)"
       />
     </td>
-    <td style="width:55px" class="less-padding">
-      <select id="2periodo" v-model="turmaForm.periodo" @change="editTurma()">
+    <td style="width: 55px" class="less-padding">
+      <select v-model="turmaForm.periodo" @change="editTurma()">
         <option value="1">1</option>
         <option value="3">3</option>
       </select>
     </td>
-    <td style="width:70px">
-      {{ turmaForm.disciplinaCodigo }}
+    <td style="width: 70px">
+      {{ turmaForm.disciplina.codigo }}
     </td>
 
     <td style="width: 330px" class="less-padding">
-      <select
-        type="text"
-        id="disciplina"
-        v-model="turmaForm.Disciplina"
-        v-on:change="editTurma()"
-      >
+      <select type="text" v-model="turmaForm.Disciplina" @change="editTurma()">
         <option
-          v-for="disciplina in options.DisciplinasExternas"
+          v-for="disciplina in DisciplinasExternasInPerfis"
           :key="disciplina.id"
           :value="disciplina.id"
           >{{ disciplina.nome }}</option
@@ -56,7 +48,7 @@
         type="text"
         id="turno1"
         v-model="turmaForm.turno1"
-        v-on:change="editTurma()"
+        @change="editTurma()"
       >
         <template v-if="disciplinaIsIntegralEAD">
           <option value="EAD">EAD</option>
@@ -84,9 +76,8 @@
         >
       </select>
       <select
-        v-if="hasMoreThan4Creditos"
+        v-if="totalCarga >= 4"
         type="text"
-        id="horario2"
         v-model="turmaForm.Horario2"
         @change="checkHorario(2)"
       >
@@ -106,22 +97,30 @@
           type="text"
           id="sala1"
           v-model="turmaForm.Sala1"
-          v-on:change="checkSala(1)"
+          @change="checkSala(1)"
         >
           <option value=""></option>
-          <option v-for="sala in Salas" :key="sala.id" :value="sala.id">
+          <option
+            v-for="sala in AllSalas"
+            :key="'s1' + sala.id"
+            :value="sala.id"
+          >
             {{ sala.nome }}
           </option>
         </select>
         <select
-          v-if="hasMoreThan4Creditos"
+          v-if="totalCarga >= 4"
           type="text"
           id="sala2"
           v-model="turmaForm.Sala2"
-          v-on:change="checkSala(2)"
+          @change="checkSala(2)"
         >
           <option value=""></option>
-          <option v-for="sala in Salas" :key="sala.id" :value="sala.id">
+          <option
+            v-for="sala in AllSalas"
+            :key="'s2' + sala.id"
+            :value="sala.id"
+          >
             {{ sala.nome }}</option
           >
         </select>
@@ -146,67 +145,44 @@
       style="width:35px"
       class="p-0"
     >
-      <TurmaExternaPedidos :index="indice" :turma="turma" />
+      <InputsPedidosExternos :index="indice" :turma="turma" />
     </td>
   </tr>
 </template>
 <script>
 import _ from "lodash";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import turmaExternaService from "@/common/services/turmaExterna";
 import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
 import { notification, maskTurmaLetra } from "@/common/mixins";
-import turmaExternaService from "@/common/services/turmaExterna";
-import TurmaExternaPedidos from "./TurmaExternaPedidos.vue";
-
-const emptyTurma = {
-  id: null,
-  periodo: null,
-  letra: null,
-  turno1: null,
-  turno2: null,
-  Disciplina: null,
-  Docente1: null,
-  Docente2: null,
-  Horario1: null,
-  Horario2: null,
-  Sala1: null,
-  Sala2: null,
-};
+import InputsPedidosExternos from "./InputsPedidosExternos.vue";
 
 export default {
-  name: "TurmaRow",
+  name: "TurmaExternaRow",
   props: {
     turma: { type: Object, required: true },
-    options: { type: Object },
+    CursosAtivados: { type: Array, required: true },
   },
   mixins: [notification, maskTurmaLetra],
   components: {
-    TurmaExternaPedidos,
+    InputsPedidosExternos,
   },
   data() {
     return {
-      ativo: false,
-      turmaForm: _.clone(emptyTurma),
-      currentData: undefined,
+      turmaForm: _.clone(this.turma),
+      currentData: _.clone(this.turma),
     };
-  },
-  mounted() {
-    this.turmaForm = _.clone(this.turma);
-    this.currentData = this.TurmaForm;
   },
 
   methods: {
     ...mapActions(["setLoadingState"]),
 
-    isEmpty(value) {
-      return value === "" || value === undefined ? true : false;
-    },
     async editTurma() {
       try {
         this.setLoadingState("partial");
 
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
-        validateObjectKeys(newTurma, ["letra"]);
+        validateObjectKeys(newTurma, ["letra", "Disciplina"]);
 
         const response = await turmaExternaService.update(
           newTurma.id,
@@ -234,9 +210,10 @@ export default {
       }
     },
 
-    checkDelete(turma) {
+    selectToDelete(turma) {
       this.$store.commit("checkDeleteExterno", { Turma: turma });
     },
+
     checkHorario(horario) {
       if (!this.checkHorarioSala(horario)) this.editTurma();
       else {
@@ -324,18 +301,12 @@ export default {
     notifyHorarioSala(horario, sala) {
       let h =
         horario === 1
-          ? _.find(this.$store.state.horario.Horarios, [
-              "id",
-              this.turmaForm.Horario1,
-            ])
-          : _.find(this.$store.state.horario.Horarios, [
-              "id",
-              this.turmaForm.Horario2,
-            ]);
+          ? _.find(this.AllHorarios, ["id", this.turmaForm.Horario1])
+          : _.find(this.AllHorarios, ["id", this.turmaForm.Horario2]);
       let s =
         sala === 1
-          ? _.find(this.$store.state.sala.Salas, ["id", this.turmaForm.Sala1])
-          : _.find(this.$store.state.sala.Salas, ["id", this.turmaForm.Sala2]);
+          ? _.find(this.AllSalas, ["id", this.turmaForm.Sala1])
+          : _.find(this.AllSalas, ["id", this.turmaForm.Sala2]);
 
       let text = `Conflito no horário ${h.horario} com a sala ${s.nome}`;
       this.$notify({
@@ -651,12 +622,21 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      "DisciplinasExternasInPerfis",
+      "AllHorarios",
+      "HorariosEAD",
+      "HorariosNoturno",
+      "HorariosDiurno",
+      "AllSalas",
+    ]),
+
     totalPedidosPeriodizados() {
       if (!this.Pedidos) return 0;
 
       let total = 0;
-      for (let i = 0; i < this.Pedidos.length; i++) {
-        total += parseInt(this.Pedidos[i].vagasPeriodizadas, 10);
+      for (let i = 0; i < this.currentTurmaPedidos.length; i++) {
+        total += parseInt(this.currentTurmaPedidos[i].vagasPeriodizadas, 10);
       }
       return total;
     },
@@ -664,77 +644,49 @@ export default {
       if (!this.Pedidos) return 0;
 
       let total = 0;
-      for (let i = 0; i < this.Pedidos.length; i++) {
-        total += parseInt(this.Pedidos[i].vagasNaoPeriodizadas, 10);
+      for (let i = 0; i < this.currentTurmaPedidos.length; i++) {
+        total += parseInt(this.currentTurmaPedidos[i].vagasNaoPeriodizadas, 10);
       }
       return total;
     },
+
     disciplinaIsIntegralEAD() {
-      return this.currentDisciplina.ead === 1;
+      return this.turmaForm.disciplina.ead === 1;
     },
-    hasMoreThan4Creditos() {
-      return this.totalCarga >= 4;
-    },
+
     disciplinaIsParcialEAD() {
-      return this.currentDisciplina.ead === 2;
+      return this.turmaForm.disciplina.ead === 2;
     },
-    currentDisciplina() {
-      return _.find(this.options.DisciplinasExternas, {
-        id: this.turma.Disciplina,
-      });
-    },
+
     totalCarga() {
       return (
-        parseInt(this.currentDisciplina.cargaTeorica) +
-        parseInt(this.currentDisciplina.cargaPratica)
+        parseInt(this.turmaForm.disciplina.cargaTeorica) +
+        parseInt(this.turmaForm.disciplina.cargaPratica)
       );
     },
-    HorariosFiltredByCadastroEAD() {
-      let horariosResultante = this.Horarios;
 
-      if (this.currentDisciplina != undefined) {
-        const cadastroEAD = this.currentDisciplina.ead;
-
-        if (cadastroEAD === 1) {
-          horariosResultante = _.filter(horariosResultante, { id: 31 });
-        } else {
-          horariosResultante = _.filter(
-            horariosResultante,
-            (horario) => horario.id != 31
-          );
-        }
-      }
-      return horariosResultante;
-    },
     HorariosFiltredByTurno() {
-      const turnoSelected = this.turmaForm.turno1;
-      let horarioResultante = this.HorariosFiltredByCadastroEAD;
+      if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
-      if (turnoSelected === "EAD") {
-        horarioResultante = _.filter(horarioResultante, { id: 31 });
-      } else if (turnoSelected === "Diurno") {
-        horarioResultante = _.filter(horarioResultante, function(h) {
-          if (parseInt(h.horario.slice(3, 5)) < 17) return true;
-          if (h.id === 31) return true;
-        });
-      } else if (turnoSelected === "Noturno") {
-        horarioResultante = _.filter(horarioResultante, function(h) {
-          if (parseInt(h.horario.slice(3, 5)) >= 17) return true;
-          if (h.id === 31) return true;
-        });
+      //Se não, verifica o turno selecionado
+      switch (this.turmaForm.turno1) {
+        case "Noturno":
+          return this.HorariosNoturno;
+        case "Diurno":
+          return this.HorariosDiurno;
+        case "EAD":
+          return this.HorariosEAD;
+        default:
+          return _.filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
       }
+    },
 
-      return horarioResultante;
-    },
-    Horarios() {
-      return _.orderBy(this.$store.state.horario.Horarios, "horario");
-    },
     IndicesPedidos() {
       const indicesResultantes = [];
 
-      _.forEach(this.Pedidos, (pedido, index) => {
+      _.forEach(this.currentTurmaPedidos, (pedido, index) => {
         const cursoFounded = _.find(
-          this.options.CursosDCC,
+          this.CursosAtivados,
           (curso) => curso.id === pedido.Curso
         );
 
@@ -742,12 +694,9 @@ export default {
       });
       return indicesResultantes;
     },
-    Pedidos() {
-      if (!this.turma) return [];
+
+    currentTurmaPedidos() {
       return this.$store.state.pedidoExterno.Pedidos[this.turma.id];
-    },
-    Salas() {
-      return _.orderBy(this.$store.state.sala.Salas, "nome");
     },
   },
   watch: {
@@ -761,6 +710,7 @@ export default {
 <style scoped>
 .turmarow {
   font-size: 11px !important;
+  background-color: #fff !important;
 }
 .turmarow td {
   margin: 0 !important;

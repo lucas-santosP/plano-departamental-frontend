@@ -204,7 +204,7 @@
       style="width:35px"
     >
       <template v-for="(pedido, index) in currentTurmaPedidos">
-        <TurmaRowPedidos
+        <InputsPedidosDCC
           v-if="pedido.Curso === curso.id"
           :key="pedido.Turma + curso.Curso"
           v-bind:index="index"
@@ -218,10 +218,10 @@
 <script>
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
+import turmaService from "@/common/services/turma";
 import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
 import { notification, maskTurmaLetra } from "@/common/mixins";
-import turmaService from "@/common/services/turma";
-import TurmaRowPedidos from "./TurmaRowPedidos.vue";
+import InputsPedidosDCC from "./InputsPedidosDCC.vue";
 
 const emptyTurma = {
   id: null,
@@ -252,7 +252,7 @@ export default {
   name: "TurmaRow",
   mixins: [notification, maskTurmaLetra],
   components: {
-    TurmaRowPedidos,
+    InputsPedidosDCC,
   },
   props: {
     turma: Object,

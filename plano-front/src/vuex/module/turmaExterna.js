@@ -80,7 +80,7 @@ const getters = {
   TurmasExternasInDisciplinas(state, getters) {
     const turmasResult = [];
     _.forEach(state.Turmas, (turma) => {
-      const disciplinaFounded = _.find(getters.DisciplinasExternas, [
+      const disciplinaFounded = _.find(getters.DisciplinasExternasInPerfis, [
         "id",
         turma.Disciplina,
       ]);

@@ -471,7 +471,11 @@
       </template>
     </BaseModal>
 
-    <ModalDelete ref="modalDelete" @btn-deletar="deleteSelectedTurmas">
+    <ModalDelete
+      ref="modalDelete"
+      :isDeleting="!!Deletar.length"
+      @btn-deletar="deleteSelectedTurmas"
+    >
       <li v-if="!Deletar.length" class="list-group-item">
         Nenhuma turma selecionada.
       </li>

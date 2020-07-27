@@ -33,7 +33,7 @@ const emptyPedido = {
   Turma: undefined,
 };
 export default {
-  name: "TurmaExternaPedido",
+  name: "InputsPedidosExternos",
   props: {
     turma: Object,
     index: Number,

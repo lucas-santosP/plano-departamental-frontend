@@ -35,7 +35,7 @@ const emptyPedido = {
 };
 
 export default {
-  name: "TurmaRowPedidos",
+  name: "InputsPedidosDCC",
   props: {
     turma: Object,
     index: Number,

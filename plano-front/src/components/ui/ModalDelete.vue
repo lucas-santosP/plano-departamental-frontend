@@ -4,7 +4,7 @@
     :title="'Confirmar exclusão'"
     :position="'center'"
     :hasBackground="true"
-    :hasFooter="true"
+    :hasFooter="isDeleting"
     :styles="{ width: '400px', maxHeight: '600px', fontSize: '14px' }"
   >
     <template #modal-body>
