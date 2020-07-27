@@ -167,6 +167,7 @@ export default {
       else if (!this.disciplinaIsParcialEAD)
         this.setTurnoByHorario(this.turmaForm.Horario2);
     },
+
     setTurnoByHorario(horarioId) {
       if (horarioId == 31 && this.disciplinaIsIntegralEAD)
         this.turmaForm.turno1 = "EAD";

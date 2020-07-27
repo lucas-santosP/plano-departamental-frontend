@@ -18,7 +18,7 @@
     </td>
 
     <td style="width: 330px" class="less-padding">
-      <select type="text" v-model="turmaForm.Disciplina" @change="editTurma()">
+      <select v-model="turmaForm.Disciplina" @change="editTurma()">
         <option
           v-for="disciplina in DisciplinasExternasInPerfis"
           :key="disciplina.id"
@@ -44,12 +44,7 @@
     </td>
 
     <td style="width: 80px;" class="less-padding">
-      <select
-        type="text"
-        id="turno1"
-        v-model="turmaForm.turno1"
-        @change="editTurma()"
-      >
+      <select v-model="turmaForm.turno1" @change="editTurma()">
         <template v-if="disciplinaIsIntegralEAD">
           <option value="EAD">EAD</option>
         </template>
@@ -61,12 +56,7 @@
     </td>
 
     <td style="width:85px" class="less-padding">
-      <select
-        type="text"
-        id="horario1"
-        v-model="turmaForm.Horario1"
-        @change="checkHorario(1)"
-      >
+      <select v-model="turmaForm.Horario1" @change="checkHorario(1)">
         <option value=""></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
@@ -77,7 +67,6 @@
       </select>
       <select
         v-if="totalCarga >= 4"
-        type="text"
         v-model="turmaForm.Horario2"
         @change="checkHorario(2)"
       >
@@ -93,12 +82,7 @@
 
     <td style="width: 95px" class="less-padding">
       <template v-if="!disciplinaIsIntegralEAD">
-        <select
-          type="text"
-          id="sala1"
-          v-model="turmaForm.Sala1"
-          @change="checkSala(1)"
-        >
+        <select v-model="turmaForm.Sala1" @change="checkSala(1)">
           <option value=""></option>
           <option
             v-for="sala in AllSalas"
@@ -110,8 +94,6 @@
         </select>
         <select
           v-if="totalCarga >= 4"
-          type="text"
-          id="sala2"
           v-model="turmaForm.Sala2"
           @change="checkSala(2)"
         >
@@ -233,10 +215,12 @@ export default {
       let horarios1719 = [32, 34, 36, 38, 40];
       let horarios1820 = [33, 35, 37, 39, 41];
       let horarios1921 = [5, 11, 17, 23, 29];
+
       if (this.turmaForm.Horario1 === "") this.turmaForm.Horario1 = null;
       if (this.turmaForm.Horario2 === "") this.turmaForm.Horario2 = null;
       if (this.turmaForm.Sala1 === "") this.turmaForm.Sala1 = null;
       if (this.turmaForm.Sala2 === "") this.turmaForm.Sala2 = null;
+
       if (
         (!_.isNull(this.turmaForm.Horario1) ||
           !_.isNull(this.turmaForm.Horario2)) &&
@@ -640,6 +624,7 @@ export default {
       }
       return total;
     },
+
     totalPedidosNaoPeriodizados() {
       if (!this.Pedidos) return 0;
 
