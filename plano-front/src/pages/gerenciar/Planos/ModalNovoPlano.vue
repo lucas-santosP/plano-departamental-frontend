@@ -11,7 +11,7 @@
     @select-all="selectAllDisciplinas"
     @select-none="selectNoneDisciplinas"
     @btn-ok="novoPlano"
-    @on-close="clearSearch"
+    @on-close="searchDisciplinasModal = ''"
   >
     <template #modal-body>
       <p class="alert alert-secondary  ">
@@ -107,7 +107,7 @@
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { normalizeText } from "@/common/utils";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import turmaExternaService from "@/common/services/turmaExterna";
@@ -138,12 +138,11 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setFetchingLoading"]),
+
     open() {
       this.$refs.baseModalNovoPlano.open();
-    },
-    clearSearch() {
-      this.searchDisciplinasModal = "";
-    },
+    }, 
     selectAllDisciplinas() {
       this.filtrosDisciplinas = [
         ..._.map(this.DisciplinasInPerfis, (disciplina) => disciplina.id),
@@ -653,7 +652,7 @@ export default {
       return turmasNovoPlano;
     },
     novoPlano() {
-      this.$store.commit("COMPONENT_LOADING");
+      this.setFetchingLoading(true);
 
       let turmasNovoPlano = this.generateTurmasNovoPlano();
 
@@ -814,7 +813,7 @@ export default {
         this.$store.dispatch("fetchAll");
 
         setTimeout(() => {
-          this.$store.commit("COMPONENT_LOADED");
+          this.setFetchingLoading(false);
         }, 300);
       });
     },

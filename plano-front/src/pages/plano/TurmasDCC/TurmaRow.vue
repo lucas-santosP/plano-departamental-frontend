@@ -271,7 +271,7 @@ export default {
     this.setDefaultHorarios();
   },
   methods: {
-    ...mapActions(["setLoadingState"]),
+    ...mapActions(["setPartialLoading"]),
 
     selectToDelete(turma) {
       this.$store.commit("checkDeleteTurma", turma);
@@ -1099,7 +1099,7 @@ export default {
     },
     async editTurma() {
       try {
-        this.setLoadingState("partial");
+        this.setPartialLoading(true);
 
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
         validateObjectKeys(newTurma, ["letra", "Disciplina"]);
@@ -1123,7 +1123,7 @@ export default {
           message: erroMsg,
         });
       } finally {
-        this.setLoadingState("completed");
+        this.setPartialLoading(false);
       }
     },
   },

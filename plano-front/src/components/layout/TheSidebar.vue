@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       linkDashboard: [
-        { routeName: "home", icon: "fa-home", title: "Dashboard" },
+        { routeName: "dashboardHome", icon: "fa-home", title: "Dashboard" },
       ],
     };
   },

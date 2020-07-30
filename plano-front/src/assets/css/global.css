@@ -10,6 +10,12 @@
     --navbar-height: 60px;
   }
 }
+
+.page-animation {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
 .div-table {
   overflow: hidden;
   height: -webkit-max-content;
@@ -145,7 +151,8 @@ label[required]:hover:before {
   text-align: start;
   line-height: 1.5;
 }
-.modal-custom .list-ajuda svg {
+.modal-custom .list-ajuda svg,
+.modal-custom .list-ajuda i {
   font-size: 12px !important;
   margin: 0 1px !important;
   color: #585858;
@@ -156,7 +163,6 @@ label[required]:hover:before {
 .modal-custom .list-ajuda i:hover {
   color: #2a2a2a;
 }
-
 .list-delete > .list-group-item {
   width: 100%;
   display: flex;

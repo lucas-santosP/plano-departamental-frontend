@@ -25,28 +25,7 @@
       </main>
 
       <footer v-if="options.hasFooter" class="modal-custom-footer w-100">
-        <slot name="modal-footer">
-          <div class="w-100">
-            <button
-              class="btn btn-custom btn-modal btn-azul"
-              @click="emitSelectAll()"
-            >
-              Selecionar Todos
-            </button>
-            <button
-              class="btn btn-custom btn-modal btn-cinza"
-              @click="emitSelectNone()"
-            >
-              Desmarcar Todos
-            </button>
-          </div>
-          <button
-            @click="emitOk()"
-            class="btn btn-modal btn-verde btn-ok-modal"
-          >
-            OK
-          </button>
-        </slot>
+        <slot name="modal-footer"> </slot>
       </footer>
     </div>
   </transition>
@@ -54,6 +33,7 @@
 
 <script>
 import { EventBus } from "@/eventBus.js";
+
 const positions = {
   right: {
     top: "80px",
@@ -107,21 +87,10 @@ export default {
     toggle() {
       this.visibility = !this.visibility;
     },
-    emitSelectAll() {
-      this.$emit("select-all");
-    },
-    emitSelectNone() {
-      this.$emit("select-none");
-    },
-    emitOk() {
-      this.$emit("btn-ok");
-    },
     onEscKeyUp(event) {
       const { code } = event;
 
       if (code === "Escape") this.close();
-      else if (this.type === "filtros" && code === "Backquote")
-        this.emitSelectAll();
     },
   },
   computed: {
@@ -133,7 +102,7 @@ export default {
         case "editTurma":
           if (!title) title = "Editar turma";
           hasBackground = true;
-          typeStyles.push(positions.center, { minWidth: "510px" });
+          typeStyles.push(positions.center, { width: "510px" });
           break;
 
         case "fromNavbar":
@@ -151,7 +120,7 @@ export default {
         case "ajuda":
           title = "Ajuda";
           hasBackground = false;
-          typeStyles.push(positions.right, { minWidth: "510px" });
+          typeStyles.push(positions.right, { width: "510px" });
           break;
         case "editVagas":
           if (!title) title = "Editar Vagas";
@@ -226,7 +195,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  max-height: calc(100% - 3.5rem);
+  max-height: calc(100% - 6rem);
   background: #ffffff;
   box-shadow: 0 2px 10px 0;
   border-radius: 5px;

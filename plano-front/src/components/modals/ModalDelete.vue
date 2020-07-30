@@ -1,8 +1,8 @@
 <template>
   <BaseModal2
     ref="baseModalDelete"
-    :title="'Confirmar exclusão'"
-    :position="'center'"
+    title="Confirmar exclusão"
+    position="center"
     :hasBackground="true"
     :hasFooter="isDeleting"
     :styles="{ width: '400px', maxHeight: '600px', fontSize: '14px' }"
@@ -30,7 +30,7 @@
 
 <script>
 import BaseModal2 from "./BaseModal2";
-import BaseButton from "./BaseButton";
+import BaseButton from "@/components/ui/BaseButton";
 
 export default {
   name: "ModalDelete",

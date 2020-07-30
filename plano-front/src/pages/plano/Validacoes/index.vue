@@ -559,7 +559,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setLoadingState"]),
+    ...mapActions(["setPartialLoading"]),
 
     openAsideModal(modalName) {
       if (modalName === "filtros") {
@@ -571,10 +571,10 @@ export default {
       }
     },
     btnOkFiltros() {
-      this.setLoadingState("partial");
+      this.setPartialLoading(true);
       this.btnOkSemestre();
       this.filtroConflitos.ativados = [...this.filtroConflitos.selecionados];
-      this.setLoadingState("completed");
+      this.setPartialLoading(false);
     },
     btnOkSemestre() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
@@ -1128,7 +1128,7 @@ export default {
       return _.orderBy(
         this.TurmasValidacoesFiltred,
         this.ordemTurmas.order,
-        this.ordemTurmas.type
+        this.ordemTurmlas.type
       );
     },
     TurmasValidacoesFiltred() {

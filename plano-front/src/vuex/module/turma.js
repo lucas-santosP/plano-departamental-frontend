@@ -74,6 +74,7 @@ const actions = {
         });
     });
   },
+
   clearDelete({ commit }) {
     commit("emptyDelete");
   },

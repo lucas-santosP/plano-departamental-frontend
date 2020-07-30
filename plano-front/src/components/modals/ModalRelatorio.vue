@@ -1,11 +1,9 @@
 <template>
-  <BaseModal
+  <BaseModal2
     ref="baseModalRelatorio"
-    :customStyles="'width:300px;z-index:900;'"
-    :modalOptions="{
-      title: 'Relátorio',
-      position: 'right',
-    }"
+    title="Relátorio"
+    position="right"
+    :styles="{ width: '300px', zIndex: 900 }"
   >
     <template #modal-body>
       <ul class="list-relatorio list-group flex-row w-100 border-0">
@@ -23,14 +21,14 @@
         </li>
       </ul>
     </template>
-  </BaseModal>
+  </BaseModal2>
 </template>
 
 <script>
-import { BaseModal } from "@/components/ui";
+import BaseModal2 from "./BaseModal2";
 export default {
   name: "ModalRelatorio",
-  components: { BaseModal },
+  components: { BaseModal2 },
 
   methods: {
     toggle() {

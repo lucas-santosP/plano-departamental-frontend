@@ -6,7 +6,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
     />
 
-    <router-view></router-view>
+    <transition
+      enter-active-class="animated animate__fadeIn page-animation"
+      leave-active-class="animated animate__fadeOut page-animation"
+      mode="out-in"
+      appear
+    >
+      <router-view></router-view>
+    </transition>
 
     <notifications
       group="general"

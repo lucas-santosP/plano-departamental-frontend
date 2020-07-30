@@ -197,8 +197,8 @@ import {
   BaseTable,
   PageHeader,
   NavTab,
-  ModalRelatorio,
 } from "@/components/ui";
+import { ModalRelatorio } from "@/components/modals";
 import TableHorariosLab from "./TableHorariosLab";
 
 export default {

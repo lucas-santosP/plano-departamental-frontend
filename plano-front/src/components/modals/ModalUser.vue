@@ -112,12 +112,8 @@
 import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
-import {
-  BaseModal,
-  InputPassword,
-  BaseButton,
-  ButtonSlideSection,
-} from "@/components/ui";
+import { BaseModal, InputPassword, ButtonSlideSection } from "@/components/ui";
+import BaseButton from "@/components/ui/BaseButton";
 
 const emptyUser = {
   nome: "",
@@ -227,7 +223,7 @@ export default {
 </script>
 
 <style scoped>
-@import url(../../../assets/css/slideY-section-animation.css);
+@import url(../../assets/css/slideY-section-animation.css);
 
 .user-container {
   display: flex;

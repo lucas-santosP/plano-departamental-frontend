@@ -1,0 +1,31 @@
+<template>
+  <BaseModal2 ref="baseModalRelatorio" type="editTurma" title="Edição de Turma">
+    <template #modal-body v-if="turmaSelected">
+      <BodyModalEditTurma
+        :turma="turmaSelected"
+        :key="'mdEdit' + turmaSelected.id"
+      />
+    </template>
+  </BaseModal2>
+</template>
+
+<script>
+import BaseModal2 from "./BaseModal2";
+import BodyModalEditTurma from "@/components/ui/BodyModalEditTurma";
+
+export default {
+  name: "ModalEditTurma",
+  components: { BaseModal2, BodyModalEditTurma },
+  props: {
+    turmaSelected: { type: Object | null, required: true },
+  },
+  methods: {
+    open() {
+      this.$refs.baseModalRelatorio.open();
+    },
+    close() {
+      this.$refs.baseModalRelatorio.close();
+    },
+  },
+};
+</script>

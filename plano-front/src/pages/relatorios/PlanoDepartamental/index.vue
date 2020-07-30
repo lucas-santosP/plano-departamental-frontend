@@ -553,8 +553,8 @@ import {
   BaseTable,
   PageHeader,
   NavTab,
-  ModalRelatorio,
 } from "@/components/ui";
+import { ModalRelatorio } from "@/components/modals";
 
 export default {
   name: "PlanoDepartamental",

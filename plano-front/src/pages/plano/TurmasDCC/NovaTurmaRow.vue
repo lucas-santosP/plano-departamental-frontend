@@ -202,7 +202,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setLoadingState"]),
+    ...mapActions(["setPartialLoading"]),
 
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;
@@ -243,7 +243,7 @@ export default {
 
     async addTurma() {
       try {
-        this.setLoadingState("partial");
+        this.setPartialLoading(true);
 
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
@@ -266,7 +266,7 @@ export default {
           message: erroMsg,
         });
       } finally {
-        this.setLoadingState("completed");
+        this.setPartialLoading(false);
       }
     },
   },

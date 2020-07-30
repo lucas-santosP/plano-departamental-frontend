@@ -1,12 +1,10 @@
 <template>
-  <BaseModal
+  <BaseModal2
     ref="baseModalDownload"
-    :customStyles="'width:370px'"
+    title="Download"
+    type="fromNavbar"
+    :styles="{ width: '370px' }"
     @on-close="resetOnClose()"
-    :modalOptions="{
-      title: 'Download',
-      type: 'fromNavbar',
-    }"
   >
     <template #modal-body>
       <div class="title-container pl-1">
@@ -46,18 +44,19 @@
         </p>
       </div>
     </template>
-  </BaseModal>
+  </BaseModal2>
 </template>
 
 <script>
 import { saveAs } from "file-saver";
 import xlsxService from "@/common/services/xlsx";
 import downloadService from "@/common/services/download";
-import { BaseModal, BaseButton } from "@/components/ui";
+import BaseModal2 from "./BaseModal2";
+import BaseButton from "@/components/ui/BaseButton";
 
 export default {
   name: "ModalDownload",
-  components: { BaseModal, BaseButton },
+  components: { BaseModal2, BaseButton },
   data() {
     return {
       downloadState: 0,

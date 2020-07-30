@@ -138,7 +138,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setLoadingState"]),
+    ...mapActions(["setPartialLoading"]),
 
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;
@@ -179,12 +179,11 @@ export default {
 
     async addNovaTurma() {
       try {
-        this.setLoadingState("partial");
+        this.setPartialLoading(true);
 
         const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
         validateObjectKeys(newTurma, ["Disciplina", "letra"]);
         newTurma.Plano = localStorage.getItem("Plano");
-        console.log(newTurma);
 
         const response = await turmaExternaService.create(newTurma);
         await this.$store.dispatch("fetchAllPedidosExternos");
@@ -203,7 +202,7 @@ export default {
           message: erroMsg,
         });
       } finally {
-        this.setLoadingState("completed");
+        this.setPartialLoading(false);
       }
     },
   },

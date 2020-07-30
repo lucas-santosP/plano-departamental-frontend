@@ -232,8 +232,9 @@ import {
   BaseTable,
   PageHeader,
   NavTab,
-  ModalRelatorio,
 } from "@/components/ui";
+
+import { ModalRelatorio } from "@/components/modals";
 import TableEletivas from "./TableEletivas.vue";
 import ListTableHorarios from "./ListTableHorarios.vue";
 import store from "@/vuex/store";
@@ -276,6 +277,7 @@ export default {
   },
   data() {
     return {
+      planoAtual: null,
       tabAtivaModal: "Cursos",
       ordemCursos: { order: "codigo", type: "asc" },
       listaDePeriodos: [],
@@ -326,10 +328,14 @@ export default {
       evenSI: "false",
     };
   },
-  created() {
+  mounted() {
+    this.currentPlano = _.find(this.allPlanos, (plano) => plano.id == parseInt(localStorage.getItem("Plano"))); 
+
+    this.currentPlano = this.currentPlano;
     this.createHorarios1();
     this.createHorarios2();
     this.createListaDePeriodos();
+
     this.modalSelectAll.Cursos();
     this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
   },
@@ -529,9 +535,7 @@ export default {
       var turmas = _.filter(this.TurmasInDisciplinasPerfis, ["periodo", 1]);
       var turmasExternas = this.TurmasExternasInDisciplinas;
 
-      var anoAtual = _.find(this.$store.state.plano.Plano, {
-        id: parseInt(localStorage.getItem("Plano"), 10),
-      }).ano;
+      const anoAtual = this.currentPlano.ano;
       var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
@@ -948,9 +952,8 @@ export default {
       var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades;
       var turmas = _.filter(this.TurmasInDisciplinasPerfis, ["periodo", 3]);
       var turmasExternas = this.TurmasExternasInDisciplinas;
-      var anoAtual = _.find(this.$store.state.plano.Plano, {
-        id: parseInt(localStorage.getItem("Plano"), 10),
-      }).ano;
+
+      const anoAtual = this.currentPlano.ano;
       var currentSemestres = 1;
 
       if (this.$store.state.curso.Cursos[0].semestreInicial == 1) {
@@ -1394,7 +1397,7 @@ export default {
               fontSize: 10,
             },
             {
-              text: "1º Semestre " + store.state.plano.Plano[0].ano,
+              text: "1º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1775,7 +1778,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + store.state.plano.Plano[0].ano,
+              text: "1º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2158,7 +2161,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + store.state.plano.Plano[0].ano,
+              text: "1º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2541,7 +2544,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + store.state.plano.Plano[0].ano,
+              text: "1º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2924,7 +2927,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + store.state.plano.Plano[0].ano,
+              text: "1º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3382,7 +3385,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + store.state.plano.Plano[0].ano,
+              text: "2º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3765,7 +3768,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + store.state.plano.Plano[0].ano,
+              text: "2º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4148,7 +4151,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + store.state.plano.Plano[0].ano,
+              text: "2º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4531,7 +4534,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + store.state.plano.Plano[0].ano,
+              text: "2º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4914,7 +4917,7 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + store.state.plano.Plano[0].ano,
+              text: "2º Semestre " + this.currentPlano.ano,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -5371,7 +5374,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TurmasInDisciplinasPerfis", "TurmasExternasInDisciplinas"]),
+    ...mapGetters([
+      "TurmasInDisciplinasPerfis",
+      "TurmasExternasInDisciplinas",
+      "allPlanos",
+    ]),
 
     semestre1IsActived() {
       return (

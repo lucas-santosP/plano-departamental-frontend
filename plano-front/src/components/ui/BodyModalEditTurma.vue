@@ -57,8 +57,7 @@
         <span class="modal-title p-0 m-0 text-right" style="font-weight:normal"
           >Créditos: {{ CreditosDaDisciplina }}</span
         >
-      </div>
-      <!-- <hr class="my-2 w-100" /> -->
+      </div> 
       <!-- Semestre, Turma e Creditos -->
       <div class="form-row w-100">
         <div class="form-group col">

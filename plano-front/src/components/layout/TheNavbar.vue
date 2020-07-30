@@ -21,7 +21,7 @@
           id="planoAtual"
           class="input-plano"
           v-model.number="currentPlano"
-          @change="changePlano()"
+          @change="handleChangePlano"
         >
           <option v-for="plano in allPlanos" :value="plano.id" :key="plano.id">
             {{ plano.nome }} - {{ plano.ano }}
@@ -58,20 +58,18 @@ export default {
     this.currentPlano = parseInt(localStorage.getItem("Plano"), 10);
   },
   methods: {
-    ...mapActions(["setLoadingState", "closeSidebar", "toggleSidebar"]),
-    async changePlano() {
-      try {
-        this.setLoadingState("entire");
+    ...mapActions(["closeSidebar", "setFetchingLoading", "toggleSidebar"]),
 
-        setTimeout(async () => {
-          await localStorage.setItem("Plano", this.currentPlano);
-          await this.$store.dispatch("fetchAll");
-          this.$socket.open();
-        }, 300);
+    async handleChangePlano() {
+      try {
+        this.setFetchingLoading(true);
+        await localStorage.setItem("Plano", this.currentPlano);
+        await this.$store.dispatch("fetchAll");
+        this.$socket.open();
       } catch (error) {
         console.log(error);
       } finally {
-        this.setLoadingState("completed");
+        this.setFetchingLoading(false);
       }
     },
   },
