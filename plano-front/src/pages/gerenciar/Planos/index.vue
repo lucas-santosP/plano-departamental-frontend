@@ -66,6 +66,19 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
+              <label required for="planoNome">Nome</label>
+              <input
+                type="text"
+                id="planoNome"
+                v-model="planoForm.nome"
+                @keypress="limitNomeLength"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="row mb-2 mx-0">
+            <div class="form-group col m-0 px-0">
               <label required for="ano">Ano </label>
               <select
                 id="planoAno"
@@ -82,18 +95,7 @@
               </select>
             </div>
           </div>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="planoNome">Nome</label>
-              <input
-                type="text"
-                id="planoNome"
-                v-model="planoForm.nome"
-                @keypress="limitNomeLength"
-                class="form-control"
-              />
-            </div>
-          </div>
+
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label for="planoObs">Observações</label>
@@ -177,7 +179,7 @@
 
 <script>
 import _ from "lodash";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import planoService from "@/common/services/plano";
 import { toggleOrdination, notification } from "@/common/mixins";
 import {
@@ -214,6 +216,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["setPartialLoading"]),
+
     limitNomeLength($event) {
       if ($event.target.value.length >= 10) $event.preventDefault();
     },
@@ -236,7 +240,7 @@ export default {
       this.$refs.modalDeletePlano.close();
     },
     validatePlano(plano) {
-      if (plano.ano === "" || plano.ano === null) {
+      if (plano.ano === "" || plano.nome === null) {
         this.showNotification({
           type: "error",
           message: `Campos obrigatórios inválidos ou incompletos.`,
@@ -273,22 +277,33 @@ export default {
         });
       }
     },
-    async deletePlano() {
-      const plano = _.clone(this.planoForm);
 
+    async deletePlano() {
       try {
+        this.setPartialLoading(true);
+
+        const plano = _.clone(this.planoForm);
         await planoService.delete(plano.id, plano);
+        //change plano
+        localStorage.setItem("Plano", "1");
+        await this.$store.dispatch("fetchAll");
+        this.$socket.open();
+        // ###
+
+        this.cleanPlano();
+
         this.showNotification({
           type: "success",
           message: `Plano ${plano.ano} foi removido.`,
         });
-        this.closeModalDelete();
-        this.cleanPlano();
       } catch (error) {
         this.showNotification({
           type: "error",
           message: error,
         });
+      } finally {
+        this.setPartialLoading(true);
+        this.closeModalDelete();
       }
     },
   },

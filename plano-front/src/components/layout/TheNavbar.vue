@@ -20,7 +20,7 @@
         <select
           id="planoAtual"
           class="input-plano"
-          v-model.number="currentPlano"
+          v-model.number="currentPlanoId"
           @change="handleChangePlano"
         >
           <option v-for="plano in allPlanos" :value="plano.id" :key="plano.id">
@@ -51,11 +51,11 @@ export default {
   name: "TheNavbar",
   data() {
     return {
-      currentPlano: null,
+      currentPlanoId: null,
     };
   },
   created() {
-    this.currentPlano = parseInt(localStorage.getItem("Plano"), 10);
+    this.currentPlanoId = parseInt(localStorage.getItem("Plano"), 10);
   },
   methods: {
     ...mapActions(["closeSidebar", "setFetchingLoading", "toggleSidebar"]),
@@ -63,7 +63,7 @@ export default {
     async handleChangePlano() {
       try {
         this.setFetchingLoading(true);
-        await localStorage.setItem("Plano", this.currentPlano);
+        localStorage.setItem("Plano", this.currentPlanoId);
         await this.$store.dispatch("fetchAll");
         this.$socket.open();
       } catch (error) {

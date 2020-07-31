@@ -1,16 +1,11 @@
 <template>
-  <BaseModal
+  <BaseModal2
     ref="baseModalNovoPlano"
-    :modalOptions="{
-      position: 'centerNavbar',
-      hasBackground: 'true',
-      title: 'Turmas do novo plano',
-      hasFooter: true,
-    }"
+    title="Turmas do novo plano"
+    type="editTurma"
+    :hasBackground="true"
+    :hasFooter="true"
     :btnOkText="'Criar plano'"
-    @select-all="selectAllDisciplinas"
-    @select-none="selectNoneDisciplinas"
-    @btn-ok="novoPlano"
     @on-close="searchDisciplinasModal = ''"
   >
     <template #modal-body>
@@ -102,25 +97,54 @@
         </BaseTable>
       </div>
     </template>
-  </BaseModal>
+    <template #modal-footer>
+      <div>
+        <BaseButton
+          :type="'text'"
+          :color="'lightblue'"
+          @click="selectAllDisciplinas"
+        >
+          Selecionar Todos
+        </BaseButton>
+        <BaseButton
+          :type="'text'"
+          :color="'gray'"
+          @click="selectNoneDisciplinas"
+        >
+          Desmarcar Todos
+        </BaseButton>
+
+        <slot name="modal-footer-btn"></slot>
+      </div>
+      <BaseButton
+        class="paddingX-20"
+        :type="'text'"
+        :color="'green'"
+        @click="createNovoPlano"
+      >
+        OK
+      </BaseButton>
+    </template>
+  </BaseModal2>
 </template>
 
 <script>
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
-import { normalizeText } from "@/common/utils";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import turmaExternaService from "@/common/services/turmaExterna";
 import planoService from "@/common/services/plano";
 import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
+import { normalizeText } from "@/common/utils";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { BaseModal, InputSearch, BaseTable, BaseButton } from "@/components/ui";
+import { InputSearch, BaseTable, BaseButton } from "@/components/ui";
+import BaseModal2 from "@/components/modals/BaseModal2";
 
 export default {
   name: "ModalNovoPlano",
   mixins: [toggleItemInArray, toggleOrdination],
-  components: { BaseModal, BaseTable, BaseButton, InputSearch },
+  components: { BaseModal2, BaseTable, BaseButton, InputSearch },
   props: {
     plano: { type: Object, required: true },
   },
@@ -138,11 +162,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setFetchingLoading"]),
+    ...mapActions(["setPartialLoading"]),
 
     open() {
       this.$refs.baseModalNovoPlano.open();
-    }, 
+    },
+    close() {
+      this.$refs.baseModalNovoPlano.close();
+    },
     selectAllDisciplinas() {
       this.filtrosDisciplinas = [
         ..._.map(this.DisciplinasInPerfis, (disciplina) => disciplina.id),
@@ -304,6 +331,7 @@ export default {
         }
       }
     },
+
     generateTurmasNovoPlano() {
       this.gradesAtivas(this.planoForm.ano);
       let disciplinasNovoPlano1Semestre = [];
@@ -651,13 +679,13 @@ export default {
 
       return turmasNovoPlano;
     },
-    novoPlano() {
-      this.setFetchingLoading(true);
 
+    createNovoPlano() {
+      this.setPartialLoading(true);
       let turmasNovoPlano = this.generateTurmasNovoPlano();
 
       planoService.create(this.planoForm).then((plano) => {
-        localStorage.setItem("Plano", plano.Plano.id);
+        // localStorage.setItem("Plano", plano.Plano.id);
         turmasNovoPlano.forEach((t) => {
           turmaService
             .create({
@@ -810,10 +838,10 @@ export default {
             });
         });
 
-        this.$store.dispatch("fetchAll");
-
+        // this.$store.dispatch("fetchAll");
+        this.close();
         setTimeout(() => {
-          this.setFetchingLoading(false);
+          this.setPartialLoading(false);
         }, 300);
       });
     },
