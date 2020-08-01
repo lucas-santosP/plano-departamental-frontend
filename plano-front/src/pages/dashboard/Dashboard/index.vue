@@ -49,7 +49,6 @@ export default {
   },
   data() {
     return {
-      plano: undefined,
       showModal: {
         download: () => {
           this.$refs.modalDownload.open();
@@ -60,30 +59,18 @@ export default {
       },
     };
   },
-
   created() {
-    this.setFetchingLoading(true);
-    if (!localStorage.getItem("Plano")) localStorage.setItem("Plano", "1");
-
-    this.$store
-      .dispatch("fetchAll")
-      .then(() => {
-        this.$socket.open();
-        this.$store.commit("setYear", 2019);
-        this.plano = localStorage.getItem("Plano");
-      })
-      .then(() => {
-        this.setFetchingLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.initializeCurrentPlano();
   },
   beforeDestroy() {
     this.$socket.close();
   },
   methods: {
-    ...mapActions(["setFetchingLoading", "closeSidebar"]),
+    ...mapActions([
+      "setFetchingLoading",
+      "closeSidebar",
+      "initializeCurrentPlano",
+    ]),
 
     emitCloseCenterModal() {
       EventBus.$emit("close-modal");

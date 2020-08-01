@@ -58,7 +58,7 @@
       <Card
         :title="'Plano'"
         :toggleFooter="isEdit"
-        @btn-salvar="editPlano()"
+        @btn-salvar="handleEditPlano()"
         @btn-delete="openModalDelete()"
         @btn-add="openModalNovoPlano()"
         @btn-clean="cleanPlano()"
@@ -148,7 +148,7 @@
           class="paddingX-20"
           :type="'text'"
           :color="'red'"
-          @click="deletePlano"
+          @click="handleDeletePlano"
         >
           Deletar
         </BaseButton>
@@ -180,7 +180,6 @@
 <script>
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
-import planoService from "@/common/services/plano";
 import { toggleOrdination, notification } from "@/common/mixins";
 import {
   PageHeader,
@@ -216,19 +215,28 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setPartialLoading"]),
+    ...mapActions([
+      "setPartialLoading",
+      "changeCurrentPlano",
+      "setCurrentPlanoId",
+      "deletePlano",
+      "editPlano",
+    ]),
 
     limitNomeLength($event) {
       if ($event.target.value.length >= 10) $event.preventDefault();
     },
+
     handleClickInPlano(plano) {
       this.cleanPlano();
       this.planoSelected = plano.id;
       this.showPlano(plano);
     },
+
     showPlano(plano) {
       this.planoForm = _.clone(plano);
     },
+
     cleanPlano() {
       this.planoSelected = null;
       this.planoForm = _.clone(emptyPlano);
@@ -236,36 +244,30 @@ export default {
     openModalDelete() {
       this.$refs.modalDeletePlano.open();
     },
+
     closeModalDelete() {
       this.$refs.modalDeletePlano.close();
     },
-    validatePlano(plano) {
-      if (plano.ano === "" || plano.nome === null) {
+
+    openModalNovoPlano() {
+      if (
+        this.planoForm.ano === "" ||
+        this.planoForm.ano === null ||
+        this.planoForm.nome === "" ||
+        this.planoForm.nome === null
+      )
         this.showNotification({
           type: "error",
           message: `Campos obrigatórios inválidos ou incompletos.`,
         });
-        return false;
-      } else return true;
+      else this.$refs.modalNovoPlano.open();
     },
-    openModalNovoPlano() {
-      if (!this.validatePlano(this.planoForm)) return;
 
-      this.$refs.modalNovoPlano.open();
-    },
-    async editPlano() {
-      const plano = _.clone(this.planoForm);
-
-      if (!this.validatePlano(plano)) {
-        this.showNotification({
-          type: "error",
-          message: `Campo ano inválido.`,
-        });
-        return;
-      }
-
+    async handleEditPlano() {
       try {
-        await planoService.update(plano.id, plano);
+        this.setPartialLoading(true);
+
+        await this.editPlano(this.planoForm);
         this.showNotification({
           type: "success",
           message: `Plano atualizado.`,
@@ -273,37 +275,37 @@ export default {
       } catch (error) {
         this.showNotification({
           type: "error",
-          message: "Erro ao atualizar plano",
+          title: "Erro ao atualizar plano",
+          message: error.message || "",
         });
+      } finally {
+        this.setPartialLoading(false);
       }
     },
 
-    async deletePlano() {
+    async handleDeletePlano() {
       try {
         this.setPartialLoading(true);
+        const planoToDelete = _.clone(this.planoForm);
 
-        const plano = _.clone(this.planoForm);
-        await planoService.delete(plano.id, plano);
-        //change plano
-        localStorage.setItem("Plano", "1");
-        await this.$store.dispatch("fetchAll");
-        this.$socket.open();
-        // ###
-
+        await this.deletePlano(this.planoForm);
         this.cleanPlano();
+        this.closeModalDelete();
 
         this.showNotification({
           type: "success",
-          message: `Plano ${plano.ano} foi removido.`,
+          message: `Plano ${planoToDelete.nome} - ${
+            planoToDelete.ano
+          } foi removido.`,
         });
       } catch (error) {
         this.showNotification({
           type: "error",
-          message: error,
+          title: "Erro ao deletar plano",
+          message: "Tente novamente",
         });
       } finally {
-        this.setPartialLoading(true);
-        this.closeModalDelete();
+        this.setPartialLoading(false);
       }
     },
   },

@@ -10,7 +10,9 @@ const mutations = {
     state.onFetchingLoading = data;
   },
   [SET_PARTIAL_LOADING](state, data) {
-    state.onPartialLoading = data;
+    //Tempo mínimo de espera
+    if (!data) setTimeout(() => (state.onPartialLoading = data), 300);
+    else state.onPartialLoading = data;
   },
 };
 

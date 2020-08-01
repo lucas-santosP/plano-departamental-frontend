@@ -5,7 +5,6 @@ import store from "./vuex/store";
 import router from "./router";
 import { sync } from "vuex-router-sync";
 sync(store, router);
-
 import axios from "./common/services/axios";
 axios(Vue, store);
 
@@ -29,14 +28,9 @@ Vue.use(PortalVue);
 import Notifications from "vue-notification";
 Vue.use(Notifications);
 
-import socketio from "socket.io-client";
+import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
-
-Vue.use(
-  VueSocketio,
-  socketio("http://200.131.219.57:3000", { autoConnect: false }),
-  store
-);
+Vue.use(VueSocketio, SocketIoInstance, store);
 
 Vue.config.productionTip = false;
 
