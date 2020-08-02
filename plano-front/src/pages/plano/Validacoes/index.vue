@@ -124,7 +124,11 @@
             </tr>
           </template>
 
+<<<<<<< HEAD
           <tr v-show="!TurmasValidacoesOrdered.length">
+=======
+          <tr v-show="!TurmasValidacoesOrdered">
+>>>>>>> 730ee14ce61c1626ecb88fa5e9fff8aac09c15de
             <td style="width:695px">
               <b>Nenhum conflito encontrado.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
