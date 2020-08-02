@@ -264,7 +264,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import { toggleOrdination, notification } from "@/common/mixins";
@@ -288,7 +287,7 @@ export default {
 
   data() {
     return {
-      cursoForm: _.clone(emptyCurso),
+      cursoForm: this.$_.clone(emptyCurso),
       cursoClickado: "",
       ordenacaoCursosMain: { order: "codigo", type: "asc" },
     };
@@ -436,7 +435,7 @@ export default {
 
     checkPedidos() {
       for (let t in this.$store.state.pedido.Pedidos) {
-        let pedido = _.find(this.$store.state.pedido.Pedidos[t], (p) => {
+        let pedido = this.$_.find(this.$store.state.pedido.Pedidos[t], (p) => {
           if (p.Curso === this.cursoForm.id) {
             if (
               parseInt(p.vagasPeriodizadas, 10) > 0 ||
@@ -482,16 +481,16 @@ export default {
     },
     cleanCurso() {
       this.clearClick();
-      this.cursoForm = _.clone(emptyCurso);
+      this.cursoForm = this.$_.clone(emptyCurso);
     },
     showCurso(curso) {
       this.cleanCurso();
-      this.cursoForm = _.clone(curso);
+      this.cursoForm = this.$_.clone(curso);
     },
   },
   computed: {
     Cursos() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.$store.state.curso.Cursos,
         this.ordenacaoCursosMain.order,
         this.ordenacaoCursosMain.type

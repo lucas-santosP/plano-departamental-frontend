@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapActions } from "vuex";
 import cargaPosService from "@/common/services/cargaPos";
 import { notification } from "@/common/mixins";
@@ -61,7 +60,7 @@ export default {
   mixins: [notification],
   data() {
     return {
-      cargaPosForm: _.clone(emptyCarga),
+      cargaPosForm: this.$_.clone(emptyCarga),
     };
   },
   methods: {
@@ -100,7 +99,7 @@ export default {
     },
     addCarga() {
       this.cargaPosForm.Plano = localStorage.getItem("Plano");
-      const newCarga = _.clone(this.cargaPosForm);
+      const newCarga = this.$_.clone(this.cargaPosForm);
 
       this.setEmptyKeysToNull(newCarga);
       if (!this.validateCargaPos(newCarga)) return;
@@ -127,13 +126,13 @@ export default {
     },
 
     cleanCarga() {
-      this.cargaPosForm = _.clone(emptyCarga);
+      this.cargaPosForm = this.$_.clone(emptyCarga);
     },
   },
   computed: {
     DocentesOrdered() {
-      return _.orderBy(
-        _.filter(this.$store.state.docente.Docentes, ["ativo", true]),
+      return this.$_.orderBy(
+        this.$_.filter(this.$store.state.docente.Docentes, ["ativo", true]),
         "apelido"
       );
     },

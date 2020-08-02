@@ -209,7 +209,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import { PageHeader, Card } from "@/components/ui";
 
@@ -230,8 +229,8 @@ export default {
   data() {
     return {
       error: undefined,
-      gradeForm: _.clone(emptyGrade),
-      disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
+      gradeForm: this.$_.clone(emptyGrade),
+      disciplinaGradeForm: this.$_.clone(emptyDisciplinaGrade),
       currentGrade: undefined,
     };
   },
@@ -310,18 +309,18 @@ export default {
     },
     cleanGrade() {
       this.currentGrade = undefined;
-      this.gradeForm = _.clone(emptyGrade);
+      this.gradeForm = this.$_.clone(emptyGrade);
       this.error = undefined;
     },
     showGrade(grade) {
       this.cleanGrade();
 
       this.currentGrade = grade.id;
-      this.gradeForm = _.clone(grade);
+      this.gradeForm = this.$_.clone(grade);
       this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
     findGrade(id) {
-      var grade = _.find(this.$store.state.grade.Grades, ["id", id]);
+      var grade = this.$_.find(this.$store.state.grade.Grades, ["id", id]);
       this.showGrade(grade);
     },
     onlyNumber($event) {
@@ -342,7 +341,7 @@ export default {
       return this.$store.state.grade.Grades;
     },
     Grades_CCNoturno() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.Grades.filter(function(grade) {
           return grade.Curso == 1;
         }),
@@ -350,7 +349,7 @@ export default {
       );
     },
     Grades_CCDiurno() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.Grades.filter(function(grade) {
           return grade.Curso == 4;
         }),
@@ -363,7 +362,7 @@ export default {
       });
     },
     Grade_EC() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.Grades.filter(function(grade) {
           return grade.Curso == 2;
         }),

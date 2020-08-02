@@ -75,8 +75,8 @@ export default {
         this.files = response.Files.filter(function(elm) {
           return elm.match(/.*\.(sql)/gi);
         });
-        _.pull(this.files, "drop_all.sql");
-        _.forEach(this.files, function(value, index, array) {
+        this.$_.pull(this.files, "drop_all.sql");
+        this.$_.forEach(this.files, function(value, index, array) {
           array[index] = value.slice(0, -4);
         });
         //console.log(this.files.filter( function( elm ) {return elm.match(/.*\.(sql)/ig)}))

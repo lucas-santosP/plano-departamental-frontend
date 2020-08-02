@@ -178,7 +178,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import { toggleOrdination } from "@/common/mixins";
 import { PageHeader, Card } from "@/components/ui";
@@ -202,7 +201,7 @@ export default {
   },
   data() {
     return {
-      planoForm: _.clone(emptyPlano),
+      planoForm: this.$_.clone(emptyPlano),
       planoSelected: null,
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
@@ -224,12 +223,12 @@ export default {
       this.cleanPlano();
 
       this.planoSelected = plano.id;
-      this.planoForm = _.clone(plano);
+      this.planoForm = this.$_.clone(plano);
     },
 
     cleanPlano() {
       this.planoSelected = null;
-      this.planoForm = _.clone(emptyPlano);
+      this.planoForm = this.$_.clone(emptyPlano);
     },
 
     openModalDelete() {
@@ -292,7 +291,7 @@ export default {
 
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
-      return _.orderBy(this.allPlanos, order, type);
+      return this.$_.orderBy(this.allPlanos, order, type);
     },
     isEdit() {
       return this.planoSelected != null;

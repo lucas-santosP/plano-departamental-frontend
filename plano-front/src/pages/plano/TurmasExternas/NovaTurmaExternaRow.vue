@@ -106,7 +106,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import turmaExternaService from "@/common/services/turmaExterna";
 import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
 import { notification, maskTurmaLetra } from "@/common/mixins";
@@ -133,7 +132,7 @@ export default {
   mixins: [notification, maskTurmaLetra],
   data() {
     return {
-      turmaForm: _.clone(emptyTurma),
+      turmaForm: this.$_.clone(emptyTurma),
     };
   },
 
@@ -171,9 +170,9 @@ export default {
     setTurnoByHorario(horarioId) {
       if (horarioId == 31 && this.disciplinaIsIntegralEAD)
         this.turmaForm.turno1 = "EAD";
-      else if (_.some(this.HorariosNoturno, ["id", horarioId]))
+      else if (this.$_.some(this.HorariosNoturno, ["id", horarioId]))
         this.turmaForm.turno1 = "Noturno";
-      else if (_.some(this.HorariosDiurno, ["id", horarioId]))
+      else if (this.$_.some(this.HorariosDiurno, ["id", horarioId]))
         this.turmaForm.turno1 = "Diurno";
     },
 
@@ -181,7 +180,10 @@ export default {
       try {
         this.setPartialLoading(true);
 
-        const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
+        const newTurma = this.$_.cloneDeepWith(
+          this.turmaForm,
+          setEmptyValuesToNull
+        );
         validateObjectKeys(newTurma, ["Disciplina", "letra"]);
         newTurma.Plano = localStorage.getItem("Plano");
 
@@ -216,7 +218,7 @@ export default {
       "AllSalas",
     ]),
     DisciplinasExternasInPerfisOrderedByNome() {
-      return _.orderBy(this.DisciplinasExternasInPerfis, ["nome"]);
+      return this.$_.orderBy(this.DisciplinasExternasInPerfis, ["nome"]);
     },
     HorariosFiltredByTurno() {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
@@ -230,7 +232,10 @@ export default {
         case "EAD":
           return this.HorariosEAD;
         default:
-          return _.filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
+          return this.$_.filter(
+            this.AllHorarios,
+            (horario) => horario.id != 31
+          ); //Todos sem EAD
       }
     },
     totalCarga() {

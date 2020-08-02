@@ -499,7 +499,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
@@ -571,7 +570,7 @@ export default {
           },
           Disciplinas: () => {
             this.filtroDisciplinas.selecionados = [
-              ..._.map(
+              ...this.$_.map(
                 this.DisciplinasDCCInPerfis,
                 (disciplina) => disciplina.id
               ),
@@ -751,13 +750,13 @@ export default {
     TurmasOrdered() {
       //Se não possui ordenação de perfil
       if (this.ordenacaoMain.perfis.order === null)
-        return _.orderBy(
+        return this.$_.orderBy(
           this.TurmasFiltredByDisciplinas,
           ["periodo", this.ordenacaoMain.turmas.order, "letra"],
           ["asc", this.ordenacaoMain.turmas.type, "asc"]
         );
       else
-        return _.orderBy(
+        return this.$_.orderBy(
           this.TurmasFiltredByDisciplinas,
           [
             "periodo",
@@ -774,15 +773,15 @@ export default {
         );
     },
     TurmasFiltredByDisciplinas() {
-      return _.filter(this.TurmasFiltredBySemestres, (turma) =>
-        _.find(
+      return this.$_.filter(this.TurmasFiltredBySemestres, (turma) =>
+        this.$_.find(
           this.filtroDisciplinas.ativadas,
           (disciplinaId) => disciplinaId === turma.Disciplina
         )
       );
     },
     TurmasFiltredBySemestres() {
-      return _.filter(this.TurmasInDisciplinasPerfis, (turma) => {
+      return this.$_.filter(this.TurmasInDisciplinasPerfis, (turma) => {
         switch (this.filtroSemestres.ativo) {
           case 1:
             return turma.periodo === 1;
@@ -797,14 +796,14 @@ export default {
     },
     // Modal
     PerfisOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.PerfisDCC,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
     },
     DisciplinasDCCOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DisciplinasDCCFiltredModal,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
@@ -816,7 +815,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return _.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
         const disciplinaNome = normalizeText(disciplina.nome);
         const disciplinaCodigo = normalizeText(disciplina.codigo);
 
@@ -827,7 +826,7 @@ export default {
       });
     },
     CursosOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.CursosFiltredModal,
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type
@@ -839,7 +838,7 @@ export default {
       if (this.searchCursosModal !== "") {
         const searchNormalized = normalizeText(this.searchCursosModal);
 
-        cursosResultantes = _.filter(cursosResultantes, (curso) => {
+        cursosResultantes = this.$_.filter(cursosResultantes, (curso) => {
           const cursoNome = normalizeText(curso.nome);
           const cursoCodigo = normalizeText(curso.codigo);
 
@@ -866,7 +865,7 @@ export default {
         const disciplinasResultantes = [];
 
         this.DisciplinasDCCInPerfis.forEach((disciplina) => {
-          const perfilFounded = _.find(
+          const perfilFounded = this.$_.find(
             perfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
           );

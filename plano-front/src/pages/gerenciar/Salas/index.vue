@@ -163,7 +163,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import salaService from "@/common/services/sala";
 import { toggleOrdination } from "@/common/mixins";
 import { PageHeader, Card } from "@/components/ui";
@@ -184,7 +183,7 @@ export default {
   },
   data() {
     return {
-      salaForm: _.clone(emptySala),
+      salaForm: this.$_.clone(emptySala),
       error: undefined,
       salaClickada: "",
       ordenacaoSalasMain: { order: "nome", type: "asc" },
@@ -288,13 +287,13 @@ export default {
 
     cleanSala() {
       this.clearClick();
-      this.salaForm = _.clone(emptySala);
+      this.salaForm = this.$_.clone(emptySala);
       this.error = undefined;
     },
 
     showSala(sala) {
       this.cleanSala();
-      this.salaForm = _.clone(sala);
+      this.salaForm = this.$_.clone(sala);
       (function smoothscroll() {
         var currentScroll =
           document.documentElement.scrollTop || document.body.scrollTop;
@@ -307,7 +306,7 @@ export default {
   },
   computed: {
     Salas() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.$store.state.sala.Salas,
         this.ordenacaoSalasMain.order,
         this.ordenacaoSalasMain.type

@@ -414,7 +414,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { InputSearch, PageHeader, NavTab } from "@/components/ui";
 const allCursosDCC = [
@@ -505,7 +504,7 @@ export default {
     };
   },
   mounted() {
-    this.ano = _.find(this.$store.state.plano.Plano, {
+    this.ano = this.$_.find(this.$store.state.plano.Plano, {
       id: parseInt(localStorage.getItem("Plano"), 10),
     }).ano;
     this.novoAno = this.ano;
@@ -555,8 +554,8 @@ export default {
     getGrades() {
       //popula as grades disponíveis de cada curso em um objeto
       for (let i = 1; i <= 4; i++) {
-        this.grades[i] = _.orderBy(
-          _.filter(this.$store.state.grade.Grades, ["Curso", i]),
+        this.grades[i] = this.$_.orderBy(
+          this.$_.filter(this.$store.state.grade.Grades, ["Curso", i]),
           "periodoInicio",
           "desc"
         );
@@ -592,10 +591,10 @@ export default {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
-          let curso = _.find(this.$store.state.curso.Cursos, ["id", i]);
+          let curso = this.$_.find(this.$store.state.curso.Cursos, ["id", i]);
           for (let j = 0; j < this.gradesAtivas[i].length; j++) {
             //itera pelas grades de um curso, começando da mais recente (lista ordenada)
-            gradedisciplina = _.find(
+            gradedisciplina = this.$_.find(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
@@ -671,10 +670,10 @@ export default {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
-          let curso = _.find(this.$store.state.curso.Cursos, ["id", i]);
+          let curso = this.$_.find(this.$store.state.curso.Cursos, ["id", i]);
           for (let j = 0; j < this.gradesAtivas[i].length; j++) {
             //itera pelas grades de um curso, começando da mais recente (lista ordenada)
-            gradedisciplina = _.find(
+            gradedisciplina = this.$_.find(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               {
                 Disciplina: parseInt(d, 10),
@@ -740,7 +739,7 @@ export default {
       let disciplinasResult = this.Disciplinas;
 
       disciplinasResult.forEach((disciplina) => {
-        _.find(this.Perfis, (perfil) => {
+        this.$_.find(this.Perfis, (perfil) => {
           if (disciplina.Perfil === perfil.id) {
             disciplina.perfilAbreviacao = perfil.abreviacao;
             disciplina.perfilCor = perfil.cor;
@@ -777,7 +776,7 @@ export default {
       let disciplinasResult = this.DisciplinasFiltredMain;
 
       if (this.ordenacaoDisciplinasMain.order.includes("grade")) {
-        disciplinasResult = _.orderBy(
+        disciplinasResult = this.$_.orderBy(
           disciplinasResult,
           (disciplina) => {
             return this.somaPeriodos(
@@ -788,7 +787,7 @@ export default {
           this.ordenacaoDisciplinasMain.type
         );
       } else {
-        disciplinasResult = _.orderBy(
+        disciplinasResult = this.$_.orderBy(
           disciplinasResult,
           this.ordenacaoDisciplinasMain.order,
           this.ordenacaoDisciplinasMain.type
@@ -796,7 +795,7 @@ export default {
       }
 
       if (this.ordenacaoPerfisMain.order != null) {
-        disciplinasResult = _.orderBy(
+        disciplinasResult = this.$_.orderBy(
           disciplinasResult,
           this.ordenacaoPerfisMain.order,
           this.ordenacaoPerfisMain.type
@@ -809,7 +808,7 @@ export default {
 
       const searchNormalized = this.normalizeText(this.searchDisciplinas);
 
-      return _.filter(this.DisciplinasInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasInPerfis, (disciplina) => {
         const disciplinaNome = this.normalizeText(disciplina.nome);
         const disciplinaCodigo = this.normalizeText(disciplina.codigo);
 
@@ -824,21 +823,21 @@ export default {
       else return "perfilAbreviacao";
     },
     DisciplinasOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DisciplinasFiltredModal,
         this.ordenacaoDisciplinasModal.order,
         this.ordenacaoDisciplinasModal.type
       );
     },
     CursosOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         allCursosDCC,
         this.ordenacaoCursosModal.order,
         this.ordenacaoCursosModal.type
       );
     },
     PerfisOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.Perfis,
         this.ordenacaoPerfisModal.order,
         this.ordenacaoPerfisModal.type
@@ -848,16 +847,16 @@ export default {
       return this.$store.state.perfil.Perfis;
     },
     Horarios() {
-      return _.orderBy(this.$store.state.horario.Horarios, "horario");
+      return this.$_.orderBy(this.$store.state.horario.Horarios, "horario");
     },
     AnoAtual() {
-      return _.find(this.$store.state.plano.Plano, {
+      return this.$_.find(this.$store.state.plano.Plano, {
         id: parseInt(localStorage.getItem("Plano"), 10),
       }).ano;
     },
     activeCCD() {
       return (
-        _.find(
+        this.$_.find(
           this.filtroCursos.ativados,
           (curso) => curso.codigo === "65C"
         ) !== undefined
@@ -865,7 +864,7 @@ export default {
     },
     activeCCN() {
       return (
-        _.find(
+        this.$_.find(
           this.filtroCursos.ativados,
           (curso) => curso.codigo === "35A"
         ) !== undefined
@@ -873,7 +872,7 @@ export default {
     },
     activeSI() {
       return (
-        _.find(
+        this.$_.find(
           this.filtroCursos.ativados,
           (curso) => curso.codigo === "76A"
         ) !== undefined
@@ -881,7 +880,7 @@ export default {
     },
     activeEC() {
       return (
-        _.find(
+        this.$_.find(
           this.filtroCursos.ativados,
           (curso) => curso.codigo === "65B"
         ) !== undefined
@@ -895,7 +894,7 @@ export default {
         const disciplinasResultantes = [];
 
         this.DisciplinasInPerfis.forEach((disciplina) => {
-          const perfilFounded = _.find(
+          const perfilFounded = this.$_.find(
             perfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
           );

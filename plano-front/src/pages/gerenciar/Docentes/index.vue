@@ -209,7 +209,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
@@ -234,10 +233,10 @@ export default {
   components: { PageHeader, Card },
   data() {
     return {
-      docenteForm: _.clone(emptyDocente),
+      docenteForm: this.$_.clone(emptyDocente),
       perfisAssociados: [],
       error: undefined,
-      docentePerfil: _.clone(emptyPerfil),
+      docentePerfil: this.$_.clone(emptyPerfil),
       docenteClickado: "",
       ordenacaoDocentesMain: { order: "nome", type: "asc" },
     };
@@ -253,12 +252,12 @@ export default {
     },
     cleanDocente() {
       this.clearClick();
-      this.docenteForm = _.clone(emptyDocente);
+      this.docenteForm = this.$_.clone(emptyDocente);
       this.error = undefined;
     },
 
     showDocentes(docente, docentePerfis) {
-      this.docenteForm = _.clone(docente);
+      this.docenteForm = this.$_.clone(docente);
       this.perfisAssociados = [];
       for (var i = 0; i < docentePerfis.length; i++) {
         if (docentePerfis[i].DocenteId === docente.id) {
@@ -343,7 +342,10 @@ export default {
     addPerfil(perfil) {
       this.docentePerfil.Docente = this.docenteForm.id;
       this.docentePerfil.Perfil = perfil;
-      let perfilData = _.find(this.$store.state.perfil.Perfis, ["id", perfil]);
+      let perfilData = this.$_.find(this.$store.state.perfil.Perfis, [
+        "id",
+        perfil,
+      ]);
       docentePerfilService
         .create(this.docentePerfil)
         .then(() => {
@@ -371,7 +373,10 @@ export default {
         });
     },
     deletePerfil(perfil) {
-      let perfilData = _.find(this.$store.state.perfil.Perfis, ["id", perfil]);
+      let perfilData = this.$_.find(this.$store.state.perfil.Perfis, [
+        "id",
+        perfil,
+      ]);
       docentePerfilService
         .delete(this.docenteForm.id, perfil)
         .then(() => {
@@ -395,7 +400,7 @@ export default {
         });
     },
     managePerfil(perfil) {
-      if (_.indexOf(this.perfisAssociados, perfil) === -1) {
+      if (this.$_.indexOf(this.perfisAssociados, perfil) === -1) {
         this.deletePerfil(perfil);
       } else {
         this.addPerfil(perfil);
@@ -407,7 +412,7 @@ export default {
   },
   computed: {
     Docentes() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.$store.state.docente.Docentes,
         this.ordenacaoDocentesMain.order,
         this.ordenacaoDocentesMain.type

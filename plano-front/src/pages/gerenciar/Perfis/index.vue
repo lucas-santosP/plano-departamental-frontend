@@ -159,7 +159,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import perfilService from "@/common/services/perfil";
 import { toggleOrdination } from "@/common/mixins";
 import { PageHeader, Card } from "@/components/ui";
@@ -181,7 +180,7 @@ export default {
   },
   data() {
     return {
-      perfilForm: _.clone(emptyPerfil),
+      perfilForm: this.$_.clone(emptyPerfil),
       error: undefined,
       perfilSelectedId: "",
       ordenacaoPerfisMain: { order: "nome", type: "asc" },
@@ -198,11 +197,11 @@ export default {
     },
     cleanPerfil() {
       this.clearClick();
-      this.perfilForm = _.clone(emptyPerfil);
+      this.perfilForm = this.$_.clone(emptyPerfil);
       this.error = undefined;
     },
     showPerfil(perfil) {
-      this.perfilForm = _.clone(perfil);
+      this.perfilForm = this.$_.clone(perfil);
     },
     addPerfil() {
       perfilService
@@ -280,7 +279,7 @@ export default {
   },
   computed: {
     Perfis() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.$store.state.perfil.Perfis,
         this.ordenacaoPerfisMain.order,
         this.ordenacaoPerfisMain.type

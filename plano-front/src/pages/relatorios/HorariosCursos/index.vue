@@ -224,7 +224,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { PageHeader, NavTab } from "@/components/ui";
 
@@ -320,7 +319,7 @@ export default {
     };
   },
   mounted() {
-    this.currentPlano = _.find(
+    this.currentPlano = this.$_.find(
       this.allPlanos,
       (plano) => plano.id == parseInt(localStorage.getItem("Plano"))
     );
@@ -526,7 +525,10 @@ export default {
       var pedidos;
       var pedidosExternos;
       var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades;
-      var turmas = _.filter(this.TurmasInDisciplinasPerfis, ["periodo", 1]);
+      var turmas = this.$_.filter(this.TurmasInDisciplinasPerfis, [
+        "periodo",
+        1,
+      ]);
       var turmasExternas = this.TurmasExternasInDisciplinas;
 
       const anoAtual = this.currentPlano.ano;
@@ -557,8 +559,8 @@ export default {
       }
 
       //CCD
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 4]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -648,8 +650,8 @@ export default {
       }
 
       //CCN
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 1]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -738,8 +740,8 @@ export default {
       }
 
       //SI
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 3]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -828,8 +830,8 @@ export default {
       }
 
       //Engenharia Computacional
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 2]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -944,7 +946,10 @@ export default {
       var pedidos;
       var pedidosExternos;
       var disciplinaGrades = this.$store.state.disciplinaGrade.DisciplinaGrades;
-      var turmas = _.filter(this.TurmasInDisciplinasPerfis, ["periodo", 3]);
+      var turmas = this.$_.filter(this.TurmasInDisciplinasPerfis, [
+        "periodo",
+        3,
+      ]);
       var turmasExternas = this.TurmasExternasInDisciplinas;
 
       const anoAtual = this.currentPlano.ano;
@@ -975,8 +980,8 @@ export default {
       }
 
       //CC Diurno
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 4]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -1065,8 +1070,8 @@ export default {
       }
 
       //CC Noturno
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 1]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -1155,8 +1160,8 @@ export default {
       }
 
       //SI
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 3]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -1245,8 +1250,8 @@ export default {
       }
 
       //Engenharia Computacional
-      grades = _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
-      grades = _.orderBy(grades, "periodoInicio", "desc");
+      grades = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 2]);
+      grades = this.$_.orderBy(grades, "periodoInicio", "desc");
       pedidos = [];
       for (let t in this.$store.state.pedido.Pedidos) {
         for (let pedido in this.$store.state.pedido.Pedidos[t]) {
@@ -1408,7 +1413,10 @@ export default {
           },
         ],
       });
-      if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "65C" }) ||
+        completo
+      ) {
         tables.push({
           text: "Ciência da Computação - integral",
           bold: true,
@@ -1791,7 +1799,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "35A" }) ||
+        completo
+      ) {
         tables.push({
           text: "Ciência da Computação - noturno",
           bold: true,
@@ -2174,7 +2185,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "65B" }) ||
+        completo
+      ) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -2557,7 +2571,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "76A" }) ||
+        completo
+      ) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -2940,7 +2957,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "-" }) ||
+        completo
+      ) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -3398,7 +3418,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "65C" }) ||
+        completo
+      ) {
         tables.push({
           text: "Ciência da Computação - integral",
           bold: true,
@@ -3781,7 +3804,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "35A" }) ||
+        completo
+      ) {
         tables.push({
           text: "Ciência da Computação - noturno",
           bold: true,
@@ -4164,7 +4190,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "65B" }) ||
+        completo
+      ) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -4547,7 +4576,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "76A" }) ||
+        completo
+      ) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -4930,7 +4962,10 @@ export default {
         ],
       });
 
-      if (_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
+      if (
+        this.$_.find(this.filtroCursos.ativados, { codigo: "-" }) ||
+        completo
+      ) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -5385,13 +5420,13 @@ export default {
       );
     },
     EletivasIsSelected() {
-      return _.find(
+      return this.$_.find(
         this.filtroCursos.ativados,
         (curso) => curso.codigo === "-"
       );
     },
     CursosModalOrdered() {
-      return _.orderBy(
+      return this.$_.orderBy(
         allCursosOptions,
         this.ordemCursos.order,
         this.ordemCursos.type
@@ -5409,7 +5444,7 @@ export default {
     CursosWithHorarios() {
       const cursosResult = [
         {
-          isSelected: _.find(
+          isSelected: this.$_.find(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65C"
           ),
@@ -5421,7 +5456,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.CCD,
         },
         {
-          isSelected: _.find(
+          isSelected: this.$_.find(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "35A"
           ),
@@ -5433,7 +5468,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.CCN,
         },
         {
-          isSelected: _.find(
+          isSelected: this.$_.find(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "76A"
           ),
@@ -5445,7 +5480,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.SI,
         },
         {
-          isSelected: _.find(
+          isSelected: this.$_.find(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65B"
           ),
@@ -5457,7 +5492,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.EC,
         },
       ];
-      return _.filter(cursosResult, (curso) => curso.isSelected);
+      return this.$_.filter(cursosResult, (curso) => curso.isSelected);
     },
     DisciplinaGrades() {
       return this.$store.state.disciplinaGrade.DisciplinaGrades;

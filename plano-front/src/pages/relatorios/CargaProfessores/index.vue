@@ -490,7 +490,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
 import { InputSearch, PageHeader, NavTab } from "@/components/ui";
@@ -571,9 +570,9 @@ export default {
     turmaInDocentes(docente) {
       const turmasResultantes = [];
 
-      _.forEach(this.Turmas, (turma) => {
+      this.$_.forEach(this.Turmas, (turma) => {
         if (turma.Docente1 === docente.id || turma.Docente2 === docente.id) {
-          const DisciplinaFounded = _.find(
+          const DisciplinaFounded = this.$_.find(
             this.Disciplinas,
             (disciplina) => disciplina.id === turma.Disciplina
           );
@@ -590,16 +589,16 @@ export default {
         }
       });
 
-      return _.orderBy(turmasResultantes, ["Disciplina", "letra"]);
+      return this.$_.orderBy(turmasResultantes, ["Disciplina", "letra"]);
     },
     turmasInDocentes1Semestre(docente) {
-      return _.filter(
+      return this.$_.filter(
         this.turmaInDocentes(docente),
         (turma) => turma.periodo == 1 || turma.periodo == 2
       );
     },
     turmasInDocentes2Semestre(docente) {
-      return _.filter(
+      return this.$_.filter(
         this.turmaInDocentes(docente),
         (turma) => turma.periodo == 3 || turma.periodo == 4
       );
@@ -607,13 +606,13 @@ export default {
     turmasSemAlocacao() {
       const turmasResultantes = [];
 
-      _.forEach(this.Turmas, (turma) => {
+      this.$_.forEach(this.Turmas, (turma) => {
         if (
           turma.Docente1 == null &&
           turma.Docente2 == null &&
           turma.Disciplina != null
         ) {
-          const disciplinaFounded = _.find(
+          const disciplinaFounded = this.$_.find(
             this.Disciplinas,
             (disciplina) => turma.Disciplina === disciplina.id
           );
@@ -629,7 +628,11 @@ export default {
         }
       });
 
-      return _.orderBy(turmasResultantes, ["periodo", "Disciplina", "letra"]);
+      return this.$_.orderBy(turmasResultantes, [
+        "periodo",
+        "Disciplina",
+        "letra",
+      ]);
     },
     calculaCreditos(docente) {
       var creditosTotais = { periodo1: 0, periodo2: 0 };
@@ -691,12 +694,12 @@ export default {
       return creditosTotais;
     },
     CargasPosFiltred(docenteId) {
-      return _.filter(this.CargasPos(docenteId), function(carga) {
+      return this.$_.filter(this.CargasPos(docenteId), function(carga) {
         return carga.trimestre == 1 || carga.trimestre == 2;
       });
     },
     getCargasPosDocente(docenteId, trimestres) {
-      return _.filter(
+      return this.$_.filter(
         this.CargasPos,
         (carga) =>
           trimestres.indexOf(carga.trimestre) != -1 &&
@@ -715,15 +718,15 @@ export default {
   },
   computed: {
     DocentesOrderedMain() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DocentesFiltredMain,
         this.orednacaoDocentesMain.order,
         this.orednacaoDocentesMain.type
       );
     },
     DocentesFiltredMain() {
-      return _.filter(this.DocentesInCreditos, (docente) => {
-        const docenteFoundedIndex = _.findIndex(
+      return this.$_.filter(this.DocentesInCreditos, (docente) => {
+        const docenteFoundedIndex = this.$_.findIndex(
           this.filtroDocentes.ativados,
           (docenteAtivado) => docenteAtivado.id === docente.id
         );
@@ -732,7 +735,7 @@ export default {
       });
     },
     DocentesOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DocentesFiltredModal,
         this.ordenacaoDocentesModal.order,
         this.ordenacaoDocentesModal.type
@@ -764,16 +767,19 @@ export default {
       });
     },
     Docentes() {
-      return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
+      return this.$_.filter(this.$store.state.docente.Docentes, [
+        "ativo",
+        true,
+      ]);
     },
     Turmas() {
       return this.$store.state.turma.Turmas;
     },
     CargasPos() {
-      return _.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
+      return this.$_.orderBy(this.$store.state.cargaPos.Cargas, "trimestre");
     },
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
+      return this.$_.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
     Horarios() {
       return this.$store.state.horario.Horarios;

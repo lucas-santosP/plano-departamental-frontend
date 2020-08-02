@@ -286,7 +286,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import disciplinaService from "@/common/services/disciplina";
 import { toggleOrdination } from "@/common/mixins";
 import { PageHeader, Card } from "@/components/ui";
@@ -308,7 +307,7 @@ export default {
   components: { PageHeader, Card },
   data() {
     return {
-      disciplinaForm: _.clone(emptyDisciplina),
+      disciplinaForm: this.$_.clone(emptyDisciplina),
       error: undefined,
       disciplinaClickada: "",
       ordenacaoMain: {
@@ -420,13 +419,13 @@ export default {
 
     cleanDisciplina() {
       this.clearClick();
-      this.disciplinaForm = _.clone(emptyDisciplina);
+      this.disciplinaForm = this.$_.clone(emptyDisciplina);
       this.error = undefined;
     },
 
     showDisciplina(disciplina) {
       this.cleanDisciplina();
-      this.disciplinaForm = _.clone(disciplina);
+      this.disciplinaForm = this.$_.clone(disciplina);
     },
 
     textoLab(lab) {
@@ -446,7 +445,7 @@ export default {
       let disciplinasResultantes = this.$store.state.disciplina.Disciplinas;
 
       disciplinasResultantes.forEach((disciplina) => {
-        _.find(this.Perfis, (perfil) => {
+        this.$_.find(this.Perfis, (perfil) => {
           if (perfil.id === disciplina.Perfil) {
             disciplina.perfilAbreviacao = perfil.abreviacao;
             return true;
@@ -456,14 +455,14 @@ export default {
       return disciplinasResultantes;
     },
     DisciplinasOrdered() {
-      const disciplinasResultantes = _.orderBy(
+      const disciplinasResultantes = this.$_.orderBy(
         this.DisciplinasComPerfil,
         this.ordenacaoMain.disciplinas.order,
         this.ordenacaoMain.disciplinas.type
       );
 
       if (this.ordenacaoMain.perfis.order !== null) {
-        return _.orderBy(
+        return this.$_.orderBy(
           disciplinasResultantes,
           this.ordenacaoMain.perfis.order,
           this.ordenacaoMain.perfis.type

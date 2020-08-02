@@ -169,7 +169,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import turmaService from "@/common/services/turma";
 import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
@@ -197,7 +196,7 @@ export default {
   props: { cursosAtivadosLength: Number, default: 0 },
   data() {
     return {
-      turmaForm: _.clone(emptyTurma),
+      turmaForm: this.$_.clone(emptyTurma),
     };
   },
 
@@ -235,9 +234,9 @@ export default {
     setTurnoByHorario(horarioId) {
       if (horarioId == 31 && this.disciplinaIsIntegralEAD)
         this.turmaForm.turno1 = "EAD";
-      else if (_.some(this.HorariosNoturno, ["id", horarioId]))
+      else if (this.$_.some(this.HorariosNoturno, ["id", horarioId]))
         this.turmaForm.turno1 = "Noturno";
-      else if (_.some(this.HorariosDiurno, ["id", horarioId]))
+      else if (this.$_.some(this.HorariosDiurno, ["id", horarioId]))
         this.turmaForm.turno1 = "Diurno";
     },
 
@@ -245,7 +244,10 @@ export default {
       try {
         this.setPartialLoading(true);
 
-        const newTurma = _.cloneDeepWith(this.turmaForm, setEmptyValuesToNull);
+        const newTurma = this.$_.cloneDeepWith(
+          this.turmaForm,
+          setEmptyValuesToNull
+        );
         validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
         newTurma.Plano = parseInt(localStorage.getItem("Plano"), 10);
 
@@ -282,7 +284,7 @@ export default {
     ]),
 
     DisciplinasDCCInPerfisOrderedByNome() {
-      return _.orderBy(this.DisciplinasDCCInPerfis, ["nome"]);
+      return this.$_.orderBy(this.DisciplinasDCCInPerfis, ["nome"]);
     },
 
     HorariosFiltredByTurno() {
@@ -297,7 +299,10 @@ export default {
         case "EAD":
           return this.HorariosEAD;
         default:
-          return _.filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
+          return this.$_.filter(
+            this.AllHorarios,
+            (horario) => horario.id != 31
+          ); //Todos sem EAD
       }
     },
 

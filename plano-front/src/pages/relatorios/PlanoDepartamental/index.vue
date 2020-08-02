@@ -543,7 +543,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { InputSearch, PageHeader, NavTab } from "@/components/ui";
@@ -667,11 +666,11 @@ export default {
       return vagasP + vagasNP;
     },
     getDisciplinaVagasInCurrentSemestres(disciplina) {
-      const turmasFounded = _.filter(this.$store.state.turma.Turmas, {
+      const turmasFounded = this.$_.filter(this.$store.state.turma.Turmas, {
         Disciplina: disciplina.id,
       });
 
-      return _.reduce(
+      return this.$_.reduce(
         turmasFounded,
         (acc, turma) => {
           return acc + this.vagasTurma(turma, this.filtroSemestres.ativo);
@@ -680,7 +679,7 @@ export default {
       );
     },
     getHorarioById(horarioId) {
-      const horariosFounded = _.find(
+      const horariosFounded = this.$_.find(
         this.Horarios,
         (horario) => horario.id === horarioId
       );
@@ -689,8 +688,8 @@ export default {
       else return "";
     },
     getTurmasByDisciplina(disciplina, semestre) {
-      return _.orderBy(
-        _.filter(this.$store.state.turma.Turmas, (turma) => {
+      return this.$_.orderBy(
+        this.$_.filter(this.$store.state.turma.Turmas, (turma) => {
           return (
             turma.Disciplina === disciplina.id &&
             (semestre === 1
@@ -704,10 +703,10 @@ export default {
       );
     },
     docentes(turma) {
-      let d1 = _.find(this.$store.state.docente.Docentes, {
+      let d1 = this.$_.find(this.$store.state.docente.Docentes, {
         id: turma.Docente1,
       });
-      let d2 = _.find(this.$store.state.docente.Docentes, {
+      let d2 = this.$_.find(this.$store.state.docente.Docentes, {
         id: turma.Docente2,
       });
       if (d1 === undefined && d2 === undefined) {
@@ -726,10 +725,10 @@ export default {
       // this.$refs.VagasModal.show();
     },
     curso(pedido) {
-      return _.find(this.$store.state.curso.Cursos, { id: pedido.Curso });
+      return this.$_.find(this.$store.state.curso.Cursos, { id: pedido.Curso });
     },
     disciplina(turma) {
-      return _.find(this.$store.state.disciplina.Disciplinas, {
+      return this.$_.find(this.$store.state.disciplina.Disciplinas, {
         id: turma.Disciplina,
       });
     },
@@ -754,7 +753,7 @@ export default {
     },
     //Disciplinas da Main Table ordenadas
     DisciplinasOrderedMain() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.filtroDisciplinas.ativados,
         this.ordenacaoMain.disciplinas.order,
         this.ordenacaoMain.disciplinas.type
@@ -766,7 +765,7 @@ export default {
 
       const searchNormalized = this.normalizeText(this.searchDisciplinas);
 
-      return _.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
         const disciplinaNome = this.normalizeText(disciplina.nome);
         const disciplinaCodigo = this.normalizeText(disciplina.codigo);
 
@@ -777,7 +776,7 @@ export default {
       });
     },
     DisciplinasOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DisciplinasFiltredModal,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
@@ -785,7 +784,7 @@ export default {
     },
     //Todas disciplinas do DCC
     DisciplinasDCC() {
-      return _.filter(
+      return this.$_.filter(
         this.$store.state.disciplina.Disciplinas,
         (d) => d.Perfil !== 13 && d.Perfil !== 15
       );
@@ -794,7 +793,7 @@ export default {
       let disciplinasResultantes = [];
       // this.DisciplinasDCC
       this.DisciplinasDCC.forEach((disciplina) => {
-        const perfilFounded = _.find(
+        const perfilFounded = this.$_.find(
           this.Perfis,
           (perfil) => perfil.id === disciplina.Perfil
         );
@@ -813,7 +812,7 @@ export default {
       return this.$store.state.perfil.Perfis;
     },
     PerfisOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.Perfis,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
@@ -822,8 +821,8 @@ export default {
     VagasTurmaSelecionada() {
       if (this.turmaSelecionada === undefined) return [];
 
-      return _.orderBy(
-        _.filter(
+      return this.$_.orderBy(
+        this.$_.filter(
           this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
           function(p) {
             return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
@@ -859,7 +858,7 @@ export default {
         const disciplinasResultantes = [];
 
         this.DisciplinasDCCInPerfis.forEach((disciplina) => {
-          const perfilFounded = _.find(
+          const perfilFounded = this.$_.find(
             perfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
           );

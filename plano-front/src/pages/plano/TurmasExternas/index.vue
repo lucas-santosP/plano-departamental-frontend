@@ -339,7 +339,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapActions, mapGetters } from "vuex";
 import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
@@ -481,19 +480,19 @@ export default {
     ]),
 
     TurmasExternasOrdered() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.TurmasExternarFiltredByDisciplinas,
         ["periodo", this.ordenacaoTurmasMain.order],
         ["asc", this.ordenacaoTurmasMain.type]
       );
     },
     TurmasExternarFiltredByDisciplinas() {
-      return _.filter(this.TurmasExternarFiltredBySemestres, (turma) =>
-        _.some(this.filtroDisciplinas.ativadas, ["id", turma.Disciplina])
+      return this.$_.filter(this.TurmasExternarFiltredBySemestres, (turma) =>
+        this.$_.some(this.filtroDisciplinas.ativadas, ["id", turma.Disciplina])
       );
     },
     TurmasExternarFiltredBySemestres() {
-      return _.filter(this.TurmasExternasInDisciplinas, (turma) => {
+      return this.$_.filter(this.TurmasExternasInDisciplinas, (turma) => {
         switch (this.filtroSemestres.ativo) {
           case 1:
             return turma.periodo === 1;
@@ -508,10 +507,10 @@ export default {
     },
 
     CursosDCC() {
-      return _.slice(this.$store.state.curso.Cursos, 0, 4);
+      return this.$_.slice(this.$store.state.curso.Cursos, 0, 4);
     },
     DisciplinasExternasOrderedModal() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DisciplinasExternasFiltredModal,
         this.ordenacaoDisciplinasModal.order,
         this.ordenacaoDisciplinasModal.type
@@ -523,7 +522,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return _.filter(this.DisciplinasExternasInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasExternasInPerfis, (disciplina) => {
         const disciplinaNome = normalizeText(disciplina.nome);
         const disciplinaCodigo = normalizeText(disciplina.codigo);
 

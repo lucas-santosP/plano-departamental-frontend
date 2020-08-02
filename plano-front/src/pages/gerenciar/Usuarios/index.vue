@@ -235,7 +235,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { toggleOrdination, notification } from "@/common/mixins";
 import {
@@ -265,7 +264,7 @@ export default {
     return {
       isEditingSenha: false,
       userSelected: null,
-      userForm: _.clone(emptyUser),
+      userForm: this.$_.clone(emptyUser),
       novaSenha: "",
       confirmaSenha: "",
       ordenacaoMainUsers: { order: "nome", type: "asc" },
@@ -293,13 +292,13 @@ export default {
       this.showUser(user);
     },
     showUser(user) {
-      this.userForm = _.clone(user);
+      this.userForm = this.$_.clone(user);
     },
     cleanUser() {
       this.userSelected = null;
       this.confirmaSenha = "";
       this.isEditingSenha = false;
-      this.userForm = _.clone(emptyUser);
+      this.userForm = this.$_.clone(emptyUser);
     },
     openModalDelete() {
       this.$refs.modalDeleteUser.open();
@@ -321,7 +320,7 @@ export default {
       return true;
     },
     async createUser() {
-      const user = _.clone(this.userForm);
+      const user = this.$_.clone(this.userForm);
 
       if (!this.validateUser(user)) {
         this.showNotification({
@@ -346,7 +345,7 @@ export default {
       }
     },
     async editUser() {
-      const user = _.clone(this.userForm);
+      const user = this.$_.clone(this.userForm);
       user.senha = this.novaSenha;
 
       if (!this.validateEditUser(user)) {
@@ -373,7 +372,7 @@ export default {
       }
     },
     async deleteUser() {
-      const user = _.clone(this.userForm);
+      const user = this.$_.clone(this.userForm);
 
       try {
         await userService.delete(user.id, user);
@@ -415,7 +414,7 @@ export default {
         }
       };
 
-      return _.orderBy(this.Users, userSorter, type);
+      return this.$_.orderBy(this.Users, userSorter, type);
     },
 
     isEdit() {

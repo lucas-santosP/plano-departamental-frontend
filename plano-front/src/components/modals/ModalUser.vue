@@ -109,7 +109,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
 import { InputPassword, ButtonSlideSection } from "@/components/ui";
@@ -126,7 +125,7 @@ export default {
   components: { InputPassword, ButtonSlideSection },
   data() {
     return {
-      userForm: _.clone(emptyUser),
+      userForm: this.$_.clone(emptyUser),
       currentTab: "edit",
       confirmaSenha: "",
       senhaAtual: "",
@@ -159,7 +158,7 @@ export default {
       this.$refs.baseModalUser.close();
     },
     clearEditUserForm() {
-      this.userForm = _.clone(emptyUser);
+      this.userForm = this.$_.clone(emptyUser);
       this.isEditingSenha = false;
       this.userForm.nome = this.$store.state.auth.Usuario.nome;
       this.userForm.login = this.$store.state.auth.Usuario.login;
@@ -180,7 +179,7 @@ export default {
       return true;
     },
     async editUser() {
-      const user = _.clone(this.userForm);
+      const user = this.$_.clone(this.userForm);
       user.senhaAtual = this.senhaAtual;
       user.admin = this.$store.state.auth.Usuario.admin;
 

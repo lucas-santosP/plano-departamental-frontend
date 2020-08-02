@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import cargaPosService from "@/common/services/cargaPos";
 import { mapActions, mapGetters } from "vuex";
 import { maskOnlyNumber } from "@/common/mixins";
@@ -57,7 +56,7 @@ export default {
   },
   data() {
     return {
-      cargaPosForm: _.clone(emptyCarga),
+      cargaPosForm: this.$_.clone(emptyCarga),
     };
   },
 
@@ -65,14 +64,14 @@ export default {
     ...mapActions(["pushNotification", "setPartialLoading"]),
 
     resetCargaPos() {
-      this.cargaPosForm = _.clone(this.carga);
+      this.cargaPosForm = this.$_.clone(this.carga);
     },
 
     async editCargaPos() {
       try {
         this.setPartialLoading(true);
 
-        const newCargaPos = _.cloneDeepWith(
+        const newCargaPos = this.$_.cloneDeepWith(
           this.cargaPosForm,
           setEmptyValuesToNull
         );
@@ -103,7 +102,7 @@ export default {
     ...mapGetters(["DocentesAtivos"]),
 
     Docentes() {
-      return _.orderBy(this.DocentesAtivos, "apelido");
+      return this.$_.orderBy(this.DocentesAtivos, "apelido");
     },
   },
   watch: {

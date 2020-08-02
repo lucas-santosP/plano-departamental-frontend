@@ -264,7 +264,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import { toggleOrdination } from "@/common/mixins";
@@ -290,8 +289,8 @@ export default {
   },
   data() {
     return {
-      gradeForm: _.clone(emptyGrade),
-      disciplinaGradeForm: _.clone(emptyDisciplinaGrade),
+      gradeForm: this.$_.clone(emptyGrade),
+      disciplinaGradeForm: this.$_.clone(emptyDisciplinaGrade),
       error: undefined,
       currentGradeId: undefined,
       currentCursoId: undefined,
@@ -390,7 +389,7 @@ export default {
         });
     },
     cleanGradeForm() {
-      this.gradeForm = _.clone(emptyGrade);
+      this.gradeForm = this.$_.clone(emptyGrade);
       this.error = undefined;
     },
     cleanDisciplina() {
@@ -400,8 +399,11 @@ export default {
     },
     showGrade(gradeId) {
       this.cleanGradeForm();
-      const grade = _.find(this.$store.state.grade.Grades, ["id", gradeId]);
-      this.gradeForm = _.clone(grade);
+      const grade = this.$_.find(this.$store.state.grade.Grades, [
+        "id",
+        gradeId,
+      ]);
+      this.gradeForm = this.$_.clone(grade);
       this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
     changeCurso() {
@@ -502,7 +504,7 @@ export default {
     },
     showDisciplina(disciplinaGrade) {
       this.cleanDisciplina;
-      this.disciplinaGradeForm = _.clone(disciplinaGrade);
+      this.disciplinaGradeForm = this.$_.clone(disciplinaGrade);
     },
     isEven(number) {
       return number % 2 === 0;
@@ -519,17 +521,17 @@ export default {
       return this.disciplinaSelectedId !== this.disciplinaGradeForm.Disciplina;
     },
     DisciplinaGradesOrdered() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DisciplinaGradesFiltred,
         this.ordenacaoDisciplinasMain.order,
         this.ordenacaoDisciplinasMain.type
       );
     },
     DisciplinaGradesFiltred() {
-      return _.filter(
+      return this.$_.filter(
         this.$store.state.disciplinaGrade.DisciplinaGrades,
         (disciplinaGrade) => {
-          return _.find(this.Disciplinas, (disciplina) => {
+          return this.$_.find(this.Disciplinas, (disciplina) => {
             if (
               this.currentGradeId === disciplinaGrade.Grade &&
               disciplina.id === disciplinaGrade.Disciplina
@@ -544,7 +546,7 @@ export default {
       );
     },
     GradesFiltredByCurrentCurso() {
-      return _.filter(
+      return this.$_.filter(
         this.Grades,
         (grade) => grade.Curso == this.currentCursoId
       );
@@ -556,7 +558,7 @@ export default {
       return this.$store.state.curso.Cursos;
     },
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
+      return this.$_.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
   },
 };

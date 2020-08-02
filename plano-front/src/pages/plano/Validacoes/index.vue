@@ -317,7 +317,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
 import { PageHeader, NavTab, BodyModalEditTurma } from "@/components/ui";
 import { mapActions } from "vuex";
@@ -365,7 +364,7 @@ export default {
   },
   data() {
     return {
-      allConflitos: _.clone(AllConflitosTurmas),
+      allConflitos: this.$_.clone(AllConflitosTurmas),
       grades1Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       ordemTurmas: { order: "periodo", type: "asc" },
@@ -411,8 +410,8 @@ export default {
 
     let ano = this.$store.state.plano.Plano[0].ano;
     //CCD
-    g = _.filter(this.$store.state.grade.Grades, ["Curso", 4]);
-    g = _.orderBy(g, "periodoInicio", "desc");
+    g = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 4]);
+    g = this.$_.orderBy(g, "periodoInicio", "desc");
     periodoFinal = 0;
     for (let i = 0; i < g.length; i++) {
       periodoInicial = periodoFinal + 1;
@@ -446,8 +445,8 @@ export default {
       }
     }
     //CCN
-    g = _.filter(this.$store.state.grade.Grades, ["Curso", 1]);
-    g = _.orderBy(g, "periodoInicio", "desc");
+    g = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 1]);
+    g = this.$_.orderBy(g, "periodoInicio", "desc");
     periodoFinal = 0;
     for (let i = 0; i < g.length; i++) {
       periodoInicial = periodoFinal + 1;
@@ -481,8 +480,8 @@ export default {
       }
     }
     //SI
-    g = _.filter(this.$store.state.grade.Grades, ["Curso", 3]);
-    g = _.orderBy(g, "periodoInicio", "desc");
+    g = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 3]);
+    g = this.$_.orderBy(g, "periodoInicio", "desc");
     periodoFinal = 0;
     for (let i = 0; i < g.length; i++) {
       periodoInicial = periodoFinal + 1;
@@ -516,8 +515,8 @@ export default {
       }
     }
     //EC
-    g = _.filter(this.$store.state.grade.Grades, ["Curso", 2]);
-    g = _.orderBy(g, "periodoInicio", "desc");
+    g = this.$_.filter(this.$store.state.grade.Grades, ["Curso", 2]);
+    g = this.$_.orderBy(g, "periodoInicio", "desc");
     periodoFinal = 0;
     for (let i = 0; i < g.length; i++) {
       periodoInicial = periodoFinal + 1;
@@ -583,19 +582,22 @@ export default {
       this.$refs.modalEditTurma.open();
     },
     findPerfilById(id) {
-      let perfil = _.find(this.Perfis, (p) => p.id == id);
+      let perfil = this.$_.find(this.Perfis, (p) => p.id == id);
       return perfil != undefined ? perfil : null;
     },
     findDocenteApelidoById(id) {
-      let docente = _.find(this.Docentes, (d) => d.id == id);
+      let docente = this.$_.find(this.Docentes, (d) => d.id == id);
       return docente != undefined ? docente.apelido : null;
     },
     findDisciplinaById(id) {
-      let disciplina = _.find(this.Disciplinas, (d) => d.id == id);
+      let disciplina = this.$_.find(this.Disciplinas, (d) => d.id == id);
       return disciplina != undefined ? disciplina : null;
     },
     findTurmaById(turmaId) {
-      let turmaFounded = _.find(this.Turmas, (turma) => turma.id == turmaId);
+      let turmaFounded = this.$_.find(
+        this.Turmas,
+        (turma) => turma.id == turmaId
+      );
       return turmaFounded != undefined ? turmaFounded : null;
     },
     totalPedidos(turma_id) {
@@ -738,7 +740,8 @@ export default {
     },
     checkVagaSala(sala_id, pedidosTotais) {
       let sala;
-      if (sala_id != null) sala = _.find(this.Salas, (s) => sala_id == s.id);
+      if (sala_id != null)
+        sala = this.$_.find(this.Salas, (s) => sala_id == s.id);
 
       if (sala != undefined) {
         if (sala.lotacao_maxima < pedidosTotais) {
@@ -775,9 +778,9 @@ export default {
         grades = this.grades2Semestre;
       }
       let conflitos = false;
-      if (_.find(pedidos, { Curso: 4 }).vagasPeriodizadas > 0) {
+      if (this.$_.find(pedidos, { Curso: 4 }).vagasPeriodizadas > 0) {
         for (let i = 0; i < grades.CCD.length; i++) {
-          let disciplinaGrade = _.find(
+          let disciplinaGrade = this.$_.find(
             this.$store.state.disciplinaGrade.DisciplinaGrades,
             { Grade: grades.CCD[i].id, Disciplina: turma.Disciplina }
           );
@@ -786,7 +789,7 @@ export default {
             disciplinaGrade.periodo >= grades.CCD[i].inicio &&
             disciplinaGrade.periodo <= grades.CCD[i].fim
           ) {
-            let disciplinasPeriodo = _.filter(
+            let disciplinasPeriodo = this.$_.filter(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               { Grade: grades.CCD[i].id, periodo: disciplinaGrade.periodo }
             );
@@ -794,19 +797,19 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
-              let disciplinaConflito = _.find(
+              let disciplinaConflito = this.$_.find(
                 this.$store.state.disciplina.Disciplinas,
                 { id: disciplinasPeriodo[d].Disciplina }
               );
               let externa =
                 disciplinaConflito.Perfil == 13 ||
                 disciplinaConflito.Perfil == 15;
-              let turmasDisciplina = _.filter(
+              let turmasDisciplina = this.$_.filter(
                 externa
                   ? this.$store.state.turmaExterna.Turmas
                   : this.$store.state.turma.Turmas,
                 (t) => {
-                  let pedido = _.find(
+                  let pedido = this.$_.find(
                     externa
                       ? this.$store.state.pedidoExterno.Pedidos[t.id]
                       : this.$store.state.pedido.Pedidos[t.id],
@@ -844,9 +847,9 @@ export default {
           }
         }
       }
-      if (_.find(pedidos, { Curso: 1 }).vagasPeriodizadas > 0) {
+      if (this.$_.find(pedidos, { Curso: 1 }).vagasPeriodizadas > 0) {
         for (let i = 0; i < grades.CCN.length; i++) {
-          let disciplinaGrade = _.find(
+          let disciplinaGrade = this.$_.find(
             this.$store.state.disciplinaGrade.DisciplinaGrades,
             { Grade: grades.CCN[i].id, Disciplina: turma.Disciplina }
           );
@@ -855,7 +858,7 @@ export default {
             disciplinaGrade.periodo >= grades.CCN[i].inicio &&
             disciplinaGrade.periodo <= grades.CCN[i].fim
           ) {
-            let disciplinasPeriodo = _.filter(
+            let disciplinasPeriodo = this.$_.filter(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               { Grade: grades.CCN[i].id, periodo: disciplinaGrade.periodo }
             );
@@ -863,19 +866,19 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
-              let disciplinaConflito = _.find(
+              let disciplinaConflito = this.$_.find(
                 this.$store.state.disciplina.Disciplinas,
                 { id: disciplinasPeriodo[d].Disciplina }
               );
               let externa =
                 disciplinaConflito.Perfil == 13 ||
                 disciplinaConflito.Perfil == 15;
-              let turmasDisciplina = _.filter(
+              let turmasDisciplina = this.$_.filter(
                 externa
                   ? this.$store.state.turmaExterna.Turmas
                   : this.$store.state.turma.Turmas,
                 (t) => {
-                  let pedido = _.find(
+                  let pedido = this.$_.find(
                     externa
                       ? this.$store.state.pedidoExterno.Pedidos[t.id]
                       : this.$store.state.pedido.Pedidos[t.id],
@@ -913,9 +916,9 @@ export default {
           }
         }
       }
-      if (_.find(pedidos, { Curso: 3 }).vagasPeriodizadas > 0) {
+      if (this.$_.find(pedidos, { Curso: 3 }).vagasPeriodizadas > 0) {
         for (let i = 0; i < grades.SI.length; i++) {
-          let disciplinaGrade = _.find(
+          let disciplinaGrade = this.$_.find(
             this.$store.state.disciplinaGrade.DisciplinaGrades,
             { Grade: grades.SI[i].id, Disciplina: turma.Disciplina }
           );
@@ -924,7 +927,7 @@ export default {
             disciplinaGrade.periodo >= grades.SI[i].inicio &&
             disciplinaGrade.periodo <= grades.SI[i].fim
           ) {
-            let disciplinasPeriodo = _.filter(
+            let disciplinasPeriodo = this.$_.filter(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               { Grade: grades.SI[i].id, periodo: disciplinaGrade.periodo }
             );
@@ -932,19 +935,19 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
-              let disciplinaConflito = _.find(
+              let disciplinaConflito = this.$_.find(
                 this.$store.state.disciplina.Disciplinas,
                 { id: disciplinasPeriodo[d].Disciplina }
               );
               let externa =
                 disciplinaConflito.Perfil == 13 ||
                 disciplinaConflito.Perfil == 15;
-              let turmasDisciplina = _.filter(
+              let turmasDisciplina = this.$_.filter(
                 externa
                   ? this.$store.state.turmaExterna.Turmas
                   : this.$store.state.turma.Turmas,
                 (t) => {
-                  let pedido = _.find(
+                  let pedido = this.$_.find(
                     externa
                       ? this.$store.state.pedidoExterno.Pedidos[t.id]
                       : this.$store.state.pedido.Pedidos[t.id],
@@ -982,9 +985,9 @@ export default {
           }
         }
       }
-      if (_.find(pedidos, { Curso: 2 }).vagasPeriodizadas > 0) {
+      if (this.$_.find(pedidos, { Curso: 2 }).vagasPeriodizadas > 0) {
         for (let i = 0; i < grades.EC.length; i++) {
-          let disciplinaGrade = _.find(
+          let disciplinaGrade = this.$_.find(
             this.$store.state.disciplinaGrade.DisciplinaGrades,
             { Grade: grades.EC[i].id, Disciplina: turma.Disciplina }
           );
@@ -993,7 +996,7 @@ export default {
             disciplinaGrade.periodo >= grades.EC[i].inicio &&
             disciplinaGrade.periodo <= grades.EC[i].fim
           ) {
-            let disciplinasPeriodo = _.filter(
+            let disciplinasPeriodo = this.$_.filter(
               this.$store.state.disciplinaGrade.DisciplinaGrades,
               { Grade: grades.EC[i].id, periodo: disciplinaGrade.periodo }
             );
@@ -1001,19 +1004,19 @@ export default {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
               }
-              let disciplinaConflito = _.find(
+              let disciplinaConflito = this.$_.find(
                 this.$store.state.disciplina.Disciplinas,
                 { id: disciplinasPeriodo[d].Disciplina }
               );
               let externa =
                 disciplinaConflito.Perfil == 13 ||
                 disciplinaConflito.Perfil == 15;
-              let turmasDisciplina = _.filter(
+              let turmasDisciplina = this.$_.filter(
                 externa
                   ? this.$store.state.turmaExterna.Turmas
                   : this.$store.state.turma.Turmas,
                 (t) => {
-                  let pedido = _.find(
+                  let pedido = this.$_.find(
                     externa
                       ? this.$store.state.pedidoExterno.Pedidos[t.id]
                       : this.$store.state.pedido.Pedidos[t.id],
@@ -1055,7 +1058,7 @@ export default {
       else return false;
     },
     isLab(salaId) {
-      let salaResultante = _.find(
+      let salaResultante = this.$_.find(
         this.Salas,
         (sala) => salaId == sala.id && sala.laboratorio
       );
@@ -1063,16 +1066,19 @@ export default {
       else return false;
     },
     creditosGraduacao(docente) {
-      let turmas = _.filter(this.$store.state.turma.Turmas, (t) => {
+      let turmas = this.$_.filter(this.$store.state.turma.Turmas, (t) => {
         return t.Docente1 === docente.id || t.Docente2 === docente.id;
       });
 
       let cargaTotalDocente = 0;
 
       for (let i = 0; i < turmas.length; i++) {
-        let disciplina = _.find(this.$store.state.disciplina.Disciplinas, {
-          id: turmas[i].Disciplina,
-        });
+        let disciplina = this.$_.find(
+          this.$store.state.disciplina.Disciplinas,
+          {
+            id: turmas[i].Disciplina,
+          }
+        );
         let cargaTotalDisciplina =
           disciplina.cargaTeorica + disciplina.cargaPratica;
         if (turmas[i].Docente1 != null && turmas[i].Docente2 != null) {
@@ -1086,7 +1092,7 @@ export default {
       return cargaTotalDocente;
     },
     creditosPos(docente) {
-      let turmas = _.filter(this.$store.state.cargaPos.Cargas, (t) => {
+      let turmas = this.$_.filter(this.$store.state.cargaPos.Cargas, (t) => {
         return t.Docente === docente.id;
       });
 
@@ -1105,7 +1111,7 @@ export default {
       else return false;
     },
     filterByConflitos(arrayConflitos) {
-      const conflitosResultantes = _.filter(
+      const conflitosResultantes = this.$_.filter(
         arrayConflitos,
         (conflito) =>
           this.filtroConflitos.ativados.indexOf(conflito.type) !== -1
@@ -1115,10 +1121,10 @@ export default {
   },
   computed: {
     ConflitosOrdered() {
-      return _.orderBy(AllConflitosTurmas, "msg");
+      return this.$_.orderBy(AllConflitosTurmas, "msg");
     },
     TurmasValidacoesOrdered() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.TurmasValidacoesFiltred,
         this.ordemTurmas.order,
         this.ordemTurmas.type
@@ -1127,7 +1133,7 @@ export default {
     TurmasValidacoesFiltred() {
       const turmasResultantes = [];
 
-      _.forEach(this.TurmasValidacoes, (turma) => {
+      this.$_.forEach(this.TurmasValidacoes, (turma) => {
         const filtredConflitos = this.filterByConflitos(turma.conflitos);
         const filtredSemestre = this.filterBySemestre(turma.periodo);
 
@@ -1153,7 +1159,7 @@ export default {
       return turmasResultantes;
     },
     DocentesValidacoesOrdered() {
-      return _.orderBy(
+      return this.$_.orderBy(
         this.DocentesValidacoes,
         this.ordemDocentes.order,
         this.ordemDocentes.type
@@ -1187,19 +1193,25 @@ export default {
       return docentesResultantes;
     },
     Turmas() {
-      return _.orderBy(this.$store.state.turma.Turmas, ["letra", "Disciplina"]);
+      return this.$_.orderBy(this.$store.state.turma.Turmas, [
+        "letra",
+        "Disciplina",
+      ]);
     },
     Disciplinas() {
-      return _.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
+      return this.$_.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
     Perfis() {
-      return _.orderBy(this.$store.state.perfil.Perfis, "nome");
+      return this.$_.orderBy(this.$store.state.perfil.Perfis, "nome");
     },
     Salas() {
-      return _.orderBy(this.$store.state.sala.Salas, "nome");
+      return this.$_.orderBy(this.$store.state.sala.Salas, "nome");
     },
     Docentes() {
-      return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
+      return this.$_.filter(this.$store.state.docente.Docentes, [
+        "ativo",
+        true,
+      ]);
     },
   },
 };

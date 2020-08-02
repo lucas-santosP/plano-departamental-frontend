@@ -188,7 +188,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleItemInArray } from "@/common/mixins";
 import { PageHeader, NavTab } from "@/components/ui";
@@ -278,34 +277,45 @@ export default {
   computed: {
     LaboratoriosOrdered() {
       const laboratoriosResultantes = [];
-      laboratoriosResultantes.push(_.find(this.Laboratorios, ["nome", "L107"]));
-      laboratoriosResultantes.push(_.find(this.Laboratorios, ["nome", "L205"]));
-      laboratoriosResultantes.push(_.find(this.Laboratorios, ["nome", "LAB4"]));
-      laboratoriosResultantes.push(_.find(this.Laboratorios, ["nome", "LAB3"]));
       laboratoriosResultantes.push(
-        _.find(this.Laboratorios, ["nome", "LABENG1"])
+        this.$_.find(this.Laboratorios, ["nome", "L107"])
       );
       laboratoriosResultantes.push(
-        _.find(this.Laboratorios, ["nome", "LABENG2"])
+        this.$_.find(this.Laboratorios, ["nome", "L205"])
       );
       laboratoriosResultantes.push(
-        _.find(this.Laboratorios, ["nome", "LAB EST 2"])
+        this.$_.find(this.Laboratorios, ["nome", "LAB4"])
+      );
+      laboratoriosResultantes.push(
+        this.$_.find(this.Laboratorios, ["nome", "LAB3"])
+      );
+      laboratoriosResultantes.push(
+        this.$_.find(this.Laboratorios, ["nome", "LABENG1"])
+      );
+      laboratoriosResultantes.push(
+        this.$_.find(this.Laboratorios, ["nome", "LABENG2"])
+      );
+      laboratoriosResultantes.push(
+        this.$_.find(this.Laboratorios, ["nome", "LAB EST 2"])
       );
       return laboratoriosResultantes;
     },
     Laboratorios() {
-      return _.filter(this.$store.state.sala.Salas, ["laboratorio", true]);
+      return this.$_.filter(this.$store.state.sala.Salas, [
+        "laboratorio",
+        true,
+      ]);
     },
     Turmas1() {
-      return _.concat(
-        _.filter(this.$store.state.turma.Turmas, ["periodo", 1]),
-        _.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 1])
+      return this.$_.concat(
+        this.$_.filter(this.$store.state.turma.Turmas, ["periodo", 1]),
+        this.$_.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 1])
       );
     },
     Turmas2() {
-      return _.concat(
-        _.filter(this.$store.state.turma.Turmas, ["periodo", 3]),
-        _.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 3])
+      return this.$_.concat(
+        this.$_.filter(this.$store.state.turma.Turmas, ["periodo", 3]),
+        this.$_.filter(this.$store.state.turmaExterna.Turmas, ["periodo", 3])
       );
     },
     hasLaboratorioAtivos() {

@@ -288,7 +288,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import { mapActions } from "vuex";
 import cargaPosService from "@/common/services/cargaPos";
 import {
@@ -433,8 +432,8 @@ export default {
     cargaPosInDocente(programaNome) {
       const cargasResultantes = [];
 
-      _.forEach(this.CargasPos, (carga) => {
-        const docenteFounded = _.find(
+      this.$_.forEach(this.CargasPos, (carga) => {
+        const docenteFounded = this.$_.find(
           this.Docentes,
           (docente) => docente.id === carga.Docente
         );
@@ -451,7 +450,7 @@ export default {
     },
 
     allCreditosCarga(cargas) {
-      return _.reduce(cargas, (acc, carga) => acc + carga.creditos, 0);
+      return this.$_.reduce(cargas, (acc, carga) => acc + carga.creditos, 0);
     },
 
     selectSemestre(semestre) {
@@ -460,7 +459,7 @@ export default {
     },
     connectSemestreInTrimestre() {
       const findTrimestre = (array, trimestreValor) =>
-        _.find(array, (item) => item.valor === trimestreValor);
+        this.$_.find(array, (item) => item.valor === trimestreValor);
 
       const allTrimestres = this.Trimestres;
       this.filtroTrimestres.selecionados = [];
@@ -486,7 +485,7 @@ export default {
     },
     connectTrimestreInSemestre() {
       const findTrimestre = (array, trimestreValor) =>
-        _.find(array, (item) => item.valor === trimestreValor);
+        this.$_.find(array, (item) => item.valor === trimestreValor);
 
       const { selecionados } = this.filtroTrimestres;
 
@@ -504,7 +503,7 @@ export default {
     ProgramasInCargaPos() {
       const programasResutantes = [];
 
-      _.forEach(this.AllProgramasPosOrdered, (programaNome) => {
+      this.$_.forEach(this.AllProgramasPosOrdered, (programaNome) => {
         programasResutantes.push({
           nome: programaNome,
           carga: this.cargaPosInDocente(programaNome),
@@ -514,10 +513,10 @@ export default {
       return programasResutantes;
     },
     ProgramasInCargaPosFiltredByPrograma() {
-      return _.filter(
+      return this.$_.filter(
         this.ProgramasInCargaPos,
         (programa) =>
-          _.findIndex(
+          this.$_.findIndex(
             this.filtroProgramas.ativados,
             (programaNome) => programaNome === programa.nome
           ) !== -1
@@ -526,14 +525,14 @@ export default {
     ProgramasInCargaPosFiltredByTrimestre() {
       const programasResutantes = [];
 
-      _.forEach(this.ProgramasInCargaPosFiltredByPrograma, (programa) => {
+      this.$_.forEach(this.ProgramasInCargaPosFiltredByPrograma, (programa) => {
         programasResutantes.push({
           nome: programa.nome,
 
-          carga: _.filter(
+          carga: this.$_.filter(
             programa.carga,
             (carga) =>
-              _.findIndex(
+              this.$_.findIndex(
                 this.filtroTrimestres.ativados,
                 (trimestre) => trimestre.valor === carga.trimestre
               ) !== -1
@@ -546,20 +545,23 @@ export default {
     ProgramasInCargaPosOrdered() {
       const programasResutantes = [];
 
-      _.forEach(this.ProgramasInCargaPosFiltredByTrimestre, (programa) => {
-        programasResutantes.push({
-          nome: programa.nome,
-          carga: _.orderBy(
-            programa.carga,
-            ["trimestre", this.ordenacaoCargaPos.order],
-            ["asc", this.ordenacaoCargaPos.type]
-          ),
-        });
-      });
+      this.$_.forEach(
+        this.ProgramasInCargaPosFiltredByTrimestre,
+        (programa) => {
+          programasResutantes.push({
+            nome: programa.nome,
+            carga: this.$_.orderBy(
+              programa.carga,
+              ["trimestre", this.ordenacaoCargaPos.order],
+              ["asc", this.ordenacaoCargaPos.type]
+            ),
+          });
+        }
+      );
       return programasResutantes;
     },
     AllProgramasPosOrdered() {
-      return _.orderBy(["PGCC", "PGMC", "PGEM"], String, "asc");
+      return this.$_.orderBy(["PGCC", "PGMC", "PGEM"], String, "asc");
     },
     Trimestres() {
       return [
@@ -573,7 +575,10 @@ export default {
       return this.$store.state.cargaPos.Cargas;
     },
     Docentes() {
-      return _.filter(this.$store.state.docente.Docentes, ["ativo", true]);
+      return this.$_.filter(this.$store.state.docente.Docentes, [
+        "ativo",
+        true,
+      ]);
     },
     Deletar() {
       return this.$store.state.cargaPos.Deletar;
