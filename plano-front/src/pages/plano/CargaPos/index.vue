@@ -78,7 +78,7 @@
             @click="toggleOrder(ordenacaoCargaPos, 'creditos', 'desc')"
             class="clickable"
             style="width:50px"
-            title="Carga"
+            title="Créditos"
           >
             C.
             <i :class="setIconByOrder(ordenacaoCargaPos, 'creditos')"></i>
