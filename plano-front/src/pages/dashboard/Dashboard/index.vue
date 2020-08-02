@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import _ from "lodash";
 import bddumpService from "@/common/services/bddump";
 import { EventBus } from "@/plugins/eventBus.js";
 import { mapGetters, mapActions } from "vuex";
