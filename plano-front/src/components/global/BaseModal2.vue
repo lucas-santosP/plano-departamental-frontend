@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/eventBus.js";
+import { EventBus } from "@/plugins/eventBus.js";
 
 const positions = {
   right: {

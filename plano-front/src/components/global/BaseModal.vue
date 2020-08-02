@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/eventBus.js";
+import { EventBus } from "@/plugins/eventBus.js";
 
 export default {
   name: "BaseModal",

@@ -12,6 +12,9 @@ import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
 Vue.use(VueSocketio, SocketIoInstance, store);
 
+import LodashVue from "./plugins/lodashVue.js";
+Vue.use(LodashVue);
+
 //fontawesome
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
