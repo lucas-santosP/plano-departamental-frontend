@@ -138,13 +138,12 @@ import turmaService from "@/common/services/turma";
 import pedidoService from "@/common/services/pedido";
 import { normalizeText } from "@/common/utils";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { InputSearch, BaseTable, BaseButton } from "@/components/ui";
-import BaseModal2 from "@/components/modals/BaseModal2";
+import { InputSearch } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",
   mixins: [toggleItemInArray, toggleOrdination],
-  components: { BaseModal2, BaseTable, BaseButton, InputSearch },
+  components: { InputSearch },
   props: {
     plano: { type: Object, required: true },
   },

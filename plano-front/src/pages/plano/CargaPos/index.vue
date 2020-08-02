@@ -296,7 +296,7 @@ import {
   toggleItemInArray,
   tableLoading,
 } from "@/common/mixins";
-import { PageHeader, BaseTable, BaseButton, NavTab } from "@/components/ui";
+import { PageHeader, NavTab } from "@/components/ui";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
 
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
@@ -312,9 +312,8 @@ export default {
     CargaPosRow,
     NovaCargaPosRow,
     PageHeader,
-    BaseTable,
+
     NavTab,
-    BaseButton,
   },
   data() {
     return {

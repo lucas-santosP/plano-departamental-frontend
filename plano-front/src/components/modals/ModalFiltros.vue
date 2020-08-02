@@ -39,13 +39,11 @@
 </template>
 
 <script>
-import BaseModal2 from "./BaseModal2";
-import BaseButton from "@/components/ui/BaseButton";
 import NavTab from "@/components/ui/NavTab";
 
 export default {
   name: "ModalFiltros",
-  components: { BaseModal2, BaseButton, NavTab },
+  components: { NavTab },
   props: {
     callbacks: { type: Object, required: true },
     tabsOptions: { type: Object, required: true },

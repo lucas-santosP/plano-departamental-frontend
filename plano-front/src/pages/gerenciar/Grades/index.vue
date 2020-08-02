@@ -211,13 +211,7 @@
 <script>
 import _ from "lodash";
 import gradeService from "@/common/services/grade";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  BaseModal,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyGrade = {
   id: undefined,
@@ -232,7 +226,7 @@ const emptyDisciplinaGrade = {
 };
 export default {
   name: "DashboardGrade",
-  components: { PageHeader, Card, BaseTable, BaseModal, BaseButton },
+  components: { PageHeader, Card },
   data() {
     return {
       error: undefined,

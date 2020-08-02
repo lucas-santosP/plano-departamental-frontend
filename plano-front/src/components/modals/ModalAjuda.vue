@@ -14,12 +14,8 @@
 </template>
 
 <script>
-import BaseModal2 from "./BaseModal2";
-
 export default {
   name: "ModalAjuda",
-  components: { BaseModal2 },
-
   methods: {
     toggle() {
       this.$refs.baseModalAjuda.toggle();

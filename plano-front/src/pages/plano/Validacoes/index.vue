@@ -319,14 +319,7 @@
 <script>
 import _ from "lodash";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  NavTab,
-  BodyModalEditTurma,
-  BaseModal,
-} from "@/components/ui";
+import { PageHeader, NavTab, BodyModalEditTurma } from "@/components/ui";
 import { mapActions } from "vuex";
 
 const AllConflitosTurmas = [
@@ -366,12 +359,9 @@ export default {
   name: "Validacoes",
   mixins: [toggleOrdination, toggleItemInArray],
   components: {
-    BaseButton,
     BodyModalEditTurma,
     PageHeader,
     NavTab,
-    BaseTable,
-    BaseModal,
   },
   data() {
     return {

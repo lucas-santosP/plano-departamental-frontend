@@ -546,14 +546,7 @@
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
-import {
-  InputSearch,
-  BaseButton,
-  BaseModal,
-  BaseTable,
-  PageHeader,
-  NavTab,
-} from "@/components/ui";
+import { InputSearch, PageHeader, NavTab } from "@/components/ui";
 import { ModalRelatorio } from "@/components/modals";
 
 export default {
@@ -561,11 +554,10 @@ export default {
   mixins: [toggleItemInArray, toggleOrdination],
   components: {
     InputSearch,
-    BaseModal,
-    BaseTable,
+
     PageHeader,
     NavTab,
-    BaseButton,
+
     ModalRelatorio,
   },
   data() {

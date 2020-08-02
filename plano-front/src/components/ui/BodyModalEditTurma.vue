@@ -57,7 +57,7 @@
         <span class="modal-title p-0 m-0 text-right" style="font-weight:normal"
           >Créditos: {{ CreditosDaDisciplina }}</span
         >
-      </div> 
+      </div>
       <!-- Semestre, Turma e Creditos -->
       <div class="form-row w-100">
         <div class="form-group col">
@@ -348,10 +348,8 @@
 <script>
 import _ from "lodash";
 import turmaService from "@/common/services/turma";
-import BaseTable from "./BaseTable";
-import BaseButton from "./BaseButton";
 import InputSearch from "./InputSearch";
-import PedidosTableModal from "@/components/ui/PedidosTableModal.vue";
+import PedidosTableModal from "./PedidosTableModal.vue";
 
 const emptyTurma = {
   id: null,
@@ -370,7 +368,7 @@ const emptyTurma = {
 
 export default {
   name: "BodyModalEditTurma",
-  components: { BaseTable, PedidosTableModal, BaseButton, InputSearch },
+  components: { PedidosTableModal, InputSearch },
   props: {
     turma: { type: Object, required: true },
     hasEditDisciplina: { type: Boolean, default: true },

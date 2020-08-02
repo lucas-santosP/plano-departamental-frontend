@@ -124,23 +124,14 @@
 <script>
 import _ from "lodash";
 import { toggleItemInArray, tableLoading } from "@/common/mixins";
-import {
-  PageHeader,
-  NavTab,
-  BaseTable,
-  BaseButton,
-  BaseModal,
-} from "@/components/ui";
+import { PageHeader, NavTab } from "@/components/ui";
 
 export default {
   name: "DashboardHistory",
   mixins: [toggleItemInArray, tableLoading],
   components: {
-    BaseModal,
     PageHeader,
-    BaseTable,
     NavTab,
-    BaseButton,
   },
   data() {
     return {

@@ -268,13 +268,7 @@ import _ from "lodash";
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import { toggleOrdination } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  BaseModal,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyGrade = {
   id: undefined,
@@ -292,10 +286,7 @@ export default {
   mixins: [toggleOrdination],
   components: {
     PageHeader,
-    BaseTable,
     Card,
-    BaseButton,
-    BaseModal,
   },
   data() {
     return {

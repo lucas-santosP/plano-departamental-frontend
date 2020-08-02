@@ -289,13 +289,7 @@
 import _ from "lodash";
 import disciplinaService from "@/common/services/disciplina";
 import { toggleOrdination } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  BaseModal,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyDisciplina = {
   id: undefined,
@@ -311,7 +305,7 @@ const emptyDisciplina = {
 export default {
   name: "DashboardDisciplina",
   mixins: [toggleOrdination],
-  components: { PageHeader, BaseTable, Card, BaseButton, BaseModal },
+  components: { PageHeader, Card },
   data() {
     return {
       disciplinaForm: _.clone(emptyDisciplina),

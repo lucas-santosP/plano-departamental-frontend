@@ -493,24 +493,14 @@
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import {
-  InputSearch,
-  PageHeader,
-  BaseTable,
-  NavTab,
-  BaseModal,
-  BaseButton,
-} from "@/components/ui";
+import { InputSearch, PageHeader, NavTab } from "@/components/ui";
 
 export default {
   name: "DashboardCargaProfessores",
   mixins: [toggleOrdination, toggleItemInArray],
   components: {
     PageHeader,
-    BaseTable,
     NavTab,
-    BaseModal,
-    BaseButton,
     InputSearch,
   },
   data() {

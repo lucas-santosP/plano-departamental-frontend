@@ -268,13 +268,7 @@ import _ from "lodash";
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import { toggleOrdination, notification } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseModal,
-  BaseButton,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyCurso = {
   id: undefined,
@@ -290,7 +284,7 @@ const emptyCurso = {
 export default {
   name: "DashboardCursos",
   mixins: [toggleOrdination, notification],
-  components: { PageHeader, BaseTable, Card, BaseButton, BaseModal },
+  components: { PageHeader, Card },
 
   data() {
     return {

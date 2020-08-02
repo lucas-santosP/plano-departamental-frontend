@@ -112,8 +112,7 @@
 import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { notification } from "@/common/mixins";
-import { BaseModal, InputPassword, ButtonSlideSection } from "@/components/ui";
-import BaseButton from "@/components/ui/BaseButton";
+import { InputPassword, ButtonSlideSection } from "@/components/ui";
 
 const emptyUser = {
   nome: "",
@@ -124,7 +123,7 @@ const emptyUser = {
 export default {
   name: "ModalUser",
   mixins: [notification],
-  components: { BaseModal, InputPassword, BaseButton, ButtonSlideSection },
+  components: { InputPassword, ButtonSlideSection },
   data() {
     return {
       userForm: _.clone(emptyUser),

@@ -166,13 +166,7 @@
 import _ from "lodash";
 import salaService from "@/common/services/sala";
 import { toggleOrdination } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  Card,
-  BaseModal,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptySala = {
   id: undefined,
@@ -186,10 +180,7 @@ export default {
   mixins: [toggleOrdination],
   components: {
     PageHeader,
-    BaseTable,
     Card,
-    BaseButton,
-    BaseModal,
   },
   data() {
     return {

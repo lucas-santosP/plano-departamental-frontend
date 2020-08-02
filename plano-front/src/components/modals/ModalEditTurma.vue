@@ -10,12 +10,11 @@
 </template>
 
 <script>
-import BaseModal2 from "./BaseModal2";
 import BodyModalEditTurma from "@/components/ui/BodyModalEditTurma";
 
 export default {
   name: "ModalEditTurma",
-  components: { BaseModal2, BodyModalEditTurma },
+  components: { BodyModalEditTurma },
   props: {
     turmaSelected: { type: Object | null, required: true },
   },

@@ -162,13 +162,7 @@
 import _ from "lodash";
 import perfilService from "@/common/services/perfil";
 import { toggleOrdination } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  Card,
-  BaseModal,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyPerfil = {
   id: undefined,
@@ -182,10 +176,8 @@ export default {
   mixins: [toggleOrdination],
   components: {
     PageHeader,
-    BaseTable,
+
     Card,
-    BaseButton,
-    BaseModal,
   },
   data() {
     return {

@@ -191,13 +191,7 @@
 import _ from "lodash";
 import pdfs from "@/common/services/pdfs";
 import { toggleItemInArray } from "@/common/mixins";
-import {
-  BaseButton,
-  BaseModal,
-  BaseTable,
-  PageHeader,
-  NavTab,
-} from "@/components/ui";
+import { PageHeader, NavTab } from "@/components/ui";
 import { ModalRelatorio } from "@/components/modals";
 import TableHorariosLab from "./TableHorariosLab";
 
@@ -205,12 +199,10 @@ export default {
   name: "DashboardLaboratoriosAlocacao",
   mixins: [toggleItemInArray],
   components: {
-    BaseTable,
     PageHeader,
     NavTab,
     TableHorariosLab,
-    BaseButton,
-    BaseModal,
+
     ModalRelatorio,
   },
   data() {

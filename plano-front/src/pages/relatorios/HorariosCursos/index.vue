@@ -226,13 +226,7 @@
 <script>
 import _ from "lodash";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
-import {
-  BaseButton,
-  BaseModal,
-  BaseTable,
-  PageHeader,
-  NavTab,
-} from "@/components/ui";
+import { PageHeader, NavTab } from "@/components/ui";
 
 import { ModalRelatorio } from "@/components/modals";
 import TableEletivas from "./TableEletivas.vue";
@@ -270,10 +264,7 @@ export default {
     TableEletivas,
     PageHeader,
     NavTab,
-    BaseButton,
-    BaseModal,
     ModalRelatorio,
-    BaseTable,
   },
   data() {
     return {

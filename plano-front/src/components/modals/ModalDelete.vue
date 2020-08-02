@@ -29,12 +29,8 @@
 </template>
 
 <script>
-import BaseModal2 from "./BaseModal2";
-import BaseButton from "@/components/ui/BaseButton";
-
 export default {
   name: "ModalDelete",
-  components: { BaseModal2, BaseButton },
   props: {
     isDeleting: { type: Boolean, default: false },
   },

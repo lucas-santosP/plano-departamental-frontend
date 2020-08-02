@@ -25,10 +25,8 @@
 </template>
 
 <script>
-import BaseModal2 from "./BaseModal2";
 export default {
   name: "ModalRelatorio",
-  components: { BaseModal2 },
 
   methods: {
     toggle() {

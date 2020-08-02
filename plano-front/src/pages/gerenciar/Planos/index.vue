@@ -181,13 +181,7 @@
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
 import { toggleOrdination } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseModal,
-  BaseButton,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano";
 
 const emptyPlano = {
@@ -200,11 +194,10 @@ export default {
   name: "Planos",
   mixins: [toggleOrdination],
   components: {
-    BaseTable,
     PageHeader,
-    BaseButton,
+
     Card,
-    BaseModal,
+
     ModalNovoPlano,
   },
   data() {

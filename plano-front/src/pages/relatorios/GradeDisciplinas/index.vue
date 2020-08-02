@@ -416,14 +416,7 @@
 <script>
 import _ from "lodash";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
-import {
-  InputSearch,
-  BaseButton,
-  BaseTable,
-  PageHeader,
-  BaseModal,
-  NavTab,
-} from "@/components/ui";
+import { InputSearch, PageHeader, NavTab } from "@/components/ui";
 const allCursosDCC = [
   {
     nome: "SISTEMAS DE INFORMAÇÃO",
@@ -449,10 +442,8 @@ export default {
   components: {
     PageHeader,
     InputSearch,
-    BaseTable,
-    BaseModal,
+
     NavTab,
-    BaseButton,
   },
   data() {
     return {

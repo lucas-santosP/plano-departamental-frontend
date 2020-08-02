@@ -8,7 +8,10 @@ sync(store, router);
 import axios from "./common/services/axios";
 axios(Vue, store);
 
-import "./assets/css/global.css";
+import SocketIoInstance from "./socketInstance.js";
+import VueSocketio from "vue-socket.io";
+Vue.use(VueSocketio, SocketIoInstance, store);
+
 //fontawesome
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -16,7 +19,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(fas);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 import "./assets/font-awesome/fontawesome-all.css"; //Versão antiga
-
 // bootstrap
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
@@ -28,9 +30,16 @@ Vue.use(PortalVue);
 import Notifications from "vue-notification";
 Vue.use(Notifications);
 
-import SocketIoInstance from "./socketInstance.js";
-import VueSocketio from "vue-socket.io";
-Vue.use(VueSocketio, SocketIoInstance, store);
+import "./assets/css/global.css";
+//Global components
+import BaseButton from "./components/global/BaseButton";
+import BaseTable from "./components/global/BaseTable";
+import BaseModal from "./components/global/BaseModal";
+import BaseModal2 from "./components/global/BaseModal2";
+Vue.component("BaseButton", BaseButton);
+Vue.component("BaseTable", BaseTable);
+Vue.component("BaseModal", BaseModal);
+Vue.component("BaseModal2", BaseModal2);
 
 Vue.config.productionTip = false;
 

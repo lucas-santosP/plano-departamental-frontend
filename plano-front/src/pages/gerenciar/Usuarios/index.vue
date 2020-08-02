@@ -239,10 +239,7 @@ import _ from "lodash";
 import userService from "@/common/services/usuario";
 import { toggleOrdination, notification } from "@/common/mixins";
 import {
-  BaseTable,
-  BaseModal,
   PageHeader,
-  BaseButton,
   InputPassword,
   Card,
   ButtonSlideSection,
@@ -259,12 +256,9 @@ export default {
   name: "Usuarios",
   mixins: [notification, toggleOrdination],
   components: {
-    BaseTable,
     PageHeader,
-    BaseButton,
     Card,
     InputPassword,
-    BaseModal,
     ButtonSlideSection,
   },
   data() {

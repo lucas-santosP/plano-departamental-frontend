@@ -512,13 +512,7 @@ import {
   notification,
   tableLoading,
 } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BodyModalEditTurma,
-  BaseButton,
-  InputSearch,
-} from "@/components/ui";
+import { PageHeader, BodyModalEditTurma, InputSearch } from "@/components/ui";
 import {
   ModalDelete,
   ModalFiltros,
@@ -541,8 +535,7 @@ export default {
     PageHeader,
     BodyModalEditTurma,
     ModalEditTurma,
-    BaseTable,
-    BaseButton,
+
     InputSearch,
   },
   data() {

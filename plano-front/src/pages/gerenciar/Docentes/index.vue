@@ -213,13 +213,7 @@ import _ from "lodash";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import {
-  PageHeader,
-  BaseTable,
-  BaseButton,
-  BaseModal,
-  Card,
-} from "@/components/ui";
+import { PageHeader, Card } from "@/components/ui";
 
 const emptyDocente = {
   id: undefined,
@@ -237,7 +231,7 @@ const emptyPerfil = {
 export default {
   name: "DashboardDocente",
   mixins: [toggleOrdination, toggleItemInArray],
-  components: { PageHeader, BaseTable, Card, BaseButton, BaseModal },
+  components: { PageHeader, Card },
   data() {
     return {
       docenteForm: _.clone(emptyDocente),

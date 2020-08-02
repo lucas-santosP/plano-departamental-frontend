@@ -51,12 +51,9 @@
 import { saveAs } from "file-saver";
 import xlsxService from "@/common/services/xlsx";
 import downloadService from "@/common/services/download";
-import BaseModal2 from "./BaseModal2";
-import BaseButton from "@/components/ui/BaseButton";
 
 export default {
   name: "ModalDownload",
-  components: { BaseModal2, BaseButton },
   data() {
     return {
       downloadState: 0,
