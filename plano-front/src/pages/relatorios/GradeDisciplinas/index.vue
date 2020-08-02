@@ -401,7 +401,7 @@
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
             janela que será aberta utilize as abas para navegar entre os tipos
             de filtros. Marque em suas respectivas tabelas quais informações
             deseja visualizar, selecione o ano do plano no cabeçalho e para

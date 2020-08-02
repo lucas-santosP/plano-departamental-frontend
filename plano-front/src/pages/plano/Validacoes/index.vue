@@ -112,7 +112,7 @@
                 <i
                   v-if="isCritical(conflito.type)"
                   style="background-color: inherit; font-size: 13px; margin:3px!important;"
-                  class="fas fa-exclamation-circle delbtn"
+                  class="fas fa-exclamation-circle icon-red"
                   title="Conflito critico!"
                 ></i>
               </td>
@@ -159,7 +159,7 @@
               <td style="width: 35px">
                 <i
                   style="background-color: inherit; font-size: 13px; margin:3px!important;"
-                  class="fas fa-exclamation-circle delbtn"
+                  class="fas fa-exclamation-circle icon-red"
                   title="Conflito critico!"
                 ></i>
               </td>
@@ -289,7 +289,7 @@
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
             janela que será aberta utilize as abas para navegar entre os tipos
             de filtros. Marque em suas respectivas tabelas quais informações
             deseja visualizar, e para finalizar clique no botão OK.
@@ -304,7 +304,7 @@
           </li>
           <li class="list-group-item">
             <b>Conflitos críticos:</b> Note que em alguns conflitos possuem o
-            ícone <i class="fas fa-exclamation-circle delbtn"></i>, isso
+            ícone <i class="fas fa-exclamation-circle icon-red"></i>, isso
             significa que ele é crítico e deve ter prioridade para ser corrigido
           </li>
         </ul>

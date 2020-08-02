@@ -301,27 +301,27 @@
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
         <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-        <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+        <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
         janela que será aberta utilize as abas para navegar entre os tipos de
         filtros. Marque em suas respectivas tabelas quais informações deseja
         visualizar, e para finalizar clique no botão OK.
       </li>
       <li class="list-group-item">
         <b>Para adicionar uma turma à tabela:</b> Clique no ícone adicionar
-        <i class="fas fa-plus addbtn"></i> no cabeçalho da página em seguida
+        <i class="fas fa-plus icon-green"></i> no cabeçalho da página em seguida
         preencha a nova linha que irá aparecer no início da tabela. E note que,
         os campos disciplina e letra da turma são obrigatórios. Após preencher
         os campos clique no ícone salvar
-        <i class="fas fa-check addbtn"></i>
+        <i class="fas fa-check icon-green"></i>
         ou em cancelar
-        <i class="fas fa-times cancelbtn"></i>
+        <i class="fas fa-times icon-gray"></i>
         .
       </li>
       <li class="list-group-item">
         <b>Para deletar turmas da tabela:</b> Marque a(s) turma(s) que deseja
         deletar através da caixa de seleção presente na primeira coluna à
         esquerda na tabela, em seguida clique no ícone deletar
-        <i class="fas fa-trash delbtn"></i> no cabeçalho da página e na janela
+        <i class="fas fa-trash icon-red"></i> no cabeçalho da página e na janela
         que será aberta confirme clicando botão OK.
       </li>
       <li class="list-group-item">

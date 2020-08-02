@@ -291,27 +291,27 @@
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
             janela que será aberta utilize as abas para navegar entre os tipos
             de filtros. Marque em suas respectivas tabelas quais informações
             deseja visualizar, e para finalizar clique no botão OK.
           </li>
           <li class="list-group-item">
             <b>Para adicionar uma carga à tabela:</b> Clique no ícone adicionar
-            <i class="fas fa-plus addbtn"></i> no cabeçalho da página em seguida
-            preencha a nova linha que irá aparecer no início da tabela. E note
-            que, todos os campos presentes são obrigatórios. Após preencher os
-            campos clique no ícone salvar
-            <i class="fas fa-check addbtn"></i>
+            <i class="fas fa-plus icon-green"></i> no cabeçalho da página em
+            seguida preencha a nova linha que irá aparecer no início da tabela.
+            E note que, todos os campos presentes são obrigatórios. Após
+            preencher os campos clique no ícone salvar
+            <i class="fas fa-check icon-green"></i>
             ou em cancelar
-            <i class="fas fa-times cancelbtn"></i>
+            <i class="fas fa-times icon-gray"></i>
             .
           </li>
           <li class="list-group-item">
             <b>Para deletar carga da tabela:</b> Marque a(s) carga(s) que deseja
             deletar através da caixa de seleção presente na segunda coluna à
             esquerda na tabela, em seguida clique no ícone deletar
-            <i class="fas fa-trash delbtn"></i> no cabeçalho da página e na
+            <i class="fas fa-trash icon-red"></i> no cabeçalho da página e na
             janela que será aberta confirme clicando botão OK.
           </li>
           <li class="list-group-item">
@@ -335,7 +335,7 @@
 
 <script>
 import _ from "lodash";
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 import cargaPosService from "@/common/services/cargaPos";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";

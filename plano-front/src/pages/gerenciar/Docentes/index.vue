@@ -180,22 +180,22 @@
           <li class="list-group-item">
             <b>Para adicionar docentes:</b> Com o cartão à direita em branco,
             preencha-o. Em seguida, clique em Adicionar
-            <i class="fas fa-plus addbtn px-1" style="font-size: 12px;"></i>
+            <i class="fas fa-plus icon-green px-1"></i>
             .
           </li>
           <li class="list-group-item">
             <b>Para editar ou deletar um docente:</b>Na tabela, clique no
             docente que deseja alterar. Logo após, no cartão à direita, altere
             as informações que desejar e clique em Salvar
-            <i class="fas fa-check addbtn px-1" style="font-size: 12px;"></i>
+            <i class="fas fa-check icon-green px-1"></i>
             ou, para excluí-lo, clique em Deletar
-            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px;"></i>
+            <i class="fas fa-times icon-gray px-1"></i>
             .
           </li>
           <li class="list-group-item">
             <b>Para deixar o cartão em branco:</b> No cartão, à direita, clique
             em Cancelar
-            <i class="fas fa-times cancelbtn px-1" style="font-size: 12px;"></i>
+            <i class="fas fa-times icon-gray px-1"></i>
             .
           </li>
           <li class="list-group-item">

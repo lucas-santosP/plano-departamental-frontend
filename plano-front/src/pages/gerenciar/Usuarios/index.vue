@@ -224,7 +224,7 @@
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para excluir um usuário:</b> clique no ícone de deletar
-            <i class="fas fa-times delbtn"></i> presente na tabela, em seguida
+            <i class="fas fa-times icon-red"></i> presente na tabela, em seguida
             confirme se é realmente o usuário que deseja exluir e clique no
             botão deletar ou cancelar.
           </li>

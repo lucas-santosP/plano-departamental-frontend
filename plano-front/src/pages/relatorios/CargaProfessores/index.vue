@@ -472,14 +472,14 @@
         <ul class="list-ajuda list-group">
           <li class="list-group-item">
             <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul cancelbtn"></i> no cabeçalho da página e na
+            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
             janela que será aberta utilize as abas para navegar entre os tipos
             de filtros. Marque em suas respectivas tabelas quais informações
             deseja visualizar, e para finalizar clique no botão OK.
           </li>
           <li class="list-group-item">
             <b>Para gerar relatório dos docentes:</b> Clique no ícone relatório
-            <i class="fas fa-file-alt cancelbtn"></i>, selecione se deseja gerar
+            <i class="fas fa-file-alt icon-gray"></i>, selecione se deseja gerar
             o relatório completo com todos os docentes, ou apenas o relatório
             parcial com os docentes que estão selecionados no momento.
           </li>

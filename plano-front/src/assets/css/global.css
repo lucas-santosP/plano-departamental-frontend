@@ -185,6 +185,7 @@ label[required]:hover:before {
   margin: 0 1px !important;
   color: #585858;
 }
+
 .list-ajuda .list-group-item b:first-of-type {
   color: var(--light-blue);
 }
