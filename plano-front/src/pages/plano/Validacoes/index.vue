@@ -72,6 +72,7 @@
           </th>
           <th style="width:50px">Editar</th>
         </template>
+
         <template #tbody>
           <template v-for="validacaoTurma in TurmasValidacoesOrdered">
             <tr :key="'turmaId' + validacaoTurma.id" class="bg-custom">
@@ -104,6 +105,7 @@
                 </button>
               </td>
             </tr>
+
             <tr
               v-for="(conflito, i) in validacaoTurma.conflitos"
               :key="'conflito' + i + validacaoTurma.id + conflito.type"
@@ -121,7 +123,8 @@
               </td>
             </tr>
           </template>
-          <tr v-show="TurmasValidacoesOrdered.length === 0">
+
+          <tr v-show="!TurmasValidacoesOrdered.length">
             <td style="width:695px">
               <b>Nenhum conflito encontrado.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
@@ -1128,7 +1131,7 @@ export default {
       return _.orderBy(
         this.TurmasValidacoesFiltred,
         this.ordemTurmas.order,
-        this.ordemTurmlas.type
+        this.ordemTurmas.type
       );
     },
     TurmasValidacoesFiltred() {
