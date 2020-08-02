@@ -182,11 +182,11 @@
     <ModalFiltros
       ref="modalFiltros"
       :callbacks="modalFiltrosCallbacks"
-      :tabsOptions="modalFiltroTabs"
+      :tabsOptions="modalFiltrosTabs"
     >
       <div class="div-table">
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Perfis'"
+          v-show="modalFiltrosTabs.current === 'Perfis'"
           :type="'modal'"
         >
           <template #thead>
@@ -222,7 +222,7 @@
         </BaseTable>
         <!-- Disciplinas -->
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Disciplinas'"
+          v-show="modalFiltrosTabs.current === 'Disciplinas'"
           :type="'modal'"
           :hasSearchBar="true"
         >
@@ -311,7 +311,7 @@
         </BaseTable>
 
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Cursos'"
+          v-show="modalFiltrosTabs.current === 'Cursos'"
           :type="'modal'"
           :hasSearchBar="true"
         >
@@ -370,7 +370,7 @@
         </BaseTable>
 
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Semestres'"
+          v-show="modalFiltrosTabs.current === 'Semestres'"
           :type="'modal'"
         >
           <template #thead>
@@ -410,7 +410,7 @@
 
       <template #modal-footer-btn>
         <BaseButton
-          v-if="modalFiltroTabs.current === 'Cursos'"
+          v-if="modalFiltrosTabs.current === 'Cursos'"
           type="text"
           color="lightblue"
           @click="selectCursosDCC()"
@@ -420,12 +420,11 @@
       </template>
     </ModalFiltros>
 
-    <!-- MODAL TURMA -->
     <ModalEditTurma ref="modalEditTurma" :turmaSelected="turmaClickada" />
 
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="!!Deletar.length"
+      :isDeleting="Deletar.length === 0"
       @btn-deletar="deleteSelectedTurmas"
     >
       <li v-if="!Deletar.length" class="list-group-item">
@@ -445,7 +444,6 @@
       </li>
     </ModalDelete>
 
-    <!-- MODAL AJUDA -->
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
         <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
@@ -527,6 +525,7 @@ import {
   ModalEditTurma,
   ModalAjuda,
 } from "@/components/modals";
+
 import NovaTurmaRow from "./NovaTurmaRow.vue";
 import TurmaRow from "./TurmaRow.vue";
 
@@ -550,7 +549,7 @@ export default {
     return {
       turmaClickada: null,
       isAdding: false,
-      modalFiltroTabs: {
+      modalFiltrosTabs: {
         current: "Perfis",
         array: ["Perfis", "Disciplinas", "Cursos", "Semestres"],
       },

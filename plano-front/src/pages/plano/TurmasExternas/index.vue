@@ -163,15 +163,15 @@
         </template>
       </BaseTable>
     </div>
-    <!-- MODAL FILTROS -->
+
     <ModalFiltros
       ref="modalFiltros"
       :callbacks="modalFiltrosCallbacks"
-      :tabsOptions="modalFiltroTabs"
+      :tabsOptions="modalFiltrosTabs"
     >
       <div class="div-table">
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Disciplinas'"
+          v-show="modalFiltrosTabs.current === 'Disciplinas'"
           :type="'modal'"
           :hasSearchBar="true"
         >
@@ -238,8 +238,9 @@
             </tr>
           </template>
         </BaseTable>
+
         <BaseTable
-          v-show="modalFiltroTabs.current === 'Semestres'"
+          v-show="modalFiltrosTabs.current === 'Semestres'"
           :type="'modal'"
         >
           <template #thead>
@@ -274,12 +275,9 @@
       </div>
     </ModalFiltros>
 
-    <!-- MODAL DELETAR -->
-    <!-- <ModalDelete ref="modalDelete" @btn-deletar="deleteSelectedTurmas"> -->
-
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="!!Deletar.length"
+      :isDeleting="Deletar.length === 0"
       @btn-deletar="deleteSelectedTurmas"
     >
       <li v-if="!Deletar.length" class="list-group-item">
@@ -346,7 +344,6 @@ import { mapActions, mapGetters } from "vuex";
 import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import {
-  notification,
   maskTurmaLetra,
   toggleOrdination,
   toggleItemInArray,
@@ -359,36 +356,30 @@ import {
   BaseButton,
   InputSearch,
 } from "@/components/ui";
+import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
-import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [
-    notification,
-    maskTurmaLetra,
-    toggleOrdination,
-    toggleItemInArray,
-    tableLoading,
-  ],
+  mixins: [maskTurmaLetra, toggleOrdination, toggleItemInArray, tableLoading],
   components: {
     ModalFiltros,
     ModalAjuda,
-    TurmaExternaRow,
+    ModalDelete,
     PageHeader,
     BaseTable,
     NavTab,
-    ModalDelete,
     BaseButton,
     InputSearch,
+    TurmaExternaRow,
     NovaTurmaExternaRow,
   },
   data() {
     return {
-      ordenacaoTurmasMain: { order: "disciplina.codigo", type: "asc" },
       isAdding: false,
-      searchDisciplinasModal: "",
+      ordenacaoTurmasMain: { order: "disciplina.codigo", type: "asc" },
+      ordenacaoDisciplinasModal: { order: "codigo", type: "asc" },
       filtroSemestres: {
         primeiro: true,
         segundo: true,
@@ -398,9 +389,9 @@ export default {
         ativadas: [],
         selecionadas: [],
       },
+      searchDisciplinasModal: "",
       tabAtivaModal: "Disciplinas",
-      ordenacaoDisciplinasModal: { order: "codigo", type: "asc" },
-      modalFiltroTabs: {
+      modalFiltrosTabs: {
         current: "Disciplinas",
         array: ["Disciplinas", "Semestres"],
       },
@@ -454,13 +445,6 @@ export default {
       this.isAdding = !this.isAdding;
     },
 
-    normalizeText(text) {
-      return text
-        .toUpperCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-    },
-
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
@@ -469,73 +453,6 @@ export default {
       else if (this.filtroSemestres.primeiro && this.filtroSemestres.primeiro)
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
-    },
-
-    adjustTurno1() {
-      if (
-        this.turmaForm.Horario1 == 1 ||
-        this.turmaForm.Horario1 == 2 ||
-        this.turmaForm.Horario1 == 7 ||
-        this.turmaForm.Horario1 == 8 ||
-        this.turmaForm.Horario1 == 13 ||
-        this.turmaForm.Horario1 == 14 ||
-        this.turmaForm.Horario1 == 19 ||
-        this.turmaForm.Horario1 == 20 ||
-        this.turmaForm.Horario1 == 25 ||
-        this.turmaForm.Horario1 == 26 ||
-        this.turmaForm.Horario1 == 3 ||
-        this.turmaForm.Horario1 == 4 ||
-        this.turmaForm.Horario1 == 9 ||
-        this.turmaForm.Horario1 == 10 ||
-        this.turmaForm.Horario1 == 15 ||
-        this.turmaForm.Horario1 == 16 ||
-        this.turmaForm.Horario1 == 21 ||
-        this.turmaForm.Horario1 == 22 ||
-        this.turmaForm.Horario1 == 27 ||
-        this.turmaForm.Horario1 == 28
-      ) {
-        this.turmaForm.turno1 = "Diurno";
-      } else if (this.turmaForm.Horario1 == 31) {
-        this.turmaForm.turno1 = "EAD";
-      } else {
-        this.turmaForm.turno1 = "Noturno";
-      }
-    },
-    adjustTurno2() {
-      if (
-        this.turmaForm.Horario2 == 1 ||
-        this.turmaForm.Horario2 == 2 ||
-        this.turmaForm.Horario2 == 7 ||
-        this.turmaForm.Horario2 == 8 ||
-        this.turmaForm.Horario2 == 13 ||
-        this.turmaForm.Horario2 == 14 ||
-        this.turmaForm.Horario2 == 19 ||
-        this.turmaForm.Horario2 == 20 ||
-        this.turmaForm.Horario2 == 25 ||
-        this.turmaForm.Horario2 == 26 ||
-        this.turmaForm.Horario2 == 3 ||
-        this.turmaForm.Horario2 == 4 ||
-        this.turmaForm.Horario2 == 9 ||
-        this.turmaForm.Horario2 == 10 ||
-        this.turmaForm.Horario2 == 15 ||
-        this.turmaForm.Horario2 == 16 ||
-        this.turmaForm.Horario2 == 21 ||
-        this.turmaForm.Horario2 == 22 ||
-        this.turmaForm.Horario2 == 27 ||
-        this.turmaForm.Horario2 == 28
-      ) {
-        this.turmaForm.turno1 = "Diurno";
-      } else if (this.turmaForm.Horario2 == 31) {
-        this.turmaForm.turno1 = "EAD";
-      } else {
-        this.turmaForm.turno1 = "Noturno";
-      }
-    },
-    setHorarioEad() {
-      if (this.turmaForm.turno1 === "EAD") {
-        this.turmaForm.Horario1 = 31;
-        if (this.turmaForm.Horario2 > 0) this.turmaForm.Horario2 = null;
-      }
     },
 
     async deleteSelectedTurmas() {
@@ -549,14 +466,14 @@ export default {
         }
         this.$refs.modalDelete.close();
         this.clearDeleteExternas();
-        this.showNotification({
+        this.pushNotification({
           type: "success",
-          message: "Turma(s) excluída(s).",
+          text: "Turma(s) excluída(s).",
         });
       } catch (error) {
-        this.showNotification({
+        this.pushNotification({
           type: "error",
-          message: "Erro ao excluir turma(s).",
+          text: "Erro ao excluir turma(s).",
         });
       } finally {
         this.setPartialLoading(false);
