@@ -424,7 +424,7 @@
 
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="Deletar.length === 0"
+      :isDeleting="!!Deletar.length"
       @btn-deletar="deleteSelectedTurmas"
     >
       <li v-if="!Deletar.length" class="list-group-item">
