@@ -361,9 +361,7 @@ export default {
     ModalAjuda,
     ModalDelete,
     PageHeader,
-
     NavTab,
-
     InputSearch,
     TurmaExternaRow,
     NovaTurmaExternaRow,

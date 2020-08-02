@@ -2,6 +2,7 @@
   <BaseModal2 ref="baseModalRelatorio" type="editTurma" title="Edição de Turma">
     <template #modal-body v-if="turmaSelected">
       <BodyModalEditTurma
+        :hasEditDisciplina="hasEditDisciplina"
         :turma="turmaSelected"
         :key="'mdEdit' + turmaSelected.id"
       />
@@ -17,6 +18,7 @@ export default {
   components: { BodyModalEditTurma },
   props: {
     turmaSelected: { type: Object | null, required: true },
+    hasEditDisciplina: { type: Boolean, default: false },
   },
   methods: {
     open() {

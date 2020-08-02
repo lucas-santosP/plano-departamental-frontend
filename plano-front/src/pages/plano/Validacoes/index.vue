@@ -31,38 +31,44 @@
       >
         <template #thead>
           <th
-            @click="toggleOrder(ordemTurmas, 'periodo')"
+            @click="toggleOrder(ordenacaoTurmasMain, 'periodo')"
             class="clickable"
             style="width: 35px"
             title="Semestre"
           >
             S.
-            <i :class="setIconByOrder(ordemTurmas, 'periodo')"></i>
+            <i :class="setIconByOrder(ordenacaoTurmasMain, 'periodo')"></i>
           </th>
           <th
-            @click="toggleOrder(ordemTurmas, 'disciplinaPerfil')"
+            @click="toggleOrder(ordenacaoTurmasMain, 'disciplinaPerfil')"
             class="t-start clickable"
             style="width: 75px"
           >
             Perfil
-            <i :class="setIconByOrder(ordemTurmas, 'disciplinaPerfil')"></i>
+            <i
+              :class="setIconByOrder(ordenacaoTurmasMain, 'disciplinaPerfil')"
+            ></i>
           </th>
           <th
-            @click="toggleOrder(ordemTurmas, 'disciplinaCodigo')"
+            @click="toggleOrder(ordenacaoTurmasMain, 'disciplinaCodigo')"
             class="t-start clickable"
             style="width: 70px"
             title="Código"
           >
             Cód.
-            <i :class="setIconByOrder(ordemTurmas, 'disciplinaCodigo')"></i>
+            <i
+              :class="setIconByOrder(ordenacaoTurmasMain, 'disciplinaCodigo')"
+            ></i>
           </th>
           <th
-            @click="toggleOrder(ordemTurmas, 'disciplinaNome')"
+            @click="toggleOrder(ordenacaoTurmasMain, 'disciplinaNome')"
             class="t-start clickable"
             style="width: 300px"
           >
             Disciplina
-            <i :class="setIconByOrder(ordemTurmas, 'disciplinaNome')"></i>
+            <i
+              :class="setIconByOrder(ordenacaoTurmasMain, 'disciplinaNome')"
+            ></i>
           </th>
           <th style="width: 35px" class="t-staty" title="Turma">
             T.
@@ -73,7 +79,7 @@
           <th style="width:50px">Editar</th>
         </template>
 
-        <template #tbody>
+        <template v-if="!tableIsLoading" #tbody>
           <template v-for="validacaoTurma in TurmasValidacoesOrdered">
             <tr :key="'turmaId' + validacaoTurma.id" class="bg-custom">
               <td style="width: 35px;">
@@ -140,12 +146,12 @@
         <template #thead>
           <th
             colspan="2"
-            @click="toggleOrder(ordemDocentes, 'nome')"
+            @click="toggleOrder(ordenacaoDocentesMain, 'nome')"
             style="width: 695px"
             class="t-start clickable"
           >
             Nome
-            <i :class="setIconByOrder(ordemDocentes, 'nome')"></i>
+            <i :class="setIconByOrder(ordenacaoDocentesMain, 'nome')"></i>
           </th>
         </template>
         <template #tbody>
@@ -176,150 +182,123 @@
       </BaseTable>
     </div>
 
-    <!-- Modal Filtros -->
-    <BaseModal
+    <ModalFiltros
       ref="modalFiltros"
-      :modalOptions="{
-        type: 'filtros',
-        title: 'Filtros',
-        hasFooter: true,
-      }"
-      :hasFooter="true"
-      @btn-ok="btnOkFiltros()"
-      @select-all="modalSelectAll[tabAtivaModal]"
-      @select-none="modalSelectNone[tabAtivaModal]"
+      :callbacks="modalFiltrosCallbacks"
+      :tabsOptions="modalFiltrosTabs"
     >
-      <template #modal-body>
-        <NavTab
-          :currentTab="tabAtivaModal"
-          :allTabs="['Conflitos', 'Semestres']"
-          @change-tab="tabAtivaModal = $event"
-        />
-        <div class="div-table">
-          <BaseTable v-show="tabAtivaModal === 'Conflitos'" :type="'modal'">
-            <template #thead>
-              <th style="width: 25px"></th>
-              <th style="width: 425px" class="t-start">
-                Conflito
-              </th>
-            </template>
-            <template #tbody>
-              <tr
-                v-for="conflito in ConflitosOrdered"
-                :key="'conflitosModal' + conflito.type"
-                @click="
-                  toggleItemInArray(conflito.type, filtroConflitos.selecionados)
-                "
-                style="text-transform: uppercase"
-              >
-                <td style="width: 25px;">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroConflitos.selecionados"
-                    :value="conflito.type"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">
-                  {{ conflito.msg }}
-                </td>
-              </tr>
-            </template>
-          </BaseTable>
+      <div class="div-table">
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Conflitos'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th style="width: 425px" class="t-start">
+              Conflito
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="conflito in ConflitosOrdered"
+              :key="'conflitosModal' + conflito.type"
+              @click="
+                toggleItemInArray(conflito.type, filtroConflitos.selecionados)
+              "
+              style="text-transform: uppercase"
+            >
+              <td style="width: 25px;">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  v-model="filtroConflitos.selecionados"
+                  :value="conflito.type"
+                />
+              </td>
+              <td style="width: 425px" class="t-start">
+                {{ conflito.msg }}
+              </td>
+            </tr>
+          </template>
+        </BaseTable>
 
-          <BaseTable v-show="tabAtivaModal === 'Semestres'" :type="'modal'">
-            <template #thead>
-              <th style="width: 25px;"></th>
-              <th style="width: 425px;" class="t-start">
-                Semestre Letivo
-              </th>
-            </template>
-            <template #tbody>
-              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.primeiro"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">
-                  PRIMEIRO
-                </td>
-              </tr>
-              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.segundo"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">SEGUNDO</td>
-              </tr>
-            </template>
-          </BaseTable>
-        </div>
-      </template>
-    </BaseModal>
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Semestres'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px;"></th>
+            <th style="width: 425px;" class="t-start">
+              Semestre Letivo
+            </th>
+          </template>
+          <template #tbody>
+            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  v-model="filtroSemestres.primeiro"
+                />
+              </td>
+              <td style="width: 425px" class="t-start">
+                PRIMEIRO
+              </td>
+            </tr>
+            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  v-model="filtroSemestres.segundo"
+                />
+              </td>
+              <td style="width: 425px" class="t-start">SEGUNDO</td>
+            </tr>
+          </template>
+        </BaseTable>
+      </div>
+    </ModalFiltros>
 
-    <!-- modal turma edit -->
-    <BaseModal
+    <ModalEditTurma
       ref="modalEditTurma"
-      :modalOptions="{
-        type: 'editTurma',
-        title: 'Edição de Turma',
-      }"
-    >
-      <template #modal-body>
-        <BodyModalEditTurma
-          v-if="turmaClickada != null"
-          :hasEditDisciplina="false"
-          :key="turmaClickada.id + 'modalTurma'"
-          :turma="turmaClickada"
-        />
-      </template>
-    </BaseModal>
+      :hasEditDisciplina="false"
+      :turmaSelected="turmaClickada"
+    />
 
-    <BaseModal
-      ref="modalAjuda"
-      :modalOptions="{
-        type: 'ajuda',
-        title: 'Ajuda',
-      }"
-    >
-      <template #modal-body>
-        <ul class="list-ajuda list-group">
-          <li class="list-group-item">
-            <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
-            janela que será aberta utilize as abas para navegar entre os tipos
-            de filtros. Marque em suas respectivas tabelas quais informações
-            deseja visualizar, e para finalizar clique no botão OK.
-          </li>
-          <li class="list-group-item">
-            <b>Para editar turma da tabela:</b> Clique no ícone
-            <i class="fas fa-edit"></i> presente na coluna editar da tabela, e
-            na janela que será aberta no formulário presente na parte superior
-            poderá ser feito alterações que somente serão enviadas ao clicar no
-            botão salvar. E na tabela de vagas na parte inferior da janela as
-            alterações serão salvas automaticamente.
-          </li>
-          <li class="list-group-item">
-            <b>Conflitos críticos:</b> Note que em alguns conflitos possuem o
-            ícone <i class="fas fa-exclamation-circle icon-red"></i>, isso
-            significa que ele é crítico e deve ter prioridade para ser corrigido
-          </li>
-        </ul>
-      </template>
-    </BaseModal>
+    <ModalAjuda ref="modalAjuda">
+      <li class="list-group-item">
+        <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
+        <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
+        janela que será aberta utilize as abas para navegar entre os tipos de
+        filtros. Marque em suas respectivas tabelas quais informações deseja
+        visualizar, e para finalizar clique no botão OK.
+      </li>
+      <li class="list-group-item">
+        <b>Para editar turma da tabela:</b> Clique no ícone
+        <i class="fas fa-edit"></i> presente na coluna editar da tabela, e na
+        janela que será aberta no formulário presente na parte superior poderá
+        ser feito alterações que somente serão enviadas ao clicar no botão
+        salvar. E na tabela de vagas na parte inferior da janela as alterações
+        serão salvas automaticamente.
+      </li>
+      <li class="list-group-item">
+        <b>Conflitos críticos:</b> Note que em alguns conflitos possuem o ícone
+        <i class="fas fa-exclamation-circle icon-red"></i>, isso significa que
+        ele é crítico e deve ter prioridade para ser corrigido
+      </li>
+    </ModalAjuda>
   </div>
 </template>
 
 <script>
-import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  tableLoading,
+} from "@/common/mixins";
 import { PageHeader, NavTab, BodyModalEditTurma } from "@/components/ui";
-import { mapActions } from "vuex";
+import { ModalAjuda, ModalFiltros, ModalEditTurma } from "@/components/modals";
 
 const AllConflitosTurmas = [
   { type: 1, msg: "Nenhum turno alocado" },
@@ -356,22 +335,24 @@ const AllConflitosTurmas = [
 
 export default {
   name: "Validacoes",
-  mixins: [toggleOrdination, toggleItemInArray],
+  mixins: [toggleOrdination, toggleItemInArray, tableLoading],
   components: {
+    ModalAjuda,
+    ModalFiltros,
+    ModalEditTurma,
     BodyModalEditTurma,
     PageHeader,
     NavTab,
   },
   data() {
     return {
+      tabAtivaMain: "Turmas",
+      turmaClickada: null,
       allConflitos: this.$_.clone(AllConflitosTurmas),
       grades1Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
       grades2Semestre: { CCD: [], CCN: [], EC: [], SI: [] },
-      ordemTurmas: { order: "periodo", type: "asc" },
-      ordemDocentes: { order: "nome", type: "asc" },
-      turmaClickada: null,
-      tabAtivaMain: "Turmas",
-      tabAtivaModal: "Conflitos",
+      ordenacaoTurmasMain: { order: "periodo", type: "asc" },
+      ordenacaoDocentesMain: { order: "nome", type: "asc" },
       filtroConflitos: {
         ativados: [],
         selecionados: [],
@@ -381,24 +362,38 @@ export default {
         segundo: true,
         ativo: 3,
       },
-      modalSelectAll: {
-        Conflitos: () => {
-          this.filtroConflitos.selecionados = [
-            ...this.allConflitos.map((conflito) => conflito.type),
-          ];
-        },
-        Semestres: () => {
-          this.filtroSemestres.primeiro = true;
-          this.filtroSemestres.segundo = true;
-        },
+      modalFiltrosTabs: {
+        current: "Conflitos",
+        array: ["Conflitos", "Semestres"],
       },
-      modalSelectNone: {
-        Conflitos: () => {
-          this.filtroConflitos.selecionados = [];
+      modalFiltrosCallbacks: {
+        selectAll: {
+          Conflitos: () => {
+            this.filtroConflitos.selecionados = [
+              ...this.allConflitos.map((conflito) => conflito.type),
+            ];
+          },
+          Semestres: () => {
+            this.filtroSemestres.primeiro = true;
+            this.filtroSemestres.segundo = true;
+          },
         },
-        Semestres: () => {
-          this.filtroSemestres.primeiro = false;
-          this.filtroSemestres.segundo = false;
+        selectNone: {
+          Conflitos: () => {
+            this.filtroConflitos.selecionados = [];
+          },
+          Semestres: () => {
+            this.filtroSemestres.primeiro = false;
+            this.filtroSemestres.segundo = false;
+          },
+        },
+        btnOk: () => {
+          this.setTableLoadingState(true);
+          this.btnOkSemestre();
+          this.filtroConflitos.ativados = [
+            ...this.filtroConflitos.selecionados,
+          ];
+          this.setTableLoadingState(false);
         },
       },
     };
@@ -550,9 +545,8 @@ export default {
       }
     }
   },
-  methods: {
-    ...mapActions(["setPartialLoading"]),
 
+  methods: {
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -562,12 +556,7 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-    btnOkFiltros() {
-      this.setPartialLoading(true);
-      this.btnOkSemestre();
-      this.filtroConflitos.ativados = [...this.filtroConflitos.selecionados];
-      this.setPartialLoading(false);
-    },
+
     btnOkSemestre() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
@@ -577,10 +566,12 @@ export default {
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
     },
+
     openModalEditTurma(turma) {
       this.turmaClickada = { ...turma };
       this.$refs.modalEditTurma.open();
     },
+
     findPerfilById(id) {
       let perfil = this.$_.find(this.Perfis, (p) => p.id == id);
       return perfil != undefined ? perfil : null;
@@ -1126,8 +1117,8 @@ export default {
     TurmasValidacoesOrdered() {
       return this.$_.orderBy(
         this.TurmasValidacoesFiltred,
-        this.ordemTurmas.order,
-        this.ordemTurmas.type
+        this.ordenacaoTurmasMain.order,
+        this.ordenacaoTurmasMain.type
       );
     },
     TurmasValidacoesFiltred() {
@@ -1161,8 +1152,8 @@ export default {
     DocentesValidacoesOrdered() {
       return this.$_.orderBy(
         this.DocentesValidacoes,
-        this.ordemDocentes.order,
-        this.ordemDocentes.type
+        this.ordenacaoDocentesMain.order,
+        this.ordenacaoDocentesMain.type
       );
     },
     DocentesValidacoes() {

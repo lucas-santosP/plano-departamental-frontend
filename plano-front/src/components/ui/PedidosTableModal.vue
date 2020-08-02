@@ -59,16 +59,13 @@ export default {
         this.pedidoForm.vagasNaoPeriodizadas = 0;
       pedidoService
         .update(this.pedidoForm.Curso, this.pedidoForm.Turma, this.pedidoForm)
-        .then((response) => {
+        .then(() => {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
             text: `O pedido foi atualizado!`,
             type: "success",
           });
-          console.log(
-            this.$store.state.pedido.Pedidos[this.turma.id][this.index]
-          );
         })
         .catch((error) => {
           this.error = "<b>Erro ao atualizar Pedido</b>";
