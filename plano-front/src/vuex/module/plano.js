@@ -90,16 +90,22 @@ const actions = {
     }
   },
 
-  async deletePlano({ dispatch }, plano) {
+  async deletePlano({ commit, dispatch }, plano) {
     await planoService.delete(plano.id, plano);
     await dispatch("changeCurrentPlano");
+
+    commit("PUSH_NOTIFICATION", {
+      text: `Plano ${plano.nome} - ${plano.ano} foi removido`,
+    });
   },
 
   async editPlano({ commit }, plano) {
     const planoNormalized = _.cloneDeepWith(plano, setEmptyValuesToNull);
-    validateObjectKeys(planoNormalized, ["nome", "ano"]);
 
+    validateObjectKeys(planoNormalized, ["nome", "ano"]);
     await planoService.update(planoNormalized.id, planoNormalized);
+
+    commit("PUSH_NOTIFICATION", { text: "Plano atualizado" });
   },
 
   setCurrentPlanoId({ commit }, planoId) {

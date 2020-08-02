@@ -10,9 +10,7 @@ const mutations = {
     state.onFetchingLoading = data;
   },
   [SET_PARTIAL_LOADING](state, data) {
-    //Tempo mínimo de espera
-    if (!data) setTimeout(() => (state.onPartialLoading = data), 300);
-    else state.onPartialLoading = data;
+    state.onPartialLoading = data;
   },
 };
 
@@ -21,7 +19,9 @@ const actions = {
     commit("SET_FETCHING_LOADING", payload);
   },
   setPartialLoading({ commit }, payload) {
-    commit("SET_PARTIAL_LOADING", payload);
+    //Tempo mínimo de espera
+    if (!payload) setTimeout(() => commit("SET_PARTIAL_LOADING", payload), 300);
+    else commit("SET_PARTIAL_LOADING", payload);
   },
 };
 

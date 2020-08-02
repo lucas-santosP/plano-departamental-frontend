@@ -78,7 +78,7 @@
             @click="toggleOrder(ordenacaoCargaPos, 'creditos', 'desc')"
             class="clickable"
             style="width:50px"
-            title="Carga"
+            title="Créditos"
           >
             C.
             <i :class="setIconByOrder(ordenacaoCargaPos, 'creditos')"></i>
@@ -89,25 +89,21 @@
 
           <template v-for="programa in ProgramasInCargaPosOrdered">
             <tr class="bg-custom" :key="programa.nome">
-              <div class="max-content">
-                <td style="width:70px">{{ programa.nome }}</td>
-                <td style="width:225px"></td>
-                <td style="width:50px" title="Total de carga">
-                  {{ allCreditosCarga(programa.carga) }}
-                </td>
-              </div>
+              <td style="width:70px">{{ programa.nome }}</td>
+              <td colspan="3" style="width: 225px"></td>
+              <td style="width:50px" title="Total de carga">
+                {{ allCreditosCarga(programa.carga) }}
+              </td>
             </tr>
-            <tr
+
+            <CargaPosRow
               v-for="carga in programa.carga"
-              :key="carga.id + programa.nome + carga.trimestre"
-            >
-              <CargaPosRow
-                :key="'cargaRow' + carga.id + carga.Docente + carga.trimestre"
-                :carga="carga"
-              />
-            </tr>
+              :key="carga.id + programa.nome"
+              :carga="carga"
+            />
           </template>
-          <tr v-show="ProgramasInCargaPosOrdered.length === 0">
+
+          <tr v-show="!ProgramasInCargaPosOrdered.length">
             <td style="width:345px">
               <b>Nenhuma carga encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
@@ -339,6 +335,7 @@
 
 <script>
 import _ from "lodash";
+import {mapActions} from 'vuex'
 import cargaPosService from "@/common/services/cargaPos";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
@@ -419,6 +416,8 @@ export default {
     this.$store.commit("emptyDelete");
   },
   methods: {
+    ...mapActions(["pushNotification"]),
+
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();
@@ -442,16 +441,16 @@ export default {
       cargaPosService
         .delete(cargaId)
         .then((response) => {
-          this.showNotification({
+          this.pushNotification({
             type: "success",
-            message: `A carga ${response.CargaPos.programa} foi excluída!`,
+            text: `A carga ${response.CargaPos.programa} foi excluída!`,
           });
         })
         .catch((error) => {
-          this.showNotification({
+          this.pushNotification({
             type: "error",
             title: "Error ao deletar carga!",
-            message: error,
+            text: error.message || "",
           });
         });
     },
@@ -562,6 +561,7 @@ export default {
       _.forEach(this.ProgramasInCargaPosFiltredByPrograma, (programa) => {
         programasResutantes.push({
           nome: programa.nome,
+
           carga: _.filter(
             programa.carga,
             (carga) =>

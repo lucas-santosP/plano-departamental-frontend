@@ -180,7 +180,7 @@
 <script>
 import _ from "lodash";
 import { mapGetters, mapActions } from "vuex";
-import { toggleOrdination, notification } from "@/common/mixins";
+import { toggleOrdination } from "@/common/mixins";
 import {
   PageHeader,
   BaseTable,
@@ -198,7 +198,7 @@ const emptyPlano = {
 
 export default {
   name: "Planos",
-  mixins: [notification, toggleOrdination],
+  mixins: [toggleOrdination],
   components: {
     BaseTable,
     PageHeader,
@@ -216,8 +216,8 @@ export default {
   },
   methods: {
     ...mapActions([
+      "pushNotification",
       "setPartialLoading",
-      "changeCurrentPlano",
       "setCurrentPlanoId",
       "deletePlano",
       "editPlano",
@@ -229,11 +229,8 @@ export default {
 
     handleClickInPlano(plano) {
       this.cleanPlano();
-      this.planoSelected = plano.id;
-      this.showPlano(plano);
-    },
 
-    showPlano(plano) {
+      this.planoSelected = plano.id;
       this.planoForm = _.clone(plano);
     },
 
@@ -241,6 +238,7 @@ export default {
       this.planoSelected = null;
       this.planoForm = _.clone(emptyPlano);
     },
+
     openModalDelete() {
       this.$refs.modalDeletePlano.open();
     },
@@ -256,9 +254,9 @@ export default {
         this.planoForm.nome === "" ||
         this.planoForm.nome === null
       )
-        this.showNotification({
+        this.pushNotification({
           type: "error",
-          message: `Campos obrigatórios inválidos ou incompletos.`,
+          text: `Campos obrigatórios inválidos ou incompletos.`,
         });
       else this.$refs.modalNovoPlano.open();
     },
@@ -266,17 +264,12 @@ export default {
     async handleEditPlano() {
       try {
         this.setPartialLoading(true);
-
         await this.editPlano(this.planoForm);
-        this.showNotification({
-          type: "success",
-          message: `Plano atualizado.`,
-        });
       } catch (error) {
-        this.showNotification({
+        this.pushNotification({
           type: "error",
           title: "Erro ao atualizar plano",
-          message: error.message || "",
+          text: error.message || "",
         });
       } finally {
         this.setPartialLoading(false);
@@ -286,23 +279,15 @@ export default {
     async handleDeletePlano() {
       try {
         this.setPartialLoading(true);
-        const planoToDelete = _.clone(this.planoForm);
-
         await this.deletePlano(this.planoForm);
+
         this.cleanPlano();
         this.closeModalDelete();
-
-        this.showNotification({
-          type: "success",
-          message: `Plano ${planoToDelete.nome} - ${
-            planoToDelete.ano
-          } foi removido.`,
-        });
       } catch (error) {
-        this.showNotification({
+        this.pushNotification({
           type: "error",
           title: "Erro ao deletar plano",
-          message: "Tente novamente",
+          text: "Tente novamente",
         });
       } finally {
         this.setPartialLoading(false);

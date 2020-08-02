@@ -5,12 +5,7 @@
       <TheSidebar />
 
       <main @click="closeSidebar">
-        <transition
-          enter-active-class="animated animate__fadeIn page-animation"
-          leave-active-class="animated animate__fadeOut page-animation"
-          mode="out-in"
-          appear
-        >
+        <transition name="router-view-animation" mode="out-in" appear>
           <router-view></router-view>
         </transition>
       </main>
