@@ -1,5 +1,5 @@
 <template>
-  <div class="cargaPos-row max-content ">
+  <tr class="cargaPos-row max-content ">
     <td style="width:70px"><div style="height:30px"></div></td>
     <td style="width: 25px">
       <input
@@ -48,7 +48,7 @@
         v-on:change="editCargaPos()"
       />
     </td>
-  </div>
+  </tr>
 </template>
 
 <script>
