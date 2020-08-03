@@ -1,12 +1,14 @@
 <template>
   <tr class="novaturma stickyAdd">
     <td style="width: 25px"></td>
+
     <td style="width: 55px" class="less-padding">
       <select v-model="turmaForm.periodo">
         <option value="1">1</option>
         <option value="3">3</option>
       </select>
     </td>
+
     <td style="width: 70px" class="less-padding">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
@@ -17,6 +19,7 @@
         >
       </select>
     </td>
+
     <td style="width: 330px" class="less-padding">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
@@ -27,9 +30,11 @@
         >
       </select>
     </td>
+
     <td style="width: 25px">
       {{ totalCarga }}
     </td>
+
     <td style="width: 45px">
       <input
         type="text"
@@ -39,6 +44,7 @@
         @keypress="maskTurmaLetra"
       />
     </td>
+
     <td style="width: 80px;">
       <select v-model="turmaForm.turno1" @change="handleChangeTurno">
         <option v-if="disciplinaIsIntegralEAD" value="EAD">EAD</option>
@@ -48,6 +54,7 @@
         </template>
       </select>
     </td>
+
     <td style="width: 85px" class="less-padding">
       <select v-model="turmaForm.Horario1" @change="handleChangeHorario(1)">
         <option
@@ -71,6 +78,7 @@
         >
       </select>
     </td>
+
     <td style="width: 95px" class="less-padding">
       <template v-if="!disciplinaIsIntegralEAD">
         <select v-model="turmaForm.Sala1">
@@ -94,9 +102,11 @@
         </select>
       </template>
     </td>
+
     <td style="width: 40px">
       <div style="height: 43px"></div>
     </td>
+
     <td
       style="width: 35px;"
       v-for="cursosDccLength in 4"
@@ -106,9 +116,7 @@
 </template>
 
 <script>
-import turmaExternaService from "@/common/services/turmaExterna";
-import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
-import { notification, maskTurmaLetra } from "@/common/mixins";
+import { maskTurmaLetra } from "@/common/mixins";
 import { mapActions, mapGetters } from "vuex";
 
 const emptyTurma = {
@@ -129,7 +137,7 @@ const emptyTurma = {
 
 export default {
   name: "NovaTurmaExternaRow",
-  mixins: [notification, maskTurmaLetra],
+  mixins: [maskTurmaLetra],
   data() {
     return {
       turmaForm: this.$_.clone(emptyTurma),
@@ -137,7 +145,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setPartialLoading"]),
+    ...mapActions([
+      "setPartialLoading",
+      "addNovaTurmaExterna",
+      "pushNotification",
+    ]),
 
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;
@@ -176,32 +188,18 @@ export default {
         this.turmaForm.turno1 = "Diurno";
     },
 
-    async addNovaTurma() {
+    async handleAddNovaTurma() {
       try {
         this.setPartialLoading(true);
 
-        const newTurma = this.$_.cloneDeepWith(
-          this.turmaForm,
-          setEmptyValuesToNull
-        );
-        validateObjectKeys(newTurma, ["Disciplina", "letra"]);
-        newTurma.Plano = localStorage.getItem("Plano");
-
-        const response = await turmaExternaService.create(newTurma);
-        await this.$store.dispatch("fetchAllPedidosExternos");
-        this.showNotification({
-          type: "success",
-          message: `Turma ${response.Turma.letra} foi criada!`,
-        });
+        await this.addNovaTurmaExterna(this.turmaForm);
       } catch (error) {
-        const erroMsg = error.response
-          ? "A combinação de disciplina, semestre e turma deve ser única."
-          : error.message;
-
-        this.showNotification({
+        this.pushNotification({
           type: "error",
           title: "Erro ao criar nova turma!",
-          message: erroMsg,
+          text: error.response
+            ? "A combinação de disciplina, semestre e turma deve ser única."
+            : error.message,
         });
       } finally {
         this.setPartialLoading(false);

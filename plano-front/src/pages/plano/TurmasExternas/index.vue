@@ -6,7 +6,7 @@
         title="Salvar"
         :type="'icon'"
         :color="'green'"
-        @click="$refs.novaTurmaExternaRow.addNovaTurma()"
+        @click="addNovaTurma"
       >
         <i class="fas fa-check"></i>
       </BaseButton>
@@ -15,7 +15,7 @@
         title="Adicionar"
         :type="'icon'"
         :color="'green'"
-        @click="toggleAdd()"
+        @click="toggleAdd"
       >
         <i class="fas fa-plus"></i>
       </BaseButton>
@@ -25,7 +25,7 @@
         title="Cancelar"
         :type="'icon'"
         :color="'gray'"
-        @click="toggleAdd()"
+        @click="toggleAdd"
       >
         <i class="fas fa-times"></i>
       </BaseButton>
@@ -35,7 +35,7 @@
         title="Deletar selecionados"
         :type="'icon'"
         :color="'red'"
-        @click="$refs.modalDelete.open()"
+        @click="openModalDelete"
       >
         <i class="fas fa-trash"></i>
       </BaseButton>
@@ -154,7 +154,8 @@
               :CursosAtivados="CursosDCC"
             />
           </template>
-          <tr v-if="TurmasExternasOrdered.length === 0">
+
+          <tr v-if="!TurmasExternasOrdered.length">
             <td style="width:990px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
@@ -278,7 +279,7 @@
     <ModalDelete
       ref="modalDelete"
       :isDeleting="!!Deletar.length"
-      @btn-deletar="deleteSelectedTurmas"
+      @btn-deletar="handleDeleteTurmas"
     >
       <li v-if="!Deletar.length" class="list-group-item">
         Nenhuma turma selecionada.
@@ -340,7 +341,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import {
   maskTurmaLetra,
@@ -419,7 +419,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["clearDeleteExternas", "setPartialLoading"]),
+    ...mapActions([
+      "setPartialLoading",
+      "pushNotification",
+      "deleteTurmasExternas",
+    ]),
 
     openAsideModal(modalName) {
       if (modalName === "filtros") {
@@ -430,11 +434,9 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-
     toggleAdd() {
       this.isAdding = !this.isAdding;
     },
-
     setSemestreAtivo() {
       if (this.filtroSemestres.primeiro && !this.filtroSemestres.segundo)
         this.filtroSemestres.ativo = 1;
@@ -444,26 +446,27 @@ export default {
         this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
     },
+    openModalDelete() {
+      this.$refs.modalDelete.open();
+    },
+    closeModalDelete() {
+      this.$refs.modalDelete.close();
+    },
+    addNovaTurma() {
+      this.$refs.novaTurmaExternaRow.handleAddNovaTurma();
+    },
 
-    async deleteSelectedTurmas() {
-      if (!this.Deletar.length) return;
-
+    async handleDeleteTurmas() {
       try {
         this.setPartialLoading(true);
 
-        for (let i = 0; i < this.Deletar.length; i++) {
-          await turmaExternaService.delete(this.Deletar[i].id, this.Deletar[i]);
-        }
-        this.$refs.modalDelete.close();
-        this.clearDeleteExternas();
-        this.pushNotification({
-          type: "success",
-          text: "Turma(s) excluída(s).",
-        });
+        await this.deleteTurmasExternas();
+        this.closeModalDelete();
       } catch (error) {
         this.pushNotification({
           type: "error",
-          text: "Erro ao excluir turma(s).",
+          title: "Erro ao excluir turma(s)!",
+          text: "Tente novamente",
         });
       } finally {
         this.setPartialLoading(false);

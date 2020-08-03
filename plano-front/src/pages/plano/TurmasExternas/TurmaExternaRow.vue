@@ -4,11 +4,11 @@
       <input
         type="checkbox"
         class="form-check-input position-static m-0"
-        @click="selectToDelete(turma)"
+        @click="toggleTurmaToDelete(turma)"
       />
     </td>
     <td style="width: 55px" class="less-padding">
-      <select v-model="turmaForm.periodo" @change="editTurma()">
+      <select v-model="turmaForm.periodo" @change="handleEditTurma()">
         <option value="1">1</option>
         <option value="3">3</option>
       </select>
@@ -18,7 +18,7 @@
     </td>
 
     <td style="width: 330px" class="less-padding">
-      <select v-model="turmaForm.Disciplina" @change="editTurma()">
+      <select v-model="turmaForm.Disciplina" @change="handleEditTurma()">
         <option
           v-for="disciplina in DisciplinasExternasInPerfis"
           :key="disciplina.id"
@@ -39,12 +39,12 @@
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
-        @change="editTurma()"
+        @change="handleEditTurma()"
       />
     </td>
 
     <td style="width: 80px;" class="less-padding">
-      <select v-model="turmaForm.turno1" @change="editTurma()">
+      <select v-model="turmaForm.turno1" @change="handleEditTurma()">
         <template v-if="disciplinaIsIntegralEAD">
           <option value="EAD">EAD</option>
         </template>
@@ -122,7 +122,7 @@
     </td>
 
     <td
-      v-for="indice in IndicesPedidos"
+      v-for="indice in IndicesInPedidos"
       :key="indice"
       style="width:35px"
       class="p-0"
@@ -133,9 +133,8 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import turmaExternaService from "@/common/services/turmaExterna";
-import { setEmptyValuesToNull, validateObjectKeys } from "@/common/utils";
-import { notification, maskTurmaLetra } from "@/common/mixins";
+import { maskTurmaLetra } from "@/common/mixins";
+
 import InputsPedidosExternos from "./InputsPedidosExternos.vue";
 
 export default {
@@ -144,69 +143,58 @@ export default {
     turma: { type: Object, required: true },
     CursosAtivados: { type: Array, required: true },
   },
-  mixins: [notification, maskTurmaLetra],
+  mixins: [maskTurmaLetra],
   components: {
     InputsPedidosExternos,
   },
   data() {
     return {
-      turmaForm: this.$_.clone(this.turma),
-      currentData: this.$_.clone(this.turma),
+      turmaForm: null,
+      currentData: null,
     };
   },
 
   methods: {
-    ...mapActions(["setPartialLoading"]),
+    ...mapActions([
+      "setPartialLoading",
+      "pushNotification",
+      "editTurmaExterna",
+      "toggleTurmaToDelete",
+    ]),
 
-    async editTurma() {
+    resetTurmaForm() {
+      this.turmaForm = this.$_.clone(this.turma);
+      this.currentData = this.$_.clone(this.turma);
+    },
+
+    async handleEditTurma() {
       try {
         this.setPartialLoading(true);
-
-        const newTurma = this.$_.cloneDeepWith(
-          this.turmaForm,
-          setEmptyValuesToNull
-        );
-        validateObjectKeys(newTurma, ["letra", "Disciplina"]);
-
-        const response = await turmaExternaService.update(
-          newTurma.id,
-          newTurma
-        );
-        this.currentData = this.$_.clone(newTurma);
-
-        this.showNotification({
-          type: "success",
-          message: `A Turma ${response.Turma.letra} foi atualizada!`,
-        });
+        await this.editTurmaExterna(this.turmaForm);
       } catch (error) {
-        this.turmaForm = this.$_.cloneDeep(this.turma);
+        this.resetTurmaForm();
 
-        const erroMsg = error.response
-          ? "A combinação de disciplina, semestre e turma deve ser única."
-          : error.message;
-        this.showNotification({
+        this.pushNotification({
           type: "error",
           title: "Erro ao atualizar turma!",
-          message: erroMsg,
+          text: error.response
+            ? "A combinação de disciplina, semestre e turma deve ser única."
+            : error.message,
         });
       } finally {
         this.setPartialLoading(false);
       }
     },
 
-    selectToDelete(turma) {
-      this.$store.commit("checkDeleteExterno", { Turma: turma });
-    },
-
     checkHorario(horario) {
-      if (!this.checkHorarioSala(horario)) this.editTurma();
+      if (!this.checkHorarioSala(horario)) this.handleEditTurma();
       else {
         if (horario === 1) this.turmaForm.Horario1 = this.currentData.Horario1;
         else this.turmaForm.Horario2 = this.currentData.Horario2;
       }
     },
     checkSala(sala) {
-      if (!this.checkHorarioSala(sala)) this.editTurma();
+      if (!this.checkHorarioSala(sala)) this.handleEditTurma();
       else {
         if (sala === 1) this.turmaForm.Sala1 = this.currentData.Sala1;
         else this.turmaForm.Sala2 = this.currentData.Sala2;
@@ -619,38 +607,31 @@ export default {
     ]),
 
     totalPedidosPeriodizados() {
-      if (!this.Pedidos) return 0;
+      if (!this.currentTurmaPedidos) return 0;
 
-      let total = 0;
-      for (let i = 0; i < this.currentTurmaPedidos.length; i++) {
-        total += parseInt(this.currentTurmaPedidos[i].vagasPeriodizadas, 10);
-      }
-      return total;
+      return this.$_.reduce(
+        this.currentTurmaPedidos,
+        (sum, turma) => sum + parseInt(turma.vagasPeriodizadas, 10),
+        0
+      );
     },
-
     totalPedidosNaoPeriodizados() {
-      if (!this.Pedidos) return 0;
+      if (!this.currentTurmaPedidos) return 0;
 
-      let total = 0;
-      for (let i = 0; i < this.currentTurmaPedidos.length; i++) {
-        total += parseInt(this.currentTurmaPedidos[i].vagasNaoPeriodizadas, 10);
-      }
-      return total;
+      return this.$_.reduce(
+        this.currentTurmaPedidos,
+        (sum, turma) => sum + parseInt(turma.vagasNaoPeriodizadas, 10),
+        0
+      );
     },
-
+    totalCarga() {
+      return this.turmaForm.disciplina.creditoTotal;
+    },
     disciplinaIsIntegralEAD() {
       return this.turmaForm.disciplina.ead === 1;
     },
-
     disciplinaIsParcialEAD() {
       return this.turmaForm.disciplina.ead === 2;
-    },
-
-    totalCarga() {
-      return (
-        parseInt(this.turmaForm.disciplina.cargaTeorica) +
-        parseInt(this.turmaForm.disciplina.cargaPratica)
-      );
     },
 
     HorariosFiltredByTurno() {
@@ -671,8 +652,7 @@ export default {
           ); //Todos sem EAD
       }
     },
-
-    IndicesPedidos() {
+    IndicesInPedidos() {
       const indicesResultantes = [];
 
       this.$_.forEach(this.currentTurmaPedidos, (pedido, index) => {
@@ -685,14 +665,15 @@ export default {
       });
       return indicesResultantes;
     },
-
     currentTurmaPedidos() {
       return this.$store.state.pedidoExterno.Pedidos[this.turma.id];
     },
   },
+
   watch: {
-    turma() {
-      this.turmaForm = this.$_.clone(this.turma);
+    turma: {
+      handler: "resetTurmaForm",
+      immediate: true,
     },
   },
 };
