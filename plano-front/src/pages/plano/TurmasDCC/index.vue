@@ -746,30 +746,22 @@ export default {
       "TurmasInDisciplinasPerfis",
       "Admin",
     ]),
-    // Turmas Main Table
+    // table main
     TurmasOrdered() {
-      //Se não possui ordenação de perfil
-      if (this.ordenacaoMain.perfis.order === null)
+      const { turmas, perfis } = this.ordenacaoMain;
+
+      //Se não possui ordenação de perfil fixada
+      if (this.ordenacaoMain.perfis.order === null) {
         return this.$_.orderBy(
           this.TurmasFiltredByDisciplinas,
-          ["periodo", this.ordenacaoMain.turmas.order, "letra"],
-          ["asc", this.ordenacaoMain.turmas.type, "asc"]
+          ["periodo", turmas.order],
+          ["asc", turmas.type]
         );
-      else
+      } else
         return this.$_.orderBy(
           this.TurmasFiltredByDisciplinas,
-          [
-            "periodo",
-            this.ordenacaoMain.perfis.order,
-            this.ordenacaoMain.turmas.order,
-            "letra",
-          ],
-          [
-            "asc",
-            this.ordenacaoMain.perfis.type,
-            this.ordenacaoMain.turmas.type,
-            "asc",
-          ]
+          ["periodo", perfis.order, turmas.order],
+          ["asc", perfis.type, turmas.type]
         );
     },
     TurmasFiltredByDisciplinas() {
@@ -794,7 +786,7 @@ export default {
         }
       });
     },
-    // Modal
+    // tables modal
     PerfisOrderedModal() {
       return this.$_.orderBy(
         this.PerfisDCC,
@@ -850,7 +842,7 @@ export default {
       }
       return cursosResultantes;
     },
-    //Outros
+    // outros
     setFixedOrderPerfil() {
       if (this.ordenacaoMain.perfis.type === "desc") return null;
       else return "disciplina.perfil.abreviacao";
