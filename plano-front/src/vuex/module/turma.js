@@ -81,9 +81,12 @@ const actions = {
 };
 
 const getters = {
+  AllTurmas(state) {
+    return _.orderBy(state.Turmas, ["letra"]);
+  },
   TurmasInDisciplinasPerfis(state, getters) {
     const turmasResult = [];
-    _.forEach(state.Turmas, (turma) => {
+    _.forEach(getters.AllTurmas, (turma) => {
       const disciplinaFounded = _.find(getters.DisciplinasInPerfis, [
         "id",
         turma.Disciplina,

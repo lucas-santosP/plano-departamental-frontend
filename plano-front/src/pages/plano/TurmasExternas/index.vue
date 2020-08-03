@@ -471,12 +471,13 @@ export default {
       }
     },
   },
+
   computed: {
     ...mapGetters([
       "TurmasExternasInDisciplinas",
       "DisciplinasExternasInPerfis",
     ]),
-
+    //main table
     TurmasExternasOrdered() {
       return this.$_.orderBy(
         this.TurmasExternarFiltredByDisciplinas,
@@ -503,7 +504,7 @@ export default {
         }
       });
     },
-
+    //modal tables
     CursosDCC() {
       return this.$_.slice(this.$store.state.curso.Cursos, 0, 4);
     },
@@ -530,6 +531,7 @@ export default {
         );
       });
     },
+    //Outros
     Deletar() {
       return this.$store.state.turmaExterna.Deletar;
     },

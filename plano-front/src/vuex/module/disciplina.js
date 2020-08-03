@@ -62,19 +62,25 @@ const getters = {
     const disciplinasResults = [];
 
     _.forEach(getters.AllDisciplinas, (disciplina) => {
-      const perfilFounded = _.find(getters.allPerfis, [
+      const perfilFounded = _.find(getters.AllPerfis, [
         "id",
         disciplina.Perfil,
       ]);
-      if (perfilFounded)
+
+      if (perfilFounded) {
         disciplinasResults.push({
           ...disciplina,
+          creditoTotal:
+            parseInt(disciplina.cargaTeorica, 10) +
+            parseInt(disciplina.cargaPratica, 10),
+
           perfil: {
             nome: perfilFounded.nome,
             abreviacao: perfilFounded.abreviacao,
             cor: perfilFounded.cor,
           },
         });
+      }
     });
 
     return disciplinasResults;
