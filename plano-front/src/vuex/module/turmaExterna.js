@@ -77,9 +77,13 @@ const actions = {
 };
 
 const getters = {
+  AllTurmasExternas(state) {
+    return _.orderBy(state.Turmas, ["letra"]);
+  },
+
   TurmasExternasInDisciplinas(state, getters) {
     const turmasResult = [];
-    _.forEach(state.Turmas, (turma) => {
+    _.forEach(getters.AllTurmasExternas, (turma) => {
       const disciplinaFounded = _.find(getters.DisciplinasExternasInPerfis, [
         "id",
         turma.Disciplina,

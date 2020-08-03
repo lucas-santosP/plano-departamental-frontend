@@ -348,7 +348,7 @@ import {
   toggleItemInArray,
   tableLoading,
 } from "@/common/mixins";
-import { PageHeader, NavTab, InputSearch } from "@/components/ui";
+import { PageHeader, InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
@@ -361,7 +361,6 @@ export default {
     ModalAjuda,
     ModalDelete,
     PageHeader,
-    NavTab,
     InputSearch,
     TurmaExternaRow,
     NovaTurmaExternaRow,
