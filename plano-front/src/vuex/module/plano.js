@@ -109,8 +109,8 @@ const actions = {
   },
 
   setCurrentPlanoId({ commit }, planoId) {
-    localStorage.setItem("Plano", planoId);
-    commit("SET_CURRENT_PLANO_ID", planoId);
+    localStorage.setItem("Plano", parseInt(planoId, 10));
+    commit("SET_CURRENT_PLANO_ID", parseInt(planoId, 10));
   },
 };
 
