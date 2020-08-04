@@ -29,7 +29,7 @@
       </BaseButton>
     </PageHeader>
 
-    <div class="row w-100 m-0">
+    <div class="row w-100 m-0" v-if="!tableIsLoading">
       <div v-show="semestre1IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length || EletivasIsSelected"
@@ -90,148 +90,132 @@
       </div>
     </div>
 
-    <!-- MODAL FILTROS -->
-    <BaseModal
+    <ModalFiltros
       ref="modalFiltros"
-      :modalOptions="{
-        type: 'filtros',
-        title: 'Filtros',
-        hasFooter: true,
-      }"
-      :hasFooter="true"
-      @btn-ok="btnOkFiltros()"
-      @select-all="modalSelectAll[tabAtivaModal]"
-      @select-none="modalSelectNone[tabAtivaModal]"
+      :callbacks="modalFiltrosCallbacks"
+      :tabsOptions="modalFiltrosTabs"
     >
-      <template #modal-body>
-        <NavTab
-          :currentTab="tabAtivaModal"
-          :allTabs="['Cursos', 'Semestres']"
-          v-on:change-tab="tabAtivaModal = $event"
-        />
-        <div class="div-table">
-          <BaseTable v-show="tabAtivaModal === 'Cursos'" :type="'modal'">
-            <template #thead>
-              <th style="width: 25px"></th>
-              <th
-                class="clickable t-start"
-                style="width: 50px"
-                @click="toggleOrder(ordemCursos, 'codigo')"
-              >
-                Cód.
-                <i :class="setIconByOrder(ordemCursos, 'codigo')"></i>
-              </th>
-              <th
-                class="clickable t-start"
-                style="width: 375px;"
-                @click="toggleOrder(ordemCursos, 'nome')"
-              >
-                Nome
-                <i :class="setIconByOrder(ordemCursos, 'nome')"></i>
-              </th>
-            </template>
-            <template #tbody>
-              <tr
-                v-for="curso in CursosModalOrdered"
-                :key="'curso-id-' + curso.codigo"
-                @click="toggleItemInArray(curso, filtroCursos.selecionados)"
-              >
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    :value="curso"
-                    v-model="filtroCursos.selecionados"
-                    class="form-check-input position-static m-0"
-                  />
-                </td>
-                <td style="width: 50px">
-                  {{ curso.codigo }}
-                </td>
-                <td style="width: 375px" class="t-start">
-                  {{ curso.nome }}
-                </td>
-              </tr>
-            </template>
-          </BaseTable>
-          <BaseTable v-show="tabAtivaModal === 'Semestres'" :type="'modal'">
-            <template #thead>
-              <th style="width: 25px"></th>
-              <th style="width: 425px" class="t-start">
-                Semestre Letivo
-              </th>
-            </template>
-            <template #tbody>
-              <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.primeiro"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">
-                  PRIMEIRO
-                </td>
-              </tr>
-              <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-                <td style="width: 25px">
-                  <input
-                    type="checkbox"
-                    class="form-check-input position-static m-0"
-                    v-model="filtroSemestres.segundo"
-                  />
-                </td>
-                <td style="width: 425px" class="t-start">
-                  SEGUNDO
-                </td>
-              </tr>
-            </template>
-          </BaseTable>
-        </div>
-      </template>
-    </BaseModal>
+      <div class="div-table">
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Cursos'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th
+              class="clickable t-start"
+              style="width: 50px"
+              @click="toggleOrder(ordemCursos, 'codigo')"
+            >
+              Cód.
+              <i :class="setIconByOrder(ordemCursos, 'codigo')"></i>
+            </th>
+            <th
+              class="clickable t-start"
+              style="width: 375px;"
+              @click="toggleOrder(ordemCursos, 'nome')"
+            >
+              Nome
+              <i :class="setIconByOrder(ordemCursos, 'nome')"></i>
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="curso in CursosModalOrdered"
+              :key="'curso-id-' + curso.codigo"
+              @click="toggleItemInArray(curso, filtroCursos.selecionados)"
+            >
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  :value="curso"
+                  v-model="filtroCursos.selecionados"
+                  class="form-check-input position-static m-0"
+                />
+              </td>
+              <td style="width: 50px">
+                {{ curso.codigo }}
+              </td>
+              <td style="width: 375px" class="t-start">
+                {{ curso.nome }}
+              </td>
+            </tr>
+          </template>
+        </BaseTable>
 
-    <!-- MODAL AJUDA -->
-    <BaseModal
-      ref="modalAjuda"
-      :modalOptions="{
-        type: 'ajuda',
-        title: 'Ajuda',
-      }"
-    >
-      <template #modal-body>
-        <ul class="list-ajuda list-group">
-          <li class="list-group-item">
-            <b>Para exibir as tabelas de horários:</b> Clique no ícone filtros
-            <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
-            janela que será aberta utilize as abas para navegar entre os tipos
-            de filtros. Marque em suas respectivas tabelas quais informações
-            deseja visualizar, e para finalizar clique no botão OK.
-          </li>
-          <li class="list-group-item">
-            <b>Para gerar relatório dos horários:</b> Clique no ícone relatório
-            <i class="fas fa-file-alt icon-gray"></i>, selecione se deseja gerar
-            o relatório completo com todos os horários, ou apenas o relatório
-            parcial com os horários que estão selecionados no momento.
-          </li>
-        </ul>
-      </template>
-    </BaseModal>
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Semestres'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th style="width: 425px" class="t-start">
+              Semestre Letivo
+            </th>
+          </template>
+          <template #tbody>
+            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  v-model="filtroSemestres.primeiro"
+                />
+              </td>
+              <td style="width: 425px" class="t-start">
+                PRIMEIRO
+              </td>
+            </tr>
+            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  v-model="filtroSemestres.segundo"
+                />
+              </td>
+              <td style="width: 425px" class="t-start">
+                SEGUNDO
+              </td>
+            </tr>
+          </template>
+        </BaseTable>
+      </div>
+    </ModalFiltros>
 
-    <!-- MODAL RELATORIO-->
     <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+
+    <ModalAjuda ref="modalAjuda">
+      <li class="list-group-item">
+        <b>Para exibir as tabelas de horários:</b> Clique no ícone filtros
+        <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
+        janela que será aberta utilize as abas para navegar entre os tipos de
+        filtros. Marque em suas respectivas tabelas quais informações deseja
+        visualizar, e para finalizar clique no botão OK.
+      </li>
+      <li class="list-group-item">
+        <b>Para gerar relatório dos horários:</b> Clique no ícone relatório
+        <i class="fas fa-file-alt icon-gray"></i>, selecione se deseja gerar o
+        relatório completo com todos os horários, ou apenas o relatório parcial
+        com os horários que estão selecionados no momento.
+      </li>
+    </ModalAjuda>
   </div>
 </template>
 
 <script>
-import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
+import { mapGetters } from "vuex";
+import {
+  toggleItemInArray,
+  toggleOrdination,
+  tableLoading,
+} from "@/common/mixins";
 import { PageHeader, NavTab } from "@/components/ui";
+import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 
-import { ModalRelatorio } from "@/components/modals";
 import TableEletivas from "./TableEletivas.vue";
 import ListTableHorarios from "./ListTableHorarios.vue";
-import store from "@/vuex/store";
-import { mapGetters } from "vuex";
+
 const allCursosOptions = [
   {
     nome: "SISTEMAS DE INFORMAÇÃO",
@@ -257,18 +241,19 @@ const allCursosOptions = [
 
 export default {
   name: "DashboardHorarios",
-  mixins: [toggleItemInArray, toggleOrdination],
+  mixins: [toggleItemInArray, toggleOrdination, tableLoading],
   components: {
+    ModalFiltros,
+    ModalAjuda,
+    ModalRelatorio,
     ListTableHorarios,
     TableEletivas,
     PageHeader,
     NavTab,
-    ModalRelatorio,
   },
   data() {
     return {
       planoAtual: null,
-      tabAtivaModal: "Cursos",
       ordemCursos: { order: "codigo", type: "asc" },
       listaDePeriodos: [],
       filtroCursos: {
@@ -294,22 +279,34 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
-      modalSelectAll: {
-        Cursos: () => {
-          this.filtroCursos.selecionados = [...allCursosOptions];
-        },
-        Semestres: () => {
-          this.filtroSemestres.primeiro = true;
-          this.filtroSemestres.segundo = true;
-        },
+      modalFiltrosTabs: {
+        current: "Cursos",
+        array: ["Cursos", "Semestres"],
       },
-      modalSelectNone: {
-        Cursos: () => {
-          this.filtroCursos.selecionados = [];
+      modalFiltrosCallbacks: {
+        selectAll: {
+          Cursos: () => {
+            this.filtroCursos.selecionados = [...allCursosOptions];
+          },
+          Semestres: () => {
+            this.filtroSemestres.primeiro = true;
+            this.filtroSemestres.segundo = true;
+          },
         },
-        Semestres: () => {
-          this.filtroSemestres.primeiro = false;
-          this.filtroSemestres.segundo = false;
+        selectNone: {
+          Cursos: () => {
+            this.filtroCursos.selecionados = [];
+          },
+          Semestres: () => {
+            this.filtroSemestres.primeiro = false;
+            this.filtroSemestres.segundo = false;
+          },
+        },
+        btnOk: () => {
+          this.setTableLoadingState(true);
+          this.setSemestreAtivo();
+          this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
+          this.setTableLoadingState(false);
         },
       },
       evenCCN: "false",
@@ -318,6 +315,7 @@ export default {
       evenSI: "false",
     };
   },
+
   mounted() {
     this.currentPlano = this.$_.find(
       this.allPlanos,
@@ -329,7 +327,7 @@ export default {
     this.createHorarios2();
     this.createListaDePeriodos();
 
-    this.modalSelectAll.Cursos();
+    this.modalFiltrosCallbacks.selectAll.Cursos();
     this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
   },
 
@@ -349,10 +347,6 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-    btnOkFiltros() {
-      this.setSemestreAtivo();
-      this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-    },
     setSemestreAtivo() {
       const { primeiro, segundo } = this.filtroSemestres;
 
@@ -365,6 +359,7 @@ export default {
       if (number % 2 === 0) return "true";
       else return "false";
     },
+
     checkTurmaHorario(turma, horario) {
       if (turma.Horario1 == horario || turma.Horario2 == horario) {
         return true;
@@ -1358,6 +1353,7 @@ export default {
         Ativas: this.horariosAtivos2,
       });
     },
+
     pdf(completo) {
       var pdfMake = require("pdfmake/build/pdfmake.js");
       if (pdfMake.vfs == undefined) {
@@ -1365,7 +1361,7 @@ export default {
         pdfMake.vfs = pdfFonts.pdfMake.vfs;
       }
       var tables = [];
-      var disciplinas = this.$store.state.disciplina.Disciplinas;
+      var disciplinas = this.AllDisciplinas;
       var periodosCCD1 = this.horariosAtivos1.CCD;
       var periodosCCN1 = this.horariosAtivos1.CCN;
       var periodosEC1 = this.horariosAtivos1.EC;
@@ -5407,6 +5403,7 @@ export default {
       "TurmasInDisciplinasPerfis",
       "TurmasExternasInDisciplinas",
       "allPlanos",
+      "AllDisciplinas",
     ]),
 
     semestre1IsActived() {
@@ -5438,13 +5435,10 @@ export default {
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-    Disciplinas() {
-      return this.$store.state.disciplina.Disciplinas;
-    },
     CursosWithHorarios() {
       const cursosResult = [
         {
-          isSelected: this.$_.find(
+          isSelected: this.$_.some(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65C"
           ),
@@ -5456,7 +5450,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.CCD,
         },
         {
-          isSelected: this.$_.find(
+          isSelected: this.$_.some(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "35A"
           ),
@@ -5468,7 +5462,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.CCN,
         },
         {
-          isSelected: this.$_.find(
+          isSelected: this.$_.some(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "76A"
           ),
@@ -5480,7 +5474,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.SI,
         },
         {
-          isSelected: this.$_.find(
+          isSelected: this.$_.some(
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65B"
           ),
@@ -5492,6 +5486,7 @@ export default {
           horarios2Semestre: this.horariosAtivos2.EC,
         },
       ];
+
       return this.$_.filter(cursosResult, (curso) => curso.isSelected);
     },
     DisciplinaGrades() {
