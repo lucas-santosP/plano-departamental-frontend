@@ -210,7 +210,7 @@ import {
   toggleOrdination,
   tableLoading,
 } from "@/common/mixins";
-import { PageHeader, NavTab } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 
 import TableEletivas from "./TableEletivas.vue";
@@ -249,7 +249,6 @@ export default {
     ListTableHorarios,
     TableEletivas,
     PageHeader,
-    NavTab,
   },
   data() {
     return {

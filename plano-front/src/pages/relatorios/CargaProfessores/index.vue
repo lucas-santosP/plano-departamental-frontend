@@ -450,7 +450,7 @@ import {
   toggleItemInArray,
   tableLoading,
 } from "@/common/mixins";
-import { InputSearch, PageHeader, NavTab } from "@/components/ui";
+import { InputSearch, PageHeader } from "@/components/ui";
 import { ModalAjuda, ModalRelatorio, ModalFiltros } from "@/components/modals";
 import { mapGetters } from "vuex";
 
@@ -462,7 +462,6 @@ export default {
     ModalAjuda,
     ModalFiltros,
     PageHeader,
-    NavTab,
     InputSearch,
   },
   data() {
