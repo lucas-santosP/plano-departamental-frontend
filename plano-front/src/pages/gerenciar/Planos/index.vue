@@ -45,7 +45,7 @@
               v-for="plano in PlanosOrdered"
               :key="plano.id"
               @click="handleClickInPlano(plano)"
-              :class="{ 'bg-selected': plano.id === planoSelected }"
+              :class="{ 'bg-selected': plano.id === planoSelectedId }"
             >
               <td style="width: 70px" class="t-start">{{ plano.ano }}</td>
               <td style="width: 70px" class="t-start">{{ plano.nome }}</td>
@@ -202,7 +202,7 @@ export default {
   data() {
     return {
       planoForm: this.$_.clone(emptyPlano),
-      planoSelected: null,
+      planoSelectedId: null,
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
   },
@@ -221,13 +221,12 @@ export default {
 
     handleClickInPlano(plano) {
       this.cleanPlano();
-
-      this.planoSelected = plano.id;
+      this.planoSelectedId = plano.id;
       this.planoForm = this.$_.clone(plano);
     },
 
     cleanPlano() {
-      this.planoSelected = null;
+      this.planoSelectedId = null;
       this.planoForm = this.$_.clone(emptyPlano);
     },
 
@@ -250,7 +249,9 @@ export default {
           type: "error",
           text: `Campos obrigatórios inválidos ou incompletos.`,
         });
-      else this.$refs.modalNovoPlano.open();
+      else {
+        this.$refs.modalNovoPlano.open();
+      }
     },
 
     async handleEditPlano() {
@@ -270,11 +271,11 @@ export default {
 
     async handleDeletePlano() {
       try {
+        this.closeModalDelete();
         this.setPartialLoading(true);
         await this.deletePlano(this.planoForm);
 
         this.cleanPlano();
-        this.closeModalDelete();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -294,7 +295,7 @@ export default {
       return this.$_.orderBy(this.allPlanos, order, type);
     },
     isEdit() {
-      return this.planoSelected != null;
+      return this.planoSelectedId != null;
     },
   },
 };

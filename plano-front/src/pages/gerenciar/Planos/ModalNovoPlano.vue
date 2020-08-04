@@ -9,11 +9,12 @@
     @on-close="searchDisciplinasModal = ''"
   >
     <template #modal-body>
-      <p class="alert alert-secondary  ">
+      <p class="alert alert-secondary" v-if="currentPlano">
         Selecione as disciplinas para quais as turmas do plano atual
         <b>{{ currentPlano.nome + " - " + currentPlano.ano }}</b>
         serão copiadas para o novo plano
       </p>
+
       <div class="div-table">
         <BaseTable
           :type="'modal'"
@@ -148,7 +149,6 @@ export default {
   },
   data() {
     return {
-      planoForm: this.$_.clone(this.plano),
       searchDisciplinasModal: "",
       filtrosDisciplinas: [],
       ordenacaoModal: {
@@ -331,7 +331,7 @@ export default {
     },
 
     generateTurmasNovoPlano() {
-      this.gradesAtivas(this.planoForm.ano);
+      this.gradesAtivas(this.plano.ano);
       let disciplinasNovoPlano1Semestre = [];
       let disciplinasNovoPlano2Semestre = [];
       for (let i = 0; i < this.grades1semestre.CCD.length; i++) {
@@ -682,7 +682,9 @@ export default {
       this.setPartialLoading(true);
       let turmasNovoPlano = this.generateTurmasNovoPlano();
 
-      planoService.create(this.planoForm).then((plano) => {
+      console.log(this.plano);
+      console.log(turmasNovoPlano);
+      planoService.create(this.plano).then((plano) => {
         // localStorage.setItem("Plano", plano.Plano.id);
         turmasNovoPlano.forEach((t) => {
           turmaService
@@ -850,8 +852,14 @@ export default {
       });
     },
   },
+
   computed: {
-    ...mapGetters(["allPlanos", "DisciplinasInPerfis", "AllDisciplinas"]),
+    ...mapGetters([
+      "allPlanos",
+      "DisciplinasInPerfis",
+      "AllDisciplinas",
+      "currentPlanoId",
+    ]),
 
     DisciplinasOrderedModal() {
       return this.$_.orderBy(
@@ -860,6 +868,7 @@ export default {
         this.ordenacaoModal.disciplinas.type
       );
     },
+
     DisciplinasFiltredModal() {
       if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
 
@@ -875,19 +884,12 @@ export default {
         );
       });
     },
+
     currentPlano() {
       return this.$_.find(
         this.allPlanos,
-        (plano) => plano.id === parseInt(localStorage.getItem("Plano"), 10)
+        (plano) => plano.id === this.currentPlanoId
       );
-    },
-  },
-  watch: {
-    currentPlano: {
-      handler(newValue) {
-        this.planoForm = this.$_.clone(newValue);
-      },
-      deep: true,
     },
   },
 };
