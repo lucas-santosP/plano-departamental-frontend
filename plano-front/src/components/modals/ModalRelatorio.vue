@@ -9,13 +9,13 @@
       <ul class="list-relatorio list-group flex-row w-100 border-0">
         <li
           class="list-group-item clickable text-center m-0 rounded-0 col py-2"
-          @click="$emit('selection-option', false)"
+          @click="handleSelect(false)"
         >
           Parcial
         </li>
         <li
           class="list-group-item clickable text-center m-0 rounded-0 col py-2"
-          @click="$emit('selection-option', true)"
+          @click="handleSelect(true)"
         >
           Completo
         </li>
@@ -29,6 +29,11 @@ export default {
   name: "ModalRelatorio",
 
   methods: {
+    handleSelect(value) {
+      this.$emit("selection-option", value);
+      this.close();
+    },
+
     toggle() {
       this.$refs.baseModalRelatorio.toggle();
     },

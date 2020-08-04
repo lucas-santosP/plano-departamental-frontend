@@ -58,6 +58,20 @@ const getters = {
   AllDisciplinas(state) {
     return _.orderBy(state.Disciplinas, ["codigo"]);
   },
+
+  DisciplinasDCC(state, getters) {
+    return _.filter(
+      getters.AllDisciplinas,
+      (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
+    );
+  },
+  DisciplinasExternas(state, getters) {
+    return _.filter(
+      getters.AllDisciplinas,
+      (disciplina) => disciplina.Perfil === 13 || disciplina.Perfil === 15
+    );
+  },
+
   DisciplinasInPerfis(state, getters) {
     const disciplinasResults = [];
 
