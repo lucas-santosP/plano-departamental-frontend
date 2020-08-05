@@ -5477,7 +5477,7 @@ export default {
             this.filtroCursos.ativados,
             (curso) => curso.codigo === "65B"
           ),
-          nome: "Engenharia da Computação",
+          nome: "Engenharia Computacional",
           codigo: "65B",
           value: 4,
           turno: "Diurno",
