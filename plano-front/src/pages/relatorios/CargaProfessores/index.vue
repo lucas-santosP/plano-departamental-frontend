@@ -444,7 +444,7 @@
 
 <script>
 import pdfs from "@/common/services/pdfs";
-import { normalizeText } from "@/common/mixins";
+import { normalizeText } from "@/common/utils";
 import {
   toggleOrdination,
   toggleItemInArray,
