@@ -54,17 +54,13 @@ export default {
     };
   },
   created() {
-    this.initializeCurrentPlano();
+    this.initializePlano();
   },
   beforeDestroy() {
     this.$socket.close();
   },
   methods: {
-    ...mapActions([
-      "setFetchingLoading",
-      "closeSidebar",
-      "initializeCurrentPlano",
-    ]),
+    ...mapActions(["setFetchingLoading", "closeSidebar", "initializePlano"]),
 
     emitCloseCenterModal() {
       EventBus.$emit("close-modal");
