@@ -29,7 +29,7 @@
       </BaseButton>
     </PageHeader>
 
-    <div class="row w-100 m-0" v-if="!tableIsLoading">
+    <div class="row w-100 m-0" v-show="!tableIsLoading">
       <div v-show="semestre1IsActived" class="w-100">
         <h2
           v-show="CursosWithHorarios.length || EletivasIsSelected"
@@ -5502,7 +5502,6 @@ export default {
 
 <style scoped>
 .semestre-title {
-  position: relative;
   width: 100%;
   font-size: 16px;
   padding: 5px;

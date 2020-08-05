@@ -29,9 +29,9 @@
       </BaseButton>
     </PageHeader>
 
-    <div class="row w-100 m-0" v-if="!tableIsLoading">
+    <div class="row w-100 m-0" v-show="!tableIsLoading">
       <div v-show="hasLaboratorioAtivos && semestre1IsActived" class="w-100">
-        <h2 class="semestre-title pl-1 bg-custom">
+        <h2 class="semestre-title">
           1º SEMESTRE
         </h2>
         <div class="container-horarios px-1">
@@ -48,7 +48,7 @@
       </div>
 
       <div v-show="hasLaboratorioAtivos && semestre2IsActived" class="w-100">
-        <h2 class="semestre-title pl-1 bg-custom">
+        <h2 class="semestre-title">
           2º SEMESTRE
         </h2>
         <div class="container-horarios px-1">
@@ -235,7 +235,9 @@ export default {
 
   beforeMount() {
     this.modalFiltrosCallbacks.selectAll.Laboratorios();
-    this.modalFiltrosCallbacks.btnOk();
+    this.filtroLaboratorios.ativados = [
+      ...this.filtroLaboratorios.selecionados,
+    ];
   },
 
   methods: {
@@ -331,7 +333,9 @@ export default {
 <style scoped>
 .semestre-title {
   width: 100%;
-  font-size: 16px !important;
+  font-size: 16px;
+  padding: 5px;
+  background-color: var(--light-gray);
   font-weight: bold;
   text-align: start;
 }

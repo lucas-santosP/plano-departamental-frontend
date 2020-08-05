@@ -604,7 +604,7 @@ export default {
   beforeMount() {
     this.modalFiltrosCallbacks.selectAll.Disciplinas();
     this.modalFiltrosCallbacks.selectAll.Perfis();
-    this.modalFiltrosCallbacks.btnOk();
+    this.filtroDisciplinas.ativados = [...this.filtroDisciplinas.selecionados];
   },
 
   methods: {
