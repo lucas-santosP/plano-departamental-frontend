@@ -29,12 +29,14 @@
       </BaseButton>
     </PageHeader>
 
-    <div class="row w-100 m-0" v-show="!tableIsLoading">
+    <div
+      class="row w-100 m-0"
+      v-show="
+        !tableIsLoading && (CursosWithHorarios.length || EletivasIsSelected)
+      "
+    >
       <div v-show="semestre1IsActived" class="w-100">
-        <h2
-          v-show="CursosWithHorarios.length || EletivasIsSelected"
-          class="semestre-title"
-        >
+        <h2 class="semestre-title">
           1º SEMESTRE
         </h2>
 
@@ -61,10 +63,7 @@
       </div>
 
       <div v-show="semestre2IsActived" class="w-100">
-        <h2
-          v-show="CursosWithHorarios.length || EletivasIsSelected"
-          class="semestre-title"
-        >
+        <h2 class="semestre-title">
           2º SEMESTRE
         </h2>
         <template v-for="curso in CursosWithHorarios">
@@ -89,6 +88,17 @@
         />
       </div>
     </div>
+    <p
+      v-if="
+        (!semestre1IsActived && !semestre2IsActived) ||
+          (!CursosWithHorarios.length && !EletivasIsSelected)
+      "
+      class="text-empty"
+    >
+      <b>Nenhum horário encontrado.</b> Clique no botão de filtros
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
+      para selecioná-los.
+    </p>
 
     <ModalFiltros
       ref="modalFiltros"
@@ -5515,6 +5525,13 @@ export default {
   font-size: 12px !important;
   font-weight: bold !important;
 }
+.text-empty {
+  width: 100%;
+  font-size: 12px;
+  padding: 5px;
+  background-color: var(--light-gray);
+}
+
 ::v-deep .container-horarios .div-table .periodo-title {
   font-size: 12px;
   font-weight: normal;
