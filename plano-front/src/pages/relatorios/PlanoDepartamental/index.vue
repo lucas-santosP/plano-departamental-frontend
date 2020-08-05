@@ -568,9 +568,7 @@ export default {
             ];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [
-              ...this.DisciplinasDCCInPerfis,
-            ];
+            this.filtroDisciplinas.selecionados = [...this.DisciplinasInPerfis];
           },
           Semestres: () => {
             this.filtroSemestres.primeiro = true;
@@ -629,7 +627,7 @@ export default {
 
     pdf(completo) {
       const disciplinasSelecionadas = completo
-        ? this.DisciplinasDCCInPerfis
+        ? this.DisciplinasInPerfis
         : this.filtroDisciplinas.ativados;
 
       pdfs.pdfRelatorioDisciplinas({
@@ -738,7 +736,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "DisciplinasDCCInPerfis", "AllHorarios"]),
+    ...mapGetters(["AllTurmas", "DisciplinasInPerfis", "AllHorarios"]),
 
     DisciplinasInTurmasOrdered() {
       return this.$_.orderBy(
@@ -767,11 +765,11 @@ export default {
     },
 
     DisciplinasFiltredModal() {
-      if (this.searchDisciplinas === "") return this.DisciplinasDCCInPerfis;
+      if (this.searchDisciplinas === "") return this.DisciplinasInPerfis;
 
       const searchNormalized = normalizeText(this.searchDisciplinas);
 
-      return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasInPerfis, (disciplina) => {
         const disciplinaNome = normalizeText(disciplina.nome);
         const disciplinaCodigo = normalizeText(disciplina.codigo);
 
@@ -838,7 +836,7 @@ export default {
         this.modalFiltrosCallbacks.selectNone.Disciplinas();
         const disciplinasResultantes = [];
 
-        this.$_.forEach(this.DisciplinasDCCInPerfis, (disciplina) => {
+        this.$_.forEach(this.DisciplinasInPerfis, (disciplina) => {
           const perfilFounded = this.$_.find(
             perfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
