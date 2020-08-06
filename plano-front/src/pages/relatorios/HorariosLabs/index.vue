@@ -65,6 +65,17 @@
         </div>
       </div>
     </div>
+    <p
+      v-if="
+        (!semestre1IsActived && !semestre2IsActived) ||
+          !filtroLaboratorios.ativados.length
+      "
+      class="text-empty"
+    >
+      <b>Nenhum horário encontrado.</b> Clique no botão de filtros
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
+      para selecioná-los.
+    </p>
 
     <ModalFiltros
       ref="modalFiltros"
@@ -344,6 +355,12 @@ export default {
   text-align: start;
   font-size: 12px !important;
   font-weight: bold;
+}
+.text-empty {
+  width: 100%;
+  font-size: 12px;
+  padding: 5px;
+  background-color: var(--light-gray);
 }
 .container-horarios {
   width: 100% !important;
