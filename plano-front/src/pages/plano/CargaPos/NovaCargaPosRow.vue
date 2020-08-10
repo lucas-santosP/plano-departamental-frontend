@@ -8,7 +8,9 @@
           <option type="text" value="PGMC">PGMC</option>
         </select>
       </td>
-      <td style="width:25px"><div style="height:30px"></div></td>
+      <td style="width:25px">
+        <div style="height:30px"></div>
+      </td>
       <td style="width:55px">
         <select v-model.number="cargaPosForm.trimestre">
           <option type="text" value="1">1</option>
@@ -19,15 +21,12 @@
       </td>
       <td style="width:145px" class="less-padding">
         <select v-model.number="cargaPosForm.Docente">
-          <option v-if="!!DocentesOrdered.length" type="text" value
-            >Nenhum Docente Encontrado</option
-          >
+          <option v-if="!!DocentesOrdered.length" type="text" value>Nenhum Docente Encontrado</option>
           <option
             v-for="docente in DocentesOrdered"
             :key="'id docente' + docente.id"
             :value="docente.id"
-            >{{ docente.apelido }}</option
-          >
+          >{{ docente.apelido }}</option>
         </select>
       </td>
       <td style="width:50px" class="less-padding">
@@ -175,7 +174,7 @@ export default {
   text-align: center;
 }
 .novaturma select + select {
-  margin-top: 2px !important;
+  margin-top: 3px !important;
 }
 .novaturma input[type="checkbox"] {
   width: 13px !important;

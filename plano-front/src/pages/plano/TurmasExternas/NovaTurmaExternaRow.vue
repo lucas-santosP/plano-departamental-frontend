@@ -15,8 +15,7 @@
           v-for="disciplina in DisciplinasExternasInPerfis"
           :key="'d1' + disciplina.id"
           :value="disciplina"
-          >{{ disciplina.codigo }}</option
-        >
+        >{{ disciplina.codigo }}</option>
       </select>
     </td>
 
@@ -26,14 +25,11 @@
           v-for="disciplina in DisciplinasExternasInPerfisOrderedByNome"
           :key="'d2' + disciplina.id"
           :value="disciplina"
-          >{{ disciplina.nome }}</option
-        >
+        >{{ disciplina.nome }}</option>
       </select>
     </td>
 
-    <td style="width: 25px">
-      {{ totalCarga }}
-    </td>
+    <td style="width: 25px">{{ totalCarga }}</td>
 
     <td style="width: 45px">
       <input
@@ -61,8 +57,7 @@
           v-for="horario in HorariosFiltredByTurno"
           :key="'h1' + horario.id"
           :value="horario.id"
-          >{{ horario.horario }}</option
-        >
+        >{{ horario.horario }}</option>
       </select>
       <select
         type="text"
@@ -74,31 +69,17 @@
           v-for="horario in HorariosFiltredByTurno"
           :key="'h2' + horario.id"
           :value="horario.id"
-          >{{ horario.horario }}</option
-        >
+        >{{ horario.horario }}</option>
       </select>
     </td>
 
     <td style="width: 95px" class="less-padding">
       <template v-if="!disciplinaIsIntegralEAD">
         <select v-model="turmaForm.Sala1">
-          <option
-            v-for="sala in AllSalas"
-            :key="'s1' + sala.id"
-            :value="sala.id"
-            >{{ sala.nome }}</option
-          >
+          <option v-for="sala in AllSalas" :key="'s1' + sala.id" :value="sala.id">{{ sala.nome }}</option>
         </select>
-        <select
-          v-if="totalCarga >= 4 && !disciplinaIsParcialEAD"
-          v-model="turmaForm.Sala2"
-        >
-          <option
-            v-for="sala in AllSalas"
-            :key="'s2' + sala.id"
-            :value="sala.id"
-            >{{ sala.nome }}</option
-          >
+        <select v-if="totalCarga >= 4 && !disciplinaIsParcialEAD" v-model="turmaForm.Sala2">
+          <option v-for="sala in AllSalas" :key="'s2' + sala.id" :value="sala.id">{{ sala.nome }}</option>
         </select>
       </template>
     </td>
@@ -107,11 +88,7 @@
       <div style="height: 43px"></div>
     </td>
 
-    <td
-      style="width: 35px;"
-      v-for="cursosEmptySpace in 4"
-      :key="cursosEmptySpace"
-    ></td>
+    <td style="width: 35px;" v-for="cursosEmptySpace in 4" :key="cursosEmptySpace"></td>
   </tr>
 </template>
 
@@ -284,7 +261,7 @@ export default {
   width: 100% !important;
 }
 .novaturma select + select {
-  margin-top: 2px !important;
+  margin-top: 3px !important;
 }
 .novaturma input[type="checkbox"] {
   width: 14px !important;
