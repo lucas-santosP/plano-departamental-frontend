@@ -534,7 +534,6 @@ export default {
     PageHeader,
     BodyModalEditTurma,
     ModalEditTurma,
-
     InputSearch,
   },
   data() {
@@ -643,6 +642,7 @@ export default {
       ls.off(`${id}`);
     }
   },
+  
   methods: {
     ...mapActions(["setPartialLoading", "clearDelete"]),
 
@@ -737,6 +737,7 @@ export default {
       }
     },
   },
+
   computed: {
     ...mapGetters([
       "AllCursos",
@@ -851,6 +852,7 @@ export default {
       return this.$store.state.turma.Deletar;
     },
   },
+  
   watch: {
     filtroPerfis: {
       handler(perfis) {

@@ -109,8 +109,8 @@
 
     <td
       style="width: 35px;"
-      v-for="cursosDccLength in 4"
-      :key="cursosDccLength"
+      v-for="cursosEmptySpace in 4"
+      :key="cursosEmptySpace"
     ></td>
   </tr>
 </template>
