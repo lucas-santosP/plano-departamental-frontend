@@ -58,10 +58,10 @@
       <Card
         :title="'Plano'"
         :toggleFooter="isEdit"
-        @btn-salvar="handleEditPlano()"
-        @btn-delete="openModalDelete()"
-        @btn-add="openModalNovoPlano()"
-        @btn-clean="cleanPlano()"
+        @btn-salvar="handleEditPlano"
+        @btn-delete="openModalDelete"
+        @btn-add="openModalNovoPlano"
+        @btn-clean="cleanPlano"
       >
         <template #form-group>
           <div class="row mb-2 mx-0">
@@ -79,19 +79,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label required for="ano">Ano </label>
-              <select
-                id="planoAno"
-                v-model.number="planoForm.ano"
-                class="form-control input-ano"
-              >
-                <option
-                  v-for="year in AnosDoPlano"
-                  :key="'anos' + year"
-                  :value="year"
-                >
-                  {{ year }}</option
-                >
+              <label required for="ano">Ano</label>
+              <select id="planoAno" v-model.number="planoForm.ano" class="form-control input-ano">
+                <option v-for="year in AnosDoPlano" :key="'anos' + year" :value="year">{{ year }}</option>
               </select>
             </div>
           </div>
@@ -114,66 +104,25 @@
 
     <ModalNovoPlano ref="modalNovoPlano" :plano="planoForm" />
 
-    <BaseModal
-      ref="modalDeletePlano"
-      :modalOptions="{
-        title: 'Deletar plano',
-        position: 'center',
-        hasBackground: true,
-        hasFooter: true,
-      }"
-      :customStyles="'width:450px; font-size:14px'"
-    >
-      <template #modal-body>
-        <p class="w-100 m-0">
-          <template v-if="isEdit">
-            Tem certeza que deseja deletar o plano
-            <b>{{ planoForm.nome + " - " + planoForm.ano }}</b> ?
-          </template>
-          <template v-else>
-            Nenhum plano selecionado!
-          </template>
-        </p>
-      </template>
-      <template #modal-footer>
-        <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'gray'"
-          @click="closeModalDelete"
-        >
-          Cancelar
-        </BaseButton>
-        <BaseButton
-          class="paddingX-20"
-          :type="'text'"
-          :color="'red'"
-          @click="handleDeletePlano"
-        >
-          Deletar
-        </BaseButton>
-      </template>
-    </BaseModal>
-    <!-- MODAL AJUDA -->
+    <ModalDelete ref="modalDelete" :isDeleting="isEdit" @btn-deletar="handleDeletePlano">
+      <li class="list-group-item">
+        <span v-if="isEdit">
+          Tem certeza que deseja excluír o plano
+          <b>{{ planoForm.ano + " - " + planoForm.nome}}</b>
+          ?
+        </span>
+        <span v-else class="list-group-item">Nenhum plano selecionado.</span>
+      </li>
+    </ModalDelete>
 
-    <BaseModal
-      ref="modalAjuda"
-      :modalOptions="{
-        type: 'ajuda',
-        title: 'Ajuda',
-      }"
-    >
-      <template #modal-body>
-        <ul class="list-ajuda list-group">
-          <li class="list-group-item">
-            <b>Para excluir um plano:</b> clique no ícone de deletar
-            <i class="fas fa-times icon-red"></i> presente na tabela, em seguida
-            confirme se é realmente o plano que deseja exluir e clique no botão
-            deletar ou cancelar.
-          </li>
-        </ul>
-      </template>
-    </BaseModal>
+    <ModalAjuda ref="modalAjuda">
+      <li class="list-group-item">
+        <b>Para excluir um plano:</b> clique no ícone de deletar
+        <i class="fas fa-times icon-red"></i> presente na tabela, em seguida
+        confirme se é realmente o plano que deseja exluir e clique no botão
+        deletar ou cancelar.
+      </li>
+    </ModalAjuda>
   </div>
 </template>
 
@@ -181,6 +130,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { toggleOrdination } from "@/common/mixins";
 import { PageHeader, Card } from "@/components/ui";
+import { ModalAjuda, ModalDelete } from "@/components/modals";
 import ModalNovoPlano from "./ModalNovoPlano";
 
 const emptyPlano = {
@@ -194,9 +144,9 @@ export default {
   mixins: [toggleOrdination],
   components: {
     PageHeader,
-
+    ModalAjuda,
+    ModalDelete,
     Card,
-
     ModalNovoPlano,
   },
   data() {
@@ -206,6 +156,7 @@ export default {
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
   },
+
   methods: {
     ...mapActions([
       "pushNotification",
@@ -231,11 +182,7 @@ export default {
     },
 
     openModalDelete() {
-      this.$refs.modalDeletePlano.open();
-    },
-
-    closeModalDelete() {
-      this.$refs.modalDeletePlano.close();
+      this.$refs.modalDelete.open();
     },
 
     openModalNovoPlano() {
@@ -271,10 +218,8 @@ export default {
 
     async handleDeletePlano() {
       try {
-        this.closeModalDelete();
         this.setPartialLoading(true);
         await this.deletePlano(this.planoForm);
-
         this.cleanPlano();
       } catch (error) {
         this.pushNotification({
@@ -287,6 +232,7 @@ export default {
       }
     },
   },
+
   computed: {
     ...mapGetters(["allPlanos", "AnosDoPlano"]),
 

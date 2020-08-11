@@ -1,22 +1,9 @@
 <template>
-  <transition :name="customAnimatedClass + '-modal'">
-    <div
-      v-show="visibility"
-      :class="modalClass"
-      :style="modalStyle + customStyles"
-    >
+  <transition :name="customAnimatedClass">
+    <div v-show="visibility" :class="modalClass" :style="modalStyle + customStyles">
       <header class="modal-custom-header w-100">
-        <h2 class="title">
-          {{ modalOptions.title }}
-        </h2>
-        <button
-          type="button"
-          class="btn-close"
-          @click="close()"
-          aria-label="Close modal"
-        >
-          &times;
-        </button>
+        <h2 class="title">{{ modalOptions.title }}</h2>
+        <button type="button" class="btn-close" @click="close()" aria-label="Close modal">&times;</button>
       </header>
 
       <main class="modal-custom-body">
@@ -30,25 +17,10 @@
               :type="'text'"
               :color="'lightblue'"
               @click="emitSelectAll()"
-            >
-              Selecionar Todos
-            </BaseButton>
-            <BaseButton
-              :type="'text'"
-              :color="'gray'"
-              @click="emitSelectNone()"
-            >
-              Desmarcar Todos
-            </BaseButton>
+            >Selecionar Todos</BaseButton>
+            <BaseButton :type="'text'" :color="'gray'" @click="emitSelectNone()">Desmarcar Todos</BaseButton>
           </div>
-          <BaseButton
-            class="px-4"
-            :type="'text'"
-            :color="'green'"
-            @click="emitOk()"
-          >
-            {{ btnOkText }}
-          </BaseButton>
+          <BaseButton class="px-4" :type="'text'" :color="'green'" @click="emitOk()">{{ btnOkText }}</BaseButton>
         </slot>
       </footer>
     </div>
@@ -150,8 +122,7 @@ export default {
           styles = this.positions.right + "max-width:510px; height:auto;";
           break;
         case "fromNavbar":
-          styles +=
-            this.positions.centerNavbar + "max-width:510px; height:auto;";
+          styles += this.positions.centerNavbar + "width:400px; height:auto;";
           break;
         default:
           styles += `max-width:510px; height:auto; z-index:${
@@ -184,12 +155,11 @@ export default {
       switch (type) {
         case "editTurma":
         case "editVagas":
+        case "fromNavbar":
           return "center";
         case "filtros":
         case "ajuda":
           return "right";
-        case "fromNavbar":
-          return "fromNavbar";
         default:
           return position === "centerNavbar" ? "fromNavbar" : position;
       }
@@ -216,8 +186,6 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/base-modal-animations.css";
-
 .modal-custom {
   position: fixed;
   display: flex;
@@ -279,5 +247,59 @@ export default {
   margin-top: auto;
   padding: 0 20px;
   height: 45px;
+}
+
+.right-enter-active {
+  animation: zoomInRight 0.3s ease;
+}
+.right-leave-active {
+  animation: zoomOutRight 0.3s ease;
+}
+@keyframes zoomInRight {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes zoomOutRight {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.center-enter-active {
+  animation: zoomInCenter 0.3s ease;
+}
+.center-leave-active {
+  animation: zoomOutCenter 0.3s ease;
+}
+@keyframes zoomInCenter {
+  from {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes zoomOutCenter {
+  from {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
 }
 </style>

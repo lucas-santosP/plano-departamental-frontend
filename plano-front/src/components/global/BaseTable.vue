@@ -12,7 +12,7 @@
       </template>
       <tr>
         <div :class="hasSearchBar ? 'sticky2' : 'sticky'" class="max-content">
-          <slot name="thead"> </slot>
+          <slot name="thead"></slot>
         </div>
       </tr>
     </thead>
@@ -133,7 +133,16 @@ td:hover {
   color: #fff !important;
   cursor: default;
 }
+
 /* searchBar */
+.sticky2 {
+  display: block !important;
+  overflow: hidden !important;
+  position: sticky !important;
+  top: 37px !important;
+  overflow: hidden !important;
+  z-index: 5;
+}
 .modal-table thead .div-search {
   display: flex;
   align-items: center;
