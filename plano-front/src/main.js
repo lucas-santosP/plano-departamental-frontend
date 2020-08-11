@@ -37,11 +37,9 @@ import "./assets/css/global.css";
 //Global components
 import BaseButton from "./components/global/BaseButton";
 import BaseTable from "./components/global/BaseTable";
-import BaseModal from "./components/global/BaseModal";
 import BaseModal2 from "./components/global/BaseModal2";
 Vue.component("BaseButton", BaseButton);
 Vue.component("BaseTable", BaseTable);
-Vue.component("BaseModal", BaseModal);
 Vue.component("BaseModal2", BaseModal2);
 
 Vue.config.productionTip = false;
