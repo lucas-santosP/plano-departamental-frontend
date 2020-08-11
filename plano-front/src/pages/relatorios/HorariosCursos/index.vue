@@ -1,12 +1,7 @@
 <template>
   <div class="main-component row">
     <PageHeader :title="'Horários - Cursos'">
-      <BaseButton
-        title="Filtros"
-        :type="'icon'"
-        :color="'gray'"
-        @click="openAsideModal('filtros')"
-      >
+      <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
         <i class="fas fa-list-ul"></i>
       </BaseButton>
 
@@ -36,14 +31,10 @@
       "
     >
       <div v-show="semestre1IsActived" class="w-100">
-        <h2 class="semestre-title">
-          1º SEMESTRE
-        </h2>
+        <h2 class="semestre-title">1º SEMESTRE</h2>
 
         <template v-for="curso in CursosWithHorarios">
-          <h3 class="curso-title pl-1" :key="1 + curso.nome">
-            {{ curso.nome }}
-          </h3>
+          <h3 class="curso-title pl-1" :key="1 + curso.nome">{{ curso.nome }}</h3>
           <ListTableHorarios
             :key="1 + curso.codigo + curso.value"
             :listaDePeriodos="listaDePeriodos"
@@ -56,20 +47,13 @@
         </template>
 
         <h3 v-show="EletivasIsSelected" class="curso-title pl-1">Eletivas</h3>
-        <TableEletivas
-          v-show="EletivasIsSelected"
-          :Eletivas="horariosAtivos1.Eletivas"
-        />
+        <TableEletivas v-show="EletivasIsSelected" :Eletivas="horariosAtivos1.Eletivas" />
       </div>
 
       <div v-show="semestre2IsActived" class="w-100">
-        <h2 class="semestre-title">
-          2º SEMESTRE
-        </h2>
+        <h2 class="semestre-title">2º SEMESTRE</h2>
         <template v-for="curso in CursosWithHorarios">
-          <h3 class="curso-title pl-1" :key="2 + curso.nome">
-            {{ curso.nome }}
-          </h3>
+          <h3 class="curso-title pl-1" :key="2 + curso.nome">{{ curso.nome }}</h3>
           <ListTableHorarios
             :key="2 + curso.codigo + curso.value"
             :listaDePeriodos="listaDePeriodos"
@@ -82,10 +66,7 @@
         </template>
 
         <h3 v-show="EletivasIsSelected" class="curso-title pl-1">Eletivas</h3>
-        <TableEletivas
-          v-show="EletivasIsSelected"
-          :Eletivas="horariosAtivos2.Eletivas"
-        />
+        <TableEletivas v-show="EletivasIsSelected" :Eletivas="horariosAtivos2.Eletivas" />
       </div>
     </div>
     <p
@@ -96,8 +77,7 @@
       class="text-empty"
     >
       <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
-      para selecioná-los.
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -106,10 +86,7 @@
       :tabsOptions="modalFiltrosTabs"
     >
       <div class="div-table">
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Cursos'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Cursos'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
             <th
@@ -143,25 +120,16 @@
                   class="form-check-input position-static m-0"
                 />
               </td>
-              <td style="width: 50px">
-                {{ curso.codigo }}
-              </td>
-              <td style="width: 375px" class="t-start">
-                {{ curso.nome }}
-              </td>
+              <td style="width: 50px">{{ curso.codigo }}</td>
+              <td style="width: 375px" class="t-start">{{ curso.nome }}</td>
             </tr>
           </template>
         </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
-            <th style="width: 425px" class="t-start">
-              Semestre Letivo
-            </th>
+            <th style="width: 425px" class="t-start">Semestre Letivo</th>
           </template>
           <template #tbody>
             <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
@@ -172,9 +140,7 @@
                   v-model="filtroSemestres.primeiro"
                 />
               </td>
-              <td style="width: 425px" class="t-start">
-                PRIMEIRO
-              </td>
+              <td style="width: 425px" class="t-start">PRIMEIRO</td>
             </tr>
             <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
               <td style="width: 25px">
@@ -184,9 +150,7 @@
                   v-model="filtroSemestres.segundo"
                 />
               </td>
-              <td style="width: 425px" class="t-start">
-                SEGUNDO
-              </td>
+              <td style="width: 425px" class="t-start">SEGUNDO</td>
             </tr>
           </template>
         </BaseTable>
@@ -5384,7 +5348,7 @@ export default {
 
       var docDefinition = {
         content: tables,
-        footer: function(currentPage, pageCount) {
+        footer: function (currentPage, pageCount) {
           return {
             columns: [
               {
