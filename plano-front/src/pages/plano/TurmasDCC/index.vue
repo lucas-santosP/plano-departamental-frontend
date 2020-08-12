@@ -624,8 +624,7 @@ export default {
     async generateXlsx() {
       try {
         this.setPartialLoading(true);
-
-        await xlsx.downloadTable({ pedidos: this.$store.state.pedido.Pedidos });
+        await xlsx.downloadTable({ pedidos: this.$store.state.pedido.Pedidos, Plano: localStorage.getItem('Plano') });
         const tableData = await fetch(
           "http://200.131.219.57:3000/api/xlsx/download",
           {
