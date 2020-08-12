@@ -7,7 +7,7 @@
         :color="'gray'"
         @click="openAsideModal('modalFiltros')"
       >
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
 
       <BaseButton
@@ -16,7 +16,7 @@
         :color="'gray'"
         @click="openAsideModal('modalRelatorio')"
       >
-        <i class="fas fa-file-alt"></i>
+        <font-awesome-icon :icon="['fas','file-alt']" />
       </BaseButton>
 
       <BaseButton
@@ -25,7 +25,7 @@
         :color="'lightblue'"
         @click="openAsideModal('modalAjuda')"
       >
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 

@@ -68,7 +68,7 @@ export default {
   background-color: #fff;
   border: 1px solid rgb(199, 199, 199);
 }
-.base-btn.btn-icon i {
+.base-btn.btn-icon svg {
   font-size: 16px !important;
 }
 .btn-icon:focus {

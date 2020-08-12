@@ -9,7 +9,7 @@
     </td>
     <td style="width:40px" class="p-0">
       <button class="btn-table" @click.stop="$emit('handle-click-in-edit', turma)">
-        <i class="fas fa-edit btn-table-icon"></i>
+        <font-awesome-icon :icon="['fas','edit']" class="btn-table-icon icon-darkgray" />
       </button>
     </td>
     <td style="width: 55px" class="less-padding">

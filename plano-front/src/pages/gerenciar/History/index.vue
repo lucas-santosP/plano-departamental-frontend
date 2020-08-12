@@ -19,7 +19,7 @@
         :color="'gray'"
         @click="$refs.modalFiltros.toggle()"
       >
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
     </PageHeader>
 

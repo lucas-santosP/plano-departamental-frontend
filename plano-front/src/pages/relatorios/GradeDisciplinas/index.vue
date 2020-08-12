@@ -14,7 +14,7 @@
         </select>
       </div>
       <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
 
       <BaseButton
@@ -23,7 +23,7 @@
         :color="'lightblue'"
         @click="openAsideModal('ajuda')"
       >
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 

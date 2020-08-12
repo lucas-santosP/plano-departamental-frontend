@@ -2,10 +2,10 @@
   <div class="main-component row">
     <PageHeader :title="'Validações do Plano'">
       <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
       <BaseButton :type="'icon'" :color="'lightblue'" @click="openAsideModal('ajuda')">
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 
@@ -84,7 +84,7 @@
               </td>
               <td style="width: 50px" class="clickable" title="Editar turma">
                 <button class="btn-table" @click.stop="openModalEditTurma(validacaoTurma)">
-                  <i class="fas fa-edit btn-table-icon"></i>
+                  <font-awesome-icon :icon="['fas','edit']" class="btn-table-icon icon-darkgray" />
                 </button>
               </td>
             </tr>
@@ -1101,9 +1101,5 @@ export default {
 }
 .btn-table-icon {
   font-size: 12px;
-}
-.btn-table-icon:focus {
-  outline-offset: -1px !important;
-  outline: 1px solid #9ec0f7 !important;
 }
 </style>

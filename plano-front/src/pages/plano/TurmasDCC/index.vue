@@ -8,33 +8,35 @@
           :color="'green'"
           @click="$refs.novaTurma.addTurma()"
         >
-          <i class="fas fa-check"></i>
+          <font-awesome-icon :icon="['fas','check']" />
         </BaseButton>
+
         <BaseButton title="Cancelar" :type="'icon'" :color="'gray'" @click="toggleIsAdding()">
-          <i class="fas fa-times"></i>
+          <font-awesome-icon :icon="['fas','times']" />
         </BaseButton>
       </template>
 
       <template v-else>
         <BaseButton title="Adicionar" :type="'icon'" :color="'green'" @click="toggleIsAdding()">
-          <i class="fas fa-plus"></i>
+          <font-awesome-icon :icon="['fas','plus']" />
         </BaseButton>
+
         <BaseButton
           title="Deletar selecionados"
           :type="'icon'"
           :color="'red'"
           @click="$refs.modalDelete.open()"
         >
-          <i class="fas fa-trash"></i>
+          <font-awesome-icon :icon="['fas','trash']" />
         </BaseButton>
       </template>
 
       <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
 
       <BaseButton title="Relátorio" :type="'icon'" :color="'gray'" @click="generateXlsx">
-        <i class="fas fa-file-alt"></i>
+        <font-awesome-icon :icon="['fas','file-alt']" />
       </BaseButton>
 
       <BaseButton
@@ -43,7 +45,7 @@
         :color="'lightblue'"
         @click="openAsideModal('ajuda')"
       >
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 

@@ -7,7 +7,7 @@
         :color="'lightblue'"
         @click="$refs.modalAjuda.toggle()"
       >
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 
@@ -162,7 +162,7 @@
                   :color="'green'"
                   @click="editDisciplinaGrade()"
                 >
-                  <i class="fas fa-check"></i>
+                  <font-awesome-icon :icon="['fas','check']" />
                 </BaseButton>
               </div>
             </div>
@@ -177,7 +177,7 @@
             :color="'green'"
             @click="addDisciplinaGrade"
           >
-            <i class="fas fa-plus"></i>
+            <font-awesome-icon :icon="['fas','plus']" />
           </BaseButton>
 
           <BaseButton
@@ -187,7 +187,7 @@
             :color="'red'"
             @click="openModalDelete"
           >
-            <i class="fas fa-trash"></i>
+            <font-awesome-icon :icon="['fas','trash']" />
           </BaseButton>
 
           <BaseButton
@@ -197,7 +197,7 @@
             :color="'gray'"
             @click="cleanDisciplina"
           >
-            <i class="fas fa-times"></i>
+            <font-awesome-icon :icon="['fas','times']" />
           </BaseButton>
         </template>
       </Card>

@@ -8,7 +8,7 @@
         :color="'green'"
         @click="$refs.novaCargaPosRow.addCarga()"
       >
-        <i class="fas fa-check"></i>
+        <font-awesome-icon :icon="['fas','check']" />
       </BaseButton>
       <BaseButton
         v-show="isAdding"
@@ -17,7 +17,7 @@
         :color="'gray'"
         @click="toggleAdd()"
       >
-        <i class="fas fa-times"></i>
+        <font-awesome-icon :icon="['fas','times']" />
       </BaseButton>
 
       <BaseButton
@@ -27,7 +27,7 @@
         :color="'green'"
         @click="toggleAdd()"
       >
-        <i class="fas fa-plus"></i>
+        <font-awesome-icon :icon="['fas','plus']" />
       </BaseButton>
       <BaseButton
         v-show="!isAdding"
@@ -36,11 +36,11 @@
         :color="'red'"
         @click="$refs.modalDelete.open()"
       >
-        <i class="fas fa-trash"></i>
+        <font-awesome-icon :icon="['fas','trash']" />
       </BaseButton>
 
       <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
-        <i class="fas fa-list-ul"></i>
+        <font-awesome-icon :icon="['fas','list-ul']" />
       </BaseButton>
 
       <BaseButton
@@ -49,7 +49,7 @@
         :color="'lightblue'"
         @click="openAsideModal('ajuda')"
       >
-        <i class="fas fa-question"></i>
+        <font-awesome-icon :icon="['fas','question']" />
       </BaseButton>
     </PageHeader>
 
