@@ -448,7 +448,7 @@ import {
   toggleItemInArray,
   notification,
 } from "@/common/mixins";
-import { PageHeader, BodyModalEditTurma, InputSearch } from "@/components/ui";
+import { BodyModalEditTurma, InputSearch } from "@/components/ui";
 import {
   ModalDelete,
   ModalFiltros,
@@ -468,7 +468,6 @@ export default {
     ModalDelete,
     TurmaRow,
     NovaTurmaRow,
-    PageHeader,
     BodyModalEditTurma,
     ModalEditTurma,
     InputSearch,

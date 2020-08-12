@@ -161,7 +161,7 @@
 <script>
 import salaService from "@/common/services/sala";
 import { toggleOrdination, maskOnlyNumber } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { mapGetters } from "vuex";
 
@@ -176,7 +176,6 @@ export default {
   name: "DashboardSalas",
   mixins: [toggleOrdination, maskOnlyNumber],
   components: {
-    PageHeader,
     Card,
     ModalAjuda,
     ModalDelete,

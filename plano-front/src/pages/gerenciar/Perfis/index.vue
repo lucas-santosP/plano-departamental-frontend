@@ -162,7 +162,7 @@
 <script>
 import perfilService from "@/common/services/perfil";
 import { toggleOrdination } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { mapGetters } from "vuex";
 
@@ -177,7 +177,6 @@ export default {
   name: "DashboardPerfis",
   mixins: [toggleOrdination],
   components: {
-    PageHeader,
     ModalAjuda,
     Card,
     ModalDelete,

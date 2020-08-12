@@ -122,11 +122,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "setPartialLoading",
-      "addNovaTurmaExterna",
-      "pushNotification",
-    ]),
+    ...mapActions(["setPartialLoading", "addNovaTurmaExterna"]),
 
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;

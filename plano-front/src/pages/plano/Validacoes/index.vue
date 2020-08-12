@@ -244,7 +244,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { PageHeader, NavTab } from "@/components/ui";
+import { NavTab } from "@/components/ui";
 import { ModalAjuda, ModalFiltros, ModalEditTurma } from "@/components/modals";
 
 const AllConflitosTurmas = [
@@ -287,7 +287,6 @@ export default {
     ModalAjuda,
     ModalFiltros,
     ModalEditTurma,
-    PageHeader,
     NavTab,
   },
   data() {

@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     generateUniqueKey() {
-      return this.color + this.type + Math.random();
+      return this.$_.uniqueId(this.color);
     },
   },
   computed: {

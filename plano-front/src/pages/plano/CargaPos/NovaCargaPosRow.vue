@@ -61,7 +61,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["pushNotification", "setPartialLoading"]),
+    ...mapActions(["setPartialLoading"]),
 
     onlyNumber($event) {
       let keyCode = $event.keyCode ? $event.keyCode : $event.which;

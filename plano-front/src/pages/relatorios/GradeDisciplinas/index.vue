@@ -348,14 +348,13 @@
 import { mapGetters } from "vuex";
 import { normalizeText } from "@/common/utils";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
-import { InputSearch, PageHeader } from "@/components/ui";
+import { InputSearch } from "@/components/ui";
 import { ModalAjuda, ModalFiltros } from "@/components/modals";
 
 export default {
   name: "GradeDisciplinas",
   mixins: [toggleItemInArray, toggleOrdination],
   components: {
-    PageHeader,
     InputSearch,
     ModalAjuda,
     ModalFiltros,

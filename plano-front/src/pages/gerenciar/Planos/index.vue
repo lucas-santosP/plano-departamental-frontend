@@ -129,7 +129,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { toggleOrdination } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import ModalNovoPlano from "./ModalNovoPlano";
 
@@ -143,7 +143,6 @@ export default {
   name: "Planos",
   mixins: [toggleOrdination],
   components: {
-    PageHeader,
     ModalAjuda,
     ModalDelete,
     Card,
@@ -159,7 +158,6 @@ export default {
 
   methods: {
     ...mapActions([
-      "pushNotification",
       "setPartialLoading",
       "setCurrentPlanoId",
       "deletePlano",

@@ -178,7 +178,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setPartialLoading", "pushNotification"]),
+    ...mapActions(["setPartialLoading"]),
 
     resetTurmaForm() {
       this.turmaForm = this.$_.clone(this.turma);

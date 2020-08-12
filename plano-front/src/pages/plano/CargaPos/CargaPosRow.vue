@@ -62,7 +62,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["pushNotification", "setPartialLoading"]),
+    ...mapActions(["setPartialLoading"]),
 
     resetCargaPos() {
       this.cargaPosForm = this.$_.clone(this.carga);

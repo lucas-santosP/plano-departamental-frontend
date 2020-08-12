@@ -294,7 +294,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { normalizeText } from "@/common/utils";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { PageHeader, InputSearch } from "@/components/ui";
+import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
@@ -306,7 +306,6 @@ export default {
     ModalFiltros,
     ModalAjuda,
     ModalDelete,
-    PageHeader,
     InputSearch,
     TurmaExternaRow,
     NovaTurmaExternaRow,
@@ -363,11 +362,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "setPartialLoading",
-      "pushNotification",
-      "deleteTurmasExternas",
-    ]),
+    ...mapActions(["setPartialLoading", "deleteTurmasExternas"]),
 
     openAsideModal(modalName) {
       if (modalName === "filtros") {

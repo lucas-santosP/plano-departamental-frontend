@@ -267,10 +267,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import cargaPosService from "@/common/services/cargaPos";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { PageHeader } from "@/components/ui";
+
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
@@ -284,7 +284,6 @@ export default {
     ModalAjuda,
     CargaPosRow,
     NovaCargaPosRow,
-    PageHeader,
   },
   data() {
     return {
@@ -353,8 +352,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(["pushNotification"]),
-
     openAsideModal(modalName) {
       if (modalName === "filtros") {
         this.$refs.modalFiltros.toggle();

@@ -180,9 +180,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
-import { PageHeader } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
-
 import TableEletivas from "./TableEletivas.vue";
 import ListTableHorarios from "./ListTableHorarios.vue";
 
@@ -218,7 +216,6 @@ export default {
     ModalRelatorio,
     ListTableHorarios,
     TableEletivas,
-    PageHeader,
   },
   data() {
     return {

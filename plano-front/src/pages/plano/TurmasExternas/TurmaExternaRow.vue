@@ -121,7 +121,6 @@ export default {
   methods: {
     ...mapActions([
       "setPartialLoading",
-      "pushNotification",
       "editTurmaExterna",
       "toggleTurmaToDelete",
     ]),

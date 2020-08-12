@@ -265,7 +265,7 @@
 <script>
 import disciplinaService from "@/common/services/disciplina";
 import { toggleOrdination, maskOnlyNumber } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 
 const emptyDisciplina = {
@@ -282,7 +282,7 @@ const emptyDisciplina = {
 export default {
   name: "DashboardDisciplina",
   mixins: [toggleOrdination, maskOnlyNumber],
-  components: { PageHeader, Card, ModalDelete, ModalAjuda },
+  components: { Card, ModalDelete, ModalAjuda },
   data() {
     return {
       disciplinaForm: this.$_.clone(emptyDisciplina),

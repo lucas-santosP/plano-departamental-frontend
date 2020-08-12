@@ -168,12 +168,7 @@
 <script>
 import userService from "@/common/services/usuario";
 import { toggleOrdination, notification } from "@/common/mixins";
-import {
-  PageHeader,
-  InputPassword,
-  Card,
-  ButtonSlideSection,
-} from "@/components/ui";
+import { InputPassword, Card, ButtonSlideSection } from "@/components/ui";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 
 const emptyUser = {
@@ -187,7 +182,6 @@ export default {
   name: "Usuarios",
   mixins: [notification, toggleOrdination],
   components: {
-    PageHeader,
     Card,
     InputPassword,
     ButtonSlideSection,

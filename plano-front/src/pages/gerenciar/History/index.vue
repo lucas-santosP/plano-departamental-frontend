@@ -90,7 +90,7 @@
 
 <script>
 import { toggleItemInArray } from "@/common/mixins";
-import { PageHeader, NavTab } from "@/components/ui";
+import { NavTab } from "@/components/ui";
 import { ModalFiltros } from "@/components/modals";
 import { mapGetters } from "vuex";
 
@@ -98,7 +98,6 @@ export default {
   name: "DashboardHistory",
   mixins: [toggleItemInArray],
   components: {
-    PageHeader,
     NavTab,
     ModalFiltros,
   },

@@ -197,7 +197,7 @@
 <script>
 import gradeService from "@/common/services/grade";
 import { maskOnlyNumber } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 
 const emptyGrade = {
@@ -214,7 +214,7 @@ const emptyDisciplinaGrade = {
 export default {
   name: "DashboardGrade",
   mixins: [maskOnlyNumber],
-  components: { PageHeader, Card, ModalAjuda, ModalDelete },
+  components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
       error: null,

@@ -154,7 +154,7 @@
 <script>
 import pdfs from "@/common/services/pdfs";
 import { toggleItemInArray } from "@/common/mixins";
-import { PageHeader } from "@/components/ui";
+
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 
 import TableHorariosLab from "./TableHorariosLab";
@@ -167,7 +167,6 @@ export default {
     ModalRelatorio,
     ModalAjuda,
     ModalFiltros,
-    PageHeader,
     TableHorariosLab,
   },
   data() {

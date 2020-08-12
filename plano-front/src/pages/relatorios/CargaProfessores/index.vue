@@ -378,7 +378,7 @@
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { InputSearch, PageHeader } from "@/components/ui";
+import { InputSearch } from "@/components/ui";
 import { ModalAjuda, ModalRelatorio, ModalFiltros } from "@/components/modals";
 import { mapGetters } from "vuex";
 
@@ -389,7 +389,6 @@ export default {
     ModalRelatorio,
     ModalAjuda,
     ModalFiltros,
-    PageHeader,
     InputSearch,
   },
   data() {

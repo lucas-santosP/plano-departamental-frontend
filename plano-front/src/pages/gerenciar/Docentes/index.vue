@@ -201,7 +201,7 @@ import { mapGetters, mapActions } from "vuex";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
 const emptyDocente = {
@@ -219,7 +219,7 @@ const emptyPerfil = {
 export default {
   name: "DashboardDocente",
   mixins: [toggleOrdination, toggleItemInArray],
-  components: { PageHeader, Card, ModalAjuda, ModalDelete },
+  components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
       docenteForm: this.$_.clone(emptyDocente),
@@ -231,7 +231,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setPartialLoading", "pushNotification"]),
+    ...mapActions(["setPartialLoading"]),
 
     handleClickInDocente(docente) {
       this.cleanDocente();

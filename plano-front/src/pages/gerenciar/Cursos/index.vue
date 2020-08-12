@@ -209,9 +209,8 @@
 import ls from "local-storage";
 import cursoService from "@/common/services/curso";
 import { toggleOrdination, maskOnlyNumber } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
-import { mapActions } from "vuex";
 
 const emptyCurso = {
   id: undefined,
@@ -227,13 +226,13 @@ const emptyCurso = {
 export default {
   name: "DashboardCursos",
   mixins: [toggleOrdination, maskOnlyNumber],
-  components: { PageHeader, Card, ModalDelete, ModalAjuda },
+  components: { Card, ModalDelete, ModalAjuda },
 
   data() {
     return {
       modalDeleteText: "",
-      cursoForm: this.$_.clone(emptyCurso),
       cursoClickado: "",
+      cursoForm: this.$_.clone(emptyCurso),
       ordenacaoCursosMain: { order: "codigo", type: "asc" },
     };
   },
@@ -243,9 +242,8 @@ export default {
         .id + 1;
     this.selectAll = true;
   },
-  methods: {
-    ...mapActions(["pushNotification"]),
 
+  methods: {
     handleClickInCurso(cursoId) {
       this.cursoClickado = cursoId;
     },
@@ -430,6 +428,7 @@ export default {
       this.cursoForm = this.$_.clone(curso);
     },
   },
+
   computed: {
     Cursos() {
       return this.$_.orderBy(

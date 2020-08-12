@@ -262,7 +262,7 @@
 import gradeService from "@/common/services/grade";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
 import { toggleOrdination, maskOnlyNumber } from "@/common/mixins";
-import { PageHeader, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
 const emptyGrade = {
@@ -280,7 +280,6 @@ export default {
   name: "DashboardGradeEdit",
   mixins: [toggleOrdination, maskOnlyNumber],
   components: {
-    PageHeader,
     Card,
     ModalAjuda,
     ModalDelete,
