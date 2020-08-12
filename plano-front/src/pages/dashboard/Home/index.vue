@@ -19,12 +19,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { PageHeader } from "@/components/ui";
 import LinkList from "./LinkList";
 
 export default {
   name: "DashboardHome",
-  components: { PageHeader, LinkList },
+  components: { LinkList },
   computed: {
     ...mapGetters([
       "Admin",
