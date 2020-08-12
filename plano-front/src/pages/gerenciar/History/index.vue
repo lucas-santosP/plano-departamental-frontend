@@ -36,7 +36,7 @@
             <th style="width: 80px">Usuário</th>
             <th style="width: 160px">Hora</th>
           </template>
-          <template #tbody v-if="!tableIsLoading">
+          <template #tbody v-if="!onLoading.table">
             <tr v-for="h in History" :key="`History${h.id}`">
               <td style="width: 110px">{{ h.tabelaModificada }}</td>
               <td style="width: 120px" class="less-padding">{{ h.campoModificado }}</td>
@@ -89,13 +89,14 @@
 </template>
 
 <script>
-import { toggleItemInArray, tableLoading } from "@/common/mixins";
+import { toggleItemInArray } from "@/common/mixins";
 import { PageHeader, NavTab } from "@/components/ui";
 import { ModalFiltros } from "@/components/modals";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DashboardHistory",
-  mixins: [toggleItemInArray, tableLoading],
+  mixins: [toggleItemInArray],
   components: {
     PageHeader,
     NavTab,
@@ -122,9 +123,7 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.TabelasAtivadas = [...this.TabelasSelecionadas];
-          this.setTableLoadingState(false);
         },
       },
       Options: [
@@ -449,6 +448,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["onLoading"]),
     History() {
       let TabelasAtivadas = this.TabelasAtivadas;
       return this.$_.orderBy(

@@ -29,37 +29,27 @@
       </BaseButton>
     </PageHeader>
 
-    <div class="row w-100 m-0" v-show="!tableIsLoading">
+    <div class="row w-100 m-0" v-show="!onLoading.table">
       <div v-show="hasLaboratorioAtivos && semestre1IsActived" class="w-100">
-        <h2 class="semestre-title">
-          1º SEMESTRE
-        </h2>
+        <h2 class="semestre-title">1º SEMESTRE</h2>
         <div class="container-horarios px-1">
           <template v-for="lab in filtroLaboratorios.ativados">
             <div class="div-table" :key="'1-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
-              <TableHorariosLab
-                :laboratorio="lab"
-                :Turmas="Turmas1"
-              ></TableHorariosLab>
+              <TableHorariosLab :laboratorio="lab" :Turmas="Turmas1"></TableHorariosLab>
             </div>
           </template>
         </div>
       </div>
 
       <div v-show="hasLaboratorioAtivos && semestre2IsActived" class="w-100">
-        <h2 class="semestre-title">
-          2º SEMESTRE
-        </h2>
+        <h2 class="semestre-title">2º SEMESTRE</h2>
         <div class="container-horarios px-1">
           <template v-for="lab in filtroLaboratorios.ativados">
             <div class="div-table" :key="'2-lab-id' + lab.id">
               <h3 class="lab-title">{{ lab.nome }}</h3>
 
-              <TableHorariosLab
-                :laboratorio="lab"
-                :Turmas="Turmas2"
-              ></TableHorariosLab>
+              <TableHorariosLab :laboratorio="lab" :Turmas="Turmas2"></TableHorariosLab>
             </div>
           </template>
         </div>
@@ -73,8 +63,7 @@
       class="text-empty"
     >
       <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
-      para selecioná-los.
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -83,15 +72,10 @@
       :tabsOptions="modalFiltrosTabs"
     >
       <div class="div-table">
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Laboratorios'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Laboratorios'" :type="'modal'">
           <template #thead>
             <th style="width: 25px" class="t-start"></th>
-            <th style="width: 425px" class="t-start">
-              Nome
-            </th>
+            <th style="width: 425px" class="t-start">Nome</th>
           </template>
           <template #tbody>
             <tr
@@ -109,22 +93,15 @@
                   class="form-check-input position-static m-0"
                 />
               </td>
-              <td style="width: 425px" class="t-start">
-                {{ laboratorio.nome }}
-              </td>
+              <td style="width: 425px" class="t-start">{{ laboratorio.nome }}</td>
             </tr>
           </template>
         </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start clickable" style="width: 425px">
-              Semestre Letivo
-            </th>
+            <th class="t-start clickable" style="width: 425px">Semestre Letivo</th>
           </template>
           <template #tbody>
             <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
@@ -135,9 +112,7 @@
                   v-model="filtroSemestres.primeiro"
                 />
               </td>
-              <td style="width: 425px" class="t-start">
-                PRIMEIRO
-              </td>
+              <td style="width: 425px" class="t-start">PRIMEIRO</td>
             </tr>
             <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
               <td style="width: 25px">
@@ -178,15 +153,16 @@
 
 <script>
 import pdfs from "@/common/services/pdfs";
-import { toggleItemInArray, tableLoading } from "@/common/mixins";
+import { toggleItemInArray } from "@/common/mixins";
 import { PageHeader } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 
 import TableHorariosLab from "./TableHorariosLab";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DashboardLaboratoriosAlocacao",
-  mixins: [toggleItemInArray, tableLoading],
+  mixins: [toggleItemInArray],
   components: {
     ModalRelatorio,
     ModalAjuda,
@@ -233,12 +209,10 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.setSemestreAtivo();
           this.filtroLaboratorios.ativados = [
             ...this.filtroLaboratorios.selecionados,
           ];
-          this.setTableLoadingState(false);
         },
       },
     };
@@ -279,6 +253,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["onLoading"]),
+
     LaboratoriosOrdered() {
       const laboratoriosResultantes = [];
 

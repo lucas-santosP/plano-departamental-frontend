@@ -102,7 +102,7 @@
             <i :class="setIconByOrder(ordenacaoMain.disciplinas, 'gradeEC')"></i>
           </th>
         </template>
-        <template #tbody v-if="!tableIsLoading">
+        <template #tbody>
           <tr v-for="disciplina in DisciplinasOrderedMain" :key="disciplina.id">
             <td
               style="width: 80px"
@@ -347,17 +347,13 @@
 <script>
 import { mapGetters } from "vuex";
 import { normalizeText } from "@/common/utils";
-import {
-  toggleItemInArray,
-  toggleOrdination,
-  tableLoading,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { InputSearch, PageHeader } from "@/components/ui";
 import { ModalAjuda, ModalFiltros } from "@/components/modals";
 
 export default {
   name: "GradeDisciplinas",
-  mixins: [toggleItemInArray, toggleOrdination, tableLoading],
+  mixins: [toggleItemInArray, toggleOrdination],
   components: {
     PageHeader,
     InputSearch,
@@ -406,12 +402,10 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.filtroDisciplinas.ativados = [
             ...this.filtroDisciplinas.selecionados,
           ];
           this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-          this.setTableLoadingState(false);
         },
       },
       ordenacaoModal: {

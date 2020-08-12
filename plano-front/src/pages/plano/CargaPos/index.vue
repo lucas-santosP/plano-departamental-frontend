@@ -39,12 +39,7 @@
         <i class="fas fa-trash"></i>
       </BaseButton>
 
-      <BaseButton
-        title="Filtros"
-        :type="'icon'"
-        :color="'gray'"
-        @click="openAsideModal('filtros')"
-      >
+      <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
         <i class="fas fa-list-ul"></i>
       </BaseButton>
 
@@ -63,9 +58,7 @@
         <template #thead>
           <th style="width:70px" class="p-0">Programa</th>
           <th style="width:25px"></th>
-          <th style="width:55px" title="Trimestre">
-            T.
-          </th>
+          <th style="width:55px" title="Trimestre">T.</th>
           <th
             @click="toggleOrder(ordenacaoCargaPos, 'docenteApelido')"
             class="t-start clickable"
@@ -84,25 +77,24 @@
             <i :class="setIconByOrder(ordenacaoCargaPos, 'creditos')"></i>
           </th>
         </template>
-        <template #tbody>
+
+        <template #add-row>
           <NovaCargaPosRow ref="novaCargaPosRow" v-show="isAdding" />
+        </template>
 
-          <template v-if="!tableIsLoading">
-            <template v-for="programa in ProgramasInCargaPosOrdered">
-              <tr class="bg-custom" :key="programa.nome">
-                <td style="width:70px">{{ programa.nome }}</td>
-                <td colspan="3" style="width: 225px"></td>
-                <td style="width:50px" title="Total de carga">
-                  {{ allCreditosCarga(programa.carga) }}
-                </td>
-              </tr>
+        <template #tbody>
+          <template v-for="programa in ProgramasInCargaPosOrdered">
+            <tr class="bg-custom" :key="programa.nome">
+              <td style="width:70px">{{ programa.nome }}</td>
+              <td colspan="3" style="width: 225px"></td>
+              <td style="width:50px" title="Total de carga">{{ allCreditosCarga(programa.carga) }}</td>
+            </tr>
 
-              <CargaPosRow
-                v-for="carga in programa.carga"
-                :key="carga.id + programa.nome"
-                :carga="carga"
-              />
-            </template>
+            <CargaPosRow
+              v-for="carga in programa.carga"
+              :key="carga.id + programa.nome"
+              :carga="carga"
+            />
           </template>
 
           <tr v-show="!ProgramasInCargaPosOrdered.length">
@@ -115,17 +107,13 @@
       </BaseTable>
     </div>
 
-    <!-- MODAL FILTROS -->
     <ModalFiltros
       ref="modalFiltros"
       :callbacks="modalFiltrosCallbacks"
       :tabsOptions="modalFiltrosTabs"
     >
       <div class="div-table">
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Programas'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Programas'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
             <th style="width: 425px" class="t-start">Programa</th>
@@ -151,15 +139,10 @@
           </template>
         </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Trimestres'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Trimestres'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Trimestre letivo
-            </th>
+            <th class="t-start" style="width: 425px">Trimestre letivo</th>
           </template>
           <template #tbody>
             <tr
@@ -178,22 +161,15 @@
                   v-model="filtroTrimestres.selecionados"
                 />
               </td>
-              <td style="width: 425px" class="t-start">
-                {{ trimestre.nome }}
-              </td>
+              <td style="width: 425px" class="t-start">{{ trimestre.nome }}</td>
             </tr>
           </template>
         </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Semestre Letivo
-            </th>
+            <th class="t-start" style="width: 425px">Semestre Letivo</th>
           </template>
           <template #tbody>
             <tr @click="selectSemestre('primeiro')">
@@ -228,19 +204,18 @@
       :isDeleting="!!Deletar.length"
       @btn-deletar="deleteSelectedCargas"
     >
-      <li v-if="!Deletar.length" class="list-group-item">
-        Nenhuma carga selecionada.
-      </li>
-      <li
-        v-for="carga in Deletar"
-        :key="'deletarTurma' + carga.id"
-        class="list-group-item"
-      >
+      <li v-if="!Deletar.length" class="list-group-item">Nenhuma carga selecionada.</li>
+      <li v-for="carga in Deletar" :key="'deletarTurma' + carga.id" class="list-group-item">
         <span>
-          <b> Trimestre: </b>{{ carga.trimestre }} - <b> Programa: </b
-          >{{ carga.programa }}
+          <b>Trimestre:</b>
+          {{ carga.trimestre }} -
+          <b>Programa:</b>
+          {{ carga.programa }}
         </span>
-        <span><b>Docente: </b>{{ carga.docenteApelido }}</span>
+        <span>
+          <b>Docente:</b>
+          {{ carga.docenteApelido }}
+        </span>
       </li>
     </ModalDelete>
 
@@ -258,7 +233,9 @@
         preencha a nova linha que irá aparecer no início da tabela. E note que,
         todos os campos presentes são obrigatórios. Após preencher os campos
         clique no ícone salvar
-        <i class="fas fa-check icon-green"></i>
+        <i
+          class="fas fa-check icon-green"
+        ></i>
         ou em cancelar
         <i class="fas fa-times icon-gray"></i>
         .
@@ -267,7 +244,9 @@
         <b>Para deletar carga da tabela:</b> Marque a(s) carga(s) que deseja
         deletar através da caixa de seleção presente na segunda coluna à
         esquerda na tabela, em seguida clique no ícone deletar
-        <i class="fas fa-trash icon-red"></i> no cabeçalho da página e na janela
+        <i
+          class="fas fa-trash icon-red"
+        ></i> no cabeçalho da página e na janela
         que será aberta confirme clicando botão OK.
       </li>
       <li class="list-group-item">
@@ -288,22 +267,17 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import cargaPosService from "@/common/services/cargaPos";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  tableLoading,
-} from "@/common/mixins";
-import { PageHeader, NavTab } from "@/components/ui";
+import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
+import { PageHeader } from "@/components/ui";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
-
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [toggleOrdination, toggleItemInArray, tableLoading],
+  mixins: [toggleOrdination, toggleItemInArray],
   components: {
     ModalDelete,
     ModalFiltros,
@@ -311,8 +285,6 @@ export default {
     CargaPosRow,
     NovaCargaPosRow,
     PageHeader,
-
-    NavTab,
   },
   data() {
     return {
@@ -366,14 +338,12 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.filtroProgramas.ativados = [
             ...this.filtroProgramas.selecionados,
           ];
           this.filtroTrimestres.ativados = [
             ...this.filtroTrimestres.selecionados,
           ];
-          this.setTableLoadingState(false);
         },
       },
     };
@@ -381,6 +351,7 @@ export default {
   mounted() {
     this.connectSemestreInTrimestre();
   },
+
   methods: {
     ...mapActions(["pushNotification"]),
 
@@ -393,11 +364,9 @@ export default {
         this.$refs.modalFiltros.close();
       }
     },
-
     toggleAdd() {
       this.isAdding = !this.isAdding;
     },
-
     deleteCarga(cargaId) {
       cargaPosService
         .delete(cargaId)
@@ -423,7 +392,6 @@ export default {
       }
       this.$store.commit("emptyDeleteCarga");
     },
-
     cargaPosInDocente(programaNome) {
       const cargasResultantes = [];
 
@@ -443,7 +411,6 @@ export default {
 
       return cargasResultantes;
     },
-
     allCreditosCarga(cargas) {
       return this.$_.reduce(cargas, (acc, carga) => acc + carga.creditos, 0);
     },
@@ -495,6 +462,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["onLoading"]),
+
     ProgramasInCargaPos() {
       const programasResutantes = [];
 

@@ -1,5 +1,5 @@
 <template>
-  <tr class="novaturma stickyAdd">
+  <tr class="novaturma">
     <td style="width: 25px"></td>
     <td style="width: 40px"></td>
     <td style="width: 55px" class="less-padding">
@@ -336,14 +336,5 @@ export default {
   height: 18px;
   width: 30px;
   text-align: center;
-}
-.stickyAdd {
-  display: block;
-  overflow: hidden !important;
-  position: sticky !important;
-  position: -webkit-sticky !important;
-  top: 19px !important;
-  overflow: hidden !important;
-  z-index: 5 !important;
 }
 </style>

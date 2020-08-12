@@ -27,7 +27,7 @@
     <div
       class="row w-100 m-0"
       v-show="
-        !tableIsLoading && (CursosWithHorarios.length || EletivasIsSelected)
+        !onLoading.table && (CursosWithHorarios.length || EletivasIsSelected)
       "
     >
       <div v-show="semestre1IsActived" class="w-100">
@@ -179,11 +179,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import {
-  toggleItemInArray,
-  toggleOrdination,
-  tableLoading,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { PageHeader } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 
@@ -215,7 +211,7 @@ const allCursosOptions = [
 
 export default {
   name: "DashboardHorarios",
-  mixins: [toggleItemInArray, toggleOrdination, tableLoading],
+  mixins: [toggleItemInArray, toggleOrdination],
   components: {
     ModalFiltros,
     ModalAjuda,
@@ -276,10 +272,8 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.setSemestreAtivo();
           this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
-          this.setTableLoadingState(false);
         },
       },
       evenCCN: "false",
@@ -5377,6 +5371,7 @@ export default {
       "TurmasExternasInDisciplinas",
       "allPlanos",
       "AllDisciplinas",
+      "onLoading",
     ]),
 
     semestre1IsActived() {

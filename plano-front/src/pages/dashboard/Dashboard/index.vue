@@ -11,7 +11,7 @@
       </main>
     </template>
 
-    <TheLoadingView :visibility="onLoading.fetching || onLoading.partial" />
+    <TheLoadingView />
 
     <div
       v-show="modalOverlayVisibility"
@@ -67,11 +67,11 @@ export default {
     },
     returnFiles() {
       bddumpService.returnFiles().then((response) => {
-        this.files = response.Files.filter(function(elm) {
+        this.files = response.Files.filter(function (elm) {
           return elm.match(/.*\.(sql)/gi);
         });
         this.$_.pull(this.files, "drop_all.sql");
-        this.$_.forEach(this.files, function(value, index, array) {
+        this.$_.forEach(this.files, function (value, index, array) {
           array[index] = value.slice(0, -4);
         });
         //console.log(this.files.filter( function( elm ) {return elm.match(/.*\.(sql)/ig)}))

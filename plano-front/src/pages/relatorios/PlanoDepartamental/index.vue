@@ -67,7 +67,7 @@
 
           <th :title="currentThTitle" style="width: 50px">Vagas</th>
         </template>
-        <template #tbody v-if="!tableIsLoading">
+        <template #tbody v-if="!onLoading.table">
           <template v-for="disciplina in DisciplinasInTurmasOrdered">
             <tr class="bg-custom" :key="'trDisc' + disciplina.id">
               <td style="width: 80px">{{ disciplina.codigo }}</td>
@@ -425,18 +425,14 @@
 <script>
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
-import {
-  toggleItemInArray,
-  toggleOrdination,
-  tableLoading,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleOrdination } from "@/common/mixins";
 import { InputSearch, PageHeader } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 import { mapGetters } from "vuex";
 
 export default {
   name: "PlanoDepartamental",
-  mixins: [toggleItemInArray, toggleOrdination, tableLoading],
+  mixins: [toggleItemInArray, toggleOrdination],
   components: {
     ModalRelatorio,
     ModalFiltros,
@@ -501,12 +497,10 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.setSemestreAtivo();
           this.filtroDisciplinas.ativados = [
             ...this.filtroDisciplinas.selecionados,
           ];
-          this.setTableLoadingState(false);
         },
       },
     };
@@ -649,7 +643,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "DisciplinasInPerfis", "AllHorarios"]),
+    ...mapGetters([
+      "AllTurmas",
+      "DisciplinasInPerfis",
+      "AllHorarios",
+      "onLoading",
+    ]),
 
     DisciplinasInTurmasOrdered() {
       return this.$_.orderBy(

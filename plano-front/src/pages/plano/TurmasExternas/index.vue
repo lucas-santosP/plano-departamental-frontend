@@ -40,12 +40,7 @@
         <i class="fas fa-trash"></i>
       </BaseButton>
 
-      <BaseButton
-        title="Filtros"
-        :type="'icon'"
-        :color="'gray'"
-        @click="openAsideModal('filtros')"
-      >
+      <BaseButton title="Filtros" :type="'icon'" :color="'gray'" @click="openAsideModal('filtros')">
         <i class="fas fa-list-ul"></i>
       </BaseButton>
 
@@ -63,9 +58,7 @@
       <BaseTable>
         <template #thead>
           <th style="width: 25px"></th>
-          <th style="width: 55px" title="Semestre">
-            S.
-          </th>
+          <th style="width: 55px" title="Semestre">S.</th>
           <th
             style="width: 70px"
             class="clickable"
@@ -73,9 +66,7 @@
             title="Código"
           >
             Cód.
-            <i
-              :class="setIconByOrder(ordenacaoTurmasMain, 'disciplina.codigo')"
-            ></i>
+            <i :class="setIconByOrder(ordenacaoTurmasMain, 'disciplina.codigo')"></i>
           </th>
           <th
             style="width: 330px"
@@ -83,77 +74,55 @@
             @click="toggleOrder(ordenacaoTurmasMain, 'disciplina.nome')"
           >
             Disciplina
-            <i
-              :class="setIconByOrder(ordenacaoTurmasMain, 'disciplina.nome')"
-            ></i>
+            <i :class="setIconByOrder(ordenacaoTurmasMain, 'disciplina.nome')"></i>
           </th>
-          <th style="width: 25px;" title="Créditos">
-            C.
-          </th>
-          <th style="width: 45px" title="Turma">
-            T.
-          </th>
-          <th style="width: 80px" title="Total de vagas">
-            Turno
-          </th>
-          <th style="width: 85px">
-            Horário
-          </th>
+          <th style="width: 25px;" title="Créditos">C.</th>
+          <th style="width: 45px" title="Turma">T.</th>
+          <th style="width: 80px" title="Total de vagas">Turno</th>
+          <th style="width: 85px">Horário</th>
           <th style="width: 95px">Sala</th>
-          <th style="width: 40px">
-            Total
-          </th>
+          <th style="width: 40px">Total</th>
           <template v-for="curso in CursosDCC">
-            <th
-              style="width: 35px"
-              :id="'curso' + curso.id"
-              :key="'1-curso' + curso.id"
-            >
+            <th style="width: 35px" :id="'curso' + curso.id" :key="'1-curso' + curso.id">
               {{ curso.codigo }}
-
               <b-popover
                 :key="'popover' + curso.id"
                 :target="'curso' + curso.id"
                 placement="bottom"
                 triggers="hover focus"
               >
-                <span
-                  class="w-100 text-center"
-                  style="font-size: 11px!important;"
-                >
+                <span class="w-100 text-center" style="font-size: 11px!important;">
                   <b>{{ curso.nome }}</b>
                 </span>
-                <p
-                  class="p-0 m-0 text-center"
-                  style="font-size: 11px!important;"
-                >
+                <p class="p-0 m-0 text-center" style="font-size: 11px!important;">
                   {{
-                    curso.semestreInicial == 1 || curso.semestreInicial == 3
-                      ? "1º - " + curso.alunosEntrada
-                      : ""
+                  curso.semestreInicial == 1 || curso.semestreInicial == 3
+                  ? "1º - " + curso.alunosEntrada
+                  : ""
                   }}
                   <br />
                   {{
-                    curso.semestreInicial == 2 || curso.semestreInicial == 3
-                      ? "2º - " + curso.alunosEntrada2
-                      : ""
+                  curso.semestreInicial == 2 || curso.semestreInicial == 3
+                  ? "2º - " + curso.alunosEntrada2
+                  : ""
                   }}
                 </p>
               </b-popover>
             </th>
           </template>
         </template>
-        <template #tbody>
-          <NovaTurmaExternaRow ref="novaTurmaExternaRow" v-show="isAdding" />
 
-          <template v-if="!tableIsLoading">
-            <TurmaExternaRow
-              v-for="turma in TurmasExternasOrdered"
-              :key="'turma' + turma.id"
-              :turma="turma"
-              :CursosAtivados="CursosDCC"
-            />
-          </template>
+        <template #add-row>
+          <NovaTurmaExternaRow ref="novaTurmaExternaRow" v-show="isAdding" />
+        </template>
+
+        <template #tbody>
+          <TurmaExternaRow
+            v-for="turma in TurmasExternasOrdered"
+            :key="'turma' + turma.id"
+            :turma="turma"
+            :CursosAtivados="CursosDCC"
+          />
 
           <tr v-if="!TurmasExternasOrdered.length">
             <td style="width:990px">
@@ -190,9 +159,7 @@
               style="width: 60px"
             >
               Cód.
-              <i
-                :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"
-              ></i>
+              <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"></i>
             </th>
             <th
               @click="toggleOrder(ordenacaoDisciplinasModal, 'nome')"
@@ -202,9 +169,7 @@
               Nome
               <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'nome')"></i>
             </th>
-            <th class="t-start" style="width: 60px">
-              Perfis
-            </th>
+            <th class="t-start" style="width: 60px">Perfis</th>
           </template>
           <template #tbody>
             <tr
@@ -222,33 +187,20 @@
                   :value="disciplina"
                 />
               </td>
-              <td style="width: 60px" class="t-start">
-                {{ disciplina.codigo }}
-              </td>
-              <td style="width: 305px" class="t-start">
-                {{ disciplina.nome }}
-              </td>
-              <td class="t-start" style="width: 60px">
-                {{ disciplina.perfil.nome }}
-              </td>
+              <td style="width: 60px" class="t-start">{{ disciplina.codigo }}</td>
+              <td style="width: 305px" class="t-start">{{ disciplina.nome }}</td>
+              <td class="t-start" style="width: 60px">{{ disciplina.perfil.nome }}</td>
             </tr>
             <tr v-show="DisciplinasExternasOrderedModal.length === 0">
-              <td colspan="3" style="width:450px">
-                NENHUMA DISCIPLINA ENCONTRADA.
-              </td>
+              <td colspan="3" style="width:450px">NENHUMA DISCIPLINA ENCONTRADA.</td>
             </tr>
           </template>
         </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
+        <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Semestre Letivo
-            </th>
+            <th class="t-start" style="width: 425px">Semestre Letivo</th>
           </template>
           <template #tbody>
             <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
@@ -276,24 +228,19 @@
       </div>
     </ModalFiltros>
 
-    <ModalDelete
-      ref="modalDelete"
-      :isDeleting="!!Deletar.length"
-      @btn-deletar="handleDeleteTurmas"
-    >
-      <li v-if="!Deletar.length" class="list-group-item">
-        Nenhuma turma selecionada.
-      </li>
-      <li
-        v-for="turma in Deletar"
-        class="list-group-item"
-        :key="'deletarTurma' + turma.id"
-      >
+    <ModalDelete ref="modalDelete" :isDeleting="!!Deletar.length" @btn-deletar="handleDeleteTurmas">
+      <li v-if="!Deletar.length" class="list-group-item">Nenhuma turma selecionada.</li>
+      <li v-for="turma in Deletar" class="list-group-item" :key="'deletarTurma' + turma.id">
         <span>
-          <b>Semestre:</b> {{ turma.periodo }} - <b>Turma:</b>
+          <b>Semestre:</b>
+          {{ turma.periodo }} -
+          <b>Turma:</b>
           {{ turma.letra }}
         </span>
-        <span><b> Disciplina: </b>{{ turma.disciplina.nome }} </span>
+        <span>
+          <b>Disciplina:</b>
+          {{ turma.disciplina.nome }}
+        </span>
       </li>
     </ModalDelete>
 
@@ -311,7 +258,9 @@
         preencha a nova linha que irá aparecer no início da tabela. E note que,
         os campos disciplina e letra da turma são obrigatórios. Após preencher
         os campos clique no ícone salvar
-        <i class="fas fa-check icon-green"></i>
+        <i
+          class="fas fa-check icon-green"
+        ></i>
         ou em cancelar
         <i class="fas fa-times icon-gray"></i>
         .
@@ -320,7 +269,9 @@
         <b>Para deletar turmas da tabela:</b> Marque a(s) turma(s) que deseja
         deletar através da caixa de seleção presente na primeira coluna à
         esquerda na tabela, em seguida clique no ícone deletar
-        <i class="fas fa-trash icon-red"></i> no cabeçalho da página e na janela
+        <i
+          class="fas fa-trash icon-red"
+        ></i> no cabeçalho da página e na janela
         que será aberta confirme clicando botão OK.
       </li>
       <li class="list-group-item">
@@ -342,12 +293,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { normalizeText } from "@/common/utils";
-import {
-  maskTurmaLetra,
-  toggleOrdination,
-  toggleItemInArray,
-  tableLoading,
-} from "@/common/mixins";
+import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
 import { PageHeader, InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
@@ -355,7 +301,7 @@ import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
 
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [maskTurmaLetra, toggleOrdination, toggleItemInArray, tableLoading],
+  mixins: [toggleOrdination, toggleItemInArray],
   components: {
     ModalFiltros,
     ModalAjuda,
@@ -407,12 +353,10 @@ export default {
           },
         },
         btnOk: () => {
-          this.setTableLoadingState(true);
           this.filtroDisciplinas.ativadas = [
             ...this.filtroDisciplinas.selecionadas,
           ];
           this.setSemestreAtivo();
-          this.setTableLoadingState(false);
         },
       },
     };
