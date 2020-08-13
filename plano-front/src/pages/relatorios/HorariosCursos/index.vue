@@ -53,7 +53,7 @@
 
         <template v-if="EletivasIsActived">
           <h3 class="curso-title pl-1">Eletivas</h3>
-          <TableEletivas :Eletivas="horariosAtivos1.Eletivas" />
+          <TableEletivas :TurmasEletivas="horariosAtivos1.Eletivas" />
         </template>
       </div>
 
@@ -77,7 +77,7 @@
 
         <template v-if="EletivasIsActived">
           <h3 class="curso-title pl-1">Eletivas</h3>
-          <TableEletivas :Eletivas="horariosAtivos2.Eletivas" />
+          <TableEletivas :TurmasEletivas="horariosAtivos2.Eletivas" />
         </template>
       </div>
     </div>
