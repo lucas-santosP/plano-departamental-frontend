@@ -56,14 +56,23 @@ const actions = {
 
 const getters = {
   AllDisciplinas(state) {
-    return _.orderBy(state.Disciplinas, ["codigo"]);
+    const disciplinasResult = _.map(state.Disciplinas, (disciplina) => ({
+      ...disciplina,
+      creditoTotal:
+        parseInt(disciplina.cargaTeorica, 10) +
+        parseInt(disciplina.cargaPratica, 10),
+    }));
+
+    return _.orderBy(disciplinasResult, ["codigo"]);
   },
 
   DisciplinasDCC(state, getters) {
-    return _.filter(
-      getters.AllDisciplinas,
-      (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
-    );
+    return _.filter(getters.AllDisciplinas, (disciplina) => {
+      if (disciplina.Perfil !== 13 && disciplina.Perfil !== 15) return true;
+      //Disciplinas MAC exceções
+      else if (disciplina.id === 77 || disciplina.id === 88) return true;
+      else false;
+    });
   },
   DisciplinasExternas(state, getters) {
     return _.filter(
@@ -84,10 +93,6 @@ const getters = {
       if (perfilFounded) {
         disciplinasResults.push({
           ...disciplina,
-          creditoTotal:
-            parseInt(disciplina.cargaTeorica, 10) +
-            parseInt(disciplina.cargaPratica, 10),
-
           perfil: {
             nome: perfilFounded.nome,
             abreviacao: perfilFounded.abreviacao,
@@ -100,10 +105,12 @@ const getters = {
     return disciplinasResults;
   },
   DisciplinasDCCInPerfis(state, getters) {
-    return _.filter(
-      getters.DisciplinasInPerfis,
-      (disciplina) => disciplina.Perfil !== 13 && disciplina.Perfil !== 15
-    );
+    return _.filter(getters.DisciplinasInPerfis, (disciplina) => {
+      if (disciplina.Perfil !== 13 && disciplina.Perfil !== 15) return true;
+      //Disciplinas MAC exceções
+      else if (disciplina.id === 77 || disciplina.id === 88) return true;
+      else false;
+    });
   },
   DisciplinasExternasInPerfis(state, getters) {
     return _.filter(
