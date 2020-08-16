@@ -43,10 +43,11 @@
           <th style="width: 25px" title="Semestre">S.</th>
           <th style="width: 80px" class="t-center">Código</th>
           <th style="width: 300px" class="t-start">Disciplina</th>
-          <th style="width: 35px" title="Turma">T.</th>
+          <th style="width: 35px" class="less-padding" title="Turma">T.</th>
           <th style="width: 180px">Horário</th>
           <th
             style="width: 35px"
+            class="less-padding"
             title="Somatório dos créditos no 1º semestre"
             v-if="semestre1IsActived"
           >
@@ -54,6 +55,7 @@
           </th>
           <th
             style="width: 35px"
+            class="less-padding"
             title="Somatório dos créditos no 2º semestre"
             v-if="semestre2IsActived"
           >
@@ -76,16 +78,25 @@
               <td style="width: 25px"></td>
               <td style="width: 80px"></td>
               <td style="width: 300px" class="t-start"></td>
-              <td style="width: 35px"></td>
+              <td style="width: 35px" class="less-padding"></td>
               <td style="width: 180px"></td>
-              <td style="width: 35px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 {{ docente.cred1 }}
               </td>
-              <td style="width: 35px" v-if="semestre2IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 {{ docente.cred2 }}
               </td>
               <td
                 style="width: 50px"
+                class="less-padding"
                 v-if="semestre1IsActived && semestre2IsActived"
               >
                 {{ docente.cred1 + docente.cred2 }}
@@ -104,7 +115,9 @@
               <td style="width: 300px" class="t-start">
                 {{ turma.disciplina.nome }}
               </td>
-              <td style="width: 35px">{{ turma.letra }}</td>
+              <td style="width: 35px" class="less-padding">
+                {{ turma.letra }}
+              </td>
               <td style="width: 180px">
                 <span v-for="horario in AllHorarios" :key="horario.id">
                   {{ horario.id === turma.Horario1 ? horario.horario : "" }}
@@ -113,14 +126,22 @@
                   }}
                 </span>
               </td>
-              <td style="width: 35px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 {{
                   turma.periodo === 1 || turma.periodo === 2
                     ? turma.creditosDaTurma
                     : ""
                 }}
               </td>
-              <td style="width:35px" v-if="semestre2IsActived">
+              <td
+                style="width:35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 {{
                   turma.periodo === 3 || turma.periodo === 4
                     ? turma.creditosDaTurma
@@ -144,16 +165,24 @@
               <td style="width: 300px" class="t-start upper-case">
                 Disciplina do {{ carga.programa }}
               </td>
-              <td style="width: 35px"></td>
+              <td style="width: 35px" class="less-padding"></td>
               <td style="width: 180px"></td>
-              <td style="width: 35px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 {{
                   carga.trimestre == 1 || carga.trimestre == 2
                     ? carga.creditos
                     : ""
                 }}
               </td>
-              <td style="width: 35px" v-if="semestre2IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 {{
                   carga.trimestre == 3 || carga.trimestre == 4
                     ? carga.creditos
@@ -178,7 +207,9 @@
               <td style="width: 300px" class="t-start">
                 {{ turma.disciplina.nome }}
               </td>
-              <td style="width: 35px">{{ turma.letra }}</td>
+              <td style="width: 35px" class="less-padding">
+                {{ turma.letra }}
+              </td>
               <td style="width: 180px">
                 <span v-for="horario in AllHorarios" :key="horario.id">
                   {{ horario.id === turma.Horario1 ? horario.horario : "" }}
@@ -187,14 +218,22 @@
                   }}
                 </span>
               </td>
-              <td style="width: 35px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 {{
                   turma.periodo === 1 || turma.periodo === 2
                     ? turma.creditosDaTurma
                     : ""
                 }}
               </td>
-              <td style="width:35px" v-if="semestre2IsActived">
+              <td
+                style="width:35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 {{
                   turma.periodo === 3 || turma.periodo === 4
                     ? turma.creditosDaTurma
@@ -217,16 +256,24 @@
               <td style="width: 300px" class="t-start upper-case">
                 Disciplina do {{ carga.programa }}
               </td>
-              <td style="width: 35px"></td>
+              <td style="width: 35px" class="less-padding"></td>
               <td style="width: 180px"></td>
-              <td style="width: 32px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 {{
                   carga.trimestre == 1 || carga.trimestre == 2
                     ? carga.creditos
                     : ""
                 }}
               </td>
-              <td style="width: 35px" v-if="semestre2IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 {{
                   carga.trimestre == 3 || carga.trimestre == 4
                     ? carga.creditos
@@ -251,7 +298,7 @@
               <td style="width: 25px"></td>
               <td style="width: 80px"></td>
               <td style="width: 300px"></td>
-              <td style="width: 35px"></td>
+              <td style="width: 35px" class="less-padding"></td>
               <td style="width: 180px"></td>
               <td style="width: 35px" v-if="semestre1IsActived"></td>
               <td style="width: 35px" v-if="semestre2IsActived"></td>
@@ -270,7 +317,9 @@
               <td style="width: 300px" class="t-start">
                 {{ turma.disciplina.nome }}
               </td>
-              <td style="width: 35px">{{ turma.letra }}</td>
+              <td style="width: 35px" class="less-padding">
+                {{ turma.letra }}
+              </td>
               <td style="width:180px">
                 <span v-for="horario in AllHorarios" :key="horario.id">
                   {{ horario.id === turma.Horario1 ? horario.horario : "" }}
@@ -279,7 +328,11 @@
                   }}
                 </span>
               </td>
-              <td style="width: 35px" v-if="semestre1IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre1IsActived"
+              >
                 <span v-if="turma.periodo === 1">
                   {{
                     turma.Docente1 > 0 && turma.Docente2 > 0
@@ -288,7 +341,11 @@
                   }}
                 </span>
               </td>
-              <td style="width: 35px" v-if="semestre2IsActived">
+              <td
+                style="width: 35px"
+                class="less-padding"
+                v-if="semestre2IsActived"
+              >
                 <span v-if="turma.periodo === 3">
                   {{
                     turma.Docente1 > 0 && turma.Docente2 > 0
