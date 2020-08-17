@@ -7,7 +7,7 @@
         :color="'gray'"
         @click="openAsideModal('modalFiltros')"
       >
-        <font-awesome-icon :icon="['fas','list-ul']" />
+        <font-awesome-icon :icon="['fas', 'list-ul']" />
       </BaseButton>
 
       <BaseButton
@@ -16,7 +16,7 @@
         :color="'gray'"
         @click="openAsideModal('modalRelatorio')"
       >
-        <font-awesome-icon :icon="['fas','file-alt']" />
+        <font-awesome-icon :icon="['fas', 'file-alt']" />
       </BaseButton>
 
       <BaseButton
@@ -25,7 +25,7 @@
         :color="'lightblue'"
         @click="openAsideModal('modalAjuda')"
       >
-        <font-awesome-icon :icon="['fas','question']" />
+        <font-awesome-icon :icon="['fas', 'question']" />
       </BaseButton>
     </PageHeader>
 
@@ -67,28 +67,42 @@
 
           <th :title="currentThTitle" style="width: 50px">Vagas</th>
         </template>
-        <template #tbody v-if="!onLoading.table">
+
+        <template #tbody>
           <template v-for="disciplina in DisciplinasInTurmasOrdered">
             <tr class="bg-custom" :key="'trDisc' + disciplina.id">
               <td style="width: 80px">{{ disciplina.codigo }}</td>
               <td style="width: 350px">{{ disciplina.nome }}</td>
-              <td style="width: 80px" class="less-padding">{{ disciplina.perfil.abreviacao }}</td>
+              <td style="width: 80px" class="less-padding">
+                {{ disciplina.perfil.abreviacao }}
+              </td>
               <td style="width: 25px"></td>
               <td style="width: 35px"></td>
               <td style="width: 200px"></td>
               <td style="width: 180px"></td>
-              <td style="width: 50px">{{ getDisciplinaVagasInCurrentSemestres(disciplina) }}</td>
+              <td style="width: 50px">
+                {{ getDisciplinaVagasInCurrentSemestres(disciplina) }}
+              </td>
             </tr>
 
-            <tr v-for="turma in disciplina.turmas" :key="'trTurma' + turma.id + disciplina.id">
+            <tr
+              v-for="turma in disciplina.turmas"
+              :key="'trTurma' + turma.id + disciplina.id"
+            >
               <td style="width: 80px"></td>
               <td style="width: 350px"></td>
               <td style="width: 80px"></td>
               <td style="width: 25px">{{ turma.periodo }}</td>
-              <td style="width: 35px" class="less-padding">{{ turma.letra }}</td>
-              <td style="width: 200px">{{ getDocentesApelidoByTurma(turma) }}</td>
+              <td style="width: 35px" class="less-padding">
+                {{ turma.letra }}
+              </td>
+              <td style="width: 200px">
+                {{ getDocentesApelidoByTurma(turma) }}
+              </td>
 
-              <td style="width: 180px">{{ generateHorarioText(turma.Horario1, turma.Horario2) }}</td>
+              <td style="width: 180px">
+                {{ generateHorarioText(turma.Horario1, turma.Horario2) }}
+              </td>
 
               <td
                 v-if="
@@ -98,7 +112,9 @@
                 @click="handleClickInTurmaVaga(turma)"
                 class="clickable p-vagas"
                 style="width: 50px"
-              >{{ vagasTurma(turma, 1) }}</td>
+              >
+                {{ vagasTurma(turma, 1) }}
+              </td>
 
               <td
                 v-if="
@@ -108,7 +124,9 @@
                 @click="handleClickInTurmaVaga(turma)"
                 class="clickable p-vagas"
                 style="width: 50px"
-              >{{ vagasTurma(turma, 2) }}</td>
+              >
+                {{ vagasTurma(turma, 2) }}
+              </td>
 
               <td
                 v-if="filtroSemestres.ativo == 3"
@@ -116,7 +134,9 @@
                 class="clickable p-vagas"
                 style="width: 50px"
               >
-                <template v-if="turma.periodo == 1 || turma.periodo == 2">{{ vagasTurma(turma, 1) }}</template>
+                <template v-if="turma.periodo == 1 || turma.periodo == 2">{{
+                  vagasTurma(turma, 1)
+                }}</template>
                 <template v-else>{{ vagasTurma(turma, 2) }}</template>
               </td>
             </tr>
@@ -158,7 +178,9 @@
               @click="toggleOrder(ordenacaoModal.disciplinas, 'codigo')"
             >
               Cód.
-              <i :class="setIconByOrder(ordenacaoModal.disciplinas, 'codigo')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoModal.disciplinas, 'codigo')"
+              ></i>
             </th>
             <th
               class="t-start clickable"
@@ -166,7 +188,9 @@
               @click="toggleOrder(ordenacaoModal.disciplinas, 'nome')"
             >
               Nome
-              <i :class="setIconByOrder(ordenacaoModal.disciplinas, 'nome')"></i>
+              <i
+                :class="setIconByOrder(ordenacaoModal.disciplinas, 'nome')"
+              ></i>
             </th>
             <th
               class="t-start clickable"
@@ -203,8 +227,12 @@
                 />
               </td>
               <td style="width: 70px">{{ disciplina.codigo }}</td>
-              <td style="width: 270px" class="t-start">{{ disciplina.nome }}</td>
-              <td style="width: 85px" class="t-start">{{ disciplina.perfil.abreviacao }}</td>
+              <td style="width: 270px" class="t-start">
+                {{ disciplina.nome }}
+              </td>
+              <td style="width: 85px" class="t-start">
+                {{ disciplina.perfil.abreviacao }}
+              </td>
             </tr>
             <tr v-show="!DisciplinasOrderedModal.length">
               <td style="width:450px">NENHUMA DISCIPLINA ENCONTRADA.</td>
@@ -212,10 +240,15 @@
           </template>
         </BaseTable>
 
-        <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Semestres'"
+          :type="'modal'"
+        >
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start clickable" style="width: 425px">Semestre Letivo</th>
+            <th class="t-start clickable" style="width: 425px">
+              Semestre Letivo
+            </th>
           </template>
           <template #tbody>
             <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
@@ -241,7 +274,10 @@
           </template>
         </BaseTable>
 
-        <BaseTable :type="'modal'" v-show="modalFiltrosTabs.current === 'Perfis'">
+        <BaseTable
+          :type="'modal'"
+          v-show="modalFiltrosTabs.current === 'Perfis'"
+        >
           <template #thead>
             <th style="width: 25px;"></th>
             <th
@@ -280,9 +316,9 @@
           <div class="vagas-header">
             <h6 class="vagas-title">
               {{
-              getDisciplinaByTurma(turmaSelecionada).codigo +
-              " - " +
-              getDisciplinaByTurma(turmaSelecionada).nome
+                getDisciplinaByTurma(turmaSelecionada).codigo +
+                  " - " +
+                  getDisciplinaByTurma(turmaSelecionada).nome
               }}
             </h6>
             <div class="input-form">
@@ -303,7 +339,8 @@
                   )"
                   :key="'selectModalVagas' + turma.id"
                   :value="turma"
-                >{{ turma.letra }}</option>
+                  >{{ turma.letra }}</option
+                >
               </select>
             </div>
           </div>
@@ -317,7 +354,9 @@
                   @click="toggleOrder(ordenacaoModal.vagas, 'codigo')"
                 >
                   Cód.
-                  <i :class="setIconByOrder(ordenacaoModal.vagas, 'codigo')"></i>
+                  <i
+                    :class="setIconByOrder(ordenacaoModal.vagas, 'codigo')"
+                  ></i>
                 </th>
                 <th
                   class="clickable t-start"
@@ -378,16 +417,25 @@
                   "
                 >
                   Total
-                  <i :class="setIconByOrder(ordenacaoModal.vagas, 'vagasTotais')"></i>
+                  <i
+                    :class="setIconByOrder(ordenacaoModal.vagas, 'vagasTotais')"
+                  ></i>
                 </th>
               </template>
               <template #tbody>
-                <tr v-for="p in VagasTurmaSelecionada" :key="'vaga' + p.Curso + '-' + p.Turma">
+                <tr
+                  v-for="p in VagasTurmaSelecionada"
+                  :key="'vaga' + p.Curso + '-' + p.Turma"
+                >
                   <td style="width: 55px">{{ getCursoByPedido(p).codigo }}</td>
-                  <td style="width: 300px" class="t-start">{{ getCursoByPedido(p).nome }}</td>
+                  <td style="width: 300px" class="t-start">
+                    {{ getCursoByPedido(p).nome }}
+                  </td>
                   <td style="width: 55px">{{ p.vagasPeriodizadas }}</td>
                   <td style="width: 55px">{{ p.vagasNaoPeriodizadas }}</td>
-                  <td style="width: 55px">{{ p.vagasPeriodizadas + p.vagasNaoPeriodizadas }}</td>
+                  <td style="width: 55px">
+                    {{ p.vagasPeriodizadas + p.vagasNaoPeriodizadas }}
+                  </td>
                 </tr>
               </template>
             </BaseTable>
@@ -408,8 +456,7 @@
       </li>
       <li class="list-group-item">
         <b>Para gerar relatório de turmas das disciplinas:</b> Clique no ícone
-        relatório
-        <i class="fas fa-file-alt icon-gray"></i> selecione se deseja
+        relatório <i class="fas fa-file-alt icon-gray"></i> selecione se deseja
         gerar o relatório completo com todos as disciplinas, ou apenas o
         relatório parcial com as disciplinas que estão selecionados no momento.
       </li>
@@ -710,7 +757,7 @@ export default {
       return this.$_.orderBy(
         this.$_.filter(
           this.$store.state.pedido.Pedidos[this.turmaSelecionada.id],
-          function (p) {
+          function(p) {
             return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
           }
         ),
