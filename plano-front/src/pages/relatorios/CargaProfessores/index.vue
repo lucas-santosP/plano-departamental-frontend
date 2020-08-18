@@ -366,10 +366,25 @@
               !filtroDocenteSemAlocacao.ativado && !DocentesOrderedMain.length
             "
           >
-            <td colspan="9" style="width:870px">
+            <td colspan="6" style="width:750px">
               <b>Nenhum docente encontrado.</b> Clique no botão de filtros
               <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
             </td>
+            <td
+              style="width: 35px"
+              v-if="semestre1IsActived"
+              class="borderX-0"
+            ></td>
+            <td
+              style="width: 35px"
+              v-if="semestre2IsActived"
+              class="borderX-0"
+            ></td>
+            <td
+              style="width: 50px"
+              v-if="semestre1IsActived && semestre2IsActived"
+              class="borderX-0"
+            ></td>
           </tr>
         </template>
       </BaseTable>
