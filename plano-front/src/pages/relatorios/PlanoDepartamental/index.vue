@@ -14,7 +14,7 @@
         title="Relátorio"
         :type="'icon'"
         :color="'gray'"
-        @click="toggleModalRelatorio"
+        @click="toggleAsideModal('relatorio')"
       >
         <font-awesome-icon :icon="['fas', 'file-alt']" />
       </BaseButton>
@@ -439,7 +439,7 @@ export default {
     return {
       turmaClicked: null,
       searchDisciplinas: "",
-      asideModalsRefs: ["modalFiltros", "modalAjuda"],
+      asideModalsRefs: ["modalFiltros", "modalAjuda", "modalRelatorio"],
       ordenacaoMain: {
         disciplinas: { order: "codigo", type: "asc" },
       },

@@ -14,7 +14,7 @@
         title="Relatório"
         :type="'icon'"
         :color="'gray'"
-        @click="toggleModalRelatorio"
+        @click="toggleAsideModal('relatorio')"
       >
         <font-awesome-icon :icon="['fas', 'file-alt']" />
       </BaseButton>
@@ -525,7 +525,7 @@ export default {
   data() {
     return {
       searchDocentes: "",
-      asideModalsRefs: ["modalFiltros", "modalAjuda"],
+      asideModalsRefs: ["modalFiltros", "modalAjuda", "modalRelatorio"],
       orednacaoDocentesMain: { order: "apelido", type: "asc" },
       ordenacaoDocentesModal: { order: "apelido", type: "asc" },
       filtroDocentes: {
@@ -589,9 +589,6 @@ export default {
       else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
       else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
-    },
-    toggleModalRelatorio() {
-      this.$refs.modalRelatorio.toggle();
     },
     pdf(completo) {
       if (completo)
