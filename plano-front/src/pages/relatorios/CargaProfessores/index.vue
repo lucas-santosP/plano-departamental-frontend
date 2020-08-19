@@ -5,7 +5,7 @@
         title="Filtros"
         :type="'icon'"
         :color="'gray'"
-        @click="openAsideModal('filtros')"
+        @click="toggleAsideModal('filtros')"
       >
         <font-awesome-icon :icon="['fas', 'list-ul']" />
       </BaseButton>
@@ -14,7 +14,7 @@
         title="Relatório"
         :type="'icon'"
         :color="'gray'"
-        @click="$refs.modalRelatorio.toggle()"
+        @click="toggleModalRelatorio"
       >
         <font-awesome-icon :icon="['fas', 'file-alt']" />
       </BaseButton>
@@ -23,7 +23,7 @@
         title="Ajuda"
         :type="'icon'"
         :color="'lightblue'"
-        @click="openAsideModal('ajuda')"
+        @click="toggleAsideModal('ajuda')"
       >
         <font-awesome-icon :icon="['fas', 'question']" />
       </BaseButton>
@@ -41,10 +41,10 @@
             <i :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"></i>
           </th>
           <th style="width: 25px" title="Semestre">S.</th>
-          <th style="width: 80px" class="t-center">Código</th>
+          <th style="width: 80px">Código</th>
           <th style="width: 300px" class="t-start">Disciplina</th>
           <th style="width: 35px" class="less-padding" title="Turma">T.</th>
-          <th style="width: 180px">Horário</th>
+          <th style="width: 130px">Horário</th>
           <th
             style="width: 35px"
             class="less-padding"
@@ -76,10 +76,10 @@
                 {{ docente.apelido }}
               </td>
               <td style="width: 25px"></td>
-              <td style="width: 80px"></td>
+              <td style="width: 80px" class="less-padding"></td>
               <td style="width: 300px" class="t-start"></td>
               <td style="width: 35px" class="less-padding"></td>
-              <td style="width: 180px"></td>
+              <td style="width: 130px"></td>
               <td
                 style="width: 35px"
                 class="less-padding"
@@ -109,7 +109,7 @@
             >
               <td style="width: 130px"></td>
               <td style="width: 25px">{{ turma.periodo }}</td>
-              <td style="width: 80px" class="t-center">
+              <td style="width: 80px" class="less-padding">
                 {{ turma.disciplina.codigo }}
               </td>
               <td style="width: 300px" class="t-start">
@@ -118,13 +118,8 @@
               <td style="width: 35px" class="less-padding">
                 {{ turma.letra }}
               </td>
-              <td style="width: 180px">
-                <span v-for="horario in AllHorarios" :key="horario.id">
-                  {{ horario.id === turma.Horario1 ? horario.horario : "" }}
-                  {{
-                    horario.id === turma.Horario2 ? " / " + horario.horario : ""
-                  }}
-                </span>
+              <td style="width: 130px">
+                {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
               </td>
               <td
                 style="width: 35px"
@@ -161,12 +156,12 @@
             >
               <td style="width: 130px"></td>
               <td style="width: 25px">{{ carga.trimestre }}</td>
-              <td style="width: 80px"></td>
+              <td style="width: 80px" class="less-padding"></td>
               <td style="width: 300px" class="t-start upper-case">
                 Disciplina do {{ carga.programa }}
               </td>
               <td style="width: 35px" class="less-padding"></td>
-              <td style="width: 180px"></td>
+              <td style="width: 130px"></td>
               <td
                 style="width: 35px"
                 class="less-padding"
@@ -201,7 +196,7 @@
             >
               <td style="width: 130px"></td>
               <td style="width: 25px">{{ turma.periodo }}</td>
-              <td style="width: 80px" class="t-center">
+              <td style="width: 80px" class="less-padding">
                 {{ turma.disciplina.codigo }}
               </td>
               <td style="width: 300px" class="t-start">
@@ -210,13 +205,8 @@
               <td style="width: 35px" class="less-padding">
                 {{ turma.letra }}
               </td>
-              <td style="width: 180px">
-                <span v-for="horario in AllHorarios" :key="horario.id">
-                  {{ horario.id === turma.Horario1 ? horario.horario : "" }}
-                  {{
-                    horario.id === turma.Horario2 ? " / " + horario.horario : ""
-                  }}
-                </span>
+              <td style="width: 130px">
+                {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
               </td>
               <td
                 style="width: 35px"
@@ -252,12 +242,12 @@
             >
               <td style="width: 130px"></td>
               <td style="width: 25px">{{ carga.trimestre }}</td>
-              <td style="width: 80px"></td>
+              <td style="width: 80px" class="less-padding"></td>
               <td style="width: 300px" class="t-start upper-case">
                 Disciplina do {{ carga.programa }}
               </td>
               <td style="width: 35px" class="less-padding"></td>
-              <td style="width: 180px"></td>
+              <td style="width: 130px"></td>
               <td
                 style="width: 35px"
                 class="less-padding"
@@ -296,10 +286,10 @@
             <tr class="bg-custom">
               <td style="width: 130px" class="t-start">SEM ALOCAÇÃO</td>
               <td style="width: 25px"></td>
-              <td style="width: 80px"></td>
+              <td style="width: 80px" class="less-padding"></td>
               <td style="width: 300px"></td>
               <td style="width: 35px" class="less-padding"></td>
-              <td style="width: 180px"></td>
+              <td style="width: 130px"></td>
               <td style="width: 35px" v-if="semestre1IsActived"></td>
               <td style="width: 35px" v-if="semestre2IsActived"></td>
               <td
@@ -313,20 +303,17 @@
             >
               <td style="width: 130px"></td>
               <td style="width: 25px">{{ turma.periodo }}</td>
-              <td style="width: 80px">{{ turma.disciplina.codigo }}</td>
+              <td style="width: 80px" class="less-padding">
+                {{ turma.disciplina.codigo }}
+              </td>
               <td style="width: 300px" class="t-start">
                 {{ turma.disciplina.nome }}
               </td>
               <td style="width: 35px" class="less-padding">
                 {{ turma.letra }}
               </td>
-              <td style="width:180px">
-                <span v-for="horario in AllHorarios" :key="horario.id">
-                  {{ horario.id === turma.Horario1 ? horario.horario : "" }}
-                  {{
-                    horario.id === turma.Horario2 ? " / " + horario.horario : ""
-                  }}
-                </span>
+              <td style="width:130px">
+                {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
               </td>
               <td
                 style="width: 35px"
@@ -512,13 +499,23 @@
 import { mapGetters } from "vuex";
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
-import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
+import {
+  toggleOrdination,
+  toggleItemInArray,
+  generateHorariosText,
+  toggleAsideModal,
+} from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalAjuda, ModalRelatorio, ModalFiltros } from "@/components/modals";
 
 export default {
   name: "DashboardCargaProfessores",
-  mixins: [toggleOrdination, toggleItemInArray],
+  mixins: [
+    toggleOrdination,
+    toggleItemInArray,
+    generateHorariosText,
+    toggleAsideModal,
+  ],
   components: {
     ModalRelatorio,
     ModalAjuda,
@@ -528,6 +525,7 @@ export default {
   data() {
     return {
       searchDocentes: "",
+      asideModalsRefs: ["modalFiltros", "modalAjuda"],
       orednacaoDocentesMain: { order: "apelido", type: "asc" },
       ordenacaoDocentesModal: { order: "apelido", type: "asc" },
       filtroDocentes: {
@@ -584,15 +582,6 @@ export default {
   },
 
   methods: {
-    openAsideModal(modalName) {
-      if (modalName === "filtros") {
-        this.$refs.modalFiltros.toggle();
-        this.$refs.modalAjuda.close();
-      } else if (modalName === "ajuda") {
-        this.$refs.modalAjuda.toggle();
-        this.$refs.modalFiltros.close();
-      }
-    },
     setSemestreAtivo() {
       const { primeiro, segundo } = this.filtroSemestres;
 
@@ -600,6 +589,9 @@ export default {
       else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
       else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
+    },
+    toggleModalRelatorio() {
+      this.$refs.modalRelatorio.toggle();
     },
     pdf(completo) {
       if (completo)
