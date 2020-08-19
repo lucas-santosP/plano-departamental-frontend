@@ -10,7 +10,6 @@
         <select
           id="selectTurma"
           class="form-control select-letra"
-          style="width: 50px !important;"
           v-model="turmaLetraForm"
         >
           <option
@@ -207,9 +206,10 @@ export default {
   width: 100%;
 }
 .modal-vagas-header > .select-letra {
+  width: 60px !important;
   height: 25px !important;
   font-size: 12px !important;
-  padding: 2px 5px 2px 5px !important;
+  padding: 2px 5px !important;
   text-align: start;
 }
 .modal-vagas .modal-table tbody tr > td {

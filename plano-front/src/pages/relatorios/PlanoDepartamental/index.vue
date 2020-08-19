@@ -5,7 +5,7 @@
         title="Filtros"
         :type="'icon'"
         :color="'gray'"
-        @click="openAsideModal('modalFiltros')"
+        @click="toggleAsideModal('filtros')"
       >
         <font-awesome-icon :icon="['fas', 'list-ul']" />
       </BaseButton>
@@ -14,7 +14,7 @@
         title="Relátorio"
         :type="'icon'"
         :color="'gray'"
-        @click="$refs.modalRelatorio.toggle()"
+        @click="toggleModalRelatorio"
       >
         <font-awesome-icon :icon="['fas', 'file-alt']" />
       </BaseButton>
@@ -23,7 +23,7 @@
         title="Ajuda"
         :type="'icon'"
         :color="'lightblue'"
-        @click="openAsideModal('modalAjuda')"
+        @click="toggleAsideModal('ajuda')"
       >
         <font-awesome-icon :icon="['fas', 'question']" />
       </BaseButton>
@@ -412,6 +412,7 @@ import {
   toggleOrdination,
   generateHorariosText,
   generateDocentesText,
+  toggleAsideModal,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
@@ -425,6 +426,7 @@ export default {
     toggleOrdination,
     generateHorariosText,
     generateDocentesText,
+    toggleAsideModal,
   ],
   components: {
     ModalRelatorio,
@@ -437,7 +439,7 @@ export default {
     return {
       turmaClicked: null,
       searchDisciplinas: "",
-      asideModaisRefs: ["modalFiltros", "modalAjuda"],
+      asideModalsRefs: ["modalFiltros", "modalAjuda"],
       ordenacaoMain: {
         disciplinas: { order: "codigo", type: "asc" },
       },
@@ -508,12 +510,6 @@ export default {
   },
 
   methods: {
-    openAsideModal(modalRef) {
-      this.$_.forEach(this.asideModaisRefs, (ref) => {
-        if (modalRef === ref) this.$refs[ref].toggle();
-        else this.$refs[ref].close();
-      });
-    },
     setSemestreAtivo() {
       const { primeiro, segundo } = this.filtroSemestres;
 
@@ -521,6 +517,9 @@ export default {
       else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
       else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
       else this.filtroSemestres.ativo = undefined;
+    },
+    toggleModalRelatorio() {
+      this.$refs.modalRelatorio.toggle();
     },
     handleClickInTurmaVaga(turma) {
       this.turmaClicked = turma;
@@ -647,7 +646,7 @@ export default {
       );
     },
     // table modal
-  
+
     DisciplinasOrderedModal() {
       return this.$_.orderBy(
         this.DisciplinasFiltredModal,
@@ -655,7 +654,7 @@ export default {
         this.ordenacaoModal.disciplinas.type
       );
     },
-     DisciplinasFiltredModal() {
+    DisciplinasFiltredModal() {
       if (this.searchDisciplinas === "") return this.DisciplinasDCCInPerfis;
 
       const searchNormalized = normalizeText(this.searchDisciplinas);
