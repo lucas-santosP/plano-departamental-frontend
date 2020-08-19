@@ -30,8 +30,10 @@ export default {
 
   methods: {
     handleSelect(value) {
+      this.setPartialLoading(true);
       this.close();
       this.$emit("selection-option", value);
+      this.setPartialLoading(false);
     },
 
     toggle() {
