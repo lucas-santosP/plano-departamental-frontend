@@ -68,28 +68,21 @@
 
           <template v-if="semestre1IsActived && semestre2IsActived">
             <th
-              title="Somatório total das vagas"
-              style="width: 45px"
-              class="less-padding"
-            >
-              VTotal
-            </th>
-            <th
               title="Somatório total dos créditos"
               style="width: 45px"
               class="less-padding"
             >
               CTotal
             </th>
-          </template>
-          <template v-else-if="semestre1IsActived">
             <th
-              title="Somatório das vagas no 1º semestre"
+              title="Somatório total das vagas"
               style="width: 45px"
               class="less-padding"
             >
-              VS1
+              VTotal
             </th>
+          </template>
+          <template v-else-if="semestre1IsActived">
             <th
               title="Somatório dos créditos no 1º semestre"
               style="width: 45px"
@@ -97,21 +90,28 @@
             >
               CS1
             </th>
-          </template>
-          <template v-else-if="semestre2IsActived">
             <th
-              title="Somatório das vagas no 2º semestre"
+              title="Somatório das vagas no 1º semestre"
               style="width: 45px"
               class="less-padding"
             >
-              VS2
+              VS1
             </th>
+          </template>
+          <template v-else-if="semestre2IsActived">
             <th
               title="Somatório dos créditos no 2º semestre"
               style="width: 45px"
               class="less-padding"
             >
               CS2
+            </th>
+            <th
+              title="Somatório das vagas no 2º semestre"
+              style="width: 45px"
+              class="less-padding"
+            >
+              VS2
             </th>
           </template>
         </template>
@@ -129,20 +129,6 @@
             <td style="width: 45px">
               <template v-if="semestre1IsActived && semestre2IsActived">
                 {{
-                  somatoriosTotais.vagas1Semestre +
-                    somatoriosTotais.vagas2Semestre
-                }}
-              </template>
-              <template v-else-if="semestre1IsActived">
-                {{ somatoriosTotais.vagas1Semestre }}
-              </template>
-              <template v-else-if="semestre2IsActived">
-                {{ somatoriosTotais.vagas2Semestre }}
-              </template>
-            </td>
-            <td style="width: 45px">
-              <template v-if="semestre1IsActived && semestre2IsActived">
-                {{
                   somatoriosTotais.creditos1Semestre +
                     somatoriosTotais.creditos2Semestre
                 }}
@@ -152,6 +138,20 @@
               </template>
               <template v-else-if="semestre2IsActived">
                 {{ somatoriosTotais.creditos2Semestre }}
+              </template>
+            </td>
+            <td style="width: 45px">
+              <template v-if="semestre1IsActived && semestre2IsActived">
+                {{
+                  somatoriosTotais.vagas1Semestre +
+                    somatoriosTotais.vagas2Semestre
+                }}
+              </template>
+              <template v-else-if="semestre1IsActived">
+                {{ somatoriosTotais.vagas1Semestre }}
+              </template>
+              <template v-else-if="semestre2IsActived">
+                {{ somatoriosTotais.vagas2Semestre }}
               </template>
             </td>
           </tr>
@@ -170,6 +170,19 @@
               <td style="width: 130px" class="less-padding"></td>
               <td style="width: 45px">
                 <template v-if="semestre1IsActived && semestre2IsActived">
+                  {{
+                    disciplina.creditos1Semestre + disciplina.creditos2Semestre
+                  }}
+                </template>
+                <template v-else-if="semestre1IsActived">
+                  {{ disciplina.creditos1Semestre }}
+                </template>
+                <template v-else-if="semestre2IsActived">
+                  {{ disciplina.creditos2Semestre }}
+                </template>
+              </td>
+              <td style="width: 45px">
+                <template v-if="semestre1IsActived && semestre2IsActived">
                   {{ disciplina.vagas1Semestre + disciplina.vagas2Semestre }}
                 </template>
                 <template v-else-if="semestre1IsActived">
@@ -185,20 +198,6 @@
                       ? ""
                       : disciplina.vagas2Semestre
                   }}
-                </template>
-              </td>
-
-              <td style="width: 45px">
-                <template v-if="semestre1IsActived && semestre2IsActived">
-                  {{
-                    disciplina.creditos1Semestre + disciplina.creditos2Semestre
-                  }}
-                </template>
-                <template v-else-if="semestre1IsActived">
-                  {{ disciplina.creditos1Semestre }}
-                </template>
-                <template v-else-if="semestre2IsActived">
-                  {{ disciplina.creditos2Semestre }}
                 </template>
               </td>
             </tr>
@@ -221,40 +220,17 @@
               <td style="width: 130px" class="less-padding">
                 {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
               </td>
-
-              <template v-if="semestre1IsActived && semestre2IsActived">
-                <td
-                  @click="handleClickInTurmaVaga(turma)"
-                  class="td-vagas clickable"
-                  style="width: 45px"
-                >
-                  {{ turma.vagas }}
-                </td>
-              </template>
-              <template v-else-if="semestre1IsActived">
-                <td
-                  v-if="turma.periodo === 1 || turma.periodo === 2"
-                  @click="handleClickInTurmaVaga(turma)"
-                  class="td-vagas clickable"
-                  style="width: 45px"
-                >
-                  {{ turma.vagas }}
-                </td>
-                <td v-else style="width: 45px"></td>
-              </template>
-              <template v-else-if="semestre2IsActived">
-                <td
-                  v-if="turma.periodo === 3 || turma.periodo === 4"
-                  @click="handleClickInTurmaVaga(turma)"
-                  class="td-vagas clickable"
-                  style="width: 45px"
-                >
-                  {{ turma.vagas }}
-                </td>
-                <td v-else style="width: 45px"></td>
-              </template>
-
               <td style="width: 45px"></td>
+
+              <td
+                v-if="semestre1IsActived || semestre2IsActived"
+                @click="handleClickInTurmaVaga(turma)"
+                class="td-vagas clickable"
+                style="width: 45px"
+              >
+                {{ turma.vagas }}
+              </td>
+              <td v-else style="width: 45px"></td>
             </tr>
           </template>
 
@@ -436,22 +412,22 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Para exibir conteúdo na tabela:</b> Clique no ícone filtros
-        <i class="fas fa-list-ul icon-gray"></i> no cabeçalho da página e na
-        janela que será aberta utilize as abas para navegar entre os tipos de
-        filtros. Marque em suas respectivas tabelas quais informações deseja
-        visualizar, e para finalizar clique no botão OK.
+        <b>Visualizar plano:</b> Clique no ícone filtros
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em
+        seguida, utilize as abas para navegar entre os filtros. Selecione as
+        informações que deseja visualizar e clique em OK.
       </li>
       <li class="list-group-item">
-        <b>Para gerar relatório de turmas das disciplinas:</b> Clique no ícone
-        relatório <i class="fas fa-file-alt icon-gray"></i> selecione se deseja
-        gerar o relatório completo com todos as disciplinas, ou apenas o
-        relatório parcial com as disciplinas que estão selecionados no momento.
+        <b>Relatório :</b>
+        Clique no ícone relatório
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em
+        seguida, indique se deseja gerar o relatório completo com todas as
+        disciplinas ou o relatório parcial com as disciplinas exibidas na tela.
       </li>
       <li class="list-group-item">
-        <b>Para visualizar vagas das turma:</b>
-        Clique no número de vagas da turma, presente na ultima coluna da tabela,
-        para visualizar a alocação das vagas por cursos.
+        <b>Visualizar vagas por turma:</b>
+        Clique no número de vagas desta turma, na última coluna da tabela, na
+        linha correspondente.
       </li>
     </ModalAjuda>
   </div>
