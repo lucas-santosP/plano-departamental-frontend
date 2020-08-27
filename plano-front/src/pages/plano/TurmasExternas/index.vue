@@ -263,16 +263,16 @@
 
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="!!Deletar.length"
+      :isDeleting="!!TurmasExternasToDelete.length"
       @btn-deletar="handleDeleteTurmas"
     >
-      <li v-if="!Deletar.length" class="list-group-item">
+      <li v-if="!TurmasExternasToDelete.length" class="list-group-item">
         Nenhuma turma selecionada.
       </li>
       <li
-        v-for="turma in Deletar"
+        v-for="turma in TurmasExternasToDelete"
         class="list-group-item"
-        :key="'deletarTurma' + turma.id"
+        :key="turma.id + turma.letra + turma.periodo"
       >
         <span>
           <b>Semestre:</b>
@@ -447,6 +447,7 @@ export default {
     ...mapGetters([
       "TurmasExternasInDisciplinas",
       "DisciplinasExternasInPerfis",
+      "TurmasExternasToDelete",
     ]),
 
     TurmasExternasOrdered() {
@@ -501,9 +502,6 @@ export default {
           disciplinaCodigo.match(searchNormalized)
         );
       });
-    },
-    Deletar() {
-      return this.$store.state.turmaExterna.Deletar;
     },
   },
 };

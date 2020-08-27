@@ -4,7 +4,8 @@
       <input
         type="checkbox"
         class="form-check-input position-static m-0"
-        @click="toggleTurmaToDelete(turma)"
+        v-model="toggleToDelete"
+        :value="turma"
       />
     </td>
     <td style="width: 55px" class="less-padding">
@@ -21,7 +22,8 @@
           v-for="disciplina in DisciplinasExternasInPerfis"
           :key="disciplina.id"
           :value="disciplina.id"
-        >{{ disciplina.nome }}</option>
+          >{{ disciplina.nome }}</option
+        >
       </select>
     </td>
 
@@ -57,15 +59,21 @@
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
           :value="horario.id"
-        >{{ horario.horario }}</option>
+          >{{ horario.horario }}</option
+        >
       </select>
-      <select v-if="totalCarga >= 4" v-model="turmaForm.Horario2" @change="checkHorario(2)">
+      <select
+        v-if="totalCarga >= 4"
+        v-model="turmaForm.Horario2"
+        @change="checkHorario(2)"
+      >
         <option value></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
           :value="horario.id"
-        >{{ horario.horario }}</option>
+          >{{ horario.horario }}</option
+        >
       </select>
     </td>
 
@@ -73,24 +81,47 @@
       <template v-if="!disciplinaIsIntegralEAD">
         <select v-model="turmaForm.Sala1" @change="checkSala(1)">
           <option value></option>
-          <option v-for="sala in AllSalas" :key="'s1' + sala.id" :value="sala.id">{{ sala.nome }}</option>
+          <option
+            v-for="sala in AllSalas"
+            :key="'s1' + sala.id"
+            :value="sala.id"
+            >{{ sala.nome }}</option
+          >
         </select>
-        <select v-if="totalCarga >= 4" v-model="turmaForm.Sala2" @change="checkSala(2)">
+        <select
+          v-if="totalCarga >= 4"
+          v-model="turmaForm.Sala2"
+          @change="checkSala(2)"
+        >
           <option value></option>
-          <option v-for="sala in AllSalas" :key="'s2' + sala.id" :value="sala.id">{{ sala.nome }}</option>
+          <option
+            v-for="sala in AllSalas"
+            :key="'s2' + sala.id"
+            :value="sala.id"
+            >{{ sala.nome }}</option
+          >
         </select>
       </template>
     </td>
 
     <td style="width: 40px;" class="p-0">
       <div style="height: 43px;" class="py-1">
-        <span style="font-weight:bold">{{ totalPedidosNaoPeriodizados + totalPedidosPeriodizados }}</span>
+        <span style="font-weight:bold">{{
+          totalPedidosNaoPeriodizados + totalPedidosPeriodizados
+        }}</span>
         <br />
-        <p class="mt-1">{{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}</p>
+        <p class="mt-1">
+          {{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}
+        </p>
       </div>
     </td>
 
-    <td v-for="indice in IndicesInPedidos" :key="indice" style="width:35px" class="p-0">
+    <td
+      v-for="indice in IndicesInPedidos"
+      :key="indice"
+      style="width:35px"
+      class="p-0"
+    >
       <InputsPedidosExternos :index="indice" :turma="turma" />
     </td>
   </tr>
@@ -122,7 +153,7 @@ export default {
     ...mapActions([
       "setPartialLoading",
       "editTurmaExterna",
-      "toggleTurmaToDelete",
+      "toggleTurmaExternaToDelete",
     ]),
 
     resetTurmaForm() {
@@ -567,7 +598,17 @@ export default {
       "HorariosNoturno",
       "HorariosDiurno",
       "AllSalas",
+      "TurmasExternasToDelete",
     ]),
+
+    toggleToDelete: {
+      set() {
+        this.toggleTurmaExternaToDelete(this.turma);
+      },
+      get() {
+        return this.TurmasExternasToDelete;
+      },
+    },
 
     totalPedidosPeriodizados() {
       if (!this.currentTurmaPedidos) return 0;
