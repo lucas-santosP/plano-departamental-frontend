@@ -1,4 +1,3 @@
-import notification from "./notification";
 import toggleItemInArray from "./toggleItemInArray";
 import toggleOrdination from "./toggleOrdination";
 import debounceInput from "./debounceInput";
@@ -14,7 +13,6 @@ export {
   generateHorariosText,
   maskOnlyNumber,
   maskTurmaLetra,
-  notification,
   toggleItemInArray,
   toggleOrdination,
   debounceInput,
