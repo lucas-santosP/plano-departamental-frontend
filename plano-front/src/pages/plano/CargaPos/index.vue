@@ -6,7 +6,7 @@
         title="Salvar"
         :type="'icon'"
         :color="'green'"
-        @click="$refs.novaCargaPosRow.addCarga()"
+        @click="$refs.novaCargaPosRow.handleAddNovaCargaPos()"
       >
         <font-awesome-icon :icon="['fas', 'check']" />
       </BaseButton>
@@ -219,14 +219,16 @@
 
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="!!Deletar.length"
-      @btn-deletar="deleteSelectedCargas"
+      :isDeleting="!!CargasPosToDelete.length"
+      :hasClearDelete="true"
+      @btn-deletar="handleDeleteCargasPos"
+      @btn-clear="clearCargasPosToDelete"
     >
-      <li v-if="!Deletar.length" class="list-group-item">
+      <li v-if="!CargasPosToDelete.length" class="list-group-item">
         Nenhuma carga selecionada.
       </li>
       <li
-        v-for="carga in Deletar"
+        v-for="carga in CargasPosToDelete"
         :key="'deletarTurma' + carga.id"
         class="list-group-item"
       >
@@ -286,8 +288,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import cargaPosService from "@/common/services/cargaPos";
+import { mapGetters, mapActions } from "vuex";
 import {
   toggleOrdination,
   toggleItemInArray,
@@ -377,55 +378,44 @@ export default {
   },
 
   methods: {
+    ...mapActions(["deleteCargasPos", "clearCargasPosToDelete"]),
+
     toggleAddRow() {
       this.isAdding = !this.isAdding;
     },
-    deleteCarga(cargaId) {
-      cargaPosService
-        .delete(cargaId)
-        .then((response) => {
-          this.pushNotification({
-            type: "success",
-            text: `A carga ${response.CargaPos.programa} foi excluída!`,
-          });
-        })
-        .catch((error) => {
-          this.pushNotification({
-            type: "error",
-            title: "Error ao deletar carga!",
-            text: error.message || "",
-          });
-        });
-    },
-    deleteSelectedCargas() {
-      let cargas = this.$store.state.cargaPos.Deletar;
-
-      for (let i = 0; i < cargas.length; i++) {
-        this.deleteCarga(cargas[i].id);
-      }
-      this.$store.commit("emptyDeleteCarga");
-    },
     cargaPosInDocente(programaNome) {
-      const cargasResultantes = [];
+      const cargasPosFiltered = this.$_.filter(this.AllCargasPos, [
+        "programa",
+        programaNome,
+      ]);
 
-      this.$_.forEach(this.CargasPos, (carga) => {
-        const docenteFounded = this.$_.find(
-          this.DocentesAtivos,
-          (docente) => docente.id === carga.Docente
-        );
+      return this.$_.map(cargasPosFiltered, (carga) => {
+        const docenteFounded = this.$_.find(this.DocentesAtivos, [
+          "id",
+          carga.Docente,
+        ]);
 
-        if (docenteFounded && programaNome === carga.programa) {
-          cargasResultantes.push({
-            ...carga,
-            docenteApelido: docenteFounded.apelido,
-          });
-        }
+        return {
+          ...carga,
+          docenteApelido: docenteFounded ? docenteFounded.apelido : "",
+        };
       });
-
-      return cargasResultantes;
     },
     allCreditosCarga(cargas) {
       return this.$_.reduce(cargas, (acc, carga) => acc + carga.creditos, 0);
+    },
+    async handleDeleteCargasPos() {
+      try {
+        this.setPartialLoading(true);
+        await this.deleteCargasPos();
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          title: "Erro ao excluir carga(s)!",
+        });
+      } finally {
+        this.setPartialLoading(false);
+      }
     },
 
     selectSemestre(semestre) {
@@ -474,19 +464,36 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DocentesAtivos"]),
+    ...mapGetters(["DocentesAtivos", "CargasPosToDelete", "AllCargasPos"]),
 
-    ProgramasInCargaPos() {
-      const programasResutantes = [];
-
-      this.$_.forEach(this.AllProgramasPosOrdered, (programaNome) => {
-        programasResutantes.push({
-          nome: programaNome,
-          carga: this.cargaPosInDocente(programaNome),
-        });
-      });
-
-      return programasResutantes;
+    ProgramasInCargaPosOrdered() {
+      return this.$_.map(
+        this.ProgramasInCargaPosFiltredByTrimestre,
+        (programa) => ({
+          nome: programa.nome,
+          carga: this.$_.orderBy(
+            programa.carga,
+            ["trimestre", this.ordenacaoCargaPos.order],
+            ["asc", this.ordenacaoCargaPos.type]
+          ),
+        })
+      );
+    },
+    ProgramasInCargaPosFiltredByTrimestre() {
+      return this.$_.map(
+        this.ProgramasInCargaPosFiltredByPrograma,
+        (programa) => ({
+          nome: programa.nome,
+          carga: this.$_.filter(
+            programa.carga,
+            (carga) =>
+              this.$_.findIndex(
+                this.filtroTrimestres.ativados,
+                (trimestre) => trimestre.valor === carga.trimestre
+              ) !== -1
+          ),
+        })
+      );
     },
     ProgramasInCargaPosFiltredByPrograma() {
       return this.$_.filter(
@@ -498,44 +505,13 @@ export default {
           ) !== -1
       );
     },
-    ProgramasInCargaPosFiltredByTrimestre() {
-      const programasResutantes = [];
-
-      this.$_.forEach(this.ProgramasInCargaPosFiltredByPrograma, (programa) => {
-        programasResutantes.push({
-          nome: programa.nome,
-
-          carga: this.$_.filter(
-            programa.carga,
-            (carga) =>
-              this.$_.findIndex(
-                this.filtroTrimestres.ativados,
-                (trimestre) => trimestre.valor === carga.trimestre
-              ) !== -1
-          ),
-        });
-      });
-
-      return programasResutantes;
+    ProgramasInCargaPos() {
+      return this.$_.map(this.AllProgramasPosOrdered, (programaNome) => ({
+        nome: programaNome,
+        carga: this.cargaPosInDocente(programaNome),
+      }));
     },
-    ProgramasInCargaPosOrdered() {
-      const programasResutantes = [];
 
-      this.$_.forEach(
-        this.ProgramasInCargaPosFiltredByTrimestre,
-        (programa) => {
-          programasResutantes.push({
-            nome: programa.nome,
-            carga: this.$_.orderBy(
-              programa.carga,
-              ["trimestre", this.ordenacaoCargaPos.order],
-              ["asc", this.ordenacaoCargaPos.type]
-            ),
-          });
-        }
-      );
-      return programasResutantes;
-    },
     AllProgramasPosOrdered() {
       return this.$_.orderBy(["PGCC", "PGMC", "PGEM"], String, "asc");
     },
@@ -546,12 +522,6 @@ export default {
         { nome: "TERCEIRO", valor: 3 },
         { nome: "QUARTO", valor: 4 },
       ];
-    },
-    CargasPos() {
-      return this.$store.state.cargaPos.Cargas;
-    },
-    Deletar() {
-      return this.$store.state.cargaPos.Deletar;
     },
   },
 };
