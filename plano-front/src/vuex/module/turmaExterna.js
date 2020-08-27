@@ -86,15 +86,13 @@ const actions = {
     });
   },
 
-  async editTurmaExterna({ commit, state }, turma) {
+  async editTurmaExterna({ commit, dispatch }, turma) {
     const turmaNormalized = _.cloneDeepWith(turma, setEmptyValuesToNull);
     validateObjectKeys(turmaNormalized, ["letra", "Disciplina"]);
 
     await turmaExternaService.update(turmaNormalized.id, turmaNormalized);
 
-    if (state.Deletar.length) {
-      commit(EMPTY_DELETE_TURMA_EXTERNA);
-    }
+    dispatch("clearTurmasExternasToDelete");
     commit(PUSH_NOTIFICATION, {
       type: "success",
       text: `A turma ${turmaNormalized.letra} foi atualizada`,
@@ -115,10 +113,14 @@ const actions = {
     });
   },
 
-  toggleTurmaExternaToDelete({ state, commit }, turma) {
+  toggleTurmaExternaToDelete({ commit, state }, turma) {
     const index = _.findIndex(state.Deletar, ["id", turma.id]);
 
     commit(TOGGLE_TURMA_EXTERNA_TO_DELETE, { index, turma });
+  },
+
+  clearTurmasExternasToDelete({ commit, state }) {
+    if (state.Deletar.length) commit(EMPTY_DELETE_TURMA_EXTERNA);
   },
 };
 

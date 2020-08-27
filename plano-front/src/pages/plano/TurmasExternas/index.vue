@@ -264,7 +264,9 @@
     <ModalDelete
       ref="modalDelete"
       :isDeleting="!!TurmasExternasToDelete.length"
+      :hasClearDelete="true"
       @btn-deletar="handleDeleteTurmas"
+      @btn-clear="clearTurmasExternasToDelete"
     >
       <li v-if="!TurmasExternasToDelete.length" class="list-group-item">
         Nenhuma turma selecionada.
@@ -407,7 +409,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteTurmasExternas"]),
+    ...mapActions(["deleteTurmasExternas", "clearTurmasExternasToDelete"]),
 
     toggleAddRow() {
       this.isAdding = !this.isAdding;
