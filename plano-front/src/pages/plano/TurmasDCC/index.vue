@@ -398,7 +398,9 @@
     <ModalDelete
       ref="modalDelete"
       :isDeleting="!!TurmasToDelete.length"
+      :hasClearDelete="true"
       @btn-deletar="handleDeleteTurmas"
+      @btn-clear="clearTurmasToDelete"
     >
       <li v-if="!TurmasToDelete.length" class="list-group-item">
         Nenhuma turma selecionada.
@@ -624,7 +626,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteTurmas"]),
+    ...mapActions(["deleteTurmas", "clearTurmasToDelete"]),
 
     openModalEditTurma(turma) {
       this.turmaClicked = turma;
