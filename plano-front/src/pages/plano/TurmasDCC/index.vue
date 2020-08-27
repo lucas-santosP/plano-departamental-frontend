@@ -6,7 +6,7 @@
           title="Salvar"
           :type="'icon'"
           :color="'green'"
-          @click="$refs.novaTurma.addTurma()"
+          @click="$refs.novaTurma.handleAddNovaTurma()"
         >
           <font-awesome-icon :icon="['fas', 'check']" />
         </BaseButton>
@@ -156,7 +156,7 @@
         <template #tbody>
           <TurmaRow
             v-for="turma in TurmasOrdered"
-            :key="turma.id + turma.disciplina.codigo + turma.letra"
+            :key="turma.id + turma.letra"
             :turma="turma"
             :cursosAtivados="filtroCursos.ativados"
             @handle-click-in-edit="openModalEditTurma($event)"
@@ -397,16 +397,16 @@
 
     <ModalDelete
       ref="modalDelete"
-      :isDeleting="!!Deletar.length"
-      @btn-deletar="deleteSelectedTurmas"
+      :isDeleting="!!TurmasToDelete.length"
+      @btn-deletar="handleDeleteTurmas"
     >
-      <li v-if="!Deletar.length" class="list-group-item">
+      <li v-if="!TurmasToDelete.length" class="list-group-item">
         Nenhuma turma selecionada.
       </li>
       <li
-        v-for="turma in Deletar"
+        v-for="turma in TurmasToDelete"
         class="list-group-item"
-        :key="'delete' + turma.id"
+        :key="turma.id + turma.letra + turma.periodo"
       >
         <span>
           <b>Semestre:</b>
@@ -484,7 +484,6 @@ import { mapGetters, mapActions } from "vuex";
 import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
-import turmaService from "@/common/services/turma";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
 import {
   toggleOrdination,
@@ -625,7 +624,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["clearDelete"]),
+    ...mapActions(["deleteTurmas"]),
 
     openModalEditTurma(turma) {
       this.turmaClicked = turma;
@@ -661,6 +660,7 @@ export default {
     async generateXlsx() {
       try {
         this.setPartialLoading(true);
+
         await xlsx.downloadTable({
           pedidos: this.$store.state.pedido.Pedidos,
           Plano: localStorage.getItem("Plano"),
@@ -686,25 +686,14 @@ export default {
         this.setPartialLoading(false);
       }
     },
-    async deleteSelectedTurmas() {
-      if (!this.Deletar.length) return;
-
+    async handleDeleteTurmas() {
       try {
         this.setPartialLoading(true);
-
-        for (let i = 0; i < this.Deletar.length; i++) {
-          await turmaService.delete(this.Deletar[i].id);
-        }
-
-        this.clearDelete();
-        this.pushNotification({
-          type: "success",
-          text: "Turma(s) selecionadas foram excluída(s)",
-        });
+        await this.deleteTurmas();
       } catch (error) {
         this.pushNotification({
           type: "error",
-          text: "Erro ao excluir turma(s).",
+          title: "Erro ao excluir turma(s)!",
         });
       } finally {
         this.setPartialLoading(false);
@@ -719,6 +708,7 @@ export default {
       "PerfisDCC",
       "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
+      "TurmasToDelete",
     ]),
 
     TurmasOrdered() {
@@ -820,9 +810,6 @@ export default {
     setFixedOrderPerfil() {
       if (this.ordenacaoMain.perfis.type === "desc") return null;
       else return "disciplina.perfil.abreviacao";
-    },
-    Deletar() {
-      return this.$store.state.turma.Deletar;
     },
   },
 

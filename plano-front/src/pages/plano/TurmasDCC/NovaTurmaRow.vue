@@ -168,18 +168,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import turmaService from "@/common/services/turma";
-import {
-  setEmptyValuesToNull,
-  validateObjectKeys,
-  generateEmptyTurma,
-} from "@/common/utils";
-import { notification, maskTurmaLetra } from "@/common/mixins";
+import { mapGetters, mapActions } from "vuex";
+import { generateEmptyTurma } from "@/common/utils";
+import { maskTurmaLetra } from "@/common/mixins";
 
 export default {
   name: "NovaTurmaRow",
-  mixins: [notification, maskTurmaLetra],
+  mixins: [maskTurmaLetra],
   props: { cursosAtivadosLength: Number, default: 0 },
   data() {
     return {
@@ -188,6 +183,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["addNovaTurma"]),
+
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;
       if (!this.disciplinaIsParcialEAD) this.turmaForm.Horario2 = null;
@@ -233,32 +230,17 @@ export default {
         this.turmaForm.turno1 = "Diurno";
     },
 
-    async addTurma() {
+    async handleAddNovaTurma() {
       try {
         this.setPartialLoading(true);
-
-        const newTurma = this.$_.cloneDeepWith(
-          this.turmaForm,
-          setEmptyValuesToNull
-        );
-        validateObjectKeys(newTurma, ["Disciplina", "letra", "turno1"]);
-        newTurma.Plano = parseInt(localStorage.getItem("Plano"), 10);
-
-        const response = await turmaService.create(newTurma);
-        await this.$store.dispatch("fetchAllPedidos");
-        this.showNotification({
-          type: "success",
-          message: `Turma ${response.Turma.letra} foi criada!`,
-        });
+        await this.addNovaTurma(this.turmaForm);
       } catch (error) {
-        const erroMsg = error.response
-          ? "A combinação de disciplina, semestre e turma deve ser única."
-          : error.message;
-
-        this.showNotification({
+        this.pushNotification({
           type: "error",
           title: "Erro ao criar nova turma!",
-          message: erroMsg,
+          message: error.response
+            ? "A combinação de disciplina, semestre e turma deve ser única."
+            : error.message,
         });
       } finally {
         this.setPartialLoading(false);
