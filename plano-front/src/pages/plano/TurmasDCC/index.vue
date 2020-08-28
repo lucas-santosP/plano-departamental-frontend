@@ -198,7 +198,7 @@
           <tr
             v-for="perfil in PerfisOrderedModal"
             :key="'perfilId' + perfil.id"
-            @click="toggleItemInArray(perfil, filtroPerfis.selecionados)"
+            @click.stop="toggleItemInArray(perfil, filtroPerfis.selecionados)"
           >
             <td style="width: 25px">
               <input
@@ -270,7 +270,7 @@
           <tr
             v-for="disciplina in DisciplinasDCCOrderedModal"
             :key="'MdDisciplina' + disciplina.id"
-            @click="
+            @click.stop="
               toggleItemInArray(disciplina.id, filtroDisciplinas.selecionados)
             "
           >
@@ -330,7 +330,7 @@
           <tr
             v-for="curso in CursosOrderedModal"
             :key="curso.id + curso.nome"
-            @click="toggleItemInArray(curso, filtroCursos.selecionados)"
+            @click.stop="toggleItemInArray(curso, filtroCursos.selecionados)"
           >
             <td style="width: 25px">
               <input
@@ -349,31 +349,30 @@
         </template>
       </BaseTable>
 
-      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Semestres'">
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Periodos'">
         <template #thead>
           <th style="width: 25px"></th>
-          <th style="width: 425px" class="t-start">Semestre Letivo</th>
+          <th style="width: 425px" class="t-start">Periodos Letivo</th>
         </template>
         <template #tbody>
-          <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+          <tr
+            v-for="periodoLetivo in PeriodosLetivos"
+            :key="periodoLetivo.id + periodoLetivo.nome"
+            @click.stop="
+              toggleItemInArray(periodoLetivo, filtroPeriodos.selecionados)
+            "
+          >
             <td style="width: 25px">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
-                v-model="filtroSemestres.primeiro"
+                :value="periodoLetivo"
+                v-model="filtroPeriodos.selecionados"
               />
             </td>
-            <td style="width: 425px" class="t-start">PRIMEIRO</td>
-          </tr>
-          <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-            <td style="width: 25px">
-              <input
-                type="checkbox"
-                class="form-check-input position-static m-0"
-                v-model="filtroSemestres.segundo"
-              />
+            <td style="width: 425px" class="t-start upper-case">
+              {{ periodoLetivo.nome }}
             </td>
-            <td style="width: 425px" class="t-start">SEGUNDO</td>
           </tr>
         </template>
       </BaseTable>
@@ -524,7 +523,7 @@ export default {
       searchDisciplinasModal: "",
       modalFiltrosTabs: {
         current: "Perfis",
-        array: ["Perfis", "Disciplinas", "Cursos", "Semestres"],
+        array: ["Perfis", "Disciplinas", "Cursos", "Periodos"],
       },
       filtroPerfis: {
         selecionados: [],
@@ -537,10 +536,9 @@ export default {
         ativados: [],
         selecionados: [],
       },
-      filtroSemestres: {
-        primeiro: true,
-        segundo: true,
-        ativo: 3,
+      filtroPeriodos: {
+        ativados: [],
+        selecionados: [],
       },
       modalFiltrosCallbacks: {
         selectAll: {
@@ -558,9 +556,8 @@ export default {
           Cursos: () => {
             this.filtroCursos.selecionados = [...this.AllCursos];
           },
-          Semestres: () => {
-            this.filtroSemestres.primeiro = true;
-            this.filtroSemestres.segundo = true;
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
           },
         },
         selectNone: {
@@ -573,17 +570,15 @@ export default {
           Cursos: () => {
             this.filtroCursos.selecionados = [];
           },
-          Semestres: () => {
-            this.filtroSemestres.primeiro = false;
-            this.filtroSemestres.segundo = false;
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [];
           },
         },
         btnOk: () => {
-          this.setSemestreAtivo();
+          this.filtroPeriodos.ativados = [...this.filtroPeriodos.selecionados];
           this.filtroDisciplinas.ativadas = [
             ...this.filtroDisciplinas.selecionados,
           ];
-
           this.filtroCursos.ativados = [
             ...this.$_.orderBy(this.filtroCursos.selecionados, ["posicao"]),
           ];
@@ -602,6 +597,8 @@ export default {
   },
 
   mounted() {
+    this.modalFiltrosCallbacks.selectAll.Periodos();
+
     ls.set("toggle", -1);
     ls.on("toggle", () => {
       const val = ls.get("toggle");
@@ -635,14 +632,7 @@ export default {
     selectCursosDCC() {
       this.filtroCursos.selecionados = [...this.CursosDCC];
     },
-    setSemestreAtivo() {
-      const { primeiro, segundo } = this.filtroSemestres;
 
-      if (primeiro && !segundo) this.filtroSemestres.ativo = 1;
-      else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
-      else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
-      else this.filtroSemestres.ativo = undefined;
-    },
     popoverCursoContent(curso) {
       const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
 
@@ -711,6 +701,7 @@ export default {
       "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
       "TurmasToDelete",
+      "PeriodosLetivos",
     ]),
 
     TurmasOrdered() {
@@ -739,18 +730,9 @@ export default {
       );
     },
     TurmasFiltredBySemestres() {
-      return this.$_.filter(this.TurmasInDisciplinasPerfis, (turma) => {
-        switch (this.filtroSemestres.ativo) {
-          case 1:
-            return turma.periodo === 1;
-          case 2:
-            return turma.periodo === 3;
-          case 3:
-            return true;
-          default:
-            return false;
-        }
-      });
+      return this.$_.filter(this.TurmasInDisciplinasPerfis, (turma) =>
+        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      );
     },
     // tables modal
     PerfisOrderedModal() {

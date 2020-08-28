@@ -25,11 +25,13 @@
     <td style="width: 55px" class="less-padding">
       <select
         id="2periodo"
-        v-model="turmaForm.periodo"
+        v-model.number="turmaForm.periodo"
         @change="checkHorariosPeriodo()"
       >
         <option value="1">1</option>
+        <option value="2">2</option>
         <option value="3">3</option>
+        <option value="4">4</option>
       </select>
     </td>
     <td style="width: 80px" class="less-padding">
@@ -56,7 +58,7 @@
       <select
         type="text"
         id="docente1"
-        v-model="turmaForm.Docente1"
+        v-model.number="turmaForm.Docente1"
         @change="checkDocente()"
       >
         <option v-if="DocentesAtivos.length === 0" type="text" value
@@ -74,7 +76,7 @@
       <select
         type="text"
         id="docente2"
-        v-model="turmaForm.Docente2"
+        v-model.number="turmaForm.Docente2"
         @change="checkDocente()"
       >
         <option v-if="DocentesAtivos.length === 0" type="text" value
@@ -96,9 +98,8 @@
         v-model="turmaForm.turno1"
         @change="handleEditTurma"
       >
-        <template v-if="isIntegralEAD">
-          <option value="EAD">EAD</option>
-        </template>
+        <option v-if="isIntegralEAD" value="EAD">EAD</option>
+
         <template v-else>
           <option value="Diurno">Diurno</option>
           <option value="Noturno">Noturno</option>
@@ -109,7 +110,7 @@
       <select
         type="text"
         id="horario1"
-        v-model="turmaForm.Horario1"
+        v-model.number="turmaForm.Horario1"
         @change="checkHorario(1)"
       >
         <option></option>
@@ -126,7 +127,7 @@
         v-if="hasMoreThan4Creditos"
         type="text"
         id="horario2"
-        v-model="turmaForm.Horario2"
+        v-model.number="turmaForm.Horario2"
         @change="checkHorario(2)"
       >
         <template v-if="isParcialEAD">
@@ -154,7 +155,7 @@
         <select
           type="text"
           id="sala1"
-          v-model="turmaForm.Sala1"
+          v-model.number="turmaForm.Sala1"
           @change="checkSala()"
         >
           <option v-if="AllSalas.length === 0" type="text" value
@@ -172,7 +173,7 @@
           v-if="hasMoreThan4Creditos && turmaForm.disciplina.ead === 0"
           type="text"
           id="sala2"
-          v-model="turmaForm.Sala2"
+          v-model.number="turmaForm.Sala2"
           @change="checkSala()"
         >
           <option v-if="AllSalas.length === 0" type="text" value
