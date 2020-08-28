@@ -349,7 +349,7 @@
         </template>
       </BaseTable>
 
-      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Periodos'">
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
         <template #thead>
           <th style="width: 25px"></th>
           <th style="width: 425px" class="t-start">Periodos Letivo</th>
@@ -523,7 +523,7 @@ export default {
       searchDisciplinasModal: "",
       modalFiltrosTabs: {
         current: "Perfis",
-        array: ["Perfis", "Disciplinas", "Cursos", "Periodos"],
+        array: ["Perfis", "Disciplinas", "Cursos", "Períodos"],
       },
       filtroPerfis: {
         selecionados: [],
