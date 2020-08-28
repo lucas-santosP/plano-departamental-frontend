@@ -27,9 +27,6 @@ const getters = {
   PeriodosLetivos(state) {
     return state.PeriodosLetivos;
   },
-  // PeriodosLetivosIds(state) {
-  //   return _.map(state.PeriodosLetivos, "id");
-  // },
 };
 
 export default {

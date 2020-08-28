@@ -723,7 +723,7 @@ export default {
     },
     TurmasFiltredByDisciplinas() {
       return this.$_.filter(this.TurmasFiltredBySemestres, (turma) =>
-        this.$_.find(
+        this.$_.some(
           this.filtroDisciplinas.ativadas,
           (disciplinaId) => disciplinaId === turma.Disciplina
         )
@@ -803,17 +803,13 @@ export default {
         const disciplinasResultantes = [];
 
         this.DisciplinasDCCInPerfis.forEach((disciplina) => {
-          const perfilFounded = this.$_.find(
+          const perfilFounded = this.$_.some(
             filtroPerfis.selecionados,
             (perfil) => perfil.id === disciplina.Perfil
           );
 
           if (perfilFounded) disciplinasResultantes.push(disciplina.id);
         });
-
-        //Quando selecionar todos add disciplinas MAC exeções
-        if (filtroPerfis.selecionados.length === this.PerfisDCC.length)
-          disciplinasResultantes.push(77, 88);
 
         this.filtroDisciplinas.selecionados = [...disciplinasResultantes];
       },
