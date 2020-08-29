@@ -208,7 +208,7 @@
       class="p-0"
       style="width:35px"
     >
-      <template v-for="(pedido, index) in currentTurmaPedidos">
+      <template v-for="(pedido, index) in PedidosOfCurrentTurma">
         <InputsPedidosDCC
           v-if="pedido.Curso === curso.id"
           :key="pedido.Turma + curso.Curso"
@@ -1099,6 +1099,7 @@ export default {
       "HorariosNoturno",
       "HorariosDiurno",
       "TurmasToDelete",
+      "Pedidos",
     ]),
 
     toggleToDelete: {
@@ -1136,7 +1137,7 @@ export default {
     },
     totalPedidosPeriodizados() {
       return this.$_.reduce(
-        this.currentTurmaPedidos,
+        this.PedidosOfCurrentTurma,
         (sum, pedido) => {
           return sum + parseInt(pedido.vagasPeriodizadas, 10);
         },
@@ -1145,15 +1146,15 @@ export default {
     },
     totalPedidosNaoPeriodizados() {
       return this.$_.reduce(
-        this.currentTurmaPedidos,
+        this.PedidosOfCurrentTurma,
         (sum, pedido) => {
           return sum + parseInt(pedido.vagasNaoPeriodizadas, 10);
         },
         0
       );
     },
-    currentTurmaPedidos() {
-      return this.$store.state.pedido.Pedidos[this.turma.id];
+    PedidosOfCurrentTurma() {
+      return this.Pedidos[this.turma.id];
     },
   },
 
