@@ -376,6 +376,9 @@ export default {
   beforeMount() {
     this.connectSemestreInTrimestre();
   },
+  beforeDestroy() {
+    this.clearCargasPosToDelete();
+  },
 
   methods: {
     ...mapActions(["deleteCargasPos", "clearCargasPosToDelete"]),
@@ -423,8 +426,9 @@ export default {
       this.connectSemestreInTrimestre();
     },
     connectSemestreInTrimestre() {
-      const findTrimestre = (array, trimestreValor) =>
+      const findTrimestre = (array, trimestreValor) => {
         this.$_.find(array, (item) => item.valor === trimestreValor);
+      };
 
       const allTrimestres = this.Trimestres;
       this.filtroTrimestres.selecionados = [];
@@ -448,8 +452,9 @@ export default {
       this.connectTrimestreInSemestre();
     },
     connectTrimestreInSemestre() {
-      const findTrimestre = (array, trimestreValor) =>
+      const findTrimestre = (array, trimestreValor) => {
         this.$_.find(array, (item) => item.valor === trimestreValor);
+      };
 
       const { selecionados } = this.filtroTrimestres;
 

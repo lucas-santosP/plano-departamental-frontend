@@ -386,6 +386,9 @@ export default {
   beforeMount() {
     this.modalFiltrosCallbacks.selectAll.Periodos();
   },
+  beforeDestroy() {
+    this.clearTurmasExternasToDelete();
+  },
 
   methods: {
     ...mapActions(["deleteTurmasExternas", "clearTurmasExternasToDelete"]),

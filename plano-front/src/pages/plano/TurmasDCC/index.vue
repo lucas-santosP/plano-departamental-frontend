@@ -621,6 +621,8 @@ export default {
     }
   },
   beforeDestroy() {
+    this.clearTurmasToDelete();
+
     ls.off("toggle");
     for (var c = 0; c < this.AllCursos.length; c++) {
       let id = this.AllCursos[c].id;
