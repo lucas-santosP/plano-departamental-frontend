@@ -9,15 +9,17 @@
       />
     </td>
     <td style="width: 55px" class="less-padding">
-      <select v-model="turmaForm.periodo" @change="handleEditTurma()">
+      <select v-model.number="turmaForm.periodo" @change="handleEditTurma()">
         <option value="1">1</option>
+        <option value="2">2</option>
         <option value="3">3</option>
+        <option value="4">4</option>
       </select>
     </td>
-    <td style="width: 70px">{{ turmaForm.disciplina.codigo }}</td>
+    <td style="width: 80px">{{ turmaForm.disciplina.codigo }}</td>
 
     <td style="width: 330px" class="less-padding">
-      <select v-model="turmaForm.Disciplina" @change="handleEditTurma()">
+      <select v-model.number="turmaForm.Disciplina" @change="handleEditTurma">
         <option
           v-for="disciplina in DisciplinasExternasInPerfis"
           :key="disciplina.id"
@@ -36,15 +38,14 @@
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
-        @change="handleEditTurma()"
+        @change="handleEditTurma"
       />
     </td>
 
     <td style="width: 80px;" class="less-padding">
       <select v-model="turmaForm.turno1" @change="handleEditTurma()">
-        <template v-if="disciplinaIsIntegralEAD">
-          <option value="EAD">EAD</option>
-        </template>
+        <option v-if="disciplinaIsIntegralEAD" value="EAD">EAD</option>
+
         <template v-else>
           <option value="Diurno">Diurno</option>
           <option value="Noturno">Noturno</option>
@@ -53,8 +54,8 @@
     </td>
 
     <td style="width:85px" class="less-padding">
-      <select v-model="turmaForm.Horario1" @change="checkHorario(1)">
-        <option value></option>
+      <select v-model.number="turmaForm.Horario1" @change="checkHorario(1)">
+        <option value=""></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
@@ -64,10 +65,10 @@
       </select>
       <select
         v-if="totalCarga >= 4"
-        v-model="turmaForm.Horario2"
+        v-model.number="turmaForm.Horario2"
         @change="checkHorario(2)"
       >
-        <option value></option>
+        <option value=""></option>
         <option
           v-for="horario in HorariosFiltredByTurno"
           :key="horario.id"
@@ -79,24 +80,24 @@
 
     <td style="width: 95px" class="less-padding">
       <template v-if="!disciplinaIsIntegralEAD">
-        <select v-model="turmaForm.Sala1" @change="checkSala(1)">
-          <option value></option>
+        <select v-model.number="turmaForm.Sala1" @change="checkSala(1)">
+          <option value=""></option>
           <option
             v-for="sala in AllSalas"
-            :key="'s1' + sala.id"
+            :key="sala.id + sala.nome"
             :value="sala.id"
             >{{ sala.nome }}</option
           >
         </select>
         <select
           v-if="totalCarga >= 4"
-          v-model="turmaForm.Sala2"
+          v-model.number="turmaForm.Sala2"
           @change="checkSala(2)"
         >
           <option value></option>
           <option
             v-for="sala in AllSalas"
-            :key="'s2' + sala.id"
+            :key="sala.nome + sala.id"
             :value="sala.id"
             >{{ sala.nome }}</option
           >
@@ -104,15 +105,17 @@
       </template>
     </td>
 
-    <td style="width: 40px;" class="p-0">
-      <div style="height: 43px;" class="py-1">
-        <span style="font-weight:bold">{{
-          totalPedidosNaoPeriodizados + totalPedidosPeriodizados
-        }}</span>
-        <br />
-        <p class="mt-1">
+    <td style="width:45px" class="p-0">
+      <div
+        style="height:43px"
+        class="py-1 d-flex flex-column justify-content-between"
+      >
+        <span class="font-weight-bold">
+          {{ totalPedidosNaoPeriodizados + totalPedidosPeriodizados }}
+        </span>
+        <span>
           {{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}
-        </p>
+        </span>
       </div>
     </td>
 
@@ -172,7 +175,7 @@ export default {
           type: "error",
           title: "Erro ao atualizar turma!",
           text: error.response
-            ? "A combinação de disciplina, semestre e turma deve ser única."
+            ? "A combinação de disciplina, período e turma deve ser única."
             : error.message,
         });
       } finally {
@@ -599,6 +602,7 @@ export default {
       "HorariosDiurno",
       "AllSalas",
       "TurmasExternasToDelete",
+      "PeriodosLetivos",
     ]),
 
     toggleToDelete: {
@@ -660,10 +664,10 @@ export default {
       const indicesResultantes = [];
 
       this.$_.forEach(this.currentTurmaPedidos, (pedido, index) => {
-        const cursoFounded = this.$_.find(
-          this.CursosAtivados,
-          (curso) => curso.id === pedido.Curso
-        );
+        const cursoFounded = this.$_.some(this.CursosAtivados, [
+          "id",
+          pedido.Curso,
+        ]);
 
         if (cursoFounded) indicesResultantes.push(index);
       });

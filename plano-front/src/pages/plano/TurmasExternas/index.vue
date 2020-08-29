@@ -63,9 +63,9 @@
       <BaseTable>
         <template #thead>
           <th style="width: 25px"></th>
-          <th style="width: 55px" title="Semestre">S.</th>
+          <th style="width: 55px" title="Período letivo">P.</th>
           <th
-            style="width: 70px"
+            style="width: 80px"
             class="clickable"
             @click="toggleOrder(ordenacaoTurmasMain, 'disciplina.codigo')"
             title="Código"
@@ -85,50 +85,23 @@
               :class="setIconByOrder(ordenacaoTurmasMain, 'disciplina.nome')"
             ></i>
           </th>
-          <th style="width: 25px;" title="Créditos">C.</th>
+          <th style="width: 25px" title="Créditos">C.</th>
           <th style="width: 45px" title="Turma">T.</th>
-          <th style="width: 80px" title="Total de vagas">Turno</th>
+          <th style="width: 80px">Turno</th>
           <th style="width: 85px">Horário</th>
           <th style="width: 95px">Sala</th>
-          <th style="width: 40px">Total</th>
-          <template v-for="curso in CursosDCC">
-            <th
-              style="width: 35px"
-              :id="'curso' + curso.id"
-              :key="'1-curso' + curso.id"
-            >
-              {{ curso.codigo }}
-              <b-popover
-                :key="'popover' + curso.id"
-                :target="'curso' + curso.id"
-                placement="bottom"
-                triggers="hover focus"
-              >
-                <span
-                  class="w-100 text-center"
-                  style="font-size: 11px!important;"
-                >
-                  <b>{{ curso.nome }}</b>
-                </span>
-                <p
-                  class="p-0 m-0 text-center"
-                  style="font-size: 11px!important;"
-                >
-                  {{
-                    curso.semestreInicial == 1 || curso.semestreInicial == 3
-                      ? "1º - " + curso.alunosEntrada
-                      : ""
-                  }}
-                  <br />
-                  {{
-                    curso.semestreInicial == 2 || curso.semestreInicial == 3
-                      ? "2º - " + curso.alunosEntrada2
-                      : ""
-                  }}
-                </p>
-              </b-popover>
-            </th>
-          </template>
+          <th style="width: 45px" title="Total de vagas">Total</th>
+          <th
+            style="width:35px"
+            v-for="curso in CursosDCC"
+            :key="curso.id + curso.nome"
+            v-b-popover.hover.bottom="{
+              title: curso.nome,
+              content: cursoPopoverText(curso),
+            }"
+          >
+            {{ curso.codigo }}
+          </th>
         </template>
 
         <template #add-row>
@@ -138,13 +111,13 @@
         <template #tbody>
           <TurmaExternaRow
             v-for="turma in TurmasExternasOrdered"
-            :key="'turma' + turma.id"
+            :key="turma.id + turma.letra + turma.Disciplina"
             :turma="turma"
             :CursosAtivados="CursosDCC"
           />
 
           <tr v-if="!TurmasExternasOrdered.length">
-            <td style="width:990px">
+            <td style="width:1005px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-las.
@@ -196,7 +169,7 @@
           <template #tbody>
             <tr
               v-for="disciplina in DisciplinasExternasOrderedModal"
-              :key="'disciplina' + disciplina.id"
+              :key="disciplina.id + disciplina.nome"
               @click="
                 toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)
               "
@@ -228,33 +201,32 @@
         </BaseTable>
 
         <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
+          type="modal"
+          v-show="modalFiltrosTabs.current === 'Períodos'"
         >
           <template #thead>
             <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">Semestre Letivo</th>
+            <th style="width: 425px" class="t-start">Periodos Letivo</th>
           </template>
           <template #tbody>
-            <tr @click="filtroSemestres.primeiro = !filtroSemestres.primeiro">
+            <tr
+              v-for="periodoLetivo in PeriodosLetivos"
+              :key="periodoLetivo.id + periodoLetivo.nome"
+              @click.stop="
+                toggleItemInArray(periodoLetivo, filtroPeriodos.selecionados)
+              "
+            >
               <td style="width: 25px">
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
-                  v-model="filtroSemestres.primeiro"
+                  :value="periodoLetivo"
+                  v-model="filtroPeriodos.selecionados"
                 />
               </td>
-              <td style="width: 425px" class="t-start">PRIMEIRO</td>
-            </tr>
-            <tr @click="filtroSemestres.segundo = !filtroSemestres.segundo">
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  v-model="filtroSemestres.segundo"
-                />
+              <td style="width: 425px" class="t-start upper-case">
+                {{ periodoLetivo.nome }}
               </td>
-              <td style="width: 425px" class="t-start">SEGUNDO</td>
             </tr>
           </template>
         </BaseTable>
@@ -277,7 +249,7 @@
         :key="turma.id + turma.letra + turma.periodo"
       >
         <span>
-          <b>Semestre:</b>
+          <b>Periodo:</b>
           {{ turma.periodo }} -
           <b>Turma:</b>
           {{ turma.letra }}
@@ -362,20 +334,19 @@ export default {
       asideModalsRefs: ["modalFiltros", "modalAjuda"],
       ordenacaoTurmasMain: { order: "disciplina.codigo", type: "asc" },
       ordenacaoDisciplinasModal: { order: "codigo", type: "asc" },
-      filtroSemestres: {
-        primeiro: true,
-        segundo: true,
-        ativo: 3,
-      },
-      filtroDisciplinas: {
-        ativadas: [],
-        selecionadas: [],
-      },
       searchDisciplinasModal: "",
       tabAtivaModal: "Disciplinas",
       modalFiltrosTabs: {
         current: "Disciplinas",
-        array: ["Disciplinas", "Semestres"],
+        array: ["Disciplinas", "Períodos"],
+      },
+      filtroPeriodos: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroDisciplinas: {
+        ativadas: [],
+        selecionadas: [],
       },
       modalFiltrosCallbacks: {
         selectAll: {
@@ -384,28 +355,30 @@ export default {
               ...this.DisciplinasExternasInPerfis,
             ];
           },
-          Semestres: () => {
-            this.filtroSemestres.primeiro = true;
-            this.filtroSemestres.segundo = true;
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
           },
         },
         selectNone: {
           Disciplinas: () => {
             this.filtroDisciplinas.selecionadas = [];
           },
-          Semestres: () => {
-            this.filtroSemestres.primeiro = false;
-            this.filtroSemestres.segundo = false;
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [];
           },
         },
         btnOk: () => {
+          this.filtroPeriodos.ativados = [...this.filtroPeriodos.selecionados];
           this.filtroDisciplinas.ativadas = [
             ...this.filtroDisciplinas.selecionadas,
           ];
-          this.setSemestreAtivo();
         },
       },
     };
+  },
+
+  beforeMount() {
+    this.modalFiltrosCallbacks.selectAll.Periodos();
   },
 
   methods: {
@@ -414,19 +387,23 @@ export default {
     toggleAddRow() {
       this.isAdding = !this.isAdding;
     },
-    setSemestreAtivo() {
-      const { primeiro, segundo } = this.filtroSemestres;
-
-      if (primeiro && !segundo) this.filtroSemestres.ativo = 1;
-      else if (!primeiro && segundo) this.filtroSemestres.ativo = 2;
-      else if (primeiro && segundo) this.filtroSemestres.ativo = 3;
-      else this.filtroSemestres.ativo = undefined;
-    },
     openModalDelete() {
       this.$refs.modalDelete.open();
     },
     addNovaTurma() {
       this.$refs.novaTurmaExternaRow.handleAddNovaTurma();
+    },
+    cursoPopoverText(curso) {
+      switch (curso.semestreInicial) {
+        case 1:
+          return `1º - ${curso.alunosEntrada}`;
+        case 2:
+          return `2º - ${curso.alunosEntrada2}`;
+        case 3:
+          return `1º - ${curso.alunosEntrada}\n2º - ${curso.alunosEntrada2}`;
+        default:
+          return "";
+      }
     },
 
     async handleDeleteTurmas() {
@@ -450,6 +427,7 @@ export default {
       "TurmasExternasInDisciplinas",
       "DisciplinasExternasInPerfis",
       "TurmasExternasToDelete",
+      "PeriodosLetivos",
     ]),
 
     TurmasExternasOrdered() {
@@ -460,25 +438,16 @@ export default {
       );
     },
     TurmasExternarFiltredByDisciplinas() {
-      return this.$_.filter(this.TurmasExternarFiltredBySemestres, (turma) =>
+      return this.$_.filter(this.TurmasExternarFiltredByPeriodos, (turma) =>
         this.$_.some(this.filtroDisciplinas.ativadas, ["id", turma.Disciplina])
       );
     },
-    TurmasExternarFiltredBySemestres() {
-      return this.$_.filter(this.TurmasExternasInDisciplinas, (turma) => {
-        switch (this.filtroSemestres.ativo) {
-          case 1:
-            return turma.periodo === 1;
-          case 2:
-            return turma.periodo === 3;
-          case 3:
-            return true;
-          default:
-            return false;
-        }
-      });
+    TurmasExternarFiltredByPeriodos() {
+      return this.$_.filter(this.TurmasExternasInDisciplinas, (turma) =>
+        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      );
     },
-    //modal tables
+
     CursosDCC() {
       return this.$_.slice(this.$store.state.curso.Cursos, 0, 4);
     },
