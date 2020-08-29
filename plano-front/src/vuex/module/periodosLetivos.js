@@ -1,5 +1,3 @@
-import {} from "../mutation-types";
-import _ from "lodash";
 const state = {
   PeriodosLetivos: [
     {
@@ -21,8 +19,6 @@ const state = {
   ],
 };
 
-const mutations = {};
-
 const getters = {
   PeriodosLetivos(state) {
     return state.PeriodosLetivos;
@@ -31,6 +27,5 @@ const getters = {
 
 export default {
   state,
-  mutations,
   getters,
 };

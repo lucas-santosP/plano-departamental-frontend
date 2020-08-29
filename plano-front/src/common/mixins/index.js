@@ -6,8 +6,10 @@ import maskOnlyNumber from "./maskOnlyNumber";
 import generateHorariosText from "./generateHorariosText";
 import generateDocentesText from "./generateDocentesText";
 import toggleAsideModal from "./toggleAsideModal";
+import cursoPopoverContent from "./cursoPopoverContent";
 
 export {
+  cursoPopoverContent,
   toggleAsideModal,
   generateDocentesText,
   generateHorariosText,
