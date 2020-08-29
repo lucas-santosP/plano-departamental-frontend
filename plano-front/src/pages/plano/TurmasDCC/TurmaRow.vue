@@ -190,14 +190,16 @@
       </template>
     </td>
     <td style="width:45px" class="less-padding">
-      <div style="height: 43px;" class="py-1">
-        <span style="font-weight:bold">{{
-          totalPedidosPeriodizados + totalPedidosNaoPeriodizados
-        }}</span>
-        <br />
-        <p class="mt-1">
+      <div
+        style="height:43px"
+        class="py-1 d-flex flex-column justify-content-between"
+      >
+        <span class="font-weight-bold">
+          {{ totalPedidosNaoPeriodizados + totalPedidosPeriodizados }}
+        </span>
+        <span>
           {{ totalPedidosPeriodizados }}+{{ totalPedidosNaoPeriodizados }}
-        </p>
+        </span>
       </div>
     </td>
     <td
@@ -1079,7 +1081,7 @@ export default {
           type: "error",
           title: "Erro ao atualizar turma!",
           text: error.response
-            ? "A combinação de disciplina, semestre e turma deve ser única."
+            ? "A combinação de disciplina, período e turma deve ser única."
             : error.message,
         });
       } finally {

@@ -238,7 +238,7 @@ export default {
           type: "error",
           title: "Erro ao criar nova turma!",
           message: error.response
-            ? "A combinação de disciplina, semestre e turma deve ser única."
+            ? "A combinação de disciplina, período e turma deve ser única."
             : error.message,
         });
       } finally {

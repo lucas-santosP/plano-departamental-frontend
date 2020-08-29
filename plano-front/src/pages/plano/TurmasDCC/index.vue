@@ -74,7 +74,7 @@
         <template #thead>
           <th style="width:25px"></th>
           <th style="width:40px" class="p-0">Editar</th>
-          <th style="width:55px" title="Semestre">S.</th>
+          <th style="width:55px" title="Período letivo">P.</th>
           <th
             @click="toggleOrder(ordenacaoMain.perfis, setFixedOrderPerfil)"
             style="width: 80px"
@@ -410,7 +410,7 @@
         :key="turma.id + turma.letra + turma.periodo"
       >
         <span>
-          <b>Semestre:</b>
+          <b>Período:</b>
           {{ turma.periodo }} -
           <b>Turma:</b>
           {{ turma.letra }}
@@ -719,14 +719,14 @@ export default {
         );
     },
     TurmasFiltredByDisciplinas() {
-      return this.$_.filter(this.TurmasFiltredBySemestres, (turma) =>
+      return this.$_.filter(this.TurmasFiltredByPeriodos, (turma) =>
         this.$_.some(
           this.filtroDisciplinas.ativadas,
           (disciplinaId) => disciplinaId === turma.Disciplina
         )
       );
     },
-    TurmasFiltredBySemestres() {
+    TurmasFiltredByPeriodos() {
       return this.$_.filter(this.TurmasInDisciplinasPerfis, (turma) =>
         this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
