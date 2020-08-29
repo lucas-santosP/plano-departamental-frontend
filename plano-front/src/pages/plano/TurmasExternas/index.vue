@@ -97,7 +97,7 @@
             :key="curso.id + curso.nome"
             v-b-popover.hover.bottom="{
               title: curso.nome,
-              content: cursoPopoverText(curso),
+              content: cursoPopoverContent(curso),
             }"
           >
             {{ curso.codigo }}
@@ -311,6 +311,7 @@ import {
   toggleOrdination,
   toggleItemInArray,
   toggleAsideModal,
+  cursoPopoverContent,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
@@ -319,7 +320,12 @@ import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
 
 export default {
   name: "DashboardTurmasExternas",
-  mixins: [toggleOrdination, toggleItemInArray, toggleAsideModal],
+  mixins: [
+    toggleOrdination,
+    toggleItemInArray,
+    toggleAsideModal,
+    cursoPopoverContent,
+  ],
   components: {
     ModalFiltros,
     ModalAjuda,
@@ -392,18 +398,6 @@ export default {
     },
     addNovaTurma() {
       this.$refs.novaTurmaExternaRow.handleAddNovaTurma();
-    },
-    cursoPopoverText(curso) {
-      switch (curso.semestreInicial) {
-        case 1:
-          return `1º - ${curso.alunosEntrada}`;
-        case 2:
-          return `2º - ${curso.alunosEntrada2}`;
-        case 3:
-          return `1º - ${curso.alunosEntrada}\n2º - ${curso.alunosEntrada2}`;
-        default:
-          return "";
-      }
     },
 
     async handleDeleteTurmas() {

@@ -132,9 +132,9 @@
             :key="curso.id + curso.codigo"
             class="p-0"
             style="width: 35px"
-            v-b-popover.hover.html.bottom="{
+            v-b-popover.hover.bottom="{
               title: curso.nome,
-              content: popoverCursoContent(curso),
+              content: cursoPopoverContent(curso),
             }"
           >
             <span
@@ -490,6 +490,7 @@ import {
   toggleOrdination,
   toggleItemInArray,
   toggleAsideModal,
+  cursoPopoverContent,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import {
@@ -504,7 +505,12 @@ import TurmaRow from "./TurmaRow.vue";
 
 export default {
   name: "TurmasDCC",
-  mixins: [toggleOrdination, toggleItemInArray, toggleAsideModal],
+  mixins: [
+    toggleOrdination,
+    toggleItemInArray,
+    toggleAsideModal,
+    cursoPopoverContent,
+  ],
   components: {
     ModalAjuda,
     ModalFiltros,
@@ -631,15 +637,6 @@ export default {
     },
     selectCursosDCC() {
       this.filtroCursos.selecionados = [...this.CursosDCC];
-    },
-
-    popoverCursoContent(curso) {
-      const { semestreInicial, alunosEntrada, alunosEntrada2 } = curso;
-
-      if (semestreInicial == 1) return `<b>1º</b> - ${alunosEntrada}`;
-      else if (semestreInicial == 2) return `<b>2º</b> - ${alunosEntrada2}`;
-      else
-        return `<b>1º</b> - ${alunosEntrada} <br/> <b>2º</b> - ${alunosEntrada2}`;
     },
     toggleIsAdding() {
       this.isAdding = !this.isAdding;
