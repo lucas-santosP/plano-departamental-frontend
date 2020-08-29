@@ -7,8 +7,10 @@ import generateHorariosText from "./generateHorariosText";
 import generateDocentesText from "./generateDocentesText";
 import toggleAsideModal from "./toggleAsideModal";
 import cursoPopoverContent from "./cursoPopoverContent";
+import vFocusPedido from "./vFocusPedido";
 
 export {
+  vFocusPedido,
   cursoPopoverContent,
   toggleAsideModal,
   generateDocentesText,

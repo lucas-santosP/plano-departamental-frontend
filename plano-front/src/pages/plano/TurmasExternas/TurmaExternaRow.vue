@@ -132,7 +132,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { maskTurmaLetra } from "@/common/mixins";
-
 import InputsPedidosExternos from "./InputsPedidosExternos.vue";
 
 export default {
@@ -602,7 +601,7 @@ export default {
       "HorariosDiurno",
       "AllSalas",
       "TurmasExternasToDelete",
-      "PeriodosLetivos",
+      "PedidosExternos",
     ]),
 
     toggleToDelete: {
@@ -615,19 +614,19 @@ export default {
     },
 
     totalPedidosPeriodizados() {
-      if (!this.currentTurmaPedidos) return 0;
+      if (!this.PedidosOfCurrentTurma) return 0;
 
       return this.$_.reduce(
-        this.currentTurmaPedidos,
+        this.PedidosOfCurrentTurma,
         (sum, turma) => sum + parseInt(turma.vagasPeriodizadas, 10),
         0
       );
     },
     totalPedidosNaoPeriodizados() {
-      if (!this.currentTurmaPedidos) return 0;
+      if (!this.PedidosOfCurrentTurma) return 0;
 
       return this.$_.reduce(
-        this.currentTurmaPedidos,
+        this.PedidosOfCurrentTurma,
         (sum, turma) => sum + parseInt(turma.vagasNaoPeriodizadas, 10),
         0
       );
@@ -645,7 +644,6 @@ export default {
     HorariosFiltredByTurno() {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
-      //Se não, verifica o turno selecionado
       switch (this.turmaForm.turno1) {
         case "Noturno":
           return this.HorariosNoturno;
@@ -663,7 +661,7 @@ export default {
     IndicesInPedidos() {
       const indicesResultantes = [];
 
-      this.$_.forEach(this.currentTurmaPedidos, (pedido, index) => {
+      this.$_.forEach(this.PedidosOfCurrentTurma, (pedido, index) => {
         const cursoFounded = this.$_.some(this.CursosAtivados, [
           "id",
           pedido.Curso,
@@ -673,8 +671,8 @@ export default {
       });
       return indicesResultantes;
     },
-    currentTurmaPedidos() {
-      return this.$store.state.pedidoExterno.Pedidos[this.turma.id];
+    PedidosOfCurrentTurma() {
+      return this.PedidosExternos[this.turma.id];
     },
   },
 
@@ -690,14 +688,18 @@ export default {
 <style scoped>
 .turmarow {
   font-size: 11px !important;
-  background-color: #fff;
+  background-color: #fff !important;
 }
-.turmarow td {
+
+.turmarow > td {
   vertical-align: middle !important;
   margin: 0 !important;
   padding: 0 5px;
   text-align: center;
   word-break: break-word;
+}
+.turmarow > td {
+  background-color: #fff !important;
 }
 
 .turmarow select,
