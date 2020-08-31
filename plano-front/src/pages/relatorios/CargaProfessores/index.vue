@@ -626,7 +626,7 @@ export default {
           if (turma.periodo === 1 || turma.periodo === 2) {
             Turmas1Semestre.push({ ...turma, creditosDaTurma });
             totalCreditos1Semestre += creditosDaTurma;
-          } else {
+          } else if (turma.periodo === 3 || turma.periodo === 4) {
             Turmas2Semestre.push({ ...turma, creditosDaTurma });
             totalCreditos2Semestre += creditosDaTurma;
           }
@@ -768,9 +768,9 @@ export default {
       return this.$_.filter(this.turmasSemAlocacao, (turma) => {
         switch (this.filtroSemestres.ativo) {
           case 1:
-            return turma.periodo === 1;
+            return turma.periodo === 1 || turma.periodo === 2;
           case 2:
-            return turma.periodo === 2;
+            return turma.periodo === 3 || turma.periodo === 4;
           case 3:
             return true;
           default:
