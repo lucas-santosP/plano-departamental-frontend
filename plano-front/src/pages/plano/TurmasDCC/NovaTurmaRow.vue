@@ -237,7 +237,7 @@ export default {
         this.pushNotification({
           type: "error",
           title: "Erro ao criar nova turma!",
-          message: error.response
+          text: error.response
             ? "A combinação de disciplina, período e turma deve ser única."
             : error.message,
         });
