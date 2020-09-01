@@ -13,10 +13,10 @@
         v-model.number="cargaPosForm.trimestre"
         @change="handleEditCargaPos"
       >
-        <option type="text" value="1">1</option>
-        <option type="text" value="2">2</option>
-        <option type="text" value="3">3</option>
-        <option type="text" value="4">4</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
       </select>
     </td>
 
