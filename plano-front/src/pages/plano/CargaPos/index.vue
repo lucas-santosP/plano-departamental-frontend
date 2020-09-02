@@ -64,7 +64,7 @@
         <template #thead>
           <th style="width:70px" class="p-0">Programa</th>
           <th style="width:25px"></th>
-          <th style="width:55px" title="Período">P.</th>
+          <th style="width:55px" title="Período letivo">P.</th>
           <th
             @click="toggleOrder(ordenacaoCargaPos, 'docenteApelido')"
             class="t-start clickable"

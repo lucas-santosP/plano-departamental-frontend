@@ -61,7 +61,7 @@
             ></i>
           </th>
           <th style="width: 35px" title="Créditos">C.</th>
-          <th style="width: 25px" title="Período">P.</th>
+          <th style="width: 25px" title="Período letivo">P.</th>
           <th style="width: 35px" title="Turma">T.</th>
           <th style="width: 150px">Docentes</th>
           <th style="width: 130px" class="less-padding">Horário</th>
