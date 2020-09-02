@@ -597,11 +597,13 @@ export default {
         pdfs.pdfCargaProfessores({
           Docentes: this.DocentesAtivos,
           SemAlocacao: true,
+          plano: this.$_.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'))})
         });
       else
         pdfs.pdfCargaProfessores({
           Docentes: this.filtroDocentes.ativados,
           SemAlocacao: this.filtroDocenteSemAlocacao.ativado,
+          plano: this.$_.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'))})
         });
     },
 
