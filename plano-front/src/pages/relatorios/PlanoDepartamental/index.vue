@@ -463,6 +463,7 @@ export default {
         disciplinasSelecionadas: completo
           ? this.DisciplinasDCCInPerfis
           : this.DisciplinasInTurmasFiltredByDisciplina,
+        plano: this.$_.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'))})
       });
     },
     getVagasByTurmaId(turmaId) {
