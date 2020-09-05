@@ -37,7 +37,7 @@
             style="width: 130px"
             class="clickable t-start"
           >
-            Nome
+            Apelido
             <i :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"></i>
           </th>
           <th style="width: 25px" title="Semestre">S.</th>
@@ -70,7 +70,7 @@
           </th>
         </template>
         <template #tbody>
-          <template v-for="docente in DocentesOrderedMain">
+          <template v-for="docente in DocentesInTurmasOrdered">
             <tr class="bg-custom" :key="docente.id + docente.nome">
               <td style="width: 130px" class="t-start">
                 {{ docente.apelido }}
@@ -350,7 +350,8 @@
 
           <tr
             v-show="
-              !filtroDocenteSemAlocacao.ativado && !DocentesOrderedMain.length
+              !filtroDocenteSemAlocacao.ativado &&
+                !DocentesInTurmasOrdered.length
             "
           >
             <td colspan="6" style="width:750px">
@@ -391,7 +392,7 @@
           <template #thead-search>
             <InputSearch
               v-model="searchDocentes"
-              placeholder="Pesquise o nome de um docente..."
+              placeholder="Pesquise pelo apelido de um docente..."
             />
           </template>
           <template #thead>
@@ -597,13 +598,17 @@ export default {
         pdfs.pdfCargaProfessores({
           Docentes: this.DocentesAtivos,
           SemAlocacao: true,
-          plano: this.$_.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'))})
+          plano: this.$_.find(this.$store.state.plano.Plano, {
+            id: parseInt(localStorage.getItem("Plano")),
+          }),
         });
       else
         pdfs.pdfCargaProfessores({
           Docentes: this.filtroDocentes.ativados,
           SemAlocacao: this.filtroDocenteSemAlocacao.ativado,
-          plano: this.$_.find(this.$store.state.plano.Plano, {id: parseInt(localStorage.getItem('Plano'))})
+          plano: this.$_.find(this.$store.state.plano.Plano, {
+            id: parseInt(localStorage.getItem("Plano")),
+          }),
         });
     },
 
@@ -689,24 +694,21 @@ export default {
       "TurmasInDisciplinasPerfis",
     ]),
     // table main
-    DocentesOrderedMain() {
+    DocentesInTurmasOrdered() {
       return this.$_.orderBy(
-        this.DocentesFiltredByDocenteMain,
+        this.DocentesInTurmasFiltredByDocenteMain,
         this.orednacaoDocentesMain.order,
         this.orednacaoDocentesMain.type
       );
     },
-    DocentesFiltredByDocenteMain() {
-      return this.$_.filter(this.DocentesFiltredBySemestreMain, (docente) => {
-        const docenteFoundedIndex = this.$_.findIndex(
-          this.filtroDocentes.ativados,
-          (docenteAtivado) => docenteAtivado.id === docente.id
-        );
-
-        return docenteFoundedIndex !== -1;
-      });
+    DocentesInTurmasFiltredByDocenteMain() {
+      return this.$_.filter(
+        this.DocentesInTurmasFiltredBySemestreMain,
+        (docente) =>
+          this.$_.some(this.filtroDocentes.ativados, ["id", docente.id])
+      );
     },
-    DocentesFiltredBySemestreMain() {
+    DocentesInTurmasFiltredBySemestreMain() {
       return this.$_.map(this.DocentesInTurmas, (docente) => {
         const docenteFiltred = { ...docente };
 
