@@ -54,7 +54,6 @@ export default {
         disciplina: this.findDisciplinaInTurma(turma),
       }));
     },
-
     findDocentesApelidoInTurma(turma) {
       let docente1 = undefined;
       let docente2 = undefined;
@@ -80,7 +79,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["ListaDeHorariosEletivas", "AllDisciplinas", "AllDocentes"]),
+    ...mapGetters(["AllDisciplinas", "AllDocentes"]),
   },
 };
 </script>

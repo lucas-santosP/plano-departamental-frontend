@@ -34,7 +34,7 @@
       class="row w-100 m-0"
     >
       <div v-show="semestre1IsActived" class="w-100">
-        <h2 class="semestre-title">1º SEMESTRE</h2>
+        <h2 class="semestre-title">1º Semestre</h2>
 
         <ListTableHorarios
           v-for="curso in CursosInHorariosFiltred"
@@ -55,7 +55,7 @@
       </div>
 
       <div v-show="semestre2IsActived" class="w-100">
-        <h2 class="semestre-title">2º SEMESTRE</h2>
+        <h2 class="semestre-title">3º Semestre</h2>
 
         <ListTableHorarios
           v-for="curso in CursosInHorariosFiltred"
@@ -76,13 +76,7 @@
       </div>
     </div>
 
-    <p
-      v-if="
-        (!this.semestre1IsActived && !this.semestre2IsActived) ||
-          !hasAnyHorariosActived
-      "
-      class="text-empty"
-    >
+    <p v-if="horariosIsEmpty" class="text-empty">
       <b>Nenhum horário encontrado.</b> Clique no botão de filtros
       <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para
       selecioná-los.
@@ -609,7 +603,11 @@ export default {
               fontSize: 10,
             },
             {
-              text: "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "1º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -993,7 +991,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "1º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1379,7 +1381,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "1º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1765,7 +1771,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "1º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2151,7 +2161,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "1º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2612,7 +2626,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "2º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2998,7 +3016,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "2º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3384,7 +3406,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "2º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3770,7 +3796,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "2º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4156,7 +4186,11 @@ export default {
               pageBreak: "before",
             },
             {
-              text: "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
+              text:
+                "2º Semestre " +
+                this.currentPlano.ano +
+                " - " +
+                this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4723,6 +4757,12 @@ export default {
       return this.$_.some(
         this.filtroCursos.ativados,
         (curso) => curso.codigo === "-"
+      );
+    },
+    horariosIsEmpty() {
+      return (
+        (!this.semestre1IsActived && !this.semestre2IsActived) ||
+        !this.hasAnyHorariosActived
       );
     },
   },
