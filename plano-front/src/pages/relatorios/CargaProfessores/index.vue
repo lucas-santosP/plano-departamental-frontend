@@ -347,7 +347,7 @@ export default {
 
       const turmasOredered = this.$_.orderBy(this.TurmasInDisciplinasPerfis, [
         "periodo",
-        "Disciplina",
+        "disciplina.nome",
         "letra",
       ]);
 
