@@ -587,13 +587,13 @@ export default {
       let horariosAtivos;
       let semestre = ((periodo === 1 || periodo === 2) ? 1:2)
       switch(periodo){
-        case 1: horariosAtivos = this.horariosAtivos1;
+        case 1: horariosAtivos = this.horariosAtivos1.Eletivas;
                 break;
-        case 2: horariosAtivos = this.horariosAtivos2;
+        case 2: horariosAtivos = this.horariosAtivos2.Eletivas;
                 break;
-        case 3: horariosAtivos = this.horariosAtivos3;
+        case 3: horariosAtivos = this.horariosAtivos3.Eletivas;
                 break;
-        case 4: horariosAtivos = this.horariosAtivos4;
+        case 4: horariosAtivos = this.horariosAtivos4.Eletivas;
                 break;
       }
       let periodoGrade;
