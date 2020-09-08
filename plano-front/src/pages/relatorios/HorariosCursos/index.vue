@@ -241,6 +241,20 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
+      horariosAtivos3: {
+        CCD: [[], [], [], [], [], [], [], [], [], []],
+        CCN: [[], [], [], [], [], [], [], [], [], []],
+        EC: [[], [], [], [], [], [], [], [], [], []],
+        SI: [[], [], [], [], [], [], [], [], [], []],
+        Eletivas: [],
+      },
+      horariosAtivos4: {
+        CCD: [[], [], [], [], [], [], [], [], [], []],
+        CCN: [[], [], [], [], [], [], [], [], [], []],
+        EC: [[], [], [], [], [], [], [], [], [], []],
+        SI: [[], [], [], [], [], [], [], [], [], []],
+        Eletivas: [],
+      },
       modalFiltrosTabs: {
         current: "Cursos",
         array: ["Cursos", "Semestres"],
@@ -279,10 +293,14 @@ export default {
     for (let i = 1; i < 5; i++) {
       this.createHorarios(i, 1);
       this.createHorarios(i, 2);
+      this.createHorarios(i, 3);
+      this.createHorarios(i, 4);
     }
 
     this.createHorarioEletivas(1);
     this.createHorarioEletivas(2);
+    this.createHorarioEletivas(3);
+    this.createHorarioEletivas(4);
 
     this.modalFiltrosCallbacks.selectAll.Cursos();
     this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
@@ -345,10 +363,6 @@ export default {
           }
       }
 
-      this.$store.commit("redefinirAtivas1", {
-        Ativas: this.horariosAtivos1,
-      });
-
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < this.horariosAtivos2.CCD[i].length; j++)
           for (let k = 0; k < this.AllTurmas.length; k++) {
@@ -376,8 +390,62 @@ export default {
           }
       }
 
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < this.horariosAtivos3.CCD[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos3.CCD[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos3.CCD[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos3.CCN[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos3.CCN[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos3.CCN[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos3.EC[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos3.EC[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos3.EC[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos3.SI[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos3.SI[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos3.SI[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+        }
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < this.horariosAtivos4.CCD[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos4.CCD[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos4.CCD[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos4.CCN[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos4.CCN[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos4.CCN[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos4.EC[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos4.EC[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos4.EC[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+            for (let j = 0; j < this.horariosAtivos4.SI[i].length; j++)
+                for (let k = 0; k < this.AllTurmas.length; k++) {
+                    if (this.horariosAtivos4.SI[i][j].id == this.AllTurmas[k].id) {
+                        this.horariosAtivos4.SI[i].splice(j, 1, this.AllTurmas[k]);
+                    }
+                }
+        }
+
       this.$store.commit("redefinirAtivas1", {
-        Ativas2: this.horariosAtivos2,
+        Ativas2: this.horariosAtivos1,
       });
 
       this.$store.commit("redefinirAtivas2", {
@@ -385,10 +453,19 @@ export default {
       });
     },
 
-    createHorarios(curso, semestre) {
+    createHorarios(curso, periodo) {
       let horariosAtivos;
-      if (semestre === 1) horariosAtivos = this.horariosAtivos1;
-      else horariosAtivos = this.horariosAtivos2;
+      let semestre = ((periodo === 1 || periodo === 2) ? 1:2)
+      switch(periodo){
+          case 1: horariosAtivos = this.horariosAtivos1;
+                  break;
+          case 2: horariosAtivos = this.horariosAtivos2;
+                  break;
+          case 3: horariosAtivos = this.horariosAtivos3;
+                  break;
+          case 4: horariosAtivos = this.horariosAtivos4;
+                  break;
+      }
       switch (curso) {
         case 1:
           horariosAtivos = horariosAtivos.CCN;
@@ -406,9 +483,9 @@ export default {
           return;
       }
 
-      let periodoInicio;
-      if (semestre === 1) periodoInicio = 1;
-      else periodoInicio = 3;
+      let periodoGrade;
+      if (semestre === 1) periodoGrade = 1;
+      else periodoGrade = 3;
 
       let plano = this.$_.find(this.$store.state.plano.Plano, {
         id: parseInt(localStorage.getItem("Plano")),
@@ -421,7 +498,7 @@ export default {
         let fim =
           1 +
           2 * (plano.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
-          (periodoInicio - parseInt(g.periodoInicio.slice(5, 6), 10)) / 2;
+          (periodoGrade - parseInt(g.periodoInicio.slice(5, 6), 10)) / 2;
         if (fim > 10) {
           fim = 10;
         }
@@ -455,12 +532,12 @@ export default {
         this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 ===
         semestre - 1;
       let turmas = this.$_.filter(this.$store.state.turma.Turmas, {
-        periodo: periodoInicio,
+        periodo: periodo,
       });
       let turmasExternas = this.$_.filter(
         this.$store.state.turmaExterna.Turmas,
         {
-          periodo: periodoInicio,
+          periodo: periodo,
         }
       );
       let disciplinasGrades = this.DisciplinaGrades;
@@ -506,17 +583,25 @@ export default {
         inicio = gradesAtivas[i].fim;
       }
     },
-    createHorarioEletivas(semestre) {
+    createHorarioEletivas(periodo) {
       let horariosAtivos;
-      if (semestre === 1) horariosAtivos = this.horariosAtivos1.Eletivas;
-      else horariosAtivos = this.horariosAtivos2.Eletivas;
-
-      let periodoInicio;
-      if (semestre === 1) periodoInicio = 1;
-      else periodoInicio = 3;
+      let semestre = ((periodo === 1 || periodo === 2) ? 1:2)
+      switch(periodo){
+        case 1: horariosAtivos = this.horariosAtivos1;
+                break;
+        case 2: horariosAtivos = this.horariosAtivos2;
+                break;
+        case 3: horariosAtivos = this.horariosAtivos3;
+                break;
+        case 4: horariosAtivos = this.horariosAtivos4;
+                break;
+      }
+      let periodoGrade;
+      if (semestre === 1) periodoGrade = 1;
+      else periodoGrade = 3;
 
       let turmas = this.$_.filter(this.$store.state.turma.Turmas, {
-        periodo: periodoInicio,
+        periodo: periodo,
       });
 
       let plano = this.$_.find(this.$store.state.plano.Plano, {
@@ -533,7 +618,7 @@ export default {
           let fim =
             1 +
             2 * (plano.ano - parseInt(g.periodoInicio.slice(0, 4), 10)) +
-            (periodoInicio - parseInt(g.periodoInicio.slice(5, 6), 10)) / 2;
+            (periodoGrade - parseInt(g.periodoInicio.slice(5, 6), 10)) / 2;
           if (fim > 10) {
             fim = 10;
           }
