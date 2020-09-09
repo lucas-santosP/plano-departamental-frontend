@@ -208,6 +208,10 @@
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />, para
         limpar as informações.
       </li>
+      <li class="list-group-item">
+        <b>Ordenar:</b> Clique no cabeçalho da tabela, na coluna desejada, para
+        alterar a ordenação das informações.
+      </li>
     </ModalAjuda>
   </div>
 </template>
