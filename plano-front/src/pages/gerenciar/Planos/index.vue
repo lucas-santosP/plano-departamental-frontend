@@ -58,10 +58,12 @@
       <Card
         :title="'Plano'"
         :toggleFooter="isEdit"
+        :isPlano="isEdit"
         @btn-salvar="handleEditPlano"
         @btn-delete="openModalDelete"
         @btn-add="openModalNovoPlano"
         @btn-clean="cleanPlano"
+        @btn-copy="copyPlano(planoForm)"
       >
         <template #form-group>
           <div class="row mb-2 mx-0">
@@ -165,6 +167,8 @@ import { toggleOrdination } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import ModalNovoPlano from "./ModalNovoPlano";
+import copyPlanoService from "../../../common/services/copyPlano";
+import planoService from "../../../common/services/plano";
 
 const emptyPlano = {
   ano: "",
@@ -262,6 +266,38 @@ export default {
         this.setPartialLoading(false);
       }
     },
+
+    copyPlano(oldPlano){
+      let newPlano = {
+        nome: `Cópia de '${oldPlano.nome}'`,
+        ano: oldPlano.ano,
+        obs: `Cópia do plano '${oldPlano.nome} - ${oldPlano.ano}'`
+      }
+       planoService.create(newPlano).then((plano) => {
+         copyPlanoService.copyPlano(oldPlano.id, plano.Plano.id).then((response) => {
+           this.$notify({
+             group: "general",
+             title: `Sucesso!`,
+             text: `O Plano ${oldPlano.nome} foi copiado!`,
+             type: "success",
+           });
+         })
+         .catch((error) => {
+           this.error = "<b>Erro ao copiar plano</b>";
+           if (error.response.data.fullMessage) {
+             this.error +=
+               "<br/>" +
+                error.response.data.fullMessage.replace("\n", "<br/>");
+           }
+           this.$notify({
+             group: "general",
+             title: `Erro!`,
+             text: this.error,
+             type: "error",
+           });
+         });
+       })
+    }
   },
 
   computed: {
