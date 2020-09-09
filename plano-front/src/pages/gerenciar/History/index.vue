@@ -105,7 +105,7 @@
         >
           <template #thead>
             <th style="width:25px"></th>
-            <th style="width: 425px" class="t-start">Nome</th>
+            <th style="width: 425px" class="t-start">Tipo</th>
           </template>
           <template #tbody>
             <tr
