@@ -269,7 +269,7 @@ export default {
 
     copyPlano(oldPlano){
       let newPlano = {
-        nome: `Cópia do plano '${oldPlano.nome}`,
+        nome: `Cópia de '${oldPlano.nome}'`,
         ano: oldPlano.ano,
         obs: `Cópia do plano '${oldPlano.nome} - ${oldPlano.ano}'`
       }
