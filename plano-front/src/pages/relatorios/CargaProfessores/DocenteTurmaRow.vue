@@ -1,27 +1,4 @@
 <template>
-  <!-- <tr v-if="turmas.length" :key="turmas.id + turmas.letra" class="tr-header">
-      <td style="width: 130px" class="clickable t-start"></td>
-      <td style="width: 25px" title="Período">P.</td>
-      <td style="width: 80px">Código</td>
-      <td style="width: 300px" class="t-start">Disciplinas Graduação DCC</td>
-      <td style="width: 35px" class="less-padding" title="Turma">T.</td>
-      <td style="width: 130px">
-        Horário
-      </td>
-      <td
-        v-for="periodo in periodosAtivados"
-        :key="periodo.id + periodo.nome"
-        style="width: 35px"
-        class="less-padding"
-      ></td>
-      <td
-        style="width: 50px"
-        class="less-padding"
-        title="Somatório total de créditos"
-        v-if="periodosAtivados.length === 4"
-      ></td>
-    </tr> -->
-
   <tr>
     <td style="width: 130px"></td>
     <td style="width: 25px">{{ turma.periodo }}</td>
