@@ -417,6 +417,7 @@ export default {
       "AllCargasPos",
       "allPlanos",
       "currentPlanoId",
+      "SemestresLetivos",
     ]),
 
     DocentesInTurmasOrdered() {
@@ -546,18 +547,6 @@ export default {
       });
     },
 
-    SemestresLetivos() {
-      return [
-        {
-          nome: "Primeiro",
-          id: 1,
-        },
-        {
-          nome: "Segundo",
-          id: 2,
-        },
-      ];
-    },
     turmasSemAlocacaoIsActived() {
       return (
         this.DocenteSemAlocacaoOrdered.turmas.length &&
