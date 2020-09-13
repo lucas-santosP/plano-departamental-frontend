@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td style="width: 130px"></td>
-    <td style="width: 25px">{{ turma.periodo }}</td>
+    <td style="width: 30px">{{ turma.periodo }}</td>
     <td style="width: 80px" class="less-padding">
       {{ turma.disciplina.codigo }}
     </td>
@@ -15,23 +15,32 @@
       {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
     </td>
     <td
-      v-for="periodo in periodosAtivados"
-      :key="'td2' + periodo.nome + periodo.id"
+      v-if="semestresAtivados.primeiro"
       style="width: 35px"
       class="less-padding"
     >
-      {{ turma.periodo === periodo.id ? turma.creditosDaTurma : "" }}
+      {{
+        turma.periodo === 1 || turma.periodo === 2 ? turma.creditosDaTurma : ""
+      }}
     </td>
     <td
+      v-if="semestresAtivados.segundo"
+      style="width: 35px"
+      class="less-padding"
+    >
+      {{
+        turma.periodo === 3 || turma.periodo === 4 ? turma.creditosDaTurma : ""
+      }}
+    </td>
+    <td
+      v-if="semestresAtivados.primeiro && semestresAtivados.segundo"
       style="width: 50px"
       class="less-padding"
-      v-if="periodosAtivados.length > 1"
     ></td>
   </tr>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { generateHorariosText } from "@/common/mixins";
 
 export default {
@@ -39,10 +48,7 @@ export default {
   mixins: [generateHorariosText],
   props: {
     turma: { type: Object, required: true },
-    periodosAtivados: { type: Array, required: true },
-  },
-  computed: {
-    ...mapGetters(["PeriodosLetivos"]),
+    semestresAtivados: { type: Object, required: true },
   },
 };
 </script>
