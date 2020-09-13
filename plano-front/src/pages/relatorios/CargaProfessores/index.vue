@@ -400,7 +400,7 @@ export default {
         creditos2Semestre,
       };
     },
-    filterBySemestre(value) {
+    filterBySemestresAtivados(value) {
       return this.$_.some(this.filtroSemestres.ativados, (semestre) => {
         if (value === 1 || value === 2) return semestre.id === 1;
         else return semestre.id === 2;
@@ -410,8 +410,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "DocentesAtivos",
-      "AllHorarios",
+      "DocentesAtivos", 
       "TurmasInDisciplinasPerfis",
       "PeriodosLetivos",
       "AllCargasPos",
@@ -437,11 +436,11 @@ export default {
     DocentesInTurmasFilteredBySemestre() {
       return this.$_.map(this.DocentesInTurmas, (docente) => {
         const turmasFiltered = this.$_.filter(docente.turmas, (turma) =>
-          this.filterBySemestre(turma.periodo)
+          this.filterBySemestresAtivados(turma.periodo)
         );
 
         const cargasPosFiltered = this.$_.filter(docente.cargasPos, (carga) =>
-          this.filterBySemestre(carga.trimestre)
+          this.filterBySemestresAtivados(carga.trimestre)
         );
 
         return {
@@ -488,7 +487,7 @@ export default {
     DocenteSemAlocacaoFiltered() {
       const turmasFiltered = this.$_.filter(
         this.DocenteSemAlocacao.turmas,
-        (turma) => this.filterBySemestre(turma.periodo)
+        (turma) => this.filterBySemestresAtivados(turma.periodo)
       );
 
       return {
