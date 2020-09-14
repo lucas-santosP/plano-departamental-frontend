@@ -109,6 +109,7 @@
             </tr>
           </template>
         </BaseTable>
+
         <BaseTable
           v-show="modalFiltrosTabs.current === 'Semestres'"
           :type="'modal'"
