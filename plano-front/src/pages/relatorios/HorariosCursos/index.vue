@@ -164,22 +164,52 @@
           </template>
           <template #tbody>
             <tr
-              v-for="periodoLetivo in PeriodosLetivos"
-              :key="periodoLetivo.id + periodoLetivo.nome"
-              @click.stop="
-                toggleItemInArray(periodoLetivo, filtroPeriodos.selecionados)
-              "
+              v-for="periodo in PeriodosLetivos"
+              :key="periodo.id + periodo.nome"
+              @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             >
               <td style="width: 25px">
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
-                  :value="periodoLetivo"
+                  :value="periodo"
                   v-model="filtroPeriodos.selecionados"
+                  @click.stop="selecionaPeriodo(periodo)"
                 />
               </td>
               <td style="width: 425px" class="t-start upper-case">
-                {{ periodoLetivo.nome }}
+                {{ periodo.nome }}
+              </td>
+            </tr>
+          </template>
+        </BaseTable>
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Semestres'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th class="t-start" style="width: 425px">
+              Semestre Letivo
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="semestre in SemestresLetivos"
+              :key="semestre.id + semestre.nome"
+              @click="selecionaSemestre(semestre)"
+            >
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  :value="semestre"
+                  v-model="filtroSemestres.selecionados"
+                  @click.stop="selecionaSemestre(semestre)"
+                />
+              </td>
+              <td style="width: 425px" class="t-start upper-case">
+                {{ semestre.nome }}
               </td>
             </tr>
           </template>
@@ -214,13 +244,19 @@ import {
   toggleItemInArray,
   toggleOrdination,
   toggleAsideModal,
+  conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 import ListHorarios from "./ListTableHorarios.vue";
 
 export default {
   name: "DashboardHorarios",
-  mixins: [toggleItemInArray, toggleOrdination, toggleAsideModal],
+  mixins: [
+    toggleItemInArray,
+    toggleOrdination,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+  ],
   components: {
     ModalFiltros,
     ModalAjuda,
@@ -231,15 +267,6 @@ export default {
     return {
       asideModalsRefs: ["modalFiltros", "modalAjuda", "modalRelatorio"],
       ordemCursos: { order: "codigo", type: "asc" },
-
-      filtroCursos: {
-        selecionados: [],
-        ativados: [],
-      },
-      filtroPeriodos: {
-        ativados: [],
-        selecionados: [],
-      },
       horariosAtivos1Periodo: {
         CCD: [[], [], [], [], [], [], [], [], [], []],
         CCN: [[], [], [], [], [], [], [], [], [], []],
@@ -254,9 +281,21 @@ export default {
         SI: [[], [], [], [], [], [], [], [], [], []],
         Eletivas: [],
       },
+      filtroCursos: {
+        selecionados: [],
+        ativados: [],
+      },
+      filtroPeriodos: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroSemestres: {
+        ativados: [],
+        selecionados: [],
+      },
       modalFiltrosTabs: {
         current: "Cursos",
-        array: ["Cursos", "Períodos"],
+        array: ["Cursos", "Períodos", "Semestres"],
       },
       modalFiltrosCallbacks: {
         selectAll: {
@@ -265,6 +304,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
+            this.conectaPeriodoEmSemestre();
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
+            this.conectaSemestreEmPeriodo();
           },
         },
         selectNone: {
@@ -273,6 +317,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
+            this.conectaPeriodoEmSemestre();
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [];
+            this.conectaSemestreEmPeriodo();
           },
         },
         btnOk: () => {
@@ -295,8 +344,11 @@ export default {
     this.createHorarioEletivas(1);
     this.createHorarioEletivas(3);
 
+    this.filtroPeriodos.selecionados = this.$_.filter(
+      this.PeriodosLetivos,
+      (periodo) => periodo.id === 1 || periodo.id === 3
+    );
     this.modalFiltrosCallbacks.selectAll.Cursos();
-    this.modalFiltrosCallbacks.selectAll.Periodos();
     this.modalFiltrosCallbacks.btnOk();
   },
 
@@ -4728,6 +4780,7 @@ export default {
       "PedidosExternos",
       "DisciplinasDasGrades",
       "PeriodosLetivos",
+      "SemestresLetivos",
     ]),
 
     CursosInHorariosFiltred() {
@@ -4928,60 +4981,4 @@ export default {
   padding: 5px;
   background-color: var(--light-gray);
 }
-
-/* ::v-deep .container-horarios .div-table .periodo-title {
-  font-size: 12px;
-  font-weight: normal;
-}
-::v-deep .container-horarios .div-table .tg {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-color: #ccc;
-}
-::v-deep .container-horarios .div-table .tg td {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  padding: 0px !important;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: break-word;
-  border-color: rgba(189, 189, 189, 0.644);
-  color: #333;
-  background-color: #fff;
-}
-::v-deep .container-horarios .div-table .tg th,
-::v-deep .container-horarios .div-table .tg-hor {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 0px;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-  word-break: normal;
-  border-color: rgba(189, 189, 189, 0.623);
-  color: #333;
-  background-color: #e9ecef !important;
-}
-::v-deep .container-horarios .div-table .tg .tg-0lax {
-  vertical-align: center;
-  text-align: center;
-  height: 22px;
-  min-width: 50px !important;
-}
-::v-deep .container-horarios td > p {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  min-width: 48px !important;
-  padding: 0 1px !important;
-  margin: 0 !important;
-}
-::v-deep .container-horarios td > p:hover {
-  cursor: default;
-  background-color: var(--light-gray) !important;
-} */
 </style>
