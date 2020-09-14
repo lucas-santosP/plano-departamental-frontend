@@ -35,7 +35,6 @@
         class="w-100"
       >
         <h2 class="periodo-title">1º Período letivo</h2>
-
         <ListHorarios
           v-for="curso in CursosInHorariosFiltred"
           :key="curso.codigo + curso.periodoInicial1Semestre"
@@ -55,12 +54,14 @@
         />
       </div>
 
-      <ListHorarios
-        v-show="periodosActived.periodo2"
-        :template="'extra'"
-        :title="'2º Período letivo - Cursos de inverno'"
-        :horariosTurmas="TurmasActived2Periodo"
-      />
+      <template v-if="periodosActived.periodo2">
+        <h2 class="periodo-title">2º Período letivo</h2>
+        <ListHorarios
+          :template="'extra'"
+          :title="'Cursos de inverno'"
+          :horariosTurmas="TurmasActived2Periodo"
+        />
+      </template>
 
       <div
         v-show="periodosActived.periodo3 && filtroCursos.ativados.length"
@@ -87,12 +88,15 @@
         />
       </div>
 
-      <ListHorarios
-        v-show="periodosActived.periodo4"
-        :template="'extra'"
-        :title="'4º Período letivo - Cursos de verão'"
-        :horariosTurmas="TurmasActived4Periodo"
-      />
+      <template v-if="periodosActived.periodo4">
+        <h2 class="periodo-title">4º Período letivo</h2>
+        <ListHorarios
+          v-show="periodosActived.periodo4"
+          :template="'extra'"
+          :title="'4º Período letivo - Cursos de verão'"
+          :horariosTurmas="TurmasActived4Periodo"
+        />
+      </template>
     </div>
 
     <p v-show="!hasAnyHorariosActived" class="text-empty">
