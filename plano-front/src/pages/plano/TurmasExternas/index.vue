@@ -210,22 +210,53 @@
           </template>
           <template #tbody>
             <tr
-              v-for="periodoLetivo in PeriodosLetivos"
-              :key="periodoLetivo.id + periodoLetivo.nome"
-              @click.stop="
-                toggleItemInArray(periodoLetivo, filtroPeriodos.selecionados)
-              "
+              v-for="periodo in PeriodosLetivos"
+              :key="periodo.id + periodo.nome"
+              @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             >
               <td style="width: 25px">
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
-                  :value="periodoLetivo"
+                  :value="periodo"
                   v-model="filtroPeriodos.selecionados"
+                  @click.stop="selecionaPeriodo(periodo)"
                 />
               </td>
               <td style="width: 425px" class="t-start upper-case">
-                {{ periodoLetivo.nome }}
+                {{ periodo.nome }}
+              </td>
+            </tr>
+          </template>
+        </BaseTable>
+
+        <BaseTable
+          v-show="modalFiltrosTabs.current === 'Semestres'"
+          :type="'modal'"
+        >
+          <template #thead>
+            <th style="width: 25px"></th>
+            <th class="t-start" style="width: 425px">
+              Semestre Letivo
+            </th>
+          </template>
+          <template #tbody>
+            <tr
+              v-for="semestre in SemestresLetivos"
+              :key="semestre.id + semestre.nome"
+              @click="selecionaSemestre(semestre)"
+            >
+              <td style="width: 25px">
+                <input
+                  type="checkbox"
+                  class="form-check-input position-static m-0"
+                  :value="semestre"
+                  v-model="filtroSemestres.selecionados"
+                  @click.stop="selecionaSemestre(semestre)"
+                />
+              </td>
+              <td style="width: 425px" class="t-start upper-case">
+                {{ semestre.nome }}
               </td>
             </tr>
           </template>
@@ -312,6 +343,7 @@ import {
   toggleItemInArray,
   toggleAsideModal,
   cursoPopoverContent,
+  conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
@@ -325,6 +357,7 @@ export default {
     toggleItemInArray,
     toggleAsideModal,
     cursoPopoverContent,
+    conectaFiltrosSemestresEPeriodos,
   ],
   components: {
     ModalFiltros,
@@ -344,9 +377,13 @@ export default {
       tabAtivaModal: "Disciplinas",
       modalFiltrosTabs: {
         current: "Disciplinas",
-        array: ["Disciplinas", "Períodos"],
+        array: ["Disciplinas", "Períodos", "Semestres"],
       },
       filtroPeriodos: {
+        ativados: [],
+        selecionados: [],
+      },
+      filtroSemestres: {
         ativados: [],
         selecionados: [],
       },
@@ -363,6 +400,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
+            this.conectaPeriodoEmSemestre();
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
+            this.conectaSemestreEmPeriodo();
           },
         },
         selectNone: {
@@ -371,6 +413,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
+            this.conectaPeriodoEmSemestre();
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [];
+            this.conectaSemestreEmPeriodo();
           },
         },
         btnOk: () => {
@@ -384,7 +431,10 @@ export default {
   },
 
   beforeMount() {
-    this.modalFiltrosCallbacks.selectAll.Periodos();
+    this.filtroPeriodos.selecionados = this.$_.filter(
+      this.PeriodosLetivos,
+      (periodo) => periodo.id === 1 || periodo.id === 3
+    );
   },
   beforeDestroy() {
     this.clearTurmasExternasToDelete();
@@ -425,6 +475,7 @@ export default {
       "DisciplinasExternasInPerfis",
       "TurmasExternasToDelete",
       "PeriodosLetivos",
+      "SemestresLetivos",
     ]),
 
     TurmasExternasOrdered() {
