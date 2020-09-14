@@ -7,8 +7,10 @@ import generateDocentesText from "./generateDocentesText";
 import toggleAsideModal from "./toggleAsideModal";
 import cursoPopoverContent from "./cursoPopoverContent";
 import vFocusPedido from "./vFocusPedido";
+import conectaFiltrosSemestresEPeriodos from "./conectaFiltrosSemestresEPeriodos";
 
 export {
+  conectaFiltrosSemestresEPeriodos,
   vFocusPedido,
   cursoPopoverContent,
   toggleAsideModal,
