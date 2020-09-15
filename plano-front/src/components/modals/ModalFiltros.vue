@@ -12,7 +12,9 @@
         @change-tab="tabsOptions.current = $event"
       />
 
-      <slot></slot>
+      <div class="div-table">
+        <slot></slot>
+      </div>
     </template>
 
     <template #modal-footer>
