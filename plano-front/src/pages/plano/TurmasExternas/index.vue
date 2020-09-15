@@ -93,7 +93,7 @@
           <th style="width: 45px" title="Total de vagas">Total</th>
           <th
             style="width:35px"
-            v-for="curso in CursosDCC"
+            v-for="curso in PrincipaisCursosDCC"
             :key="curso.id + curso.nome"
             v-b-popover.hover.bottom="{
               title: curso.nome,
@@ -113,10 +113,9 @@
             v-for="turma in TurmasExternasOrdered"
             :key="turma.id + turma.letra + turma.Disciplina"
             :turma="turma"
-            :CursosAtivados="CursosDCC"
           />
 
-          <tr v-if="!TurmasExternasOrdered.length">
+          <tr v-show="!TurmasExternasOrdered.length">
             <td style="width:1005px">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -476,6 +475,7 @@ export default {
       "TurmasExternasToDelete",
       "PeriodosLetivos",
       "SemestresLetivos",
+      "PrincipaisCursosDCC",
     ]),
 
     TurmasExternasOrdered() {
@@ -496,9 +496,6 @@ export default {
       );
     },
 
-    CursosDCC() {
-      return this.$_.slice(this.$store.state.curso.Cursos, 0, 4);
-    },
     DisciplinasExternasOrderedModal() {
       return this.$_.orderBy(
         this.DisciplinasExternasFiltredModal,
