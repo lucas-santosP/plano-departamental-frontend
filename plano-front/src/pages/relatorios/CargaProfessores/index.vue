@@ -203,7 +203,9 @@
                   v-model="filtroSemestres.selecionados"
                 />
               </td>
-              <td style="width: 425px" class="t-start">{{ semestre.nome }}</td>
+              <td style="width: 425px" class="t-start upper-case">
+                {{ semestre.nome }}
+              </td>
             </tr>
           </template>
         </BaseTable>
@@ -410,7 +412,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "DocentesAtivos", 
+      "DocentesAtivos",
       "TurmasInDisciplinasPerfis",
       "PeriodosLetivos",
       "AllCargasPos",
