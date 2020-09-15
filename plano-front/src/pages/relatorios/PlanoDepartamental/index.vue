@@ -157,7 +157,7 @@
           <tr v-show="!DisciplinasInTurmasOrdered.length">
             <td colspan="7" style="width: 885px">
               <b>Nenhuma disciplina encontrada.</b> Clique no botão de filtros
-              <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
+              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> para selecioná-las.
             </td>
             <template v-if="anyPeriodoIsActived">
               <td style="width: 45px" class="borderX-0"></td>

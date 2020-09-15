@@ -197,7 +197,8 @@
           <tr v-show="!DisciplinasOrderedMain.length">
             <td style="width:1120px">
               <b>Nenhuma disciplina encontrada.</b> Clique no botão de filtros
-              <i class="fas fa-list-ul mx-1"></i> para selecioná-las.
+              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+              para selecioná-las.
             </td>
           </tr>
         </template>

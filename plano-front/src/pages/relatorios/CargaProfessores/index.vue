@@ -111,7 +111,8 @@
           <tr v-show="!hasAnyDocenteActived">
             <td :style="`width:${emptyRowWidth}px`">
               <b>Nenhum docente encontrado.</b> Clique no botão de filtros
-              <i class="fas fa-list-ul mx-1"></i> para selecioná-los.
+              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+              para selecioná-los.
             </td>
           </tr>
         </template>
