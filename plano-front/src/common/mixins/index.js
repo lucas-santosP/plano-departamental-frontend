@@ -8,8 +8,10 @@ import toggleAsideModal from "./toggleAsideModal";
 import cursoPopoverContent from "./cursoPopoverContent";
 import vFocusPedido from "./vFocusPedido";
 import conectaFiltrosSemestresEPeriodos from "./conectaFiltrosSemestresEPeriodos";
+import convertDateUTC from "./convertDateUTC";
 
 export {
+  convertDateUTC,
   conectaFiltrosSemestresEPeriodos,
   vFocusPedido,
   cursoPopoverContent,
