@@ -64,24 +64,25 @@
         <template #thead>
           <th style="width:70px" class="p-0">Programa</th>
           <th style="width:25px"></th>
-          <th style="width:55px" title="Trimestre">T.</th>
-          <th
-            @click="toggleOrder(ordenacaoCargaPos, 'docenteApelido')"
-            class="t-start clickable"
-            style="width:145px"
-          >
-            Docente
-            <i :class="setIconByOrder(ordenacaoCargaPos, 'docenteApelido')"></i>
+          <th style="width:55px" title="Trimestre, ordenação fixa">
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+            T.
           </th>
-          <th
-            @click="toggleOrder(ordenacaoCargaPos, 'creditos', 'desc')"
-            class="clickable"
+          <ThOrdination
+            :text="'Docente'"
+            :currentOrder="ordenacaoCargaPos"
+            :orderToCheck="'docenteApelido'"
+            class="t-start"
+            style="width:145px"
+          />
+          <ThOrdination
+            :text="'C.'"
+            :currentOrder="ordenacaoCargaPos"
+            :orderToCheck="'creditos'"
+            :orderType="'desc'"
             style="width:50px"
             title="Créditos"
-          >
-            C.
-            <i :class="setIconByOrder(ordenacaoCargaPos, 'creditos')"></i>
-          </th>
+          />
         </template>
 
         <template #add-row>
@@ -121,98 +122,96 @@
       :callbacks="modalFiltrosCallbacks"
       :tabsOptions="modalFiltrosTabs"
     >
-      <div class="div-table">
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Programas'"
-          :type="'modal'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th style="width: 425px" class="t-start">Programa</th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="programaPos in AllProgramasPosOrdered"
-              :key="programaPos"
-              @click="
-                toggleItemInArray(programaPos, filtroProgramas.selecionados)
-              "
-            >
-              <td style="width:25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="programaPos"
-                  v-model="filtroProgramas.selecionados"
-                />
-              </td>
-              <td style="width:425px" class="t-start">{{ programaPos }}</td>
-            </tr>
-          </template>
-        </BaseTable>
+      <BaseTable
+        v-show="modalFiltrosTabs.current === 'Programas'"
+        :type="'modal'"
+      >
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th style="width: 425px" class="t-start">Programa</th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="programaPos in AllProgramasPosOrdered"
+            :key="programaPos"
+            @click="
+              toggleItemInArray(programaPos, filtroProgramas.selecionados)
+            "
+          >
+            <td style="width:25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="programaPos"
+                v-model="filtroProgramas.selecionados"
+              />
+            </td>
+            <td style="width:425px" class="t-start">{{ programaPos }}</td>
+          </tr>
+        </template>
+      </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Trimestres'"
-          :type="'modal'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">Trimestre letivo</th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="trimestre in Trimestres"
-              :key="trimestre.nome + trimestre.id"
-              @click="selectTrimestre(trimestre, filtroTrimestres.selecionados)"
-            >
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="trimestre"
-                  @click.stop="
-                    selectTrimestre(trimestre, filtroTrimestres.selecionados)
-                  "
-                  v-model="filtroTrimestres.selecionados"
-                />
-              </td>
-              <td style="width: 425px" class="t-start">{{ trimestre.nome }}</td>
-            </tr>
-          </template>
-        </BaseTable>
+      <BaseTable
+        v-show="modalFiltrosTabs.current === 'Trimestres'"
+        :type="'modal'"
+      >
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th class="t-start" style="width: 425px">Trimestre letivo</th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="trimestre in Trimestres"
+            :key="trimestre.nome + trimestre.id"
+            @click="selectTrimestre(trimestre, filtroTrimestres.selecionados)"
+          >
+            <td style="width: 25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="trimestre"
+                @click.stop="
+                  selectTrimestre(trimestre, filtroTrimestres.selecionados)
+                "
+                v-model="filtroTrimestres.selecionados"
+              />
+            </td>
+            <td style="width: 425px" class="t-start">{{ trimestre.nome }}</td>
+          </tr>
+        </template>
+      </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Semestre Letivo
-            </th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="semestre in SemestresLetivos"
-              :key="semestre.id + semestre.nome"
-              @click="selectSemestre(semestre)"
-            >
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="semestre"
-                  v-model="filtroSemestres.selecionados"
-                  @click="connectSemestreInTrimestre"
-                />
-              </td>
-              <td style="width: 425px" class="t-start upper-case">
-                {{ semestre.nome }}
-              </td>
-            </tr>
-          </template>
-        </BaseTable>
-      </div>
+      <BaseTable
+        v-show="modalFiltrosTabs.current === 'Semestres'"
+        :type="'modal'"
+      >
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th class="t-start" style="width: 425px">
+            Semestre Letivo
+          </th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="semestre in SemestresLetivos"
+            :key="semestre.id + semestre.nome"
+            @click="selectSemestre(semestre)"
+          >
+            <td style="width: 25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="semestre"
+                v-model="filtroSemestres.selecionados"
+                @click="connectSemestreInTrimestre"
+              />
+            </td>
+            <td style="width: 425px" class="t-start upper-case">
+              {{ semestre.nome }}
+            </td>
+          </tr>
+        </template>
+      </BaseTable>
     </ModalFiltros>
 
     <ModalDelete
@@ -287,25 +286,22 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  toggleAsideModal,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleAsideModal } from "@/common/mixins";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
-
+import { ThOrdination } from "@/components/ui";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [toggleOrdination, toggleItemInArray, toggleAsideModal],
+  mixins: [toggleItemInArray, toggleAsideModal],
   components: {
     ModalDelete,
     ModalFiltros,
     ModalAjuda,
     CargaPosRow,
     NovaCargaPosRow,
+    ThOrdination,
   },
   data() {
     return {
