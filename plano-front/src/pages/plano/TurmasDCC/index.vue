@@ -276,18 +276,18 @@
         <template #thead>
           <th style="width:25px"></th>
           <ThOrdination
-            :text="'Cód.'"
+            :text="'Código'"
             :currentOrder="ordenacaoModal.cursos"
             :orderToCheck="'codigo'"
             class="t-start"
-            style="width: 50px"
+            style="width: 70px"
           />
           <ThOrdination
-            :text="'Nome.'"
+            :text="'Nome'"
             :currentOrder="ordenacaoModal.cursos"
             :orderToCheck="'nome'"
             class="t-start"
-            style="width: 375px"
+            style="width: 355px"
           />
         </template>
         <template #tbody>
@@ -304,8 +304,8 @@
                 class="form-check-input position-static m-0"
               />
             </td>
-            <td style="width: 50px;" class="t-start">{{ curso.codigo }}</td>
-            <td style="width: 375px" class="t-start">{{ curso.nome }}</td>
+            <td style="width: 70px;" class="t-start">{{ curso.codigo }}</td>
+            <td style="width: 355px" class="t-start">{{ curso.nome }}</td>
           </tr>
           <tr v-show="CursosOrderedModal.length === 0">
             <td colspan="3" style="width:450px">NENHUM CURSO ENCONTRADO.</td>
