@@ -131,136 +131,129 @@
       :callbacks="modalFiltrosCallbacks"
       :tabsOptions="modalFiltrosTabs"
     >
-      <div class="div-table">
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Disciplinas'"
-          :type="'modal'"
-          :hasSearchBar="true"
-        >
-          <template #thead-search>
-            <InputSearch
-              v-model="searchDisciplinasModal"
-              placeholder="Pesquise nome ou codigo de uma disciplina..."
-            />
-          </template>
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th
-              @click="toggleOrder(ordenacaoDisciplinasModal, 'codigo')"
-              class="clickable t-start"
-              style="width: 60px"
-            >
-              Cód.
-              <i
-                :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"
-              ></i>
-            </th>
-            <th
-              @click="toggleOrder(ordenacaoDisciplinasModal, 'nome')"
-              class="clickable t-start"
-              style="width: 305px"
-            >
-              Nome
-              <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'nome')"></i>
-            </th>
-            <th class="t-start" style="width: 60px">Perfis</th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="disciplina in DisciplinasExternasOrderedModal"
-              :key="disciplina.id + disciplina.nome"
-              @click="
-                toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)
-              "
-            >
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  v-model="filtroDisciplinas.selecionadas"
-                  :value="disciplina"
-                />
-              </td>
-              <td style="width: 60px" class="t-start">
-                {{ disciplina.codigo }}
-              </td>
-              <td style="width: 305px" class="t-start">
-                {{ disciplina.nome }}
-              </td>
-              <td class="t-start" style="width: 60px">
-                {{ disciplina.perfil.nome }}
-              </td>
-            </tr>
-            <tr v-show="DisciplinasExternasOrderedModal.length === 0">
-              <td colspan="3" style="width:450px">
-                NENHUMA DISCIPLINA ENCONTRADA.
-              </td>
-            </tr>
-          </template>
-        </BaseTable>
+      <BaseTable
+        v-show="modalFiltrosTabs.current === 'Disciplinas'"
+        :type="'modal'"
+        :hasSearchBar="true"
+      >
+        <template #thead-search>
+          <InputSearch
+            v-model="searchDisciplinasModal"
+            placeholder="Pesquise nome ou codigo de uma disciplina..."
+          />
+        </template>
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th
+            @click="toggleOrder(ordenacaoDisciplinasModal, 'codigo')"
+            class="clickable t-start"
+            style="width: 70px"
+          >
+            Código
+            <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'codigo')"></i>
+          </th>
+          <th
+            @click="toggleOrder(ordenacaoDisciplinasModal, 'nome')"
+            class="clickable t-start"
+            style="width: 295px"
+          >
+            Nome
+            <i :class="setIconByOrder(ordenacaoDisciplinasModal, 'nome')"></i>
+          </th>
+          <th class="t-start" style="width: 60px">Perfis</th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="disciplina in DisciplinasExternasOrderedModal"
+            :key="disciplina.id + disciplina.nome"
+            @click="
+              toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)
+            "
+          >
+            <td style="width: 25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                v-model="filtroDisciplinas.selecionadas"
+                :value="disciplina"
+              />
+            </td>
+            <td style="width: 70px" class="t-start">
+              {{ disciplina.codigo }}
+            </td>
+            <td style="width: 295px" class="t-start">
+              {{ disciplina.nome }}
+            </td>
+            <td class="t-start" style="width: 60px">
+              {{ disciplina.perfil.nome }}
+            </td>
+          </tr>
+          <tr v-show="DisciplinasExternasOrderedModal.length === 0">
+            <td colspan="3" style="width:450px">
+              NENHUMA DISCIPLINA ENCONTRADA.
+            </td>
+          </tr>
+        </template>
+      </BaseTable>
 
-        <BaseTable
-          type="modal"
-          v-show="modalFiltrosTabs.current === 'Períodos'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th style="width: 425px" class="t-start">Periodos Letivo</th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="periodo in PeriodosLetivos"
-              :key="periodo.id + periodo.nome"
-              @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
-            >
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="periodo"
-                  v-model="filtroPeriodos.selecionados"
-                  @click.stop="selecionaPeriodo(periodo)"
-                />
-              </td>
-              <td style="width: 425px" class="t-start upper-case">
-                {{ periodo.nome }}
-              </td>
-            </tr>
-          </template>
-        </BaseTable>
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th style="width: 425px" class="t-start">Periodos Letivo</th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="periodo in PeriodosLetivos"
+            :key="periodo.id + periodo.nome"
+            @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
+          >
+            <td style="width: 25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="periodo"
+                v-model="filtroPeriodos.selecionados"
+                @click.stop="selecionaPeriodo(periodo)"
+              />
+            </td>
+            <td style="width: 425px" class="t-start upper-case">
+              {{ periodo.nome }}
+            </td>
+          </tr>
+        </template>
+      </BaseTable>
 
-        <BaseTable
-          v-show="modalFiltrosTabs.current === 'Semestres'"
-          :type="'modal'"
-        >
-          <template #thead>
-            <th style="width: 25px"></th>
-            <th class="t-start" style="width: 425px">
-              Semestre Letivo
-            </th>
-          </template>
-          <template #tbody>
-            <tr
-              v-for="semestre in SemestresLetivos"
-              :key="semestre.id + semestre.nome"
-              @click="selecionaSemestre(semestre)"
-            >
-              <td style="width: 25px">
-                <input
-                  type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="semestre"
-                  v-model="filtroSemestres.selecionados"
-                  @click.stop="selecionaSemestre(semestre)"
-                />
-              </td>
-              <td style="width: 425px" class="t-start upper-case">
-                {{ semestre.nome }}
-              </td>
-            </tr>
-          </template>
-        </BaseTable>
-      </div>
+      <BaseTable
+        v-show="modalFiltrosTabs.current === 'Semestres'"
+        :type="'modal'"
+      >
+        <template #thead>
+          <th style="width: 25px"></th>
+          <th class="t-start" style="width: 425px">
+            Semestre Letivo
+          </th>
+        </template>
+        <template #tbody>
+          <tr
+            v-for="semestre in SemestresLetivos"
+            :key="semestre.id + semestre.nome"
+            @click="selecionaSemestre(semestre)"
+          >
+            <td style="width: 25px">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="semestre"
+                v-model="filtroSemestres.selecionados"
+                @click.stop="selecionaSemestre(semestre)"
+              />
+            </td>
+            <td style="width: 425px" class="t-start upper-case">
+              {{ semestre.nome }}
+            </td>
+          </tr>
+        </template>
+      </BaseTable>
     </ModalFiltros>
 
     <ModalDelete
