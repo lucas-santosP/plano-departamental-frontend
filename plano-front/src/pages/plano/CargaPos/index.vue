@@ -288,7 +288,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { toggleItemInArray, toggleAsideModal } from "@/common/mixins";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
-import { ThOrdination } from "@/components/ui";
+
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
 import CargaPosRow from "./CargaPosRow.vue";
 
@@ -301,7 +301,6 @@ export default {
     ModalAjuda,
     CargaPosRow,
     NovaCargaPosRow,
-    ThOrdination,
   },
   data() {
     return {

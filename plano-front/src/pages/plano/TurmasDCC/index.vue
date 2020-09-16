@@ -487,7 +487,7 @@ import {
   cursoPopoverContent,
   conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
-import { InputSearch, ThOrdination } from "@/components/ui";
+import { InputSearch } from "@/components/ui";
 import {
   ModalDelete,
   ModalFiltros,
@@ -514,7 +514,6 @@ export default {
     NovaTurmaRow,
     ModalEditTurma,
     InputSearch,
-    ThOrdination,
   },
   data() {
     return {

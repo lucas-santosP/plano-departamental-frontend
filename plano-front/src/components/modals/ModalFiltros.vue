@@ -1,5 +1,5 @@
 <template>
-  <BaseModal2
+  <BaseModal
     ref="baseModalFiltros"
     type="filtros"
     title="Filtros"
@@ -36,7 +36,7 @@
         >OK</BaseButton
       >
     </template>
-  </BaseModal2>
+  </BaseModal>
 </template>
 
 <script>

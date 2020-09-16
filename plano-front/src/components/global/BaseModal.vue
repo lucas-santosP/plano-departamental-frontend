@@ -46,7 +46,7 @@ const positions = {
 };
 
 export default {
-  name: "BaseModal2",
+  name: "BaseModal",
   props: {
     type: { type: String, default: "" },
     position: { type: String, default: "" },

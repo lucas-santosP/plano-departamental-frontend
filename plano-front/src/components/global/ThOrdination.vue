@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import OrdinationArrow from "./OrdinationArrow";
+import OrdinationArrow from "@/components/ui/OrdinationArrow";
 
 export default {
   name: "ThOrdination",
