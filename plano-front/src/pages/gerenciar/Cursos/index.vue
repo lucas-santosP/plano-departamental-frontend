@@ -146,7 +146,7 @@
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label required for="alunosEntrada1" class="col-form-label"
-                >Alunos 1º Sem.</label
+                >Alunos 1º Período</label
               >
               <input
                 type="text"
@@ -159,7 +159,7 @@
 
             <div class="form-group col m-0 px-0">
               <label required for="alunosEntrada2" class="col-form-label"
-                >Alunos 2º Sem.</label
+                >Alunos 2º Período</label
               >
               <input
                 type="text"
