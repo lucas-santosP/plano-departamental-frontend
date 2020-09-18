@@ -80,27 +80,27 @@
           </th>
 
           <ThOrdination
-            :type="'fixed'"
-            :text="'Perfil'"
+            type="fixed"
             :currentOrder="ordenacaoMain.perfis"
-            :orderToCheck="'disciplina.perfil.abreviacao'"
-            style="width: 80px"
-            class="t-start"
+            orderToCheck="disciplina.perfil.abreviacao"
+            width="80"
+            align="start"
+            text="Perfil"
           />
 
           <ThOrdination
-            :text="'Código'"
             :currentOrder="ordenacaoMain.turmas"
-            :orderToCheck="'disciplina.codigo'"
-            style="width:80px"
+            orderToCheck="disciplina.codigo"
+            width="80"
+            text="Código"
           />
 
           <ThOrdination
-            :text="'Disciplina'"
             :currentOrder="ordenacaoMain.turmas"
-            :orderToCheck="'disciplina.nome'"
-            style="width:330px"
-            class="t-start"
+            orderToCheck="disciplina.nome"
+            width="330"
+            align="start"
+            text="Disciplina"
           />
 
           <th style="width:25px" title="Créditos">C.</th>
@@ -169,11 +169,11 @@
         <template #thead>
           <th style="width:25px"></th>
           <ThOrdination
-            :text="'Nome'"
             :currentOrder="ordenacaoModal.perfis"
-            :orderToCheck="'nome'"
-            class="t-start"
-            style="width: 425px"
+            orderToCheck="nome"
+            width="425"
+            align="start"
+            text="Nome"
           />
         </template>
         <template #tbody>
@@ -209,27 +209,27 @@
         <template #thead>
           <th style="width:25px"></th>
           <ThOrdination
-            :text="'Código'"
             :currentOrder="ordenacaoModal.disciplinas"
-            :orderToCheck="'codigo'"
-            class="t-start"
-            style="width: 70px"
+            orderToCheck="codigo"
+            width="70"
+            align="start"
+            text="Código"
           />
 
           <ThOrdination
-            :text="'Nome'"
             :currentOrder="ordenacaoModal.disciplinas"
-            :orderToCheck="'nome'"
-            class="t-start"
-            style="width: 270px"
+            orderToCheck="nome"
+            width="270"
+            align="start"
+            text="Nome"
           />
 
           <ThOrdination
-            :text="'Perfil'"
             :currentOrder="ordenacaoModal.disciplinas"
-            :orderToCheck="'perfil.abreviacao'"
-            class="t-start"
-            style="width: 85px"
+            orderToCheck="perfil.abreviacao"
+            width="85"
+            align="start"
+            text="Perfil"
           />
         </template>
         <template #tbody>
@@ -249,7 +249,15 @@
               />
             </td>
             <td style="width: 70px" class="t-start">{{ disciplina.codigo }}</td>
-            <td style="width: 270px" class="t-start">{{ disciplina.nome }}</td>
+            <td
+              class="t-start"
+              :title="disciplina.nome"
+              style="overflow: hidden"
+            >
+              <div style="width: 260px">
+                {{ disciplina.nome }}
+              </div>
+            </td>
             <td style="width: 85px" class="t-start">
               {{ disciplina.perfil.abreviacao }}
             </td>
@@ -276,18 +284,18 @@
         <template #thead>
           <th style="width:25px"></th>
           <ThOrdination
-            :text="'Código'"
             :currentOrder="ordenacaoModal.cursos"
-            :orderToCheck="'codigo'"
-            class="t-start"
-            style="width: 70px"
+            orderToCheck="codigo"
+            width="70"
+            algin="start"
+            text="Código"
           />
           <ThOrdination
-            :text="'Nome'"
             :currentOrder="ordenacaoModal.cursos"
-            :orderToCheck="'nome'"
-            class="t-start"
-            style="width: 355px"
+            orderToCheck="nome"
+            width="355"
+            align="start"
+            text="Nome"
           />
         </template>
         <template #tbody>
@@ -322,7 +330,7 @@
           <tr
             v-for="periodo in PeriodosLetivos"
             :key="periodo.id + periodo.nome"
-            @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
+            @click.stop="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
           >
             <td style="width: 25px">
               <input
@@ -350,11 +358,12 @@
             Semestre Letivo
           </th>
         </template>
+
         <template #tbody>
           <tr
             v-for="semestre in SemestresLetivos"
             :key="semestre.id + semestre.nome"
-            @click="selecionaSemestre(semestre)"
+            @click.stop="selecionaSemestre(semestre)"
           >
             <td style="width: 25px">
               <input

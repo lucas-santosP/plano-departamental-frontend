@@ -1,5 +1,9 @@
 <template>
-  <th @click="toggleOrder" class="clickable">
+  <th
+    @click="toggleOrder"
+    class="clickable"
+    :style="{ textAlign: align, width: tdWidth }"
+  >
     <div v-if="type === 'fixed'" class="container-fixed-order">
       <font-awesome-icon
         :icon="['fas', 'thumbtack']"
@@ -35,6 +39,8 @@ export default {
     orderType: { type: String, default: "asc" },
     text: { type: String, required: true },
     type: { type: String, default: "" },
+    align: { type: String, default: "" },
+    width: { type: Number | String, required: true },
   },
 
   methods: {
@@ -54,6 +60,11 @@ export default {
       }
     },
   },
+  computed: {
+    tdWidth() {
+      return `${parseInt(this.width, 10)}px`;
+    },
+  },
 };
 </script>
 
@@ -63,8 +74,5 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.container-fixed-order > span {
-  /* margin: 0 2px; */
 }
 </style>
