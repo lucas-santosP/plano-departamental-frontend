@@ -69,27 +69,29 @@
           <template #tbody>
             <tr
               v-for="curso in CursosOrdered"
-              :key="'cursos' + curso.id + curso.codigo"
+              :key="curso.id + curso.codigo"
               @click.stop="showCurso(curso), handleClickInCurso(curso.id)"
               :class="[
                 { 'bg-selected': cursoClickado === curso.id },
                 'clickable',
               ]"
             >
-              <td style="width: 65px" class="t-start">{{ curso.codigo }}</td>
-              <td style="width: 300px" class="t-start">{{ curso.nome }}</td>
-              <td style="width: 65px">{{ curso.turno }}</td>
-              <td style="width: 75px;">{{ curso.alunosEntrada }}</td>
-              <td style="width: 75px;">{{ curso.alunosEntrada2 }}</td>
+              <TableTd width="65" align="start">{{ curso.codigo }}</TableTd>
+              <TableTd width="300" align="start" :title="curso.nome">
+                {{ curso.nome }}
+              </TableTd>
+              <TableTd width="65">{{ curso.turno }}</TableTd>
+              <TableTd width="75">{{ curso.alunosEntrada }}</TableTd>
+              <TableTd width="75">{{ curso.alunosEntrada2 }}</TableTd>
             </tr>
             <tr v-if="!CursosOrdered.length">
-              <td colspan="5" style="width:570px" class="text-center">
+              <TableTd width="580" colspan="5">
                 <font-awesome-icon
                   :icon="['fas', 'exclamation-triangle']"
                   class="icon-red"
                 />
                 <b> Nenhum curso encontrado!</b>
-              </td>
+              </TableTd>
             </tr>
           </template>
         </BaseTable>

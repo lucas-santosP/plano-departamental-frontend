@@ -42,12 +42,14 @@ import {
   BaseTable,
   BaseModal,
   BaseButton,
+  TableTd,
 } from "./components/global";
 Vue.component("BaseButton", BaseButton);
 Vue.component("BaseTable", BaseTable);
 Vue.component("BaseModal", BaseModal);
 Vue.component("PageHeader", PageHeader);
 Vue.component("ThOrdination", ThOrdination);
+Vue.component("TableTd", TableTd);
 
 //Global mixins
 import { mapActions } from "vuex";
