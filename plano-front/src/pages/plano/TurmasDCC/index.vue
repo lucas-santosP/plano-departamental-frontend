@@ -80,7 +80,7 @@
           </th>
 
           <ThOrdination
-            type="fixed"
+            :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"
             orderToCheck="disciplina.perfil.abreviacao"
             width="80"

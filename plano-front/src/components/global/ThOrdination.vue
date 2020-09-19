@@ -4,7 +4,7 @@
     class="clickable"
     :style="{ textAlign: align, width: tdWidth }"
   >
-    <div v-if="type === 'fixed'" class="container-fixed-order">
+    <div v-if="orderFixed" class="container-fixed-order">
       <font-awesome-icon
         :icon="['fas', 'thumbtack']"
         :class="currentOrder.order === null ? 'low-opacity' : ''"
@@ -34,11 +34,12 @@ export default {
   name: "ThOrdination",
   components: { OrdinationArrow },
   props: {
+    type: { type: String, default: "" },
     currentOrder: { type: Object, required: true },
     orderToCheck: { type: String, required: true },
     orderType: { type: String, default: "asc" },
+    orderFixed: { type: Boolean, default: false },
     text: { type: String, required: true },
-    type: { type: String, default: "" },
     align: { type: String, default: "" },
     width: { type: Number | String, required: true },
   },
