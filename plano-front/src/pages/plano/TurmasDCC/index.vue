@@ -249,14 +249,8 @@
               />
             </td>
             <td style="width: 70px" class="t-start">{{ disciplina.codigo }}</td>
-            <td
-              class="t-start"
-              :title="disciplina.nome"
-              style="overflow: hidden"
-            >
-              <div style="width: 260px">
-                {{ disciplina.nome }}
-              </div>
+            <td class="t-start" style="width: 270px" :title="disciplina.nome">
+              {{ disciplina.nome }}
             </td>
             <td style="width: 85px" class="t-start">
               {{ disciplina.perfil.abreviacao }}
