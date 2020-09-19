@@ -4,6 +4,7 @@
       textAlign: align,
       width: tdWidth,
       maxWidth: tdWidth,
+      padding: tdPadding,
     }"
   >
     <slot></slot>
@@ -16,10 +17,14 @@ export default {
   props: {
     width: { type: String | Number, required: true },
     align: { type: String, default: "center" },
+    paddingX: { type: String | Number, default: "5" },
   },
   computed: {
     tdWidth() {
       return `${parseInt(this.width, 10)}px`;
+    },
+    tdPadding() {
+      return `0 ${this.paddingX}px`;
     },
   },
 };
