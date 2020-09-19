@@ -19,6 +19,7 @@ export default {
     align: { type: String, default: "center" },
     paddingX: { type: String | Number, default: "5" },
   },
+
   computed: {
     tdWidth() {
       return `${parseInt(this.width, 10)}px`;
@@ -35,7 +36,6 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding: 0;
   margin: 0;
 }
 </style>
