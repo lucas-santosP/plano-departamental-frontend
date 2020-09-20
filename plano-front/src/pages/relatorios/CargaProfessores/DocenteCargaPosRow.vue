@@ -1,26 +1,21 @@
 <template>
   <tr>
-    <TableTd width="130" />
+    <v-td width="130" />
+    <v-td width="25">{{ carga.trimestre }}</v-td>
+    <v-td width="80" />
+    <v-td width="300" align="start">{{ carga.programa }}</v-td>
+    <v-td width="35" />
+    <v-td width="130" />
 
-    <TableTd width="25">{{ carga.trimestre }}</TableTd>
-
-    <TableTd width="80" />
-
-    <TableTd width="300" align="start">{{ carga.programa }}</TableTd>
-
-    <TableTd width="35" />
-
-    <TableTd width="130" />
-
-    <TableTd v-if="semestresAtivados.primeiro" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.primeiro" width="35" paddingX="2">
       {{ carga.trimestre === 1 || carga.trimestre === 2 ? carga.creditos : "" }}
-    </TableTd>
+    </v-td>
 
-    <TableTd v-if="semestresAtivados.segundo" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.segundo" width="35" paddingX="2">
       {{ carga.trimestre === 3 || carga.trimestre === 4 ? carga.creditos : "" }}
-    </TableTd>
+    </v-td>
 
-    <TableTd
+    <v-td
       v-if="semestresAtivados.primeiro && semestresAtivados.segundo"
       width="40"
       paddingX="2"

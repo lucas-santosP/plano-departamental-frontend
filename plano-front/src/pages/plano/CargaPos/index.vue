@@ -68,14 +68,14 @@
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
             T.
           </th>
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="docenteApelido"
             width="145"
             align="start"
             text="Docente"
           />
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="creditos"
             orderType="desc"

@@ -1,8 +1,17 @@
-import ThOrdination from "./ThOrdination";
 import PageHeader from "./PageHeader";
 import BaseTable from "./BaseTable";
 import BaseModal from "./BaseModal";
 import BaseButton from "./BaseButton";
-import TableTd from "./TableTd";
+import VTd from "./VTd";
+import VTh from "./VTh";
+import VThOrdination from "./VThOrdination";
 
-export { ThOrdination, TableTd, PageHeader, BaseTable, BaseModal, BaseButton };
+export {
+  VThOrdination,
+  VTd,
+  VTh,
+  PageHeader,
+  BaseTable,
+  BaseModal,
+  BaseButton,
+};

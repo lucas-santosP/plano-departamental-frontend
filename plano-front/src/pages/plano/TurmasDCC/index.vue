@@ -79,7 +79,7 @@
             P.
           </th>
 
-          <ThOrdination
+          <v-th-ordination
             :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"
             orderToCheck="disciplina.perfil.abreviacao"
@@ -88,14 +88,14 @@
             text="Perfil"
           />
 
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoMain.turmas"
             orderToCheck="disciplina.codigo"
             width="80"
             text="Código"
           />
 
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoMain.turmas"
             orderToCheck="disciplina.nome"
             width="330"
@@ -168,7 +168,7 @@
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Perfis'">
         <template #thead>
           <th style="width:25px"></th>
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.perfis"
             orderToCheck="nome"
             width="425"
@@ -208,7 +208,7 @@
         </template>
         <template #thead>
           <th style="width:25px"></th>
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="codigo"
             width="70"
@@ -216,7 +216,7 @@
             text="Código"
           />
 
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="nome"
             width="270"
@@ -224,7 +224,7 @@
             text="Nome"
           />
 
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="perfil.abreviacao"
             width="85"
@@ -277,14 +277,14 @@
         </template>
         <template #thead>
           <th style="width:25px"></th>
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.cursos"
             orderToCheck="codigo"
             width="70"
             algin="start"
             text="Código"
           />
-          <ThOrdination
+          <v-th-ordination
             :currentOrder="ordenacaoModal.cursos"
             orderToCheck="nome"
             width="355"

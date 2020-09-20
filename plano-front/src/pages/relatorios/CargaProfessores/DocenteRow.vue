@@ -1,24 +1,23 @@
 <template>
   <tr class="bg-custom">
-    <TableTd width="130" align="start">{{ docente.apelido }}</TableTd>
+    <v-td width="130" align="start">{{ docente.apelido }}</v-td>
+    <v-td width="575" colspan="5" />
 
-    <TableTd width="575" colspan="5" />
-
-    <TableTd v-if="semestresAtivados.primeiro" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.primeiro" width="35" paddingX="2">
       {{ docente.creditos1Semestre }}
-    </TableTd>
+    </v-td>
 
-    <TableTd v-if="semestresAtivados.segundo" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.segundo" width="35" paddingX="2">
       {{ docente.creditos2Semestre }}
-    </TableTd>
+    </v-td>
 
-    <TableTd
+    <v-td
       v-if="semestresAtivados.primeiro && semestresAtivados.segundo"
       width="40"
       paddingX="2"
     >
       {{ docente.creditos1Semestre + docente.creditos2Semestre }}
-    </TableTd>
+    </v-td>
   </tr>
 </template>
 

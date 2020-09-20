@@ -1,19 +1,19 @@
 <template>
-  <td
+  <th
     :style="{
       textAlign: align,
-      width: tdWidth,
-      maxWidth: tdWidth,
-      padding: tdPadding,
+      width: thWidth,
+      maxWidth: thWidth,
+      padding: thPadding,
     }"
   >
     <slot></slot>
-  </td>
+  </th>
 </template>
 
 <script>
 export default {
-  name: "TableTd",
+  name: "v-th",
   props: {
     width: { type: String | Number, required: true },
     align: { type: String, default: "center" },
@@ -21,21 +21,12 @@ export default {
   },
 
   computed: {
-    tdWidth() {
-      return `${parseInt(this.width, 10)}px`;
+    thWidth() {
+      return `${this.width}px`;
     },
-    tdPadding() {
+    thPadding() {
       return `0 ${this.paddingX}px`;
     },
   },
 };
 </script>
-<style scoped>
-td {
-  display: block-inline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin: 0;
-}
-</style>

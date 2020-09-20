@@ -85,23 +85,23 @@
         <template #tbody>
           <template v-for="validacaoTurma in TurmasValidacoesOrdered">
             <tr :key="'turmaId' + validacaoTurma.id" class="bg-custom">
-              <TableTd width="35">{{ validacaoTurma.periodo }}</TableTd>
-              <TableTd width="75" align="start">
+              <v-td width="35">{{ validacaoTurma.periodo }}</v-td>
+              <v-td width="75" align="start">
                 {{ validacaoTurma.disciplina.perfil.abreviacao }}
-              </TableTd>
-              <TableTd width="70" align="start">{{
+              </v-td>
+              <v-td width="70" align="start">{{
                 validacaoTurma.disciplina.codigo
-              }}</TableTd>
-              <TableTd width="300" align="start">{{
+              }}</v-td>
+              <v-td width="300" align="start">{{
                 validacaoTurma.disciplina.nome
-              }}</TableTd>
-              <TableTd width="35">{{ validacaoTurma.letra }}</TableTd>
-              <TableTd width="130" align="start">
+              }}</v-td>
+              <v-td width="35">{{ validacaoTurma.letra }}</v-td>
+              <v-td width="130" align="start">
                 {{ validacaoTurma.docente1Apelido }}
                 <br />
                 {{ validacaoTurma.docente2Apelido }}
-              </TableTd>
-              <TableTd width="50">
+              </v-td>
+              <v-td width="50">
                 <button
                   title="Editar turma"
                   class="btn-table"
@@ -112,14 +112,14 @@
                     class="icon-darkgray"
                   />
                 </button>
-              </TableTd>
+              </v-td>
             </tr>
 
             <tr
               v-for="(conflito, i) in validacaoTurma.conflitos"
               :key="'conflito' + i + validacaoTurma.id + conflito.type"
             >
-              <TableTd width="35">
+              <v-td width="35">
                 <font-awesome-icon
                   v-if="isCritical(conflito.type)"
                   :icon="['fas', 'exclamation-circle']"
@@ -127,11 +127,11 @@
                   title="Conflito critico!"
                   style="font-size: 13px"
                 />
-              </TableTd>
+              </v-td>
 
-              <TableTd width="655" align="start" colspan="6">
+              <v-td width="655" align="start" colspan="6">
                 {{ conflito.msg }}
-              </TableTd>
+              </v-td>
             </tr>
           </template>
 
@@ -237,7 +237,7 @@
               :key="periodo.id + periodo.nome"
               @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             >
-              <TableTd width="25">
+              <v-td width="25">
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
@@ -245,8 +245,8 @@
                   v-model="filtroPeriodos.selecionados"
                   @click.stop="selecionaPeriodo(periodo)"
                 />
-              </TableTd>
-              <TableTd width="425" align="start" :text="periodo.nome" />
+              </v-td>
+              <v-td width="425" align="start" :text="periodo.nome" />
             </tr>
           </template>
         </BaseTable>
@@ -449,10 +449,6 @@ export default {
       this.PeriodosLetivos,
       (periodo) => periodo.id === 1 || periodo.id === 3
     );
-    //
-    this.modalFiltrosCallbacks.selectAll.Conflitos();
-    this.modalFiltrosCallbacks.btnOk();
-    //
 
     //define grades ativas por periodo
     let g;

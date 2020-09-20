@@ -306,7 +306,7 @@
             />
           </template>
           <template#thead>
-            <ThOrdination
+            <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="codigo"
               width="50"
@@ -314,14 +314,14 @@
               title="Código"
               text="Cód."
             />
-            <ThOrdination
+            <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="nome"
               width="320"
               align="start"
               text="Nome"
             />
-            <ThOrdination
+            <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="VagasTotais"
               width="80"

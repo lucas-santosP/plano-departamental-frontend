@@ -1,15 +1,22 @@
 <template>
-  <th
-    @click="toggleOrder"
+  <v-th
+    @click.native="toggleOrder"
+    :align="align"
+    :width="width"
+    :paddingX="paddingX"
     class="clickable"
-    :style="{ textAlign: align, width: tdWidth }"
   >
     <div v-if="orderFixed" class="container-fixed-order">
       <font-awesome-icon
         :icon="['fas', 'thumbtack']"
         :class="currentOrder.order === null ? 'low-opacity' : ''"
       />
-      <span>{{ text }}</span>
+      <span>
+        {{ text }}
+        <template v-if="text === ''">
+          <slot></slot>
+        </template>
+      </span>
 
       <OrdinationArrow
         :currentOrder="currentOrder"
@@ -19,29 +26,34 @@
 
     <template v-else>
       {{ text }}
+      <template v-if="text === ''">
+        <slot></slot>
+      </template>
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
       />
     </template>
-  </th>
+  </v-th>
 </template>
 
 <script>
+import Vth from "./VTh";
 import OrdinationArrow from "@/components/ui/OrdinationArrow";
 
 export default {
-  name: "ThOrdination",
-  components: { OrdinationArrow },
+  name: "v-th-ordination",
+  components: { OrdinationArrow, "v-th": Vth },
   props: {
-    type: { type: String, default: "" },
     currentOrder: { type: Object, required: true },
     orderToCheck: { type: String, required: true },
     orderType: { type: String, default: "asc" },
     orderFixed: { type: Boolean, default: false },
-    text: { type: String, required: true },
-    align: { type: String, default: "" },
+
+    text: { type: String, default: "" },
+    align: { type: String, default: "center" },
     width: { type: Number | String, required: true },
+    paddingX: { type: String | Number, default: "5" },
   },
 
   methods: {

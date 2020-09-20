@@ -1,32 +1,28 @@
 <template>
   <tr>
-    <TableTd width="130" />
+    <v-td width="130" />
+    <v-td width="30">{{ turma.periodo }}</v-td>
+    <v-td width="80" paddingX="2">{{ turma.disciplina.codigo }}</v-td>
+    <v-td width="300" align="start">{{ turma.disciplina.nome }}</v-td>
+    <v-td width="35" paddingX="2">{{ turma.letra }}</v-td>
 
-    <TableTd width="30">{{ turma.periodo }}</TableTd>
-
-    <TableTd width="80" paddingX="2">{{ turma.disciplina.codigo }}</TableTd>
-
-    <TableTd width="300" align="start">{{ turma.disciplina.nome }}</TableTd>
-
-    <TableTd width="35" paddingX="2">{{ turma.letra }}</TableTd>
-
-    <TableTd width="130"
+    <v-td width="130"
       >{{ generateHorariosText(turma.Horario1, turma.Horario2) }}
-    </TableTd>
+    </v-td>
 
-    <TableTd v-if="semestresAtivados.primeiro" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.primeiro" width="35" paddingX="2">
       {{
         turma.periodo === 1 || turma.periodo === 2 ? turma.creditosDaTurma : ""
       }}
-    </TableTd>
+    </v-td>
 
-    <TableTd v-if="semestresAtivados.segundo" width="35" paddingX="2">
+    <v-td v-if="semestresAtivados.segundo" width="35" paddingX="2">
       {{
         turma.periodo === 3 || turma.periodo === 4 ? turma.creditosDaTurma : ""
       }}
-    </TableTd>
+    </v-td>
 
-    <TableTd
+    <v-td
       v-if="semestresAtivados.primeiro && semestresAtivados.segundo"
       width="40"
       paddingX="2"

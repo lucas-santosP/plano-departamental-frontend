@@ -32,49 +32,46 @@
     <div class="div-table">
       <BaseTable>
         <template #thead>
-          <th
-            @click="toggleOrder(orednacaoDocentesMain, 'apelido')"
-            style="width: 130px"
-            class="clickable t-start"
-          >
-            Docente
-            <i :class="setIconByOrder(orednacaoDocentesMain, 'apelido')"></i>
-          </th>
-          <th style="width: 30px" class="p-0" title="Período ou Trimestre">
+          <v-th-ordination
+            :currentOrder="orednacaoDocentesMain"
+            orderToCheck="apelido"
+            width="130"
+            align="start"
+            >Docente
+          </v-th-ordination>
+          <v-th width="30" title="Período ou Trimestre" paddingX="0">
             P./T.
-          </th>
-          <th style="width: 80px">Código</th>
-          <th style="width: 300px" class="t-start">Disciplina</th>
-          <th style="width: 35px" class="less-padding" title="Turma">T.</th>
-          <th style="width: 130px">Horários</th>
-          <th
+          </v-th>
+          <v-th width="80">Código</v-th>
+          <v-th width="300" align="start">Disciplina</v-th>
+          <v-th width="35" title="Turma">T.</v-th>
+          <v-th width="130">Horários</v-th>
+          <v-th
             v-if="filtroSemestresEstaAtivo.primeiro"
-            style="width: 35px"
-            class="p-0"
+            width="35"
+            paddingX="0"
             title="Somatório dos créditos no 1º semestre"
-          >
-            CS1
-          </th>
-          <th
+            >CS1
+          </v-th>
+          <v-th
             v-if="filtroSemestresEstaAtivo.segundo"
-            style="width: 35px"
-            class="p-0"
+            width="35"
+            paddingX="0"
             title="Somatório dos créditos no 2º semestre"
-          >
-            CS2
-          </th>
-          <th
+            >CS2
+          </v-th>
+          <v-th
             v-if="
               filtroSemestresEstaAtivo.primeiro &&
                 filtroSemestresEstaAtivo.segundo
             "
-            style="width: 50px"
-            class="p-0"
+            width="40"
+            paddingX="0"
             title="Somatório total de créditos"
-          >
-            CTotal
-          </th>
+            >CTotal
+          </v-th>
         </template>
+
         <template #tbody>
           <template v-if="algumFiltroEstaAtivo">
             <template v-for="docente in DocentesComTurmasECargasOrdered">
@@ -111,7 +108,7 @@
             </template>
           </template>
 
-          <tr v-show="!algumFiltroEstaAtivo">
+          <tr v-else>
             <td :style="`width:${emptyRowWidth}px`">
               <b>Nenhum docente encontrado.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />

@@ -76,22 +76,22 @@
                 'clickable',
               ]"
             >
-              <TableTd width="65" align="start">{{ curso.codigo }}</TableTd>
-              <TableTd width="300" align="start" :title="curso.nome">
+              <v-td width="65" align="start">{{ curso.codigo }}</v-td>
+              <v-td width="300" align="start" :title="curso.nome">
                 {{ curso.nome }}
-              </TableTd>
-              <TableTd width="65">{{ curso.turno }}</TableTd>
-              <TableTd width="75">{{ curso.alunosEntrada }}</TableTd>
-              <TableTd width="75">{{ curso.alunosEntrada2 }}</TableTd>
+              </v-td>
+              <v-td width="65">{{ curso.turno }}</v-td>
+              <v-td width="75">{{ curso.alunosEntrada }}</v-td>
+              <v-td width="75">{{ curso.alunosEntrada2 }}</v-td>
             </tr>
             <tr v-if="!CursosOrdered.length">
-              <TableTd width="580" colspan="5">
+              <v-td width="580" colspan="5">
                 <font-awesome-icon
                   :icon="['fas', 'exclamation-triangle']"
                   class="icon-red"
                 />
                 <b> Nenhum curso encontrado!</b>
-              </TableTd>
+              </v-td>
             </tr>
           </template>
         </BaseTable>
