@@ -21,6 +21,7 @@
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
+        :orderType="orderType"
       />
     </div>
 
@@ -32,6 +33,7 @@
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
+        :orderType="orderType"
       />
     </template>
   </v-th>
