@@ -47,14 +47,12 @@
           <v-th width="35" title="Turma">T.</v-th>
           <v-th width="130">Horários</v-th>
           <v-th
-            v-if="filtroSemestresEstaAtivo.primeiro"
             width="35"
             paddingX="0"
             title="Somatório dos créditos no 1º semestre"
             >CS1
           </v-th>
           <v-th
-            v-if="filtroSemestresEstaAtivo.segundo"
             width="35"
             paddingX="0"
             title="Somatório dos créditos no 2º semestre"
@@ -618,12 +616,10 @@ export default {
     },
     emptyRowWidth() {
       const { primeiro, segundo } = this.filtroSemestresEstaAtivo;
-      let tdsWidth = 0;
+      let tdTotalWidth = 0;
+      if (primeiro && segundo) tdTotalWidth = 40;
 
-      if (primeiro && segundo) tdsWidth = 120;
-      else if (primeiro || segundo) tdsWidth = 35;
-
-      return 705 + tdsWidth;
+      return 775 + tdTotalWidth;
     },
   },
 };

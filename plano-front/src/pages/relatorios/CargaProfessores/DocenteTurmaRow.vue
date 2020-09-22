@@ -10,13 +10,13 @@
       {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
     </v-td>
 
-    <v-td v-if="semestresAtivados.primeiro" width="35" paddingX="2">
+    <v-td width="35" paddingX="2">
       {{
         turma.periodo === 1 || turma.periodo === 2 ? turma.creditosDaTurma : ""
       }}
     </v-td>
 
-    <v-td v-if="semestresAtivados.segundo" width="35" paddingX="2">
+    <v-td width="35" paddingX="2">
       {{
         turma.periodo === 3 || turma.periodo === 4 ? turma.creditosDaTurma : ""
       }}

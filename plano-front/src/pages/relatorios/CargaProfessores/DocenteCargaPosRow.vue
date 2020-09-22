@@ -7,11 +7,11 @@
     <v-td width="35" />
     <v-td width="130" />
 
-    <v-td v-if="semestresAtivados.primeiro" width="35" paddingX="2">
+    <v-td width="35" paddingX="2">
       {{ carga.trimestre === 1 || carga.trimestre === 2 ? carga.creditos : "" }}
     </v-td>
 
-    <v-td v-if="semestresAtivados.segundo" width="35" paddingX="2">
+    <v-td width="35" paddingX="2">
       {{ carga.trimestre === 3 || carga.trimestre === 4 ? carga.creditos : "" }}
     </v-td>
 
