@@ -106,7 +106,8 @@ td:hover {
   height: 20px !important;
 }
 .modal-table tbody tr td {
-  cursor: default;
+  cursor: pointer;
+  user-select: none;
   min-height: 21px !important;
 }
 
