@@ -3,8 +3,8 @@
     <PageHeader :title="'Carga Professores'">
       <BaseButton
         title="Filtros"
-        :type="'icon'"
-        :color="'gray'"
+        type="icon"
+        color="gray"
         @click="toggleAsideModal('filtros')"
       >
         <font-awesome-icon :icon="['fas', 'list-ul']" />
@@ -12,8 +12,8 @@
 
       <BaseButton
         title="Relatório"
-        :type="'icon'"
-        :color="'gray'"
+        type="icon"
+        color="gray"
         @click="toggleAsideModal('relatorio')"
       >
         <font-awesome-icon :icon="['fas', 'file-alt']" />
@@ -21,8 +21,8 @@
 
       <BaseButton
         title="Ajuda"
-        :type="'icon'"
-        :color="'lightblue'"
+        type="icon"
+        color="lightblue"
         @click="toggleAsideModal('ajuda')"
       >
         <font-awesome-icon :icon="['fas', 'question']" />
@@ -134,15 +134,14 @@
           />
         </template>
         <template #thead>
-          <th style="width: 25px"></th>
-          <th
-            class="clickable t-start"
-            style="width: 425px"
-            @click="toggleOrder(ordenacaoDocentesModal, 'apelido')"
-          >
-            Nome
-            <i :class="setIconByOrder(ordenacaoDocentesModal, 'apelido')"></i>
-          </th>
+          <v-th width="25" />
+          <v-th-ordination
+            :currentOrder="ordenacaoDocentesModal"
+            orderToCheck="apelido"
+            width="425"
+            align="start"
+            >Nome
+          </v-th-ordination>
         </template>
         <template #tbody>
           <tr
@@ -150,39 +149,40 @@
             :key="docente.id + docente.apelido"
             @click="toggleItemInArray(docente, filtroDocentes.selecionados)"
           >
-            <td style="width: 25px;">
+            <v-td width="25">
               <input
                 type="checkbox"
-                v-model="filtroDocentes.selecionados"
-                :value="docente"
                 class="form-check-input position-static m-0"
+                :value="docente"
+                v-model="filtroDocentes.selecionados"
               />
-            </td>
-            <td style="width: 425px;" class="t-start">
+            </v-td>
+            <v-td width="425" align="start">
               {{ docente.apelido }}
-            </td>
+            </v-td>
           </tr>
-          <tr
-            @click="
-              filtroDocenteSemAlocacao.selecionado = !filtroDocenteSemAlocacao.selecionado
-            "
-          >
-            <td style="width: 25px;">
+
+          <tr @click="toggleFiltroDocenteSemAlocacaoSelecionado">
+            <v-td width="25">
               <input
                 type="checkbox"
                 v-model="filtroDocenteSemAlocacao.selecionado"
                 class="form-check-input position-static m-0"
               />
-            </td>
-            <td style="width: 425px;" class="t-start">SEM ALOCAÇÃO</td>
+            </v-td>
+            <v-td width="425" align="start">
+              {{ DocenteSemAlocacaoComTurmas.apelido }}
+            </v-td>
           </tr>
         </template>
       </BaseTable>
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
         <template #thead>
-          <th style="width: 25px"></th>
-          <th style="width: 425px" class="t-start">Periodos Letivo</th>
+          <v-th width="25" />
+          <v-th width="425" align="start">
+            Periodos Letivo
+          </v-th>
         </template>
         <template #tbody>
           <tr
@@ -190,7 +190,7 @@
             :key="periodo.id + periodo.nome"
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
@@ -198,10 +198,10 @@
                 v-model="filtroPeriodos.selecionados"
                 @click.stop="selecionaPeriodo(periodo)"
               />
-            </td>
-            <td style="width: 425px" class="t-start upper-case">
+            </v-td>
+            <v-td width="425" align="start">
               {{ periodo.nome }}
-            </td>
+            </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -211,10 +211,10 @@
         :type="'modal'"
       >
         <template #thead>
-          <th style="width: 25px"></th>
-          <th class="t-start" style="width: 425px">
+          <v-th width="25" />
+          <v-th width="425" align="start">
             Semestre Letivo
-          </th>
+          </v-th>
         </template>
         <template #tbody>
           <tr
@@ -222,7 +222,7 @@
             :key="semestre.id + semestre.nome"
             @click="selecionaSemestre(semestre)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
@@ -230,10 +230,10 @@
                 v-model="filtroSemestres.selecionados"
                 @click.stop="selecionaSemestre(semestre)"
               />
-            </td>
-            <td style="width: 425px" class="t-start upper-case">
+            </v-td>
+            <v-td width="425" align="start">
               {{ semestre.nome }}
-            </td>
+            </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -266,7 +266,6 @@ import { mapGetters } from "vuex";
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
-  toggleOrdination,
   toggleItemInArray,
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
@@ -280,7 +279,6 @@ import DocenteCargaPosRow from "./DocenteCargaPosRow";
 export default {
   name: "DashboardCargaProfessores",
   mixins: [
-    toggleOrdination,
     toggleItemInArray,
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
@@ -385,6 +383,10 @@ export default {
         SemAlocacao,
         plano: this.$_.find(this.allPlanos, ["id", this.currentPlanoId]),
       });
+    },
+    toggleFiltroDocenteSemAlocacaoSelecionado() {
+      this.filtroDocenteSemAlocacao.selecionado = !this.filtroDocenteSemAlocacao
+        .selecionado;
     },
     periodoEstaAtivo(periodoId) {
       return this.$_.some(this.filtroPeriodos.ativados, ["id", periodoId]);
