@@ -89,7 +89,7 @@ const actions = {
     });
   },
 
-  async addNovoCurso({ commit, dispatch, getters }, curso) {
+  async createCurso({ commit, dispatch, getters }, curso) {
     const cursoNormalized = _.cloneDeepWith(curso, setEmptyValuesToNull);
     validateObjectKeys(cursoNormalized, [
       "nome",

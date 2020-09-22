@@ -99,7 +99,7 @@
         :toggleFooter="isEditing"
         @btn-salvar="handleEditCurso"
         @btn-delete="openModalDelete"
-        @btn-add="handleAddNovoCurso"
+        @btn-add="handleCreateCurso"
         @btn-clean="cleanForm"
       >
         <template #form-group>
@@ -249,7 +249,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["addNovoCurso", "editCurso", "deleteCurso"]),
+    ...mapActions(["createCurso", "editCurso", "deleteCurso"]),
 
     handleClickInCurso(curso) {
       this.cleanForm();
@@ -290,10 +290,11 @@ export default {
       this.$refs.modalDelete.open();
     },
 
-    async handleAddNovoCurso() {
+    async handleCreateCurso() {
       try {
         this.setPartialLoading(true);
-        await this.addNovoCurso(this.cursoForm);
+        await this.createCurso(this.cursoForm);
+        this.cleanForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -322,6 +323,7 @@ export default {
       try {
         this.setPartialLoading(true);
         await this.deleteCurso(this.cursoForm);
+        this.cleanForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
