@@ -139,7 +139,8 @@
                 type="text"
                 id="nome"
                 class="form-control form-control-sm input-maior upper-case"
-                v-model="disciplinaForm.nome"
+                :value="disciplinaForm.nome"
+                @input="disciplinaForm.nome = $event.target.value.toUpperCase()"
               />
             </div>
           </div>
@@ -151,7 +152,10 @@
                 type="text"
                 id="codigo"
                 class="form-control form-control-sm input-medio upper-case"
-                v-model="disciplinaForm.codigo"
+                :value="disciplinaForm.codigo"
+                @input="
+                  disciplinaForm.codigo = $event.target.value.toUpperCase()
+                "
               />
             </div>
             <div class="form-group m-0 col px-0">

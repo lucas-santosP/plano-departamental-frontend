@@ -110,7 +110,8 @@
                 id="nome"
                 type="text"
                 class="input-maior form-control form-control-sm"
-                v-model="cursoForm.nome"
+                :value="cursoForm.nome"
+                @input="cursoForm.nome = $event.target.value.toUpperCase()"
               />
             </div>
           </div>
@@ -122,7 +123,8 @@
                 type="text"
                 class="form-control form-control-sm input-menor"
                 id="codigo"
-                v-model="cursoForm.codigo"
+                :value="cursoForm.codigo"
+                @input="cursoForm.codigo = $event.target.value.toUpperCase()"
               />
             </div>
             <div class="form-group col m-0 px-0">
@@ -222,8 +224,8 @@ import { ModalDelete, ModalAjuda } from "@/components/modals";
 
 const emptyCurso = {
   id: null,
-  nome: null,
-  codigo: null,
+  nome: "",
+  codigo: "",
   turno: null,
   semestreInicial: null,
   alunosEntrada: 0,
@@ -235,6 +237,7 @@ export default {
   name: "DashboardCursos",
   mixins: [maskOnlyNumber],
   components: { Card, ModalDelete, ModalAjuda },
+
   data() {
     return {
       modalDeleteText: "",
