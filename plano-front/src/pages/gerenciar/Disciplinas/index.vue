@@ -190,11 +190,13 @@
                 >Carga Teórica</label
               >
               <input
-                type="text"
+                type="number"
+                min="0"
                 id="cargaTeorica"
                 class="form-control form-control-sm input-medio t-center"
-                @keypress="maskOnlyNumber"
                 v-model.number="disciplinaForm.cargaTeorica"
+                @keypress="maskOnlyNumber"
+                @blur="maskEmptyToZero($event, disciplinaForm, 'cargaTeorica')"
               />
             </div>
 
@@ -203,11 +205,13 @@
                 >Carga Prática</label
               >
               <input
-                type="text"
+                type="number"
+                min="0"
                 id="cargaPratica"
                 class="form-control form-control-sm input-medio t-center"
+                v-model.number="disciplinaForm.cargaPratica"
                 @keypress="maskOnlyNumber"
-                v-model="disciplinaForm.cargaPratica"
+                @blur="maskEmptyToZero($event, disciplinaForm, 'cargaPratica')"
               />
             </div>
           </div>
@@ -221,7 +225,7 @@
                 type="text"
                 class="form-control form-control-sm input-medio"
                 id="laboratorio"
-                v-model="disciplinaForm.laboratorio"
+                v-model.number="disciplinaForm.laboratorio"
               >
                 <option value="0">Não</option>
                 <option value="1">Sim</option>
@@ -234,7 +238,7 @@
                 type="text"
                 class="form-control form-control-sm input-medio"
                 id="ead"
-                v-model="disciplinaForm.ead"
+                v-model.number="disciplinaForm.ead"
               >
                 <option value="0">Não</option>
                 <option value="1">Integral</option>
@@ -311,25 +315,25 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { maskOnlyNumber } from "@/common/mixins";
-import { Card } from "@/components/ui";
+import { maskOnlyNumber, maskEmptyToZero } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
+import { Card } from "@/components/ui";
 
 const emptyDisciplina = {
   id: null,
-  nome: null,
-  codigo: null,
+  nome: "",
+  codigo: "",
+  Perfil: "",
   cargaTeorica: 0,
   cargaPratica: 0,
-  Perfil: null,
-  ead: 0,
   laboratorio: 0,
+  ead: 0,
   departamento: 1,
 };
 
 export default {
   name: "DashboardDisciplina",
-  mixins: [maskOnlyNumber],
+  mixins: [maskOnlyNumber, maskEmptyToZero],
   components: { Card, ModalDelete, ModalAjuda },
   data() {
     return {
