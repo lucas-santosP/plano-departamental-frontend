@@ -1,40 +1,61 @@
 <template>
-  <th @click="toggleOrder" class="clickable">
-    <div v-if="type === 'fixed'" class="container-fixed-order">
+  <v-th
+    @click.native="toggleOrder"
+    :align="align"
+    :width="width"
+    :paddingX="paddingX"
+    class="clickable"
+  >
+    <div v-if="orderFixed" class="container-fixed-order">
       <font-awesome-icon
         :icon="['fas', 'thumbtack']"
         :class="currentOrder.order === null ? 'low-opacity' : ''"
       />
-      <span>{{ text }}</span>
+      <span>
+        {{ text }}
+        <template v-if="text === ''">
+          <slot></slot>
+        </template>
+      </span>
 
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
+        :orderType="orderType"
       />
     </div>
 
     <template v-else>
       {{ text }}
+      <template v-if="text === ''">
+        <slot></slot>
+      </template>
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
+        :orderType="orderType"
       />
     </template>
-  </th>
+  </v-th>
 </template>
 
 <script>
+import Vth from "./VTh";
 import OrdinationArrow from "@/components/ui/OrdinationArrow";
 
 export default {
-  name: "ThOrdination",
-  components: { OrdinationArrow },
+  name: "v-th-ordination",
+  components: { OrdinationArrow, "v-th": Vth },
   props: {
     currentOrder: { type: Object, required: true },
     orderToCheck: { type: String, required: true },
     orderType: { type: String, default: "asc" },
-    text: { type: String, required: true },
-    type: { type: String, default: "" },
+    orderFixed: { type: Boolean, default: false },
+
+    text: { type: String, default: "" },
+    align: { type: String, default: "center" },
+    width: { type: Number | String, required: true },
+    paddingX: { type: String | Number, default: "5" },
   },
 
   methods: {
@@ -42,7 +63,7 @@ export default {
       const { currentOrder, orderType } = this;
       let newOrder = this.orderToCheck;
 
-      if (this.type === "fixed" && currentOrder.type === "desc") {
+      if (this.orderFixed && currentOrder.type === "desc") {
         newOrder = null;
       }
 
@@ -54,6 +75,11 @@ export default {
       }
     },
   },
+  computed: {
+    tdWidth() {
+      return `${parseInt(this.width, 10)}px`;
+    },
+  },
 };
 </script>
 
@@ -63,8 +89,5 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.container-fixed-order > span {
-  /* margin: 0 2px; */
 }
 </style>
