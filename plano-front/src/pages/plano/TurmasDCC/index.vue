@@ -105,7 +105,10 @@
 
           <th style="width:25px" title="Créditos">C.</th>
           <th style="width:45px" class="p-0" title="Turma">T.</th>
-          <th style="width:130px">Docente</th>
+          <th style="width:130px" @click="toggleOrderByPreferencia">
+            <font-awesome-icon  :class="orderByPreferencia ? '' : 'low-opacity'" :icon="['fas', 'thumbtack']" />
+            Docente
+          </th>
           <th style="width:80px">Turno</th>
           <th style="width:85px">Horário</th>
           <th style="width:95px">Sala</th>
@@ -142,6 +145,7 @@
             :key="turma.id + turma.letra"
             :turma="turma"
             :cursosAtivados="filtroCursos.ativados"
+            :order-by-preferencia="orderByPreferencia"
             @handle-click-in-edit="openModalEditTurma($event)"
           />
 
@@ -611,6 +615,8 @@ export default {
         turmas: { order: "disciplina.codigo", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
+
+      orderByPreferencia: true
     };
   },
 
@@ -704,6 +710,10 @@ export default {
         this.setPartialLoading(false);
       }
     },
+
+    toggleOrderByPreferencia(){
+      this.orderByPreferencia = !this.orderByPreferencia
+    }
   },
 
   computed: {
