@@ -145,27 +145,31 @@
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label required for="alunosEntrada1" class="col-form-label"
-                >Alunos 1º Período</label
-              >
+                >Alunos 1º Período
+              </label>
               <input
-                type="text"
+                type="number"
+                min="0"
                 id="alunosEnrada1"
                 class="form-control form-control-sm input-menor"
-                @keypress="maskOnlyNumber"
                 v-model.number="cursoForm.alunosEntrada"
+                @keypress="maskOnlyNumber"
+                @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada')"
               />
             </div>
 
             <div class="form-group col m-0 px-0">
               <label required for="alunosEntrada2" class="col-form-label"
-                >Alunos 2º Período</label
-              >
+                >Alunos 2º Período
+              </label>
               <input
-                type="text"
+                type="number"
+                min="0"
                 id="alunosEntrada2"
                 class="form-control form-control-sm input-menor"
-                @keypress="maskOnlyNumber"
                 v-model.number="cursoForm.alunosEntrada2"
+                @keypress="maskOnlyNumber"
+                @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada2')"
               />
             </div>
           </div>
@@ -218,26 +222,25 @@
 <script>
 import ls from "local-storage";
 import { mapActions, mapGetters } from "vuex";
-import { maskOnlyNumber } from "@/common/mixins";
-import { Card } from "@/components/ui";
+import { maskOnlyNumber, maskEmptyToZero } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
+import { Card } from "@/components/ui";
 
 const emptyCurso = {
   id: null,
+  semestreInicial: null,
+  posicao: null,
   nome: "",
   codigo: "",
-  turno: null,
-  semestreInicial: null,
+  turno: "",
   alunosEntrada: 0,
   alunosEntrada2: 0,
-  posicao: null,
 };
 
 export default {
   name: "DashboardCursos",
-  mixins: [maskOnlyNumber],
+  mixins: [maskOnlyNumber, maskEmptyToZero],
   components: { Card, ModalDelete, ModalAjuda },
-
   data() {
     return {
       modalDeleteText: "",
@@ -292,6 +295,22 @@ export default {
 
       this.$refs.modalDelete.open();
     },
+    toggleCurso(id) {
+      var state = ls.get(`${id}`);
+      this.$store.dispatch("toggleCurso", id);
+      ls.set(`${id}`, !state);
+    },
+    toggleAllCursos() {
+      if (this.selectAll === true) {
+        this.$store.dispatch("toggleAllCursosFalse");
+        this.selectAll = false;
+        ls.set("toggle", false);
+      } else {
+        this.$store.dispatch("toggleAllCursosTrue");
+        this.selectAll = true;
+        ls.set("toggle", true);
+      }
+    },
 
     async handleCreateCurso() {
       try {
@@ -335,22 +354,6 @@ export default {
         });
       } finally {
         this.setPartialLoading(false);
-      }
-    },
-    toggleCurso(id) {
-      var state = ls.get(`${id}`);
-      this.$store.dispatch("toggleCurso", id);
-      ls.set(`${id}`, !state);
-    },
-    toggleAllCursos() {
-      if (this.selectAll === true) {
-        this.$store.dispatch("toggleAllCursosFalse");
-        this.selectAll = false;
-        ls.set("toggle", false);
-      } else {
-        this.$store.dispatch("toggleAllCursosTrue");
-        this.selectAll = true;
-        ls.set("toggle", true);
       }
     },
   },
