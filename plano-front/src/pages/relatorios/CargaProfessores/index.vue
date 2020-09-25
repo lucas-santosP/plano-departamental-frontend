@@ -58,14 +58,7 @@
             title="Somatório dos créditos no 2º semestre"
             >CS2
           </v-th>
-          <v-th
-            v-if="
-              filtroSemestresEstaAtivo.primeiro &&
-                filtroSemestresEstaAtivo.segundo
-            "
-            width="40"
-            paddingX="0"
-            title="Somatório total de créditos"
+          <v-th width="40" paddingX="0" title="Somatório total de créditos"
             >CTotal
           </v-th>
         </template>
@@ -73,45 +66,36 @@
         <template #tbody>
           <template v-if="algumFiltroEstaAtivo">
             <template v-for="docente in DocentesComTurmasECargasOrdered">
-              <DocenteRow
-                :key="docente.id + docente.nome"
-                :docente="docente"
-                :semestresAtivados="filtroSemestresEstaAtivo"
-              />
+              <DocenteRow :key="docente.id + docente.nome" :docente="docente" />
               <DocenteTurmaRow
                 v-for="turma in docente.turmas"
-                :key="turma.id + turma.letra + docente.id"
+                :key="turma.id + turma.letra + docente.nome"
                 :turma="turma"
-                :semestresAtivados="filtroSemestresEstaAtivo"
               />
               <DocenteCargaPosRow
                 v-for="carga in docente.cargasPos"
                 :key="carga.id + carga.programa + docente.id"
                 :carga="carga"
-                :semestresAtivados="filtroSemestresEstaAtivo"
               />
             </template>
 
             <template v-if="filtroDocenteSemAlocacaoEstaAtivo">
-              <DocenteRow
-                :docente="DocenteSemAlocacaoComTurmas"
-                :semestresAtivados="filtroSemestresEstaAtivo"
-              />
+              <DocenteRow :docente="DocenteSemAlocacaoComTurmas" />
+
               <DocenteTurmaRow
                 v-for="turma in DocenteSemAlocacaoComTurmas.turmas"
                 :key="turma.id + turma.letra + turma.periodo"
                 :turma="turma"
-                :semestresAtivados="filtroSemestresEstaAtivo"
               />
             </template>
           </template>
 
           <tr v-else>
-            <td :style="`width:${emptyRowWidth}px`">
+            <v-td width="815">
               <b>Nenhum docente encontrado.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-los.
-            </td>
+            </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -124,7 +108,7 @@
     >
       <BaseTable
         v-show="modalFiltrosTabs.current === 'Docentes'"
-        :type="'modal'"
+        type="modal"
         :hasSearchBar="true"
       >
         <template #thead-search>
@@ -206,10 +190,7 @@
         </template>
       </BaseTable>
 
-      <BaseTable
-        v-show="modalFiltrosTabs.current === 'Semestres'"
-        :type="'modal'"
-      >
+      <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" type="modal">
         <template #thead>
           <v-th width="25" />
           <v-th width="425" align="start">
@@ -367,8 +348,7 @@ export default {
 
   methods: {
     pdf(completo) {
-      let SemAlocacao;
-      let Docentes;
+      let SemAlocacao, Docentes;
 
       if (completo) {
         SemAlocacao = true;
@@ -387,9 +367,6 @@ export default {
     toggleFiltroDocenteSemAlocacaoSelecionado() {
       this.filtroDocenteSemAlocacao.selecionado = !this.filtroDocenteSemAlocacao
         .selecionado;
-    },
-    periodoEstaAtivo(periodoId) {
-      return this.$_.some(this.filtroPeriodos.ativados, ["id", periodoId]);
     },
     calculaCreditosDaTurma(creditos, docente1Id, docente2Id) {
       if (docente1Id > 0 && docente2Id > 0 && docente1Id !== docente2Id) {
@@ -498,7 +475,6 @@ export default {
         };
       });
     },
-
     DocenteSemAlocacaoComTurmas() {
       let creditos1Semestre = 0;
       let creditos2Semestre = 0;
@@ -566,15 +542,9 @@ export default {
       ]);
     },
     CargasPosFilteredByPeriodo() {
-      return this.$_.filter(this.AllCargasPos, (carga) => {
-        if (this.periodoEstaAtivo(1) && this.periodoEstaAtivo(3)) {
-          return true;
-        } else if (this.periodoEstaAtivo(1)) {
-          return carga.trimestre === 1 || carga.trimestre === 2;
-        } else if (this.periodoEstaAtivo(3)) {
-          return carga.trimestre === 3 || carga.trimestre === 4;
-        }
-      });
+      return this.$_.filter(this.AllCargasPos, (carga) =>
+        this.$_.some(this.filtroPeriodos.ativados, ["id", carga.trimestre])
+      );
     },
 
     DocentesOptionsModalOrdered() {
@@ -595,18 +565,11 @@ export default {
         return docenteApelido.match(searchNormalized);
       });
     },
-
     filtroDocenteSemAlocacaoEstaAtivo() {
       return (
         this.DocenteSemAlocacaoComTurmas.turmas.length &&
         this.filtroDocenteSemAlocacao.ativado
       );
-    },
-    filtroSemestresEstaAtivo() {
-      return {
-        primeiro: this.periodoEstaAtivo(1) || this.periodoEstaAtivo(2),
-        segundo: this.periodoEstaAtivo(3) || this.periodoEstaAtivo(4),
-      };
     },
     algumFiltroEstaAtivo() {
       return (
@@ -615,13 +578,6 @@ export default {
         (this.filtroDocenteSemAlocacao.ativado &&
           this.filtroPeriodos.ativados.length)
       );
-    },
-    emptyRowWidth() {
-      const { primeiro, segundo } = this.filtroSemestresEstaAtivo;
-      let tdTotalWidth = 0;
-      if (primeiro && segundo) tdTotalWidth = 40;
-
-      return 775 + tdTotalWidth;
     },
   },
 };
