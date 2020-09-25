@@ -452,6 +452,8 @@ export default {
           trimestreId,
         ]);
       };
+
+      this.filtroSemestres.selecionados = [];
       const semestresSelecionados = this.filtroSemestres.selecionados;
 
       if (someTrimestreAtivado(1) && someTrimestreAtivado(2)) {
