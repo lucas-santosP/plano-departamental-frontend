@@ -72,63 +72,63 @@
     <div class="div-table">
       <BaseTable>
         <template #thead>
-          <th style="width:25px"></th>
-          <th style="width:40px" class="p-0">Editar</th>
-          <th style="width:55px" title="Período letivo, ordenação fixa">
+          <v-th width="25" />
+          <v-th width="40" paddingX="0">Editar</v-th>
+          <v-th width="55" paddingX="0" title="Período letivo, ordenação fixa">
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
             P.
-          </th>
-
+          </v-th>
           <v-th-ordination
             :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"
             orderToCheck="disciplina.perfil.abreviacao"
             width="80"
             align="start"
-            text="Perfil"
-          />
-
+            >Perfil
+          </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoMain.turmas"
             orderToCheck="disciplina.codigo"
             width="80"
-            text="Código"
-          />
-
+            >Código
+          </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoMain.turmas"
             orderToCheck="disciplina.nome"
             width="330"
             align="start"
-            text="Disciplina"
-          />
-
-          <th style="width:25px" title="Créditos">C.</th>
-          <th style="width:45px" class="p-0" title="Turma">T.</th>
-          <th style="width:130px" @click="toggleOrderByPreferencia">
-            <font-awesome-icon  :class="orderByPreferencia ? '' : 'low-opacity'" :icon="['fas', 'thumbtack']" />
+            text=""
+            >Disciplina
+          </v-th-ordination>
+          <v-th width="25" paddingX="0" title="Créditos">C.</v-th>
+          <v-th width="45" paddingX="0" title="Turma">T.</v-th>
+          <v-th width="160" align="start">
+            <!-- @click.native="toggleOrderByPreferencia" -->
+            <!-- <font-awesome-icon  :class="orderByPreferencia ? '' : 'low-opacity'" :icon="['fas', 'thumbtack']" /> -->
             Docente
-          </th>
-          <th style="width:80px">Turno</th>
-          <th style="width:85px">Horário</th>
-          <th style="width:95px">Sala</th>
-          <th style="width:45px" title="Total de vagas">Total</th>
-          <th
+          </v-th>
+          <v-th width="80">Turno</v-th>
+          <v-th width="85">Horário</v-th>
+          <v-th width="95">Sala</v-th>
+          <v-th width="45" title="Total de vagas">Total</v-th>
+          <v-th
+            width="35"
+            paddingX="0"
             v-for="curso in filtroCursos.ativados"
             :key="curso.id + curso.codigo"
-            class="p-0"
-            style="width: 35px"
             v-b-popover.hover.bottom="{
               title: curso.nome,
               content: cursoPopoverContent(curso),
             }"
           >
             <span
-              class="w-100"
-              :class="{ 'curso-codigo-big': nameIsBig(curso.codigo) }"
-              >{{ curso.codigo }}</span
-            >
-          </th>
+              :class="[
+                'w-100',
+                { 'curso-codigo-big': nameIsBig(curso.codigo) },
+              ]"
+              >{{ curso.codigo }}
+            </span>
+          </v-th>
         </template>
 
         <template #add-row>
@@ -145,20 +145,16 @@
             :key="turma.id + turma.letra"
             :turma="turma"
             :cursosAtivados="filtroCursos.ativados"
-            :order-by-preferencia="orderByPreferencia"
-            @handle-click-in-edit="openModalEditTurma($event)"
+            @click-edit="openModalEditTurma($event)"
           />
+          <!-- :orderByPreferencia="orderByPreferencia" -->
 
-          <tr v-show="TurmasOrdered.length === 0">
-            <td style="width:1115px">
+          <tr v-show="!TurmasOrdered.length">
+            <v-td :width="1145 + 35 * filtroCursos.ativados.length">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-las.
-            </td>
-            <td
-              v-if="filtroCursos.ativados.length"
-              :style="`width: ${35 * filtroCursos.ativados.length}px`"
-            ></td>
+            </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -616,7 +612,7 @@ export default {
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
 
-      orderByPreferencia: true
+      orderByPreferencia: true,
     };
   },
 
@@ -711,9 +707,9 @@ export default {
       }
     },
 
-    toggleOrderByPreferencia(){
-      this.orderByPreferencia = !this.orderByPreferencia
-    }
+    toggleOrderByPreferencia() {
+      this.orderByPreferencia = !this.orderByPreferencia;
+    },
   },
 
   computed: {
