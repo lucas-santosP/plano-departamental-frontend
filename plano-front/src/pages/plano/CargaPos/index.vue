@@ -6,7 +6,7 @@
         title="Salvar"
         :type="'icon'"
         :color="'green'"
-        @click="$refs.novaCargaPosRow.handleAddNovaCargaPos()"
+        @click="$refs.novaCargaPosRow.handleCreateCargaPos()"
       >
         <font-awesome-icon :icon="['fas', 'check']" />
       </BaseButton>

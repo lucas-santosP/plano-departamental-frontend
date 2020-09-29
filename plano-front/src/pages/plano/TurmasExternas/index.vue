@@ -6,7 +6,7 @@
         title="Salvar"
         :type="'icon'"
         :color="'green'"
-        @click="addNovaTurma"
+        @click="$refs.novaTurmaExternaRow.handleCreateTurmaExterna()"
       >
         <font-awesome-icon :icon="['fas', 'check']" />
       </BaseButton>
@@ -440,9 +440,6 @@ export default {
     },
     openModalDelete() {
       this.$refs.modalDelete.open();
-    },
-    addNovaTurma() {
-      this.$refs.novaTurmaExternaRow.handleAddNovaTurma();
     },
 
     async handleDeleteTurmas() {

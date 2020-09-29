@@ -6,7 +6,7 @@
           title="Salvar"
           :type="'icon'"
           :color="'green'"
-          @click="$refs.novaTurma.handleAddNovaTurma()"
+          @click="$refs.novaTurma.handleCreateTurma()"
         >
           <font-awesome-icon :icon="['fas', 'check']" />
         </BaseButton>
