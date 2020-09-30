@@ -282,5 +282,6 @@
     .td-pref:hover {
         color: #1a79b2;
         text-decoration: underline;
+        cursor: pointer;
     }
 </style>
