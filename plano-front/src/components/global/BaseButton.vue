@@ -66,6 +66,11 @@ export default {
           options.class = "btn-icon icon-gray";
           options.iconName = "file-alt";
           break;
+        case "file-upload":
+          options.title = "Upload de Arquivo";
+          options.class = "btn-icon icon-blue";
+          options.iconName = "file-upload";
+          break;
         default:
           options.title = "Vazio!";
           options.class = "btn-icon icon-gray";
