@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    :key="generateUniqueKey()"
+    :key="uniqueKey"
     :disabled="disabled"
     :class="['btn base-btn', options.class]"
     :title="options.title"
@@ -22,22 +22,7 @@ export default {
     disabled: { type: Boolean, default: false },
     text: { type: String | Number, default: "" },
   },
-
-  methods: {
-    generateUniqueKey() {
-      if (this.color) return this.$_.uniqueId(this.color);
-      else return this.$_.uniqueId(this.template);
-    },
-  },
-
   computed: {
-    buttonClasses() {
-      const { type, color } = this;
-
-      if (type === "icon" || type === "text") return `btn-${type} ${type}-${color}`;
-      else return "";
-    },
-
     options() {
       if (!this.template)
         return {
@@ -88,6 +73,10 @@ export default {
           break;
       }
       return options;
+    },
+    uniqueKey() {
+      if (this.template) return this.$_.uniqueId(this.template);
+      else return this.$_.uniqueId(this.color);
     },
   },
 };
