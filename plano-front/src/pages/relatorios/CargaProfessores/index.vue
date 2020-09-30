@@ -1,32 +1,9 @@
 <template>
   <div class="main-component row p-0">
     <PageHeader :title="'Carga Professores'">
-      <BaseButton
-        title="Filtros"
-        type="icon"
-        color="gray"
-        @click="toggleAsideModal('filtros')"
-      >
-        <font-awesome-icon :icon="['fas', 'list-ul']" />
-      </BaseButton>
-
-      <BaseButton
-        title="Relatório"
-        type="icon"
-        color="gray"
-        @click="toggleAsideModal('relatorio')"
-      >
-        <font-awesome-icon :icon="['fas', 'file-alt']" />
-      </BaseButton>
-
-      <BaseButton
-        title="Ajuda"
-        type="icon"
-        color="lightblue"
-        @click="toggleAsideModal('ajuda')"
-      >
-        <font-awesome-icon :icon="['fas', 'question']" />
-      </BaseButton>
+      <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
+      <BaseButton template="relatorio" @click="toggleAsideModal('relatorio')" />
+      <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
 
     <div class="div-table">
@@ -46,16 +23,10 @@
           <v-th width="300" align="start">Disciplina</v-th>
           <v-th width="35" title="Turma">T.</v-th>
           <v-th width="130">Horários</v-th>
-          <v-th
-            width="35"
-            paddingX="0"
-            title="Somatório dos créditos no 1º semestre"
+          <v-th width="35" paddingX="0" title="Somatório dos créditos no 1º semestre"
             >CS1
           </v-th>
-          <v-th
-            width="35"
-            paddingX="0"
-            title="Somatório dos créditos no 2º semestre"
+          <v-th width="35" paddingX="0" title="Somatório dos créditos no 2º semestre"
             >CS2
           </v-th>
           <v-th width="40" paddingX="0" title="Somatório total de créditos"
@@ -234,8 +205,8 @@
         <b>Relatório:</b>
         Clique no ícone relatório
         <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em
-        seguida, indique se deseja gerar o relatório completo com a distribuição
-        das disciplinas para todos os professores ou o relatório parcial com as
+        seguida, indique se deseja gerar o relatório completo com a distribuição das
+        disciplinas para todos os professores ou o relatório parcial com as
         informações exibidas na tela.
       </li>
     </ModalAjuda>
@@ -259,11 +230,7 @@ import DocenteCargaPosRow from "./DocenteCargaPosRow";
 
 export default {
   name: "DashboardCargaProfessores",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-  ],
+  mixins: [toggleItemInArray, toggleAsideModal, conectaFiltrosSemestresEPeriodos],
   components: {
     ModalRelatorio,
     ModalAjuda,
@@ -459,12 +426,10 @@ export default {
         const cargasPosDoDocente = this.calculaCargasPosDoDocente(docente.id);
 
         const creditos1Semestre =
-          turmasDoDocente.creditos1Semestre +
-          cargasPosDoDocente.creditos1Semestre;
+          turmasDoDocente.creditos1Semestre + cargasPosDoDocente.creditos1Semestre;
 
         const creditos2Semestre =
-          turmasDoDocente.creditos2Semestre +
-          cargasPosDoDocente.creditos2Semestre;
+          turmasDoDocente.creditos2Semestre + cargasPosDoDocente.creditos2Semestre;
 
         return {
           ...docente,
@@ -511,10 +476,8 @@ export default {
           turma.Disciplina != null
       );
 
-      const turmasFilteredByPeriodo = this.$_.filter(
-        turmasSemDocente,
-        (turma) =>
-          this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      const turmasFilteredByPeriodo = this.$_.filter(turmasSemDocente, (turma) =>
+        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
 
       return this.$_.orderBy(turmasFilteredByPeriodo, [
@@ -529,10 +492,8 @@ export default {
         (turma) => turma.Docente1 != null || turma.Docente2 != null
       );
 
-      const turmasFilteredByPeriodo = this.$_.filter(
-        turmasComDocente,
-        (turma) =>
-          this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      const turmasFilteredByPeriodo = this.$_.filter(turmasComDocente, (turma) =>
+        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
 
       return this.$_.orderBy(turmasFilteredByPeriodo, [
