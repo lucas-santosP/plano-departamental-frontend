@@ -54,11 +54,7 @@
           </v-th-ordination>
           <v-th width="25" paddingX="0" title="Créditos">C.</v-th>
           <v-th width="45" paddingX="0" title="Turma">T.</v-th>
-          <v-th width="160" align="start">
-            <!-- @click.native="toggleOrderByPreferencia" -->
-            <!-- <font-awesome-icon  :class="orderByPreferencia ? '' : 'low-opacity'" :icon="['fas', 'thumbtack']" /> -->
-            Docente
-          </v-th>
+          <v-th width="160" align="start">Docente </v-th>
           <v-th width="80">Turno</v-th>
           <v-th width="85">Horário</v-th>
           <v-th width="95">Sala</v-th>
@@ -95,7 +91,6 @@
             :cursosAtivados="filtroCursos.ativados"
             @click-edit="openModalEditTurma($event)"
           />
-          <!-- :orderByPreferencia="orderByPreferencia" -->
 
           <tr v-show="!TurmasOrdered.length">
             <v-td :width="1145 + 35 * filtroCursos.ativados.length">
@@ -290,7 +285,7 @@
         </template>
       </BaseTable>
 
-      <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" :type="'modal'">
+      <BaseTable :type="'modal'" v-show="modalFiltrosTabs.current === 'Semestres'">
         <template #thead>
           <th style="width: 25px"></th>
           <th class="t-start" style="width: 425px">
@@ -550,8 +545,6 @@ export default {
         turmas: { order: "disciplina.codigo", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
-
-      orderByPreferencia: true,
     };
   },
 
@@ -641,10 +634,6 @@ export default {
       } finally {
         this.setPartialLoading(false);
       }
-    },
-
-    toggleOrderByPreferencia() {
-      this.orderByPreferencia = !this.orderByPreferencia;
     },
   },
 
