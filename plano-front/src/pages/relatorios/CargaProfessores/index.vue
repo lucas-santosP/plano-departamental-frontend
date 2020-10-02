@@ -305,10 +305,7 @@ export default {
   },
 
   beforeMount() {
-    this.filtroPeriodos.selecionados = this.$_.filter(
-      this.PeriodosLetivos,
-      (periodo) => periodo.id === 1 || periodo.id === 3
-    );
+    this.modalFiltrosCallbacks.selectAll.Periodos();
     this.modalFiltrosCallbacks.selectAll.Docentes();
     this.modalFiltrosCallbacks.btnOk();
   },

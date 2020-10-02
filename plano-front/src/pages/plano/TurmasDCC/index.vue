@@ -555,11 +555,8 @@ export default {
     };
   },
 
-  mounted() {
-    this.filtroPeriodos.selecionados = this.$_.filter(
-      this.PeriodosLetivos,
-      (periodo) => periodo.id === 1 || periodo.id === 3
-    );
+  beforeMount() {
+    this.modalFiltrosCallbacks.selectAll.Periodos();
 
     ls.set("toggle", -1);
     ls.on("toggle", () => {
