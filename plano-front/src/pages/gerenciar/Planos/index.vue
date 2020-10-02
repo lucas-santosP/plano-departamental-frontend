@@ -191,12 +191,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "setPartialLoading",
-      "setCurrentPlanoId",
-      "deletePlano",
-      "editPlano",
-    ]),
+    ...mapActions(["setCurrentPlanoId", "deletePlano", "editPlano"]),
 
     limitNomeLength($event) {
       if ($event.target.value.length >= 10) $event.preventDefault();
