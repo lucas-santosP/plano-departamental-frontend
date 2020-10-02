@@ -325,7 +325,7 @@ export default {
       pdfs.pdfCargaProfessores({
         Docentes,
         SemAlocacao,
-        plano: this.$_.find(this.allPlanos, ["id", this.currentPlanoId]),
+        plano: this.$_.find(this.AllPlanos, ["id", this.currentPlanoId]),
       });
     },
     toggleFiltroDocenteSemAlocacaoSelecionado() {
@@ -400,7 +400,7 @@ export default {
       "TurmasInDisciplinasPerfis",
       "PeriodosLetivos",
       "AllCargasPos",
-      "allPlanos",
+      "AllPlanos",
       "currentPlanoId",
       "SemestresLetivos",
     ]),

@@ -442,7 +442,7 @@ export default {
   },
 
   beforeMount() {
-    const currentPlano = this.$_.find(this.allPlanos, [
+    const currentPlano = this.$_.find(this.AllPlanos, [
       "id",
       parseInt(localStorage.getItem("Plano")),
     ]);
@@ -654,7 +654,7 @@ export default {
       "PrincipaisCursosDCC",
       "DisciplinasInPerfis",
       "AllPerfis",
-      "allPlanos",
+      "AllPlanos",
     ]),
 
     DisciplinasOrderedMain() {

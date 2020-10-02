@@ -478,7 +478,7 @@ export default {
 
       pdfs.pdfRelatorioDisciplinas({
         disciplinasSelecionadas,
-        plano: this.$_.find(this.allPlanos, [
+        plano: this.$_.find(this.AllPlanos, [
           "id",
           parseInt(localStorage.getItem("Plano")),
         ]),
@@ -491,7 +491,7 @@ export default {
       "TurmasInDisciplinasPerfis",
       "DisciplinasDCCInPerfis",
       "PerfisDCC",
-      "allPlanos",
+      "AllPlanos",
       "Pedidos",
       "PeriodosLetivos",
       "SemestresLetivos",

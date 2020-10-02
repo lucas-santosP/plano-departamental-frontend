@@ -821,7 +821,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "allPlanos",
+      "AllPlanos",
       "DisciplinasInPerfis",
       "AllDisciplinas",
       "currentPlanoId",
@@ -853,7 +853,7 @@ export default {
 
     currentPlano() {
       return this.$_.find(
-        this.allPlanos,
+        this.AllPlanos,
         (plano) => plano.id === this.currentPlanoId
       );
     },
