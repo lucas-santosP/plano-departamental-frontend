@@ -7,7 +7,6 @@
         @click="$refs.novaTurma.handleCreateTurma()"
       />
       <BaseButton v-show="isAdding" template="cancelar" @click="toggleIsAdding" />
-
       <BaseButton v-show="!isAdding" template="adicionar" @click="toggleIsAdding" />
       <BaseButton
         v-show="!isAdding"
@@ -15,7 +14,6 @@
         title="Deletar selecionados"
         @click="$refs.modalDelete.open()"
       />
-
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="generateXlsx" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />

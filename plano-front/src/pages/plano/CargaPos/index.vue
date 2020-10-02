@@ -7,7 +7,6 @@
         @click="$refs.novaCargaPosRow.handleCreateCargaPos()"
       />
       <BaseButton v-show="isAdding" template="cancelar" @click="toggleAddRow" />
-
       <BaseButton v-show="!isAdding" template="adicionar" @click="toggleAddRow" />
       <BaseButton
         v-show="!isAdding"
@@ -15,7 +14,6 @@
         title="Deletar selecionados"
         @click="$refs.modalDelete.open()"
       />
-
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
