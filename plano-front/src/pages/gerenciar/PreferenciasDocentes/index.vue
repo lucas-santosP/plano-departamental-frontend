@@ -1,23 +1,67 @@
 <template>
     <div>
         <PageHeader title="Preferências dos docentes">
+            <BaseButton template="swap-modes" @click="swapModes()"/>
             <BaseButton template="file-upload" @click="openModalUpload()" />
         </PageHeader>
-        <BaseTable>
+
+        <BaseTable v-if="docentespordisciplina">
             <template #thead>
-                <v-th width="250">Docente</v-th>
-                <v-th :key="`disciplina${disciplina.id}`" v-for="disciplina in AllDisciplinas" width="80">{{disciplina.codigo}}</v-th>
+                <th style="width: 80px">Código</th>
+                <th style="width: 420px">Nome</th>
+                <th style="width: 100px">Perfil</th>
+                <th style="width: 200px">Docente</th>
+                <th style="width: 40px">Pref</th>
             </template>
+
             <template #tbody>
-                <tr v-for="docente in AllDocentes" :key="`docente${docente.id}`">
-                    <v-td width = 250>{{docente.nome}}</v-td>
-                    <td class="td-pref" :key="`docente${docente.id}-disciplina${disciplina.id}`" v-for="disciplina in AllDisciplinas" :style="{width: '80px'}"
-                          v-b-popover.hover.right="{
-                            content: `${docente.nome}\n${disciplina.codigo} - ${disciplina.nome}`
-                          }"
-                        v-on:click="openModalEdit(docente, disciplina)"
-                    >{{preferencia(docente, disciplina)}}</td>
-                </tr>
+                <template v-for="disciplina in DocentesPorDisciplinas">
+                    <tr :key="disciplina[0].Disciplina + 'headerDisciplina'" class="bg-custom">
+                        <td style="width: 80px">{{disciplinaById(disciplina[0].Disciplina).codigo}}</td>
+                        <td style="width: 420px">{{disciplinaById(disciplina[0].Disciplina).nome}}</td>
+                        <td style="width: 100px">{{perfilById(disciplinaById(disciplina[0].Disciplina).Perfil).abreviacao}}</td>
+                        <td style="width: 200px"></td>
+                        <td style="width: 40px"></td>
+                    </tr>
+
+                    <tr v-for="preferencia in disciplina" :key="'disciplina' + preferencia.Disciplina + 'docente' + preferencia.Docente" @click="openModalEdit(preferencia)">
+                        <td style="width: 80px"></td>
+                        <td style="width: 420px"></td>
+                        <td style="width: 100px"></td>
+                        <td style="width: 200px">{{docenteById(preferencia.Docente).apelido}}</td>
+                        <td style="width: 40px">{{preferencia.preferencia}}</td>
+                    </tr>
+                </template>
+            </template>
+        </BaseTable>
+
+        <BaseTable v-else>
+            <template #thead>
+                <th style="width: 200px">Docente</th>
+                <th style="width: 80px">Código</th>
+                <th style="width: 420px">Nome</th>
+                <th style="width: 100px">Perfil</th>
+                <th style="width: 40px">Pref</th>
+            </template>
+
+            <template #tbody>
+                <template v-for="docente in DisciplinasPorDocentes">
+                    <tr :key="docente[0].Docente + 'headerDocente'" class="bg-custom">
+                        <td style="width: 200px">{{docenteById(docente[0].Docente).apelido}}</td>
+                        <td style="width: 80px"></td>
+                        <td style="width: 420px"></td>
+                        <td style="width: 100px"></td>
+                        <td style="width: 40px"></td>
+                    </tr>
+
+                    <tr v-for="preferencia in docente" :key="'docente' + preferencia.Docente + 'disciplina' + preferencia.Disciplina" openModalEdit(preferencia)>
+                        <td style="width: 200px"></td>
+                        <td style="width: 80px">{{disciplinaById(preferencia.Disciplina).codigo}}</td>
+                        <td style="width: 420px">{{disciplinaById(preferencia.Disciplina).nome}}</td>
+                        <td style="width: 100px">{{perfilById(disciplinaById(preferencia.Disciplina).Perfil).abreviacao}}</td>
+                        <td style="width: 40px">{{preferencia.preferencia}}</td>
+                    </tr>
+                </template>
             </template>
         </BaseTable>
 
@@ -89,7 +133,8 @@
                    disciplina: undefined,
                    isZero: undefined
                },
-               error: undefined
+               error: undefined,
+               docentespordisciplina: true
             };
         },
 
@@ -161,15 +206,15 @@
                 else return 0
             },
 
-            openModalEdit(docente, disciplina) {
-                this.edit.docente = docente
-                this.edit.disciplina = disciplina
-                let p = this.preferencia(docente, disciplina)
+            openModalEdit(preferencia) {
+                this.edit.docente = this.docenteById(preferencia.Docente)
+                this.edit.disciplina = this.disciplinaById(preferencia.Disciplina)
+                let p = preferencia.preferencia
                 if(p === 0) this.edit.isZero = true
                 else this.edit.isZero = false
                 this.preferenciaForm = {
-                    Docente: docente.id,
-                    Disciplina: disciplina.id,
+                    Docente: preferencia.Docente,
+                    Disciplina: preferencia.Disciplina,
                     preferencia: p
                 }
                 this.$refs.modalEdit.open();
@@ -261,12 +306,63 @@
 
             openModalUpload() {
                 this.$refs.modalUpload.open();
+            },
+
+            disciplinaById(disc) {
+                return _.find(this.AllDisciplinas, {'id':disc})
+            },
+
+            docenteById(doce) {
+                return _.find(this.AllDocentes, {'id':doce})
+            },
+
+            perfilById(perfil) {
+                return _.find(this.AllPerfis, {'id':perfil})
+            },
+
+            swapModes() {
+                this.docentespordisciplina = !this.docentespordisciplina
             }
 
         },
 
         computed: {
-            ...mapGetters(["AllDocentes", "AllDisciplinas", "PreferenciaDosDocentes"]),
+            ...mapGetters(["AllDocentes", "AllDisciplinas", "PreferenciaDosDocentes", "AllPerfis"]),
+
+            DocentesPorDisciplinas() {
+                let prefs = {};
+                this.PreferenciaDosDocentes.forEach(p => {
+                    if(prefs[p.Disciplina] === undefined)
+                        prefs[p.Disciplina] = []
+                    prefs[p.Disciplina].push(p)
+                })
+                for (var disc in prefs) {
+                    if (Object.prototype.hasOwnProperty.call(prefs, disc)) {
+                        prefs[disc] = _.orderBy(_.orderBy(prefs[disc], (doce) => {
+                            return this.docenteById(doce.Docente).apelido
+                        }), ['preferencia'], ['desc'])
+                    }
+                }
+                return prefs
+            },
+
+            DisciplinasPorDocentes() {
+                let prefs = {};
+                this.PreferenciaDosDocentes.forEach(p => {
+                    if(prefs[p.Docente] === undefined)
+                        prefs[p.Docente] = []
+                    prefs[p.Docente].push(p)
+                })
+                for (var doce in prefs) {
+                    if (Object.prototype.hasOwnProperty.call(prefs, doce)) {
+                        prefs[doce] = _.orderBy(_.orderBy(prefs[doce], (disc) => {
+                            return this.disciplinaById(disc.Disciplina).codigo
+                        }), ['preferencia'], ['desc'])
+                    }
+                }
+                return prefs
+            },
+
         },
     };
 </script>
