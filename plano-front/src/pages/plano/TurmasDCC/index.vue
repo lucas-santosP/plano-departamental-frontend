@@ -711,7 +711,7 @@ export default {
       );
     },
     DisciplinasOptionsFiltered() {
-      if (!this.searchDisciplinasModal) return this.DisciplinasOptions;
+      if (this.searchDisciplinasModal === "") return this.DisciplinasOptions;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
@@ -734,7 +734,7 @@ export default {
       );
     },
     CursosOptionsFiltered() {
-      if (!this.searchCursosModal) return this.AllCursos;
+      if (this.searchCursosModal === "") return this.AllCursos;
 
       const searchNormalized = normalizeText(this.searchCursosModal);
 
