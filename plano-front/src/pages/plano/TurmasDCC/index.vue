@@ -119,7 +119,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="perfil in PerfisOrderedModal"
+            v-for="perfil in PerfisOptionsOrdered"
             :key="perfil.id + perfil.nome"
             @click.stop="selectPerfils(perfil)"
           >
@@ -177,7 +177,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="disciplina in DisciplinasDCCOrderedModal"
+            v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
             @click.stop="selectDisciplina(disciplina)"
           >
@@ -196,7 +196,7 @@
             </v-td>
             <v-td width="85" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
           </tr>
-          <tr v-if="!DisciplinasDCCOrderedModal.length">
+          <tr v-if="!DisciplinasOptionsOrdered.length">
             <v-td colspan="3" width="450">
               NENHUMA DISCIPLINA ENCONTRADA.
             </v-td>
@@ -234,7 +234,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="curso in CursosOrderedModal"
+            v-for="curso in CursosOptionsOrdered"
             :key="curso.id + curso.nome"
             @click.stop="toggleItemInArray(curso, filtroCursos.selecionados)"
           >
@@ -249,7 +249,7 @@
             <v-td width="70" align="start">{{ curso.codigo }}</v-td>
             <v-td width="355" align="start">{{ curso.nome }}</v-td>
           </tr>
-          <tr v-show="!CursosOrderedModal.length">
+          <tr v-show="!CursosOptionsOrdered.length">
             <v-td colspan="3" width="450">NENHUM CURSO ENCONTRADO.</v-td>
           </tr>
         </template>
@@ -477,11 +477,11 @@ export default {
         selectAll: {
           Perfis: () => {
             this.filtroDisciplinas.selecionados = [...this.DisciplinasDCCInPerfis];
-            this.filtroPerfis.selecionados = [...this.PerfisOptionsModal];
+            this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
             this.filtroDisciplinas.selecionados = [...this.DisciplinasDCCInPerfis];
-            this.filtroPerfis.selecionados = [...this.PerfisOptionsModal];
+            this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Cursos: () => {
             this.filtroCursos.selecionados = [...this.AllCursos];
@@ -581,7 +581,6 @@ export default {
       if (nome.length > 4) return true;
       else return false;
     },
-
     selectDisciplina(disciplina) {
       this.toggleItemInArray(disciplina, this.filtroDisciplinas.selecionados);
       this.conectaDisciplinasEmPerfis();
@@ -589,13 +588,10 @@ export default {
     conectaDisciplinasEmPerfis() {
       this.filtroPerfis.selecionados = [];
 
-      this.filtroPerfis.selecionados = this.$_.filter(
-        this.PerfisOptionsModal,
-        (perfil) =>
-          this.$_.some(this.filtroDisciplinas.selecionados, ["Perfil", perfil.id])
+      this.filtroPerfis.selecionados = this.$_.filter(this.PerfisOptions, (perfil) =>
+        this.$_.some(this.filtroDisciplinas.selecionados, ["Perfil", perfil.id])
       );
     },
-
     selectPerfils(perfil) {
       perfil.halfChecked = false;
       const indexDoPerfil = this.$_.findIndex(this.filtroPerfis.selecionados, [
@@ -714,7 +710,6 @@ export default {
 
     TurmasOrdered() {
       const { turmas, perfis } = this.ordenacaoMain;
-
       //Se não possui ordenação de perfil fixada
       if (this.ordenacaoMain.perfis.order === null) {
         return this.$_.orderBy(
@@ -742,29 +737,29 @@ export default {
         this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
-    // tables modal
-    PerfisOrderedModal() {
+    // Modals Options
+    PerfisOptionsOrdered() {
       return this.$_.orderBy(
-        this.PerfisOptionsModal,
+        this.PerfisOptions,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
     },
-    PerfisOptionsModal() {
+    PerfisOptions() {
       return this.$_.map(this.PerfisDCC, (perfil) => {
-        const disciplinasDoPerfilTotal = this.$_.filter(
+        const todasDisciplinasDoPerfil = this.$_.filter(
           this.DisciplinasDCCInPerfis,
           ["Perfil", perfil.id]
-        ).length;
-        const disciplinasDoPerfilSelecionadas = this.$_.filter(
+        );
+        const disciplinasSelecionadas = this.$_.filter(
           this.filtroDisciplinas.selecionados,
           ["Perfil", perfil.id]
-        ).length;
+        );
 
         let halfChecked = false;
-        if (disciplinasDoPerfilTotal === disciplinasDoPerfilSelecionadas) {
+        if (todasDisciplinasDoPerfil.length === disciplinasSelecionadas.length) {
           halfChecked = false;
-        } else if (disciplinasDoPerfilSelecionadas > 0) {
+        } else if (disciplinasSelecionadas.length > 0) {
           halfChecked = true;
         }
 
@@ -774,70 +769,44 @@ export default {
         };
       });
     },
-
-    DisciplinasDCCOrderedModal() {
+    DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
-        this.DisciplinasDCCFiltredModal,
+        this.DisciplinasOptionsFiltered,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
       );
     },
-    DisciplinasDCCFiltredModal() {
-      if (this.searchDisciplinasModal === "") return this.DisciplinasDCCInPerfis;
+    DisciplinasOptionsFiltered() {
+      if (!this.searchDisciplinasModal) return this.DisciplinasDCCInPerfis;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
       return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
-        const disciplinaNome = normalizeText(disciplina.nome);
-        const disciplinaCodigo = normalizeText(disciplina.codigo);
+        const nome = normalizeText(disciplina.nome);
+        const codigo = normalizeText(disciplina.codigo);
 
-        return (
-          disciplinaNome.match(searchNormalized) ||
-          disciplinaCodigo.match(searchNormalized)
-        );
+        return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
     },
-    CursosOrderedModal() {
+    CursosOptionsOrdered() {
       return this.$_.orderBy(
-        this.CursosFiltredModal,
+        this.CursosOptionsFiltered,
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type
       );
     },
-    CursosFiltredModal() {
-      let cursosResultantes = this.AllCursos;
+    CursosOptionsFiltered() {
+      if (!this.searchCursosModal) return this.AllCursos;
 
-      if (this.searchCursosModal !== "") {
-        const searchNormalized = normalizeText(this.searchCursosModal);
+      const searchNormalized = normalizeText(this.searchCursosModal);
 
-        cursosResultantes = this.$_.filter(cursosResultantes, (curso) => {
-          const cursoNome = normalizeText(curso.nome);
-          const cursoCodigo = normalizeText(curso.codigo);
+      return this.$_.filter(this.AllCursos, (curso) => {
+        const nome = normalizeText(curso.nome);
+        const codigo = normalizeText(curso.codigo);
 
-          return (
-            cursoNome.match(searchNormalized) || cursoCodigo.match(searchNormalized)
-          );
-        });
-      }
-      return cursosResultantes;
+        return nome.match(searchNormalized) || codigo.match(searchNormalized);
+      });
     },
-  },
-
-  watch: {
-    // filtroPerfis: {
-    //   handler(filtroPerfis) {
-    //     const disciplinasResultantes = [];
-    //     this.DisciplinasDCCInPerfis.forEach((disciplina) => {
-    //       const perfilFounded = this.$_.some(
-    //         filtroPerfis.selecionados,
-    //         (perfil) => perfil.id === disciplina.Perfil
-    //       );
-    //       if (perfilFounded) disciplinasResultantes.push(disciplina.id);
-    //     });
-    //     this.filtroDisciplinas.selecionados = [...disciplinasResultantes];
-    //   },
-    //   deep: true,
-    // },
   },
 };
 </script>
