@@ -121,7 +121,7 @@
           <tr
             v-for="perfil in PerfisOptionsOrdered"
             :key="perfil.id + perfil.nome"
-            @click.stop="selectPerfils(perfil)"
+            @click.stop="selectPerfis(perfil)"
           >
             <v-td width="25">
               <input
@@ -130,7 +130,7 @@
                 :value="perfil"
                 v-model="filtroPerfis.selecionados"
                 :indeterminate.prop="perfil.halfChecked"
-                @click.stop="selectPerfils(perfil)"
+                @click.stop="selectPerfis(perfil)"
               />
             </v-td>
             <v-td width="425" align="start">{{ perfil.nome }}</v-td>
@@ -310,7 +310,7 @@
           v-if="modalFiltrosTabs.current === 'Cursos'"
           text="Cursos DCC"
           color="lightblue"
-          @click="selectCursosDCC()"
+          @click="selectCursosDCC"
         />
       </template>
     </ModalFiltros>
@@ -413,8 +413,10 @@ import {
   toggleItemInArray,
   toggleAsideModal,
   cursoPopoverContent,
+  conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
+
 import { InputSearch } from "@/components/ui";
 import {
   ModalDelete,
@@ -433,6 +435,7 @@ export default {
     toggleAsideModal,
     cursoPopoverContent,
     conectaFiltrosSemestresEPeriodos,
+    conectaFiltroPerfisEDisciplinas,
   ],
   components: {
     ModalAjuda,
@@ -476,11 +479,11 @@ export default {
       modalFiltrosCallbacks: {
         selectAll: {
           Perfis: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasDCCInPerfis];
+            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasDCCInPerfis];
+            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Cursos: () => {
@@ -498,11 +501,11 @@ export default {
         selectNone: {
           Perfis: () => {
             this.filtroPerfis.selecionados = [];
-            this.conectaPerfisEmDisciplinas();
+            this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
             this.filtroDisciplinas.selecionados = [];
-            this.conectaDisciplinasEmPerfis();
+            this.filtroPerfis.selecionados = [];
           },
           Cursos: () => {
             this.filtroCursos.selecionados = [];
@@ -580,76 +583,6 @@ export default {
     nameIsBig(nome) {
       if (nome.length > 4) return true;
       else return false;
-    },
-    selectDisciplina(disciplina) {
-      this.toggleItemInArray(disciplina, this.filtroDisciplinas.selecionados);
-      this.conectaDisciplinasEmPerfis();
-    },
-    conectaDisciplinasEmPerfis() {
-      this.filtroPerfis.selecionados = [];
-
-      this.filtroPerfis.selecionados = this.$_.filter(this.PerfisOptions, (perfil) =>
-        this.$_.some(this.filtroDisciplinas.selecionados, ["Perfil", perfil.id])
-      );
-    },
-    selectPerfils(perfil) {
-      perfil.halfChecked = false;
-      const indexDoPerfil = this.$_.findIndex(this.filtroPerfis.selecionados, [
-        "id",
-        perfil.id,
-      ]);
-
-      if (indexDoPerfil === -1) this.filtroPerfis.selecionados.push(perfil);
-      else this.filtroPerfis.selecionados.splice(indexDoPerfil, 1);
-
-      this.conectaPerfisEmDisciplinas();
-    },
-    conectaPerfisEmDisciplinas() {
-      //Se não tem nenhum perfil selecionado, zera disciplinas
-      if (!this.filtroPerfis.selecionados.length) {
-        this.filtroDisciplinas.selecionados = [];
-        return;
-      }
-
-      this.$_.forEach(this.PerfisDCC, (perfil) => {
-        const perfilFounded = this.$_.find(this.filtroPerfis.selecionados, [
-          "id",
-          perfil.id,
-        ]);
-        //Se o perfil esta selecionado
-        if (perfilFounded) {
-          //E se não esta half checked. Então adiciona todas disciplinas do perfil
-          if (!perfilFounded.halfChecked) {
-            const disciplinasDoPefil = this.$_.filter(this.DisciplinasDCCInPerfis, [
-              "Perfil",
-              perfilFounded.id,
-            ]);
-
-            this.filtroDisciplinas.selecionados = this.$_.union(
-              disciplinasDoPefil,
-              this.filtroDisciplinas.selecionados
-            );
-          }
-        } else {
-          //Se o perfil não esta selecionado, remove todos as disciplinas desse perfil
-          this.filtroDisciplinas.selecionados = this.$_.filter(
-            this.filtroDisciplinas.selecionados,
-            (disciplina) => disciplina.Perfil !== perfil.id
-          );
-        }
-      });
-      // const disciplinasResult = this.$_.filter(
-      //   this.DisciplinasDCCInPerfis,
-      //   (disciplina) =>
-      //     this.$_.some(
-      //       this.filtroPerfis.selecionados,
-      //       (perfil) => !perfil.halfChecked && perfil.id === disciplina.Perfil
-      //     )
-      // );
-      // this.filtroDisciplinas.selecionados = this.$_.union(
-      //   this.filtroDisciplinas.selecionados,
-      //   disciplinasResult
-      // );
     },
 
     async generateXlsx() {
@@ -747,10 +680,10 @@ export default {
     },
     PerfisOptions() {
       return this.$_.map(this.PerfisDCC, (perfil) => {
-        const todasDisciplinasDoPerfil = this.$_.filter(
-          this.DisciplinasDCCInPerfis,
-          ["Perfil", perfil.id]
-        );
+        const todasDisciplinasDoPerfil = this.$_.filter(this.DisciplinasOptions, [
+          "Perfil",
+          perfil.id,
+        ]);
         const disciplinasSelecionadas = this.$_.filter(
           this.filtroDisciplinas.selecionados,
           ["Perfil", perfil.id]
@@ -769,6 +702,7 @@ export default {
         };
       });
     },
+
     DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
         this.DisciplinasOptionsFiltered,
@@ -777,17 +711,21 @@ export default {
       );
     },
     DisciplinasOptionsFiltered() {
-      if (!this.searchDisciplinasModal) return this.DisciplinasDCCInPerfis;
+      if (!this.searchDisciplinasModal) return this.DisciplinasOptions;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasOptions, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
         return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
     },
+    DisciplinasOptions() {
+      return this.DisciplinasDCCInPerfis;
+    },
+
     CursosOptionsOrdered() {
       return this.$_.orderBy(
         this.CursosOptionsFiltered,
