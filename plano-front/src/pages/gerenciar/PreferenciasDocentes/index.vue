@@ -54,7 +54,7 @@
                         <td style="width: 40px"></td>
                     </tr>
 
-                    <tr v-for="preferencia in docente" :key="'docente' + preferencia.Docente + 'disciplina' + preferencia.Disciplina" openModalEdit(preferencia)>
+                    <tr v-for="preferencia in docente" :key="'docente' + preferencia.Docente + 'disciplina' + preferencia.Disciplina" @click="openModalEdit(preferencia)">
                         <td style="width: 200px"></td>
                         <td style="width: 80px">{{disciplinaById(preferencia.Disciplina).codigo}}</td>
                         <td style="width: 420px">{{disciplinaById(preferencia.Disciplina).nome}}</td>
