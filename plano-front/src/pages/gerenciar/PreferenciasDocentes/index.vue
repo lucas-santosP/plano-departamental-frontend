@@ -5,7 +5,7 @@
             <BaseButton template="file-upload" @click="openModalUpload()" />
         </PageHeader>
 
-        <BaseTable v-if="docentespordisciplina">
+        <BaseTable v-if="docentespordisciplina" style="border: 0px;">
             <template #thead>
                 <th style="width: 80px">Código</th>
                 <th style="width: 420px">Nome</th>
@@ -21,21 +21,21 @@
                         <td style="width: 420px">{{disciplinaById(disciplina[0].Disciplina).nome}}</td>
                         <td style="width: 100px">{{perfilById(disciplinaById(disciplina[0].Disciplina).Perfil).abreviacao}}</td>
                         <td style="width: 200px"></td>
-                        <td style="width: 40px"></td>
+                        <td style="width: 40px" @click="openModalAddDocente(disciplina[0].Disciplina)" class="td-pref">+</td>
                     </tr>
 
-                    <tr v-for="preferencia in disciplina" :key="'disciplina' + preferencia.Disciplina + 'docente' + preferencia.Docente" @click="openModalEdit(preferencia)">
+                    <tr v-for="preferencia in disciplina" :key="'disciplina' + preferencia.Disciplina + 'docente' + preferencia.Docente">
                         <td style="width: 80px"></td>
                         <td style="width: 420px"></td>
                         <td style="width: 100px"></td>
                         <td style="width: 200px">{{docenteById(preferencia.Docente).apelido}}</td>
-                        <td style="width: 40px">{{preferencia.preferencia}}</td>
+                        <td style="width: 40px" @click="openModalEdit(preferencia)" class="td-pref">{{preferencia.preferencia}}</td>
                     </tr>
                 </template>
             </template>
         </BaseTable>
 
-        <BaseTable v-else>
+        <BaseTable v-else style="border: 0px;">
             <template #thead>
                 <th style="width: 200px">Docente</th>
                 <th style="width: 80px">Código</th>
@@ -51,15 +51,15 @@
                         <td style="width: 80px"></td>
                         <td style="width: 420px"></td>
                         <td style="width: 100px"></td>
-                        <td style="width: 40px"></td>
+                        <td style="width: 40px" @click="openModalAddDisciplina(docente[0].Docente)" class="td-pref">+</td>
                     </tr>
 
-                    <tr v-for="preferencia in docente" :key="'docente' + preferencia.Docente + 'disciplina' + preferencia.Disciplina" @click="openModalEdit(preferencia)">
+                    <tr v-for="preferencia in docente" :key="'docente' + preferencia.Docente + 'disciplina' + preferencia.Disciplina">
                         <td style="width: 200px"></td>
                         <td style="width: 80px">{{disciplinaById(preferencia.Disciplina).codigo}}</td>
                         <td style="width: 420px">{{disciplinaById(preferencia.Disciplina).nome}}</td>
                         <td style="width: 100px">{{perfilById(disciplinaById(preferencia.Disciplina).Perfil).abreviacao}}</td>
-                        <td style="width: 40px">{{preferencia.preferencia}}</td>
+                        <td style="width: 40px" @click="openModalEdit(preferencia)" class="td-pref">{{preferencia.preferencia}}</td>
                     </tr>
                 </template>
             </template>
@@ -83,6 +83,64 @@
                         type="text"
                         color="lightblue"
                         @click="handleEditPrefs()"
+                        class="ml-auto"
+                >Confirmar</BaseButton
+                >
+            </template>
+        </BaseModal>
+
+        <BaseModal ref="modalAddDocente" :title="'Adicionar Preferência'" :hasFooter="true">
+            <template #modal-body>
+                <div class="row" :style="{margin: '0'}">
+                    <p>Disciplina: {{(add.Disciplina ? add.Disciplina.nome : '')}}</p>
+                </div>
+                <div class="row" :style="{margin: '0'}">
+                    <label for="selectPreferenciaAdicionarDocentes">Docente: </label>
+                    <select v-model="add.Docente" id="selectPreferenciaAdicionarDocentes" style="width: 200px">
+                        <option v-for="docente in AllDocentes" :key="`adicionarDocente${docente.id}`" :value="docente.id">
+                            {{docente.apelido}}
+                        </option>
+                    </select>
+                </div>
+                <div class="row" :style="{display: 'table-cell', verticalAlign: 'middle'}">
+                    <label for="inputPreferenciaAdicionarDocentes">Preferência: </label>
+                    <input type="text" v-model="add.preferencia" id="inputPreferenciaAdicionarDocentes" :style="{width: '25px', height: '20px', marginLeft: '10px', textAlign:'center'}">
+                </div>
+            </template>
+            <template #modal-footer>
+                <BaseButton
+                        type="text"
+                        color="lightblue"
+                        @click="addPreferencia()"
+                        class="ml-auto"
+                >Confirmar</BaseButton
+                >
+            </template>
+        </BaseModal>
+
+        <BaseModal ref="modalAddDisciplina" :title="'Adicionar Preferência'" :hasFooter="true">
+            <template #modal-body>
+                <div class="row" :style="{margin: '0'}">
+                    <p>Docente: {{(add.Docente ? add.Docente.apelido : '')}}</p>
+                </div>
+                <div class="row" :style="{margin: '0'}">
+                    <label for="selectPreferenciaAdicionarDisciplinas">Disciplina: </label>
+                    <select v-model="add.Disciplina" id="selectPreferenciaAdicionarDisciplinas" style="width: 200px">
+                        <option v-for="disciplina in AllDisciplinas" :key="`adicionarDisciplina${disciplina.id}`" :value="disciplina.id">
+                            {{disciplina.codigo}} - {{disciplina.nome}}
+                        </option>
+                    </select>
+                </div>
+                <div class="row" :style="{display: 'table-cell', verticalAlign: 'middle'}">
+                    <label for="inputPreferenciaAdicionarDisciplinas">Preferência: </label>
+                    <input type="text" v-model="add.preferencia" id="inputPreferenciaAdicionarDisciplinas" :style="{width: '25px', height: '20px', marginLeft: '10px', textAlign:'center'}">
+                </div>
+            </template>
+            <template #modal-footer>
+                <BaseButton
+                        type="text"
+                        color="lightblue"
+                        @click="addPreferencia()"
                         class="ml-auto"
                 >Confirmar</BaseButton
                 >
@@ -133,8 +191,13 @@
                    disciplina: undefined,
                    isZero: undefined
                },
+               add: {
+                   Docente: undefined,
+                   Disciplina: undefined,
+                   preferencia: undefined
+               },
                error: undefined,
-               docentespordisciplina: true
+               docentespordisciplina: true,
             };
         },
 
@@ -220,6 +283,16 @@
                 this.$refs.modalEdit.open();
             },
 
+            openModalAddDocente(disciplina) {
+                this.add.Disciplina = this.disciplinaById(disciplina)
+                this.$refs.modalAddDocente.open()
+            },
+
+            openModalAddDisciplina(docente) {
+                this.add.Docente = this.docenteById(docente)
+                this.$refs.modalAddDisciplina.open()
+            },
+
             handleEditPrefs() {
                 if(this.edit.isZero){
                     if(this.preferenciaForm.preferencia != 0){
@@ -301,6 +374,43 @@
                                 });
                         }
                     }
+                }
+            },
+
+            addPreferencia() {
+                if(this.add.Docente && this.add.Disciplina && this.add.preferencia){
+                    if(this.add.Docente.id)
+                        this.add.Docente = this.add.Docente.id
+                    if(this.add.Disciplina.id)
+                        this.add.Disciplina = this.add.Disciplina.id
+                    docenteDisciplinaService.create(this.add)
+                        .then(() => {
+                            this.$notify({
+                                group: "general",
+                                title: `Sucesso!`,
+                                text: `Preferência adicionada com sucesso!`,
+                                type: "success",
+                            });
+                            this.$refs.modalEdit.close()
+                        })
+                        .catch((error) => {
+                            this.error = "<b>Erro ao atualizar Preferência</b>";
+                            if (error.response.data.fullMessage) {
+                                this.error +=
+                                    "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+                            }
+                            this.$notify({
+                                group: "general",
+                                title: `Erro!`,
+                                text: this.error,
+                                type: "error",
+                            });
+                        });
+                    this.add.Disciplina = undefined
+                    this.add.Docente = undefined
+                    this.add.preferencia = undefined
+                    this.$refs.modalAddDocente.close()
+                    this.$refs.modalAddDisciplina.close()
                 }
             },
 
