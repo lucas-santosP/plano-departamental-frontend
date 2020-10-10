@@ -262,7 +262,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="periodo in PeriodosLetivos"
+            v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
             @click.stop="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
           >
@@ -280,14 +280,14 @@
         </template>
       </BaseTable>
 
-      <BaseTable :type="'modal'" v-show="modalFiltrosTabs.current === 'Semestres'">
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Semestres'">
         <template #thead>
           <v-th width="25" />
           <v-th width="425" align="start">Semestre Letivo</v-th>
         </template>
         <template #tbody>
           <tr
-            v-for="semestre in SemestresLetivos"
+            v-for="semestre in SemestresOptions"
             :key="semestre.id + semestre.nome"
             @click.stop="selecionaSemestre(semestre)"
           >
@@ -295,12 +295,13 @@
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
+                :indeterminate.prop="semestre.halfChecked"
                 :value="semestre"
                 v-model="filtroSemestres.selecionados"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
-            <v-td width="425" align="start">{{ semestre.nome }}</v-td>
+            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -416,7 +417,6 @@ import {
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
-
 import { InputSearch } from "@/components/ui";
 import {
   ModalDelete,
@@ -473,7 +473,6 @@ export default {
         selecionados: [],
       },
       filtroSemestres: {
-        ativados: [],
         selecionados: [],
       },
       modalFiltrosCallbacks: {
@@ -490,12 +489,12 @@ export default {
             this.filtroCursos.selecionados = [...this.AllCursos];
           },
           Periodos: () => {
-            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
-            this.conectaPeriodoEmSemestre();
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
           },
           Semestres: () => {
-            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
-            this.conectaSemestreEmPeriodo();
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
           },
         },
         selectNone: {
@@ -512,11 +511,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
-            this.conectaPeriodoEmSemestre();
+            this.filtroSemestres.selecionados = [];
           },
           Semestres: () => {
             this.filtroSemestres.selecionados = [];
-            this.conectaSemestreEmPeriodo();
+            this.filtroPeriodos.selecionados = [];
           },
         },
         btnOk: () => {
@@ -637,8 +636,6 @@ export default {
       "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
       "TurmasToDelete",
-      "PeriodosLetivos",
-      "SemestresLetivos",
     ]),
 
     TurmasOrdered() {

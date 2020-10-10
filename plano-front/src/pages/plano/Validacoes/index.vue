@@ -193,7 +193,7 @@
           </template>
           <template #tbody>
             <tr
-              v-for="periodo in PeriodosLetivos"
+              v-for="periodo in PeriodosOptions"
               :key="periodo.id + periodo.nome"
               @click.stop="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             >
@@ -218,7 +218,7 @@
           </template>
           <template #tbody>
             <tr
-              v-for="semestre in SemestresLetivos"
+              v-for="semestre in SemestresOptions"
               :key="semestre.id + semestre.nome"
               @click.stop="selecionaSemestre(semestre)"
             >
@@ -226,6 +226,7 @@
                 <input
                   type="checkbox"
                   class="form-check-input position-static m-0"
+                  :indeterminate.prop="semestre.halfChecked"
                   :value="semestre"
                   v-model="filtroSemestres.selecionados"
                   @click.stop="selecionaSemestre(semestre)"
@@ -341,7 +342,6 @@ export default {
         selecionados: [],
       },
       filtroSemestres: {
-        ativados: [],
         selecionados: [],
       },
       modalFiltrosTabs: {
@@ -356,12 +356,12 @@ export default {
             ];
           },
           Periodos: () => {
-            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
-            this.conectaPeriodoEmSemestre();
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
           },
           Semestres: () => {
-            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
-            this.conectaSemestreEmPeriodo();
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
           },
         },
         selectNone: {
@@ -370,11 +370,11 @@ export default {
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
-            this.conectaPeriodoEmSemestre();
+            this.filtroSemestres.selecionados = [];
           },
           Semestres: () => {
             this.filtroSemestres.selecionados = [];
-            this.conectaSemestreEmPeriodo();
+            this.filtroPeriodos.selecionados = [];
           },
         },
         btnOk: () => {
@@ -1036,13 +1036,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "AllSalas",
-      "DocentesAtivos",
-      "TurmasInDisciplinasPerfis",
-      "PeriodosLetivos",
-      "SemestresLetivos",
-    ]),
+    ...mapGetters(["AllSalas", "DocentesAtivos", "TurmasInDisciplinasPerfis"]),
+
     TurmasValidacoesOrdered() {
       return this.$_.orderBy(
         this.TurmasValidacoesFiltred,

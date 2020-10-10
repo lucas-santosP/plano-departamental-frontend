@@ -152,7 +152,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="periodo in PeriodosLetivos"
+            v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
             @click.stop="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
           >
@@ -177,7 +177,7 @@
         </template>
         <template #tbody>
           <tr
-            v-for="semestre in SemestresLetivos"
+            v-for="semestre in SemestresOptions"
             :key="semestre.id + semestre.nome"
             @click.stop="selecionaSemestre(semestre)"
           >
@@ -185,6 +185,7 @@
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
+                :indeterminate.prop="semestre.halfChecked"
                 :value="semestre"
                 v-model="filtroSemestres.selecionados"
                 @click.stop="selecionaSemestre(semestre)"
@@ -326,12 +327,12 @@ export default {
             ];
           },
           Periodos: () => {
-            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
-            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
           },
           Semestres: () => {
-            this.filtroSemestres.selecionados = [...this.SemestresLetivos];
-            this.filtroPeriodos.selecionados = [...this.PeriodosLetivos];
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
           },
         },
         selectNone: {
@@ -391,8 +392,7 @@ export default {
       "TurmasExternasInDisciplinas",
       "DisciplinasExternasInPerfis",
       "TurmasExternasToDelete",
-      "PeriodosLetivos",
-      "SemestresLetivos",
+
       "PrincipaisCursosDCC",
     ]),
 
