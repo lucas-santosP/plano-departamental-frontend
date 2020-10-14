@@ -64,7 +64,14 @@
             <BaseTable
                     type="modal"
                     v-show="modalFiltrosTabs.current === 'Disciplinas'"
+                    :hasSearchBar="true"
             >
+                <template #thead-search>
+                    <InputSearch
+                            v-model="searchDisciplinasModal"
+                            placeholder="Pesquise nome ou codigo de uma disciplina..."
+                    />
+                </template>
                 <template #thead>
                     <th style="width:25px"></th>
                     <v-th width="70">Código</v-th>
@@ -72,7 +79,7 @@
                 </template>
                 <template #tbody>
                     <tr
-                            v-for="disciplina in DisciplinasDCC"
+                            v-for="disciplina in DisciplinasDCCFiltredModal"
                             :key="disciplina.id + disciplina.nome"
                             @click.prevent="toggle('Disciplinas', disciplina.id)"
                     >
@@ -100,7 +107,14 @@
             <BaseTable
                     type="modal"
                     v-show="modalFiltrosTabs.current === 'Docentes'"
+                    :hasSearchBar="true"
             >
+                <template #thead-search>
+                    <InputSearch
+                            v-model="searchDocentesModal"
+                            placeholder="Pesquise nome ou apelido de um docente..."
+                    />
+                </template>
                 <template #thead>
                     <th style="width:25px"></th>
                     <v-th width="120">Apelido</v-th>
@@ -108,7 +122,7 @@
                 </template>
                 <template #tbody>
                     <tr
-                            v-for="docente in AllDocentes"
+                            v-for="docente in DocentesFiltredModal"
                             :key="docente.id + docente.nome"
                             @click.prevent="toggle('Docentes', docente.id)"
                     >
@@ -171,7 +185,7 @@
             >
                 <template #thead>
                     <th style="width:25px"></th>
-                    <v-th width="70">Nome</v-th>
+                    <v-th width="100">Nome</v-th>
                 </template>
                 <template #tbody>
                     <tr
@@ -187,7 +201,7 @@
                                     :value="sala.id"
                             />
                         </td>
-                        <td style="width: 70px" class="t-start">{{ sala.nome }}</td>
+                        <td style="width: 100px" class="t-start">{{ sala.nome }}</td>
                     </tr>
                     <tr v-if="AllSalas.length === 0">
                         <td colspan="3" style="width:450px">
@@ -275,7 +289,7 @@
             return {
                 asideModalsRefs: ["modalFiltros"],
                 turmaClicked: generateEmptyTurma(),
-                searchCursosModal: "",
+                searchDocentesModal: "",
                 searchDisciplinasModal: "",
 
                 searchConditions: {
@@ -519,11 +533,11 @@
                 );
             },
             DisciplinasDCCFiltredModal() {
-                if (this.searchDisciplinasModal === "") return this.DisciplinasDCCInPerfis;
+                if (this.searchDisciplinasModal === "") return this.DisciplinasDCC;
 
                 const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-                return this.$_.filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+                return this.$_.filter(this.DisciplinasDCC, (disciplina) => {
                     const disciplinaNome = normalizeText(disciplina.nome);
                     const disciplinaCodigo = normalizeText(disciplina.codigo);
 
@@ -533,30 +547,22 @@
                     );
                 });
             },
-            CursosOrderedModal() {
-                return this.$_.orderBy(
-                    this.CursosFiltredModal,
-                    this.ordenacaoModal.cursos.order,
-                    this.ordenacaoModal.cursos.type
-                );
-            },
-            CursosFiltredModal() {
-                let cursosResultantes = this.AllCursos;
+            DocentesFiltredModal() {
+                if (this.searchDocentesModal === "") return this.AllDocentes;
 
-                if (this.searchCursosModal !== "") {
-                    const searchNormalized = normalizeText(this.searchCursosModal);
+                const searchNormalized = normalizeText(this.searchDocentesModal);
 
-                    cursosResultantes = this.$_.filter(cursosResultantes, (curso) => {
-                        const cursoNome = normalizeText(curso.nome);
-                        const cursoCodigo = normalizeText(curso.codigo);
+                return this.$_.filter(this.AllDocentes, (docente) => {
+                    const docenteNome = normalizeText(docente.nome);
+                    const docenteApelido = normalizeText(docente.apelido);
 
-                        return (
-                            cursoNome.match(searchNormalized) || cursoCodigo.match(searchNormalized)
-                        );
-                    });
-                }
-                return cursosResultantes;
-            },
+                    return (
+                        docenteNome.match(searchNormalized) ||
+                        docenteApelido.match(searchNormalized)
+                    );
+                });
+            }
+
         },
 
         watch: {
