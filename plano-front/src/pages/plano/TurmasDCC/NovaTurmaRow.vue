@@ -10,37 +10,39 @@
         <option value="4">4</option>
       </select>
     </v-td>
+
     <v-td
       width="80"
       paddinX="2"
       :style="{
-        backgroundColor: turmaForm.disciplina
-          ? turmaForm.disciplina.perfil.cor
-          : '',
+        backgroundColor: turmaForm.disciplina ? turmaForm.disciplina.perfil.cor : '',
       }"
     >
       {{ turmaForm.disciplina ? turmaForm.disciplina.perfil.abreviacao : "" }}
     </v-td>
+
     <v-td width="80" paddinX="2">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
           v-for="disciplina in DisciplinasDCCInPerfis"
           :key="disciplina.codigo + disciplina.id"
           :value="disciplina"
-          >{{ disciplina.codigo }}</option
-        >
+          >{{ disciplina.codigo }}
+        </option>
       </select>
     </v-td>
+
     <v-td width="330" paddinX="2">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
           v-for="disciplina in DisciplinasDCCInPerfisOrderedByNome"
           :key="disciplina.nome + disciplina.id"
           :value="disciplina"
-          >{{ disciplina.nome }}</option
-        >
+          >{{ disciplina.nome }}
+        </option>
       </select>
     </v-td>
+
     <v-td width="25">{{ totalCarga }}</v-td>
     <v-td width="45">
       <input
@@ -51,7 +53,7 @@
         :value="turmaForm.letra"
       />
     </v-td>
-    <v-td width="160" paddinX="2">
+    <td style="width:160px; padding: 0 2px">
       <select v-model.number="turmaForm.Docente1">
         <option></option>
         <option
@@ -71,7 +73,7 @@
           >{{ docente.apelido }}</option
         >
       </select>
-    </v-td>
+    </td>
     <v-td width="80">
       <select
         v-if="turmaForm.disciplina"
@@ -85,12 +87,10 @@
         </template>
       </select>
     </v-td>
-    <v-td width="85" paddinX="2">
+
+    <td style="width:85px; padding: 0 2px">
       <template v-if="turmaForm.disciplina">
-        <select
-          v-model.number="turmaForm.Horario1"
-          @change="handleChangeHorario(1)"
-        >
+        <select v-model.number="turmaForm.Horario1" @change="handleChangeHorario(1)">
           <option v-if="!disciplinaIsParcialEAD && !disciplinaIsIntegralEAD">
           </option>
 
@@ -128,15 +128,13 @@
           </template>
         </select>
       </template>
-    </v-td>
-    <v-td width="95" paddinX="2">
+    </td>
+
+    <td style="width:95px; padding: 0 2px">
       <template v-if="!disciplinaIsIntegralEAD && turmaForm.disciplina">
         <select v-model.number="turmaForm.Sala1">
           <option></option>
-          <option
-            v-for="sala in AllSalas"
-            :key="'s1' + sala.id"
-            :value="sala.id"
+          <option v-for="sala in AllSalas" :key="'s1' + sala.id" :value="sala.id"
             >{{ sala.nome }}
           </option>
         </select>
@@ -146,15 +144,13 @@
           v-model.number="turmaForm.Sala2"
         >
           <option></option>
-          <option
-            v-for="sala in AllSalas"
-            :key="'s2' + sala.id"
-            :value="sala.id"
+          <option v-for="sala in AllSalas" :key="'s2' + sala.id" :value="sala.id"
             >{{ sala.nome }}
           </option>
         </select>
       </template>
-    </v-td>
+    </td>
+
     <v-td :width="45 + 35 * cursosAtivadosLength">
       <div style="height:43px"></div>
     </v-td>
@@ -267,10 +263,7 @@ export default {
           return this.HorariosEAD;
         default:
           //Todos sem EAD
-          return this.$_.filter(
-            this.AllHorarios,
-            (horario) => horario.id != 31
-          );
+          return this.$_.filter(this.AllHorarios, (horario) => horario.id != 31);
       }
     },
     totalCarga() {
@@ -280,14 +273,10 @@ export default {
         : "";
     },
     disciplinaIsIntegralEAD() {
-      return this.turmaForm.disciplina
-        ? this.turmaForm.disciplina.ead === 1
-        : false;
+      return this.turmaForm.disciplina ? this.turmaForm.disciplina.ead === 1 : false;
     },
     disciplinaIsParcialEAD() {
-      return this.turmaForm.disciplina
-        ? this.turmaForm.disciplina.ead === 2
-        : false;
+      return this.turmaForm.disciplina ? this.turmaForm.disciplina.ead === 2 : false;
     },
   },
 };
