@@ -2,7 +2,7 @@
   <tr class="novaturma">
     <v-td width="25" />
     <v-td width="40" />
-    <v-td width="55" paddinX="2">
+    <v-td width="55" paddingX="2">
       <select v-model.number="turmaForm.periodo">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -54,25 +54,47 @@
       />
     </v-td>
     <td style="width:160px; padding: 0 2px">
-      <select v-model.number="turmaForm.Docente1">
-        <option></option>
-        <option
-          v-for="docente in DocentesAtivos"
-          :key="docente.id + docente.apelido"
-          :value="docente.id"
-          >{{ docente.apelido }}
-        </option>
-      </select>
+      <div class="d-flex align-items-center justify-content-start w-100">
+        <div class="d-flex flex-column" style="width:130px">
+          <select v-model.number="turmaForm.Docente1">
+            <option></option>
+            <option
+              v-for="docente in DocentesByPreferencia"
+              :key="docente.id + docente.apelido"
+              :value="docente.id"
+              >{{ docente.apelido }}
+              {{
+                orderByPreferencia && preferenciaDocente(docente)
+                  ? "- " + preferenciaDocente(docente)
+                  : ""
+              }}
+            </option>
+          </select>
 
-      <select v-model.number="turmaForm.Docente2">
-        <option value=""></option>
-        <option
-          v-for="docente in DocentesAtivos"
-          :key="docente.id + docente.nome"
-          :value="docente.id"
-          >{{ docente.apelido }}</option
-        >
-      </select>
+          <select v-model.number="turmaForm.Docente2">
+            <option></option>
+            <option
+              v-for="docente in DocentesByPreferencia"
+              :key="docente.apelido + docente.id"
+              :value="docente.id"
+              >{{ docente.apelido }}
+              {{
+                orderByPreferencia && preferenciaDocente(docente)
+                  ? "- " + preferenciaDocente(docente)
+                  : ""
+              }}
+            </option>
+          </select>
+        </div>
+
+        <font-awesome-icon
+          :icon="['fas', 'graduation-cap']"
+          :class="['clickable mx-auto', { 'low-opacity': !orderByPreferencia }]"
+          @click="orderByPreferencia = !orderByPreferencia"
+          style="font-size:12px"
+          title="Alternar ordenação de docentes por preferência"
+        />
+      </div>
     </td>
     <v-td width="80">
       <select
@@ -88,7 +110,7 @@
       </select>
     </v-td>
 
-    <td style="width:85px; padding: 0 2px">
+    <td style="width:85px">
       <template v-if="turmaForm.disciplina">
         <select v-model.number="turmaForm.Horario1" @change="handleChangeHorario(1)">
           <option v-if="!disciplinaIsParcialEAD && !disciplinaIsIntegralEAD">
@@ -130,7 +152,7 @@
       </template>
     </td>
 
-    <td style="width:95px; padding: 0 2px">
+    <td style="width:95px">
       <template v-if="!disciplinaIsIntegralEAD && turmaForm.disciplina">
         <select v-model.number="turmaForm.Sala1">
           <option></option>
@@ -169,6 +191,7 @@ export default {
   data() {
     return {
       turmaForm: generateEmptyTurma({ periodo: 1, letra: "A" }),
+      orderByPreferencia: false,
     };
   },
 
@@ -235,6 +258,12 @@ export default {
         this.setPartialLoading(false);
       }
     },
+    preferenciaDocente(docente) {
+      let p = this.$_.find(this.PreferenciasDisciplina, {
+        Docente: docente.id,
+      });
+      return p ? p.preferencia : false;
+    },
   },
 
   computed: {
@@ -246,8 +275,34 @@ export default {
       "HorariosNoturno",
       "HorariosDiurno",
       "AllSalas",
+      "PreferenciaDosDocentes",
     ]),
 
+    PreferenciasDisciplina() {
+      return this.$_.filter(this.PreferenciaDosDocentes, [
+        "Disciplina",
+        this.turmaForm.Disciplina,
+      ]);
+    },
+
+    DocentesByPreferencia() {
+      if (this.orderByPreferencia) {
+        return this.$_.orderBy(
+          this.DocentesAtivos,
+          (docente) => {
+            const p = this.$_.find(this.PreferenciasDisciplina, [
+              "Docente",
+              docente.id,
+            ]);
+
+            return p ? p.preferencia : 0;
+          },
+          "desc"
+        );
+      } else {
+        return this.DocentesAtivos;
+      }
+    },
     DisciplinasDCCInPerfisOrderedByNome() {
       return this.$_.orderBy(this.DisciplinasDCCInPerfis, ["nome"]);
     },
