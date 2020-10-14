@@ -118,9 +118,6 @@ const actions = {
 };
 
 const getters = {
-  currentPlanoId(state) {
-    return state.currentPlanoId;
-  },
   currentPlano(state, rootGetters) {
     return _.find(rootGetters.AllPlanos, ["id", state.currentPlanoId]);
   },

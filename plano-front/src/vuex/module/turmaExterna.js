@@ -69,7 +69,7 @@ const actions = {
   async createTurmaExterna({ commit, dispatch, rootGetters }, turma) {
     const turmaNormalized = _.cloneDeepWith(turma, setEmptyValuesToNull);
     validateObjectKeys(turmaNormalized, ["Disciplina", "letra"]);
-    turmaNormalized.Plano = rootGetters.currentPlanoId;
+    turmaNormalized.Plano = rootGetters.currentPlano.id;
 
     await turmaExternaService.create(turmaNormalized);
     await dispatch("fetchAllPedidosExternos");

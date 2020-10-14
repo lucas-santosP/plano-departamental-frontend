@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar-container shadow">
     <div @click="closeSidebar" class="navbar-brand">
-      <router-link :to="{ name: 'dashboardHome' }" class="brand-title"
-        >Plano Departamental
+      <router-link :to="{ path: '/dashboard' }" class="brand-title">
+        Plano Departamental
       </router-link>
     </div>
 
@@ -11,7 +11,7 @@
     </button>
 
     <ul class="navbar-nav">
-      <li class="nav-item pr-0">
+      <li class="nav-item nav-item-plano">
         <label class="m-0 pr-2" for="planoAtual">
           Plano atual
         </label>
@@ -56,21 +56,20 @@ export default {
     };
   },
 
-  created() {
-    this.planoIdForm = this.currentPlanoId;
-  },
-
   methods: {
     ...mapActions(["closeSidebar", "toggleSidebar", "changeCurrentPlano"]),
   },
-
   computed: {
-    ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlanoId"]),
+    ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
   },
 
   watch: {
-    currentPlanoId(newValue) {
-      this.planoIdForm = newValue;
+    currentPlano: {
+      handler(currentPlano) {
+        this.planoIdForm = currentPlano.id;
+      },
+      immediate: true,
+      deep: true,
     },
   },
 };
@@ -165,6 +164,10 @@ ul.navbar-nav > li.nav-item {
 }
 ul.navbar-nav > li.nav-item:hover {
   color: #fff;
+}
+ul.navbar-nav > li.nav-item-plano {
+  cursor: default;
+  padding-right: 0;
 }
 ul.navbar-nav > li.nav-item span,
 ul.navbar-nav > li.nav-item > label {

@@ -75,7 +75,7 @@ const actions = {
   async createTurma({ commit, dispatch, rootGetters }, turma) {
     const turmaNormalized = _.cloneDeepWith(turma, setEmptyValuesToNull);
     validateObjectKeys(turmaNormalized, ["Disciplina", "letra", "turno1"]);
-    turmaNormalized.Plano = rootGetters.currentPlanoId;
+    turmaNormalized.Plano = rootGetters.currentPlano.id;
 
     await turmaService.create(turmaNormalized);
     await dispatch("fetchAllPedidos");
