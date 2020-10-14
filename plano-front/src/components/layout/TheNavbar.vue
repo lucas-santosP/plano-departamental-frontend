@@ -26,11 +26,11 @@
           </option>
         </select>
       </li>
-      <li class="nav-item" @click="callbacks.openModalUser">
+      <li class="nav-item" @click="modalCallbacks.openUser">
         <font-awesome-icon :icon="['fas', 'user']" />
         <span>Usuário</span>
       </li>
-      <li class="nav-item" @click="callbacks.openModalDownload">
+      <li class="nav-item" @click="modalCallbacks.openDownload">
         <font-awesome-icon :icon="['fas', 'save']" />
         <span>Download</span>
       </li>
@@ -48,7 +48,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "TheNavbar",
   props: {
-    callbacks: { type: Object, required: true },
+    modalCallbacks: { type: Object, required: true },
   },
   data() {
     return {

@@ -191,7 +191,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setCurrentPlanoId", "deletePlano", "editPlano"]),
+    ...mapActions(["deletePlano", "editPlano"]),
 
     limitNomeLength($event) {
       if ($event.target.value.length >= 10) $event.preventDefault();

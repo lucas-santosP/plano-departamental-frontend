@@ -30,18 +30,12 @@ const mutations = {
   },
 
   [SOCKET_TURMA_UPDATED](state, data) {
-    let index = _.findIndex(
-      state.Turmas,
-      (turma) => turma.id === data.Turma.id
-    );
+    let index = _.findIndex(state.Turmas, (turma) => turma.id === data.Turma.id);
     Vue.set(state.Turmas, index, data.Turma);
   },
 
   [SOCKET_TURMA_DELETED](state, data) {
-    let index = _.findIndex(
-      state.Turmas,
-      (turma) => turma.id === data.Turma.id
-    );
+    let index = _.findIndex(state.Turmas, (turma) => turma.id === data.Turma.id);
     state.Turmas.splice(index, 1);
   },
 
@@ -134,9 +128,6 @@ const getters = {
   AllTurmas(state) {
     return _.orderBy(state.Turmas, ["letra"]);
   },
-  TurmasToDelete(state) {
-    return state.Deletar;
-  },
   TurmasInDisciplinasPerfis(state, getters) {
     const turmasResult = [];
     _.forEach(getters.AllTurmas, (turma) => {
@@ -154,6 +145,9 @@ const getters = {
         });
     });
     return turmasResult;
+  },
+  TurmasToDelete(state) {
+    return state.Deletar;
   },
 };
 

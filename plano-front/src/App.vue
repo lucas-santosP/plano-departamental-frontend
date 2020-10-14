@@ -7,7 +7,7 @@
     />
 
     <transition name="router-view-animation" mode="out-in" appear>
-      <router-view></router-view>
+      <router-view v-if="!onLoading.fetching"></router-view>
     </transition>
 
     <TheLoadingView />
@@ -24,23 +24,27 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { TheLoadingView } from "@/components/layout";
 
 export default {
   name: "App",
   components: { TheLoadingView },
+  created() {
+    this.initializeCurrentPlano();
+  },
+
+  methods: {
+    ...mapActions(["initializeCurrentPlano"]),
+  },
   computed: {
-    ...mapState({
-      queue: (state) => state.notifications.queue,
-    }),
+    ...mapGetters(["notificationsQueue", "onLoading"]),
   },
 
   watch: {
-    queue: {
-      handler(queue) {
-        const queueTop = queue[queue.length - 1];
-
+    notificationsQueue: {
+      handler(notificationsQueue) {
+        const queueTop = notificationsQueue[notificationsQueue.length - 1];
         this.$notify({ ...queueTop, group: "general" });
       },
       immediate: true,
