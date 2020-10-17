@@ -62,7 +62,7 @@ export default {
         const turmasDoPlano = JSON.parse(dataStringNormalized);
 
         const [, periodoStr] = inputFile.name.split(".");
-        const periodoDoPlano = parent(periodoStr) || null;
+        const periodoDoPlano = parseInt(periodoStr) || null;
         await this.createPlanoImported(turmasDoPlano.slice(0, 5), periodoDoPlano);
 
         this.$refs.baseModal.close();
