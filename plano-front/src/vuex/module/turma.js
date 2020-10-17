@@ -77,13 +77,14 @@ const actions = {
     validateObjectKeys(turmaNormalized, ["Disciplina", "letra", "turno1"]);
     turmaNormalized.Plano = rootGetters.currentPlano.id;
 
-    await turmaService.create(turmaNormalized);
+    const response = await turmaService.create(turmaNormalized);
     await dispatch("fetchAllPedidos");
 
     commit(PUSH_NOTIFICATION, {
       type: "success",
       text: `A turma ${turmaNormalized.letra} foi criada`,
     });
+    return response.Turma;
   },
 
   async editTurma({ commit, dispatch }, turma) {
