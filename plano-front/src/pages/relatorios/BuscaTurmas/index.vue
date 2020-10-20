@@ -4,6 +4,7 @@
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" />
     </PageHeader>
+
     <div class="div-table">
       <BaseTable>
         <template #thead>
@@ -18,19 +19,19 @@
           <v-th width="120">Horário</v-th>
           <v-th width="95">Sala</v-th>
         </template>
+
         <template #tbody>
-          <tr
-            v-for="turma in TurmasRetornadasOrdered"
-            :key="'turma' + turma.id"
-            :style="{ backgroundColor: perfil(turma.Disciplina).cor }"
-          >
+          <tr v-for="turma in TurmasRetornadasOrdered" :key="'turma' + turma.id">
             <v-td width="100">
               {{ plano(turma.Plano) }}
             </v-td>
             <v-td width="55">
               {{ turma.periodo }}
             </v-td>
-            <v-td width="80">
+            <v-td
+              width="80"
+              :style="{ backgroundColor: perfil(turma.Disciplina).cor }"
+            >
               {{ perfil(turma.Disciplina).abreviacao }}
             </v-td>
             <v-td width="80">
@@ -76,33 +77,32 @@
           />
         </template>
         <template #thead>
-          <th style="width:25px"></th>
-          <v-th width="70">Código</v-th>
-          <v-th width="270">Nome</v-th>
+          <v-th width="25" />
+          <v-th width="70" align="start">Código</v-th>
+          <v-th width="355" align="start">Nome</v-th>
         </template>
         <template #tbody>
           <tr
             v-for="disciplina in DisciplinasDCCFiltredModal"
             :key="disciplina.id + disciplina.nome"
-            @click.prevent="toggle('Disciplinas', disciplina.id)"
+            @click.stop="toggle('Disciplinas', disciplina.id)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
                 v-model="searchConditions.Disciplinas"
                 :value="disciplina.id"
               />
-            </td>
-            <td style="width: 70px" class="t-start">{{ disciplina.codigo }}</td>
-            <td class="t-start" style="width: 270px" :title="disciplina.nome">
+            </v-td>
+            <v-td width="70" align="start"> {{ disciplina.codigo }} </v-td>
+            <v-td width="355" align="start" :title="disciplina.nome">
               {{ disciplina.nome }}
-            </td>
+            </v-td>
           </tr>
-          <tr v-if="AllDisciplinas.length === 0">
-            <td colspan="3" style="width:450px">
-              NENHUMA DISCIPLINA ENCONTRADA.
-            </td>
+
+          <tr v-if="!AllDisciplinas.length">
+            <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -119,124 +119,122 @@
           />
         </template>
         <template #thead>
-          <th style="width:25px"></th>
-          <v-th width="120">Apelido</v-th>
-          <v-th width="270">Nome</v-th>
+          <v-th width="25" />
+          <v-th width="120" align="start">Apelido</v-th>
+          <v-th width="305" align="start">Nome</v-th>
         </template>
+
         <template #tbody>
           <tr
             v-for="docente in DocentesFiltredModal"
             :key="docente.id + docente.nome"
-            @click.prevent="toggle('Docentes', docente.id)"
+            @click.stop="toggle('Docentes', docente.id)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
                 v-model="searchConditions.Docentes"
                 :value="docente.id"
               />
-            </td>
-            <td style="width: 120px" class="t-start">{{ docente.apelido }}</td>
-            <td class="t-start" style="width: 270px" :title="docente.nome">
+            </v-td>
+            <v-td width="120" align="start">{{ docente.apelido }}</v-td>
+            <v-td width="305" align="start">
               {{ docente.nome }}
-            </td>
+            </v-td>
           </tr>
-          <tr v-if="AllDocentes.length === 0">
-            <td colspan="3" style="width:450px">
-              NENHUM DOCENTE ENCONTRADO.
-            </td>
+
+          <tr v-if="!AllDocentes.length">
+            <v-td colspan="3" width="450">NENHUM DOCENTE ENCONTRADO.</v-td>
           </tr>
         </template>
       </BaseTable>
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Horários'">
         <template #thead>
-          <th style="width:25px"></th>
-          <v-th width="70">Horário</v-th>
+          <v-th width="25" />
+          <v-th width="425" align="start">Horário</v-th>
         </template>
+
         <template #tbody>
           <tr
             v-for="horario in AllHorarios"
             :key="horario.id + horario.horario"
-            @click.prevent="toggle('Horarios', horario.id)"
+            @click.stop="toggle('Horarios', horario.id)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
                 v-model="searchConditions.Horarios"
                 :value="horario.id"
               />
-            </td>
-            <td style="width: 70px" class="t-start">{{ horario.horario }}</td>
+            </v-td>
+            <v-td width="425" class="t-start">{{ horario.horario }} </v-td>
           </tr>
-          <tr v-if="AllHorarios.length === 0">
-            <td colspan="3" style="width:450px">
-              NENHUM HORÁRIO ENCONTRADO.
-            </td>
+
+          <tr v-if="!AllHorarios.length">
+            <v-td colspan="2" width="450">NENHUM HORÁRIO ENCONTRADO.</v-td>
           </tr>
         </template>
       </BaseTable>
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Salas'">
         <template #thead>
-          <th style="width:25px"></th>
-          <v-th width="100">Nome</v-th>
+          <v-th width="25" />
+          <v-th width="425" align="start">Nome</v-th>
         </template>
+
         <template #tbody>
           <tr
             v-for="sala in AllSalas"
             :key="sala.id + sala.nome"
-            @click.prevent="toggle('Salas', sala.id)"
+            @click.stop="toggle('Salas', sala.id)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
                 v-model="searchConditions.Salas"
                 :value="sala.id"
               />
-            </td>
-            <td style="width: 100px" class="t-start">{{ sala.nome }}</td>
+            </v-td>
+            <v-td width="425" class="t-start">{{ sala.nome }}</v-td>
           </tr>
+
           <tr v-if="AllSalas.length === 0">
-            <td colspan="3" style="width:450px">
-              NENHUMA SALA ENCONTRADA.
-            </td>
+            <v-td colspan="2" width="450">NENHUMA SALA ENCONTRADA.</v-td>
           </tr>
         </template>
       </BaseTable>
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Planos'">
         <template #thead>
-          <th style="width:25px"></th>
-          <v-th width="70">Ano</v-th>
-          <v-th width="270">Nome</v-th>
+          <v-th width="25" />
+          <v-th width="70" align="start">Ano</v-th>
+          <v-th width="355" align="start">Nome</v-th>
         </template>
+
         <template #tbody>
           <tr
             v-for="plano in AllPlanos"
             :key="plano.id + plano.ano + plano.nome"
-            @click.prevent="toggle('Planos', plano.id)"
+            @click.stop="toggle('Planos', plano.id)"
           >
-            <td style="width: 25px">
+            <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
                 v-model="searchConditions.Planos"
                 :value="plano.id"
               />
-            </td>
-            <td style="width: 70px" class="t-start">{{ plano.ano }}</td>
-            <td class="t-start" style="width: 270px" :title="plano.nome">
-              {{ plano.nome }}
-            </td>
+            </v-td>
+            <v-td width="70" align="start">{{ plano.ano }}</v-td>
+            <v-td width="355" align="start">{{ plano.nome }}</v-td>
           </tr>
-          <tr v-if="AllPlanos.length === 0">
-            <td colspan="3" style="width:450px">
-              NENHUM PLANO ENCONTRADO.
-            </td>
+
+          <tr v-if="!AllPlanos.length">
+            <v-td colspan="3" width="450">NENHUM PLANO ENCONTRADO.</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -245,37 +243,20 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
-import {
-  toggleItemInArray,
-  toggleAsideModal,
-  cursoPopoverContent,
-  conectaFiltrosSemestresEPeriodos,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleAsideModal } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
-import {
-  ModalDelete,
-  ModalFiltros,
-  ModalEditTurma,
-  ModalAjuda,
-} from "@/components/modals";
+import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 import turmaService from "@/common/services/turma";
 
 export default {
   name: "RelatoriosBuscaTurmas",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    cursoPopoverContent,
-    conectaFiltrosSemestresEPeriodos,
-  ],
+  mixins: [toggleItemInArray, toggleAsideModal],
   components: {
     ModalAjuda,
     ModalFiltros,
-    ModalDelete,
-    ModalEditTurma,
     InputSearch,
   },
   data() {
@@ -284,7 +265,6 @@ export default {
       turmaClicked: generateEmptyTurma(),
       searchDocentesModal: "",
       searchDisciplinasModal: "",
-
       searchConditions: {
         Planos: [],
         Disciplinas: [],
@@ -292,12 +272,10 @@ export default {
         Horarios: [],
         Salas: [],
       },
-
       modalFiltrosTabs: {
         current: "Disciplinas",
         array: ["Disciplinas", "Docentes", "Horários", "Salas", "Planos"],
       },
-
       modalFiltrosCallbacks: {
         selectAll: {
           Disciplinas: () => {
@@ -353,8 +331,8 @@ export default {
             this.searchConditions.Planos = [];
           },
         },
-        btnOk: () => {
-          this.search();
+        btnOk: async () => {
+          await this.search();
         },
       },
       ordenacaoModal: {
@@ -366,9 +344,7 @@ export default {
         turmas: { order: "disciplina.codigo", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
-
       orderByPreferencia: true,
-
       TurmasRetornadas: undefined,
     };
   },
@@ -523,7 +499,7 @@ export default {
         this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
-    // tables modal
+
     PerfisOrderedModal() {
       return this.$_.orderBy(
         this.PerfisDCC,
@@ -544,13 +520,10 @@ export default {
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
       return this.$_.filter(this.DisciplinasDCC, (disciplina) => {
-        const disciplinaNome = normalizeText(disciplina.nome);
-        const disciplinaCodigo = normalizeText(disciplina.codigo);
+        const nome = normalizeText(disciplina.nome);
+        const codigo = normalizeText(disciplina.codigo);
 
-        return (
-          disciplinaNome.match(searchNormalized) ||
-          disciplinaCodigo.match(searchNormalized)
-        );
+        return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
     },
     DocentesFiltredModal() {
@@ -559,41 +532,12 @@ export default {
       const searchNormalized = normalizeText(this.searchDocentesModal);
 
       return this.$_.filter(this.AllDocentes, (docente) => {
-        const docenteNome = normalizeText(docente.nome);
-        const docenteApelido = normalizeText(docente.apelido);
+        const nome = normalizeText(docente.nome);
+        const apelido = normalizeText(docente.apelido);
 
-        return (
-          docenteNome.match(searchNormalized) ||
-          docenteApelido.match(searchNormalized)
-        );
+        return nome.match(searchNormalized) || apelido.match(searchNormalized);
       });
-    },
-  },
-
-  watch: {
-    filtroPerfis: {
-      handler(filtroPerfis) {
-        const disciplinasResultantes = [];
-
-        this.DisciplinasDCCInPerfis.forEach((disciplina) => {
-          const perfilFounded = this.$_.some(
-            filtroPerfis.selecionados,
-            (perfil) => perfil.id === disciplina.Perfil
-          );
-
-          if (perfilFounded) disciplinasResultantes.push(disciplina.id);
-        });
-
-        this.filtroDisciplinas.selecionados = [...disciplinasResultantes];
-      },
-      deep: true,
     },
   },
 };
 </script>
-
-<style scoped>
-.curso-codigo-big {
-  font-size: 7px !important;
-}
-</style>
