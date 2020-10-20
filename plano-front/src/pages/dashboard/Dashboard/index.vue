@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard" v-if="!onLoading.fetching">
     <TheNavbar :modalCallbacks="modalCallbacks" />
     <TheSidebar />
 
@@ -43,12 +43,16 @@ export default {
       },
     };
   },
+
+  created() {
+    this.initializeCurrentPlano();
+  },
   beforeDestroy() {
     this.$socket.close();
   },
 
   methods: {
-    ...mapActions(["closeSidebar"]),
+    ...mapActions(["initializeCurrentPlano", "closeSidebar"]),
 
     emitCloseCenterModal() {
       EventBus.$emit("close-modal");
@@ -68,7 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "currentPlano"]),
+    ...mapGetters(["modalOverlayVisibility", "onLoading"]),
   },
 };
 </script>

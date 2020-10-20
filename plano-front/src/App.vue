@@ -6,12 +6,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
     />
 
-    <transition name="router-view-animation" mode="out-in" appear>
-      <router-view v-if="!onLoading.fetching"></router-view>
-    </transition>
-
-    <TheLoadingView />
-
     <notifications
       group="general"
       position="bottom right"
@@ -20,6 +14,12 @@
       :closeOnClick="false"
       classes="vue-notification"
     />
+
+    <transition name="router-view-animation" mode="out-in" appear>
+      <router-view></router-view>
+    </transition>
+
+    <TheLoadingView />
   </div>
 </template>
 
@@ -30,15 +30,9 @@ import { TheLoadingView } from "@/components/layout";
 export default {
   name: "App",
   components: { TheLoadingView },
-  created() {
-    this.initializeCurrentPlano();
-  },
 
-  methods: {
-    ...mapActions(["initializeCurrentPlano"]),
-  },
   computed: {
-    ...mapGetters(["notificationsQueue", "onLoading"]),
+    ...mapGetters(["notificationsQueue"]),
   },
 
   watch: {
