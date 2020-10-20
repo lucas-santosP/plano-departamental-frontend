@@ -28,8 +28,8 @@ import { generateEmptyTurma } from "@/common/utils";
 
 export default {
   name: "ModalImportPlano",
-  data() {
-    return {};
+  mounted() {
+    console.log(this.AllTurmas);
   },
   methods: {
     ...mapActions(["createTurma", "editPedido"]),
@@ -45,6 +45,15 @@ export default {
     },
 
     async handleImportPlano() {
+      if (this.AllTurmas.length) {
+        this.pushNotification({
+          type: "error",
+          text: `Plano atual deve estar vázio para fazer a importação!`,
+        });
+        this.$refs.baseModal.close();
+        return;
+      }
+
       this.setPartialLoading(true);
       const inputFile = this.$refs.inputFilePlano.files[0];
       const reader = new FileReader();
@@ -63,7 +72,9 @@ export default {
 
         const [, periodoStr] = inputFile.name.split(".");
         const periodoDoPlano = parseInt(periodoStr) || null;
+
         await this.createPlanoImported(turmasDoPlano.slice(0, 5), periodoDoPlano);
+        await this.$store.dispatch("fetchAll");
 
         this.$refs.baseModal.close();
         this.setPartialLoading(false);
@@ -75,7 +86,6 @@ export default {
     async createPlanoImported(turmasImported, periodo = 1) {
       // Create plano
       // const newPlano = this.createPlano()
-
       const keys = {
         disciplinaCod: null,
         letra: null,
@@ -238,6 +248,7 @@ export default {
       "AllDisciplinas",
       "AllCursos",
       "ListaDeTodosHorarios",
+      "AllTurmas",
     ]),
   },
 };
