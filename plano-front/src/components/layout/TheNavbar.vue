@@ -59,6 +59,7 @@ export default {
   methods: {
     ...mapActions(["closeSidebar", "toggleSidebar", "changeCurrentPlano"]),
   },
+
   computed: {
     ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
   },
@@ -91,25 +92,26 @@ export default {
 }
 /* brand */
 .navbar-container > .navbar-brand {
-  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 160px;
-  min-width: 160px;
+  width: 170px;
+  height: 30px;
   margin: 0;
   padding: 0;
+  padding-left: 10px;
+
   cursor: pointer;
   color: #cdced0;
   background-color: #272b30;
   transition: all 0.2s ease;
 }
 .navbar-container > .navbar-brand > .brand-title {
-  text-decoration: none;
+  width: 100%;
   padding: 0;
-  font-weight: 500;
-  text-align: center;
   font-size: 15px;
+  text-align: left;
+  text-decoration: none;
   color: currentColor;
 }
 .navbar-container > .btn-navbar {
@@ -129,7 +131,7 @@ export default {
 }
 .navbar-container > .navbar-brand:hover,
 .navbar-container > .btn-navbar:hover {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 .btn-navbar:focus,
 .navbar-brand .brand-title:focus {
