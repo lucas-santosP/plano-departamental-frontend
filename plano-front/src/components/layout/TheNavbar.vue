@@ -183,7 +183,7 @@ ul.navbar-nav > li.nav-item svg {
 /* input plano */
 ul.navbar-nav > li.nav-item .input-plano {
   text-align: start;
-  width: 120px;
+  width: 150px;
   height: 20px;
   font-size: 12px;
   border-radius: 3px;
