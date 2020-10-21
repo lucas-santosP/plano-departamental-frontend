@@ -2,7 +2,8 @@
   <BaseModal
     ref="baseModal"
     title="Importar plano"
-    position="right"
+    position="center"
+    :hasBackground="true"
     :hasFooter="true"
   >
     <template #modal-body>
