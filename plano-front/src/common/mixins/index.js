@@ -11,8 +11,10 @@ import conectaFiltrosSemestresEPeriodos from "./conectaFiltrosSemestresEPeriodos
 import convertDateUTC from "./convertDateUTC";
 import maskEmptyToZero from "./maskEmptyToZero";
 import conectaFiltroPerfisEDisciplinas from "./conectaFiltroPerfisEDisciplinas";
+import normalizeClickSelection from "./normalizeClickSelection";
 
 export {
+  normalizeClickSelection,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
   maskEmptyToZero,

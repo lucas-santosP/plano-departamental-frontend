@@ -93,7 +93,6 @@ export default {
 .table-custom thead tr th {
   word-wrap: none !important;
   height: 18px !important;
-  user-select: none;
 }
 th:hover,
 td:hover {
@@ -107,7 +106,6 @@ td:hover {
 }
 .modal-table tbody tr td {
   cursor: pointer;
-  user-select: none;
   min-height: 21px !important;
 }
 
