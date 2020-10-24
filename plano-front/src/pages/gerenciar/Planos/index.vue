@@ -78,15 +78,12 @@
               <label required for="ano">Ano</label>
               <select
                 id="planoAno"
-                v-model.number="planoForm.ano"
                 class="form-control input-ano"
+                v-model.number="planoForm.ano"
               >
-                <option
-                  v-for="year in AnosDoPlano"
-                  :key="'anos' + year"
-                  :value="year"
-                  >{{ year }}</option
-                >
+                <option v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano">
+                  {{ ano }}
+                </option>
               </select>
             </div>
           </div>
