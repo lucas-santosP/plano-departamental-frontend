@@ -482,11 +482,13 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
-            this.filtroPerfis.selecionados = [...this.PerfisOptions];
+            this.filtroDisciplinas.selecionados = [
+              ...this.DisciplinasOptionsFiltered,
+            ];
+            this.conectaDisciplinasEmPerfis();
           },
           Cursos: () => {
-            this.filtroCursos.selecionados = [...this.AllCursos];
+            this.filtroCursos.selecionados = [...this.CursosOptionsFiltered];
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
