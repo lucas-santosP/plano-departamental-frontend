@@ -263,7 +263,7 @@ import { InputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 export default {
-  name: "RelatoriosBuscaTurmas",
+  name: "BuscarTurmas",
   mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
   components: {
     ModalAjuda,
