@@ -27,7 +27,6 @@
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.codigo"
             width="80"
-            align="start"
             text="Código"
             >Código
           </v-th-ordination>
@@ -56,7 +55,6 @@
             {{ curso.codigo }}
           </v-th>
         </template>
-
         <template #add-row>
           <NovaTurmaExternaRow ref="novaTurmaExternaRow" v-show="isAdding" />
         </template>
@@ -69,11 +67,11 @@
           />
 
           <tr v-show="!TurmasExternasOrdered.length">
-            <td style="width:1005px">
+            <v-td width="1005">
               <b>Nenhuma turma encontrada.</b> Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-las.
-            </td>
+            </v-td>
           </tr>
         </template>
       </BaseTable>
