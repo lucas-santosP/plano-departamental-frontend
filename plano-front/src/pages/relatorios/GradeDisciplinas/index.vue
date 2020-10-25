@@ -375,11 +375,7 @@ export default {
   },
 
   beforeMount() {
-    const currentPlano = this.$_.find(this.AllPlanos, [
-      "id",
-      parseInt(localStorage.getItem("Plano")),
-    ]);
-    this.ano = currentPlano.ano;
+    this.ano = this.currentPlano.ano;
     this.novoAno = this.ano;
     this.runAll();
 
@@ -586,8 +582,8 @@ export default {
     ...mapGetters([
       "PrincipaisCursosDCC",
       "DisciplinasInPerfis",
+      "currentPlano",
       "AllPerfis",
-      "AllPlanos",
     ]),
 
     DisciplinasOrderedMain() {
