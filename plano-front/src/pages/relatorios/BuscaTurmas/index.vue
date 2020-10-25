@@ -2,7 +2,7 @@
   <div class="main-component row">
     <PageHeader :title="'Buscar Turmas DCC'">
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
-      <BaseButton template="ajuda" />
+      <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
 
     <div class="div-table">
@@ -81,11 +81,13 @@
           <v-th width="70" align="start">Código</v-th>
           <v-th width="355" align="start">Nome</v-th>
         </template>
+
         <template #tbody>
           <tr
             v-for="disciplina in DisciplinasDCCFiltredModal"
             :key="disciplina.id + disciplina.nome"
-            @click.stop="toggle('Disciplinas', disciplina.id)"
+            @click="toggle('Disciplinas', disciplina.id)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -128,7 +130,8 @@
           <tr
             v-for="docente in DocentesFiltredModal"
             :key="docente.id + docente.nome"
-            @click.stop="toggle('Docentes', docente.id)"
+            @click="toggle('Docentes', docente.id)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -160,7 +163,8 @@
           <tr
             v-for="horario in AllHorarios"
             :key="horario.id + horario.horario"
-            @click.stop="toggle('Horarios', horario.id)"
+            @click="toggle('Horarios', horario.id)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -189,7 +193,8 @@
           <tr
             v-for="sala in AllSalas"
             :key="sala.id + sala.nome"
-            @click.stop="toggle('Salas', sala.id)"
+            @click="toggle('Salas', sala.id)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -202,7 +207,7 @@
             <v-td width="425" class="t-start">{{ sala.nome }}</v-td>
           </tr>
 
-          <tr v-if="AllSalas.length === 0">
+          <tr v-if="!AllSalas.length">
             <v-td colspan="2" width="450">NENHUMA SALA ENCONTRADA.</v-td>
           </tr>
         </template>
@@ -219,7 +224,8 @@
           <tr
             v-for="plano in AllPlanos"
             :key="plano.id + plano.ano + plano.nome"
-            @click.stop="toggle('Planos', plano.id)"
+            @click="toggle('Planos', plano.id)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -239,21 +245,26 @@
         </template>
       </BaseTable>
     </ModalFiltros>
+
+    <ModalAjuda ref="modalAjuda"></ModalAjuda>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import turmaService from "@/common/services/turma";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
-import { toggleItemInArray, toggleAsideModal } from "@/common/mixins";
+import {
+  toggleItemInArray,
+  toggleAsideModal,
+  preventClickSelection,
+} from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
-import turmaService from "@/common/services/turma";
-
 export default {
   name: "RelatoriosBuscaTurmas",
-  mixins: [toggleItemInArray, toggleAsideModal],
+  mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
   components: {
     ModalAjuda,
     ModalFiltros,
@@ -261,7 +272,7 @@ export default {
   },
   data() {
     return {
-      asideModalsRefs: ["modalFiltros"],
+      asideModalsRefs: ["modalFiltros", "modalAjuda"],
       turmaClicked: generateEmptyTurma(),
       searchDocentesModal: "",
       searchDisciplinasModal: "",
