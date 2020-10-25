@@ -123,7 +123,7 @@
             v-for="perfil in PerfisOptionsOrdered"
             :key="perfil.id + perfil.nome"
             @click="selectPerfis(perfil)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -183,7 +183,7 @@
             v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
             @click="selectDisciplina(disciplina)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -242,7 +242,7 @@
             v-for="curso in CursosOptionsOrdered"
             :key="curso.id + curso.nome"
             @click="toggleItemInArray(curso, filtroCursos.selecionados)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -272,7 +272,7 @@
             v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -299,7 +299,7 @@
             v-for="semestre in SemestresOptions"
             :key="semestre.id + semestre.nome"
             @click="selecionaSemestre(semestre)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -426,7 +426,7 @@ import {
   cursoPopoverContent,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
-  normalizeClickSelection,
+  preventClickSelection,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import {
@@ -446,7 +446,7 @@ export default {
     cursoPopoverContent,
     conectaFiltrosSemestresEPeriodos,
     conectaFiltroPerfisEDisciplinas,
-    normalizeClickSelection,
+    preventClickSelection,
   ],
   components: {
     ModalAjuda,

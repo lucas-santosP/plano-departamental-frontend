@@ -92,7 +92,7 @@
             v-for="programaPos in AllProgramasPosOrdered"
             :key="programaPos"
             @click="toggleItemInArray(programaPos, filtroProgramas.selecionados)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -118,7 +118,7 @@
             v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -147,7 +147,7 @@
             v-for="semestre in SemestresOptions"
             :key="semestre.id + semestre.nome"
             @click="selecionaSemestre(semestre)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -241,7 +241,7 @@ import {
   toggleItemInArray,
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
-  normalizeClickSelection,
+  preventClickSelection,
 } from "@/common/mixins";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
@@ -253,7 +253,7 @@ export default {
     toggleItemInArray,
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
-    normalizeClickSelection,
+    preventClickSelection,
   ],
   components: {
     ModalDelete,

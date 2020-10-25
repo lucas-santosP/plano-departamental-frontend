@@ -122,7 +122,7 @@
             v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
             @click="toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -154,7 +154,7 @@
             v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -180,7 +180,7 @@
             v-for="semestre in SemestresOptions"
             :key="semestre.id + semestre.nome"
             @click="selecionaSemestre(semestre)"
-            v-normalize-click-selection
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
@@ -275,7 +275,7 @@ import {
   toggleAsideModal,
   cursoPopoverContent,
   conectaFiltrosSemestresEPeriodos,
-  normalizeClickSelection,
+  preventClickSelection,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
@@ -289,7 +289,7 @@ export default {
     toggleAsideModal,
     cursoPopoverContent,
     conectaFiltrosSemestresEPeriodos,
-    normalizeClickSelection,
+    preventClickSelection,
   ],
   components: {
     ModalFiltros,

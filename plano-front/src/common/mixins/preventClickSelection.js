@@ -5,7 +5,7 @@ const preventDoubleClickSelection = (event) => {
 
 export default {
   directives: {
-    normalizeClickSelection: {
+    preventClickSelection: {
       bind(el) {
         el.handleClick = preventDoubleClickSelection;
         el.addEventListener("mousedown", el.handleClick);
