@@ -1,19 +1,20 @@
 <template>
   <div class="main-component">
     <PageHeader :title="'Preferências dos docentes'">
-      <BaseButton template="adicionar" @click="$refs.modalAddPreferencia.open()" />
-      <BaseButton template="swap-modes" @click="toggleTableMode" />
+      <BaseButton template="adicionar" @click="openModalNewPreferencia" />
       <BaseButton template="file-upload" @click="openModalUpload" />
+      <BaseButton template="swap-modes" @click="toggleTableMode" />
+      <BaseButton template="ajuda" />
     </PageHeader>
 
     <div class="div-table">
-      <BaseTable v-if="tableMode">
+      <BaseTable v-show="tableMode === 'disciplina'">
         <template #thead>
           <v-th width="90">Código</v-th>
           <v-th width="420" align="start">Nome</v-th>
           <v-th width="80">Perfil</v-th>
           <v-th width="120" align="start">Docente</v-th>
-          <v-th width="40" title="Preferência">Pref</v-th>
+          <v-th width="50" title="Preferência">Pref.</v-th>
         </template>
 
         <template #tbody>
@@ -33,11 +34,12 @@
               </v-td>
               <v-td width="120" />
               <v-td
-                width="40"
-                class="td-pref"
-                @click="openModalAddDocente(disciplina[0].Disciplina)"
+                width="50"
+                class="clickable"
+                type="content"
+                @click="openModalAddPreferencia(disciplina[0].Disciplina)"
               >
-                +
+                <font-awesome-icon :icon="['fas', 'plus']" class="icon-darkgray" />
               </v-td>
             </tr>
 
@@ -51,7 +53,16 @@
               <v-td width="120" align="start">
                 {{ findDocenteById(preferencia.Docente).apelido }}
               </v-td>
-              <v-td width="40" @click="openModalEdit(preferencia)" class="td-pref">
+              <v-td
+                width="50"
+                class="td-pref"
+                @click="openModalEditPreferencia(preferencia)"
+                :title="
+                  'Preferência: ' +
+                    preferenciaText(preferencia.preferencia) +
+                    '\nClique para editar'
+                "
+              >
                 {{ preferencia.preferencia }}
               </v-td>
             </tr>
@@ -59,13 +70,13 @@
         </template>
       </BaseTable>
 
-      <BaseTable v-else>
+      <BaseTable v-show="tableMode === 'docente'">
         <template #thead>
           <v-th width="120" align="start">Docente</v-th>
           <v-th width="90">Código</v-th>
           <v-th width="420" align="start">Nome</v-th>
           <v-th width="80">Perfil</v-th>
-          <v-th width="40" title="Preferência">Pref</v-th>
+          <v-th width="50" title="Preferência">Pref.</v-th>
         </template>
 
         <template #tbody>
@@ -78,11 +89,12 @@
               <v-td width="420" />
               <v-td width="80" />
               <v-td
-                width="40"
-                class="td-pref"
-                @click="openModalAddDisciplina(docente[0].Docente)"
+                width="50"
+                class="clickable"
+                type="content"
+                @click="openModalAddPreferencia(docente[0].Docente)"
               >
-                +
+                <font-awesome-icon :icon="['fas', 'plus']" class="icon-darkgray" />
               </v-td>
             </tr>
 
@@ -103,7 +115,17 @@
                     .abreviacao
                 }}
               </v-td>
-              <v-td width="40" @click="openModalEdit(preferencia)" class="td-pref">
+              <v-td
+                width="50"
+                class="td-pref"
+                type="content"
+                @click="openModalEditPreferencia(preferencia)"
+                :title="
+                  'Preferência: ' +
+                    preferenciaText(preferencia.preferencia) +
+                    '\nClique para editar'
+                "
+              >
                 {{ preferencia.preferencia }}
               </v-td>
             </tr>
@@ -112,220 +134,248 @@
       </BaseTable>
     </div>
 
-    <BaseModal ref="modalEdit" :title="'Editar Preferência'" :hasFooter="true">
-      <template #modal-body>
-        <div class="row" :style="{ margin: '0' }">
-          <p>Docente: {{ edit.docente ? edit.docente.nome : "" }}</p>
-        </div>
-        <div class="row" :style="{ margin: '0' }">
-          <p>Disciplina: {{ edit.disciplina ? edit.disciplina.nome : "" }}</p>
-        </div>
-        <div class="row" :style="{ display: 'table-cell', verticalAlign: 'middle' }">
-          <label for="inputPreferenciaDocentes">Preferência: </label>
-          <input
-            type="text"
-            v-model="preferenciaForm.preferencia"
-            id="inputPreferenciaDocentes"
-            :style="{
-              width: '25px',
-              height: '20px',
-              marginLeft: '10px',
-              textAlign: 'center',
-            }"
-          />
-        </div>
-      </template>
-      <template #modal-footer>
-        <BaseButton
-          type="text"
-          color="lightblue"
-          @click="handleEditPrefs()"
-          class="ml-auto"
-          >Confirmar</BaseButton
-        >
-      </template>
-    </BaseModal>
-
     <BaseModal
-      ref="modalAddDocente"
-      :title="'Adicionar preferência'"
-      :hasFooter="true"
-      :styles="{ width: '400px' }"
-      :hasBackground="true"
+      ref="modalEditPref"
       class="modal-pref"
+      :title="'Editar Preferência'"
+      :hasFooter="true"
+      :position="'right'"
+      :styles="{ width: '400px' }"
     >
       <template #modal-body>
-        <div class="form-row w-100 m-0 mb-2">
+        <div class="form-row w-100">
+          <span class="w-100 mb-2">
+            <b> Docente: </b>{{ edit.docente ? edit.docente.nome : "" }}
+          </span>
           <span class="w-100">
-            <b> Disciplina: </b>{{ add.Disciplina ? add.Disciplina.nome : "" }}
+            <b> Disciplina: </b>{{ edit.disciplina ? edit.disciplina.nome : "" }}
           </span>
         </div>
 
         <div class="form-row w-100">
-          <div class="form-group col-7">
-            <label for="addPrefDocente">Docente:</label>
+          <div class="form-group col-6">
+            <label for="editPref">Preferência:</label>
             <select
-              id="addPrefDocente"
+              id="editPref"
               class="form-control"
-              style="width:95%"
-              v-model="add.Docente"
+              v-model="preferenciaForm.preferencia"
             >
+              <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
+                {{ pref }} - {{ preferenciaText(pref) }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </template>
+
+      <template #modal-footer>
+        <BaseButton
+          color="lightblue"
+          text="Confirmar"
+          class="ml-auto"
+          @click="handleEditPrefs"
+        />
+      </template>
+    </BaseModal>
+
+    <BaseModal
+      ref="modalAddPref"
+      class="modal-pref"
+      :title="
+        tableMode === 'docente'
+          ? 'Adicionar preferência ao docente'
+          : 'Adicionar preferência à disciplina'
+      "
+      :hasFooter="true"
+      :position="'right'"
+      :styles="{ width: '400px' }"
+    >
+      <template #modal-body>
+        <template v-if="tableMode === 'disciplina'">
+          <div class="form-row w-100">
+            <span class="w-100">
+              <b>Disciplina: </b>{{ add.Disciplina ? add.Disciplina.nome : "" }}
+            </span>
+          </div>
+
+          <div class="form-row w-100">
+            <div class="form-group col-6 ">
+              <label for="addDocente">Docente:</label>
+              <select id="addDocente" class="form-control" v-model="add.Docente">
+                <option
+                  v-for="docente in AllDocentes"
+                  :key="docente.id + docente.apelido"
+                  :value="docente.id"
+                  >{{ docente.apelido }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group col-6 pl-3">
+              <label for="addPref">Preferência:</label>
+              <select
+                id="addPref"
+                v-model.number="add.preferencia"
+                class="form-control"
+              >
+                <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
+                  {{ pref }} - {{ preferenciaText(pref) }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </template>
+
+        <template v-else-if="tableMode === 'docente'">
+          <div class="form-row w-100">
+            <span class="w-100">
+              <b> Docente: </b>{{ add.Docente ? add.Docente.apelido : "" }}
+            </span>
+          </div>
+
+          <div class="form-row w-100">
+            <div class="form-group col">
+              <label for="addDisciplina">Disciplina:</label>
+              <select
+                id="addDisciplina"
+                class="form-control"
+                style="width:100%"
+                v-model="add.Disciplina"
+              >
+                <option
+                  v-for="disciplina in AllDisciplinas"
+                  :key="disciplina.id + disciplina.codigo"
+                  :value="disciplina.id"
+                >
+                  {{ disciplina.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row w-100">
+            <div class="form-group col-6">
+              <label for="addDisciplina">Código:</label>
+              <select
+                id="addDisciplina"
+                class="form-control"
+                v-model="add.Disciplina"
+              >
+                <option
+                  v-for="disciplina in AllDisciplinas"
+                  :key="disciplina.id + disciplina.codigo"
+                  :value="disciplina.id"
+                >
+                  {{ disciplina.codigo }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group col-6 pl-3">
+              <label for="addPref">Preferência:</label>
+              <select
+                id="addPref"
+                v-model.number="add.preferencia"
+                class="form-control"
+              >
+                <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
+                  {{ pref }} - {{ preferenciaText(pref) }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </template>
+      </template>
+
+      <template #modal-footer>
+        <BaseButton
+          color="lightblue"
+          text="Confirmar"
+          class="ml-auto"
+          @click="addPreferencia"
+        />
+      </template>
+    </BaseModal>
+
+    <BaseModal
+      ref="modalNewPref"
+      class="modal-pref"
+      :title="'Nova Preferência'"
+      :hasFooter="true"
+      :position="'right'"
+      :styles="{ width: '400px' }"
+    >
+      <template #modal-body>
+        <div class="form-row w-100">
+          <div class="form-group col">
+            <label for="newDisciplina">Disciplina:</label>
+            <select id="newDisciplina" class="form-control" v-model="add.Disciplina">
+              <option
+                v-for="disciplina in AllDisciplinas"
+                :key="disciplina.id + disciplina.codigo"
+                :value="disciplina.id"
+              >
+                {{ disciplina.nome }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row w-100">
+          <div class="form-group col-6">
+            <label for="newCodigo">Código:</label>
+            <select id="newCodigo" class="form-control" v-model="add.Disciplina">
+              <option
+                v-for="disciplina in AllDisciplinas"
+                :key="disciplina.id + disciplina.codigo"
+                :value="disciplina.id"
+              >
+                {{ disciplina.codigo }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-6 pl-3">
+            <label for="newDocente">Docente:</label>
+            <select id="newDocente" class="form-control" v-model="add.Docente">
               <option
                 v-for="docente in AllDocentes"
-                :key="docente.id + docente.apelido"
+                :key="docente.id + docente.nome"
                 :value="docente.id"
                 >{{ docente.apelido }}
               </option>
             </select>
           </div>
+        </div>
 
-          <div class="form-group col-5">
-            <label for="addPref" style="margin-bottom:14px">
-              Preferência: {{ add.preferencia }}
-            </label>
-            <input
-              id="addPref"
-              type="range"
-              step="1"
-              min="0"
-              max="3"
-              v-model.number="add.preferencia"
-              style="width:100px"
-            />
-          </div>
+        <div class="form-group col-6">
+          <label for="newPref">Preferência:</label>
+          <select id="newPref" v-model.number="add.preferencia" class="form-control">
+            <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
+              {{ pref }} - {{ preferenciaText(pref) }}
+            </option>
+          </select>
         </div>
       </template>
+
       <template #modal-footer>
         <BaseButton
-          type="text"
           color="lightblue"
-          @click="addPreferencia"
           class="ml-auto"
-          >Confirmar</BaseButton
-        >
+          text="Confirmar"
+          @click="addPreferencia"
+        />
       </template>
     </BaseModal>
 
     <BaseModal
-      ref="modalAddDisciplina"
-      :title="'Adicionar Preferência'"
+      ref="modalUpload"
+      class="modal-pref"
+      :title="'Importar preferências'"
       :hasFooter="true"
+      :hasBackground="true"
+      :styles="{ width: '400px' }"
     >
-      <template #modal-body>
-        <div class="row" :style="{ margin: '0' }">
-          <p>Docente: {{ add.Docente ? add.Docente.apelido : "" }}</p>
-        </div>
-        <div class="row" :style="{ margin: '0' }">
-          <label for="selectPreferenciaAdicionarDisciplinas">Disciplina: </label>
-          <select
-            v-model="add.Disciplina"
-            id="selectPreferenciaAdicionarDisciplinas"
-            style="width: 200px"
-          >
-            <option
-              v-for="disciplina in AllDisciplinas"
-              :key="`adicionarDisciplina${disciplina.id}`"
-              :value="disciplina.id"
-            >
-              {{ disciplina.codigo }} - {{ disciplina.nome }}
-            </option>
-          </select>
-        </div>
-        <div class="row" :style="{ display: 'table-cell', verticalAlign: 'middle' }">
-          <label for="inputPreferenciaAdicionarDisciplinas">Preferência: </label>
-          <input
-            type="text"
-            v-model="add.preferencia"
-            id="inputPreferenciaAdicionarDisciplinas"
-            :style="{
-              width: '25px',
-              height: '20px',
-              marginLeft: '10px',
-              textAlign: 'center',
-            }"
-          />
-        </div>
-      </template>
-      <template #modal-footer>
-        <BaseButton
-          type="text"
-          color="lightblue"
-          @click="addPreferencia"
-          class="ml-auto"
-          >Confirmar</BaseButton
-        >
-      </template>
-    </BaseModal>
-
-    <BaseModal
-      ref="modalAddPreferencia"
-      :title="'Adicionar Preferência'"
-      :hasFooter="true"
-    >
-      <template #modal-body>
-        <div class="row" :style="{ margin: '0' }">
-          <label for="selectPreferenciaAdicionarPreferenciaDocentes"
-            >Docente:
-          </label>
-          <select
-            v-model="add.Docente"
-            id="selectPreferenciaAdicionarPreferenciaDocentes"
-            style="width: 200px; margin-left: auto"
-          >
-            <option
-              v-for="docente in AllDocentes"
-              :key="`adicionarPreferenciaDocente${docente.id}`"
-              :value="docente.id"
-            >
-              {{ docente.apelido }}
-            </option>
-          </select>
-        </div>
-        <div class="row" :style="{ margin: '0' }">
-          <label for="selectPreferenciaAdicionarPreferenciaDisciplinas"
-            >Disciplina:
-          </label>
-          <select
-            v-model="add.Disciplina"
-            id="selectPreferenciaAdicionarPreferenciaDisciplinas"
-            style="width: 200px; margin-left: auto"
-          >
-            <option
-              v-for="disciplina in AllDisciplinas"
-              :key="`adicionarPreferenciaDisciplina${disciplina.id}`"
-              :value="disciplina.id"
-            >
-              {{ disciplina.codigo }} - {{ disciplina.nome }}
-            </option>
-          </select>
-        </div>
-        <div class="row" :style="{ display: 'table-cell', verticalAlign: 'middle' }">
-          <label for="inputPreferenciaAdicionarPreferencia">Preferência: </label>
-          <input
-            type="text"
-            v-model="add.preferencia"
-            id="inputPreferenciaAdicionarPreferencia"
-            :style="{
-              width: '25px',
-              height: '20px',
-              marginLeft: '10px',
-              textAlign: 'center',
-            }"
-          />
-        </div>
-      </template>
-      <template #modal-footer>
-        <BaseButton
-          type="text"
-          color="lightblue"
-          @click="addPreferencia"
-          class="ml-auto"
-          >Confirmar</BaseButton
-        >
-      </template>
-    </BaseModal>
-
-    <BaseModal ref="modalUpload" :title="'Importar preferências'" :hasFooter="true">
       <template #modal-body>
         <input type="file" ref="xlsxPrefs" id="xlsxPrefs" />
       </template>
@@ -344,48 +394,60 @@
 
 <script>
 import XLSX from "xlsx";
-import { mapGetters, mapActions } from "vuex";
 import docenteDisciplinaService from "@/common/services/docenteDisciplina";
+import { mapGetters } from "vuex";
 import { ModalAjuda } from "@/components/modals";
-import { maskOnlyNumber } from "@/common/mixins";
 
 export default {
-  name: "DashboardPreferencias",
+  name: "PreferenciasDocentes",
   components: { ModalAjuda },
-  mixins: [maskOnlyNumber],
   data() {
     return {
-      file: undefined,
+      file: null,
       preferenciaForm: {
-        Docente: undefined,
-        Disciplina: undefined,
-        preferencia: undefined,
+        Docente: null,
+        Disciplina: null,
+        preferencia: null,
       },
       edit: {
-        docente: undefined,
-        disciplina: undefined,
-        isZero: undefined,
+        docente: null,
+        disciplina: null,
+        isZero: null,
       },
       add: {
-        Docente: undefined,
-        Disciplina: undefined,
+        Docente: null,
+        Disciplina: null,
         preferencia: 0,
       },
-      error: undefined,
-      tableMode: true,
+      error: null,
+      tableMode: "docente",
     };
   },
 
   methods: {
-    ...mapActions(["setPartialLoading"]),
-
-    toggleTableMode() {
-      this.tableMode = !this.tableMode;
+    preferenciaText(preferencia) {
+      switch (preferencia) {
+        case 0:
+          return "Inapto";
+        case 1:
+          return "Emergência";
+        case 2:
+          return "Confortável";
+        case 3:
+          return "Interesse";
+        default:
+          break;
+      }
     },
-    openModalEdit(preferencia) {
+    toggleTableMode() {
+      if (this.tableMode === "docente") this.tableMode = "disciplina";
+      else this.tableMode = "docente";
+    },
+    openModalEditPreferencia(preferencia) {
       this.edit.docente = this.findDocenteById(preferencia.Docente);
       this.edit.disciplina = this.findDisciplinaById(preferencia.Disciplina);
       let p = preferencia.preferencia;
+
       if (p === 0) {
         this.edit.isZero = true;
       } else {
@@ -397,15 +459,25 @@ export default {
         Disciplina: preferencia.Disciplina,
         preferencia: p,
       };
-      this.$refs.modalEdit.open();
+      this.$refs.modalNewPref.close();
+      this.$refs.modalAddPref.close();
+      this.$refs.modalEditPref.open();
     },
-    openModalAddDocente(disciplina) {
-      this.add.Disciplina = this.findDisciplinaById(disciplina);
-      this.$refs.modalAddDocente.open();
+    openModalAddPreferencia(newValue) {
+      if (this.tableMode === "disciplina") {
+        this.add.Disciplina = this.findDisciplinaById(newValue);
+      } else {
+        this.add.Docente = this.findDocenteById(newValue);
+      }
+
+      this.$refs.modalNewPref.close();
+      this.$refs.modalEditPref.close();
+      this.$refs.modalAddPref.open();
     },
-    openModalAddDisciplina(docente) {
-      this.add.Docente = this.findDocenteById(docente);
-      this.$refs.modalAddDisciplina.open();
+    openModalNewPreferencia() {
+      this.$refs.modalAddPref.close();
+      this.$refs.modalEditPref.close();
+      this.$refs.modalNewPref.open();
     },
     openModalUpload() {
       this.$refs.modalUpload.open();
@@ -430,45 +502,28 @@ export default {
     },
 
     addPreferencia() {
-      console.log(this.add);
       if (this.add.Docente && this.add.Disciplina && this.add.preferencia) {
         if (this.add.Docente.id) this.add.Docente = this.add.Docente.id;
         if (this.add.Disciplina.id) this.add.Disciplina = this.add.Disciplina.id;
-        console.log(this.add);
 
         docenteDisciplinaService
           .create(this.add)
           .then(() => {
-            this.$notify({
-              group: "general",
-              title: `Sucesso!`,
-              text: `Preferência adicionada com sucesso!`,
+            this.pushNotification({
               type: "success",
+              text: `Preferência adicionada com sucesso!`,
             });
-            this.$refs.modalAddDocente.close();
-            this.$refs.modalAddDisciplina.close();
 
-            this.add.Disciplina = undefined;
-            this.add.Docente = undefined;
+            this.add.Disciplina = null;
+            this.add.Docente = null;
             this.add.preferencia = 0;
           })
-          .catch((error) => {
-            this.error = "<b>Erro ao atualizar Preferência</b>";
-            if (error.response.data.fullMessage) {
-              this.error +=
-                "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-            }
-            this.$notify({
-              group: "general",
-              title: `Erro!`,
-              text: this.error,
+          .catch(() => {
+            this.pushNotification({
               type: "error",
+              title: "Erro ao adicionar preferência!",
+              text: "Verifique se a preferência já não existe",
             });
-            this.add.Disciplina = undefined;
-            this.add.Docente = undefined;
-            this.add.preferencia = 0;
-            this.$refs.modalAddDocente.close();
-            this.$refs.modalAddDisciplina.close();
           });
       }
     },
@@ -478,13 +533,10 @@ export default {
           docenteDisciplinaService
             .create(this.preferenciaForm)
             .then(() => {
-              this.$notify({
-                group: "general",
-                title: `Sucesso!`,
-                text: `Preferência atualizada com sucesso!`,
+              this.pushNotification({
                 type: "success",
+                text: `Preferência atualizada com sucesso!`,
               });
-              this.$refs.modalEdit.close();
             })
             .catch((error) => {
               this.error = "<b>Erro ao atualizar Preferência</b>";
@@ -492,11 +544,9 @@ export default {
                 this.error +=
                   "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
               }
-              this.$notify({
-                group: "general",
-                title: `Erro!`,
-                text: this.error,
+              this.pushNotification({
                 type: "error",
+                text: this.error,
               });
             });
           this.edit.isZero = false;
@@ -510,13 +560,10 @@ export default {
             docenteDisciplinaService
               .delete(this.preferenciaForm.Disciplina, this.preferenciaForm.Docente)
               .then(() => {
-                this.$notify({
-                  group: "general",
-                  title: `Sucesso!`,
-                  text: `Preferência atualizada com sucesso!`,
+                this.pushNotification({
                   type: "success",
+                  text: "Preferência atualizada com sucesso!",
                 });
-                this.$refs.modalEdit.close();
               })
               .catch((error) => {
                 this.error = "<b>Erro ao atualizar Preferência</b>";
@@ -524,11 +571,9 @@ export default {
                   this.error +=
                     "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
                 }
-                this.$notify({
-                  group: "general",
-                  title: `Erro!`,
-                  text: this.error,
+                this.pushNotification({
                   type: "error",
+                  text: this.error,
                 });
               });
             this.edit.isZero = true;
@@ -540,13 +585,10 @@ export default {
                 this.preferenciaForm
               )
               .then(() => {
-                this.$notify({
-                  group: "general",
-                  title: `Sucesso!`,
-                  text: `Preferência atualizada com sucesso!`,
+                this.pushNotification({
                   type: "success",
+                  text: `Preferência atualizada com sucesso!`,
                 });
-                this.$refs.modalEdit.close();
               })
               .catch((error) => {
                 this.error = "<b>Erro ao atualizar Preferência</b>";
@@ -554,11 +596,9 @@ export default {
                   this.error +=
                     "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
                 }
-                this.$notify({
-                  group: "general",
-                  title: `Erro!`,
-                  text: this.error,
+                this.pushNotification({
                   type: "error",
+                  text: this.error,
                 });
               });
           }
@@ -566,7 +606,6 @@ export default {
       }
     },
     importPrefs() {
-      console.log(this.PreferenciaDosDocentes);
       this.file = this.$refs.xlsxPrefs.files[0];
       const reader = new FileReader();
 
@@ -675,7 +714,6 @@ export default {
       }
       return prefs;
     },
-
     DisciplinasPorDocentes() {
       let prefs = {};
       let preferencias = this.$_.orderBy(this.PreferenciaDosDocentes, (p) => {
@@ -709,30 +747,30 @@ export default {
   text-decoration: underline;
   cursor: pointer;
 }
+
 .modal-pref {
   font-size: 14px;
 }
 .modal-pref span {
   text-align: start;
 }
-
 .modal-pref .form-control {
-  height: 28px !important;
-  font-size: 12px !important;
-  padding: 0 5px !important;
+  width: 100%;
+  height: 28px;
+  font-size: 12px;
+  padding: 0 5px;
   text-align: start;
+}
+.modal-pref .form-row {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.75rem;
+}
+.modal-pref .form-group {
+  margin: 0;
+  padding: 0;
 }
 .modal-pref label {
   font-weight: bold;
-}
-.flex-form {
-  display: flex;
-  justify-content: start;
-  align-content: center;
-  width: 100%;
-}
-.modal-pref input[type="range"] {
-  border: 0 !important;
-  box-shadow: none !important;
 }
 </style>
