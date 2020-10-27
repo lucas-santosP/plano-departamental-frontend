@@ -1,22 +1,11 @@
 <template>
-  <BaseModal
-    ref="baseModal"
-    title="Importar plano"
-    position="center"
-    :hasBackground="true"
-    :hasFooter="true"
-  >
+  <BaseModal ref="baseModal" title="Importar plano" position="center" :hasBackground="true" :hasFooter="true">
     <template #modal-body>
       <input type="file" ref="inputFilePlano" />
     </template>
 
     <template #modal-footer>
-      <BaseButton
-        color="lightblue"
-        text="Importar"
-        class="ml-auto"
-        @click="handleImportPlano"
-      />
+      <BaseButton color="lightblue" text="Importar" class="ml-auto" @click="handleImportPlano" />
     </template>
   </BaseModal>
 </template>
@@ -127,6 +116,7 @@ export default {
             newTurma.Sala2 = this.findSalaId(str2);
           }
         }
+
         if (!newTurma.Disciplina || !newTurma.letra || !newTurma.turno1) {
           //Se não achou a Disciplina, letra ou turno1 não cria a turma
           continue;
@@ -149,11 +139,13 @@ export default {
         Curso: null,
         vagasNaoPeriodizadas: 0,
         vagasPeriodizadas: 0,
+        vagasOferecidas: 0,
+        vagasOcupadas: 0,
       };
       pedido.Turma = turmaId;
       pedido.Curso = this.findCursoId(turmaFile[keys.cursoCod]);
-      pedido.vagasPeriodizadas = turmaFile[keys.vagas1];
-      pedido.vagasNaoPeriodizadas = turmaFile[keys.vagas2];
+      pedido.vagasOferecidas = turmaFile[keys.vagas1];
+      pedido.vagasOcupadas = turmaFile[keys.vagas2];
 
       if (pedido.Curso) {
         await this.editPedido(pedido);
@@ -211,12 +203,7 @@ export default {
 
       let diaNormalized = null;
       let horaNormalized = null;
-      switch (
-        dia
-          .trim()
-          .substring(0, 3)
-          .toLowerCase()
-      ) {
+      switch (dia.trim().substring(0, 3).toLowerCase()) {
         case "seg":
           diaNormalized = "2a";
           break;
