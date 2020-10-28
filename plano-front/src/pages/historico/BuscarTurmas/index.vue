@@ -8,52 +8,85 @@
     <div class="div-table">
       <BaseTable>
         <template #thead>
-          <v-th width="100">Plano</v-th>
-          <v-th width="55" title="Período letivo">P.</v-th>
-          <v-th width="80">Perfil</v-th>
-          <v-th width="80">Código</v-th>
-          <v-th width="330">Disciplina</v-th>
-          <v-th width="45" title="Turma">T.</v-th>
-          <v-th width="200">Docente</v-th>
+          <v-th-ordination
+            :orderFixed="true"
+            :currentOrder="ordenacaoMain.planos"
+            orderToCheck="plano.ano"
+            width="120"
+            align="start"
+            title="Ano/nome"
+          >
+            Plano
+          </v-th-ordination>
+          <v-th width="30" title="Período letivo">P.</v-th>
+          <v-th-ordination
+            :orderFixed="true"
+            :currentOrder="ordenacaoMain.perfis"
+            orderToCheck="disciplina.perfil.abreviacao"
+            width="80"
+          >
+            Perfil
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoMain.turmas"
+            orderToCheck="disciplina.codigo"
+            width="80"
+          >
+            Código
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoMain.turmas"
+            orderToCheck="disciplina.nome"
+            width="330"
+            align="start"
+          >
+            Disciplina
+          </v-th-ordination>
+          <v-th width="35" title="Turma">T.</v-th>
+          <v-th width="200" align="start">Docente</v-th>
           <v-th width="80">Turno</v-th>
-          <v-th width="120">Horário</v-th>
-          <v-th width="95">Sala</v-th>
+          <v-th width="120" align="start">Horário</v-th>
+          <v-th width="100" align="start">Sala</v-th>
         </template>
 
         <template #tbody>
-          <tr v-for="turma in TurmasRetornadasOrdered" :key="'turma' + turma.id">
-            <v-td width="100">
-              {{ plano(turma.Plano) }}
+          <tr v-for="turma in TurmasRetornadasOrdered" :key="turma.id + turma.letra">
+            <v-td
+              width="120"
+              align="start"
+              :title="turma.plano.ano + '-' + turma.plano.nome"
+            >
+              <template v-if="turma.plano.ano">
+                {{ turma.plano.ano }} {{ turma.plano.nome }}
+              </template>
+              <template v-else>
+                -
+              </template>
             </v-td>
-            <v-td width="55">
-              {{ turma.periodo }}
-            </v-td>
+            <v-td width="30">{{ turma.periodo }}</v-td>
             <v-td
               width="80"
-              :style="{ backgroundColor: perfil(turma.Disciplina).cor }"
+              paddinX="0"
+              :style="{ backgroundColor: turma.disciplina.perfil.cor }"
             >
-              {{ perfil(turma.Disciplina).abreviacao }}
+              {{ turma.disciplina.perfil.abreviacao }}
             </v-td>
-            <v-td width="80">
-              {{ disciplina(turma.Disciplina).codigo }}
+            <v-td width="80">{{ turma.disciplina.codigo }}</v-td>
+            <v-td width="330" align="start">{{ turma.disciplina.nome }}</v-td>
+            <v-td width="35" paddinX="0">{{ turma.letra }}</v-td>
+            <v-td width="200" align="start">
+              {{ generateDocentesText(turma.Docente1, turma.Docente2) }}
             </v-td>
-            <v-td width="330">
-              {{ disciplina(turma.Disciplina).nome }}
+            <v-td width="80">{{ turma.turno1 }}</v-td>
+            <v-td width="120" align="start">
+              {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
             </v-td>
-            <v-td width="45">
-              {{ turma.letra }}
-            </v-td>
-            <v-td width="200">
-              {{ docentes(turma) }}
-            </v-td>
-            <v-td width="80">
-              {{ turma.turno1 }}
-            </v-td>
-            <v-td width="120">
-              {{ horarios(turma) }}
-            </v-td>
-            <v-td width="95">
-              {{ salas(turma) }}
+            <v-td
+              width="100"
+              align="start"
+              :title="generateSalasText(turma.Sala1, turma.Sala2)"
+            >
+              {{ generateSalasText(turma.Sala1, turma.Sala2) }}
             </v-td>
           </tr>
         </template>
@@ -84,7 +117,7 @@
 
         <template #tbody>
           <tr
-            v-for="disciplina in DisciplinasDCCFiltredModal"
+            v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
             @click="toggle('Disciplinas', disciplina.id)"
             v-prevent-click-selection
@@ -97,13 +130,13 @@
                 :value="disciplina.id"
               />
             </v-td>
-            <v-td width="70" align="start"> {{ disciplina.codigo }} </v-td>
+            <v-td width="70" align="start">{{ disciplina.codigo }}</v-td>
             <v-td width="355" align="start" :title="disciplina.nome">
               {{ disciplina.nome }}
             </v-td>
           </tr>
 
-          <tr v-if="!AllDisciplinas.length">
+          <tr v-if="!DisciplinasOptionsOrdered.length">
             <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
           </tr>
         </template>
@@ -142,9 +175,7 @@
               />
             </v-td>
             <v-td width="120" align="start">{{ docente.apelido }}</v-td>
-            <v-td width="305" align="start">
-              {{ docente.nome }}
-            </v-td>
+            <v-td width="305" align="start">{{ docente.nome }}</v-td>
           </tr>
 
           <tr v-if="!AllDocentes.length">
@@ -174,7 +205,7 @@
                 :value="horario.id"
               />
             </v-td>
-            <v-td width="425" class="t-start">{{ horario.horario }} </v-td>
+            <v-td width="425" class="t-start">{{ horario.horario }}</v-td>
           </tr>
 
           <tr v-if="!AllHorarios.length">
@@ -258,13 +289,23 @@ import {
   toggleItemInArray,
   toggleAsideModal,
   preventClickSelection,
+  generateDocentesText,
+  generateHorariosText,
+  generateSalasText,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 export default {
   name: "BuscarTurmas",
-  mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    preventClickSelection,
+    generateDocentesText,
+    generateHorariosText,
+    generateSalasText,
+  ],
   components: {
     ModalAjuda,
     ModalFiltros,
@@ -291,7 +332,7 @@ export default {
         selectAll: {
           Disciplinas: () => {
             this.searchConditions.Disciplinas = [
-              ...this.$_.map(this.DisciplinasDCC, function(d) {
+              ...this.$_.map(this.DisciplinasInPerfis, function(d) {
                 return d.id;
               }),
             ];
@@ -353,18 +394,14 @@ export default {
       },
       ordenacaoMain: {
         turmas: { order: "disciplina.codigo", type: "asc" },
+        planos: { order: "plano.ano", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
-      orderByPreferencia: true,
-      TurmasRetornadas: undefined,
+      TurmasRetornadas: null,
     };
   },
 
   methods: {
-    selectCursosDCC() {
-      this.filtroCursos.selecionados = [...this.CursosDCC];
-    },
-
     search() {
       turmaService
         .search(this.searchConditions)
@@ -374,82 +411,8 @@ export default {
         .catch((error) => console.log(error));
     },
 
-    perfil(disciplina) {
-      let d = this.$_.find(this.AllDisciplinas, { id: disciplina });
-      let p = this.$_.find(this.PerfisDCC, { id: d.Perfil });
-      return p;
-    },
-
-    plano(p) {
-      let plano = this.$_.find(this.$store.state.plano.Plano, { id: p });
-      if (plano) return `${plano.ano} - ${plano.nome}`;
-      else return "????";
-    },
-
-    disciplina(d) {
-      let disciplina = this.$_.find(this.AllDisciplinas, { id: d });
-      return disciplina;
-    },
-
-    docentes(turma) {
-      let doce1 = this.$_.find(this.AllDocentes, { id: turma.Docente1 });
-      let doce2 = this.$_.find(this.AllDocentes, { id: turma.Docente2 });
-      if (doce1) {
-        if (doce2) {
-          return `${doce1.apelido} - ${doce2.apelido}`;
-        } else {
-          return `${doce1.apelido}`;
-        }
-      } else {
-        if (doce2) {
-          return `${doce2.apelido}`;
-        } else {
-          return ``;
-        }
-      }
-    },
-
-    horarios(turma) {
-      let horario1 = this.$_.find(this.AllHorarios, { id: turma.Horario1 });
-      let horario2 = this.$_.find(this.AllHorarios, { id: turma.Horario2 });
-      if (horario1) {
-        if (horario2) {
-          return `${horario1.horario} - ${horario2.horario}`;
-        } else {
-          return `${horario1.horario}`;
-        }
-      } else {
-        if (horario2) {
-          return `${horario2.horario}`;
-        } else {
-          return ``;
-        }
-      }
-    },
-
-    salas(turma) {
-      let sala1 = this.$_.find(this.AllSalas, { id: turma.Sala1 });
-      let sala2 = this.$_.find(this.AllSalas, { id: turma.Sala2 });
-      if (sala1) {
-        if (sala2) {
-          return `${sala1.nome} - ${sala2.nome}`;
-        } else {
-          return `${sala1.nome}`;
-        }
-      } else {
-        if (sala2) {
-          return `${sala2.nome}`;
-        } else {
-          return ``;
-        }
-      }
-    },
-
     toggle(fieldName, fieldValue) {
-      let i = this.$_.findIndex(
-        this.searchConditions[fieldName],
-        (v) => v == fieldValue
-      );
+      let i = this.$_.findIndex(this.searchConditions[fieldName], (v) => v == fieldValue);
       if (i === -1) this.searchConditions[fieldName].push(fieldValue);
       else this.searchConditions[fieldName].splice(i, 1);
     },
@@ -463,23 +426,32 @@ export default {
       "AllDocentes",
       "AllHorarios",
       "AllSalas",
+      "DisciplinasInPerfis",
     ]),
 
     AllPlanos() {
       return this.$store.state.plano.Plano;
     },
 
-    DisciplinasDCC() {
-      return this.$_.filter(this.AllDisciplinas, (d) => d.departamento === 1);
-    },
-
     TurmasRetornadasOrdered() {
-      return this.$_.sortBy(this.TurmasRetornadas, (t) => {
-        if (this.plano(t.Plano).ano) return this.plano(t.Plano).ano;
-        else return "????";
+      const { turmas, perfis, planos } = this.ordenacaoMain;
+
+      return this.$_.orderBy(
+        this.TurmasRetornadasMapped,
+        ["periodo", planos.order, perfis.order, turmas.order],
+        ["asc", planos.type, perfis.type, turmas.type]
+      );
+    },
+    TurmasRetornadasMapped() {
+      return this.$_.map(this.TurmasRetornadas, (turma) => {
+        return {
+          ...turma,
+          disciplina: this.$_.find(this.DisciplinasInPerfis, ["id", turma.Disciplina]),
+          plano: this.$_.find(this.AllPlanos, ["id", turma.Plano]) || {},
+        };
       });
     },
-
+    /*
     TurmasOrdered() {
       const { turmas, perfis } = this.ordenacaoMain;
 
@@ -510,7 +482,7 @@ export default {
         this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
-
+    */
     PerfisOrderedModal() {
       return this.$_.orderBy(
         this.PerfisDCC,
@@ -518,19 +490,19 @@ export default {
         this.ordenacaoModal.perfis.type
       );
     },
-    DisciplinasDCCOrderedModal() {
+    DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
-        this.DisciplinasDCCFiltredModal,
+        this.DisciplinasOptionsFiltered,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
       );
     },
-    DisciplinasDCCFiltredModal() {
-      if (this.searchDisciplinasModal === "") return this.DisciplinasDCC;
+    DisciplinasOptionsFiltered() {
+      if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasDCC, (disciplina) => {
+      return this.$_.filter(this.DisciplinasInPerfis, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
