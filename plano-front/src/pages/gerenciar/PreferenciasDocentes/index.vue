@@ -4,7 +4,7 @@
       <BaseButton template="adicionar" @click="openModalNewPreferencia" />
       <BaseButton template="file-upload" @click="openModalUpload" />
       <BaseButton template="swap-modes" @click="toggleTableMode" />
-      <BaseButton template="ajuda" />
+      <!-- <BaseButton template="ajuda" /> -->
     </PageHeader>
 
     <div class="div-table">
@@ -145,10 +145,12 @@
       <template #modal-body>
         <div class="form-row w-100">
           <span class="w-100 mb-2">
-            <b> Docente: </b>{{ edit.docente ? edit.docente.nome : "" }}
+            <b>Docente:</b>
+            {{ edit.docente ? edit.docente.nome : "" }}
           </span>
           <span class="w-100">
-            <b> Disciplina: </b>{{ edit.disciplina ? edit.disciplina.nome : "" }}
+            <b>Disciplina:</b>
+            {{ edit.disciplina ? edit.disciplina.nome : "" }}
           </span>
         </div>
 
@@ -194,7 +196,8 @@
         <template v-if="tableMode === 'disciplina'">
           <div class="form-row w-100">
             <span class="w-100">
-              <b>Disciplina: </b>{{ add.Disciplina ? add.Disciplina.nome : "" }}
+              <b>Disciplina:</b>
+              {{ add.Disciplina ? add.Disciplina.nome : "" }}
             </span>
           </div>
 
@@ -206,18 +209,15 @@
                   v-for="docente in AllDocentes"
                   :key="docente.id + docente.apelido"
                   :value="docente.id"
-                  >{{ docente.apelido }}
+                >
+                  {{ docente.apelido }}
                 </option>
               </select>
             </div>
 
             <div class="form-group col-6 pl-3">
               <label for="addPref">Preferência:</label>
-              <select
-                id="addPref"
-                v-model.number="add.preferencia"
-                class="form-control"
-              >
+              <select id="addPref" v-model.number="add.preferencia" class="form-control">
                 <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
                   {{ pref }} - {{ preferenciaText(pref) }}
                 </option>
@@ -229,7 +229,8 @@
         <template v-else-if="tableMode === 'docente'">
           <div class="form-row w-100">
             <span class="w-100">
-              <b> Docente: </b>{{ add.Docente ? add.Docente.apelido : "" }}
+              <b>Docente:</b>
+              {{ add.Docente ? add.Docente.apelido : "" }}
             </span>
           </div>
 
@@ -256,11 +257,7 @@
           <div class="form-row w-100">
             <div class="form-group col-6">
               <label for="addDisciplina">Código:</label>
-              <select
-                id="addDisciplina"
-                class="form-control"
-                v-model="add.Disciplina"
-              >
+              <select id="addDisciplina" class="form-control" v-model="add.Disciplina">
                 <option
                   v-for="disciplina in AllDisciplinas"
                   :key="disciplina.id + disciplina.codigo"
@@ -273,11 +270,7 @@
 
             <div class="form-group col-6 pl-3">
               <label for="addPref">Preferência:</label>
-              <select
-                id="addPref"
-                v-model.number="add.preferencia"
-                class="form-control"
-              >
+              <select id="addPref" v-model.number="add.preferencia" class="form-control">
                 <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
                   {{ pref }} - {{ preferenciaText(pref) }}
                 </option>
@@ -342,7 +335,8 @@
                 v-for="docente in AllDocentes"
                 :key="docente.id + docente.nome"
                 :value="docente.id"
-                >{{ docente.apelido }}
+              >
+                {{ docente.apelido }}
               </option>
             </select>
           </div>
@@ -442,6 +436,10 @@ export default {
     toggleTableMode() {
       if (this.tableMode === "docente") this.tableMode = "disciplina";
       else this.tableMode = "docente";
+
+      this.$refs.modalNewPref.close();
+      this.$refs.modalAddPref.close();
+      this.$refs.modalEditPref.close();
     },
     openModalEditPreferencia(preferencia) {
       this.edit.docente = this.findDocenteById(preferencia.Docente);
