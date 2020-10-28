@@ -98,6 +98,46 @@
       :callbacks="modalFiltrosCallbacks"
       :tabsOptions="modalFiltrosTabs"
     >
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Perfis'">
+        <template #thead>
+          <v-th width="25" />
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.perfis"
+            orderToCheck="nome"
+            width="425"
+            align="start"
+            text="Nome"
+          />
+        </template>
+
+        <template #tbody>
+          <tr
+            v-for="perfil in PerfisOptionsOrdered"
+            :key="perfil.id + perfil.nome"
+            @click="selectPerfis(perfil)"
+            v-prevent-click-selection
+          >
+            <v-td width="25">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :value="perfil"
+                v-model="filtroPerfis.selecionados"
+                :indeterminate.prop="perfil.halfChecked"
+                @click.stop="selectPerfis(perfil)"
+              />
+            </v-td>
+            <v-td width="425" align="start">{{ perfil.nome }}</v-td>
+          </tr>
+
+          <tr v-if="!PerfisOptionsOrdered.length">
+            <v-td colspan="3" width="450">
+              Nenhum perfil encontrado
+            </v-td>
+          </tr>
+        </template>
+      </BaseTable>
+
       <BaseTable
         type="modal"
         v-show="modalFiltrosTabs.current === 'Disciplinas'"
@@ -111,33 +151,57 @@
         </template>
         <template #thead>
           <v-th width="25" />
-          <v-th width="70" align="start">Código</v-th>
-          <v-th width="355" align="start">Nome</v-th>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="codigo"
+            width="70"
+            align="start"
+            text="Código"
+          />
+
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="nome"
+            width="270"
+            align="start"
+            text="Nome"
+          />
+
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="perfil.abreviacao"
+            width="85"
+            align="start"
+            text="Perfil"
+          />
         </template>
 
         <template #tbody>
           <tr
             v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
-            @click="toggle('Disciplinas', disciplina.id)"
+            @click="selectDisciplina(disciplina)"
             v-prevent-click-selection
           >
             <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
-                v-model="searchConditions.Disciplinas"
-                :value="disciplina.id"
+                v-model="filtroDisciplinas.selecionados"
+                :value="disciplina"
+                @click.stop="selectDisciplina(disciplina)"
               />
             </v-td>
             <v-td width="70" align="start">{{ disciplina.codigo }}</v-td>
-            <v-td width="355" align="start" :title="disciplina.nome">
+            <v-td align="start" width="270" :title="disciplina.nome">
               {{ disciplina.nome }}
             </v-td>
+            <v-td width="85" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
           </tr>
-
           <tr v-if="!DisciplinasOptionsOrdered.length">
-            <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
+            <v-td colspan="3" width="450">
+              NENHUMA DISCIPLINA ENCONTRADA.
+            </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -155,13 +219,27 @@
         </template>
         <template #thead>
           <v-th width="25" />
-          <v-th width="120" align="start">Apelido</v-th>
-          <v-th width="305" align="start">Nome</v-th>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.docentes"
+            orderToCheck="apelido"
+            width="120"
+            align="start"
+          >
+            Apelido
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.docentes"
+            orderToCheck="nome"
+            width="305"
+            align="start"
+          >
+            Nome
+          </v-th-ordination>
         </template>
 
         <template #tbody>
           <tr
-            v-for="docente in DocentesFiltredModal"
+            v-for="docente in DocentesOptionsOrdered"
             :key="docente.id + docente.nome"
             @click="toggle('Docentes', docente.id)"
             v-prevent-click-selection
@@ -178,7 +256,7 @@
             <v-td width="305" align="start">{{ docente.nome }}</v-td>
           </tr>
 
-          <tr v-if="!AllDocentes.length">
+          <tr v-if="!DocentesOptionsOrdered.length">
             <v-td colspan="3" width="450">NENHUM DOCENTE ENCONTRADO.</v-td>
           </tr>
         </template>
@@ -292,6 +370,7 @@ import {
   generateDocentesText,
   generateHorariosText,
   generateSalasText,
+  conectaFiltroPerfisEDisciplinas,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
@@ -305,6 +384,7 @@ export default {
     generateDocentesText,
     generateHorariosText,
     generateSalasText,
+    conectaFiltroPerfisEDisciplinas,
   ],
   components: {
     ModalAjuda,
@@ -323,19 +403,27 @@ export default {
         Docentes: [],
         Horarios: [],
         Salas: [],
+        Periodos: [],
       },
       modalFiltrosTabs: {
-        current: "Disciplinas",
-        array: ["Disciplinas", "Docentes", "Horários", "Salas", "Planos"],
+        current: "Perfis",
+        array: ["Perfis", "Disciplinas", "Docentes", "Horários", "Salas", "Planos"],
+      },
+      filtroPerfis: {
+        selecionados: [],
+      },
+      filtroDisciplinas: {
+        selecionados: [],
       },
       modalFiltrosCallbacks: {
         selectAll: {
+          Perfis: () => {
+            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
+            this.filtroPerfis.selecionados = [...this.PerfisOptions];
+          },
           Disciplinas: () => {
-            this.searchConditions.Disciplinas = [
-              ...this.$_.map(this.DisciplinasInPerfis, function(d) {
-                return d.id;
-              }),
-            ];
+            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptionsFiltered];
+            this.conectaDisciplinasEmPerfis();
           },
           Docentes: () => {
             this.searchConditions.Docentes = [
@@ -367,8 +455,13 @@ export default {
           },
         },
         selectNone: {
+          Perfis: () => {
+            this.filtroPerfis.selecionados = [];
+            this.filtroDisciplinas.selecionados = [];
+          },
           Disciplinas: () => {
-            this.searchConditions.Disciplinas = [];
+            this.filtroDisciplinas.selecionados = [];
+            this.filtroPerfis.selecionados = [];
           },
           Docentes: () => {
             this.searchConditions.Docentes = [];
@@ -384,6 +477,13 @@ export default {
           },
         },
         btnOk: async () => {
+          this.searchConditions.Disciplinas = [
+            ...this.$_.map(
+              this.filtroDisciplinas.selecionados,
+              (disciplina) => disciplina.id
+            ),
+          ];
+
           await this.search();
         },
       },
@@ -391,6 +491,7 @@ export default {
         cursos: { order: "codigo", type: "asc" },
         disciplinas: { order: "codigo", type: "asc" },
         perfis: { order: "nome", type: "asc" },
+        docentes: { order: "apelido", type: "asc" },
       },
       ordenacaoMain: {
         turmas: { order: "disciplina.codigo", type: "asc" },
@@ -426,12 +527,8 @@ export default {
       "AllDocentes",
       "AllHorarios",
       "AllSalas",
-      "DisciplinasInPerfis",
+      "DisciplinasDCCInPerfis",
     ]),
-
-    AllPlanos() {
-      return this.$store.state.plano.Plano;
-    },
 
     TurmasRetornadasOrdered() {
       const { turmas, perfis, planos } = this.ordenacaoMain;
@@ -446,49 +543,43 @@ export default {
       return this.$_.map(this.TurmasRetornadas, (turma) => {
         return {
           ...turma,
-          disciplina: this.$_.find(this.DisciplinasInPerfis, ["id", turma.Disciplina]),
+          disciplina: this.$_.find(this.DisciplinasDCCInPerfis, ["id", turma.Disciplina]),
           plano: this.$_.find(this.AllPlanos, ["id", turma.Plano]) || {},
         };
       });
     },
-    /*
-    TurmasOrdered() {
-      const { turmas, perfis } = this.ordenacaoMain;
 
-      //Se não possui ordenação de perfil fixada
-      if (this.ordenacaoMain.perfis.order === null) {
-        return this.$_.orderBy(
-          this.TurmasFiltredByDisciplinas,
-          ["periodo", turmas.order],
-          ["asc", turmas.type]
-        );
-      } else
-        return this.$_.orderBy(
-          this.TurmasFiltredByDisciplinas,
-          ["periodo", perfis.order, turmas.order],
-          ["asc", perfis.type, turmas.type]
-        );
-    },
-    TurmasFiltredByDisciplinas() {
-      return this.$_.filter(this.TurmasFiltredByPeriodos, (turma) =>
-        this.$_.some(
-          this.filtroDisciplinas.ativadas,
-          (disciplinaId) => disciplinaId === turma.Disciplina
-        )
-      );
-    },
-    TurmasFiltredByPeriodos() {
-      return this.$_.filter(this.TurmasRetornadas, (turma) =>
-        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
-      );
-    },
-    */
-    PerfisOrderedModal() {
+    // Modals Options
+    PerfisOptionsOrdered() {
       return this.$_.orderBy(
-        this.PerfisDCC,
+        this.PerfisOptions,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
+    },
+    PerfisOptions() {
+      return this.$_.map(this.PerfisDCC, (perfil) => {
+        const todasDisciplinasDoPerfil = this.$_.filter(this.DisciplinasOptions, [
+          "Perfil",
+          perfil.id,
+        ]);
+        const disciplinasSelecionadas = this.$_.filter(
+          this.filtroDisciplinas.selecionados,
+          ["Perfil", perfil.id]
+        );
+
+        let halfChecked = false;
+        if (todasDisciplinasDoPerfil.length === disciplinasSelecionadas.length) {
+          halfChecked = false;
+        } else if (disciplinasSelecionadas.length > 0) {
+          halfChecked = true;
+        }
+
+        return {
+          ...perfil,
+          halfChecked,
+        };
+      });
     },
     DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
@@ -498,16 +589,26 @@ export default {
       );
     },
     DisciplinasOptionsFiltered() {
-      if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
+      if (this.searchDisciplinasModal === "") return this.DisciplinasOptions;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasInPerfis, (disciplina) => {
+      return this.$_.filter(this.DisciplinasOptions, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
         return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
+    },
+    DisciplinasOptions() {
+      return this.DisciplinasDCCInPerfis;
+    },
+    DocentesOptionsOrdered() {
+      return this.$_.orderBy(
+        this.DocentesFiltredModal,
+        this.ordenacaoModal.docentes.order,
+        this.ordenacaoModal.docentes.type
+      );
     },
     DocentesFiltredModal() {
       if (this.searchDocentesModal === "") return this.AllDocentes;
