@@ -150,6 +150,35 @@
         </template>
       </BaseTable>
 
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
+        <template #thead>
+          <v-th width="25" />
+          <v-th width="425" align="start">Período</v-th>
+        </template>
+
+        <template #tbody>
+          <tr
+                  v-for="periodo in PeriodosOptions"
+                  :key="periodo.id + periodo.nome"
+                  @click.stop="toggle('Periodos', periodo.id)"
+          >
+            <v-td width="25">
+              <input
+                      type="checkbox"
+                      class="form-check-input position-static m-0"
+                      v-model="searchConditions.Periodos"
+                      :value="periodo.id"
+              />
+            </v-td>
+            <v-td width="425" class="t-start">{{ periodo.nome }} </v-td>
+          </tr>
+
+          <tr v-if="!AllHorarios.length">
+            <v-td colspan="2" width="450">NENHUM HORÁRIO ENCONTRADO.</v-td>
+          </tr>
+        </template>
+      </BaseTable>
+
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Horários'">
         <template #thead>
           <v-th width="25" />
@@ -271,10 +300,11 @@ export default {
         Docentes: [],
         Horarios: [],
         Salas: [],
+        Periodos:[]
       },
       modalFiltrosTabs: {
         current: "Disciplinas",
-        array: ["Disciplinas", "Docentes", "Horários", "Salas", "Planos"],
+        array: ["Disciplinas", "Docentes", "Períodos", "Horários", "Salas", "Planos"],
       },
       modalFiltrosCallbacks: {
         selectAll: {
@@ -313,6 +343,13 @@ export default {
               }),
             ];
           },
+          Periodos: () => {
+            this.searchConditions.Periodos = [
+              ...this.$_.map(this.PeriodosOptions, function(d) {
+                return d.id;
+              }),
+            ];
+          },
         },
         selectNone: {
           Disciplinas: () => {
@@ -330,6 +367,9 @@ export default {
           Planos: () => {
             this.searchConditions.Planos = [];
           },
+          Periodos: () => {
+            this.searchConditions.Periodos = [];
+          },
         },
         btnOk: async () => {
           await this.search();
@@ -346,6 +386,12 @@ export default {
       },
       orderByPreferencia: true,
       TurmasRetornadas: undefined,
+      PeriodosOptions: [
+        {id:1, nome: 'Primeiro'},
+        {id:2, nome: 'Segundo (Inverno)'},
+        {id:3, nome: 'Terceiro'},
+        {id:4, nome: 'Quarto (Verão)'},
+      ]
     };
   },
 
