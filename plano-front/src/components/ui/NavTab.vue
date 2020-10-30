@@ -1,6 +1,6 @@
 <template>
   <div class="nav-container">
-    <ul class="nav nav-tabs card-header-tabs m-0">
+    <ul class="nav nav-tabs card-header-tabs m-0" ref="nav">
       <li
         v-for="tab in allTabs"
         :key="'navTab' + tab"
@@ -16,9 +16,12 @@
             },
           ]"
         >
-          {{ normalizeText(tab) }}</a
-        >
+          {{ normalizeText(tab) }}
+        </a>
       </li>
+      <button class="btn-slide" @click="slideRight">
+        <font-awesome-icon :icon="['fas', 'arrow-right']" />
+      </button>
     </ul>
   </div>
 </template>
@@ -30,10 +33,21 @@ export default {
     currentTab: { type: String, required: true },
     allTabs: { type: Array, required: true },
   },
+  data() {
+    return {
+      trackWidth: null,
+    };
+  },
+  mounted() {
+    this.trackWidth = this.$refs.nav.scrollWidth;
+  },
   methods: {
     normalizeText(tabText) {
       if (tabText === "Laboratorios") return "Laborátorios";
       return tabText;
+    },
+    slideRight() {
+      this.$refs.nav.scrollBy(this.trackWidth / 4, 0);
     },
   },
 };
@@ -45,10 +59,39 @@ export default {
   width: 100%;
   padding: 0;
   margin: 0;
+  overflow: hidden;
+  position: relative;
 }
 .nav-tabs {
   font-size: 11px !important;
   height: 30px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-color: transparent transparent;
+}
+
+.nav-tabs::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+.nav-item {
+  scroll-snap-align: start;
+  -webkit-overflow-scrolling: touch;
+}
+.btn-slide {
+  top: 50%;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  border: 1px black solid;
+  background-color: #fff;
+  transform: translateY(-50%);
+  cursor: pointer;
+  position: absolute;
 }
 .nav-tabs .nav-link {
   color: #0079fa !important;
