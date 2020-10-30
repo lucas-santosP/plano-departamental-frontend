@@ -44,12 +44,13 @@
               <i :class="setIconByOrder(ordenacaoDocentesMain, 'ativo')"></i>
             </th>
           </template>
+
           <template #tbody>
             <tr
               v-for="docente in DocentesOrdered"
               :key="docente.id + docente.apelido"
-              @click="handleClickInDocente(docente)"
               :class="[{ 'bg-selected': docenteClickadoId == docente.id }, 'clickable']"
+              @click="handleClickInDocente(docente)"
             >
               <td style="width: 240px" class="t-start">{{ docente.nome }}</td>
               <td style="width: 120px" class="t-start">
@@ -127,30 +128,32 @@
           <template v-if="isEdit">
             <div class="border-bottom mt-2 mb-1"></div>
             <small>Perfis Associados ao docente</small>
+
             <div class="row mb-3 mx-0">
               <div class="div-table">
-                <BaseTable :type="'modal'" :styles="'max-height: 300px'">
+                <BaseTable type="main" :styles="'max-height: 300px'">
                   <template #thead>
-                    <th style="width: 25px"></th>
-                    <th style="width: 225px" class="t-start">Perfis</th>
+                    <v-th width="25" />
+                    <v-th width="225" align="start">Perfis</v-th>
                   </template>
+
                   <template #tbody>
                     <tr
                       v-for="perfil in AllPerfis"
-                      :key="perfil.id + perfil.nome"
+                      :key="perfil.id + perfil.abreviacao"
                       @click="toggleItemInArray(perfil.id, perfisAssociados)"
                     >
-                      <td style="width: 25px">
+                      <v-td width="25" type="content">
                         <input
                           type="checkbox"
-                          class="form-check-input position-static m-0"
+                          style="width: 11px"
                           v-model="perfisAssociados"
                           :value="perfil.id"
                         />
-                      </td>
-                      <td style="width: 225px" class="t-start">
+                      </v-td>
+                      <v-td width="225" align="start" :title="perfil.nome">
                         {{ perfil.nome }}
-                      </td>
+                      </v-td>
                     </tr>
                   </template>
                 </BaseTable>
@@ -164,9 +167,7 @@
     <ModalDelete ref="modalDelete" :isDeleting="isEdit" @btn-deletar="deleteDocente">
       <li v-if="isEdit" class="list-group-item">
         <span>
-          Tem certeza que deseja excluír o docente
-          <b>{{ docenteForm.nome }}</b
-          >?
+          Tem certeza que deseja excluír o docente <b>{{ docenteForm.nome }}</b> ?
         </span>
       </li>
       <li v-else class="list-group-item">Nenhum docente selecionado.</li>
@@ -174,24 +175,23 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Adicionar:</b>
-        Preencha o cartão em branco à direita e em seguida, clique em Adicionar
-        <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />.
+        <b>Adicionar:</b> Preencha o cartão em branco à direita e em seguida, clique em
+        Adicionar <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" /> .
       </li>
       <li class="list-group-item">
         <b>Editar:</b> Clique na linha da tabela do docente que deseja alterar. Em
         seguida, no cartão à direita, altere as informações que desejar e clique em Salvar
-        <font-awesome-icon :icon="['fas', 'check']" class="icon-green" />.
+        <font-awesome-icon :icon="['fas', 'check']" class="icon-green" /> .
       </li>
       <li class="list-group-item">
         <b>Deletar:</b> Clique na linha da tabela do docente que deseja remover. Em
         seguida, no cartão à direita, clique em Remover
-        <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" /> e confirme a
-        remoção na janela que será aberta.
+        <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" />
+        e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
         <b>Limpar:</b> No cartão à direita, clique em Cancelar
-        <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />, para limpar as
+        <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" /> , para limpar as
         informações.
       </li>
       <li class="list-group-item">
@@ -203,204 +203,202 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import docenteService from "@/common/services/docente";
-  import docentePerfilService from "@/common/services/docentePerfil";
-  import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
-  import { Card } from "@/components/ui";
-  import { ModalAjuda, ModalDelete } from "@/components/modals";
+import { mapGetters } from "vuex";
+import docenteService from "@/common/services/docente";
+import docentePerfilService from "@/common/services/docentePerfil";
+import { toggleOrdination, toggleItemInArray } from "@/common/mixins";
+import { Card } from "@/components/ui";
+import { ModalAjuda, ModalDelete } from "@/components/modals";
+const emptyDocente = {
+  id: null,
+  nome: null,
+  apelido: null,
+  nomesiga: null,
+  creditos: 0,
+  ativo: 1,
+};
+const emptyPerfil = {
+  DocenteId: null,
+  Perfil: null,
+};
 
-  const emptyDocente = {
-    id: null,
-    nome: null,
-    apelido: null,
-    nomesiga: null,
-    creditos: 0,
-    ativo: 1,
-  };
-  const emptyPerfil = {
-    DocenteId: null,
-    Perfil: null,
-  };
+export default {
+  name: "DashboardDocente",
+  mixins: [toggleOrdination, toggleItemInArray],
+  components: { Card, ModalAjuda, ModalDelete },
+  data() {
+    return {
+      docenteForm: this.$_.clone(emptyDocente),
+      perfisAssociados: [],
+      docenteClickadoId: null,
+      perfilsOfCurrentDocente: [],
+      ordenacaoDocentesMain: { order: "nome", type: "asc" },
+    };
+  },
 
-  export default {
-    name: "DashboardDocente",
-    mixins: [toggleOrdination, toggleItemInArray],
-    components: { Card, ModalAjuda, ModalDelete },
-    data() {
-      return {
-        docenteForm: this.$_.clone(emptyDocente),
-        perfisAssociados: [],
-        docenteClickadoId: null,
-        perfilsOfCurrentDocente: [],
-        ordenacaoDocentesMain: { order: "nome", type: "asc" },
-      };
+  methods: {
+    handleClickInDocente(docente) {
+      this.cleanDocente();
+      this.docenteClickadoId = docente.id;
+      this.showDocente(docente);
+    },
+    cleanDocente() {
+      this.docenteClickadoId = null;
+      this.docenteForm = this.$_.clone(emptyDocente);
+    },
+    showDocente(docente) {
+      this.docenteForm = this.$_.clone(docente);
+      this.updatePerfisAssociados();
+    },
+    updatePerfisAssociados() {
+      this.perfilsOfCurrentDocente = this.$_.map(
+        this.$_.filter(this.DocentePerfis, ["DocenteId", this.docenteForm.id]),
+        "Perfil"
+      );
+
+      this.perfisAssociados = [...this.perfilsOfCurrentDocente];
+    },
+    openModalDelete() {
+      this.$refs.modalDelete.open();
+    },
+    booleanToText(docenteIsAtivo) {
+      return docenteIsAtivo ? "Sim" : "-";
     },
 
-    methods: {
-      handleClickInDocente(docente) {
+    async addDocente() {
+      try {
+        this.setPartialLoading(true);
+        if (!this.docenteForm.nomesiga) {
+          this.docenteForm.nomesiga = this.docenteForm.nome;
+        }
+        const response = await docenteService.create(this.docenteForm);
         this.cleanDocente();
-        this.docenteClickadoId = docente.id;
-        this.showDocente(docente);
-      },
-      cleanDocente() {
-        this.docenteClickadoId = null;
-        this.docenteForm = this.$_.clone(emptyDocente);
-      },
-      showDocente(docente) {
-        this.docenteForm = this.$_.clone(docente);
-        this.updatePerfisAssociados();
-      },
-      updatePerfisAssociados() {
-        this.perfilsOfCurrentDocente = this.$_.map(
-          this.$_.filter(this.DocentePerfis, ["DocenteId", this.docenteForm.id]),
-          "Perfil"
+        this.pushNotification({
+          type: "success",
+          text: `Docente ${response.Docente.nome} foi criada!`,
+        });
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          title: "Erro ao criar Docente!",
+          text: error.response.data.fullMessage
+            ? "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>")
+            : "",
+        });
+      } finally {
+        this.setPartialLoading(false);
+      }
+    },
+    async editDocente() {
+      try {
+        this.setPartialLoading(true);
+
+        const response = await docenteService.update(
+          this.docenteForm.id,
+          this.docenteForm
+        );
+        await this.editDocentePerfil();
+
+        this.pushNotification({
+          type: "success",
+          text: `Docente ${response.Docente.nome} foi atualizada!`,
+        });
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          title: "Erro ao atualizar Docente",
+          text: error.response.data.fullMessage
+            ? "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>")
+            : "",
+        });
+      } finally {
+        this.setPartialLoading(false);
+      }
+    },
+    async deleteDocente() {
+      try {
+        this.setPartialLoading(true);
+        const response = await docenteService.delete(
+          this.docenteForm.id,
+          this.docenteForm
         );
 
-        this.perfisAssociados = [...this.perfilsOfCurrentDocente];
-      },
-      openModalDelete() {
-        this.$refs.modalDelete.open();
-      },
-      booleanToText(docenteIsAtivo) {
-        return docenteIsAtivo ? "Sim" : "-";
-      },
-
-      async addDocente() {
-        try {
-          this.setPartialLoading(true);
-          if (!this.docenteForm.nomesiga) {
-            this.docenteForm.nomesiga = this.docenteForm.nome;
-          }
-          const response = await docenteService.create(this.docenteForm);
-          this.cleanDocente();
-          this.pushNotification({
-            type: "success",
-            text: `Docente ${response.Docente.nome} foi criada!`,
-          });
-        } catch (error) {
-          this.pushNotification({
-            type: "error",
-            title: "Erro ao criar Docente!",
-            text: error.response.data.fullMessage
-              ? "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>")
-              : "",
-          });
-        } finally {
-          this.setPartialLoading(false);
-        }
-      },
-      async editDocente() {
-        try {
-          this.setPartialLoading(true);
-
-          const response = await docenteService.update(
-            this.docenteForm.id,
-            this.docenteForm
-          );
-          await this.editDocentePerfil();
-
-          this.pushNotification({
-            type: "success",
-            text: `Docente ${response.Docente.nome} foi atualizada!`,
-          });
-        } catch (error) {
-          this.pushNotification({
-            type: "error",
-            title: "Erro ao atualizar Docente",
-            text: error.response.data.fullMessage
-              ? "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>")
-              : "",
-          });
-        } finally {
-          this.setPartialLoading(false);
-        }
-      },
-      async deleteDocente() {
-        try {
-          this.setPartialLoading(true);
-          const response = await docenteService.delete(
-            this.docenteForm.id,
-            this.docenteForm
-          );
-
-          this.cleanDocente();
-          this.pushNotification({
-            type: "success",
-            text: `Docente ${response.Docente.nome} foi excluída!`,
-          });
-        } catch (error) {
-          this.pushNotification({
-            type: "error",
-            title: `Erro ao excluir Docente!`,
-            text: "O docente não pode estar vinculado a nenhum perfil",
-          });
-        } finally {
-          this.setPartialLoading(false);
-        }
-      },
-
-      async editDocentePerfil() {
-        //Remove os que não existem em perfisAssociados mas existem em perfilsOfCurrentDocente
-        for (let i = 0; i < this.perfilsOfCurrentDocente.length; i++) {
-          const perfilIndex = this.$_.indexOf(
-            this.perfisAssociados,
-            this.perfilsOfCurrentDocente[i]
-          );
-
-          if (perfilIndex === -1)
-            await this.deletePerfil(this.perfilsOfCurrentDocente[i]);
-        }
-        //Adiciona os que existem no perfisAssociados mas não existem em perfilsOfCurrentDocente
-        for (let i = 0; i < this.perfisAssociados.length; i++) {
-          const perfilIndex = this.$_.indexOf(
-            this.perfilsOfCurrentDocente,
-            this.perfisAssociados[i]
-          );
-
-          if (perfilIndex === -1) await this.addPerfil(this.perfisAssociados[i]);
-        }
-      },
-      async addPerfil(perfilId) {
-        const newPerfilDocente = this.$_.clone(emptyPerfil);
-        newPerfilDocente.Docente = this.docenteForm.id;
-        newPerfilDocente.DocenteId = this.docenteForm.id;
-        newPerfilDocente.Perfil = perfilId;
-
-        return await docentePerfilService.create(newPerfilDocente);
-      },
-      async deletePerfil(perfilId) {
-        return await docentePerfilService.delete(this.docenteForm.id, perfilId);
-      },
+        this.cleanDocente();
+        this.pushNotification({
+          type: "success",
+          text: `Docente ${response.Docente.nome} foi excluída!`,
+        });
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          title: `Erro ao excluir Docente!`,
+          text: "O docente não pode estar vinculado a nenhum perfil",
+        });
+      } finally {
+        this.setPartialLoading(false);
+      }
     },
 
-    computed: {
-      ...mapGetters(["AllDocentes", "AllPerfis"]),
-
-      DocentesOrdered() {
-        return this.$_.orderBy(
-          this.AllDocentes,
-          this.ordenacaoDocentesMain.order,
-          this.ordenacaoDocentesMain.type
+    async editDocentePerfil() {
+      //Remove os que não existem em perfisAssociados mas existem em perfilsOfCurrentDocente
+      for (let i = 0; i < this.perfilsOfCurrentDocente.length; i++) {
+        const perfilIndex = this.$_.indexOf(
+          this.perfisAssociados,
+          this.perfilsOfCurrentDocente[i]
         );
-      },
 
-      DocentePerfis() {
-        return this.$store.state.docentePerfil.DocentePerfis;
-      },
+        if (perfilIndex === -1) await this.deletePerfil(this.perfilsOfCurrentDocente[i]);
+      }
+      //Adiciona os que existem no perfisAssociados mas não existem em perfilsOfCurrentDocente
+      for (let i = 0; i < this.perfisAssociados.length; i++) {
+        const perfilIndex = this.$_.indexOf(
+          this.perfilsOfCurrentDocente,
+          this.perfisAssociados[i]
+        );
 
-      isEdit() {
-        return this.docenteForm.id !== null;
-      },
+        if (perfilIndex === -1) await this.addPerfil(this.perfisAssociados[i]);
+      }
     },
-  };
+    async addPerfil(perfilId) {
+      const newPerfilDocente = this.$_.clone(emptyPerfil);
+      newPerfilDocente.Docente = this.docenteForm.id;
+      newPerfilDocente.DocenteId = this.docenteForm.id;
+      newPerfilDocente.Perfil = perfilId;
+
+      return await docentePerfilService.create(newPerfilDocente);
+    },
+    async deletePerfil(perfilId) {
+      return await docentePerfilService.delete(this.docenteForm.id, perfilId);
+    },
+  },
+
+  computed: {
+    ...mapGetters(["AllDocentes", "AllPerfis"]),
+
+    DocentesOrdered() {
+      return this.$_.orderBy(
+        this.AllDocentes,
+        this.ordenacaoDocentesMain.order,
+        this.ordenacaoDocentesMain.type
+      );
+    },
+
+    DocentePerfis() {
+      return this.$store.state.docentePerfil.DocentePerfis;
+    },
+
+    isEdit() {
+      return this.docenteForm.id !== null;
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .card .input-maior {
-    width: 270px;
-  }
-  .card .input-medio {
-    width: 150px;
-  }
+.card .input-maior {
+  width: 270px;
+}
+.card .input-medio {
+  width: 150px;
+}
 </style>

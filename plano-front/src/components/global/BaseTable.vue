@@ -156,7 +156,7 @@ td:hover {
 }
 
 /* Inputs */
-.table-custom tbody tr > td input,
+.table-custom tbody tr > td input[type="text"],
 .table-custom tbody tr > td select {
   width: 100%;
   height: 18px;
@@ -170,7 +170,7 @@ td:hover {
   text-align: start;
 }
 .table-custom tbody tr > td select + select,
-.table-custom tbody tr > td input + input {
+.table-custom tbody tr > td input[type="text"] + input[type="text"] {
   margin-top: 0;
 }
 .table-custom tbody tr > td input {
