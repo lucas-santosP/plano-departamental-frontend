@@ -241,7 +241,7 @@
           <tr
             v-for="docente in DocentesOptionsOrdered"
             :key="docente.id + docente.nome"
-            @click="toggle('Docentes', docente.id)"
+            @click="toggleSearchCodition('Docentes', docente.id)"
             v-prevent-click-selection
           >
             <v-td width="25">
@@ -265,28 +265,54 @@
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
         <template #thead>
           <v-th width="25" />
-          <v-th width="425" align="start">Período</v-th>
+          <v-th width="425" align="start">Periodos Letivo</v-th>
         </template>
 
         <template #tbody>
           <tr
             v-for="periodo in PeriodosOptions"
             :key="periodo.id + periodo.nome"
-            @click.stop="toggle('Periodos', periodo.id)"
+            @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
+            v-prevent-click-selection
           >
             <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
-                v-model="searchConditions.Periodos"
-                :value="periodo.id"
+                :value="periodo"
+                v-model="filtroPeriodos.selecionados"
+                @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
-            <v-td width="425" class="t-start">{{ periodo.nome }}</v-td>
+            <v-td width="425" align="start">{{ periodo.nome }}</v-td>
           </tr>
+        </template>
+      </BaseTable>
 
-          <tr v-if="!AllHorarios.length">
-            <v-td colspan="2" width="450">NENHUM HORÁRIO ENCONTRADO.</v-td>
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Semestres'">
+        <template #thead>
+          <v-th width="25" />
+          <v-th width="425" align="start">Semestre Letivo</v-th>
+        </template>
+
+        <template #tbody>
+          <tr
+            v-for="semestre in SemestresOptions"
+            :key="semestre.id + semestre.nome"
+            @click="selecionaSemestre(semestre)"
+            v-prevent-click-selection
+          >
+            <v-td width="25">
+              <input
+                type="checkbox"
+                class="form-check-input position-static m-0"
+                :indeterminate.prop="semestre.halfChecked"
+                :value="semestre"
+                v-model="filtroSemestres.selecionados"
+                @click.stop="selecionaSemestre(semestre)"
+              />
+            </v-td>
+            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
           </tr>
         </template>
       </BaseTable>
@@ -301,7 +327,7 @@
           <tr
             v-for="horario in AllHorarios"
             :key="horario.id + horario.horario"
-            @click="toggle('Horarios', horario.id)"
+            @click="toggleSearchCodition('Horarios', horario.id)"
             v-prevent-click-selection
           >
             <v-td width="25">
@@ -331,7 +357,7 @@
           <tr
             v-for="sala in AllSalas"
             :key="sala.id + sala.nome"
-            @click="toggle('Salas', sala.id)"
+            @click="toggleSearchCodition('Salas', sala.id)"
             v-prevent-click-selection
           >
             <v-td width="25">
@@ -362,7 +388,7 @@
           <tr
             v-for="plano in AllPlanos"
             :key="plano.id + plano.ano + plano.nome"
-            @click="toggle('Planos', plano.id)"
+            @click="toggleSearchCodition('Planos', plano.id)"
             v-prevent-click-selection
           >
             <v-td width="25">
@@ -384,7 +410,7 @@
       </BaseTable>
     </ModalFiltros>
 
-    <ModalAjuda ref="modalAjuda"></ModalAjuda>
+    <ModalAjuda ref="modalAjuda" />
   </div>
 </template>
 
@@ -393,13 +419,13 @@ import { mapGetters } from "vuex";
 import turmaService from "@/common/services/turma";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
 import {
-  toggleItemInArray,
   toggleAsideModal,
   preventClickSelection,
   generateDocentesText,
   generateHorariosText,
   generateSalasText,
   conectaFiltroPerfisEDisciplinas,
+  conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
@@ -407,13 +433,13 @@ import { ModalFiltros, ModalAjuda } from "@/components/modals";
 export default {
   name: "BuscarTurmas",
   mixins: [
-    toggleItemInArray,
     toggleAsideModal,
     preventClickSelection,
     generateDocentesText,
     generateHorariosText,
     generateSalasText,
     conectaFiltroPerfisEDisciplinas,
+    conectaFiltrosSemestresEPeriodos,
   ],
   components: {
     ModalAjuda,
@@ -434,23 +460,31 @@ export default {
         Salas: [],
         Periodos: [],
       },
-      modalFiltrosTabs: {
-        current: "Disciplinas",
-        array: [ 
-          "Disciplinas",
-          "Docentes",
-          "Períodos",
-          "Horários",
-          "Salas",
-          "Planos",
-        ],
-        Periodos: [],
-      },
       filtroPerfis: {
         selecionados: [],
       },
       filtroDisciplinas: {
         selecionados: [],
+      },
+      filtroPeriodos: {
+        selecionados: [],
+      },
+      filtroSemestres: {
+        selecionados: [],
+      },
+      modalFiltrosTabs: {
+        current: "Perfis",
+        array: [
+          "Perfis",
+          "Disciplinas",
+          "Docentes",
+          "Períodos",
+          "Semestres",
+          "Horários",
+          "Salas",
+          "Planos",
+        ],
+        withScroll: true,
       },
       modalFiltrosCallbacks: {
         selectAll: {
@@ -491,11 +525,12 @@ export default {
             ];
           },
           Periodos: () => {
-            this.searchConditions.Periodos = [
-              ...this.$_.map(this.PeriodosOptions, function(d) {
-                return d.id;
-              }),
-            ];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [...this.SemestresOptions];
+            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
           },
         },
         selectNone: {
@@ -520,18 +555,26 @@ export default {
             this.searchConditions.Planos = [];
           },
           Periodos: () => {
-            this.searchConditions.Periodos = [];
+            this.filtroPeriodos.selecionados = [];
+            this.filtroSemestres.selecionados = [];
+          },
+          Semestres: () => {
+            this.filtroSemestres.selecionados = [];
+            this.filtroPeriodos.selecionados = [];
           },
         },
         btnOk: async () => {
-          this.searchConditions.Disciplinas = [
-            ...this.$_.map(
-              this.filtroDisciplinas.selecionados,
-              (disciplina) => disciplina.id
-            ),
-          ];
+          this.searchConditions.Disciplinas = this.$_.map(
+            this.filtroDisciplinas.selecionados,
+            (disciplina) => disciplina.id
+          );
 
-          await this.search();
+          this.searchConditions.Periodos = this.$_.map(
+            this.filtroPeriodos.selecionados,
+            (perfil) => perfil.id
+          );
+
+          await this.searchTurmas();
         },
       },
       ordenacaoModal: {
@@ -545,28 +588,26 @@ export default {
         planos: { order: "plano.ano", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
-      PeriodosOptions: [
-        { id: 1, nome: "Primeiro" },
-        { id: 2, nome: "Segundo (Inverno)" },
-        { id: 3, nome: "Terceiro" },
-        { id: 4, nome: "Quarto (Verão)" },
-      ],
       TurmasRetornadas: null,
     };
   },
 
   methods: {
-    search() {
-      turmaService
-        .search(this.searchConditions)
-        .then((turmas) => {
-          this.TurmasRetornadas = turmas.Turmas;
-        })
-        .catch((error) => console.log(error));
+    async searchTurmas() {
+      try {
+        const response = await turmaService.search(this.searchConditions);
+        this.TurmasRetornadas = response.Turmas;
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          text: "Não foi possivel encontrar turmas.",
+        });
+      }
     },
 
-    toggle(fieldName, fieldValue) {
+    toggleSearchCodition(fieldName, fieldValue) {
       let i = this.$_.findIndex(this.searchConditions[fieldName], (v) => v == fieldValue);
+
       if (i === -1) this.searchConditions[fieldName].push(fieldValue);
       else this.searchConditions[fieldName].splice(i, 1);
     },
@@ -575,7 +616,6 @@ export default {
   computed: {
     ...mapGetters([
       "PerfisDCC",
-      "AllDisciplinas",
       "AllPlanos",
       "AllDocentes",
       "AllHorarios",
