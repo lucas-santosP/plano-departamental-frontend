@@ -121,14 +121,14 @@
           <tr
             v-for="disciplina in DisciplinasOptionsOrdered"
             :key="disciplina.id + disciplina.nome"
-            @click="toggleItemInArray(disciplina, filtroDisciplinas.selecionadas)"
+            @click="toggleItemInArray(disciplina, filtroDisciplinas.selecionados)"
             v-prevent-click-selection
           >
             <v-td width="25">
               <input
                 type="checkbox"
                 class="form-check-input position-static m-0"
-                v-model="filtroDisciplinas.selecionadas"
+                v-model="filtroDisciplinas.selecionados"
                 :value="disciplina"
               />
             </v-td>
@@ -319,12 +319,15 @@ export default {
       },
       filtroDisciplinas: {
         ativadas: [],
-        selecionadas: [],
+        selecionados: [],
       },
       modalFiltrosCallbacks: {
         selectAll: {
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionadas = [...this.DisciplinasExternasInPerfis];
+            this.filtroDisciplinas.selecionados = this.$_.union(
+              this.DisciplinasOptionsFiltered,
+              this.filtroDisciplinas.selecionados
+            );
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
@@ -337,11 +340,14 @@ export default {
         },
         selectNone: {
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionadas = [];
+            this.filtroDisciplinas.selecionados = this.$_.difference(
+              this.filtroDisciplinas.selecionados,
+              this.DisciplinasOptionsFiltered
+            );
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
-            this.filtroDisciplinas.selecionadas = [];
+            this.filtroDisciplinas.selecionados = [];
           },
           Semestres: () => {
             this.filtroSemestres.selecionados = [];
@@ -350,7 +356,7 @@ export default {
         },
         btnOk: () => {
           this.filtroPeriodos.ativados = [...this.filtroPeriodos.selecionados];
-          this.filtroDisciplinas.ativadas = [...this.filtroDisciplinas.selecionadas];
+          this.filtroDisciplinas.ativadas = [...this.filtroDisciplinas.selecionados];
         },
       },
     };
