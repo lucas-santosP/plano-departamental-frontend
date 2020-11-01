@@ -77,8 +77,7 @@
     </div>
     <p v-show="!algumHorariosEstaAtivo" class="text-empty">
       <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para
-      selecioná-los.
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -190,15 +189,15 @@
       <li class="list-group-item">
         <b>Visualizar grade:</b>
         Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em
-        seguida, utilize as abas para navegar entre os filtros. Selecione as
-        informações que deseja visualizar e clique no botão OK
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
+        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
+        visualizar e clique no botão OK
       </li>
       <li class="list-group-item">
         <b>Relatório:</b> Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em
-        seguida, indique se deseja gerar o relatório completo com a grade completa de
-        todos os cursos ou o relatório parcial com as informações exibidas na tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
+        indique se deseja gerar o relatório completo com a grade completa de todos os
+        cursos ou o relatório parcial com as informações exibidas na tela.
       </li>
     </ModalAjuda>
   </div>
@@ -300,10 +299,6 @@ export default {
   },
 
   beforeMount() {
-    this.currentPlano = this.$_.find(this.$store.state.plano.Plano, {
-      id: parseInt(localStorage.getItem("Plano")),
-    });
-
     for (let i = 1; i < 5; i++) {
       this.createHorarios(i, 1);
       this.createHorarios(i, 3);
@@ -406,8 +401,7 @@ export default {
         }
       }
       let even =
-        this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 ===
-        semestre - 1;
+        this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 === semestre - 1;
       let turmas = this.$_.filter(this.TurmasInDisciplinasPerfis, {
         periodo: periodo,
       });
@@ -431,16 +425,12 @@ export default {
               if (disciplinasGradeAtual[j].Disciplina == turmas[k].Disciplina) {
                 let p = this.$_.find(pedidos, { Turma: turmas[k].id });
                 if (p.vagasPeriodizadas > 0) {
-                  horariosAtivos[disciplinasGradeAtual[j].periodo - 1].push(
-                    turmas[k]
-                  );
+                  horariosAtivos[disciplinasGradeAtual[j].periodo - 1].push(turmas[k]);
                 }
               }
             }
             for (let k = 0; k < turmasExternas.length; k++) {
-              if (
-                disciplinasGradeAtual[j].Disciplina == turmasExternas[k].Disciplina
-              ) {
+              if (disciplinasGradeAtual[j].Disciplina == turmasExternas[k].Disciplina) {
                 let p = this.$_.find(pedidosExternos, {
                   Turma: turmasExternas[k].id,
                 });
@@ -681,10 +671,7 @@ export default {
             },
             {
               text:
-                "1º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -765,8 +752,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
                     }
                   }
                 }
@@ -774,8 +760,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
                     }
                   }
                 }
@@ -783,8 +768,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
                     }
                   }
                 }
@@ -792,8 +776,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
                     }
                   }
                 }
@@ -801,8 +784,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD1[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosCCD1[i][j].letra;
                     }
                   }
                 }
@@ -1050,10 +1032,7 @@ export default {
             },
             {
               text:
-                "1º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1136,8 +1115,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
                     }
                   }
                 }
@@ -1145,8 +1123,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
                     }
                   }
                 }
@@ -1154,8 +1131,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
                     }
                   }
                 }
@@ -1163,8 +1139,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
                     }
                   }
                 }
@@ -1172,8 +1147,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN1[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosCCN1[i][j].letra;
                     }
                   }
                 }
@@ -1421,10 +1395,7 @@ export default {
             },
             {
               text:
-                "1º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1507,8 +1478,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
                     }
                   }
                 }
@@ -1516,8 +1486,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
                     }
                   }
                 }
@@ -1525,8 +1494,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
                     }
                   }
                 }
@@ -1534,8 +1502,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
                     }
                   }
                 }
@@ -1543,8 +1510,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC1[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosEC1[i][j].letra;
                     }
                   }
                 }
@@ -1792,10 +1758,7 @@ export default {
             },
             {
               text:
-                "1º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -1878,8 +1841,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
                     }
                   }
                 }
@@ -1887,8 +1849,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
                     }
                   }
                 }
@@ -1896,8 +1857,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
                     }
                   }
                 }
@@ -1905,8 +1865,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
                     }
                   }
                 }
@@ -1914,8 +1873,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI1[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosSI1[i][j].letra;
                     }
                   }
                 }
@@ -2163,10 +2121,7 @@ export default {
             },
             {
               text:
-                "1º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "1º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2619,10 +2574,7 @@ export default {
             },
             {
               text:
-                "2º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -2705,8 +2657,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
                     }
                   }
                 }
@@ -2714,8 +2665,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
                     }
                   }
                 }
@@ -2723,8 +2673,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
                     }
                   }
                 }
@@ -2732,8 +2681,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
                     }
                   }
                 }
@@ -2741,8 +2689,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCD2[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosCCD2[i][j].letra;
                     }
                   }
                 }
@@ -2990,10 +2937,7 @@ export default {
             },
             {
               text:
-                "2º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3076,8 +3020,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
                     }
                   }
                 }
@@ -3085,8 +3028,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
                     }
                   }
                 }
@@ -3094,8 +3036,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
                     }
                   }
                 }
@@ -3103,8 +3044,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
                     }
                   }
                 }
@@ -3112,8 +3052,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosCCN2[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosCCN2[i][j].letra;
                     }
                   }
                 }
@@ -3361,10 +3300,7 @@ export default {
             },
             {
               text:
-                "2º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3447,8 +3383,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
                     }
                   }
                 }
@@ -3456,8 +3391,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
                     }
                   }
                 }
@@ -3465,8 +3399,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
                     }
                   }
                 }
@@ -3474,8 +3407,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
                     }
                   }
                 }
@@ -3483,8 +3415,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosEC2[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosEC2[i][j].letra;
                     }
                   }
                 }
@@ -3732,10 +3663,7 @@ export default {
             },
             {
               text:
-                "2º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -3818,8 +3746,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                       if (seg !== "") seg = seg + "\n";
-                      seg =
-                        seg + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
+                      seg = seg + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
                     }
                   }
                 }
@@ -3827,8 +3754,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                       if (ter != "") ter = ter + "\n";
-                      ter =
-                        ter + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
+                      ter = ter + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
                     }
                   }
                 }
@@ -3836,8 +3762,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                       if (qua != "") qua = qua + "\n";
-                      qua =
-                        qua + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
+                      qua = qua + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
                     }
                   }
                 }
@@ -3845,8 +3770,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                       if (qui != "") qui = qui + "\n";
-                      qui =
-                        qui + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
+                      qui = qui + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
                     }
                   }
                 }
@@ -3854,8 +3778,7 @@ export default {
                   for (let k = 0; k < disciplinas.length; k++) {
                     if (periodosSI2[i][j].Disciplina === disciplinas[k].id) {
                       if (sex != "") sex = sex + "\n";
-                      sex =
-                        sex + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
+                      sex = sex + disciplinas[k].codigo + " " + periodosSI2[i][j].letra;
                     }
                   }
                 }
@@ -4103,10 +4026,7 @@ export default {
             },
             {
               text:
-                "2º Semestre " +
-                this.currentPlano.ano +
-                " - " +
-                this.currentPlano.nome,
+                "2º Semestre " + this.currentPlano.ano + " - " + this.currentPlano.nome,
               alignment: "center",
               bold: true,
               fontSize: 10,
@@ -4578,10 +4498,7 @@ export default {
     CursosComHorarios() {
       return [
         {
-          ...this.$_.find(
-            this.PrincipaisCursosDCC,
-            (curso) => curso.codigo === "65C"
-          ),
+          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65C"),
           nome: "Ciência da Computação - integral",
           turno: "Diurno",
           periodoInicial1Semestre: 1,
@@ -4590,10 +4507,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.CCD,
         },
         {
-          ...this.$_.find(
-            this.PrincipaisCursosDCC,
-            (curso) => curso.codigo === "35A"
-          ),
+          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "35A"),
           nome: "Ciência da Computação - noturno",
           turno: "Noturno",
           periodoInicial1Semestre: 2,
@@ -4602,10 +4516,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.CCN,
         },
         {
-          ...this.$_.find(
-            this.PrincipaisCursosDCC,
-            (curso) => curso.codigo === "76A"
-          ),
+          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "76A"),
           nome: "Sistemas de Informação",
           turno: "Noturno",
           periodoInicial1Semestre: 2,
@@ -4614,10 +4525,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.SI,
         },
         {
-          ...this.$_.find(
-            this.PrincipaisCursosDCC,
-            (curso) => curso.codigo === "65B"
-          ),
+          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65B"),
           nome: "Engenharia Computacional",
           turno: "Diurno",
           periodoInicial1Semestre: 1,
@@ -4633,9 +4541,8 @@ export default {
         "periodo",
         2,
       ]);
-      const turmasFiltredByPedidos = this.$_.filter(
-        turmasFiltredbyPeriodo,
-        (turma) => this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
+      const turmasFiltredByPedidos = this.$_.filter(turmasFiltredbyPeriodo, (turma) =>
+        this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
       const turmasExternasFiltredbyPeriodo = this.$_.filter(
@@ -4644,8 +4551,7 @@ export default {
       );
       const turmasExternasFiltredbyPeidos = this.$_.filter(
         turmasExternasFiltredbyPeriodo,
-        (turma) =>
-          this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
+        (turma) => this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
 
       return this.$_.concat(turmasExternasFiltredbyPeidos, turmasFiltredByPedidos);
@@ -4655,9 +4561,8 @@ export default {
         "periodo",
         4,
       ]);
-      const turmasFiltredByPedidos = this.$_.filter(
-        turmasFiltredbyPeriodo,
-        (turma) => this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
+      const turmasFiltredByPedidos = this.$_.filter(turmasFiltredbyPeriodo, (turma) =>
+        this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
       const turmasExternasFiltredbyPeriodo = this.$_.filter(
@@ -4666,8 +4571,7 @@ export default {
       );
       const turmasExternasFiltredbyPeidos = this.$_.filter(
         turmasExternasFiltredbyPeriodo,
-        (turma) =>
-          this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
+        (turma) => this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
 
       return this.$_.concat(turmasExternasFiltredbyPeidos, turmasFiltredByPedidos);
@@ -4713,10 +4617,7 @@ export default {
     },
 
     filtroEletivasEstaAtivo() {
-      return this.$_.some(
-        this.filtroCursos.ativados,
-        (curso) => curso.codigo === "-"
-      );
+      return this.$_.some(this.filtroCursos.ativados, (curso) => curso.codigo === "-");
     },
     filtroPeriodosEstaAtivo() {
       const periodosResult = {

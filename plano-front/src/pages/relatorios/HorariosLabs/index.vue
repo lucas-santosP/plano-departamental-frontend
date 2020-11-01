@@ -16,8 +16,7 @@
     </div>
     <p v-show="horariosIsEmpty" class="text-empty">
       <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para
-      selecioná-los.
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -110,16 +109,16 @@
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
         <b>Visualizar alocação:</b> Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em
-        seguida, utilize as abas para navegar entre os filtros. Selecione as
-        informações que deseja visualizar e clique no botão OK.
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
+        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
+        visualizar e clique no botão OK.
       </li>
       <li class="list-group-item">
         <b>Relatório:</b>
         Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em
-        seguida, indique se deseja gerar o relatório completo com todos os
-        laboratórios ou o relatório parcial com as informações exibidas na tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
+        indique se deseja gerar o relatório completo com todos os laboratórios ou o
+        relatório parcial com as informações exibidas na tela.
       </li>
     </ModalAjuda>
 
@@ -202,9 +201,7 @@ export default {
           this.filtroPeriodos.ativados = [
             ...this.$_.orderBy(this.filtroPeriodos.selecionados, "id"),
           ];
-          this.filtroLaboratorios.ativados = [
-            ...this.filtroLaboratorios.selecionados,
-          ];
+          this.filtroLaboratorios.ativados = [...this.filtroLaboratorios.selecionados];
         },
       },
     };
@@ -239,7 +236,6 @@ export default {
       "TurmasInDisciplinasPerfis",
       "TurmasExternasInDisciplinas",
       "AllPlanos",
-      "currentPlano",
     ]),
 
     LaboratoriosOrdered() {
@@ -273,10 +269,11 @@ export default {
         turmasResultantes[`periodo${turma.periodo}`].push({ ...turma })
       );
 
-      const turmasExternasOrdered = this.$_.orderBy(
-        this.TurmasExternasInDisciplinas,
-        ["periodo", "disciplina.nome", "letra"]
-      );
+      const turmasExternasOrdered = this.$_.orderBy(this.TurmasExternasInDisciplinas, [
+        "periodo",
+        "disciplina.nome",
+        "letra",
+      ]);
       this.$_.forEach(turmasExternasOrdered, (turma) =>
         turmasResultantes[`periodo${turma.periodo}`].push({ ...turma })
       );
@@ -285,8 +282,7 @@ export default {
     },
     horariosIsEmpty() {
       return (
-        !this.filtroPeriodos.ativados.length ||
-        !this.filtroLaboratorios.ativados.length
+        !this.filtroPeriodos.ativados.length || !this.filtroLaboratorios.ativados.length
       );
     },
   },

@@ -261,10 +261,9 @@
       <li class="list-group-item">
         <b>Visualizar disciplinas na grade:</b>
         Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em
-        seguida, utilize as abas para navegar entre os filtros. Selecione as
-        informações que deseja visualizar, incluindo o ano do plano departamental, e
-        clique em OK.
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
+        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
+        visualizar, incluindo o ano do plano departamental, e clique em OK.
       </li>
     </ModalAjuda>
   </div>
@@ -398,7 +397,12 @@ export default {
     runAll() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
-        this.disciplinasGrades[d.id] = [[[], []], [[], []], [[], []], [[], []]]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
+        this.disciplinasGrades[d.id] = [
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []],
+        ]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
       this.get1Periodo();
@@ -460,8 +464,7 @@ export default {
               if (gradedisciplina.periodo <= this.gradesAtivas[i][j].fim) {
                 //verifica se essa grade está sendo usada para essa disciplina(limite superior)
                 if (
-                  (j > 0 &&
-                    this.gradesAtivas[i][j - 1].fim < gradedisciplina.periodo) ||
+                  (j > 0 && this.gradesAtivas[i][j - 1].fim < gradedisciplina.periodo) ||
                   j === 0
                 )
                   //verifica se a disciplina não deveria estar incluída na grade anterior, ou se essa é a grade mais recente(limite inferior)
@@ -538,8 +541,7 @@ export default {
               if (gradedisciplina.periodo <= this.gradesAtivas[i][j].fim) {
                 //verifica se essa grade está sendo usada para essa disciplina(limite superior)
                 if (
-                  (j > 0 &&
-                    this.gradesAtivas[i][j - 1].fim < gradedisciplina.periodo) ||
+                  (j > 0 && this.gradesAtivas[i][j - 1].fim < gradedisciplina.periodo) ||
                   j === 0
                 )
                   //verifica se a disciplina não deveria estar incluída na grade anterior, ou se essa é a grade mais recente(limite inferior)
@@ -579,12 +581,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "PrincipaisCursosDCC",
-      "DisciplinasInPerfis",
-      "currentPlano",
-      "AllPerfis",
-    ]),
+    ...mapGetters(["PrincipaisCursosDCC", "DisciplinasInPerfis", "AllPerfis"]),
 
     DisciplinasOrderedMain() {
       let disciplinasResult = this.DisciplinasFiltredMain;

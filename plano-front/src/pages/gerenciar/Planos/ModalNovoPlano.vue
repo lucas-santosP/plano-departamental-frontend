@@ -53,9 +53,7 @@
             >
               Perfil
               <i
-                :class="
-                  setIconByOrder(ordenacaoModal.disciplinas, 'perfilAbreviacao')
-                "
+                :class="setIconByOrder(ordenacaoModal.disciplinas, 'perfilAbreviacao')"
               ></i>
             </th>
           </template>
@@ -99,11 +97,7 @@
           color="lightblue"
           @click="selectAllDisciplinas"
         />
-        <BaseButton
-          text="Desmarcar Todos"
-          color="gray"
-          @click="selectNoneDisciplinas"
-        />
+        <BaseButton text="Desmarcar Todos" color="gray" @click="selectNoneDisciplinas" />
         <slot name="modal-footer-btn"></slot>
       </div>
       <BaseButton text="OK" color="green" class="px-3" @click="createNovoPlano" />
@@ -818,12 +812,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "AllPlanos",
-      "DisciplinasInPerfis",
-      "AllDisciplinas",
-      "currentPlano",
-    ]),
+    ...mapGetters(["AllPlanos", "DisciplinasInPerfis", "AllDisciplinas"]),
 
     DisciplinasOrderedModal() {
       return this.$_.orderBy(
@@ -832,7 +821,6 @@ export default {
         this.ordenacaoModal.disciplinas.type
       );
     },
-
     DisciplinasFiltredModal() {
       if (this.searchDisciplinasModal === "") return this.DisciplinasInPerfis;
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="isEditable">
+  <div class="main-component row" v-if="currentPlano.isEditable">
     <PageHeader :title="'Graduação - Outros'">
       <BaseButton
         v-show="isAdding"
@@ -230,38 +230,37 @@
       <li class="list-group-item">
         <b>Visualizar conteúdo:</b>
         Clique no ícone de filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> no
-        cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar
-        entre os tipos de filtro disponíveis. Marque quais informações deseja
-        visualizar, e para finalizar clique no botão OK.
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> no cabeçalho da
+        página e, na janela que se abrirá, utilize as abas para navegar entre os tipos de
+        filtro disponíveis. Marque quais informações deseja visualizar, e para finalizar
+        clique no botão OK.
       </li>
       <li class="list-group-item">
         <b>Adicionar turma:</b> Clique no ícone de adicionar
-        <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" /> no cabeçalho
-        da página. Em seguida, preencha a nova linha que irá aparecer no início da
-        tabela. Note que os campos disciplina e turma são obrigatórios. Após
-        preencher os campos, clique no ícone de salvar
-        <font-awesome-icon :icon="['fas', 'check']" class="icon-green" /> ou de
-        cancelar <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />.
+        <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" /> no cabeçalho da
+        página. Em seguida, preencha a nova linha que irá aparecer no início da tabela.
+        Note que os campos disciplina e turma são obrigatórios. Após preencher os campos,
+        clique no ícone de salvar
+        <font-awesome-icon :icon="['fas', 'check']" class="icon-green" /> ou de cancelar
+        <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />.
       </li>
       <li class="list-group-item">
-        <b>Deletar turma:</b> Marque a(s) turma(s) que deseja deletar através da
-        caixa de seleção na coluna mais à esquerda da tabela. Em seguida, clique no
-        ícone de deletar
-        <font-awesome-icon :icon="['fas', 'trash']" class="icon-red" /> no cabeçalho
-        da página. Confirme a exclusão clicando no botão OK na janela que se abrirá.
+        <b>Deletar turma:</b> Marque a(s) turma(s) que deseja deletar através da caixa de
+        seleção na coluna mais à esquerda da tabela. Em seguida, clique no ícone de
+        deletar <font-awesome-icon :icon="['fas', 'trash']" class="icon-red" /> no
+        cabeçalho da página. Confirme a exclusão clicando no botão OK na janela que se
+        abrirá.
       </li>
       <li class="list-group-item">
-        <b>Editar turma:</b> Basta fazer as alterações necessárias diretamente nos
-        campos da tabela. O sistema salvará as modificações automaticamente.
+        <b>Editar turma:</b> Basta fazer as alterações necessárias diretamente nos campos
+        da tabela. O sistema salvará as modificações automaticamente.
       </li>
       <li class="list-group-item">
-        <b>Observações:</b> Em cada coluna de um curso, para cada disciplina, existem
-        dois campos de vagas. O campo superior é destinado às vagas de grade, e o
-        inferior é referente às vagas para alunos não periodizados. Para que uma
-        turma externa apareça na grade horária de um determinado curso, na página
-        "Horários", é preciso que pelo menos uma vaga de grade seja destinada a este
-        curso.
+        <b>Observações:</b> Em cada coluna de um curso, para cada disciplina, existem dois
+        campos de vagas. O campo superior é destinado às vagas de grade, e o inferior é
+        referente às vagas para alunos não periodizados. Para que uma turma externa
+        apareça na grade horária de um determinado curso, na página "Horários", é preciso
+        que pelo menos uma vaga de grade seja destinada a este curso.
       </li>
     </ModalAjuda>
   </div>
@@ -325,9 +324,7 @@ export default {
       modalFiltrosCallbacks: {
         selectAll: {
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionadas = [
-              ...this.DisciplinasExternasInPerfis,
-            ];
+            this.filtroDisciplinas.selecionadas = [...this.DisciplinasExternasInPerfis];
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
@@ -396,12 +393,7 @@ export default {
       "DisciplinasExternasInPerfis",
       "TurmasExternasToDelete",
       "PrincipaisCursosDCC",
-      "currentPlano"
     ]),
-
-    isEditable() {
-      return this.currentPlano.isEditable
-    },
 
     TurmasExternasOrdered() {
       return this.$_.orderBy(

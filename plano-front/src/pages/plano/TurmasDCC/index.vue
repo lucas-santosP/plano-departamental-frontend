@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="isEditable">
+  <div class="main-component row" v-if="currentPlano.isEditable">
     <PageHeader :title="'Graduação - DCC'">
       <BaseButton
         v-show="isAdding"
@@ -654,12 +654,7 @@ export default {
       "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
       "TurmasToDelete",
-      "currentPlano",
     ]),
-
-    isEditable() {
-      return this.currentPlano.isEditable;
-    },
 
     TurmasOrdered() {
       const { turmas, perfis } = this.ordenacaoMain;
