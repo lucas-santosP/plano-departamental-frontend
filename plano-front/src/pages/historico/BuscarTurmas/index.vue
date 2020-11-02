@@ -312,12 +312,22 @@
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
-            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
+            <v-td width="425" align="start">{{ semestre.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
 
-      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Horários'">
+      <BaseTable
+        type="modal"
+        v-show="modalFiltrosTabs.current === 'Horários'"
+        :hasSearchBar="true"
+      >
+        <template #thead-search>
+          <InputSearch
+            v-model="searchHorariosModal"
+            placeholder="Pesquise um horário..."
+          />
+        </template>
         <template #thead>
           <v-th width="25" />
           <v-th width="425" align="start">Horário</v-th>
@@ -325,7 +335,7 @@
 
         <template #tbody>
           <tr
-            v-for="horario in AllHorarios"
+            v-for="horario in HorariosOptionsFiltered"
             :key="horario.id + horario.horario"
             @click="toggleSearchCodition('Horarios', horario.id)"
             v-prevent-click-selection
@@ -338,16 +348,23 @@
                 :value="horario.id"
               />
             </v-td>
-            <v-td width="425" class="t-start">{{ horario.horario }}</v-td>
+            <v-td width="425" align="start">{{ horario.horario }}</v-td>
           </tr>
 
-          <tr v-if="!AllHorarios.length">
+          <tr v-if="!HorariosOptionsFiltered.length">
             <v-td colspan="2" width="450">NENHUM HORÁRIO ENCONTRADO.</v-td>
           </tr>
         </template>
       </BaseTable>
 
-      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Salas'">
+      <BaseTable
+        type="modal"
+        v-show="modalFiltrosTabs.current === 'Salas'"
+        :hasSearchBar="true"
+      >
+        <template #thead-search>
+          <InputSearch v-model="searchSalasModal" placeholder="Pesquise uma sala..." />
+        </template>
         <template #thead>
           <v-th width="25" />
           <v-th width="425" align="start">Nome</v-th>
@@ -355,7 +372,7 @@
 
         <template #tbody>
           <tr
-            v-for="sala in AllSalas"
+            v-for="sala in SalasOptionsFiltered"
             :key="sala.id + sala.nome"
             @click="toggleSearchCodition('Salas', sala.id)"
             v-prevent-click-selection
@@ -368,10 +385,10 @@
                 :value="sala.id"
               />
             </v-td>
-            <v-td width="425" class="t-start">{{ sala.nome }}</v-td>
+            <v-td width="425" align="start">{{ sala.nome }}</v-td>
           </tr>
 
-          <tr v-if="!AllSalas.length">
+          <tr v-if="!SalasOptionsFiltered.length">
             <v-td colspan="2" width="450">NENHUMA SALA ENCONTRADA.</v-td>
           </tr>
         </template>
@@ -452,6 +469,8 @@ export default {
       turmaClicked: generateEmptyTurma(),
       searchDocentesModal: "",
       searchDisciplinasModal: "",
+      searchHorariosModal: "",
+      searchSalasModal: "",
       searchConditions: {
         Planos: [],
         Disciplinas: [],
@@ -493,29 +512,29 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptionsFiltered];
+            this.filtroDisciplinas.selecionados = this.$_.union(
+              this.DisciplinasOptionsFiltered,
+              this.filtroDisciplinas.selecionados
+            );
             this.conectaDisciplinasEmPerfis();
           },
           Docentes: () => {
-            this.searchConditions.Docentes = [
-              ...this.$_.map(this.AllDocentes, function(d) {
-                return d.id;
-              }),
-            ];
+            this.searchConditions.Docentes = this.$_.union(
+              this.searchConditions.Docentes,
+              this.$_.map(this.DocentesFiltredModal, "id")
+            );
           },
           Horarios: () => {
-            this.searchConditions.Horarios = [
-              ...this.$_.map(this.AllHorarios, function(d) {
-                return d.id;
-              }),
-            ];
+            this.searchConditions.Horarios = this.$_.union(
+              this.searchConditions.Horarios,
+              this.$_.map(this.HorariosOptionsFiltered, "id")
+            );
           },
           Salas: () => {
-            this.searchConditions.Salas = [
-              ...this.$_.map(this.AllSalas, function(d) {
-                return d.id;
-              }),
-            ];
+            this.searchConditions.Salas = this.$_.union(
+              this.searchConditions.Salas,
+              this.$_.map(this.SalasOptionsFiltered, "id")
+            );
           },
           Planos: () => {
             this.searchConditions.Planos = [
@@ -539,17 +558,29 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [];
-            this.filtroPerfis.selecionados = [];
+            this.filtroDisciplinas.selecionados = this.$_.difference(
+              this.filtroDisciplinas.selecionados,
+              this.DisciplinasOptionsFiltered
+            );
+            this.conectaDisciplinasEmPerfis();
           },
           Docentes: () => {
-            this.searchConditions.Docentes = [];
+            this.searchConditions.Docentes = this.$_.difference(
+              this.searchConditions.Docentes,
+              this.$_.map(this.DocentesFiltredModal, "id")
+            );
           },
           Horarios: () => {
-            this.searchConditions.Horarios = [];
+            this.searchConditions.Horarios = this.$_.difference(
+              this.searchConditions.Horarios,
+              this.$_.map(this.HorariosOptionsFiltered, "id")
+            );
           },
           Salas: () => {
-            this.searchConditions.Salas = [];
+            this.searchConditions.Salas = this.$_.difference(
+              this.searchConditions.Salas,
+              this.$_.map(this.SalasOptionsFiltered, "id")
+            );
           },
           Planos: () => {
             this.searchConditions.Planos = [];
@@ -674,6 +705,7 @@ export default {
         };
       });
     },
+
     DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
         this.DisciplinasOptionsFiltered,
@@ -696,6 +728,7 @@ export default {
     DisciplinasOptions() {
       return this.DisciplinasDCCInPerfis;
     },
+
     DocentesOptionsOrdered() {
       return this.$_.orderBy(
         this.DocentesFiltredModal,
@@ -713,6 +746,29 @@ export default {
         const apelido = normalizeText(docente.apelido);
 
         return nome.match(searchNormalized) || apelido.match(searchNormalized);
+      });
+    },
+
+    HorariosOptionsFiltered() {
+      if (this.searchHorariosModal === "") return this.AllHorarios;
+
+      const searchNormalized = normalizeText(this.searchHorariosModal);
+
+      return this.$_.filter(this.AllHorarios, (horario) => {
+        const nome = normalizeText(horario.horario);
+
+        return nome.match(searchNormalized);
+      });
+    },
+    SalasOptionsFiltered() {
+      if (this.searchSalasModal === "") return this.AllSalas;
+
+      const searchNormalized = normalizeText(this.searchSalasModal);
+
+      return this.$_.filter(this.AllSalas, (sala) => {
+        const nome = normalizeText(sala.nome);
+
+        return nome.match(searchNormalized);
       });
     },
   },

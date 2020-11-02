@@ -99,7 +99,7 @@
 
         <template #tbody>
           <tr
-            v-for="docente in DocentesOptionsModalOrdered"
+            v-for="docente in DocentesOptionsOrdered"
             :key="docente.id + docente.apelido"
             @click="toggleItemInArray(docente, filtroDocentes.selecionados)"
             v-prevent-click-selection
@@ -115,7 +115,10 @@
             <v-td width="425" align="start">{{ docente.apelido }}</v-td>
           </tr>
 
-          <tr @click="toggleFiltroDocenteSemAlocacaoSelecionado">
+          <tr
+            @click="toggleFiltroDocenteSemAlocacaoSelecionado"
+            v-prevent-click-selection
+          >
             <v-td width="25">
               <input
                 type="checkbox"
@@ -271,7 +274,10 @@ export default {
       modalFiltrosCallbacks: {
         selectAll: {
           Docentes: () => {
-            this.filtroDocentes.selecionados = [...this.DocentesAtivos];
+            this.filtroDocentes.selecionados = this.$_.union(
+              this.filtroDocentes.selecionados,
+              this.DocentesOptionsFiltered
+            );
             this.filtroDocenteSemAlocacao.selecionado = true;
           },
           Periodos: () => {
@@ -285,7 +291,10 @@ export default {
         },
         selectNone: {
           Docentes: () => {
-            this.filtroDocentes.selecionados.length = 0;
+            this.filtroDocentes.selecionados = this.$_.difference(
+              this.filtroDocentes.selecionados,
+              this.DocentesOptionsFiltered
+            );
             this.filtroDocenteSemAlocacao.selecionado = false;
           },
           Periodos: () => {
@@ -500,15 +509,15 @@ export default {
         this.$_.some(this.filtroPeriodos.ativados, ["id", carga.trimestre])
       );
     },
-
-    DocentesOptionsModalOrdered() {
+    //Modal options
+    DocentesOptionsOrdered() {
       return this.$_.orderBy(
-        this.DocentesOptionsModalFiltered,
+        this.DocentesOptionsFiltered,
         this.ordenacaoDocentesModal.order,
         this.ordenacaoDocentesModal.type
       );
     },
-    DocentesOptionsModalFiltered() {
+    DocentesOptionsFiltered() {
       if (this.searchDocentes === "") return this.DocentesAtivos;
 
       const searchNormalized = normalizeText(this.searchDocentes);

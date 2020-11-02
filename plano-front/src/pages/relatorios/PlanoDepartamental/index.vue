@@ -35,7 +35,7 @@
           <v-th width="150">Docentes</v-th>
           <v-th width="130">Horário</v-th>
 
-          <template v-if="algumPeriodoAtivado">
+          <template v-if="filtroPeriodos.ativados.length">
             <v-th width="45" :title="theadTitle.creditos">
               SC
             </v-th>
@@ -92,7 +92,7 @@
               </v-td>
               <v-td width="45" />
               <v-td
-                v-if="algumPeriodoAtivado"
+                v-if="filtroPeriodos.ativados.length"
                 width="45"
                 class="td-vagas clickable"
                 @click.native="handleClickInTurmaVaga(turma)"
@@ -109,7 +109,7 @@
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> para
               selecioná-las.
             </v-td>
-            <template v-if="algumPeriodoAtivado">
+            <template v-if="filtroPeriodos.ativados.length">
               <v-td width="45" class="borderX-0"></v-td>
               <v-td width="45" class="borderX-0"></v-td>
             </template>
@@ -288,16 +288,16 @@
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
         <b>Visualizar plano:</b> Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em
-        seguida, utilize as abas para navegar entre os filtros. Selecione as
-        informações que deseja visualizar e clique em OK.
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
+        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
+        visualizar e clique em OK.
       </li>
       <li class="list-group-item">
         <b>Relatório :</b>
         Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em
-        seguida, indique se deseja gerar o relatório completo com todas as
-        disciplinas ou o relatório parcial com as disciplinas exibidas na tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
+        indique se deseja gerar o relatório completo com todas as disciplinas ou o
+        relatório parcial com as disciplinas exibidas na tela.
       </li>
       <li class="list-group-item">
         <b>Visualizar vagas por turma:</b>
@@ -313,7 +313,6 @@ import { mapGetters } from "vuex";
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
-  toggleItemInArray,
   generateHorariosText,
   generateDocentesText,
   toggleAsideModal,
@@ -328,7 +327,6 @@ import ModalVagas from "./ModalVagas";
 export default {
   name: "PlanoDepartamental",
   mixins: [
-    toggleItemInArray,
     generateHorariosText,
     generateDocentesText,
     toggleAsideModal,
@@ -380,8 +378,11 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
-            this.filtroPerfis.selecionados = [...this.PerfisOptions];
+            this.filtroDisciplinas.selecionados = this.$_.union(
+              this.DisciplinasOptionsFiltered,
+              this.filtroDisciplinas.selecionados
+            );
+            this.conectaDisciplinasEmPerfis();
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
@@ -398,8 +399,11 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [];
-            this.filtroPerfis.selecionados = [];
+            this.filtroDisciplinas.selecionados = this.$_.difference(
+              this.filtroDisciplinas.selecionados,
+              this.DisciplinasOptionsFiltered
+            );
+            this.conectaDisciplinasEmPerfis();
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [];
@@ -411,9 +415,11 @@ export default {
           },
         },
         btnOk: () => {
-          this.filtroPeriodos.ativados = [
-            ...this.$_.orderBy(this.filtroPeriodos.selecionados, "id"),
-          ];
+          this.filtroPeriodos.ativados = this.$_.orderBy(
+            this.filtroPeriodos.selecionados,
+            "id"
+          );
+
           this.filtroDisciplinas.ativados = [...this.filtroDisciplinas.selecionados];
         },
       },
@@ -437,8 +443,7 @@ export default {
 
       return this.$_.reduce(
         pedidosInCurrentTurma,
-        (sum, pedido) =>
-          sum + pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas,
+        (sum, pedido) => sum + pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas,
         0
       );
     },
@@ -524,10 +529,7 @@ export default {
       return filteredByPeriodos;
     },
     DisciplinasInTurmas() {
-      const turmasOrdered = this.$_.orderBy(
-        this.TurmasInDisciplinasPerfis,
-        "periodo"
-      );
+      const turmasOrdered = this.$_.orderBy(this.TurmasInDisciplinasPerfis, "periodo");
 
       return this.$_.map(this.DisciplinasDCCInPerfis, (disciplina) => {
         const turmasDaDisciplina = this.$_.filter(turmasOrdered, [
@@ -555,7 +557,28 @@ export default {
         vagas,
       };
     },
-    // Modals Options
+    theadTitle() {
+      const { ativados: periodosAtivados } = this.filtroPeriodos;
+
+      if (!periodosAtivados.length) {
+        return {
+          creditos: "",
+          vagas: "",
+        };
+      }
+
+      let periodoText = "";
+      this.$_.forEach(periodosAtivados, (periodo, index) => {
+        periodoText += `${periodo.id}º`;
+        if (index !== periodosAtivados.length - 1) periodoText += ", ";
+      });
+
+      return {
+        creditos: `Somatório dos créditos no ${periodoText} período`,
+        vagas: `Somatório das vagas no ${periodoText} período`,
+      };
+    },
+    //Modal Options
     PerfisOptionsOrdered() {
       return this.$_.orderBy(
         this.PerfisOptions,
@@ -608,31 +631,6 @@ export default {
     },
     DisciplinasOptions() {
       return this.DisciplinasDCCInPerfis;
-    },
-
-    theadTitle() {
-      const { ativados } = this.filtroPeriodos;
-
-      if (!ativados.length) {
-        return {
-          creditos: "",
-          vagas: "",
-        };
-      }
-
-      let periodosAtivados = "";
-      this.$_.forEach(ativados, (periodo, index) => {
-        periodosAtivados += `${periodo.id}º`;
-        if (index !== ativados.length - 1) periodosAtivados += ", ";
-      });
-
-      return {
-        creditos: `Somatório dos créditos no ${periodosAtivados} período`,
-        vagas: `Somatório das vagas no ${periodosAtivados} período`,
-      };
-    },
-    algumPeriodoAtivado() {
-      return this.filtroPeriodos.ativados.length !== 0;
     },
   },
 };

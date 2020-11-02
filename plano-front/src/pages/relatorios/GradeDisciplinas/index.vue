@@ -321,8 +321,11 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
-            this.filtroPerfis.selecionados = [...this.PerfisOptions];
+            this.filtroDisciplinas.selecionados = this.$_.union(
+              this.DisciplinasOptionsFiltered,
+              this.filtroDisciplinas.selecionados
+            );
+            this.conectaDisciplinasEmPerfis();
           },
           Cursos: () => {
             this.filtroCursos.selecionados = [...this.PrincipaisCursosDCC];
@@ -334,8 +337,11 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [];
-            this.filtroPerfis.selecionados = [];
+            this.filtroDisciplinas.selecionados = this.$_.difference(
+              this.filtroDisciplinas.selecionados,
+              this.DisciplinasOptionsFiltered
+            );
+            this.conectaDisciplinasEmPerfis();
           },
           Cursos: () => {
             this.filtroCursos.selecionados = [];
@@ -638,6 +644,20 @@ export default {
 
       return disciplinaResult;
     },
+
+    AnoAtual() {
+      return this.$_.find(this.$store.state.plano.Plano, {
+        id: parseInt(localStorage.getItem("Plano"), 10),
+      }).ano;
+    },
+    cursosAtivados() {
+      return {
+        CCD: this.$_.some(this.filtroCursos.ativados, ["codigo", "65C"]),
+        CCN: this.$_.some(this.filtroCursos.ativados, ["codigo", "35A"]),
+        SI: this.$_.some(this.filtroCursos.ativados, ["codigo", "76A"]),
+        EC: this.$_.some(this.filtroCursos.ativados, ["codigo", "65B"]),
+      };
+    },
     //Modal Options
     DisciplinasOptionsOrdered() {
       return this.$_.orderBy(
@@ -698,20 +718,6 @@ export default {
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type
       );
-    },
-
-    AnoAtual() {
-      return this.$_.find(this.$store.state.plano.Plano, {
-        id: parseInt(localStorage.getItem("Plano"), 10),
-      }).ano;
-    },
-    cursosAtivados() {
-      return {
-        CCD: this.$_.some(this.filtroCursos.ativados, ["codigo", "65C"]),
-        CCN: this.$_.some(this.filtroCursos.ativados, ["codigo", "35A"]),
-        SI: this.$_.some(this.filtroCursos.ativados, ["codigo", "76A"]),
-        EC: this.$_.some(this.filtroCursos.ativados, ["codigo", "65B"]),
-      };
     },
   },
 };
