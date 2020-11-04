@@ -45,14 +45,20 @@ export default {
   },
 
   created() {
-    this.initializeCurrentPlano();
+    this.initializeCurrentPlano().then(() => {
+      let currentId = localStorage.getItem('Plano')
+      if(!this.$_.find(this.AllPlanos, ['id', parseInt(currentId)]).visible){
+        let firstVisiblePlano = this.$_.find(this.AllPlanos, ['visible', true])
+        this.changeCurrentPlano(firstVisiblePlano.id)
+      }
+    })
   },
   beforeDestroy() {
     this.$socket.close();
   },
 
   methods: {
-    ...mapActions(["initializeCurrentPlano", "closeSidebar"]),
+    ...mapActions(["initializeCurrentPlano", "changeCurrentPlano", "closeSidebar"]),
 
     emitCloseCenterModal() {
       EventBus.$emit("close-modal");
@@ -72,7 +78,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "onLoading"]),
+    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos"]),
   },
 };
 </script>
