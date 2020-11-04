@@ -1,14 +1,16 @@
 <template>
   <div class="nav-container">
     <ul class="nav nav-tabs card-header-tabs m-0" ref="navTab">
-      <button
-        v-if="withScroll"
-        v-show="buttonsVisibility.left"
-        class="btn-slide btn-slide-left"
-        @click="scrollTo('left')"
-      >
-        <font-awesome-icon :icon="['fas', 'arrow-left']" />
-      </button>
+      <transition name="btn-transition">
+        <button
+          v-if="withScroll"
+          v-show="buttonsVisibility.left && isMouseover"
+          class="btn-slide btn-slide-left"
+          @click="scrollTo('left')"
+        >
+          <font-awesome-icon :icon="['fas', 'arrow-left']" />
+        </button>
+      </transition>
 
       <li
         v-for="(tab, index) in allTabs"
@@ -24,14 +26,16 @@
         </a>
       </li>
 
-      <button
-        v-if="withScroll"
-        v-show="buttonsVisibility.right"
-        class="btn-slide btn-slide-right"
-        @click="scrollTo('right')"
-      >
-        <font-awesome-icon :icon="['fas', 'arrow-right']" />
-      </button>
+      <transition name="btn-transition">
+        <button
+          v-if="withScroll"
+          v-show="buttonsVisibility.right && isMouseover"
+          class="btn-slide btn-slide-right"
+          @click="scrollTo('right')"
+        >
+          <font-awesome-icon :icon="['fas', 'arrow-right']" />
+        </button>
+      </transition>
     </ul>
   </div>
 </template>
@@ -47,6 +51,7 @@ export default {
   data() {
     return {
       currentScrollPosition: 0,
+      isMouseover: false,
       buttonsVisibility: {
         left: false,
         right: true,
@@ -55,28 +60,43 @@ export default {
   },
 
   mounted() {
-    this.$refs.navTab.handleScroll = () => {
-      this.currentScrollPosition = this.$refs.navTab.scrollLeft;
+    const { navTab } = this.$refs;
+    navTab.handleScroll = () => {
+      this.currentScrollPosition = navTab.scrollLeft;
     };
-    this.$refs.navTab.addEventListener("scroll", this.$refs.navTab.handleScroll);
+    navTab.handleMouseEnter = () => {
+      this.isMouseover = true;
+    };
+    navTab.handleMouseLeave = () => {
+      this.isMouseover = false;
+    };
+
+    navTab.addEventListener("scroll", navTab.handleScroll);
+    navTab.addEventListener("mouseenter", navTab.handleMouseEnter);
+    navTab.addEventListener("mouseleave", navTab.handleMouseLeave);
   },
   beforeDestroy() {
-    this.$refs.navTab.removeEventListener("scroll", this.$refs.navTab.handleScroll);
+    const { navTab } = this.$refs;
+    navTab.removeEventListener("scroll", navTab.handleScroll);
+    navTab.removeEventListener("mouseenter", navTab.handleMouseEnter);
+    navTab.removeEventListener("mouseleave", navTab.handleMouseLeave);
   },
 
   methods: {
     scrollTo(direction) {
-      const scrollValue = this.$refs.navTab.offsetWidth / 2;
+      const { navTab } = this.$refs;
+      const scrollValue = navTab.offsetWidth / 2;
 
-      if (direction === "right") this.$refs.navTab.scrollBy(scrollValue, 0);
-      else this.$refs.navTab.scrollBy(-scrollValue, 0);
+      if (direction === "right") navTab.scrollBy(scrollValue, 0);
+      else navTab.scrollBy(-scrollValue, 0);
     },
   },
 
   watch: {
     currentScrollPosition(currentScrollPosition) {
-      const navWidth = this.$refs.navTab.offsetWidth;
-      const navMaxScroll = this.$refs.navTab.scrollWidth;
+      const { navTab } = this.$refs;
+      const navWidth = navTab.offsetWidth;
+      const navMaxScroll = navTab.scrollWidth;
 
       if (navWidth + currentScrollPosition >= navMaxScroll && navWidth != 0) {
         this.buttonsVisibility.right = false;
@@ -122,7 +142,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 28px;
+  width: 25px;
   height: 30px;
 
   border-radius: 5px;
@@ -132,7 +152,7 @@ export default {
   font-size: 11px;
   cursor: pointer;
   box-shadow: none !important;
-  transition: 200ms all ease;
+  transition: all 200ms ease;
   box-shadow: none !important;
 }
 
@@ -170,5 +190,12 @@ export default {
   cursor: default !important;
   text-decoration: none !important;
   transition: background-color 100ms;
+}
+
+.btn-transition-enter-active {
+  animation: fadeIn 200ms ease;
+}
+.btn-transition-leave-active {
+  animation: fadeOut 200ms ease;
 }
 </style>
