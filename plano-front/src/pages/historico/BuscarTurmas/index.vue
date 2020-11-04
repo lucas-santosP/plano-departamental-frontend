@@ -117,12 +117,11 @@
             @click="selectPerfis(perfil)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="perfil"
                 v-model="filtroPerfis.selecionados"
+                :value="perfil"
                 :indeterminate.prop="perfil.halfChecked"
                 @click.stop="selectPerfis(perfil)"
               />
@@ -183,10 +182,9 @@
             @click="selectDisciplina(disciplina)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
                 v-model="filtroDisciplinas.selecionados"
                 :value="disciplina"
                 @click.stop="selectDisciplina(disciplina)"
@@ -244,10 +242,9 @@
             @click="toggleSearchCodition('Docentes', docente.id)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
                 v-model="searchConditions.Docentes"
                 :value="docente.id"
               />
@@ -275,12 +272,11 @@
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="periodo"
                 v-model="filtroPeriodos.selecionados"
+                :value="periodo"
                 @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
@@ -302,13 +298,12 @@
             @click="selecionaSemestre(semestre)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :indeterminate.prop="semestre.halfChecked"
-                :value="semestre"
                 v-model="filtroSemestres.selecionados"
+                :value="semestre"
+                :indeterminate.prop="semestre.halfChecked"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
@@ -340,10 +335,9 @@
             @click="toggleSearchCodition('Horarios', horario.id)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
                 v-model="searchConditions.Horarios"
                 :value="horario.id"
               />
@@ -377,13 +371,8 @@
             @click="toggleSearchCodition('Salas', sala.id)"
             v-prevent-click-selection
           >
-            <v-td width="25">
-              <input
-                type="checkbox"
-                class="form-check-input position-static m-0"
-                v-model="searchConditions.Salas"
-                :value="sala.id"
-              />
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="searchConditions.Salas" :value="sala.id" />
             </v-td>
             <v-td width="425" align="start">{{ sala.nome }}</v-td>
           </tr>
@@ -408,10 +397,9 @@
             @click="toggleSearchCodition('Planos', plano.id)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
                 v-model="searchConditions.Planos"
                 :value="plano.id"
               />

@@ -14,7 +14,8 @@
             orderToCheck="apelido"
             width="130"
             align="start"
-            >Docente
+          >
+            Docente
           </v-th-ordination>
           <v-th width="30" title="Período" paddingX="0">P.</v-th>
           <v-th width="80">Código</v-th>
@@ -61,7 +62,8 @@
 
           <tr v-else>
             <v-td width="815">
-              <b>Nenhum docente encontrado.</b> Clique no botão de filtros
+              <b>Nenhum docente encontrado.</b>
+              Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-los.
             </v-td>
@@ -93,7 +95,8 @@
             orderToCheck="apelido"
             width="425"
             align="start"
-            >Nome
+          >
+            Nome
           </v-th-ordination>
         </template>
 
@@ -104,12 +107,11 @@
             @click="toggleItemInArray(docente, filtroDocentes.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="docente"
                 v-model="filtroDocentes.selecionados"
+                :value="docente"
               />
             </v-td>
             <v-td width="425" align="start">{{ docente.apelido }}</v-td>
@@ -119,12 +121,8 @@
             @click="toggleFiltroDocenteSemAlocacaoSelecionado"
             v-prevent-click-selection
           >
-            <v-td width="25">
-              <input
-                type="checkbox"
-                v-model="filtroDocenteSemAlocacao.selecionado"
-                class="form-check-input position-static m-0"
-              />
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="filtroDocenteSemAlocacao.selecionado" />
             </v-td>
             <v-td width="425" align="start">
               {{ DocenteSemAlocacaoComTurmas.apelido }}
@@ -146,12 +144,11 @@
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="periodo"
                 v-model="filtroPeriodos.selecionados"
+                :value="periodo"
                 @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
@@ -175,13 +172,12 @@
             @click="selecionaSemestre(semestre)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :indeterminate.prop="semestre.halfChecked"
-                :value="semestre"
                 v-model="filtroSemestres.selecionados"
+                :value="semestre"
+                :indeterminate.prop="semestre.halfChecked"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
@@ -197,17 +193,17 @@
       <li class="list-group-item">
         <b>Visualizar carga por professor:</b>
         Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
-        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
-        visualizar e clique em OK.
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        . Em seguida, utilize as abas para navegar entre os filtros. Selecione as
+        informações que deseja visualizar e clique em OK.
       </li>
       <li class="list-group-item">
         <b>Relatório:</b>
         Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
-        indique se deseja gerar o relatório completo com a distribuição das disciplinas
-        para todos os professores ou o relatório parcial com as informações exibidas na
-        tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
+        . Em seguida, indique se deseja gerar o relatório completo com a distribuição das
+        disciplinas para todos os professores ou o relatório parcial com as informações
+        exibidas na tela.
       </li>
     </ModalAjuda>
   </div>

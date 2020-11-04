@@ -15,8 +15,10 @@
       />
     </div>
     <p v-show="horariosIsEmpty" class="text-empty">
-      <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
+      <b>Nenhum horário encontrado.</b>
+      Clique no botão de filtros
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
+      para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -26,8 +28,8 @@
     >
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Laborátorios'">
         <template #thead>
-          <th style="width: 25px" class="t-start"></th>
-          <th style="width: 425px" class="t-start">Nome</th>
+          <v-th width="25" />
+          <v-th width="425" align="start">Nome</v-th>
         </template>
 
         <template #tbody>
@@ -37,15 +39,14 @@
             @click="toggleItemInArray(laboratorio, filtroLaboratorios.selecionados)"
             v-prevent-click-selection
           >
-            <td style="width: 25px">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
                 v-model="filtroLaboratorios.selecionados"
                 :value="laboratorio"
-                class="form-check-input position-static m-0"
               />
-            </td>
-            <td style="width: 425px" class="t-start">{{ laboratorio.nome }}</td>
+            </v-td>
+            <v-td width="425" align="start">{{ laboratorio.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -63,12 +64,11 @@
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="periodo"
                 v-model="filtroPeriodos.selecionados"
+                :value="periodo"
                 @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
@@ -90,17 +90,16 @@
             @click="selecionaSemestre(semestre)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :indeterminate.prop="semestre.halfChecked"
-                :value="semestre"
                 v-model="filtroSemestres.selecionados"
+                :value="semestre"
+                :indeterminate.prop="semestre.halfChecked"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
-            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
+            <v-td width="425" align="start">{{ semestre.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -108,17 +107,18 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar alocação:</b> Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
-        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
-        visualizar e clique no botão OK.
+        <b>Visualizar alocação:</b>
+        Clique no ícone filtros
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        . Em seguida, utilize as abas para navegar entre os filtros. Selecione as
+        informações que deseja visualizar e clique no botão OK.
       </li>
       <li class="list-group-item">
         <b>Relatório:</b>
         Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
-        indique se deseja gerar o relatório completo com todos os laboratórios ou o
-        relatório parcial com as informações exibidas na tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
+        . Em seguida, indique se deseja gerar o relatório completo com todos os
+        laboratórios ou o relatório parcial com as informações exibidas na tela.
       </li>
     </ModalAjuda>
 

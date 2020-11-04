@@ -76,8 +76,10 @@
       </template>
     </div>
     <p v-show="!algumHorariosEstaAtivo" class="text-empty">
-      <b>Nenhum horário encontrado.</b> Clique no botão de filtros
-      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />para selecioná-los.
+      <b>Nenhum horário encontrado.</b>
+      Clique no botão de filtros
+      <font-awesome-icon :icon="['fas', 'list-ul']" class="mx-1" />
+      para selecioná-los.
     </p>
 
     <ModalFiltros
@@ -87,23 +89,18 @@
     >
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Cursos'">
         <template #thead>
-          <th style="width: 25px"></th>
-          <th
-            class="clickable t-start"
-            style="width: 50px"
-            @click="toggleOrder(ordemCursos, 'codigo')"
-          >
-            Cód.
-            <i :class="setIconByOrder(ordemCursos, 'codigo')"></i>
-          </th>
-          <th
-            class="clickable t-start"
-            style="width: 375px;"
-            @click="toggleOrder(ordemCursos, 'nome')"
+          <v-th width="25" />
+          <v-th-ordination :currentOrder="ordemCursos" orderToCheck="codigo" width="70">
+            Código
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordemCursos"
+            orderToCheck="nome"
+            width="355"
+            align="start"
           >
             Nome
-            <i :class="setIconByOrder(ordemCursos, 'nome')"></i>
-          </th>
+          </v-th-ordination>
         </template>
 
         <template #tbody>
@@ -113,16 +110,11 @@
             @click="toggleItemInArray(curso, filtroCursos.selecionados)"
             v-prevent-click-selection
           >
-            <td style="width: 25px">
-              <input
-                type="checkbox"
-                :value="curso"
-                v-model="filtroCursos.selecionados"
-                class="form-check-input position-static m-0"
-              />
-            </td>
-            <td style="width: 50px">{{ curso.codigo }}</td>
-            <td style="width: 375px" class="t-start">{{ curso.nome }}</td>
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="filtroCursos.selecionados" :value="curso" />
+            </v-td>
+            <v-td width="70">{{ curso.codigo }}</v-td>
+            <v-td width="355" class="t-start">{{ curso.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -140,12 +132,11 @@
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="periodo"
                 v-model="filtroPeriodos.selecionados"
+                :value="periodo"
                 @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
@@ -167,17 +158,16 @@
             @click="selecionaSemestre(semestre)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :indeterminate.prop="semestre.halfChecked"
-                :value="semestre"
                 v-model="filtroSemestres.selecionados"
+                :value="semestre"
+                :indeterminate.prop="semestre.halfChecked"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
-            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
+            <v-td width="425" align="start">{{ semestre.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -189,15 +179,16 @@
       <li class="list-group-item">
         <b>Visualizar grade:</b>
         Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
-        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
-        visualizar e clique no botão OK
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        . Em seguida, utilize as abas para navegar entre os filtros. Selecione as
+        informações que deseja visualizar e clique no botão OK
       </li>
       <li class="list-group-item">
-        <b>Relatório:</b> Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
-        indique se deseja gerar o relatório completo com a grade completa de todos os
-        cursos ou o relatório parcial com as informações exibidas na tela.
+        <b>Relatório:</b>
+        Clique no ícone relatório
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
+        . Em seguida, indique se deseja gerar o relatório completo com a grade completa de
+        todos os cursos ou o relatório parcial com as informações exibidas na tela.
       </li>
     </ModalAjuda>
   </div>

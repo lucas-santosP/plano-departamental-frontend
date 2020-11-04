@@ -13,21 +13,24 @@
             :currentOrder="ordenacaoMain.disciplinas"
             orderToCheck="codigo"
             width="80"
-            >Código
+          >
+            Código
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoMain.disciplinas"
             orderToCheck="nome"
             width="350"
             align="start"
-            >Nome
+          >
+            Nome
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoMain.disciplinas"
             orderToCheck="perfil.abreviacao"
             width="80"
             align="center"
-            >Perfil
+          >
+            Perfil
           </v-th-ordination>
           <v-th width="30" title="Créditos">C.</v-th>
           <v-th width="30" title="Período letivo">P.</v-th>
@@ -105,9 +108,10 @@
 
           <tr v-show="!DisciplinasInTurmasOrdered.length">
             <v-td width="885" colspan="7">
-              <b>Nenhuma disciplina encontrada.</b> Clique no botão de filtros
-              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> para
-              selecioná-las.
+              <b>Nenhuma disciplina encontrada.</b>
+              Clique no botão de filtros
+              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+              para selecioná-las.
             </v-td>
             <template v-if="filtroPeriodos.ativados.length">
               <v-td width="45" class="borderX-0"></v-td>
@@ -131,7 +135,8 @@
             orderToCheck="nome"
             width="425"
             align="start"
-            >Nome
+          >
+            Nome
           </v-th-ordination>
         </template>
 
@@ -141,12 +146,11 @@
             :key="perfil.id + perfil.nome"
             @click.stop="selectPerfis(perfil)"
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="perfil"
                 v-model="filtroPerfis.selecionados"
+                :value="perfil"
                 :indeterminate.prop="perfil.halfChecked"
                 @click.stop="selectPerfis(perfil)"
               />
@@ -174,23 +178,24 @@
             orderToCheck="codigo"
             width="70"
             align="start"
-            >Código
+          >
+            Código
           </v-th-ordination>
-
           <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="nome"
             width="270"
             align="start"
-            >Nome
+          >
+            Nome
           </v-th-ordination>
-
           <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="perfil.abreviacao"
             width="85"
             align="start"
-            >Perfil
+          >
+            Perfil
           </v-th-ordination>
         </template>
 
@@ -201,10 +206,9 @@
             @click="selectDisciplina(disciplina)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
                 v-model="filtroDisciplinas.selecionados"
                 :value="disciplina"
                 @click.stop="selectDisciplina(disciplina)"
@@ -238,12 +242,11 @@
             @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :value="periodo"
                 v-model="filtroPeriodos.selecionados"
+                :value="periodo"
                 @click.stop="selecionaPeriodo(periodo)"
               />
             </v-td>
@@ -265,17 +268,16 @@
             @click="selecionaSemestre(semestre)"
             v-prevent-click-selection
           >
-            <v-td width="25">
+            <v-td width="25" type="content">
               <input
                 type="checkbox"
-                class="form-check-input position-static m-0"
-                :indeterminate.prop="semestre.halfChecked"
-                :value="semestre"
                 v-model="filtroSemestres.selecionados"
+                :value="semestre"
+                :indeterminate.prop="semestre.halfChecked"
                 @click.stop="selecionaSemestre(semestre)"
               />
             </v-td>
-            <v-td width="425" align="start">{{ semestre.nome }} </v-td>
+            <v-td width="425" align="start">{{ semestre.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -287,17 +289,18 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar plano:</b> Clique no ícone filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />. Em seguida,
-        utilize as abas para navegar entre os filtros. Selecione as informações que deseja
-        visualizar e clique em OK.
+        <b>Visualizar plano:</b>
+        Clique no ícone filtros
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        . Em seguida, utilize as abas para navegar entre os filtros. Selecione as
+        informações que deseja visualizar e clique em OK.
       </li>
       <li class="list-group-item">
         <b>Relatório :</b>
         Clique no ícone relatório
-        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />. Em seguida,
-        indique se deseja gerar o relatório completo com todas as disciplinas ou o
-        relatório parcial com as disciplinas exibidas na tela.
+        <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
+        . Em seguida, indique se deseja gerar o relatório completo com todas as
+        disciplinas ou o relatório parcial com as disciplinas exibidas na tela.
       </li>
       <li class="list-group-item">
         <b>Visualizar vagas por turma:</b>

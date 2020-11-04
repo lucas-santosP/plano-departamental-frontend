@@ -19,7 +19,8 @@
             orderToCheck="periodo"
             width="35"
             title="Período letivo"
-            >P.
+          >
+            P.
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
@@ -27,21 +28,24 @@
             width="75"
             align="start"
             title="Período letivo"
-            >Perfil
+          >
+            Perfil
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.codigo"
             width="80"
             align="start"
-            >Código
+          >
+            Código
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.nome"
             width="300"
             align="start"
-            >Disciplina
+          >
+            Disciplina
           </v-th-ordination>
           <v-th width="35" title="Turma">T.</v-th>
           <v-th width="130" align="start">Docentes</v-th>
@@ -101,7 +105,8 @@
 
           <tr v-show="!TurmasValidacoesOrdered.length">
             <v-td width="705">
-              <b>Nenhum conflito encontrado em turmas.</b> Clique no botão de filtros
+              <b>Nenhum conflito encontrado em turmas.</b>
+              Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
               para selecioná-los.
             </v-td>
@@ -117,7 +122,8 @@
             width="705"
             align="start"
             colspan="2"
-            >Nome
+          >
+            Nome
           </v-th-ordination>
         </template>
 
@@ -174,15 +180,14 @@
               @click="toggleItemInArray(conflito.type, filtroConflitos.selecionados)"
               v-prevent-click-selection
             >
-              <v-td width="25">
+              <v-td width="25" type="content">
                 <input
                   type="checkbox"
-                  class="form-check-input position-static m-0"
                   v-model="filtroConflitos.selecionados"
                   :value="conflito.type"
                 />
               </v-td>
-              <v-td width="425" align="start">{{ conflito.msg }} </v-td>
+              <v-td width="425" align="start">{{ conflito.msg }}</v-td>
             </tr>
           </template>
         </BaseTable>
@@ -200,12 +205,11 @@
               @click="selecionaPeriodo(periodo, filtroPeriodos.selecionados)"
               v-prevent-click-selection
             >
-              <v-td width="25">
+              <v-td width="25" type="content">
                 <input
                   type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :value="periodo"
                   v-model="filtroPeriodos.selecionados"
+                  :value="periodo"
                   @click.stop="selecionaPeriodo(periodo)"
                 />
               </v-td>
@@ -227,13 +231,12 @@
               @click="selecionaSemestre(semestre)"
               v-prevent-click-selection
             >
-              <v-td width="25">
+              <v-td width="25" type="content">
                 <input
                   type="checkbox"
-                  class="form-check-input position-static m-0"
-                  :indeterminate.prop="semestre.halfChecked"
-                  :value="semestre"
                   v-model="filtroSemestres.selecionados"
+                  :value="semestre"
+                  :indeterminate.prop="semestre.halfChecked"
                   @click.stop="selecionaSemestre(semestre)"
                 />
               </v-td>
@@ -252,14 +255,16 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar conflitos:</b> Clique no ícone de filtros
-        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" /> no cabeçalho da
-        página e, na janela que se abrirá, utilize as abas para navegar entre os tipos de
-        filtro disponíveis. Marque quais informações deseja visualizar, e para finalizar
-        clique no botão OK.
+        <b>Visualizar conflitos:</b>
+        Clique no ícone de filtros
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar
+        entre os tipos de filtro disponíveis. Marque quais informações deseja visualizar,
+        e para finalizar clique no botão OK.
       </li>
       <li class="list-group-item">
-        <b>Editar turma:</b> Clique no ícone
+        <b>Editar turma:</b>
+        Clique no ícone
         <font-awesome-icon :icon="['fas', 'edit']" class="icon-darkgray" />
         presente na couna "Editar". Uma janela de edição irá se abrir. As alterações
         realizadas nos campos da metade superior da janela somente serão enviadas ao
@@ -269,8 +274,8 @@
       <li class="list-group-item">
         <b>Conflitos críticos:</b>
         Note que alguns conflitos possuem o ícone
-        <font-awesome-icon :icon="['fas', 'exclamation-circle']" class="icon-red" />. Isso
-        significa que ele é crítico, devendo ser priorizado na correção.
+        <font-awesome-icon :icon="['fas', 'exclamation-circle']" class="icon-red" />
+        . Isso significa que ele é crítico, devendo ser priorizado na correção.
       </li>
     </ModalAjuda>
   </div>
