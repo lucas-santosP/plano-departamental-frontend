@@ -21,7 +21,7 @@
           v-model.number="planoIdForm"
           @change="changeCurrentPlano(planoIdForm)"
         >
-          <option v-for="plano in AllPlanos" :value="plano.id" :key="plano.id">
+          <option v-for="plano in PlanosVisiveis" :value="plano.id" :key="plano.id">
             {{ plano.ano }} - {{ plano.nome }}
           </option>
         </select>
@@ -62,6 +62,10 @@ export default {
 
   computed: {
     ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
+
+    PlanosVisiveis (){
+      return this.$_.filter(this.AllPlanos, ['visible', true])
+    }
   },
 
   watch: {
