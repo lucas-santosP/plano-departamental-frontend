@@ -46,14 +46,14 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      let currentId = localStorage.getItem('Plano')
-      if(!this.$_.find(this.AllPlanos, ['id', parseInt(currentId)]).visible){
-        let firstVisiblePlano = this.$_.find(this.AllPlanos, ['visible', true])
-        this.changeCurrentPlano(firstVisiblePlano.id)
+      let currentId = localStorage.getItem("Plano");
+      if (!this.$_.find(this.AllPlanos, ["id", parseInt(currentId)]).visible) {
+        let firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
+        this.changeCurrentPlano(firstVisiblePlano.id);
       }
-    })
+    });
   },
-  beforeDestroy() {
+  destroyed() {
     this.$socket.close();
   },
 
@@ -72,7 +72,6 @@ export default {
         this.$_.forEach(this.files, function(value, index, array) {
           array[index] = value.slice(0, -4);
         });
-        //console.log(this.files.filter( function( elm ) {return elm.match(/.*\.(sql)/ig)}))
       });
     },
   },

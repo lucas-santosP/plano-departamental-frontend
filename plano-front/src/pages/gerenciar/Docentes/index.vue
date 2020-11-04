@@ -54,7 +54,7 @@
               <v-td width="240" align="start" :title="docente.nomesiga">
                 {{ docente.nomesiga }}
               </v-td>
-              <v-td width="65">{{ booleanToText(docente.ativo) }}</v-td>
+              <v-td width="65">{{ generateBooleanText(docente.ativo) }}</v-td>
             </tr>
 
             <tr v-if="!DocentesOrdered.length">
@@ -211,7 +211,7 @@
 import { mapGetters } from "vuex";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
-import { toggleItemInArray } from "@/common/mixins";
+import { toggleItemInArray, generateBooleanText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 const emptyDocente = {
@@ -229,7 +229,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardDocente",
-  mixins: [toggleItemInArray],
+  mixins: [toggleItemInArray, generateBooleanText],
   components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
@@ -265,9 +265,6 @@ export default {
     },
     openModalDelete() {
       this.$refs.modalDelete.open();
-    },
-    booleanToText(docenteIsAtivo) {
-      return docenteIsAtivo ? "Sim" : "-";
     },
 
     async addDocente() {

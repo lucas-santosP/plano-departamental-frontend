@@ -393,8 +393,6 @@ export default {
 </script>
 
 <style scoped>
-@import url(../../../assets/css/slideY-animation.css);
-
 .card {
   font-size: 11px;
 }

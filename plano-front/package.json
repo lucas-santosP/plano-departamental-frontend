@@ -15,8 +15,6 @@
     "bootstrap-vue": "^2.0.0-rc.8",
     "dayjs": "^1.8.35",
     "file-saver": "^2.0.1",
-    "html2canvas": "^1.0.0-rc.3",
-    "jspdf": "^1.4.1",
     "local-storage": "^1.4.2",
     "lodash": "^4.17.5",
     "lodash.defaultsdeep": "4.6.1",
