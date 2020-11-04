@@ -152,8 +152,8 @@ svg {
 }
 
 label[required] {
-  padding-right: 10px;
-  position: relative;
+  padding-right: 10px !important;
+  position: relative !important;
 }
 
 label[required]:after {

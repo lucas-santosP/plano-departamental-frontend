@@ -107,16 +107,12 @@ import pedidoService from "@/common/services/pedido";
 import pedidoExternoService from "@/common/services/pedidoExterno";
 import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
-import {
-  toggleOrdination,
-  toggleItemInArray,
-  preventClickSelection,
-} from "@/common/mixins";
+import { toggleItemInArray, preventClickSelection } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",
-  mixins: [toggleItemInArray, toggleOrdination, preventClickSelection],
+  mixins: [toggleItemInArray, preventClickSelection],
   components: { InputSearch },
   props: {
     plano: { type: Object, required: true },

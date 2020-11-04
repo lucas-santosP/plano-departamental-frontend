@@ -9,49 +9,59 @@
       <div class="div-table">
         <BaseTable :styles="'height:max-content'">
           <template #thead>
-            <th
-              style="width: 70px"
-              class="t-start clickable"
-              @click="toggleOrder(ordenacaoMainPlanos, 'ano')"
+            <v-th-ordination
+              :currentOrder="ordenacaoMainPlanos"
+              orderToCheck="ano"
+              width="70"
+              align="start"
             >
               Ano
-              <i :class="setIconByOrder(ordenacaoMainPlanos, 'ano')"></i>
-            </th>
-            <th
-              style="width: 150px"
-              class="t-start clickable"
-              @click="toggleOrder(ordenacaoMainPlanos, 'nome')"
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoMainPlanos"
+              orderToCheck="nome"
+              width="150"
+              align="start"
             >
               Nome
-              <i :class="setIconByOrder(ordenacaoMainPlanos, 'nome')"></i>
-            </th>
-            <th
-              style="width: 300px"
-              class="t-start clickable"
-              @click="toggleOrder(ordenacaoMainPlanos, 'obs')"
+            </v-th-ordination>
+            <v-th width="300" align="start">Observação</v-th>
+            <v-th-ordination
+              :currentOrder="ordenacaoMainPlanos"
+              orderToCheck="isEditable"
+              orderType="desc"
+              width="70"
             >
-              Observação
-              <i :class="setIconByOrder(ordenacaoMainPlanos, 'obs')"></i>
-            </th>
-            <th style="width: 80px">
               Editável
-            </th>
-            <th style="width: 80px">
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoMainPlanos"
+              orderToCheck="visible"
+              orderType="desc"
+              width="70"
+            >
               Visível
-            </th>
+            </v-th-ordination>
           </template>
+
           <template #tbody>
             <tr
               v-for="plano in PlanosOrdered"
               :key="plano.id"
-              @click="handleClickInPlano(plano)"
               :class="{ 'bg-selected': plano.id === planoSelectedId }"
+              @click="handleClickInPlano(plano)"
             >
-              <td style="width: 70px" class="t-start">{{ plano.ano }}</td>
-              <td style="width: 150px" class="t-start">{{ plano.nome }}</td>
-              <td style="width: 300px" class="t-start">{{ plano.obs }}</td>
-              <td style="width: 80px" class="t-start">{{ plano.isEditable }}</td>
-              <td style="width: 80px" class="t-start">{{ plano.visible }}</td>
+              <v-td width="70" align="start">{{ plano.ano }}</v-td>
+              <v-td width="150" align="start">{{ plano.nome }}</v-td>
+              <v-td width="300" align="start" :title="plano.obs">{{ plano.obs }}</v-td>
+              <v-td width="70">{{ generateBooleanText(plano.isEditable) }}</v-td>
+              <v-td width="70">{{ generateBooleanText(plano.visible) }}</v-td>
+            </tr>
+
+            <tr v-if="!PlanosOrdered.length">
+              <v-td width="680" colspan="5">
+                <b>Nenhum plano encontrado</b>
+              </v-td>
             </tr>
           </template>
         </BaseTable>
@@ -68,25 +78,23 @@
         @btn-copy="copyPlano(planoForm)"
       >
         <template #form-group>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
+          <div class="row w-100 m-0 mb-2">
+            <div class="form-group col-9 m-0 p-0 pr-3">
               <label required for="planoNome">Nome</label>
               <input
                 type="text"
                 id="planoNome"
                 v-model="planoForm.nome"
+                class="form-control w-100"
                 @keypress="limitNomeLength"
-                class="form-control"
               />
             </div>
-          </div>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
+            <div class="form-group col-3 m-0 p-0">
               <label required for="ano">Ano</label>
               <select
                 id="planoAno"
-                class="form-control input-ano"
+                class="form-control w-100"
                 v-model.number="planoForm.ano"
               >
                 <option v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano">
@@ -101,8 +109,8 @@
               <label for="planoObs">Observações</label>
               <textarea
                 id="planoObs"
-                cols="30"
-                rows="3"
+                cols="35"
+                rows="5"
                 v-model="planoForm.obs"
                 class="form-control"
               ></textarea>
@@ -110,25 +118,24 @@
           </div>
 
           <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
+            <div class="form-group col-6 m-0 p-0 pr-2">
               <label required for="planoEditavel">Editável</label>
               <select
                 id="planoEditavel"
                 v-model.number="planoForm.isEditable"
-                class="form-control input-ano"
+                class="form-control"
               >
                 <option value="true">Sim</option>
                 <option value="false">Não</option>
               </select>
             </div>
-          </div>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
+
+            <div class="form-group col-6 m-0 p-0 pl-2">
               <label required for="planoVisivel">Visível</label>
               <select
                 id="planoVisivel"
                 v-model.number="planoForm.visible"
-                class="form-control input-ano"
+                class="form-control"
               >
                 <option value="true">Sim</option>
                 <option value="false">Não</option>
@@ -199,7 +206,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { toggleOrdination } from "@/common/mixins";
+import { generateBooleanText } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import copyPlanoService from "../../../common/services/copyPlano";
@@ -217,7 +224,7 @@ const emptyPlano = {
 
 export default {
   name: "Planos",
-  mixins: [toggleOrdination],
+  mixins: [generateBooleanText],
   components: {
     ModalAjuda,
     ModalDelete,
@@ -346,21 +353,15 @@ export default {
 
 <style scoped>
 ::v-deep .card input[type="text"],
-::v-deep .card input[type="password"] {
-  width: 200px !important;
+::v-deep .card select {
+  width: 100%;
   height: 25px !important;
   padding: 0px 5px !important;
   font-size: 12px !important;
   text-align: start;
 }
-.card select {
-  width: 100px;
-  font-size: 12px !important;
-  height: 25px !important;
-  padding: 0px 5px !important;
-}
 textarea {
-  padding: 5px !important;
-  font-size: 12px !important;
+  padding: 5px;
+  font-size: 12px;
 }
 </style>
