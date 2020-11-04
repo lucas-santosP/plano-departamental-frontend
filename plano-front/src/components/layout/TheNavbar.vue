@@ -63,15 +63,26 @@ export default {
   computed: {
     ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
 
-    PlanosVisiveis (){
-      return this.$_.filter(this.AllPlanos, ['visible', true])
-    }
+    PlanosVisiveis() {
+      return this.$_.filter(this.AllPlanos, ["visible", true]);
+    },
   },
 
   watch: {
     currentPlano: {
       handler(currentPlano) {
-        this.planoIdForm = currentPlano.id;
+        if (currentPlano) {
+          this.planoIdForm = currentPlano.id;
+        } else {
+          this.changeCurrentPlano(1);
+          this.planoIdForm = 1;
+
+          this.pushNotification({
+            type: "warn",
+            title: "Aviso!",
+            text: "O plano atual foi alterando para o plano 2020 - Padrão.",
+          });
+        }
       },
       immediate: true,
       deep: true,
