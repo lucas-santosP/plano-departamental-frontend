@@ -74,13 +74,13 @@ export default {
         if (currentPlano) {
           this.planoIdForm = currentPlano.id;
         } else {
-          this.changeCurrentPlano(1);
-          this.planoIdForm = 1;
+          this.planoIdForm = 2090; //id plano Dev
+          this.changeCurrentPlano(this.planoIdForm);
 
           this.pushNotification({
             type: "warn",
             title: "Aviso!",
-            text: "O plano atual foi alterando para o plano 2020 - Padrão.",
+            text: "O plano atual foi alterando para o plano 2099 - Dev.",
           });
         }
       },
