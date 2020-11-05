@@ -63,7 +63,7 @@ export default {
         const [, periodoStr] = inputFile.name.split(".");
         const periodoDoPlano = parseInt(periodoStr) || null;
 
-        await this.createPlanoImported(turmasDoPlano.slice(0, 30), periodoDoPlano);
+        await this.createPlanoImported(turmasDoPlano, periodoDoPlano);
         await this.$store.dispatch("fetchAll");
 
         this.$refs.baseModal.close();
@@ -72,7 +72,6 @@ export default {
 
       reader.readAsBinaryString(inputFile);
     },
-
     async createPlanoImported(turmasImported, periodo = 1) {
       const keys = {
         disciplinaCod: null,
@@ -81,6 +80,7 @@ export default {
         vagas1: null,
         vagas2: null,
         horarioESala: null,
+        docentes: null,
       };
       let i = 0;
       for (const key in turmasImported[0]) {
@@ -90,6 +90,7 @@ export default {
         else if (i === 5) keys.vagas1 = key;
         else if (i === 6) keys.vagas2 = key;
         else if (i === 7) keys.horarioESala = key;
+        else if (i === 8) keys.docentes = key;
         i++;
       }
       let currentTurma = {};
@@ -122,6 +123,12 @@ export default {
             newTurma.Sala1 = this.findSalaId(str1);
             newTurma.Sala2 = this.findSalaId(str2);
           }
+        }
+
+        if (turmaFile[keys.docentes]) {
+          const [docente1Str, docente2Str] = turmaFile[keys.docentes].split(";");
+          newTurma.Docente1 = this.findDocenteId(docente1Str);
+          newTurma.Docente2 = this.findDocenteId(docente2Str);
         }
 
         if (!newTurma.Disciplina || !newTurma.letra || !newTurma.turno1) {
@@ -175,6 +182,15 @@ export default {
     findCursoId(cursoCodigo) {
       const cursoFounded = this.$_.find(this.AllCursos, ["codigo", cursoCodigo]);
       return cursoFounded ? cursoFounded.id : null;
+    },
+    findDocenteId(docenteNomeSiga) {
+      if (!docenteNomeSiga.length) return null;
+
+      const docenteFounded = this.$_.find(
+        this.AllDocentes,
+        (docente) => normalizeText(docente.nomesiga) === normalizeText(docenteNomeSiga)
+      );
+      return docenteFounded ? docenteFounded.id : null;
     },
     findDisciplinaId(disciplinaCodigo) {
       const disciplinaFounded = this.$_.find(this.AllDisciplinas, [
@@ -279,6 +295,7 @@ export default {
       "ListaDeTodosHorarios",
       "AllTurmas",
       "AllSalas",
+      "AllDocentes",
     ]),
   },
 };
