@@ -1,11 +1,22 @@
 <template>
-  <BaseModal ref="baseModal" title="Importar plano" position="center" :hasBackground="true" :hasFooter="true">
+  <BaseModal
+    ref="baseModal"
+    title="Importar plano"
+    position="center"
+    :hasBackground="true"
+    :hasFooter="true"
+  >
     <template #modal-body>
       <input type="file" ref="inputFilePlano" />
     </template>
 
     <template #modal-footer>
-      <BaseButton color="lightblue" text="Importar" class="ml-auto" @click="handleImportPlano" />
+      <BaseButton
+        color="lightblue"
+        text="Importar"
+        class="ml-auto"
+        @click="handleImportPlano"
+      />
     </template>
   </BaseModal>
 </template>
@@ -14,7 +25,7 @@
 import XLSX from "xlsx";
 import { mapActions, mapGetters } from "vuex";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
-// import planoService from "../../../common/services/plano";
+import planoService from "../../../common/services/plano";
 
 export default {
   name: "ModalImportPlano",
@@ -33,15 +44,6 @@ export default {
     },
 
     async handleImportPlano() {
-      if (this.AllTurmas.length) {
-        this.pushNotification({
-          type: "error",
-          text: `Plano atual deve estar vázio para fazer a importação!`,
-        });
-        this.$refs.baseModal.close();
-        return;
-      }
-
       this.setPartialLoading(true);
       const inputFile = this.$refs.inputFilePlano.files[0];
       const reader = new FileReader();
@@ -61,10 +63,7 @@ export default {
         const [, periodoStr] = inputFile.name.split(".");
         const periodoDoPlano = parseInt(periodoStr) || null;
 
-        await this.createPlanoImported(
-          turmasDoPlano.slice(480, 500),
-          periodoDoPlano
-        );
+        await this.createPlanoImported(turmasDoPlano.slice(0, 30), periodoDoPlano);
         await this.$store.dispatch("fetchAll");
 
         this.$refs.baseModal.close();
@@ -75,7 +74,6 @@ export default {
     },
 
     async createPlanoImported(turmasImported, periodo = 1) {
-      // Create plano // const newPlano = this.createPlano();
       const keys = {
         disciplinaCod: null,
         letra: null,
@@ -96,9 +94,18 @@ export default {
       }
       let currentTurma = {};
 
+      const response = await planoService.create({
+        ano: 2099,
+        nome: "Plano Importado",
+        obs: "",
+        isEditable: "true",
+        visible: "true",
+      });
+
       for (const turmaFile of turmasImported) {
         const newTurma = generateEmptyTurma();
-        //newTurma.Plano = newPlano.id;
+
+        newTurma.Plano = response.Plano.id;
         newTurma.periodo = periodo;
         newTurma.letra = turmaFile[keys.letra] || null;
         newTurma.Disciplina = this.findDisciplinaId(turmaFile[keys.disciplinaCod]);
@@ -124,13 +131,14 @@ export default {
 
         if (this.isTheSameTurma(currentTurma, newTurma)) {
           //Se é igual a turma anterior, então cria apenas a vaga
-          await this.createPedido(turmaFile, keys, currentTurma.id);
+          // await this.createPedido(turmaFile, keys, currentTurma.id); //Não esta funcionando
           continue;
         }
 
         const turmaCreated = await this.createTurma(newTurma); //Cria a turma
         currentTurma = { ...turmaCreated }; //Atualiza currentTurma
-        await this.createPedido(turmaFile, keys, turmaCreated.id); //Cria pedido
+
+        // await this.createPedido(turmaFile, keys, turmaCreated.id); //Não esta funcionando
       }
     },
     async createPedido(turmaFile, keys, turmaId) {
@@ -183,10 +191,7 @@ export default {
       const nomeHorario = this.parseDiaEHora(dia, hora);
 
       if (nomeHorario) {
-        const horarioFounded = this.$_.find(this.AllHorarios, [
-          "horario",
-          nomeHorario,
-        ]);
+        const horarioFounded = this.$_.find(this.AllHorarios, ["horario", nomeHorario]);
 
         return horarioFounded ? horarioFounded.id : null;
       }
@@ -203,7 +208,12 @@ export default {
 
       let diaNormalized = null;
       let horaNormalized = null;
-      switch (dia.trim().substring(0, 3).toLowerCase()) {
+      switch (
+        dia
+          .trim()
+          .substring(0, 3)
+          .toLowerCase()
+      ) {
         case "seg":
           diaNormalized = "2a";
           break;

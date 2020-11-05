@@ -109,7 +109,7 @@
               <label for="planoObs">Observações</label>
               <textarea
                 id="planoObs"
-                cols="35"
+                cols="38"
                 rows="5"
                 v-model="planoForm.obs"
                 class="form-control"
