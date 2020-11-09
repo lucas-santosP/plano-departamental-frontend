@@ -74,13 +74,14 @@ export default {
         if (currentPlano) {
           this.planoIdForm = currentPlano.id;
         } else {
-          this.planoIdForm = 2090; //id plano Dev
-          this.changeCurrentPlano(this.planoIdForm);
+          const firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
+          this.changeCurrentPlano(firstVisiblePlano.id);
+          this.planoIdForm = firstVisiblePlano.id;
 
           this.pushNotification({
             type: "warn",
             title: "Aviso!",
-            text: "O plano atual foi alterando para o plano 2099 - Dev.",
+            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${firstVisiblePlano.nome}`,
           });
         }
       },
