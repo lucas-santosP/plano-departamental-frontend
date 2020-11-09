@@ -1,7 +1,6 @@
 <template>
   <div class="main-component">
     <PageHeader :title="'Planos'">
-      <BaseButton template="file-upload" @click="$refs.modalImportPlano.open()" />
       <BaseButton template="ajuda" @click="$refs.modalAjuda.toggle()" />
     </PageHeader>
 
@@ -69,13 +68,13 @@
 
       <Card
         :title="'Plano'"
-        :toggleFooter="isEdit"
-        :isPlano="isEdit"
+        :toggleFooter="isEditing"
+        :isPlano="isEditing"
         @btn-salvar="handleEditPlano"
         @btn-delete="openModalDelete"
         @btn-add="openModalNovoPlano"
         @btn-clean="cleanPlano"
-        @btn-copy="copyPlano(planoForm)"
+        @btn-copy="copyPlanoSelected(planoForm)"
       >
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
@@ -86,7 +85,7 @@
                 id="planoNome"
                 v-model="planoForm.nome"
                 class="form-control w-100"
-                @keypress="limitNomeLength"
+                @keypress="limitStringLength"
               />
             </div>
 
@@ -125,8 +124,8 @@
                 v-model.number="planoForm.isEditable"
                 class="form-control"
               >
-                <option value="true">Sim</option>
-                <option value="false">Não</option>
+                <option :value="true">Sim</option>
+                <option :value="false">Não</option>
               </select>
             </div>
 
@@ -137,8 +136,8 @@
                 v-model.number="planoForm.visible"
                 class="form-control"
               >
-                <option value="true">Sim</option>
-                <option value="false">Não</option>
+                <option :value="true">Sim</option>
+                <option :value="false">Não</option>
               </select>
             </div>
           </div>
@@ -148,9 +147,13 @@
 
     <ModalNovoPlano ref="modalNovoPlano" :plano="planoForm" />
 
-    <ModalDelete ref="modalDelete" :isDeleting="isEdit" @btn-deletar="handleDeletePlano">
+    <ModalDelete
+      ref="modalDelete"
+      :isDeleting="isEditing"
+      @btn-deletar="handleDeletePlano"
+    >
       <li class="list-group-item">
-        <span v-if="isEdit">
+        <span v-if="isEditing">
           Tem certeza que deseja excluír o plano
           <b>{{ planoForm.ano + " - " + planoForm.nome }}</b>
           ?
@@ -199,8 +202,6 @@
         informações.
       </li>
     </ModalAjuda>
-
-    <ModalImportPlano ref="modalImportPlano" />
   </div>
 </template>
 
@@ -209,17 +210,15 @@ import { mapGetters, mapActions } from "vuex";
 import { generateBooleanText } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
-import copyPlanoService from "../../../common/services/copyPlano";
-import planoService from "../../../common/services/plano";
-import ModalNovoPlano from "./ModalNovoPlano";
-import ModalImportPlano from "./ModalImportPlano";
-
+import copyPlanoService from "@/common/services/copyPlano";
+import planoService from "@/common/services/plano";
+import ModalNovoPlano from "./ModalNovoPlano/index";
 const emptyPlano = {
-  ano: "",
+  ano: 2019,
   nome: "",
   obs: "",
-  isEditable: "true",
-  visible: "true",
+  isEditable: true,
+  visible: true,
 };
 
 export default {
@@ -230,7 +229,6 @@ export default {
     ModalDelete,
     Card,
     ModalNovoPlano,
-    ModalImportPlano,
   },
   data() {
     return {
@@ -243,8 +241,8 @@ export default {
   methods: {
     ...mapActions(["deletePlano", "editPlano"]),
 
-    limitNomeLength($event) {
-      if ($event.target.value.length >= 10) $event.preventDefault();
+    limitStringLength($event) {
+      if ($event.target.value.length >= 12) $event.preventDefault();
     },
     handleClickInPlano(plano) {
       this.cleanPlano();
@@ -303,7 +301,7 @@ export default {
         this.setPartialLoading(false);
       }
     },
-    copyPlano(oldPlano) {
+    copyPlanoSelected(oldPlano) {
       let newPlano = {
         nome: `Cópia de '${oldPlano.nome}'`,
         ano: oldPlano.ano,
@@ -344,7 +342,7 @@ export default {
       const { order, type } = this.ordenacaoMainPlanos;
       return this.$_.orderBy(this.AllPlanos, order, type);
     },
-    isEdit() {
+    isEditing() {
       return this.planoSelectedId != null;
     },
   },

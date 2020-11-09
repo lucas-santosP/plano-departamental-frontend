@@ -1,102 +1,79 @@
 <template>
-  <BaseModal
-    ref="baseModalNovoPlano"
-    title="Turmas do novo plano"
-    type="editTurma"
-    :hasBackground="true"
-    :hasFooter="true"
-    :btnOkText="'Criar plano'"
-    @on-close="searchDisciplinasModal = ''"
-  >
-    <template #modal-body>
-      <p class="alert alert-secondary">
-        Selecione as disciplinas para quais as turmas do plano atual
-        <b>{{ currentPlano.nome + " - " + currentPlano.ano }}</b>
-        serão copiadas para o novo plano
-      </p>
+  <div>
+    <p class="alert alert-secondary">
+      Selecione as disciplinas para quais as turmas do atual plano
+      <b>{{ currentPlano.nome + " - " + currentPlano.ano }}</b>
+      serão copiadas para o novo plano.
+    </p>
 
-      <div class="div-table">
-        <BaseTable
-          type="modal"
-          :styles="'max-height: 500px;height:500px'"
-          :hasSearchBar="true"
-        >
-          <template #thead-search>
-            <InputSearch
-              v-model="searchDisciplinasModal"
-              placeholder="Pesquise nome ou codigo de uma disciplina..."
-            />
-          </template>
-          <template #thead>
-            <v-th width="25" />
-            <v-th-ordination
-              :currentOrder="ordenacaoModal.disciplinas"
-              orderToCheck="codigo"
-              width="80"
-              align="start"
-            >
-              Código
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoModal.disciplinas"
-              orderToCheck="nome"
-              width="260"
-              align="start"
-            >
-              Nome
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoModal.disciplinas"
-              orderToCheck="perfil.abreviacao"
-              width="85"
-              align="start"
-            >
-              Perfil
-            </v-th-ordination>
-          </template>
+    <div class="div-table">
+      <BaseTable
+        type="modal"
+        :hasSearchBar="true"
+        :styles="'max-height:500px; height:500px'"
+      >
+        <template #thead-search>
+          <InputSearch
+            v-model="searchDisciplinasModal"
+            placeholder="Pesquise nome ou codigo de uma disciplina..."
+          />
+        </template>
+        <template #thead>
+          <v-th width="25" />
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="codigo"
+            width="80"
+            align="start"
+          >
+            Código
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="nome"
+            width="260"
+            align="start"
+          >
+            Nome
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.disciplinas"
+            orderToCheck="perfil.abreviacao"
+            width="85"
+            align="start"
+          >
+            Perfil
+          </v-th-ordination>
+        </template>
 
-          <template #tbody>
-            <tr
-              v-for="disciplina in DisciplinasOrderedModal"
-              :key="disciplina.id"
-              @click="toggleItemInArray(disciplina.id, filtrosDisciplinas)"
-              v-prevent-click-selection
-            >
-              <v-td width="25" type="content">
-                <input
-                  type="checkbox"
-                  v-model="filtrosDisciplinas"
-                  :value="disciplina.id"
-                />
-              </v-td>
-              <v-td width="80" align="start">{{ disciplina.codigo }}</v-td>
-              <v-td width="260" align="start" :title="disciplina.nome">
-                {{ disciplina.nome }}
-              </v-td>
-              <v-td width="85" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
-            </tr>
+        <template #tbody>
+          <tr
+            v-for="disciplina in DisciplinasOrderedModal"
+            :key="disciplina.id"
+            @click="toggleItemInArray(disciplina.id, filtrosDisciplinas)"
+            v-prevent-click-selection
+          >
+            <v-td width="25" type="content">
+              <input
+                type="checkbox"
+                v-model="filtrosDisciplinas"
+                :value="disciplina.id"
+              />
+            </v-td>
+            <v-td width="80" align="start">{{ disciplina.codigo }}</v-td>
+            <v-td width="260" align="start" :title="disciplina.nome">
+              {{ disciplina.nome }}
+            </v-td>
+            <v-td width="85" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
+          </tr>
 
-            <tr v-if="!DisciplinasOrderedModal.length">
-              <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
-            </tr>
-          </template>
-        </BaseTable>
-      </div>
-    </template>
-
-    <template #modal-footer>
-      <div>
-        <BaseButton
-          text="Selecionar Todos"
-          color="lightblue"
-          @click="selectAllDisciplinas"
-        />
-        <BaseButton text="Desmarcar Todos" color="gray" @click="selectNoneDisciplinas" />
-        <slot name="modal-footer-btn"></slot>
-      </div>
-      <BaseButton text="OK" color="green" class="px-3" @click="createNovoPlano" />
-    </template>
-  </BaseModal>
+          <tr v-if="!DisciplinasOrderedModal.length">
+            <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
+          </tr>
+        </template>
+      </BaseTable>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -109,11 +86,12 @@ import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import { toggleItemInArray, preventClickSelection } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
+import ImportPlano from "./ImportPlano";
 
 export default {
   name: "ModalNovoPlano",
   mixins: [toggleItemInArray, preventClickSelection],
-  components: { InputSearch },
+  components: { InputSearch, ImportPlano },
   props: {
     plano: { type: Object, required: true },
   },
@@ -542,7 +520,7 @@ export default {
       disciplinasNovoPlano1Semestre = this.$_.filter(
         disciplinasNovoPlano1Semestre,
         (d) => {
-          let perfil = this.$_.find(this.AllDisciplinas, {
+          let perfil = this.$_.find(this.DisciplinasInPerfis, {
             id: d.Disciplina,
           }).Perfil;
           return perfil !== 13 && perfil !== 15;
@@ -551,7 +529,7 @@ export default {
       disciplinasNovoPlano2Semestre = this.$_.filter(
         disciplinasNovoPlano2Semestre,
         (d) => {
-          let perfil = this.$_.find(this.AllDisciplinas, {
+          let perfil = this.$_.find(this.DisciplinasInPerfis, {
             id: d.Disciplina,
           }).Perfil;
           return perfil !== 13 && perfil !== 15;
@@ -642,7 +620,7 @@ export default {
 
       return turmasNovoPlano;
     },
-    createNovoPlano() {
+    handleCopyPlano() {
       this.setPartialLoading(true);
       let turmasNovoPlano = this.generateTurmasNovoPlano();
 
@@ -810,7 +788,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DisciplinasInPerfis", "AllDisciplinas"]),
+    ...mapGetters(["DisciplinasInPerfis"]),
 
     DisciplinasOrderedModal() {
       return this.$_.orderBy(
@@ -837,40 +815,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.alert {
-  word-break: break-word;
-  font-size: 12px;
-  padding: 8px 10px;
-  padding-right: 20px;
-  margin-bottom: 0.5rem;
-  background-color: #e9ecef !important;
-}
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-size: 14px;
-}
-select,
-textarea {
-  font-size: 14px;
-  padding: 5px;
-}
-.form-container .form-row {
-  position: relative;
-  margin: 0 !important;
-  margin-bottom: 10px !important;
-  width: 100%;
-}
-.form-row label {
-  width: 100%;
-  font-weight: bold;
-}
-.form-row .input-ano {
-  width: 100px;
-  height: 30px;
-}
-</style>

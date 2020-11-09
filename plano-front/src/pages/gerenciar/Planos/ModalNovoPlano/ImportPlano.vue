@@ -1,47 +1,55 @@
 <template>
-  <BaseModal
-    ref="baseModal"
-    title="Importar plano"
-    position="center"
-    :hasBackground="true"
-    :hasFooter="true"
-  >
-    <template #modal-body>
-      <input type="file" ref="inputFilePlano" />
-    </template>
+  <div>
+    <p class="alert alert-secondary">
+      Selecione um arquivo
+      <b>.csv</b>
+      para importar as turmas para o novo plano.
+    </p>
 
-    <template #modal-footer>
-      <BaseButton
-        color="lightblue"
-        text="Importar"
-        class="ml-auto"
-        @click="handleImportPlano"
-      />
-    </template>
-  </BaseModal>
+    <div class="form-row">
+      <div class="form-group col-4">
+        <label for="periodoPlano">Período das turmas:</label>
+        <select
+          id="periodoPlano"
+          v-model.number="periodoTurmas"
+          class="form-control w-100"
+        >
+          <option
+            v-for="periodo in PeriodosLetivos"
+            :key="periodo.id + periodo.nome"
+            :value="periodo.id"
+          >
+            {{ periodo.nome }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <input type="file" ref="inputFilePlano" class="w-100 form-control-file" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import XLSX from "xlsx";
 import { mapActions, mapGetters } from "vuex";
+import XLSX from "xlsx";
+import planoService from "@/common/services/plano";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
-import planoService from "../../../common/services/plano";
 
 export default {
   name: "ModalImportPlano",
+  props: { plano: { type: Object, required: true } },
+  data() {
+    return {
+      periodoTurmas: null,
+    };
+  },
 
   methods: {
     ...mapActions(["createTurma", "editPedido"]),
-
-    open() {
-      this.$refs.baseModal.open();
-    },
-    toggle() {
-      this.$refs.baseModal.toggle();
-    },
-    close() {
-      this.$refs.baseModal.close();
-    },
 
     async handleImportPlano() {
       this.setPartialLoading(true);
@@ -60,13 +68,9 @@ export default {
 
         const turmasDoPlano = JSON.parse(dataStringNormalized);
 
-        const [, periodoStr] = inputFile.name.split(".");
-        const periodoDoPlano = parseInt(periodoStr) || null;
-
-        await this.createPlanoImported(turmasDoPlano, periodoDoPlano);
+        await this.createPlanoImported(turmasDoPlano, this.periodoTurmas);
         await this.$store.dispatch("fetchAll");
 
-        this.$refs.baseModal.close();
         this.setPartialLoading(false);
       };
 
@@ -95,13 +99,7 @@ export default {
       }
       let currentTurma = {};
 
-      const response = await planoService.create({
-        ano: 2099,
-        nome: "Plano Importado",
-        obs: "",
-        isEditable: "true",
-        visible: "true",
-      });
+      const response = await planoService.create(this.plano);
 
       for (const turmaFile of turmasImported) {
         const newTurma = generateEmptyTurma();
@@ -296,6 +294,7 @@ export default {
       "AllTurmas",
       "AllSalas",
       "AllDocentes",
+      "PeriodosLetivos",
     ]),
   },
 };
