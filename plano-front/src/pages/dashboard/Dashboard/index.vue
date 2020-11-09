@@ -47,9 +47,8 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      let currentId = localStorage.getItem("Plano");
-      if (!this.$_.find(this.AllPlanos, ["id", parseInt(currentId)]).visible) {
-        let firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
+      if (!this.$_.find(this.AllPlanos, ["id", this.currentPlano.id]).visible) {
+        const firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
         this.changeCurrentPlano(firstVisiblePlano.id);
       }
     });
