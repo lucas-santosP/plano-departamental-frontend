@@ -8,7 +8,7 @@
 
     <div class="form-row">
       <div class="form-group col-4">
-        <label for="periodoPlano">Período das turmas:</label>
+        <label for="periodoPlano">Período:</label>
         <select
           id="periodoPlano"
           v-model.number="periodoTurmas"

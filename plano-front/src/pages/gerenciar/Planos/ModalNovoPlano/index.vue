@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     ref="baseModalPlano"
-    title="Turmas do plano"
+    title="Plano departamental"
     type="editTurma"
     class="modal-plano"
     :hasBackground="true"
