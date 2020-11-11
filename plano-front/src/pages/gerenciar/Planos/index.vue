@@ -1,6 +1,6 @@
 <template>
   <div class="main-component">
-    <PageHeader :title="'Planos'">
+    <PageHeader :title="'Plano departamental'">
       <BaseButton template="ajuda" @click="$refs.modalAjuda.toggle()" />
     </PageHeader>
 
