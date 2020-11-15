@@ -1,10 +1,10 @@
 <template>
   <div class="main-component">
     <PageHeader :title="'Preferências dos docentes'">
-      <BaseButton template="adicionar" @click="openModalNewPreferencia" />
-      <BaseButton template="file-upload" @click="openModalUpload" />
+      <BaseButton template="adicionar" @click="toggleAsideModal('newPref')" />
+      <BaseButton template="file-upload" @click="toggleAsideModal('upload')" />
       <BaseButton template="swap-modes" @click="toggleTableMode" />
-      <!-- <BaseButton template="ajuda" /> -->
+      <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
 
     <div class="div-table">
@@ -224,7 +224,7 @@
       <template #modal-footer>
         <BaseButton
           color="lightblue"
-          text="Confirmar"
+          text="Salvar"
           class="ml-auto"
           @click="handleEditPrefs"
         />
@@ -418,7 +418,7 @@
       class="modal-pref"
       :title="'Importar preferências'"
       :hasFooter="true"
-      :hasBackground="true"
+      position="right"
       :styles="{ width: '400px' }"
     >
       <template #modal-body>
@@ -434,6 +434,43 @@
         />
       </template>
     </BaseModal>
+
+    <ModalAjuda ref="modalAjuda">
+      <li class="list-group-item">
+        <b>Adicionar:</b>
+        Clique no ícone de adicionar
+        <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
+        no cabeçalho da página. Em seguida, preencha a janela que se abrirá à direita e
+        para finalizar clique no botão Confirmar. Ou para adicionar uma preferência
+        diretamente numa linha da tabela clique no icone de adicionar
+        <font-awesome-icon :icon="['fas', 'plus']" class="icon-darkgray" />
+        na coluna Pref. (preferência) da linha que deseja, preencha a janela que se abrirá
+        à direita e para finalizar clique no botão Confirmar.
+      </li>
+      <li class="list-group-item">
+        <b>Editar:</b>
+        Clique no numero da coluna Pref. (preferência) na linha que deseja alterar. Em
+        seguida, na janela que se abrirá à direita altere as informações que desejar e
+        clique em Salvar.
+      </li>
+      <li class="list-group-item">
+        <b>Deletar:</b>
+        Basta seguir os passos da edição descrito acima colocando o valor da preferência
+        como zero.
+      </li>
+      <li class="list-group-item">
+        <b>Alterar visualizaçao da tabela:</b>
+        Clique no ícone de alterar visualizaçao
+        <font-awesome-icon :icon="['fas', 'sync-alt']" class="icon-gray" />
+        no cabeçalho da página para alterar a visualizaçao das preferencias entre docentes
+        por disciplinas, ou disciplinas por docentes.
+      </li>
+      <li class="list-group-item">
+        <b>Ordenar:</b>
+        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das
+        informações.
+      </li>
+    </ModalAjuda>
   </div>
 </template>
 
@@ -442,12 +479,21 @@ import { mapGetters } from "vuex";
 import XLSX from "xlsx";
 import docenteDisciplinaService from "@/common/services/docenteDisciplina";
 import { ModalAjuda } from "@/components/modals";
+import { toggleAsideModal } from "@/common/mixins";
 
 export default {
   name: "PreferenciasDocentes",
   components: { ModalAjuda },
+  mixins: [toggleAsideModal],
   data() {
     return {
+      asideModalsRefs: [
+        "modalAjuda",
+        "modalAddPref",
+        "modalEditPref",
+        "modalNewPref",
+        "modalUpload",
+      ],
       file: null,
       preferenciaForm: {
         Docente: null,
@@ -502,6 +548,11 @@ export default {
       this.$refs.modalAddPref.close();
       this.$refs.modalEditPref.close();
     },
+    closeAllModals() {
+      this.$_.forEach(this.asideModalsRefs, (ref) => {
+        this.$refs[ref].close();
+      });
+    },
     openModalEditPreferencia(preferencia) {
       this.edit.docente = { ...preferencia.docente };
       this.edit.disciplina = { ...preferencia.disciplina };
@@ -518,8 +569,7 @@ export default {
         Disciplina: preferencia.Disciplina,
         preferencia: p,
       };
-      this.$refs.modalNewPref.close();
-      this.$refs.modalAddPref.close();
+      this.closeAllModals();
       this.$refs.modalEditPref.open();
     },
     openModalAddPreferencia(data) {
@@ -529,17 +579,8 @@ export default {
         this.add.Docente = data;
       }
 
-      this.$refs.modalNewPref.close();
-      this.$refs.modalEditPref.close();
+      this.closeAllModals();
       this.$refs.modalAddPref.open();
-    },
-    openModalNewPreferencia() {
-      this.$refs.modalAddPref.close();
-      this.$refs.modalEditPref.close();
-      this.$refs.modalNewPref.open();
-    },
-    openModalUpload() {
-      this.$refs.modalUpload.open();
     },
     findPreferencia(docente, disciplina) {
       let preferenciaFounded = this.$_.find(this.PreferenciasDocentes, {
