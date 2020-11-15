@@ -18,11 +18,24 @@
           >
             Código
           </v-th-ordination>
-          <v-th width="420" align="start">Nome</v-th>
-          <v-th width="80">Perfil</v-th>
+          <v-th-ordination
+            :currentOrder="ordenacaoDisciplina.disciplinas"
+            orderToCheck="nome"
+            width="420"
+            align="start"
+          >
+            Nome
+          </v-th-ordination>
+          <v-th-ordination
+            width="80"
+            :currentOrder="ordenacaoDisciplina.disciplinas"
+            orderToCheck="perfil.abreviacao"
+          >
+            Perfil
+          </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoDisciplina.docentes"
-            orderToCheck="docente.nome"
+            orderToCheck="docente.apelido"
             width="120"
             align="start"
           >
@@ -41,31 +54,25 @@
         </template>
 
         <template #tbody>
-          <template v-for="disciplina in DocentesPorDisciplinasOrdered">
-            <tr :key="disciplina[0].Disciplina" class="bg-custom">
-              <v-td width="90" align="start">
-                {{ disciplina[0].disciplina.codigo }}
-              </v-td>
-              <v-td width="420" align="start">
-                {{ disciplina[0].disciplina.nome }}
-              </v-td>
-              <v-td width="80" paddingX="2">
-                {{ disciplina[0].disciplina.perfil.abreviacao }}
-              </v-td>
+          <template v-for="disciplina in DisciplinasInPreferenciasOrdered">
+            <tr :key="disciplina.id" class="bg-custom">
+              <v-td width="90" align="start">{{ disciplina.codigo }}</v-td>
+              <v-td width="420" align="start">{{ disciplina.nome }}</v-td>
+              <v-td width="80" paddingX="2">{{ disciplina.perfil.abreviacao }}</v-td>
               <v-td width="120" />
               <v-td
                 width="60"
                 class="clickable"
                 type="content"
-                @click="openModalAddPreferencia(disciplina[0])"
+                @click="openModalAddPreferencia(disciplina)"
               >
                 <font-awesome-icon :icon="['fas', 'plus']" class="icon-darkgray" />
               </v-td>
             </tr>
 
             <tr
-              v-for="preferencia in disciplina"
-              :key="preferencia.Disciplina + '-' + preferencia.Docente"
+              v-for="preferencia in disciplina.preferencias"
+              :key="preferencia.Docente + '-' + preferencia.Disciplina"
             >
               <v-td width="90" />
               <v-td width="420" />
@@ -135,9 +142,9 @@
         </template>
 
         <template #tbody>
-          <template v-for="docente in DisciplinasPorDocentesOrdered">
-            <tr :key="docente[0].Docente" class="bg-custom">
-              <v-td width="120" align="start">{{ docente[0].docente.apelido }}</v-td>
+          <template v-for="docente in DocentesInPreferenciasOrdered">
+            <tr :key="docente.id" class="bg-custom">
+              <v-td width="120" align="start">{{ docente.apelido }}</v-td>
               <v-td width="90" />
               <v-td width="420" />
               <v-td width="80" />
@@ -145,14 +152,14 @@
                 width="60"
                 type="content"
                 class="clickable"
-                @click="openModalAddPreferencia(docente[0])"
+                @click="openModalAddPreferencia(docente)"
               >
                 <font-awesome-icon :icon="['fas', 'plus']" class="icon-darkgray" />
               </v-td>
             </tr>
 
             <tr
-              v-for="preferencia in docente"
+              v-for="preferencia in docente.preferencias"
               :key="preferencia.Docente + '-' + preferencia.Disciplina"
             >
               <v-td width="120" />
@@ -250,7 +257,7 @@
               <label for="addDocente">Docente:</label>
               <select id="addDocente" class="form-control" v-model="add.Docente">
                 <option
-                  v-for="docente in AllDocentes"
+                  v-for="docente in DocentesAtivos"
                   :key="docente.id + docente.apelido"
                   :value="docente.id"
                 >
@@ -288,7 +295,7 @@
                 v-model="add.Disciplina"
               >
                 <option
-                  v-for="disciplina in AllDisciplinas"
+                  v-for="disciplina in DisciplinasDCCInPerfis"
                   :key="disciplina.id + disciplina.codigo"
                   :value="disciplina.id"
                 >
@@ -303,7 +310,7 @@
               <label for="addDisciplina">Código:</label>
               <select id="addDisciplina" class="form-control" v-model="add.Disciplina">
                 <option
-                  v-for="disciplina in AllDisciplinas"
+                  v-for="disciplina in DisciplinasDCCInPerfis"
                   :key="disciplina.id + disciplina.codigo"
                   :value="disciplina.id"
                 >
@@ -348,7 +355,7 @@
             <label for="newDisciplina">Disciplina:</label>
             <select id="newDisciplina" class="form-control" v-model="add.Disciplina">
               <option
-                v-for="disciplina in AllDisciplinas"
+                v-for="disciplina in DisciplinasDCCInPerfis"
                 :key="disciplina.id + disciplina.codigo"
                 :value="disciplina.id"
               >
@@ -363,7 +370,7 @@
             <label for="newCodigo">Código:</label>
             <select id="newCodigo" class="form-control" v-model="add.Disciplina">
               <option
-                v-for="disciplina in AllDisciplinas"
+                v-for="disciplina in DisciplinasDCCInPerfis"
                 :key="disciplina.id + disciplina.codigo"
                 :value="disciplina.id"
               >
@@ -376,7 +383,7 @@
             <label for="newDocente">Docente:</label>
             <select id="newDocente" class="form-control" v-model="add.Docente">
               <option
-                v-for="docente in AllDocentes"
+                v-for="docente in DocentesAtivos"
                 :key="docente.id + docente.nome"
                 :value="docente.id"
               >
@@ -466,7 +473,7 @@ export default {
       },
       ordenacaoDisciplina: {
         disciplinas: { order: "codigo", type: "asc" },
-        docentes: { order: "apelido", type: "asc" },
+        docentes: { order: "docente.apelido", type: "asc" },
         pref: { order: "preferencia", type: "desc" },
       },
     };
@@ -515,11 +522,11 @@ export default {
       this.$refs.modalAddPref.close();
       this.$refs.modalEditPref.open();
     },
-    openModalAddPreferencia({ disciplina, docente }) {
+    openModalAddPreferencia(data) {
       if (this.tableMode === "disciplina") {
-        this.add.Disciplina = disciplina;
+        this.add.Disciplina = data;
       } else {
-        this.add.Docente = docente;
+        this.add.Docente = data;
       }
 
       this.$refs.modalNewPref.close();
@@ -650,8 +657,8 @@ export default {
       this.file = this.$refs.xlsxPrefs.files[0];
       const reader = new FileReader();
 
-      const docentes = this.AllDocentes;
-      const disciplinas = this.AllDisciplinas;
+      const docentes = this.DocentesAtivos;
+      const disciplinas = this.DisciplinasDCCInPerfis;
       const preferencias = this.PreferenciasDocentes;
       reader.onload = function(e) {
         const workbook = XLSX.read(e.target.result, { type: "binary" });
@@ -725,111 +732,87 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllDocentes", "AllDisciplinas", "PreferenciasDocentes"]),
+    ...mapGetters(["DocentesAtivos", "DisciplinasDCCInPerfis", "PreferenciasDocentes"]),
 
-    DocentesPorDisciplinasOrdered() {
-      const prefsOrdered = {};
+    DocentesInPreferenciasOrdered() {
+      const disciplinasOrd = this.ordenacaoDocentes.disciplinas;
+      const docentesOrd = this.ordenacaoDocentes.docentes;
+      const preferenciaOrd = this.ordenacaoDocentes.pref;
 
-      if (this.ordenacaoDisciplina.disciplinas.type === "asc") {
-        this.$_(this.DocentesPorDisciplinas)
-          .keys()
-          .sort()
-          .each((key) => {
-            prefsOrdered[key] = this.DocentesPorDisciplinas[key];
-          });
-      } else {
-        this.$_(this.DocentesPorDisciplinas)
-          .keys()
-          .sort()
-          .reverse()
-          .each((key) => {
-            prefsOrdered[key] = this.DocentesPorDisciplinas[key];
-          });
-      }
+      const docentesOrdered = this.$_.map(this.DocentesInPreferencias, (docente) => {
+        return {
+          ...docente,
+          preferencias: this.$_.orderBy(
+            docente.preferencias,
+            [preferenciaOrd.order, disciplinasOrd.order],
+            [preferenciaOrd.type, disciplinasOrd.type]
+          ),
+        };
+      });
 
-      const docentesOrd = this.ordenacaoDisciplina.docentes;
-      const prefOrd = this.ordenacaoDisciplina.pref;
-
-      for (var key in prefsOrdered) {
-        if (Object.prototype.hasOwnProperty.call(prefsOrdered, key)) {
-          prefsOrdered[key] = this.$_.orderBy(
-            prefsOrdered[key],
-            [prefOrd.order, docentesOrd.order],
-            [prefOrd.type, docentesOrd.type]
-          );
-        }
-      }
-
-      return prefsOrdered;
+      return this.$_.orderBy(docentesOrdered, docentesOrd.order, docentesOrd.type);
     },
-    DocentesPorDisciplinas() {
-      const preferencias = this.$_.orderBy(
-        this.PreferenciasDocentes,
-        "disciplina.codigo"
+    DocentesInPreferencias() {
+      const docentesResult = [];
+
+      this.$_.forEach(this.DocentesAtivos, (docente) => {
+        const preferenciasDoDocente = this.$_.filter(this.PreferenciasDocentes, [
+          "Docente",
+          docente.id,
+        ]);
+
+        if (preferenciasDoDocente.length)
+          docentesResult.push({
+            ...preferenciasDoDocente[0].docente,
+            preferencias: preferenciasDoDocente,
+          });
+      });
+
+      return docentesResult;
+    },
+
+    DisciplinasInPreferenciasOrdered() {
+      const docentesOrd = this.ordenacaoDisciplina.docentes;
+      const disciplinasOrd = this.ordenacaoDisciplina.disciplinas;
+      const preferenciaOrd = this.ordenacaoDisciplina.pref;
+
+      const disciplinasOrdered = this.$_.map(
+        this.DisciplinasInPreferencias,
+        (disciplina) => {
+          return {
+            ...disciplina,
+            preferencias: this.$_.orderBy(
+              disciplina.preferencias,
+              [preferenciaOrd.order, docentesOrd.order],
+              [preferenciaOrd.type, docentesOrd.type]
+            ),
+          };
+        }
       );
 
-      const prefs = {};
-      this.$_.forEach(preferencias, (pref) => {
-        if (prefs[pref.disciplina.codigo] === undefined) {
-          prefs[pref.disciplina.codigo] = [];
-        }
+      return this.$_.orderBy(
+        disciplinasOrdered,
+        disciplinasOrd.order,
+        disciplinasOrd.type
+      );
+    },
+    DisciplinasInPreferencias() {
+      const disciplinasResult = [];
 
-        prefs[pref.disciplina.codigo].push(pref);
+      this.$_.forEach(this.DisciplinasDCCInPerfis, (disciplina) => {
+        const preferenciasDaDisciplina = this.$_.filter(this.PreferenciasDocentes, [
+          "Disciplina",
+          disciplina.id,
+        ]);
+
+        if (preferenciasDaDisciplina.length)
+          disciplinasResult.push({
+            ...preferenciasDaDisciplina[0].disciplina,
+            preferencias: preferenciasDaDisciplina,
+          });
       });
 
-      return prefs;
-    },
-
-    DisciplinasPorDocentesOrdered() {
-      const prefsOrdered = {};
-
-      if (this.ordenacaoDocentes.docentes.type === "asc") {
-        this.$_(this.DisciplinasPorDocentes)
-          .keys()
-          .sort()
-          .each((key) => {
-            prefsOrdered[key] = this.DisciplinasPorDocentes[key];
-          });
-      } else {
-        this.$_(this.DisciplinasPorDocentes)
-          .keys()
-          .sort()
-          .reverse()
-          .each((key) => {
-            prefsOrdered[key] = this.DisciplinasPorDocentes[key];
-          });
-      }
-
-      const disciplinasOrd = this.ordenacaoDocentes.disciplinas;
-      const prefOrd = this.ordenacaoDocentes.pref;
-
-      for (var key in prefsOrdered) {
-        if (Object.prototype.hasOwnProperty.call(prefsOrdered, key)) {
-          prefsOrdered[key] = this.$_.orderBy(
-            prefsOrdered[key],
-            [prefOrd.order, disciplinasOrd.order],
-            [prefOrd.type, disciplinasOrd.type]
-          );
-        }
-      }
-
-      return prefsOrdered;
-    },
-    DisciplinasPorDocentes() {
-      const preferencias = this.$_.orderBy(this.PreferenciasDocentes, [
-        "docente.apelido",
-      ]);
-
-      const prefs = {};
-      this.$_.forEach(preferencias, (pref) => {
-        if (prefs[pref.docente.apelido] === undefined) {
-          prefs[pref.docente.apelido] = [];
-        }
-
-        prefs[pref.docente.apelido].push(pref);
-      });
-
-      return prefs;
+      return disciplinasResult;
     },
   },
 };
