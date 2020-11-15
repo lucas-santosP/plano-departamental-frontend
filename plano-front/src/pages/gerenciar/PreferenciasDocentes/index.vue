@@ -535,7 +535,7 @@ export default {
       this.$refs.modalUpload.open();
     },
     findPreferencia(docente, disciplina) {
-      let preferenciaFounded = this.$_.find(this.PreferenciaDosDocentes, {
+      let preferenciaFounded = this.$_.find(this.PreferenciasDocentes, {
         Docente: docente.id,
         Disciplina: disciplina.id,
       });
@@ -652,7 +652,7 @@ export default {
 
       const docentes = this.AllDocentes;
       const disciplinas = this.AllDisciplinas;
-      const preferencias = this.PreferenciaDosDocentes;
+      const preferencias = this.PreferenciasDocentes;
       reader.onload = function(e) {
         const workbook = XLSX.read(e.target.result, { type: "binary" });
         let first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -725,7 +725,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllDocentes", "AllDisciplinas", "PreferenciaDosDocentes"]),
+    ...mapGetters(["AllDocentes", "AllDisciplinas", "PreferenciasDocentes"]),
 
     DocentesPorDisciplinasOrdered() {
       const prefsOrdered = {};
@@ -764,7 +764,7 @@ export default {
     },
     DocentesPorDisciplinas() {
       const preferencias = this.$_.orderBy(
-        this.PreferenciaDosDocentes,
+        this.PreferenciasDocentes,
         "disciplina.codigo"
       );
 
@@ -816,7 +816,7 @@ export default {
       return prefsOrdered;
     },
     DisciplinasPorDocentes() {
-      const preferencias = this.$_.orderBy(this.PreferenciaDosDocentes, [
+      const preferencias = this.$_.orderBy(this.PreferenciasDocentes, [
         "docente.apelido",
       ]);
 

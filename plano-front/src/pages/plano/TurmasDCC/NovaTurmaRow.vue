@@ -278,11 +278,11 @@ export default {
       "HorariosNoturno",
       "HorariosDiurno",
       "AllSalas",
-      "PreferenciaDosDocentes",
+      "PreferenciasDocentes",
     ]),
 
     PreferenciasDisciplina() {
-      return this.$_.filter(this.PreferenciaDosDocentes, [
+      return this.$_.filter(this.PreferenciasDocentes, [
         "Disciplina",
         this.turmaForm.Disciplina,
       ]);
