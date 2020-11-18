@@ -72,7 +72,7 @@ const actions = {
     });
   },
 
-  async createTurma(_, turma) {
+  async createTurma({}, turma) {
     const turmaNormalized = _.cloneDeepWith(turma, setEmptyValuesToNull);
     validateObjectKeys(turmaNormalized, ["Disciplina", "letra", "turno1"]);
 
