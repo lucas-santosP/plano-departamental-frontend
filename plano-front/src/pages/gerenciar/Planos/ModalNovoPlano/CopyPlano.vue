@@ -108,13 +108,6 @@ export default {
   },
 
   methods: {
-    open() {
-      this.$refs.baseModalNovoPlano.open();
-    },
-    close() {
-      this.$refs.baseModalNovoPlano.close();
-    },
-
     selectAllDisciplinas() {
       this.filtrosDisciplinas = this.$_.union(
         this.filtrosDisciplinas,
@@ -780,7 +773,6 @@ export default {
         this.$store.dispatch("fetchAll").then(() => {
           setTimeout(() => {
             this.setPartialLoading(false);
-            this.close();
           }, 300);
         });
       });
