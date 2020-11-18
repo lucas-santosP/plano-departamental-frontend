@@ -73,13 +73,20 @@ export default {
       this.$refs.baseModalPlano.close();
     },
     async handleCreatePlano() {
-      if (this.currentTab === "Importar") {
-        await this.$refs.importPlano.handleImportPlano();
-      } else if (this.currentTab === "Copiar") {
-        await this.$refs.copyPlano.handleCopyPlano();
-      }
+      try {
+        if (this.currentTab === "Importar") {
+          await this.$refs.importPlano.handleImportPlano();
+        } else if (this.currentTab === "Copiar") {
+          await this.$refs.copyPlano.handleCopyPlano();
+        }
 
-      this.close();
+        this.close();
+      } catch (error) {
+        this.pushNotification({
+          type: "error",
+          text: error.message,
+        });
+      }
     },
   },
 };
