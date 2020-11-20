@@ -96,6 +96,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { orderBy, find, filter } from "lodash-es";
 
 export default {
   name: "ModalVagas",
@@ -122,7 +123,7 @@ export default {
     ...mapGetters(["TurmasInDisciplinasPerfis", "AllCursos"]),
 
     PedidosOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.PedidosFiltredByTurma,
         this.ordenacaoVagas.order,
         this.ordenacaoVagas.type
@@ -131,18 +132,18 @@ export default {
     PedidosFiltredByTurma() {
       if (this.turmaLetraForm === null) return [];
 
-      const currentTurmaSelected = this.$_.find(this.TurmasOptionsModalVagas, [
+      const currentTurmaSelected = find(this.TurmasOptionsModalVagas, [
         "letra",
         this.turmaLetraForm,
       ]);
 
-      const pedidosDaTurma = this.$_.filter(
+      const pedidosDaTurma = filter(
         this.Pedidos[currentTurmaSelected.id],
         (pedido) => pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0
       );
 
-      return this.$_.map(pedidosDaTurma, (pedido) => {
-        const cursoFounded = this.$_.find(this.AllCursos, ["id", pedido.Curso]);
+      return pedidosDaTurma.map((pedido) => {
+        const cursoFounded = find(this.AllCursos, ["id", pedido.Curso]);
 
         return {
           ...pedido,
@@ -155,14 +156,14 @@ export default {
     TurmasOptionsModalVagas() {
       if (this.turma === null) return [];
 
-      const turmasResultantes = this.$_.filter(
+      const turmasResultantes = filter(
         this.TurmasInDisciplinasPerfis,
         (turma) =>
           turma.Disciplina === this.turma.Disciplina &&
           turma.periodo === this.turma.periodo
       );
 
-      return this.$_.orderBy(turmasResultantes, ["periodo"]);
+      return orderBy(turmasResultantes, ["periodo"]);
     },
 
     Pedidos() {

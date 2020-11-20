@@ -281,6 +281,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { union, difference, orderBy, some, filter } from "lodash-es";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -337,7 +338,7 @@ export default {
       modalFiltrosCallbacks: {
         selectAll: {
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.union(
+            this.filtroDisciplinas.selecionados = union(
               this.DisciplinasOptionsFiltered,
               this.filtroDisciplinas.selecionados
             );
@@ -353,7 +354,7 @@ export default {
         },
         selectNone: {
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.difference(
+            this.filtroDisciplinas.selecionados = difference(
               this.filtroDisciplinas.selecionados,
               this.DisciplinasOptionsFiltered
             );
@@ -415,25 +416,25 @@ export default {
     ]),
 
     TurmasExternasOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.TurmasExternarFiltredByDisciplinas,
         ["periodo", this.ordenacaoTurmasMain.order],
         ["asc", this.ordenacaoTurmasMain.type]
       );
     },
     TurmasExternarFiltredByDisciplinas() {
-      return this.$_.filter(this.TurmasExternarFiltredByPeriodos, (turma) =>
-        this.$_.some(this.filtroDisciplinas.ativadas, ["id", turma.Disciplina])
+      return filter(this.TurmasExternarFiltredByPeriodos, (turma) =>
+        some(this.filtroDisciplinas.ativadas, ["id", turma.Disciplina])
       );
     },
     TurmasExternarFiltredByPeriodos() {
-      return this.$_.filter(this.TurmasExternasInDisciplinas, (turma) =>
-        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      return filter(this.TurmasExternasInDisciplinas, (turma) =>
+        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
 
     DisciplinasOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DisciplinasOptionsFiltered,
         this.ordenacaoDisciplinasModal.order,
         this.ordenacaoDisciplinasModal.type
@@ -444,7 +445,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasExternasInPerfis, (disciplina) => {
+      return filter(this.DisciplinasExternasInPerfis, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 

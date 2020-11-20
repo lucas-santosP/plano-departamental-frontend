@@ -421,6 +421,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { union, difference, find, filter, orderBy } from "lodash-es";
 import turmaService from "@/common/services/turma";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
 import {
@@ -500,36 +501,32 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.union(
+            this.filtroDisciplinas.selecionados = union(
               this.DisciplinasOptionsFiltered,
               this.filtroDisciplinas.selecionados
             );
             this.conectaDisciplinasEmPerfis();
           },
           Docentes: () => {
-            this.searchConditions.Docentes = this.$_.union(
+            this.searchConditions.Docentes = union(
               this.searchConditions.Docentes,
-              this.$_.map(this.DocentesFiltredModal, "id")
+              this.DocentesFiltredModal.map((docente) => docente.id)
             );
           },
           Horarios: () => {
-            this.searchConditions.Horarios = this.$_.union(
+            this.searchConditions.Horarios = union(
               this.searchConditions.Horarios,
-              this.$_.map(this.HorariosOptionsFiltered, "id")
+              this.HorariosOptionsFiltered.map((horario) => horario.id)
             );
           },
           Salas: () => {
-            this.searchConditions.Salas = this.$_.union(
+            this.searchConditions.Salas = union(
               this.searchConditions.Salas,
-              this.$_.map(this.SalasOptionsFiltered, "id")
+              this.SalasOptionsFiltered.map((sala) => sala.id)
             );
           },
           Planos: () => {
-            this.searchConditions.Planos = [
-              ...this.$_.map(this.AllPlanos, function(d) {
-                return d.id;
-              }),
-            ];
+            this.searchConditions.Planos = this.AllPlanos.map((plano) => plano.id);
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
@@ -546,28 +543,28 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.difference(
+            this.filtroDisciplinas.selecionados = difference(
               this.filtroDisciplinas.selecionados,
               this.DisciplinasOptionsFiltered
             );
             this.conectaDisciplinasEmPerfis();
           },
           Docentes: () => {
-            this.searchConditions.Docentes = this.$_.difference(
+            this.searchConditions.Docentes = difference(
               this.searchConditions.Docentes,
-              this.$_.map(this.DocentesFiltredModal, "id")
+              this.DocentesFiltredModal.map((docente) => docente.id)
             );
           },
           Horarios: () => {
-            this.searchConditions.Horarios = this.$_.difference(
+            this.searchConditions.Horarios = difference(
               this.searchConditions.Horarios,
-              this.$_.map(this.HorariosOptionsFiltered, "id")
+              this.HorariosOptionsFiltered.map((horario) => horario.id)
             );
           },
           Salas: () => {
-            this.searchConditions.Salas = this.$_.difference(
+            this.searchConditions.Salas = difference(
               this.searchConditions.Salas,
-              this.$_.map(this.SalasOptionsFiltered, "id")
+              this.SalasOptionsFiltered.map((sala) => sala.id)
             );
           },
           Planos: () => {
@@ -583,13 +580,10 @@ export default {
           },
         },
         btnOk: async () => {
-          this.searchConditions.Disciplinas = this.$_.map(
-            this.filtroDisciplinas.selecionados,
+          this.searchConditions.Disciplinas = this.filtroDisciplinas.selecionados.map(
             (disciplina) => disciplina.id
           );
-
-          this.searchConditions.Periodos = this.$_.map(
-            this.filtroPeriodos.selecionados,
+          this.searchConditions.Periodos = this.filtroPeriodos.selecionados.map(
             (perfil) => perfil.id
           );
 
@@ -625,7 +619,7 @@ export default {
     },
 
     toggleSearchCodition(fieldName, fieldValue) {
-      let i = this.$_.findIndex(this.searchConditions[fieldName], (v) => v == fieldValue);
+      let i = this.searchConditions[fieldName].findIndex((v) => v == fieldValue);
 
       if (i === -1) this.searchConditions[fieldName].push(fieldValue);
       else this.searchConditions[fieldName].splice(i, 1);
@@ -645,40 +639,40 @@ export default {
     TurmasRetornadasOrdered() {
       const { turmas, perfis, planos } = this.ordenacaoMain;
 
-      return this.$_.orderBy(
+      return orderBy(
         this.TurmasRetornadasMapped,
         ["periodo", planos.order, perfis.order, turmas.order],
         ["asc", planos.type, perfis.type, turmas.type]
       );
     },
     TurmasRetornadasMapped() {
-      return this.$_.map(this.TurmasRetornadas, (turma) => {
+      return this.TurmasRetornadas.map((turma) => {
         return {
           ...turma,
-          disciplina: this.$_.find(this.DisciplinasDCCInPerfis, ["id", turma.Disciplina]),
-          plano: this.$_.find(this.AllPlanos, ["id", turma.Plano]) || {},
+          disciplina: find(this.DisciplinasDCCInPerfis, ["id", turma.Disciplina]),
+          plano: find(this.AllPlanos, ["id", turma.Plano]) || {},
         };
       });
     },
 
     // Modals Options
     PerfisOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.PerfisOptions,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
     },
     PerfisOptions() {
-      return this.$_.map(this.PerfisDCC, (perfil) => {
-        const todasDisciplinasDoPerfil = this.$_.filter(this.DisciplinasOptions, [
+      return this.PerfisDCC.map((perfil) => {
+        const todasDisciplinasDoPerfil = filter(this.DisciplinasOptions, [
           "Perfil",
           perfil.id,
         ]);
-        const disciplinasSelecionadas = this.$_.filter(
-          this.filtroDisciplinas.selecionados,
-          ["Perfil", perfil.id]
-        );
+        const disciplinasSelecionadas = filter(this.filtroDisciplinas.selecionados, [
+          "Perfil",
+          perfil.id,
+        ]);
 
         let halfChecked = false;
         if (todasDisciplinasDoPerfil.length === disciplinasSelecionadas.length) {
@@ -695,7 +689,7 @@ export default {
     },
 
     DisciplinasOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DisciplinasOptionsFiltered,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
@@ -706,7 +700,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasOptions, (disciplina) => {
+      return filter(this.DisciplinasOptions, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
@@ -718,7 +712,7 @@ export default {
     },
 
     DocentesOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DocentesFiltredModal,
         this.ordenacaoModal.docentes.order,
         this.ordenacaoModal.docentes.type
@@ -729,7 +723,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDocentesModal);
 
-      return this.$_.filter(this.AllDocentes, (docente) => {
+      return filter(this.AllDocentes, (docente) => {
         const nome = normalizeText(docente.nome);
         const apelido = normalizeText(docente.apelido);
 
@@ -742,7 +736,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchHorariosModal);
 
-      return this.$_.filter(this.AllHorarios, (horario) => {
+      return filter(this.AllHorarios, (horario) => {
         const nome = normalizeText(horario.horario);
 
         return nome.match(searchNormalized);
@@ -753,7 +747,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchSalasModal);
 
-      return this.$_.filter(this.AllSalas, (sala) => {
+      return filter(this.AllSalas, (sala) => {
         const nome = normalizeText(sala.nome);
 
         return nome.match(searchNormalized);

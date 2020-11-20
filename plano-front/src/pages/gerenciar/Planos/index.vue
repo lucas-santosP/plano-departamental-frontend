@@ -207,12 +207,14 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { clone, orderBy } from "lodash-es";
+import copyPlanoService from "@/common/services/copyPlano";
+import planoService from "@/common/services/plano";
 import { generateBooleanText } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
-import copyPlanoService from "@/common/services/copyPlano";
-import planoService from "@/common/services/plano";
 import ModalNovoPlano from "./ModalNovoPlano/index";
+
 const emptyPlano = {
   ano: 2019,
   nome: "",
@@ -232,7 +234,7 @@ export default {
   },
   data() {
     return {
-      planoForm: this.$_.clone(emptyPlano),
+      planoForm: clone(emptyPlano),
       planoSelectedId: null,
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
@@ -247,11 +249,11 @@ export default {
     handleClickInPlano(plano) {
       this.cleanPlano();
       this.planoSelectedId = plano.id;
-      this.planoForm = this.$_.clone(plano);
+      this.planoForm = clone(plano);
     },
     cleanPlano() {
       this.planoSelectedId = null;
-      this.planoForm = this.$_.clone(emptyPlano);
+      this.planoForm = clone(emptyPlano);
     },
     openModalDelete() {
       this.$refs.modalDelete.open();
@@ -340,7 +342,7 @@ export default {
 
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
-      return this.$_.orderBy(this.AllPlanos, order, type);
+      return orderBy(this.AllPlanos, order, type);
     },
     isEditing() {
       return this.planoSelectedId != null;

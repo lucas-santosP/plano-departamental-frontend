@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
@@ -16,8 +17,7 @@
     "dayjs": "^1.8.35",
     "file-saver": "^2.0.1",
     "local-storage": "^1.4.2",
-    "lodash": "^4.17.5",
-    "lodash.defaultsdeep": "4.6.1",
+    "lodash-es": "^4.17.15",
     "pdfmake": "^0.1.58",
     "portal-vue": "^2.1.6",
     "sheetjs": "^1.0.21",

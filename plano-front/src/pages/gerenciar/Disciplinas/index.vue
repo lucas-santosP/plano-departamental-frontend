@@ -312,6 +312,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { clone, orderBy } from "lodash-es";
 import { maskOnlyNumber, maskEmptyToZero } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 import { Card } from "@/components/ui";
@@ -335,7 +336,7 @@ export default {
   data() {
     return {
       disciplinaSelecionada: "",
-      disciplinaForm: this.$_.clone(emptyDisciplina),
+      disciplinaForm: clone(emptyDisciplina),
       ordenacaoMain: {
         disciplina: { order: "codigo", type: "asc" },
         perfil: { order: "perfil.abreviacao", type: "asc" },
@@ -349,11 +350,11 @@ export default {
     handleClickInDisciplina(disciplina) {
       this.cleanForm();
       this.disciplinaSelecionada = disciplina.id;
-      this.disciplinaForm = this.$_.clone(disciplina);
+      this.disciplinaForm = clone(disciplina);
     },
     cleanForm() {
       this.disciplinaSelecionada = "";
-      this.disciplinaForm = this.$_.clone(emptyDisciplina);
+      this.disciplinaForm = clone(emptyDisciplina);
     },
     disciplinaEstaSelecionada(disciplinaId) {
       return this.disciplinaSelecionada === disciplinaId ? "bg-selected" : "";
@@ -426,14 +427,14 @@ export default {
     ...mapGetters(["DisciplinasInPerfis", "AllPerfis"]),
 
     DisciplinasInPerfisOrdered() {
-      const disciplinasResultantes = this.$_.orderBy(
+      const disciplinasResultantes = orderBy(
         this.DisciplinasInPerfis,
         this.ordenacaoMain.disciplina.order,
         this.ordenacaoMain.disciplina.type
       );
 
       if (this.ordenacaoMain.perfil.order !== null) {
-        return this.$_.orderBy(
+        return orderBy(
           disciplinasResultantes,
           this.ordenacaoMain.perfil.order,
           this.ordenacaoMain.perfil.type

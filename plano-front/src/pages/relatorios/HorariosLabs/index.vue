@@ -127,8 +127,9 @@
 </template>
 
 <script>
-import pdfs from "@/common/services/pdfs";
 import { mapGetters } from "vuex";
+import { filter, find, orderBy } from "lodash-es";
+import pdfs from "@/common/services/pdfs";
 import {
   toggleItemInArray,
   toggleAsideModal,
@@ -199,7 +200,7 @@ export default {
         },
         btnOk: () => {
           this.filtroPeriodos.ativados = [
-            ...this.$_.orderBy(this.filtroPeriodos.selecionados, "id"),
+            ...orderBy(this.filtroPeriodos.selecionados, "id"),
           ];
           this.filtroLaboratorios.ativados = [...this.filtroLaboratorios.selecionados];
         },
@@ -208,7 +209,7 @@ export default {
   },
 
   beforeMount() {
-    this.filtroPeriodos.selecionados = this.$_.filter(
+    this.filtroPeriodos.selecionados = filter(
       this.PeriodosOptions,
       (periodo) => periodo.id === 1 || periodo.id === 3
     );
@@ -241,13 +242,13 @@ export default {
     LaboratoriosOrdered() {
       const laboratoriosResultantes = [];
       laboratoriosResultantes.push(
-        this.$_.find(this.Laboratorios, ["nome", "L107"]),
-        this.$_.find(this.Laboratorios, ["nome", "L205"]),
-        this.$_.find(this.Laboratorios, ["nome", "LAB4"]),
-        this.$_.find(this.Laboratorios, ["nome", "LAB3"]),
-        this.$_.find(this.Laboratorios, ["nome", "LABENG1"]),
-        this.$_.find(this.Laboratorios, ["nome", "LABENG2"]),
-        this.$_.find(this.Laboratorios, ["nome", "LAB EST 2"])
+        find(this.Laboratorios, ["nome", "L107"]),
+        find(this.Laboratorios, ["nome", "L205"]),
+        find(this.Laboratorios, ["nome", "LAB4"]),
+        find(this.Laboratorios, ["nome", "LAB3"]),
+        find(this.Laboratorios, ["nome", "LABENG1"]),
+        find(this.Laboratorios, ["nome", "LABENG2"]),
+        find(this.Laboratorios, ["nome", "LAB EST 2"])
       );
 
       return laboratoriosResultantes;
@@ -260,21 +261,21 @@ export default {
         periodo4: [],
       };
 
-      const turmasOredered = this.$_.orderBy(this.TurmasInDisciplinasPerfis, [
+      const turmasOredered = orderBy(this.TurmasInDisciplinasPerfis, [
         "periodo",
         "disciplina.nome",
         "letra",
       ]);
-      this.$_.forEach(turmasOredered, (turma) =>
+      turmasOredered.forEach((turma) =>
         turmasResultantes[`periodo${turma.periodo}`].push({ ...turma })
       );
 
-      const turmasExternasOrdered = this.$_.orderBy(this.TurmasExternasInDisciplinas, [
+      const turmasExternasOrdered = orderBy(this.TurmasExternasInDisciplinas, [
         "periodo",
         "disciplina.nome",
         "letra",
       ]);
-      this.$_.forEach(turmasExternasOrdered, (turma) =>
+      turmasExternasOrdered.forEach((turma) =>
         turmasResultantes[`periodo${turma.periodo}`].push({ ...turma })
       );
 

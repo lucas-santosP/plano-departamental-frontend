@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { orderBy } from "lodash-es";
 
 const state = {
   routesHome: [
@@ -156,17 +156,21 @@ const getters = {
   routesHome(state) {
     return state.routesHome;
   },
+
   routesPlano(state) {
     return state.routesPlano;
   },
+
   routesRelatorios(state) {
-    return _.orderBy(state.routesRelatorios, ["title"]);
+    return orderBy(state.routesRelatorios, ["title"]);
   },
+
   routesGerenciar(state) {
-    return _.orderBy(state.routesGerenciar, ["title"]);
+    return orderBy(state.routesGerenciar, ["title"]);
   },
+
   routesHistorico(state) {
-    return _.orderBy(state.routesHistorico, ["title"]);
+    return orderBy(state.routesHistorico, ["title"]);
   },
 };
 

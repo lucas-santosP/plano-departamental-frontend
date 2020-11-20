@@ -6,16 +6,13 @@ import axios from "./common/services/axios";
 import { sync } from "vuex-router-sync";
 sync(store, router);
 axios(Vue, store);
-
 import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
-import LodashVue from "./plugins/lodashVue.js";
 import PortalVue from "portal-vue";
 import { AlertPlugin, PopoverPlugin } from "bootstrap-vue";
 import Notifications from "vue-notification";
 
 Vue.use(VueSocketio, SocketIoInstance, store);
-Vue.use(LodashVue);
 Vue.use(PortalVue);
 Vue.use(Notifications);
 Vue.use(AlertPlugin);

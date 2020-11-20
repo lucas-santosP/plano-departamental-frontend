@@ -77,6 +77,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { clone } from "lodash-es";
 import userService from "@/common/services/usuario";
 import { InputPassword, ButtonSlideSection } from "@/components/ui";
 
@@ -92,7 +93,7 @@ export default {
   components: { InputPassword, ButtonSlideSection },
   data() {
     return {
-      userForm: this.$_.clone(emptyUser),
+      userForm: clone(emptyUser),
       currentTab: "edit",
       confirmaSenha: "",
       senhaAtual: "",
@@ -127,7 +128,7 @@ export default {
       this.confirmaSenha = "";
     },
     clearEditUserForm() {
-      this.userForm = this.$_.clone(emptyUser);
+      this.userForm = clone(emptyUser);
       this.isEditingSenha = false;
       this.userForm.nome = this.$store.state.auth.Usuario.nome;
       this.userForm.login = this.$store.state.auth.Usuario.login;
@@ -152,7 +153,7 @@ export default {
     },
 
     async editUser() {
-      const user = this.$_.clone(this.userForm);
+      const user = clone(this.userForm);
       user.senhaAtual = this.senhaAtual;
       user.admin = this.$store.state.auth.Usuario.admin;
 

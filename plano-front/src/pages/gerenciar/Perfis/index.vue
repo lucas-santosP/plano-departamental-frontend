@@ -153,10 +153,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { orderBy, clone } from "lodash-es";
 import perfilService from "@/common/services/perfil";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
-import { mapGetters } from "vuex";
+
 const emptyPerfil = {
   id: null,
   nome: null,
@@ -174,7 +176,7 @@ export default {
   data() {
     return {
       error: null,
-      perfilForm: this.$_.clone(emptyPerfil),
+      perfilForm: clone(emptyPerfil),
       perfilSelectedId: null,
       ordenacaoPerfisMain: { order: "nome", type: "asc" },
     };
@@ -191,11 +193,11 @@ export default {
     },
     cleanPerfil() {
       this.clearClick();
-      this.perfilForm = this.$_.clone(emptyPerfil);
+      this.perfilForm = clone(emptyPerfil);
       this.error = null;
     },
     showPerfil(perfil) {
-      this.perfilForm = this.$_.clone(perfil);
+      this.perfilForm = clone(perfil);
     },
     openModalDelete() {
       this.$refs.modalDelete.open();
@@ -280,7 +282,7 @@ export default {
     ...mapGetters(["AllPerfis"]),
 
     Perfis() {
-      return this.$_.orderBy(
+      return orderBy(
         this.AllPerfis,
         this.ordenacaoPerfisMain.order,
         this.ordenacaoPerfisMain.type

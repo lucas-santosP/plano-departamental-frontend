@@ -240,8 +240,9 @@
 </template>
 
 <script>
-import gradeService from "@/common/services/grade";
+import { clone, find, filter, orderBy } from "lodash-es";
 import disciplinaGradeService from "@/common/services/disciplinaGrade";
+import gradeService from "@/common/services/grade";
 import { maskOnlyNumber } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
@@ -267,8 +268,8 @@ export default {
   },
   data() {
     return {
-      gradeForm: this.$_.clone(emptyGrade),
-      disciplinaGradeForm: this.$_.clone(emptyDisciplinaGrade),
+      gradeForm: clone(emptyGrade),
+      disciplinaGradeForm: clone(emptyDisciplinaGrade),
       error: null,
       currentGradeId: null,
       currentCursoId: null,
@@ -319,7 +320,7 @@ export default {
         });
     },
     cleanGradeForm() {
-      this.gradeForm = this.$_.clone(emptyGrade);
+      this.gradeForm = clone(emptyGrade);
       this.error = undefined;
     },
     cleanDisciplina() {
@@ -329,8 +330,8 @@ export default {
     },
     showGrade(gradeId) {
       this.cleanGradeForm();
-      const grade = this.$_.find(this.$store.state.grade.Grades, ["id", gradeId]);
-      this.gradeForm = this.$_.clone(grade);
+      const grade = find(this.$store.state.grade.Grades, ["id", gradeId]);
+      this.gradeForm = clone(grade);
       this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
     changeCurso() {
@@ -345,7 +346,7 @@ export default {
     },
     showDisciplina(disciplinaGrade) {
       this.cleanDisciplina;
-      this.disciplinaGradeForm = this.$_.clone(disciplinaGrade);
+      this.disciplinaGradeForm = clone(disciplinaGrade);
     },
     isEven(number) {
       return number % 2 === 0;
@@ -413,7 +414,9 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Disciplina <b>${nome_disciplina}</b> foi adicionada à Grade <b>${this.gradeForm.nome}</b>!`,
+            text: `A Disciplina <b>${nome_disciplina}</b> foi adicionada à Grade <b>${
+              this.gradeForm.nome
+            }</b>!`,
             type: "success",
           });
         })
@@ -490,17 +493,17 @@ export default {
       return this.disciplinaSelectedId !== null;
     },
     DisciplinaGradesOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DisciplinaGradesFiltred,
         this.ordenacaoDisciplinasMain.order,
         this.ordenacaoDisciplinasMain.type
       );
     },
     DisciplinaGradesFiltred() {
-      return this.$_.filter(
+      return filter(
         this.$store.state.disciplinaGrade.DisciplinaGrades,
         (disciplinaGrade) => {
-          return this.$_.find(this.Disciplinas, (disciplina) => {
+          return find(this.Disciplinas, (disciplina) => {
             if (
               this.currentGradeId === disciplinaGrade.Grade &&
               disciplina.id === disciplinaGrade.Disciplina
@@ -515,7 +518,7 @@ export default {
       );
     },
     GradesFiltredByCurrentCurso() {
-      return this.$_.filter(this.Grades, (grade) => grade.Curso == this.currentCursoId);
+      return filter(this.Grades, (grade) => grade.Curso == this.currentCursoId);
     },
     Grades() {
       return this.$store.state.grade.Grades;
@@ -524,7 +527,7 @@ export default {
       return this.$store.state.curso.Cursos;
     },
     Disciplinas() {
-      return this.$_.orderBy(this.$store.state.disciplina.Disciplinas, "nome");
+      return orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
   },
 };

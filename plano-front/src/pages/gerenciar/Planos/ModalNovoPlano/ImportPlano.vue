@@ -40,6 +40,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { find, some } from "lodash-es";
 import XLSX from "xlsx";
 import planoService from "@/common/services/plano";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
@@ -160,7 +161,7 @@ export default {
     setDisciplina(turma, strCodigo) {
       if (!strCodigo) return;
 
-      const disciplinaFounded = this.$_.find(this.AllDisciplinas, ["codigo", strCodigo]);
+      const disciplinaFounded = find(this.AllDisciplinas, ["codigo", strCodigo]);
       turma.Disciplina = disciplinaFounded ? disciplinaFounded.id : null;
     },
     setHorariosESalas(turma, strHorarioESala) {
@@ -189,8 +190,8 @@ export default {
       } else if (horario1Id == 31) {
         return "EAD";
       } else if (
-        this.$_.some(this.HorariosNoturno, ["id", horario1Id]) ||
-        this.$_.some(this.HorariosNoturno, ["id", horario2Id])
+        some(this.HorariosNoturno, ["id", horario1Id]) ||
+        some(this.HorariosNoturno, ["id", horario2Id])
       ) {
         return "Noturno";
       } else {
@@ -200,13 +201,13 @@ export default {
     findCursoId(cursoCodigo) {
       if (!cursoCodigo) return null;
 
-      const cursoFounded = this.$_.find(this.AllCursos, ["codigo", cursoCodigo]);
+      const cursoFounded = find(this.AllCursos, ["codigo", cursoCodigo]);
       return cursoFounded ? cursoFounded.id : null;
     },
     findDocenteId(nomeSiga) {
       if (!nomeSiga) return null;
 
-      const docenteFounded = this.$_.find(
+      const docenteFounded = find(
         this.AllDocentes,
         (docente) => normalizeText(docente.nomesiga) === normalizeText(nomeSiga)
       );
@@ -219,7 +220,7 @@ export default {
       const nomeHorario = this.findHorarioNomeByDiaEHora(dia, hora);
 
       if (nomeHorario) {
-        const horarioFounded = this.$_.find(this.AllHorarios, ["horario", nomeHorario]);
+        const horarioFounded = find(this.AllHorarios, ["horario", nomeHorario]);
         return horarioFounded ? horarioFounded.id : null;
       }
 
@@ -260,7 +261,7 @@ export default {
           return "EAD";
       }
 
-      const horarioFounded = this.$_.find(this.ListaDeTodosHorarios, (horarioItem) =>
+      const horarioFounded = find(this.ListaDeTodosHorarios, (horarioItem) =>
         horarioItem.nome.includes(hora.substring(0, 2) + "-")
       );
       horaNormalized = horarioFounded ? horarioFounded.nome : null;
@@ -277,7 +278,7 @@ export default {
       const [, , sala] = strSala.split(",");
       const strSalaNormalized = normalizeText(sala);
 
-      const salaFounded = this.$_.find(this.AllSalas, (sala) => {
+      const salaFounded = find(this.AllSalas, (sala) => {
         const nomeNormalized = normalizeText(sala.nome);
         return strSalaNormalized.includes(nomeNormalized);
       });

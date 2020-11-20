@@ -196,6 +196,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { find, some, filter, orderBy } from "lodash-es";
 import {
   toggleItemInArray,
   toggleAsideModal,
@@ -295,7 +296,7 @@ export default {
     this.createHorarioEletivas(1);
     this.createHorarioEletivas(3);
 
-    this.filtroPeriodos.selecionados = this.$_.filter(
+    this.filtroPeriodos.selecionados = filter(
       this.PeriodosOptions,
       (periodo) => periodo.id === 1 || periodo.id === 3
     );
@@ -351,11 +352,11 @@ export default {
       if (semestre === 1) periodoGrade = 1;
       else periodoGrade = 3;
 
-      let plano = this.$_.find(this.$store.state.plano.Plano, {
+      let plano = find(this.$store.state.plano.Plano, {
         id: parseInt(localStorage.getItem("Plano")),
       });
 
-      let gradesCurso = this.$_.filter(this.AllGrades, { Curso: curso });
+      let gradesCurso = filter(this.AllGrades, { Curso: curso });
       let gradesAtivas = [];
 
       gradesCurso.forEach((g) => {
@@ -391,17 +392,17 @@ export default {
       }
       let even =
         this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 === semestre - 1;
-      let turmas = this.$_.filter(this.TurmasInDisciplinasPerfis, {
+      let turmas = filter(this.TurmasInDisciplinasPerfis, {
         periodo: periodo,
       });
-      let turmasExternas = this.$_.filter(this.TurmasExternasInDisciplinas, {
+      let turmasExternas = filter(this.TurmasExternasInDisciplinas, {
         periodo: periodo,
       });
       let disciplinasGrades = this.DisciplinasDasGrades;
       let inicio = 0;
 
       for (let i = 0; inicio < 10 && i < gradesAtivas.length; i++) {
-        let disciplinasGradeAtual = this.$_.filter(disciplinasGrades, {
+        let disciplinasGradeAtual = filter(disciplinasGrades, {
           Grade: gradesAtivas[i].grade.id,
         });
         for (let j = 0; j < disciplinasGradeAtual.length; j++) {
@@ -412,7 +413,7 @@ export default {
           ) {
             for (let k = 0; k < turmas.length; k++) {
               if (disciplinasGradeAtual[j].Disciplina == turmas[k].Disciplina) {
-                let p = this.$_.find(pedidos, { Turma: turmas[k].id });
+                let p = find(pedidos, { Turma: turmas[k].id });
                 if (p.vagasPeriodizadas > 0) {
                   horariosAtivos[disciplinasGradeAtual[j].periodo - 1].push(turmas[k]);
                 }
@@ -420,7 +421,7 @@ export default {
             }
             for (let k = 0; k < turmasExternas.length; k++) {
               if (disciplinasGradeAtual[j].Disciplina == turmasExternas[k].Disciplina) {
-                let p = this.$_.find(pedidosExternos, {
+                let p = find(pedidosExternos, {
                   Turma: turmasExternas[k].id,
                 });
                 if (p.vagasPeriodizadas > 0) {
@@ -561,18 +562,18 @@ export default {
       if (periodo === 1) horariosAtivos = this.horariosAtivos1Periodo.Eletivas;
       else horariosAtivos = this.horariosAtivos3Periodo.Eletivas;
 
-      let turmas = this.$_.filter(this.TurmasInDisciplinasPerfis, {
+      let turmas = filter(this.TurmasInDisciplinasPerfis, {
         periodo: periodo,
       });
 
-      let plano = this.$_.find(this.$store.state.plano.Plano, {
+      let plano = find(this.$store.state.plano.Plano, {
         id: parseInt(localStorage.getItem("Plano")),
       });
 
       let gradesAtivas = [[], [], [], []];
 
       for (let i = 1; i < 5; i++) {
-        let gradesCurso = this.$_.filter(this.AllGrades, { Curso: i });
+        let gradesCurso = filter(this.AllGrades, { Curso: i });
         let inicio = 0;
         gradesCurso.forEach((g) => {
           let fim =
@@ -593,10 +594,10 @@ export default {
       for (let i = 0; i < turmas.length; i++) {
         for (let j = 0; j < 4; j++) {
           for (let k = 0; k < gradesAtivas[j].length; k++) {
-            let disciplinasGradeAtual = this.$_.filter(this.DisciplinasDasGrades, {
+            let disciplinasGradeAtual = filter(this.DisciplinasDasGrades, {
               Grade: gradesAtivas[j][k].grade.id,
             });
-            let disciplinaGrade = this.$_.find(disciplinasGradeAtual, {
+            let disciplinaGrade = find(disciplinasGradeAtual, {
               Disciplina: turmas[i].Disciplina,
             });
             if (
@@ -617,7 +618,7 @@ export default {
       }
     },
     filterPedidoPeriodizado(turma, Pedidos) {
-      return this.$_.some(
+      return some(
         Pedidos,
         (pedido) => pedido.Turma === turma.id && pedido.vagasPeriodizadas > 0
       );
@@ -677,7 +678,7 @@ export default {
           },
         ],
       });
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
           text: "Ciência da Computação - integral",
           bold: true,
@@ -1040,7 +1041,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
           text: "Ciência da Computação - noturno",
           bold: true,
@@ -1403,7 +1404,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -1766,7 +1767,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -2129,7 +2130,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -2582,7 +2583,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "65C" }) || completo) {
         tables.push({
           text: "Ciência da Computação - integral",
           bold: true,
@@ -2945,7 +2946,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "35A" }) || completo) {
         tables.push({
           text: "Ciência da Computação - noturno",
           bold: true,
@@ -3308,7 +3309,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "65B" }) || completo) {
         tables.push({
           text: "Engenharia Computacional",
           bold: true,
@@ -3671,7 +3672,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "76A" }) || completo) {
         tables.push({
           text: "Sistemas de Informação",
           bold: true,
@@ -4034,7 +4035,7 @@ export default {
         ],
       });
 
-      if (this.$_.find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
+      if (find(this.filtroCursos.ativados, { codigo: "-" }) || completo) {
         tables.push({
           text: "Eletivas",
           bold: true,
@@ -4480,14 +4481,14 @@ export default {
     ]),
 
     CursosComHorariosFiltred() {
-      return this.$_.filter(this.CursosComHorarios, (curso) =>
-        this.$_.some(this.filtroCursos.ativados, ["codigo", curso.codigo])
+      return filter(this.CursosComHorarios, (curso) =>
+        some(this.filtroCursos.ativados, ["codigo", curso.codigo])
       );
     },
     CursosComHorarios() {
       return [
         {
-          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65C"),
+          ...find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65C"),
           nome: "Ciência da Computação - integral",
           turno: "Diurno",
           periodoInicial1Semestre: 1,
@@ -4496,7 +4497,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.CCD,
         },
         {
-          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "35A"),
+          ...find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "35A"),
           nome: "Ciência da Computação - noturno",
           turno: "Noturno",
           periodoInicial1Semestre: 2,
@@ -4505,7 +4506,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.CCN,
         },
         {
-          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "76A"),
+          ...find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "76A"),
           nome: "Sistemas de Informação",
           turno: "Noturno",
           periodoInicial1Semestre: 2,
@@ -4514,7 +4515,7 @@ export default {
           horarios3Periodo: this.horariosAtivos3Periodo.SI,
         },
         {
-          ...this.$_.find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65B"),
+          ...find(this.PrincipaisCursosDCC, (curso) => curso.codigo === "65B"),
           nome: "Engenharia Computacional",
           turno: "Diurno",
           periodoInicial1Semestre: 1,
@@ -4526,51 +4527,51 @@ export default {
     },
 
     TurmasAtivas2Periodo() {
-      const turmasFiltredbyPeriodo = this.$_.filter(this.TurmasInDisciplinasPerfis, [
+      const turmasFiltredbyPeriodo = filter(this.TurmasInDisciplinasPerfis, [
         "periodo",
         2,
       ]);
-      const turmasFiltredByPedidos = this.$_.filter(turmasFiltredbyPeriodo, (turma) =>
+      const turmasFiltredByPedidos = filter(turmasFiltredbyPeriodo, (turma) =>
         this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
-      const turmasExternasFiltredbyPeriodo = this.$_.filter(
-        this.TurmasExternasInDisciplinas,
-        ["periodo", 2]
-      );
-      const turmasExternasFiltredbyPeidos = this.$_.filter(
+      const turmasExternasFiltredbyPeriodo = filter(this.TurmasExternasInDisciplinas, [
+        "periodo",
+        2,
+      ]);
+      const turmasExternasFiltredbyPeidos = filter(
         turmasExternasFiltredbyPeriodo,
         (turma) => this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
 
-      return this.$_.concat(turmasExternasFiltredbyPeidos, turmasFiltredByPedidos);
+      return turmasExternasFiltredbyPeidos.concat(turmasFiltredByPedidos);
     },
     TurmasAtivas4Periodo() {
-      const turmasFiltredbyPeriodo = this.$_.filter(this.TurmasInDisciplinasPerfis, [
+      const turmasFiltredbyPeriodo = filter(this.TurmasInDisciplinasPerfis, [
         "periodo",
         4,
       ]);
-      const turmasFiltredByPedidos = this.$_.filter(turmasFiltredbyPeriodo, (turma) =>
+      const turmasFiltredByPedidos = filter(turmasFiltredbyPeriodo, (turma) =>
         this.filterPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
-      const turmasExternasFiltredbyPeriodo = this.$_.filter(
-        this.TurmasExternasInDisciplinas,
-        ["periodo", 4]
-      );
-      const turmasExternasFiltredbyPeidos = this.$_.filter(
+      const turmasExternasFiltredbyPeriodo = filter(this.TurmasExternasInDisciplinas, [
+        "periodo",
+        4,
+      ]);
+      const turmasExternasFiltredbyPeidos = filter(
         turmasExternasFiltredbyPeriodo,
         (turma) => this.filterPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
 
-      return this.$_.concat(turmasExternasFiltredbyPeidos, turmasFiltredByPedidos);
+      return turmasExternasFiltredbyPeidos.concat(turmasFiltredByPedidos);
     },
 
     PedidosDeCursosDCC() {
       const pedidosResultantes = [];
       for (const key in this.Pedidos) {
-        this.$_.forEach(this.Pedidos[key], (pedido) => {
-          if (this.$_.some(this.PrincipaisCursosDCC, ["id", pedido.Curso]))
+        this.Pedidos[key].forEach((pedido) => {
+          if (some(this.PrincipaisCursosDCC, ["id", pedido.Curso]))
             pedidosResultantes.push({ ...pedido });
         });
       }
@@ -4580,8 +4581,8 @@ export default {
     PedidosExternosDeCursosDCC() {
       const pedidosResultantes = [];
       for (const key in this.PedidosExternos) {
-        this.$_.forEach(this.PedidosExternos[key], (pedido) => {
-          if (this.$_.some(this.PrincipaisCursosDCC, ["id", pedido.Curso]))
+        this.PedidosExternos[key].forEach((pedido) => {
+          if (some(this.PrincipaisCursosDCC, ["id", pedido.Curso]))
             pedidosResultantes.push({ ...pedido });
         });
       }
@@ -4589,11 +4590,7 @@ export default {
     },
 
     CursosOrderedModal() {
-      return this.$_.orderBy(
-        this.CursosModal,
-        this.ordemCursos.order,
-        this.ordemCursos.type
-      );
+      return orderBy(this.CursosModal, this.ordemCursos.order, this.ordemCursos.type);
     },
     CursosModal() {
       const cursosResultantes = [...this.PrincipaisCursosDCC];
@@ -4606,7 +4603,7 @@ export default {
     },
 
     filtroEletivasEstaAtivo() {
-      return this.$_.some(this.filtroCursos.ativados, (curso) => curso.codigo === "-");
+      return some(this.filtroCursos.ativados, (curso) => curso.codigo === "-");
     },
     filtroPeriodosEstaAtivo() {
       const periodosResult = {
@@ -4616,11 +4613,11 @@ export default {
         periodo4: false,
       };
 
-      this.$_.forEach(this.PeriodosOptions, (periodo) => {
-        periodosResult[`periodo${periodo.id}`] = this.$_.some(
-          this.filtroPeriodos.ativados,
-          ["id", periodo.id]
-        );
+      this.PeriodosOptions.forEach((periodo) => {
+        periodosResult[`periodo${periodo.id}`] = some(this.filtroPeriodos.ativados, [
+          "id",
+          periodo.id,
+        ]);
       });
 
       return periodosResult;

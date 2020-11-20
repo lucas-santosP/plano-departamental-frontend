@@ -418,10 +418,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import { saveAs } from "file-saver";
 import ls from "local-storage";
 import xlsx from "@/common/services/xlsx";
+import { mapGetters, mapActions } from "vuex";
+import { union, difference, orderBy, filter, some } from "lodash-es";
+import { saveAs } from "file-saver";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -496,14 +497,14 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.union(
+            this.filtroDisciplinas.selecionados = union(
               this.DisciplinasOptionsFiltered,
               this.filtroDisciplinas.selecionados
             );
             this.conectaDisciplinasEmPerfis();
           },
           Cursos: () => {
-            this.filtroCursos.selecionados = this.$_.union(
+            this.filtroCursos.selecionados = union(
               this.CursosOptionsFiltered,
               this.filtroCursos.selecionados
             );
@@ -523,14 +524,14 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.difference(
+            this.filtroDisciplinas.selecionados = difference(
               this.filtroDisciplinas.selecionados,
               this.DisciplinasOptionsFiltered
             );
             this.conectaDisciplinasEmPerfis();
           },
           Cursos: () => {
-            this.filtroCursos.selecionados = this.$_.difference(
+            this.filtroCursos.selecionados = difference(
               this.filtroCursos.selecionados,
               this.CursosOptionsFiltered
             );
@@ -547,7 +548,7 @@ export default {
         btnOk: () => {
           this.filtroPeriodos.ativados = [...this.filtroPeriodos.selecionados];
           this.filtroDisciplinas.ativadas = [...this.filtroDisciplinas.selecionados];
-          this.filtroCursos.ativados = this.$_.orderBy(this.filtroCursos.selecionados, [
+          this.filtroCursos.ativados = orderBy(this.filtroCursos.selecionados, [
             "posicao",
           ]);
         },
@@ -665,49 +666,49 @@ export default {
       const { turmas, perfis } = this.ordenacaoMain;
       //Se não possui ordenação de perfil fixada
       if (this.ordenacaoMain.perfis.order === null) {
-        return this.$_.orderBy(
+        return orderBy(
           this.TurmasFiltredByDisciplinas,
           ["periodo", turmas.order],
           ["asc", turmas.type]
         );
       } else
-        return this.$_.orderBy(
+        return orderBy(
           this.TurmasFiltredByDisciplinas,
           ["periodo", perfis.order, turmas.order],
           ["asc", perfis.type, turmas.type]
         );
     },
     TurmasFiltredByDisciplinas() {
-      return this.$_.filter(this.TurmasFiltredByPeriodos, (turma) =>
-        this.$_.some(
+      return filter(this.TurmasFiltredByPeriodos, (turma) =>
+        some(
           this.filtroDisciplinas.ativadas,
           (disciplina) => disciplina.id === turma.Disciplina
         )
       );
     },
     TurmasFiltredByPeriodos() {
-      return this.$_.filter(this.TurmasInDisciplinasPerfis, (turma) =>
-        this.$_.some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      return filter(this.TurmasInDisciplinasPerfis, (turma) =>
+        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
     // Modals Options
     PerfisOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.PerfisOptions,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
     },
     PerfisOptions() {
-      return this.$_.map(this.PerfisDCC, (perfil) => {
-        const todasDisciplinasDoPerfil = this.$_.filter(this.DisciplinasOptions, [
+      return this.PerfisDCC.map((perfil) => {
+        const todasDisciplinasDoPerfil = filter(this.DisciplinasOptions, [
           "Perfil",
           perfil.id,
         ]);
-        const disciplinasSelecionadas = this.$_.filter(
-          this.filtroDisciplinas.selecionados,
-          ["Perfil", perfil.id]
-        );
+        const disciplinasSelecionadas = filter(this.filtroDisciplinas.selecionados, [
+          "Perfil",
+          perfil.id,
+        ]);
 
         let halfChecked = false;
         if (todasDisciplinasDoPerfil.length === disciplinasSelecionadas.length) {
@@ -724,7 +725,7 @@ export default {
     },
 
     DisciplinasOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DisciplinasOptionsFiltered,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
@@ -735,7 +736,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return this.$_.filter(this.DisciplinasOptions, (disciplina) => {
+      return filter(this.DisciplinasOptions, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
@@ -747,7 +748,7 @@ export default {
     },
 
     CursosOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.CursosOptionsFiltered,
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type
@@ -758,7 +759,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchCursosModal);
 
-      return this.$_.filter(this.AllCursos, (curso) => {
+      return filter(this.AllCursos, (curso) => {
         const nome = normalizeText(curso.nome);
         const codigo = normalizeText(curso.codigo);
 

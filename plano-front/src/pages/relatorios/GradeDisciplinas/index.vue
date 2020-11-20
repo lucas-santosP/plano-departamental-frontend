@@ -274,6 +274,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { union, difference, find, some, filter, orderBy } from "lodash-es";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -284,6 +285,7 @@ import {
 import { InputSearch } from "@/components/ui";
 import { ModalAjuda, ModalFiltros } from "@/components/modals";
 import DisciplinaRow from "./DisciplinaRow";
+
 export default {
   name: "GradeDisciplinas",
   mixins: [
@@ -324,7 +326,7 @@ export default {
             this.filtroPerfis.selecionados = [...this.PerfisOptions];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.union(
+            this.filtroDisciplinas.selecionados = union(
               this.DisciplinasOptionsFiltered,
               this.filtroDisciplinas.selecionados
             );
@@ -340,7 +342,7 @@ export default {
             this.filtroDisciplinas.selecionados = [];
           },
           Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = this.$_.difference(
+            this.filtroDisciplinas.selecionados = difference(
               this.filtroDisciplinas.selecionados,
               this.DisciplinasOptionsFiltered
             );
@@ -406,12 +408,7 @@ export default {
     runAll() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
-        this.disciplinasGrades[d.id] = [
-          [[], []],
-          [[], []],
-          [[], []],
-          [[], []],
-        ]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
+        this.disciplinasGrades[d.id] = [[[], []], [[], []], [[], []], [[], []]]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
       this.get1Periodo();
@@ -421,8 +418,8 @@ export default {
     getGrades() {
       //popula as grades disponíveis de cada curso em um objeto
       for (let i = 1; i <= 4; i++) {
-        this.grades[i] = this.$_.orderBy(
-          this.$_.filter(this.$store.state.grade.Grades, ["Curso", i]),
+        this.grades[i] = orderBy(
+          filter(this.$store.state.grade.Grades, ["Curso", i]),
           "periodoInicio",
           "desc"
         );
@@ -458,16 +455,13 @@ export default {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
-          let curso = this.$_.find(this.$store.state.curso.Cursos, ["id", i]);
+          let curso = find(this.$store.state.curso.Cursos, ["id", i]);
           for (let j = 0; j < this.gradesAtivas[i].length; j++) {
             //itera pelas grades de um curso, começando da mais recente (lista ordenada)
-            gradedisciplina = this.$_.find(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              {
-                Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id,
-              }
-            ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
+            gradedisciplina = find(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Disciplina: parseInt(d, 10),
+              Grade: this.gradesAtivas[i][j].grade.id,
+            }); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
               //verifica se a disciplina está na grade procurada
               if (gradedisciplina.periodo <= this.gradesAtivas[i][j].fim) {
@@ -535,16 +529,13 @@ export default {
         for (let i = 1; i <= 4; i++) {
           //ids dos cursos de computação
           let gradedisciplina;
-          let curso = this.$_.find(this.$store.state.curso.Cursos, ["id", i]);
+          let curso = find(this.$store.state.curso.Cursos, ["id", i]);
           for (let j = 0; j < this.gradesAtivas[i].length; j++) {
             //itera pelas grades de um curso, começando da mais recente (lista ordenada)
-            gradedisciplina = this.$_.find(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              {
-                Disciplina: parseInt(d, 10),
-                Grade: this.gradesAtivas[i][j].grade.id,
-              }
-            ); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
+            gradedisciplina = find(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Disciplina: parseInt(d, 10),
+              Grade: this.gradesAtivas[i][j].grade.id,
+            }); //Encontra a disciplina nas grades da computação, começando pela mais recente. Caso não encontre, retorna undefined
             if (gradedisciplina !== undefined) {
               //verifica se a disciplina está na grade procurada
               if (gradedisciplina.periodo <= this.gradesAtivas[i][j].fim) {
@@ -596,7 +587,7 @@ export default {
       let disciplinasResult = this.DisciplinasFiltredMain;
 
       if (this.ordenacaoMain.disciplinas.order.includes("grade")) {
-        disciplinasResult = this.$_.orderBy(
+        disciplinasResult = orderBy(
           disciplinasResult,
           (disciplina) => {
             return this.somaPeriodos(
@@ -607,7 +598,7 @@ export default {
           this.ordenacaoMain.disciplinas.type
         );
       } else {
-        disciplinasResult = this.$_.orderBy(
+        disciplinasResult = orderBy(
           disciplinasResult,
           this.ordenacaoMain.disciplinas.order,
           this.ordenacaoMain.disciplinas.type
@@ -615,7 +606,7 @@ export default {
       }
 
       if (this.ordenacaoMain.perfis.order != null) {
-        disciplinasResult = this.$_.orderBy(
+        disciplinasResult = orderBy(
           disciplinasResult,
           this.ordenacaoMain.perfis.order,
           this.ordenacaoMain.perfis.type
@@ -649,21 +640,21 @@ export default {
     },
 
     AnoAtual() {
-      return this.$_.find(this.$store.state.plano.Plano, {
+      return find(this.$store.state.plano.Plano, {
         id: parseInt(localStorage.getItem("Plano"), 10),
       }).ano;
     },
     cursosAtivados() {
       return {
-        CCD: this.$_.some(this.filtroCursos.ativados, ["codigo", "65C"]),
-        CCN: this.$_.some(this.filtroCursos.ativados, ["codigo", "35A"]),
-        SI: this.$_.some(this.filtroCursos.ativados, ["codigo", "76A"]),
-        EC: this.$_.some(this.filtroCursos.ativados, ["codigo", "65B"]),
+        CCD: some(this.filtroCursos.ativados, ["codigo", "65C"]),
+        CCN: some(this.filtroCursos.ativados, ["codigo", "35A"]),
+        SI: some(this.filtroCursos.ativados, ["codigo", "76A"]),
+        EC: some(this.filtroCursos.ativados, ["codigo", "65B"]),
       };
     },
     //Modal Options
     DisciplinasOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.DisciplinasOptionsFiltered,
         this.ordenacaoModal.disciplinas.order,
         this.ordenacaoModal.disciplinas.type
@@ -674,7 +665,7 @@ export default {
 
       const searchNormalized = normalizeText(this.searchDisciplinas);
 
-      return this.$_.filter(this.DisciplinasOptions, (disciplina) => {
+      return filter(this.DisciplinasOptions, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 
@@ -685,22 +676,22 @@ export default {
       return this.DisciplinasInPerfis;
     },
     PerfisOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.PerfisOptions,
         this.ordenacaoModal.perfis.order,
         this.ordenacaoModal.perfis.type
       );
     },
     PerfisOptions() {
-      return this.$_.map(this.AllPerfis, (perfil) => {
-        const todasDisciplinasDoPerfil = this.$_.filter(this.DisciplinasOptions, [
+      return this.AllPerfis.map((perfil) => {
+        const todasDisciplinasDoPerfil = filter(this.DisciplinasOptions, [
           "Perfil",
           perfil.id,
         ]);
-        const disciplinasSelecionadas = this.$_.filter(
-          this.filtroDisciplinas.selecionados,
-          ["Perfil", perfil.id]
-        );
+        const disciplinasSelecionadas = filter(this.filtroDisciplinas.selecionados, [
+          "Perfil",
+          perfil.id,
+        ]);
 
         let halfChecked = false;
         if (todasDisciplinasDoPerfil.length === disciplinasSelecionadas.length) {
@@ -716,7 +707,7 @@ export default {
       });
     },
     CursosOptionsOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.PrincipaisCursosDCC,
         this.ordenacaoModal.cursos.order,
         this.ordenacaoModal.cursos.type

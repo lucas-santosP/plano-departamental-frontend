@@ -45,7 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
+import { filter, find } from "lodash-es";
 export default {
   name: "TheNavbar",
   props: {
@@ -65,7 +65,7 @@ export default {
     ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
 
     PlanosVisiveis() {
-      return this.$_.filter(this.AllPlanos, ["visible", true]);
+      return filter(this.AllPlanos, ["visible", true]);
     },
   },
 
@@ -75,14 +75,16 @@ export default {
         if (currentPlano) {
           this.planoIdForm = currentPlano.id;
         } else {
-          const firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
+          const firstVisiblePlano = find(this.AllPlanos, ["visible", true]);
           this.changeCurrentPlano(firstVisiblePlano.id);
           this.planoIdForm = firstVisiblePlano.id;
 
           this.pushNotification({
             type: "warn",
             title: "Aviso!",
-            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${firstVisiblePlano.nome}`,
+            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${
+              firstVisiblePlano.nome
+            }`,
           });
         }
       },

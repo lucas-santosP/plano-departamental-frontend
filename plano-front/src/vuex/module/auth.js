@@ -1,7 +1,5 @@
-/* globals localStorage */
-import _ from "lodash";
 import authService from "../../common/services/auth";
-
+import { words } from "lodash-es";
 import {
   AUTHENTICATE,
   USER_FETCHED,
@@ -77,11 +75,13 @@ const actions = {
 
 const getters = {
   usuarioNome: (state) => {
-    return state.Usuario ? _.words(state.Usuario.nome)[0] : "";
+    return state.Usuario ? words(state.Usuario.nome)[0] : "";
   },
+
   Admin(state) {
     return state.Usuario.admin >= 1;
   },
+
   SuperAdmin(state) {
     return state.Usuario.admin >= 2;
   },

@@ -1,10 +1,10 @@
 /* eslint-disable */
-import _ from "lodash";
 import store from "../../vuex/store";
+import { isNull, filter, find, orderBy, sortBy } from "lodash-es";
 
 export default {
   checkTurmaLab(turma) {
-    let labs = _.filter(store.state.sala.Salas, ["laboratorio", true]);
+    let labs = filter(store.state.sala.Salas, ["laboratorio", true]);
     let result = 0;
     labs.forEach((lab) => {
       if (lab.id === turma.Sala1) result += 1;
@@ -12,7 +12,7 @@ export default {
     });
 
     if (result === 1) {
-      if (_.isNull(turma.Sala2)) {
+      if (isNull(turma.Sala2)) {
         return 4;
       }
     }
@@ -102,9 +102,9 @@ export default {
       margin: [0, 0, 0, 5],
     });
     var laboratorios = data.laboratorios;
-    var disciplinas = _.orderBy(store.state.disciplina.Disciplinas, ["nome"]);
-    var turmas1 = _.filter(store.state.turma.Turmas, ["periodo", 1]);
-    var turmas2 = _.filter(store.state.turma.Turmas, ["periodo", 3]);
+    var disciplinas = orderBy(store.state.disciplina.Disciplinas, ["nome"]);
+    var turmas1 = filter(store.state.turma.Turmas, ["periodo", 1]);
+    var turmas2 = filter(store.state.turma.Turmas, ["periodo", 3]);
     var seg = "",
       ter = "",
       qua = "",
@@ -799,8 +799,8 @@ export default {
   },
 
   turmas(professor) {
-    return _.orderBy(
-      _.filter(store.state.turma.Turmas, (turma) => {
+    return orderBy(
+      filter(store.state.turma.Turmas, (turma) => {
         return turma.Docente1 === professor.id || turma.Docente2 === professor.id;
       }),
       ["periodo", "Disciplina", "letra"]
@@ -808,8 +808,8 @@ export default {
   },
 
   turmasSemAlocacao() {
-    return _.orderBy(
-      _.filter(store.state.turma.Turmas, (turma) => {
+    return orderBy(
+      filter(store.state.turma.Turmas, (turma) => {
         return (
           turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
         );
@@ -819,8 +819,8 @@ export default {
   },
 
   pos(professor) {
-    return _.orderBy(
-      _.filter(store.state.cargaPos.Cargas, (turma) => {
+    return orderBy(
+      filter(store.state.cargaPos.Cargas, (turma) => {
         return turma.Docente === professor.id;
       }),
       "trimestre"
@@ -950,20 +950,20 @@ export default {
         },
       ],
     });
-    let professores = _.orderBy(_.filter(data.Docentes, ["ativo", true]), "nome");
+    let professores = orderBy(filter(data.Docentes, ["ativo", true]), "nome");
     let turmasProf1, turmasProf2;
     let posProf1, posProf2;
     for (let i = 0; i < professores.length; i++) {
-      turmasProf1 = _.filter(this.turmas(professores[i]), function(t) {
+      turmasProf1 = filter(this.turmas(professores[i]), function(t) {
         return t.periodo == 1 || t.periodo == 2;
       });
-      turmasProf2 = _.filter(this.turmas(professores[i]), function(t) {
+      turmasProf2 = filter(this.turmas(professores[i]), function(t) {
         return t.periodo == 3 || t.periodo == 4;
       });
-      posProf1 = _.filter(this.pos(professores[i]), function(p) {
+      posProf1 = filter(this.pos(professores[i]), function(p) {
         return p.trimestre == 1 || p.trimestre == 2;
       });
-      posProf2 = _.filter(this.pos(professores[i]), function(p) {
+      posProf2 = filter(this.pos(professores[i]), function(p) {
         return p.trimestre == 3 || p.trimestre == 4;
       });
       if (
@@ -1521,8 +1521,8 @@ export default {
   },
 
   turmasRelatorioDisciplinas(disciplina, semestre) {
-    return _.orderBy(
-      _.filter(store.state.turma.Turmas, (turma) => {
+    return orderBy(
+      filter(store.state.turma.Turmas, (turma) => {
         return (
           turma.Disciplina === disciplina.id &&
           (semestre === 1
@@ -1535,8 +1535,8 @@ export default {
   },
 
   docentesRelatorioDisciplina(turma) {
-    let d1 = _.find(store.state.docente.Docentes, { id: turma.Docente1 });
-    let d2 = _.find(store.state.docente.Docentes, { id: turma.Docente2 });
+    let d1 = find(store.state.docente.Docentes, { id: turma.Docente1 });
+    let d2 = find(store.state.docente.Docentes, { id: turma.Docente2 });
     if (d1 === undefined && d2 === undefined) {
       return "";
     } else if (d2 === undefined) {
@@ -1569,7 +1569,7 @@ export default {
   },
 
   vagasDisciplina(disciplina, semestre) {
-    let turmas = _.filter(store.state.turma.Turmas, {
+    let turmas = filter(store.state.turma.Turmas, {
       Disciplina: disciplina.id,
     });
     let vagas = 0;
@@ -1580,17 +1580,17 @@ export default {
   },
 
   perfilDisciplina(disciplina) {
-    let perfil = _.find(store.state.perfil.Perfis, { id: disciplina.Perfil });
+    let perfil = find(store.state.perfil.Perfis, { id: disciplina.Perfil });
     return perfil.abreviacao;
   },
 
   curso(pedido) {
-    return _.find(store.state.curso.Cursos, { id: pedido.Curso });
+    return find(store.state.curso.Cursos, { id: pedido.Curso });
   },
 
   pedidosTurma(turma) {
-    return _.sortBy(
-      _.filter(store.state.pedido.Pedidos[turma.id], function(p) {
+    return sortBy(
+      filter(store.state.pedido.Pedidos[turma.id], function(p) {
         return p.vagasPeriodizadas > 0 || p.vagasNaoPeriodizadas > 0;
       }),
       (p) => {
@@ -1606,7 +1606,7 @@ export default {
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
     }
     let tables = [];
-    let disciplinas = _.orderBy(data.disciplinasSelecionadas, "codigo");
+    let disciplinas = orderBy(data.disciplinasSelecionadas, "codigo");
     let turmasDisc = undefined;
     tables.push({
       columns: [
@@ -1692,10 +1692,10 @@ export default {
 
         for (let j = 0; j < turmasDisc.length; j++) {
           let docentes = this.docentesRelatorioDisciplina(turmasDisc[j]);
-          let horario1 = _.find(store.state.horario.Horarios, {
+          let horario1 = find(store.state.horario.Horarios, {
             id: turmasDisc[j].Horario1,
           });
-          let horario2 = _.find(store.state.horario.Horarios, {
+          let horario2 = find(store.state.horario.Horarios, {
             id: turmasDisc[j].Horario2,
           });
           let horarioTotal = undefined;
@@ -1708,10 +1708,10 @@ export default {
           } else {
             horarioTotal = horario1.horario + "\n" + horario2.horario;
           }
-          let sala1 = _.find(store.state.sala.Salas, {
+          let sala1 = find(store.state.sala.Salas, {
             id: turmasDisc[j].Sala1,
           });
-          let sala2 = _.find(store.state.sala.Salas, {
+          let sala2 = find(store.state.sala.Salas, {
             id: turmasDisc[j].Sala2,
           });
           let salaTotal = undefined;
@@ -1961,10 +1961,10 @@ export default {
 
         for (let j = 0; j < turmasDisc.length; j++) {
           let docentes = this.docentesRelatorioDisciplina(turmasDisc[j]);
-          let horario1 = _.find(store.state.horario.Horarios, {
+          let horario1 = find(store.state.horario.Horarios, {
             id: turmasDisc[j].Horario1,
           });
-          let horario2 = _.find(store.state.horario.Horarios, {
+          let horario2 = find(store.state.horario.Horarios, {
             id: turmasDisc[j].Horario2,
           });
           let horarioTotal = undefined;
@@ -1977,10 +1977,10 @@ export default {
           } else {
             horarioTotal = horario1.horario + "\n" + horario2.horario;
           }
-          let sala1 = _.find(store.state.sala.Salas, {
+          let sala1 = find(store.state.sala.Salas, {
             id: turmasDisc[j].Sala1,
           });
-          let sala2 = _.find(store.state.sala.Salas, {
+          let sala2 = find(store.state.sala.Salas, {
             id: turmasDisc[j].Sala2,
           });
           let salaTotal = undefined;
@@ -2173,14 +2173,14 @@ export default {
     let turmas = [];
     store.getters.TurmasInDisciplinasPerfis.forEach((t) => {
       let pedidos = store.getters.Pedidos[t.id];
-      let pedido = _.find(pedidos, ["Curso", curso]);
+      let pedido = find(pedidos, ["Curso", curso]);
       if (pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0) {
         turmas.push({ turma: t, pedido: pedido });
       }
     });
-    return _.orderBy(
-      _.orderBy(
-        _.orderBy(turmas, (t) => {
+    return orderBy(
+      orderBy(
+        orderBy(turmas, (t) => {
           return t.turma.letra;
         }),
         (t) => {
@@ -2291,10 +2291,10 @@ export default {
         ];
 
         for (let j = 0; j < turmas.length; j++) {
-          let horario1 = _.find(store.state.horario.Horarios, {
+          let horario1 = find(store.state.horario.Horarios, {
             id: turmas[j].turma.Horario1,
           });
-          let horario2 = _.find(store.state.horario.Horarios, {
+          let horario2 = find(store.state.horario.Horarios, {
             id: turmas[j].turma.Horario2,
           });
           let horarioTotal = undefined;

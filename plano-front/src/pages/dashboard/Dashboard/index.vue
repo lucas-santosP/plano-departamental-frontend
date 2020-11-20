@@ -21,9 +21,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+import { find, pull } from "lodash-es";
 import bddumpService from "@/common/services/bddump";
 import { EventBus } from "@/plugins/eventBus.js";
-import { mapGetters, mapActions } from "vuex";
 import { TheNavbar, TheSidebar } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";
 import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
@@ -47,8 +48,8 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      if (!this.$_.find(this.AllPlanos, ["id", this.currentPlano.id]).visible) {
-        const firstVisiblePlano = this.$_.find(this.AllPlanos, ["visible", true]);
+      if (!find(this.AllPlanos, ["id", this.currentPlano.id]).visible) {
+        const firstVisiblePlano = find(this.AllPlanos, ["visible", true]);
         this.changeCurrentPlano(firstVisiblePlano.id);
       }
     });
@@ -56,7 +57,7 @@ export default {
       if (mutation.type === SOCKET_PLANO_UPDATED) {
         if (mutation.payload.Plano.id == localStorage.getItem("Plano")) {
           if (!mutation.payload.Plano.visible) {
-            let planovisivel = this.$_.find(this.AllPlanos, ["visible", true]);
+            let planovisivel = find(this.AllPlanos, ["visible", true]);
             this.changeCurrentPlano(planovisivel.id);
           }
         }
@@ -79,8 +80,8 @@ export default {
         this.files = response.Files.filter(function(elm) {
           return elm.match(/.*\.(sql)/gi);
         });
-        this.$_.pull(this.files, "drop_all.sql");
-        this.$_.forEach(this.files, function(value, index, array) {
+        pull(this.files, "drop_all.sql");
+        this.files.forEach((value, index, array) => {
           array[index] = value.slice(0, -4);
         });
       });

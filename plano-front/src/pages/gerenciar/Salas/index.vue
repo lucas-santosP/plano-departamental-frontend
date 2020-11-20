@@ -156,11 +156,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { clone, orderBy } from "lodash-es";
 import salaService from "@/common/services/sala";
 import { generateBooleanText, maskOnlyNumber } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
-import { mapGetters } from "vuex";
 const emptySala = {
   id: null,
   nome: null,
@@ -180,7 +181,7 @@ export default {
     return {
       error: null,
       salaSelected: null,
-      salaForm: this.$_.clone(emptySala),
+      salaForm: clone(emptySala),
       ordenacaoSalasMain: { order: "nome", type: "asc" },
     };
   },
@@ -196,12 +197,12 @@ export default {
     },
     cleanSala() {
       this.salaSelected = null;
-      this.salaForm = this.$_.clone(emptySala);
+      this.salaForm = clone(emptySala);
       this.error = null;
     },
     showSala(sala) {
       this.cleanSala();
-      this.salaForm = this.$_.clone(sala);
+      this.salaForm = clone(sala);
     },
 
     addSala() {
@@ -283,7 +284,7 @@ export default {
     ...mapGetters(["AllSalas"]),
 
     SalasOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.AllSalas,
         this.ordenacaoSalasMain.order,
         this.ordenacaoSalasMain.type

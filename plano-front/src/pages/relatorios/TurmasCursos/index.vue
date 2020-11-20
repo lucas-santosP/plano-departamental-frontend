@@ -80,115 +80,24 @@
 <script>
 import { mapGetters } from "vuex";
 import pdfs from "@/common/services/pdfs";
-import { normalizeText } from "@/common/utils";
-import {
-  toggleItemInArray,
-  generateHorariosText,
-  generateDocentesText,
-  toggleAsideModal,
-  conectaFiltroPerfisEDisciplinas,
-  conectaFiltrosSemestresEPeriodos,
-  preventClickSelection,
-} from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
-import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
-import ModalVagas from "../PlanoDepartamental/ModalVagas";
-import _ from "lodash";
-import downloadService from "@/common/services/download";
 import { saveAs } from "file-saver";
+import { find, orderBy } from "lodash-es";
+import { toggleAsideModal } from "@/common/mixins";
+import { ModalRelatorio, ModalAjuda } from "@/components/modals";
+import ModalVagas from "../PlanoDepartamental/ModalVagas";
+import downloadService from "@/common/services/download";
 
 export default {
   name: "TurmasCursos",
-  mixins: [
-    toggleItemInArray,
-    generateHorariosText,
-    generateDocentesText,
-    toggleAsideModal,
-    conectaFiltroPerfisEDisciplinas,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-  ],
+  mixins: [toggleAsideModal],
   components: {
     ModalRelatorio,
-    ModalFiltros,
     ModalAjuda,
-    InputSearch,
     ModalVagas,
   },
   data() {
     return {
-      turmaClicked: null,
-      searchDisciplinas: "",
       asideModalsRefs: ["modalAjuda", "modalRelatorio"],
-      ordenacaoMain: {
-        disciplinas: { order: "codigo", type: "asc" },
-      },
-      ordenacaoModal: {
-        perfis: { order: "nome", type: "asc" },
-        disciplinas: { order: "codigo", type: "asc" },
-      },
-      filtroDisciplinas: {
-        ativados: [],
-        selecionados: [],
-      },
-      filtroPerfis: {
-        selecionados: [],
-      },
-      filtroPeriodos: {
-        ativados: [],
-        selecionados: [],
-      },
-      filtroSemestres: {
-        selecionados: [],
-      },
-      modalFiltrosTabs: {
-        current: "Perfis",
-        array: ["Perfis", "Disciplinas", "Períodos", "Semestres"],
-      },
-      modalFiltrosCallbacks: {
-        selectAll: {
-          Perfis: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
-            this.filtroPerfis.selecionados = [...this.PerfisOptions];
-          },
-          Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [...this.DisciplinasOptions];
-            this.filtroPerfis.selecionados = [...this.PerfisOptions];
-          },
-          Periodos: () => {
-            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
-            this.filtroSemestres.selecionados = [...this.SemestresOptions];
-          },
-          Semestres: () => {
-            this.filtroSemestres.selecionados = [...this.SemestresOptions];
-            this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
-          },
-        },
-        selectNone: {
-          Perfis: () => {
-            this.filtroPerfis.selecionados = [];
-            this.filtroDisciplinas.selecionados = [];
-          },
-          Disciplinas: () => {
-            this.filtroDisciplinas.selecionados = [];
-            this.filtroPerfis.selecionados = [];
-          },
-          Periodos: () => {
-            this.filtroPeriodos.selecionados = [];
-            this.filtroSemestres.selecionados = [];
-          },
-          Semestres: () => {
-            this.filtroSemestres.selecionados = [];
-            this.filtroPeriodos.selecionados = [];
-          },
-        },
-        btnOk: () => {
-          this.filtroPeriodos.ativados = [
-            ...this.$_.orderBy(this.filtroPeriodos.selecionados, "id"),
-          ];
-          this.filtroDisciplinas.ativados = [...this.filtroDisciplinas.selecionados];
-        },
-      },
     };
   },
 
@@ -201,14 +110,15 @@ export default {
       let turmas = [];
       this.TurmasInDisciplinasPerfis.forEach((t) => {
         let pedidos = this.Pedidos[t.id];
-        let pedido = _.find(pedidos, ["Curso", curso]);
+        let pedido = find(pedidos, ["Curso", curso]);
         if (pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0) {
           turmas.push({ turma: t, pedido: pedido });
         }
       });
-      return this.$_.orderBy(
-        this.$_.orderBy(
-          this.$_.orderBy(turmas, (t) => {
+
+      return orderBy(
+        orderBy(
+          orderBy(turmas, (t) => {
             return t.turma.letra;
           }),
           (t) => {
@@ -220,12 +130,11 @@ export default {
         }
       );
     },
-
     horarioTotal(turma) {
-      let horario1 = _.find(this.$store.state.horario.Horarios, {
+      let horario1 = find(this.$store.state.horario.Horarios, {
         id: turma.Horario1,
       });
-      let horario2 = _.find(this.$store.state.horario.Horarios, {
+      let horario2 = find(this.$store.state.horario.Horarios, {
         id: turma.Horario2,
       });
       let horarioTotal = undefined;
@@ -240,11 +149,9 @@ export default {
       }
       return horarioTotal;
     },
-
-    pdf(completo) {
+    pdf() {
       pdfs.pdfTurmasCursos(this.AllCursos);
     },
-
     async downloadTurmasCursos() {
       await downloadService
         .generatePdfTurmasCurso({
@@ -268,17 +175,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "TurmasInDisciplinasPerfis",
-      "DisciplinasDCCInPerfis",
-      "PerfisDCC",
-      "AllPlanos",
-      "Pedidos",
-      "AllCursos",
-    ]),
+    ...mapGetters(["TurmasInDisciplinasPerfis", "Pedidos", "AllCursos"]),
 
     CursosOrdered() {
-      return this.$_.orderBy(this.AllCursos, "codigo");
+      return orderBy(this.AllCursos, "codigo");
     },
   },
 };
