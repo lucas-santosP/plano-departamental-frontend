@@ -78,8 +78,7 @@ export default {
         const turmasDoPlano = JSON.parse(dataStringNormalized);
 
         await this.createPlanoImported(turmasDoPlano, this.periodoTurmas);
-        await this.$store.dispatch("fetchAll");
-
+        // await this.$store.dispatch("fetchAll"); //Não é necessario ?
         this.setPartialLoading(false);
       };
 
