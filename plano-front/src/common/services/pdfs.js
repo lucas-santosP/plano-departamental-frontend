@@ -1608,6 +1608,7 @@ export default {
     let tables = [];
     let disciplinas = _.orderBy(data.disciplinasSelecionadas, "codigo");
     let turmasDisc = undefined;
+
     tables.push({
       columns: [
         {
@@ -1645,7 +1646,11 @@ export default {
       ],
     });
     for (let i = 0; i < disciplinas.length; i++) {
-      turmasDisc = this.turmasRelatorioDisciplinas(disciplinas[i], 1);
+      //Turmas 1 semestre
+      turmasDisc = disciplinas[i].turmas.filter(
+        (turma) => turma.periodo === 1 || turma.periodo === 2
+      );
+
       if (turmasDisc.length > 0) {
         tables.push({
           style: "tableExample",
@@ -1914,7 +1919,11 @@ export default {
       ],
     });
     for (let i = 0; i < disciplinas.length; i++) {
-      turmasDisc = this.turmasRelatorioDisciplinas(disciplinas[i], 2);
+      //Turmas 2 semestre
+      turmasDisc = disciplinas[i].turmas.filter(
+        (turma) => turma.periodo === 3 || turma.periodo === 4
+      );
+
       if (turmasDisc.length > 0) {
         tables.push({
           style: "tableExample",
