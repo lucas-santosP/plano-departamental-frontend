@@ -313,7 +313,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { union, difference, orderBy, find, filter, some } from "lodash-es";
+import { union, difference, orderBy, filter, some } from "lodash-es";
 import pdfs from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
@@ -449,12 +449,12 @@ export default {
     },
     pdf(completo) {
       let disciplinasSelecionadas = completo
-        ? this.DisciplinasDCCInPerfis
+        ? this.DisciplinasInTurmas
         : this.DisciplinasInTurmasFiltered;
 
       pdfs.pdfRelatorioDisciplinas({
         disciplinasSelecionadas,
-        plano: find(this.AllPlanos, ["id", parseInt(localStorage.getItem("Plano"))]),
+        plano: this.currentPlano,
       });
     },
   },
