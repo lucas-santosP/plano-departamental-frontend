@@ -53,7 +53,7 @@ Vue.mixin({
 });
 
 //css
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/global.css";
 
 Vue.config.productionTip = false;
