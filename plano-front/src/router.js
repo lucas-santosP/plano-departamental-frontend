@@ -8,18 +8,16 @@ import DashboardHome from "@/pages/dashboard/Home";
 
 Vue.use(VueRouter);
 
-function requireAuth(to, from, next) {
-  store
-    .dispatch("fetchUsuario")
-    .then(() => {
-      next();
-    })
-    .catch(() => {
-      next({
-        path: "/login",
-        query: { redirect: to.fullPath },
-      });
+async function requireAuth(to, from, next) {
+  try {
+    await store.dispatch("fetchUsuario");
+    next();
+  } catch (error) {
+    next({
+      path: "/login",
+      query: { redirect: to.fullPath },
     });
+  }
 }
 
 function requireAdmin(to, from, next) {
@@ -43,15 +41,6 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
-  },
-
-  {
-    path: "/logout",
-    name: "logout",
-    beforeEnter: (to, from, next) => {
-      store.commit("USER_LOGGED_OUT");
-      next("/login");
-    },
   },
 
   {

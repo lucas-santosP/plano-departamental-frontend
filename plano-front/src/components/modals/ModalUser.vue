@@ -20,7 +20,7 @@
               </p>
             </div>
           </div>
-          <BaseButton text="Logout" color="red" @click="routerLogout" />
+          <BaseButton text="Logout" color="red" @click="doLogout" />
         </div>
 
         <div v-if="Admin" class="w-100 border rounded-bottom py-2 px-3">
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { clone } from "lodash-es";
 import userService from "@/common/services/usuario";
 import { InputPassword, ButtonSlideSection } from "@/components/ui";
@@ -106,6 +106,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["doLogout"]),
+
     open() {
       this.$refs.baseModalUser.open();
     },
@@ -147,9 +149,6 @@ export default {
         if (value === "" || value === null) return false;
       }
       return true;
-    },
-    routerLogout() {
-      this.$router.push({ name: "logout" });
     },
 
     async editUser() {

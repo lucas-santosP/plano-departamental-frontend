@@ -1,3 +1,4 @@
+import router from "../../router.js";
 import authService from "../../common/services/auth";
 import { words } from "lodash-es";
 import {
@@ -70,6 +71,11 @@ const actions = {
         reject();
       }
     });
+  },
+
+  doLogout({ commit }) {
+    commit(USER_LOGGED_OUT);
+    router.push({ name: "login" });
   },
 };
 

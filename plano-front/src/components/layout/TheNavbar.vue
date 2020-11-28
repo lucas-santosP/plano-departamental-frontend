@@ -35,7 +35,7 @@
         <font-awesome-icon :icon="['fas', 'download']" />
         <span>Download</span>
       </li>
-      <li class="nav-item" @click="$router.push({ name: 'logout' })">
+      <li class="nav-item" @click="doLogout">
         <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
         <span>Logout</span>
       </li>
@@ -58,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["closeSidebar", "toggleSidebar", "changeCurrentPlano"]),
+    ...mapActions(["closeSidebar", "toggleSidebar", "changeCurrentPlano", "doLogout"]),
   },
 
   computed: {
@@ -82,9 +82,7 @@ export default {
           this.pushNotification({
             type: "warn",
             title: "Aviso!",
-            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${
-              firstVisiblePlano.nome
-            }`,
+            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${firstVisiblePlano.nome}`,
           });
         }
       },
