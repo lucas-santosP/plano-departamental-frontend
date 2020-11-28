@@ -9,14 +9,13 @@ axios(Vue, store);
 import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
 import PortalVue from "portal-vue";
-import { AlertPlugin, PopoverPlugin } from "bootstrap-vue";
+import { PopoverPlugin } from "bootstrap-vue";
 import Notifications from "vue-notification";
 
 Vue.use(VueSocketio, SocketIoInstance, store);
 Vue.use(PortalVue);
-Vue.use(Notifications);
-Vue.use(AlertPlugin);
 Vue.use(PopoverPlugin);
+Vue.use(Notifications);
 
 //Global components
 import {
@@ -55,7 +54,6 @@ Vue.mixin({
 
 //css
 import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./css/global.css";
 
 Vue.config.productionTip = false;
