@@ -249,14 +249,9 @@ export default {
 
   methods: {
     adminText(admin) {
-      switch (admin) {
-        case 0:
-          return "Consulta";
-        case 1:
-          return "Comissão";
-        case 2:
-          return "Administrador";
-      }
+      if (admin === 0) return "Consulta";
+      else if (admin === 1) return "Comissão";
+      else if (admin === 2) return "Administrador";
     },
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;

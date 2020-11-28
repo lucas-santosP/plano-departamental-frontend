@@ -8,22 +8,22 @@
             <div class="d-flex flex-column w-100">
               <p class="mx-2">
                 <b>Nome:</b>
-                {{ $store.state.auth.Usuario.nome }}
+                {{ currentUser.nome }}
               </p>
               <p class="mx-2">
                 <b>Login:</b>
-                {{ $store.state.auth.Usuario.login }}
+                {{ currentUser.login }}
               </p>
               <p class="mx-2">
                 <b>Tipo:</b>
-                {{ adminText() }}
+                {{ currentUser.type }}
               </p>
             </div>
           </div>
           <BaseButton text="Logout" color="red" @click="doLogout" />
         </div>
 
-        <div v-if="Admin" class="w-100 border rounded-bottom py-2 px-3">
+        <div v-if="currentUser.isAdmin" class="w-100 border rounded-bottom py-2 px-3">
           <div class="form-row">
             <label required for="nome">Nome</label>
             <input class="form-control" type="text" id="nome" v-model="userForm.nome" />
@@ -114,16 +114,6 @@ export default {
     close() {
       this.$refs.baseModalUser.close();
     },
-    adminText() {
-      switch (this.$store.state.auth.Usuario.admin) {
-        case 0:
-          return "Consulta";
-        case 1:
-          return "Comissão";
-        case 2:
-          return "Administrador";
-      }
-    },
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;
       this.userForm.senha = "";
@@ -132,9 +122,9 @@ export default {
     clearEditUserForm() {
       this.userForm = clone(emptyUser);
       this.isEditingSenha = false;
-      this.userForm.nome = this.$store.state.auth.Usuario.nome;
-      this.userForm.login = this.$store.state.auth.Usuario.login;
-      this.userForm.admin = this.$store.state.auth.Usuario.admin;
+      this.userForm.nome = this.currentUser.nome;
+      this.userForm.login = this.currentUser.login;
+      this.userForm.admin = this.currentUser.admin;
       this.confirmaSenha = "";
       this.senhaAtual = "";
     },
@@ -154,7 +144,7 @@ export default {
     async editUser() {
       const user = clone(this.userForm);
       user.senhaAtual = this.senhaAtual;
-      user.admin = this.$store.state.auth.Usuario.admin;
+      user.admin = this.currentUser.admin;
 
       if (!this.isEditingSenha) user.senha = this.senhaAtual;
 
@@ -167,10 +157,10 @@ export default {
       }
 
       try {
-        await userService.update(this.$store.state.auth.Usuario.id, user);
+        await userService.update(this.currentUser.id, user);
         this.pushNotification({
           type: "success",
-          text: `Usuário ${this.$store.state.auth.Usuario.nome} atualizado.`,
+          text: `Usuário ${this.currentUser.nome} atualizado.`,
         });
         this.clearEditUserForm();
       } catch (error) {
@@ -184,7 +174,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["Admin"]),
+    ...mapGetters(["currentUser"]),
   },
 };
 </script>

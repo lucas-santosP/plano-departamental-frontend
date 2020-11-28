@@ -21,12 +21,12 @@ async function requireAuth(to, from, next) {
 }
 
 function requireAdmin(to, from, next) {
-  if (!store.getters.Admin) next("/");
+  if (!store.getters.currentUser.isAdmin) next("/");
   else next();
 }
 
 function requireSuperAdmin(to, from, next) {
-  if (!store.getters.SuperAdmin) next("/");
+  if (!store.getters.currentUser.isSuperAdmin) next("/");
   else next();
 }
 

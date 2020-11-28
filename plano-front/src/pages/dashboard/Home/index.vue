@@ -4,16 +4,24 @@
 
     <div class="alert alert-light mt-1" role="alert">
       <p class="user-paragraph">
-        Olá {{ usuarioNome }}! Este é o sistema de gerenciamento de Plano Departamental do
-        DCC - Departamento de Ciência da Computação.
+        Olá {{ currentUser.nome }}! Este é o sistema de gerenciamento de Plano
+        Departamental do DCC - Departamento de Ciência da Computação.
         <br />
         Abaixo segue um resumo das funcionalidades de cada página:
       </p>
       <div class="row">
-        <LinkList v-if="Admin" title="PLANO" :pages="routesPlano" />
-        <LinkList title="RELATÓRIOS" :pages="routesRelatorios" />
-        <LinkList v-if="SuperAdmin" title="GERENCIAR" :pages="routesGerenciar" />
-        <LinkList v-if="SuperAdmin" title="HISTORICO" :pages="routesHistorico" />
+        <LinkList v-if="currentUser.isAdmin" title="Plano" :pages="routesPlano" />
+        <LinkList title="Relatórios" :pages="routesRelatorios" />
+        <LinkList
+          v-if="currentUser.isSuperAdmin"
+          title="Gerenciar"
+          :pages="routesGerenciar"
+        />
+        <LinkList
+          v-if="currentUser.isSuperAdmin"
+          title="Histórico"
+          :pages="routesHistorico"
+        />
       </div>
     </div>
   </div>
@@ -28,9 +36,7 @@ export default {
   components: { LinkList },
   computed: {
     ...mapGetters([
-      "Admin",
-      "SuperAdmin",
-      "usuarioNome",
+      "currentUser",
       "routesPlano",
       "routesRelatorios",
       "routesGerenciar",
