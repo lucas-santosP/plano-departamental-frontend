@@ -103,7 +103,7 @@
             </tr>
           </template>
 
-          <tr v-show="!TurmasValidacoesOrdered.length">
+          <tr v-if="!TurmasValidacoesOrdered.length">
             <v-td width="705">
               <b>Nenhum conflito encontrado em turmas.</b>
               Clique no botão de filtros
@@ -152,7 +152,7 @@
             </tr>
           </template>
 
-          <tr v-show="!DocentesValidacoesOrdered.length">
+          <tr v-if="!DocentesValidacoesOrdered.length">
             <v-td width="705">
               <b>Nenhum conflito encontrado em docentes.</b>
             </v-td>

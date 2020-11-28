@@ -43,7 +43,7 @@
             </v-td>
           </tr>
 
-          <tr v-show="!HistoryOrdered.length">
+          <tr v-if="!HistoryOrdered.length">
             <v-td width="975" colspan="8">
               <b>Nenhuma operação encontrada.</b>
               Clique no botão de filtros

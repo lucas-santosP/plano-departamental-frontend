@@ -1,6 +1,6 @@
 <template>
   <transition name="sidebar-animation">
-    <nav v-show="sidebarVisibility" class="sidebar bg-light" @click.stop="">
+    <nav v-show="sidebarVisibility" class="sidebar bg-light" @click.stop>
       <SidebarMenu :menuPages="routesHome" />
       <SidebarMenu
         v-if="currentUser.isAdmin && currentPlano.isEditable"

@@ -1,19 +1,21 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
     <PageHeader :title="'Graduação - Outros'">
-      <BaseButton
-        v-show="isAdding"
-        template="salvar"
-        @click="$refs.novaTurmaExternaRow.handleCreateTurmaExterna()"
-      />
-      <BaseButton v-show="isAdding" template="cancelar" @click="toggleAddRow" />
-      <BaseButton v-show="!isAdding" template="adicionar" @click="toggleAddRow" />
-      <BaseButton
-        v-show="!isAdding"
-        template="deletar"
-        title="Deletar selecionados"
-        @click="openModalDelete"
-      />
+      <template v-if="isAdding">
+        <BaseButton
+          template="salvar"
+          @click="$refs.novaTurmaRow.handleCreateTurmaExterna()"
+        />
+        <BaseButton template="cancelar" @click="toggleAddRow" />
+      </template>
+      <template v-else>
+        <BaseButton template="adicionar" @click="toggleAddRow" />
+        <BaseButton
+          template="deletar"
+          title="Deletar selecionados"
+          @click="openModalDelete"
+        />
+      </template>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
@@ -58,7 +60,7 @@
           </v-th>
         </template>
         <template #add-row>
-          <NovaTurmaExternaRow ref="novaTurmaExternaRow" v-if="isAdding" />
+          <NovaTurmaExternaRow ref="novaTurmaRow" v-if="isAdding" />
         </template>
 
         <template #tbody>
@@ -68,7 +70,7 @@
             :turma="turma"
           />
 
-          <tr v-show="!TurmasExternasOrdered.length">
+          <tr v-if="!TurmasExternasOrdered.length">
             <v-td width="1005">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
@@ -143,7 +145,7 @@
             <v-td width="60" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
           </tr>
 
-          <tr v-show="!DisciplinasOptionsOrdered.length">
+          <tr v-if="!DisciplinasOptionsOrdered.length">
             <v-td colspan="3" width="450">
               NENHUMA DISCIPLINA ENCONTRADA.
             </v-td>

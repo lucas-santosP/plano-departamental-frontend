@@ -82,7 +82,7 @@
               <v-td width="55">{{ pedido.vagasTotais }}</v-td>
             </tr>
 
-            <tr v-show="!PedidosOrdered.length">
+            <tr v-if="!PedidosOrdered.length">
               <v-td colspan="5" width="530">
                 <b>Turma atual não possui nenhuma vaga cadastrada</b>
               </v-td>

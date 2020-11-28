@@ -95,7 +95,7 @@
             :cursosAtivados="cursosAtivados"
           />
 
-          <tr v-show="!DisciplinasOrderedMain.length">
+          <tr v-if="!DisciplinasOrderedMain.length">
             <v-td width="1120">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros
@@ -408,7 +408,12 @@ export default {
     runAll() {
       //cria objeto para armazenar os períodos das disciplinas e chama as funções que a populam
       this.$store.state.disciplina.Disciplinas.forEach((d) => {
-        this.disciplinasGrades[d.id] = [[[], []], [[], []], [[], []], [[], []]]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
+        this.disciplinasGrades[d.id] = [
+          [[], []],
+          [[], []],
+          [[], []],
+          [[], []],
+        ]; //inicializa os períodos em 0 [Primeiro Semestre, Segundo Semestre]
       });
       this.getGrades();
       this.get1Periodo();

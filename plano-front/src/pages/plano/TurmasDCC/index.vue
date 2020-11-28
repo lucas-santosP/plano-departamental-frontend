@@ -1,19 +1,18 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
     <PageHeader :title="'Graduação - DCC'">
-      <BaseButton
-        v-show="isAdding"
-        template="salvar"
-        @click="$refs.novaTurma.handleCreateTurma()"
-      />
-      <BaseButton v-show="isAdding" template="cancelar" @click="toggleIsAdding" />
-      <BaseButton v-show="!isAdding" template="adicionar" @click="toggleIsAdding" />
-      <BaseButton
-        v-show="!isAdding"
-        template="deletar"
-        title="Deletar selecionados"
-        @click="$refs.modalDelete.open()"
-      />
+      <template v-if="isAdding">
+        <BaseButton template="salvar" @click="$refs.novaTurma.handleCreateTurma()" />
+        <BaseButton template="cancelar" @click="toggleIsAdding" />
+      </template>
+      <template v-else>
+        <BaseButton template="adicionar" @click="toggleIsAdding" />
+        <BaseButton
+          template="deletar"
+          title="Deletar selecionados"
+          @click="$refs.modalDelete.open()"
+        />
+      </template>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="generateXlsx" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
@@ -91,7 +90,7 @@
             @click-edit="openModalEditTurma($event)"
           />
 
-          <tr v-show="!TurmasOrdered.length">
+          <tr v-if="!TurmasOrdered.length">
             <v-td :width="1145 + 35 * filtroCursos.ativados.length">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
@@ -256,7 +255,7 @@
             <v-td width="70" align="start">{{ curso.codigo }}</v-td>
             <v-td width="355" align="start">{{ curso.nome }}</v-td>
           </tr>
-          <tr v-show="!CursosOptionsOrdered.length">
+          <tr v-if="!CursosOptionsOrdered.length">
             <v-td colspan="3" width="450">NENHUM CURSO ENCONTRADO.</v-td>
           </tr>
         </template>

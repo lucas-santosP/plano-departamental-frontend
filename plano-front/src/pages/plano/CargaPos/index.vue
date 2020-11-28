@@ -1,19 +1,21 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
     <PageHeader :title="'Pós Graduação'">
-      <BaseButton
-        v-show="isAdding"
-        template="salvar"
-        @click="$refs.novaCargaPosRow.handleCreateCargaPos()"
-      />
-      <BaseButton v-show="isAdding" template="cancelar" @click="toggleAddRow" />
-      <BaseButton v-show="!isAdding" template="adicionar" @click="toggleAddRow" />
-      <BaseButton
-        v-show="!isAdding"
-        template="deletar"
-        title="Deletar selecionados"
-        @click="$refs.modalDelete.open()"
-      />
+      <template v-if="isAdding">
+        <BaseButton
+          template="salvar"
+          @click="$refs.novaCargaPosRow.handleCreateCargaPos()"
+        />
+        <BaseButton template="cancelar" @click="toggleAddRow" />
+      </template>
+      <template v-else>
+        <BaseButton template="adicionar" @click="toggleAddRow" />
+        <BaseButton
+          template="deletar"
+          title="Deletar selecionados"
+          @click="$refs.modalDelete.open()"
+        />
+      </template>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
@@ -66,7 +68,7 @@
             />
           </template>
 
-          <tr v-show="!ProgramasInCargaPosOrdered.length">
+          <tr v-if="!ProgramasInCargaPosOrdered.length">
             <v-td width="360" whiteSpace="normal">
               <b>Nenhuma carga encontrada.</b>
               Clique no botão de filtros

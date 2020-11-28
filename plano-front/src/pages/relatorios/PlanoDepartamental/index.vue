@@ -49,7 +49,7 @@
         </template>
 
         <template #tbody>
-          <tr v-show="DisciplinasInTurmasOrdered.length" class="bg-total-vg">
+          <tr v-if="DisciplinasInTurmasOrdered.length" class="bg-total-vg">
             <v-td width="80" />
             <v-td width="350" align="start">TOTAIS</v-td>
             <v-td width="80" />
@@ -106,7 +106,7 @@
             </tr>
           </template>
 
-          <tr v-show="!DisciplinasInTurmasOrdered.length">
+          <tr v-if="!DisciplinasInTurmasOrdered.length">
             <v-td width="885" colspan="7">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros

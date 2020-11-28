@@ -10,7 +10,7 @@
     </main>
 
     <div
-      v-show="modalOverlayVisibility"
+      v-if="modalOverlayVisibility"
       class="base-modal-overlay"
       @click.stop="emitCloseCenterModal"
     ></div>

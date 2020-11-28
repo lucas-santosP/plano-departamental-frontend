@@ -55,7 +55,7 @@
               </tr>
             </template>
 
-            <tr v-show="!hasGradeSelected">
+            <tr v-if="!hasGradeSelected">
               <v-td width="515" colspan="3">
                 <b>Nenhuma disciplina encontrada</b>
                 , selecione uma grade.
@@ -414,9 +414,7 @@ export default {
           this.$notify({
             group: "general",
             title: `Sucesso!`,
-            text: `A Disciplina <b>${nome_disciplina}</b> foi adicionada à Grade <b>${
-              this.gradeForm.nome
-            }</b>!`,
+            text: `A Disciplina <b>${nome_disciplina}</b> foi adicionada à Grade <b>${this.gradeForm.nome}</b>!`,
             type: "success",
           });
         })
