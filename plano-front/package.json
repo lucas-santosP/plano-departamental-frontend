@@ -20,7 +20,6 @@
     "lodash-es": "^4.17.15",
     "pdfmake": "^0.1.58",
     "portal-vue": "^2.1.6",
-    "sheetjs": "^1.0.21",
     "socket.io-client": "^2.1.0",
     "vue": "^2.5.13",
     "vue-axios": "^2.1.1",
