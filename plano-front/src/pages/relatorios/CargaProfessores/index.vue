@@ -187,7 +187,7 @@
       </BaseTable>
     </ModalFiltros>
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
@@ -212,7 +212,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, some, filter, orderBy } from "lodash-es";
-import pdfs from "@/common/services/pdfs";
+import { pdfCargaProfessores } from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -383,7 +383,8 @@ export default {
         creditos2Semestre,
       };
     },
-    pdf(completo) {
+    
+    generatePdf(completo) {
       let SemAlocacao, Docentes;
       if (completo) {
         SemAlocacao = true;
@@ -393,7 +394,7 @@ export default {
         Docentes = this.filtroDocentes.ativados;
       }
 
-      pdfs.pdfCargaProfessores({
+      pdfCargaProfessores({
         Docentes,
         SemAlocacao,
         plano: this.currentPlano,

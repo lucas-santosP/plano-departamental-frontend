@@ -51,7 +51,7 @@
       </BaseTable>
     </div>
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
@@ -79,7 +79,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import pdfs from "@/common/services/pdfs";
+import { pdfTurmasCursos } from "@/common/services/pdfs";
 import { saveAs } from "file-saver";
 import { find, orderBy } from "lodash-es";
 import { toggleAsideModal } from "@/common/mixins";
@@ -149,9 +149,11 @@ export default {
       }
       return horarioTotal;
     },
-    pdf() {
-      pdfs.pdfTurmasCursos(this.AllCursos);
+
+    generatePdf() {
+      pdfTurmasCursos(this.AllCursos);
     },
+
     async downloadTurmasCursos() {
       await downloadService
         .generatePdfTurmasCurso({

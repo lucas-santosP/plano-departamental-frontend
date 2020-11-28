@@ -285,7 +285,7 @@
 
     <ModalVagas ref="modalVagas" :turma="turmaClicked" />
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
@@ -314,7 +314,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
-import pdfs from "@/common/services/pdfs";
+import { pdfDisciplinasTurmas } from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   generateHorariosText,
@@ -447,13 +447,14 @@ export default {
         0
       );
     },
-    pdf(completo) {
-      let disciplinasSelecionadas = completo
-        ? this.DisciplinasInTurmas
-        : this.DisciplinasInTurmasFiltered;
+    generatePdf(completo) {
+      let disciplinasInTurmas = [];
+      if (completo) disciplinasInTurmas = this.DisciplinasInTurmas;
+      else disciplinasInTurmas = this.DisciplinasInTurmasFiltered;
 
-      pdfs.pdfRelatorioDisciplinas({
-        disciplinasSelecionadas,
+      pdfDisciplinasTurmas({
+        disciplinasInTurmas,
+        periodosAtivados: this.filtroPeriodos.ativados,
         plano: this.currentPlano,
       });
     },

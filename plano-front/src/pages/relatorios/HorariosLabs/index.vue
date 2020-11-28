@@ -122,14 +122,14 @@
       </li>
     </ModalAjuda>
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { filter, find, orderBy } from "lodash-es";
-import pdfs from "@/common/services/pdfs";
+import { pdfHorariosLabs } from "@/common/services/pdfs";
 import {
   toggleItemInArray,
   toggleAsideModal,
@@ -218,12 +218,12 @@ export default {
   },
 
   methods: {
-    pdf(completo) {
+    generatePdf(completo) {
       let laboratorios;
       if (completo) laboratorios = this.LaboratoriosOrdered;
       else laboratorios = this.filtroLaboratorios.ativados;
 
-      pdfs.pdfAlocacaoLabs({
+      pdfHorariosLabs({
         laboratorios,
         plano: this.currentPlano,
       });
