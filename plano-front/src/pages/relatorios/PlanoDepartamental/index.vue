@@ -449,12 +449,18 @@ export default {
     },
     generatePdf(completo) {
       let disciplinasInTurmas = [];
-      if (completo) disciplinasInTurmas = this.DisciplinasInTurmas;
-      else disciplinasInTurmas = this.DisciplinasInTurmasFiltered;
+      let periodosAtivados = [];
+      if (completo) {
+        disciplinasInTurmas = this.DisciplinasInTurmas;
+        periodosAtivados = this.PeriodosOptions;
+      } else {
+        disciplinasInTurmas = this.DisciplinasInTurmasFiltered;
+        periodosAtivados = this.filtroPeriodos.ativados;
+      }
 
       pdfDisciplinasTurmas({
         disciplinasInTurmas,
-        periodosAtivados: this.filtroPeriodos.ativados,
+        periodosAtivados,
         plano: this.currentPlano,
       });
     },
