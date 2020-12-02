@@ -208,7 +208,7 @@ export default {
 
       const docenteFounded = find(
         this.AllDocentes,
-        (docente) => normalizeText(docente.nomesiga) === normalizeText(nomeSiga)
+        (docente) => normalizeText(docente.nome) === normalizeText(nomeSiga)
       );
       return docenteFounded ? docenteFounded.id : null;
     },
