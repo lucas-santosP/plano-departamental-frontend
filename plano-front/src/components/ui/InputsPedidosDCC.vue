@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       pedidoForm: null,
-      debouncedEditPedido: debounce(this.handleEditPedido, 1000),
+      debouncedEditPedido: debounce(this.handleEditPedido, 1500),
     };
   },
 
