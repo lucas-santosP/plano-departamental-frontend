@@ -1,9 +1,9 @@
 <template>
   <div class="main-component row p-0">
     <PageHeader :title="'Turmas - Cursos'">
-      <!--<BaseButton template="filtros" @click="toggleAsideModal('filtros')" />-->
+      <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="toggleAsideModal('relatorio')" />
-      <BaseButton template="download" @click="downloadTurmasCursos" />
+      <BaseButton template="download" @click="toggleAsideModal('DownloadTurmasCursos')" />
       <!--<BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />-->
     </PageHeader>
 
@@ -17,11 +17,11 @@
           <v-th width="40" title="Turma">T.</v-th>
           <v-th width="120" title="Horário">Horário</v-th>
           <v-th width="80" title="Vagas da Grade">Grade</v-th>
-          <v-th width="80" title="Vagas Não Grade">Não Grade</v-th>
+          <v-th width="80" title="Vagas Não Grade">Extra</v-th>
         </template>
 
         <template #tbody>
-          <template v-for="curso in CursosOrdered">
+          <template v-for="curso in filtroCursos.ativados">
             <tr :key="`Curso${curso.id}`" style="background-color: #f1f1f1">
               <v-td width="80">{{ curso.codigo }}</v-td>
               <v-td width="300">{{ curso.nome }}</v-td>
@@ -51,7 +51,99 @@
       </BaseTable>
     </div>
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+
+    <ModalDownloadTurmasCursos
+      ref="modalDownloadTurmasCursos"
+      @selection-option="downloadTurmasCursos($event)"
+    />
+
+    <ModalFiltros
+      ref="modalFiltros"
+      :callbacks="modalFiltrosCallbacks"
+      :tabsOptions="modalFiltrosTabs"
+    >
+      <BaseTable
+        type="modal"
+        v-show="modalFiltrosTabs.current === 'Cursos'"
+        :hasSearchBar="true"
+      >
+        <template #thead-search>
+          <InputSearch
+            v-model="searchCursos"
+            placeholder="Pesquise nome ou codigo de um curso..."
+          />
+        </template>
+        <template #thead>
+          <v-th width="25" />
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.cursos"
+            orderToCheck="codigo"
+            width="70"
+            align="start"
+          >
+            Código
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.cursos"
+            orderToCheck="nome"
+            width="270"
+            align="start"
+          >
+            Nome
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoModal.cursos"
+            orderToCheck="turno"
+            width="85"
+            align="start"
+          >
+            Turno
+          </v-th-ordination>
+        </template>
+
+        <template #tbody>
+          <tr v-for="curso in CursosFiltrados" :key="curso.id + curso.nome">
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="filtroCursos.selecionados" :value="curso" />
+            </v-td>
+            <v-td width="70" align="start">{{ curso.codigo }}</v-td>
+            <v-td align="start" width="270" :title="curso.nome">
+              {{ curso.nome }}
+            </v-td>
+            <v-td width="85" align="start">{{ curso.turno }}</v-td>
+          </tr>
+
+          <tr v-if="!AllCursos.length">
+            <v-td colspan="3" width="450">
+              NENHUM CURSO ENCONTRADO
+            </v-td>
+          </tr>
+        </template>
+      </BaseTable>
+
+      <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Períodos'">
+        <template #thead>
+          <v-th width="25" />
+          <v-th width="425" align="start">Período Letivo</v-th>
+        </template>
+
+        <template #tbody>
+          <tr>
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="filtroPeriodos.selecionados" :value="1" />
+            </v-td>
+            <v-td width="425" align="start">PRIMEIRO</v-td>
+          </tr>
+          <tr>
+            <v-td width="25" type="content">
+              <input type="checkbox" v-model="filtroPeriodos.selecionados" :value="3" />
+            </v-td>
+            <v-td width="425" align="start">TERCEIRO</v-td>
+          </tr>
+        </template>
+      </BaseTable>
+    </ModalFiltros>
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
@@ -79,25 +171,98 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { pdfTurmasCursos } from "@/common/services/pdfs";
-import { saveAs } from "file-saver";
-import { find, orderBy } from "lodash-es";
-import { toggleAsideModal } from "@/common/mixins";
-import { ModalRelatorio, ModalAjuda } from "@/components/modals";
+import pdfs from "@/common/services/pdfs";
+import { normalizeText } from "@/common/utils";
+import {
+  toggleItemInArray,
+  generateHorariosText,
+  generateDocentesText,
+  toggleAsideModal,
+  conectaFiltroPerfisEDisciplinas,
+  conectaFiltrosSemestresEPeriodos,
+  preventClickSelection,
+} from "@/common/mixins";
+import { InputSearch } from "@/components/ui";
+import {
+  ModalRelatorio,
+  ModalAjuda,
+  ModalFiltros,
+  ModalDownloadTurmasCursos,
+} from "@/components/modals";
 import ModalVagas from "../PlanoDepartamental/ModalVagas";
+import _ from "lodash";
 import downloadService from "@/common/services/download";
+import { saveAs } from "file-saver";
 
 export default {
   name: "TurmasCursos",
-  mixins: [toggleAsideModal],
+  mixins: [
+    toggleItemInArray,
+    generateHorariosText,
+    generateDocentesText,
+    toggleAsideModal,
+    conectaFiltroPerfisEDisciplinas,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+  ],
   components: {
     ModalRelatorio,
+    ModalFiltros,
     ModalAjuda,
+    InputSearch,
     ModalVagas,
+    ModalDownloadTurmasCursos,
   },
   data() {
     return {
-      asideModalsRefs: ["modalAjuda", "modalRelatorio"],
+      turmaClicked: null,
+      searchCursos: "",
+      asideModalsRefs: [
+        "modalAjuda",
+        "modalRelatorio",
+        "modalFiltros",
+        "modalDownloadTurmasCursos",
+      ],
+      ordenacaoMain: {
+        disciplinas: { order: "codigo", type: "asc" },
+      },
+      ordenacaoModal: {
+        cursos: { order: "codigo", type: "asc" },
+      },
+      filtroCursos: {
+        selecionados: [],
+        ativados: [],
+      },
+      filtroPeriodos: {
+        selecionados: [],
+        ativados: [],
+      },
+      modalFiltrosTabs: {
+        current: "Cursos",
+        array: ["Cursos", "Períodos"],
+      },
+      modalFiltrosCallbacks: {
+        selectAll: {
+          Cursos: () => {
+            this.filtroCursos.selecionados = [...this.CursosFiltrados];
+          },
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [1, 3];
+          },
+        },
+        selectNone: {
+          Cursos: () => {
+            this.filtroCursos.selecionados = [];
+          },
+          Periodos: () => {
+            this.filtroPeriodos.selecionados = [];
+          },
+        },
+        btnOk: () => {
+          this.filtroCursos.ativados = [...this.filtroCursos.selecionados];
+          this.filtroPeriodos.ativados = [...this.filtroPeriodos.selecionados];
+        },
+      },
     };
   },
 
@@ -110,17 +275,25 @@ export default {
       let turmas = [];
       this.TurmasInDisciplinasPerfis.forEach((t) => {
         let pedidos = this.Pedidos[t.id];
-        let pedido = find(pedidos, ["Curso", curso]);
+        let pedido = _.find(pedidos, ["Curso", curso]);
         if (pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0) {
           turmas.push({ turma: t, pedido: pedido });
         }
       });
-
-      return orderBy(
-        orderBy(
-          orderBy(turmas, (t) => {
-            return t.turma.letra;
-          }),
+      return this.$_.orderBy(
+        this.$_.orderBy(
+          this.$_.orderBy(
+            this.$_.filter(turmas, (t) => {
+              let periodo = false;
+              this.filtroPeriodos.ativados.forEach((p) => {
+                if (p == t.turma.periodo) periodo = true;
+              });
+              return periodo;
+            }),
+            (t) => {
+              return t.turma.letra;
+            }
+          ),
           (t) => {
             return t.turma.disciplina.codigo;
           }
@@ -130,11 +303,12 @@ export default {
         }
       );
     },
+
     horarioTotal(turma) {
-      let horario1 = find(this.$store.state.horario.Horarios, {
+      let horario1 = _.find(this.$store.state.horario.Horarios, {
         id: turma.Horario1,
       });
-      let horario2 = find(this.$store.state.horario.Horarios, {
+      let horario2 = _.find(this.$store.state.horario.Horarios, {
         id: turma.Horario2,
       });
       let horarioTotal = undefined;
@@ -150,14 +324,24 @@ export default {
       return horarioTotal;
     },
 
-    generatePdf() {
-      pdfTurmasCursos(this.AllCursos);
+    pdf(completo) {
+      if (completo)
+        pdfs.pdfTurmasCursos({
+          Cursos: this.AllCursos,
+          periodos: this.filtroPeriodos.ativados,
+        });
+      else
+        pdfs.pdfTurmasCursos({
+          Cursos: this.filtroCursos.ativados,
+          periodos: this.filtroPeriodos.ativados,
+        });
     },
 
-    async downloadTurmasCursos() {
+    async downloadTurmasCursos(periodo) {
       await downloadService
         .generatePdfTurmasCurso({
           Plano: localStorage.getItem("Plano"),
+          periodo: periodo,
         })
         .then(() =>
           downloadService.createZipTurmasCursos().then(() =>
@@ -177,10 +361,31 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TurmasInDisciplinasPerfis", "Pedidos", "AllCursos"]),
+    ...mapGetters([
+      "TurmasInDisciplinasPerfis",
+      "DisciplinasDCCInPerfis",
+      "PerfisDCC",
+      "AllPlanos",
+      "Pedidos",
+      "AllCursos",
+    ]),
 
     CursosOrdered() {
-      return orderBy(this.AllCursos, "codigo");
+      return this.$_.orderBy(this.AllCursos, "codigo");
+    },
+
+    CursosFiltrados() {
+      if (this.searchCursos === "") return this.AllCursos;
+      else {
+        const searchNormalized = normalizeText(this.searchCursos);
+
+        return this.$_.filter(this.AllCursos, (curso) => {
+          const nome = normalizeText(curso.nome);
+          const codigo = normalizeText(curso.codigo);
+
+          return nome.match(searchNormalized) || codigo.match(searchNormalized);
+        });
+      }
     },
   },
 };
