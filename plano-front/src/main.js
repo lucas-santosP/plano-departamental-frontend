@@ -9,12 +9,12 @@ axios(Vue, store);
 import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
 import PortalVue from "portal-vue";
-import { PopoverPlugin } from "bootstrap-vue";
 import Notifications from "vue-notification";
+import { VBPopover } from "bootstrap-vue";
 
+Vue.directive("b-popover", VBPopover);
 Vue.use(VueSocketio, SocketIoInstance, store);
 Vue.use(PortalVue);
-Vue.use(PopoverPlugin);
 Vue.use(Notifications);
 
 //Global components
