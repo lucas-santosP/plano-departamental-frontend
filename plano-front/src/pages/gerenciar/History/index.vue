@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { some, find, filter, orderBy } from "lodash-es";
 import {
   toggleItemInArray,
@@ -179,10 +179,13 @@ export default {
   },
 
   beforeMount() {
+    this.fetchAllHistory();
     this.modalFiltrosCallbacks.selectAll.Operacoes();
   },
 
   methods: {
+    ...mapActions(["fetchAllHistory"]),
+
     linhaModificada(h) {
       let linha = h.linhaModificada;
       let aux = undefined;
