@@ -26,14 +26,6 @@
             </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordenacaoDocentesMain"
-              orderToCheck="nomesiga"
-              width="240"
-              align="start"
-            >
-              Nome SIGA
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoDocentesMain"
               orderToCheck="ativo"
               orderType="desc"
               width="65"
@@ -51,9 +43,6 @@
             >
               <v-td width="240" align="start">{{ docente.nome }}</v-td>
               <v-td width="120" align="start">{{ docente.apelido }}</v-td>
-              <v-td width="240" align="start" :title="docente.nomesiga">
-                {{ docente.nomesiga }}
-              </v-td>
               <v-td width="65">{{ generateBooleanText(docente.ativo) }}</v-td>
             </tr>
 
@@ -104,20 +93,6 @@
             <div class="form-check form-check-inline col-auto m-0 mt-4 px-0">
               <label for="ativo" class="form-check-label mr-2">Ativo</label>
               <input id="ativo" type="checkbox" value="1" v-model="docenteForm.ativo" />
-            </div>
-          </div>
-
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="nomesiga" class="col-form-label">Nome SIGA</label>
-
-              <input
-                id="nomesiga"
-                type="text"
-                class="form-control form-control-sm input-maior"
-                @input="docenteForm.nomesiga = $event.target.value.toUpperCase()"
-                :value="docenteForm.nomesiga"
-              />
             </div>
           </div>
 
@@ -209,13 +184,11 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { clone, filter, orderBy } from "lodash-es";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import { toggleItemInArray, generateBooleanText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
-
 const emptyDocente = {
   id: null,
   nome: null,
@@ -235,7 +208,7 @@ export default {
   components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
-      docenteForm: clone(emptyDocente),
+      docenteForm: this.$_.clone(emptyDocente),
       perfisAssociados: [],
       docenteClickadoId: null,
       perfilsOfCurrentDocente: [],
@@ -251,20 +224,16 @@ export default {
     },
     cleanDocente() {
       this.docenteClickadoId = null;
-      this.docenteForm = clone(emptyDocente);
+      this.docenteForm = this.$_.clone(emptyDocente);
     },
     showDocente(docente) {
-      this.docenteForm = clone(docente);
+      this.docenteForm = this.$_.clone(docente);
       this.updatePerfisAssociados();
     },
     updatePerfisAssociados() {
-      const docentePerfisFiltered = filter(this.DocentePerfis, [
-        "DocenteId",
-        this.docenteForm.id,
-      ]);
-
-      this.perfilsOfCurrentDocente = docentePerfisFiltered.map(
-        (docentePerfil) => docentePerfil.Perfil
+      this.perfilsOfCurrentDocente = this.$_.map(
+        this.$_.filter(this.DocentePerfis, ["DocenteId", this.docenteForm.id]),
+        "Perfil"
       );
 
       this.perfisAssociados = [...this.perfilsOfCurrentDocente];
@@ -350,7 +319,8 @@ export default {
     async editDocentePerfil() {
       //Remove os que não existem em perfisAssociados mas existem em perfilsOfCurrentDocente
       for (let i = 0; i < this.perfilsOfCurrentDocente.length; i++) {
-        const perfilIndex = this.perfisAssociados.indexOf(
+        const perfilIndex = this.$_.indexOf(
+          this.perfisAssociados,
           this.perfilsOfCurrentDocente[i]
         );
 
@@ -358,7 +328,8 @@ export default {
       }
       //Adiciona os que existem no perfisAssociados mas não existem em perfilsOfCurrentDocente
       for (let i = 0; i < this.perfisAssociados.length; i++) {
-        const perfilIndex = this.perfilsOfCurrentDocente.indexOf(
+        const perfilIndex = this.$_.indexOf(
+          this.perfilsOfCurrentDocente,
           this.perfisAssociados[i]
         );
 
@@ -366,7 +337,7 @@ export default {
       }
     },
     async addPerfil(perfilId) {
-      const newPerfilDocente = clone(emptyPerfil);
+      const newPerfilDocente = this.$_.clone(emptyPerfil);
       newPerfilDocente.Docente = this.docenteForm.id;
       newPerfilDocente.DocenteId = this.docenteForm.id;
       newPerfilDocente.Perfil = perfilId;
@@ -382,7 +353,7 @@ export default {
     ...mapGetters(["AllDocentes", "AllPerfis"]),
 
     DocentesOrdered() {
-      return orderBy(
+      return this.$_.orderBy(
         this.AllDocentes,
         this.ordenacaoDocentesMain.order,
         this.ordenacaoDocentesMain.type
