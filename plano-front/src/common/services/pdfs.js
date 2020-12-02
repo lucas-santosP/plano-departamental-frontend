@@ -588,720 +588,759 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
   pdfMake.createPdf(docDefinition).open();
 }
 
-async function pdfHorariosLabs(data) {
+async function pdfHorariosLabs({ laboratorios, periodosAtivados, plano }) {
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
-
-  var tables = [];
-  tables.push({
-    columns: [
-      {
-        image: logoDcc,
-        fit: [60, 60],
-        alignment: "left",
-        width: "16%",
-      },
-      [
-        {
-          text: "Relação de horários das turmas em laboratórios do",
-          alignment: "center",
-          bold: true,
-          fontSize: 10,
-        },
-        {
-          text: "Departamento de Ciência da Computação",
-          alignment: "center",
-          bold: true,
-          fontSize: 10,
-        },
-      ],
-      {
-        image: logoUfjf,
-        fit: [60, 60],
-        alignment: "right",
-        width: "16%",
-      },
-    ],
-  });
-  tables.push({
-    text: "1º Semestre " + data.plano.ano + " - " + data.plano.nome,
-    alignment: "center",
-    bold: true,
-    fontSize: 10,
-    margin: [0, 0, 0, 5],
-  });
-  var laboratorios = data.laboratorios;
-  var disciplinas = orderBy(store.state.disciplina.Disciplinas, ["nome"]);
-  var turmas1 = filter(store.state.turma.Turmas, ["periodo", 1]);
-  var turmas2 = filter(store.state.turma.Turmas, ["periodo", 3]);
-  var seg = "",
+  const tables = [];
+  const disciplinasOrdered = orderBy(store.getters.AllDisciplinas, ["nome"]);
+  const turmas1Periodo = filter(store.state.turma.Turmas, ["periodo", 1]);
+  const turmas3Periodo = filter(store.state.turma.Turmas, ["periodo", 3]);
+  const semestre1Ativo = semestreEstaAtivo(periodosAtivados, 1);
+  const semestre2Ativo = semestreEstaAtivo(periodosAtivados, 2);
+  let seg = "",
     ter = "",
     qua = "",
     qui = "",
     sex = "";
-  for (let i = 0; i < laboratorios.length; i++) {
-    if (i % 4 === 0 && i !== 0) {
-      tables.push({
-        text: laboratorios[i].nome,
-        bold: true,
-        margin: [0, 10, 0, 10],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-    } else {
-      tables.push({
-        text: laboratorios[i].nome,
-        bold: true,
-        margin: [0, 10, 0, 10],
-        fontSize: 9,
-      });
-    }
-    let tableLabsBody = [
-      [
-        { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
-        {
-          text: "Segunda",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Terça",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Quarta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Quinta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Sexta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-      ],
-    ];
 
-    for (var d = 0; d < 8; d++) {
-      for (var j = 0; j < turmas1.length; j++) {
-        if (
-          turmas1[j].Sala1 === laboratorios[i].id ||
-          turmas1[j].Sala2 === laboratorios[i].id
-        ) {
-          if (d < 4) {
-            if (checkTurmaHorarioLabs(turmas1[j], 1 + d, laboratorios[i].id)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 7 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 13 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 19 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 25 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-          } else if (d === 4 || d === 5) {
-            if (checkTurmaHorarioLabs(turmas1[j], 28 + d, laboratorios[i].id)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 30 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 32 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 34 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 36 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-          } else if (d > 5) {
-            if (checkTurmaHorarioLabs(turmas1[j], d - 1)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 5 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 11 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 17 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-            if (checkTurmaHorarioLabs(turmas1[j], 23 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas1[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas1[j].letra;
-                }
-              }
-            }
-          }
-        }
-      }
-      switch (d) {
-        case 0:
-          tableLabsBody.push([
-            { text: "08 - 10", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 1:
-          tableLabsBody.push([
-            { text: "10 - 12", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 2:
-          tableLabsBody.push([
-            { text: "14 - 16", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 3:
-          tableLabsBody.push([
-            { text: "16 - 18", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 4:
-          tableLabsBody.push([
-            { text: "17 - 19", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 5:
-          tableLabsBody.push([
-            { text: "18 - 20", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 6:
-          tableLabsBody.push([
-            { text: "19 - 21", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 7:
-          tableLabsBody.push([
-            { text: "21 - 23", alignment: "center", fontSize: 8 },
-            {
-              text: seg,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            {
-              text: qui,
-              alignment: "center",
-              fontSize: 8,
-            },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-      }
-      seg = ter = qua = qui = sex = "";
-    }
-    tables.push({
-      table: {
-        widths: ["*", "*", "*", "*", "*", "*"],
-        headerRows: 1,
-        color: "#426",
-        body: tableLabsBody,
-      },
-    });
-  }
-  tables.push({
-    columns: [
+  if (semestre1Ativo) {
+    tables.push(
       {
-        image: logoDcc,
-        fit: [60, 60],
-        alignment: "left",
-        width: "16%",
-        pageBreak: "before",
+        columns: [
+          {
+            image: logoDcc,
+            fit: [60, 60],
+            alignment: "left",
+            width: "16%",
+          },
+          [
+            {
+              text: "Relação de horários das turmas em laboratórios do",
+              alignment: "center",
+              bold: true,
+              fontSize: 10,
+            },
+            {
+              text: "Departamento de Ciência da Computação",
+              alignment: "center",
+              bold: true,
+              fontSize: 10,
+            },
+          ],
+          {
+            image: logoUfjf,
+            fit: [60, 60],
+            alignment: "right",
+            width: "16%",
+          },
+        ],
       },
-      [
-        {
-          text: "Relação de horários das turmas em laboratórios do",
-          alignment: "center",
+      {
+        text: "1º Semestre " + plano.ano + " - " + plano.nome,
+        alignment: "center",
+        bold: true,
+        fontSize: 10,
+        margin: [0, 0, 0, 5],
+      }
+    );
+    for (let i = 0; i < laboratorios.length; i++) {
+      if (i % 4 === 0 && i !== 0) {
+        tables.push({
+          text: laboratorios[i].nome,
           bold: true,
-          fontSize: 10,
+          margin: [0, 10, 0, 10],
+          fontSize: 9,
           pageBreak: "before",
-        },
-        {
-          text: "Departamento de Ciência da Computação",
-          alignment: "center",
+        });
+      } else {
+        tables.push({
+          text: laboratorios[i].nome,
           bold: true,
-          fontSize: 10,
-        },
-      ],
-      {
-        image: logoUfjf,
-        fit: [60, 60],
-        alignment: "right",
-        width: "16%",
-        pageBreak: "before",
-      },
-    ],
-  });
-  tables.push({
-    text: "2º Semestre " + data.plano.ano + " - " + data.plano.nome,
-    alignment: "center",
-    bold: true,
-    fontSize: 10,
-    margin: [0, 0, 0, 5],
-  });
-  for (let i = 0; i < laboratorios.length; i++) {
-    if (i % 4 === 0 && i !== 0) {
-      tables.push({
-        text: laboratorios[i].nome,
-        bold: true,
-        margin: [0, 10, 0, 10],
-        fontSize: 9,
-        pageBreak: "before",
-      });
-    } else {
-      tables.push({
-        text: laboratorios[i].nome,
-        bold: true,
-        margin: [0, 10, 0, 10],
-        fontSize: 9,
-      });
-    }
-    let tableLabsBody = [
-      [
-        { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
-        {
-          text: "Segunda",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Terça",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Quarta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Quinta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-        {
-          text: "Sexta",
-          alignment: "center",
-          bold: true,
-          fontSize: 8,
-        },
-      ],
-    ];
+          margin: [0, 10, 0, 10],
+          fontSize: 9,
+        });
+      }
+      let tableLabsBody = [
+        [
+          { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
+          {
+            text: "Segunda",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Terça",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quarta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quinta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Sexta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+        ],
+      ];
 
-    for (var d = 0; d < 8; d++) {
-      for (var j = 0; j < turmas2.length; j++) {
-        if (
-          turmas2[j].Sala1 === laboratorios[i].id ||
-          turmas2[j].Sala2 === laboratorios[i].id
-        ) {
-          if (d < 4) {
-            if (checkTurmaHorarioLabs(turmas2[j], 1 + d, laboratorios[i].id)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas2[j].letra;
+      for (var d = 0; d < 8; d++) {
+        for (var j = 0; j < turmas1Periodo.length; j++) {
+          if (
+            turmas1Periodo[j].Sala1 === laboratorios[i].id ||
+            turmas1Periodo[j].Sala2 === laboratorios[i].id
+          ) {
+            if (d < 4) {
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 1 + d, laboratorios[i].id)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 7 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 7 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 13 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 13 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 19 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 19 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 25 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 25 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-          } else if (d === 4 || d === 5) {
-            if (checkTurmaHorarioLabs(turmas2[j], 28 + d, laboratorios[i].id)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas2[j].letra;
+            } else if (d === 4 || d === 5) {
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 28 + d, laboratorios[i].id)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 30 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 30 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 32 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 32 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 34 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 34 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 36 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 36 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-          } else if (d > 5) {
-            if (checkTurmaHorarioLabs(turmas2[j], d - 1)) {
-              for (var k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (seg !== "") seg = seg + " ";
-                  seg = seg + disciplinas[k].codigo + " " + turmas2[j].letra;
+            } else if (d > 5) {
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], d - 1)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 5 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (ter != "") ter = ter + " ";
-                  ter = ter + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 5 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 11 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qua != "") qua = qua + " ";
-                  qua = qua + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 11 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 17 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (qui != "") qui = qui + " ";
-                  qui = qui + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 17 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
-            }
-            if (checkTurmaHorarioLabs(turmas2[j], 23 + d, laboratorios[i].id)) {
-              for (k = 0; k < disciplinas.length; k++) {
-                if (turmas2[j].Disciplina === disciplinas[k].id) {
-                  if (sex != "") sex = sex + " ";
-                  sex = sex + disciplinas[k].codigo + " " + turmas2[j].letra;
+              if (checkTurmaHorarioLabs(turmas1Periodo[j], 23 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas1Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas1Periodo[j].letra;
+                  }
                 }
               }
             }
           }
         }
+        switch (d) {
+          case 0:
+            tableLabsBody.push([
+              { text: "08 - 10", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 1:
+            tableLabsBody.push([
+              { text: "10 - 12", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 2:
+            tableLabsBody.push([
+              { text: "14 - 16", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 3:
+            tableLabsBody.push([
+              { text: "16 - 18", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 4:
+            tableLabsBody.push([
+              { text: "17 - 19", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 5:
+            tableLabsBody.push([
+              { text: "18 - 20", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 6:
+            tableLabsBody.push([
+              { text: "19 - 21", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 7:
+            tableLabsBody.push([
+              { text: "21 - 23", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+        }
+        seg = ter = qua = qui = sex = "";
       }
-      switch (d) {
-        case 0:
-          tableLabsBody.push([
-            { text: "08 - 10", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 1:
-          tableLabsBody.push([
-            { text: "10 - 12", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 2:
-          tableLabsBody.push([
-            { text: "14 - 16", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 3:
-          tableLabsBody.push([
-            { text: "16 - 18", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 4:
-          tableLabsBody.push([
-            { text: "17 - 19", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 5:
-          tableLabsBody.push([
-            { text: "18 - 20", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 6:
-          tableLabsBody.push([
-            { text: "19 - 21", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-        case 7:
-          tableLabsBody.push([
-            { text: "21 - 23", alignment: "center", fontSize: 8 },
-            { text: seg, alignment: "center", fontSize: 8 },
-            { text: ter, alignment: "center", fontSize: 8 },
-            { text: qua, alignment: "center", fontSize: 8 },
-            { text: qui, alignment: "center", fontSize: 8 },
-            { text: sex, alignment: "center", fontSize: 8 },
-          ]);
-          break;
-      }
-      seg = ter = qua = qui = sex = "";
+      tables.push({
+        table: {
+          widths: ["*", "*", "*", "*", "*", "*"],
+          headerRows: 1,
+          color: "#426",
+          body: tableLabsBody,
+        },
+      });
     }
-
-    tables.push({
-      table: {
-        widths: ["*", "*", "*", "*", "*", "*"],
-        headerRows: 1,
-        color: "#426",
-        body: tableLabsBody,
-      },
-    });
   }
 
-  var docDefinition = {
+  if (semestre1Ativo && semestre2Ativo) tables.push({ text: "", pageBreak: "before" }); //page break;
+
+  if (semestre2Ativo) {
+    tables.push(
+      {
+        columns: [
+          {
+            image: logoDcc,
+            fit: [60, 60],
+            alignment: "left",
+            width: "16%",
+          },
+          [
+            {
+              text: "Relação de horários das turmas em laboratórios do",
+              alignment: "center",
+              bold: true,
+              fontSize: 10,
+            },
+            {
+              text: "Departamento de Ciência da Computação",
+              alignment: "center",
+              bold: true,
+              fontSize: 10,
+            },
+          ],
+          {
+            image: logoUfjf,
+            fit: [60, 60],
+            alignment: "right",
+            width: "16%",
+          },
+        ],
+      },
+      {
+        text: "2º Semestre " + plano.ano + " - " + plano.nome,
+        alignment: "center",
+        bold: true,
+        fontSize: 10,
+        margin: [0, 0, 0, 5],
+      }
+    );
+    for (let i = 0; i < laboratorios.length; i++) {
+      if (i % 4 === 0 && i !== 0) {
+        tables.push({
+          text: laboratorios[i].nome,
+          bold: true,
+          margin: [0, 10, 0, 10],
+          fontSize: 9,
+          pageBreak: "before",
+        });
+      } else {
+        tables.push({
+          text: laboratorios[i].nome,
+          bold: true,
+          margin: [0, 10, 0, 10],
+          fontSize: 9,
+        });
+      }
+      let tableLabsBody = [
+        [
+          { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
+          {
+            text: "Segunda",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Terça",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quarta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quinta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Sexta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+        ],
+      ];
+
+      for (var d = 0; d < 8; d++) {
+        for (var j = 0; j < turmas3Periodo.length; j++) {
+          if (
+            turmas3Periodo[j].Sala1 === laboratorios[i].id ||
+            turmas3Periodo[j].Sala2 === laboratorios[i].id
+          ) {
+            if (d < 4) {
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 1 + d, laboratorios[i].id)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 7 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 13 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 19 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 25 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+            } else if (d === 4 || d === 5) {
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 28 + d, laboratorios[i].id)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 30 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 32 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 34 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 36 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+            } else if (d > 5) {
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], d - 1)) {
+                for (var k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (seg !== "") seg = seg + " ";
+                    seg =
+                      seg + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 5 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (ter != "") ter = ter + " ";
+                    ter =
+                      ter + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 11 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qua != "") qua = qua + " ";
+                    qua =
+                      qua + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 17 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (qui != "") qui = qui + " ";
+                    qui =
+                      qui + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+              if (checkTurmaHorarioLabs(turmas3Periodo[j], 23 + d, laboratorios[i].id)) {
+                for (k = 0; k < disciplinasOrdered.length; k++) {
+                  if (turmas3Periodo[j].Disciplina === disciplinasOrdered[k].id) {
+                    if (sex != "") sex = sex + " ";
+                    sex =
+                      sex + disciplinasOrdered[k].codigo + " " + turmas3Periodo[j].letra;
+                  }
+                }
+              }
+            }
+          }
+        }
+        switch (d) {
+          case 0:
+            tableLabsBody.push([
+              { text: "08 - 10", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 1:
+            tableLabsBody.push([
+              { text: "10 - 12", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 2:
+            tableLabsBody.push([
+              { text: "14 - 16", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 3:
+            tableLabsBody.push([
+              { text: "16 - 18", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 4:
+            tableLabsBody.push([
+              { text: "17 - 19", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 5:
+            tableLabsBody.push([
+              { text: "18 - 20", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 6:
+            tableLabsBody.push([
+              { text: "19 - 21", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 7:
+            tableLabsBody.push([
+              { text: "21 - 23", alignment: "center", fontSize: 8 },
+              { text: seg, alignment: "center", fontSize: 8 },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              { text: qui, alignment: "center", fontSize: 8 },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+        }
+        seg = ter = qua = qui = sex = "";
+      }
+
+      tables.push({
+        table: {
+          widths: ["*", "*", "*", "*", "*", "*"],
+          headerRows: 1,
+          color: "#426",
+          body: tableLabsBody,
+        },
+      });
+    }
+  }
+
+  let docDefinition = {
     info: {
       title: "Horários - Laborátorios",
     },

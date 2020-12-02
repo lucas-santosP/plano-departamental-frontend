@@ -219,12 +219,18 @@ export default {
 
   methods: {
     generatePdf(completo) {
-      let laboratorios;
-      if (completo) laboratorios = this.LaboratoriosOrdered;
-      else laboratorios = this.filtroLaboratorios.ativados;
+      let laboratorios, periodosAtivados;
+      if (completo) {
+        laboratorios = this.LaboratoriosOrdered;
+        periodosAtivados = this.PeriodosOptions;
+      } else {
+        laboratorios = this.filtroLaboratorios.ativados;
+        periodosAtivados = this.filtroPeriodos.ativados;
+      }
 
       pdfHorariosLabs({
         laboratorios,
+        periodosAtivados,
         plano: this.currentPlano,
       });
     },
