@@ -4,7 +4,7 @@
     :key="uniqueKey"
     :disabled="disabled"
     :class="['btn base-btn', options.class]"
-    :title="options.title"
+    :title="title ? title : options.title"
     @click="$emit('click')"
   >
     <font-awesome-icon v-if="options.iconName" :icon="['fas', options.iconName]" />
@@ -23,6 +23,7 @@ export default {
     color: { type: String, default: "gray" },
     disabled: { type: Boolean, default: false },
     text: { type: String | Number, default: "" },
+    title: { type: String, default: "" },
   },
 
   computed: {
@@ -77,7 +78,7 @@ export default {
         case "download":
           options.title = "Baixar arquivos";
           options.class = "btn-icon icon-gray";
-          options.iconName = "save";
+          options.iconName = "download";
           break;
         case "swap-modes":
           options.title = "Alterar visualização da tabela";
