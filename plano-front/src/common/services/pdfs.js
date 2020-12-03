@@ -1982,11 +1982,11 @@ async function pdfCargaProfessores(data) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-async function pdfTurmasCursos(cursos) {
+async function pdfTurmasCursos({ cursos, periodos }) {
+  const tables = [];
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
 
-  let tables = [];
   tables.push({
     columns: [
       {
@@ -2014,8 +2014,9 @@ async function pdfTurmasCursos(cursos) {
       },
     ],
   });
+
   for (let i = 0; i < cursos.length; i++) {
-    const turmas = getTurmasDoCurso(cursos[i].id);
+    let turmas = getTurmasDoCurso(cursos[i].id, periodos);
     if (turmas.length > 0) {
       tables.push({
         style: "tableExample",
@@ -2051,8 +2052,8 @@ async function pdfTurmasCursos(cursos) {
       let tabelaTurmasBody = [
         [
           { text: "Período", alignment: "left", bold: "true", fontSize: 8 },
-          { text: "Cód. Disc.", alignment: "left", bold: "true", fontSize: 8 },
-          { text: "Nome Disciplina", alignment: "left", bold: "true", fontSize: 8 },
+          { text: "Cód.", alignment: "left", bold: "true", fontSize: 8 },
+          { text: "Disciplina", alignment: "left", bold: "true", fontSize: 8 },
           {
             text: "Turma",
             alignment: "center",
@@ -2067,7 +2068,7 @@ async function pdfTurmasCursos(cursos) {
             fontSize: 8,
           },
           {
-            text: "Não Grade",
+            text: "Extra",
             alignment: "center",
             bold: "true",
             fontSize: 8,
@@ -2096,49 +2097,50 @@ async function pdfTurmasCursos(cursos) {
           {
             text: turmas[j].turma.periodo,
             alignment: "center",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
+            margin: [0, 0, 0, j === turmas.length - 1 ? 10 : 0],
           },
           {
             text: turmas[j].turma.disciplina.codigo,
             alignment: "left",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
           {
             text: turmas[j].turma.disciplina.nome,
             alignment: "left",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
           {
             text: turmas[j].turma.letra,
             alignment: "center",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
 
           {
             text: horarioTotal,
             alignment: "center",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
           {
             text: turmas[j].pedido.vagasPeriodizadas
               ? turmas[j].pedido.vagasPeriodizadas
               : "",
             alignment: "center",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
           {
             text: turmas[j].pedido.vagasNaoPeriodizadas
               ? turmas[j].pedido.vagasNaoPeriodizadas
               : "",
             alignment: "center",
-            fontSize: 8,
-            bold: true,
+            fontSize: 6,
+            bold: false,
           },
         ]);
       }
@@ -2162,7 +2164,7 @@ async function pdfTurmasCursos(cursos) {
     }
   }
 
-  var docDefinition = {
+  let docDefinition = {
     info: {
       title: "Turmas - Cursos",
     },
@@ -2400,10 +2402,10 @@ function getPedidosDaTurma(turma) {
   return sortBy(pedidosFiltered, (pedido) => curso(pedido).codigo);
 }
 
-function getTurmasDoCurso(cursoId) {
+function getTurmasDoCurso(curso, periodos) {
   const turmas = [];
   store.getters.TurmasInDisciplinasPerfis.forEach((turma) => {
-    const pedido = find(store.getters.Pedidos[turma.id], ["Curso", cursoId]);
+    const pedido = find(store.getters.Pedidos[turma.id], ["Curso", curso]);
 
     if (pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0) {
       turmas.push({ turma: turma, pedido: pedido });
@@ -2412,9 +2414,18 @@ function getTurmasDoCurso(cursoId) {
 
   return orderBy(
     orderBy(
-      orderBy(turmas, (t) => {
-        return t.turma.letra;
-      }),
+      orderBy(
+        filter(turmas, (t) => {
+          let periodo = false;
+          periodos.forEach((p) => {
+            if (p == t.turma.periodo) periodo = true;
+          });
+          return periodo;
+        }),
+        (t) => {
+          return t.turma.letra;
+        }
+      ),
       (t) => {
         return t.turma.disciplina.codigo;
       }

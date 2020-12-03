@@ -51,7 +51,7 @@
       </BaseTable>
     </div>
 
-    <ModalRelatorio ref="modalRelatorio" @selection-option="pdf($event)" />
+    <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
 
     <ModalDownloadTurmasCursos
       ref="modalDownloadTurmasCursos"
@@ -129,13 +129,13 @@
         </template>
 
         <template #tbody>
-          <tr>
+          <tr @click="toggleItemInArray(1, filtroPeriodos.selecionados)">
             <v-td width="25" type="content">
               <input type="checkbox" v-model="filtroPeriodos.selecionados" :value="1" />
             </v-td>
             <v-td width="425" align="start">PRIMEIRO</v-td>
           </tr>
-          <tr>
+          <tr @click="toggleItemInArray(3, filtroPeriodos.selecionados)">
             <v-td width="25" type="content">
               <input type="checkbox" v-model="filtroPeriodos.selecionados" :value="3" />
             </v-td>
@@ -171,35 +171,29 @@
 
 <script>
 import { mapGetters } from "vuex";
-import pdfs from "@/common/services/pdfs";
+import { find, orderBy, filter } from "lodash-es";
+import { pdfTurmasCursos } from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
-  toggleItemInArray,
-  generateHorariosText,
-  generateDocentesText,
   toggleAsideModal,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
 import {
   ModalRelatorio,
   ModalAjuda,
   ModalFiltros,
   ModalDownloadTurmasCursos,
 } from "@/components/modals";
+import { InputSearch } from "@/components/ui";
 import ModalVagas from "../PlanoDepartamental/ModalVagas";
-import _ from "lodash";
 import downloadService from "@/common/services/download";
 import { saveAs } from "file-saver";
 
 export default {
   name: "TurmasCursos",
   mixins: [
-    toggleItemInArray,
-    generateHorariosText,
-    generateDocentesText,
     toggleAsideModal,
     conectaFiltroPerfisEDisciplinas,
     conectaFiltrosSemestresEPeriodos,
@@ -275,15 +269,15 @@ export default {
       let turmas = [];
       this.TurmasInDisciplinasPerfis.forEach((t) => {
         let pedidos = this.Pedidos[t.id];
-        let pedido = _.find(pedidos, ["Curso", curso]);
+        let pedido = find(pedidos, ["Curso", curso]);
         if (pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0) {
           turmas.push({ turma: t, pedido: pedido });
         }
       });
-      return this.$_.orderBy(
-        this.$_.orderBy(
-          this.$_.orderBy(
-            this.$_.filter(turmas, (t) => {
+      return orderBy(
+        orderBy(
+          orderBy(
+            filter(turmas, (t) => {
               let periodo = false;
               this.filtroPeriodos.ativados.forEach((p) => {
                 if (p == t.turma.periodo) periodo = true;
@@ -305,10 +299,10 @@ export default {
     },
 
     horarioTotal(turma) {
-      let horario1 = _.find(this.$store.state.horario.Horarios, {
+      let horario1 = find(this.$store.state.horario.Horarios, {
         id: turma.Horario1,
       });
-      let horario2 = _.find(this.$store.state.horario.Horarios, {
+      let horario2 = find(this.$store.state.horario.Horarios, {
         id: turma.Horario2,
       });
       let horarioTotal = undefined;
@@ -324,17 +318,15 @@ export default {
       return horarioTotal;
     },
 
-    pdf(completo) {
-      if (completo)
-        pdfs.pdfTurmasCursos({
-          Cursos: this.AllCursos,
-          periodos: this.filtroPeriodos.ativados,
-        });
-      else
-        pdfs.pdfTurmasCursos({
-          Cursos: this.filtroCursos.ativados,
-          periodos: this.filtroPeriodos.ativados,
-        });
+    generatePdf(completo) {
+      let cursos = [];
+      if (completo) cursos = this.AllCursos;
+      else cursos = this.filtroCursos.ativados;
+
+      pdfTurmasCursos({
+        cursos,
+        periodos: this.filtroPeriodos.ativados,
+      });
     },
 
     async downloadTurmasCursos(periodo) {
@@ -371,7 +363,7 @@ export default {
     ]),
 
     CursosOrdered() {
-      return this.$_.orderBy(this.AllCursos, "codigo");
+      return orderBy(this.AllCursos, "codigo");
     },
 
     CursosFiltrados() {
@@ -379,7 +371,7 @@ export default {
       else {
         const searchNormalized = normalizeText(this.searchCursos);
 
-        return this.$_.filter(this.AllCursos, (curso) => {
+        return filter(this.AllCursos, (curso) => {
           const nome = normalizeText(curso.nome);
           const codigo = normalizeText(curso.codigo);
 
