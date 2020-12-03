@@ -1,6 +1,6 @@
 <template>
   <div class="main-component">
-    <PageHeader :title="'Plano departamental'">
+    <PageHeader :title="'Plano Departamental'">
       <BaseButton template="ajuda" @click="$refs.modalAjuda.toggle()" />
     </PageHeader>
 
@@ -67,7 +67,7 @@
       </div>
 
       <Card
-        :title="'Plano departamental'"
+        :title="'Plano Departamental'"
         :toggleFooter="isEditing"
         :isPlano="isEditing"
         @btn-salvar="handleEditPlano"

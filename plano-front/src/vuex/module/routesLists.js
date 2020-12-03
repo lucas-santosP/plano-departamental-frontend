@@ -118,7 +118,7 @@ const state = {
       description: `Listagem dos perfis cadastrados para as disciplinas, permitindo também a adição e a alteração de perfis, seus nomes e as cores destinadas a eles.`,
     },
     {
-      title: "Plano departamental",
+      title: "Plano Departamental",
       routeName: "planos",
       icon: "calendar-alt",
       description: `Listagem de todos os planos presentes no sistemas, e permite a adição,edição e exclusão de planos.`,
