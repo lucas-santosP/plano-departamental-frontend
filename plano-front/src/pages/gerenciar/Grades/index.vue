@@ -112,7 +112,9 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label required for="gradeCurso" class="col-form-label">gradeCurso</label>
+              <label required for="gradeCurso" class="col-form-label">
+                Curso da grade
+              </label>
               <select
                 id="gradeCurso"
                 class="form-control form-control-sm card-input-maior"
