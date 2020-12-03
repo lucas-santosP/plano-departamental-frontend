@@ -51,7 +51,7 @@
             v-for="curso in PrincipaisCursosDCC"
             :key="curso.id + curso.nome"
             width="35"
-            v-b-popover.hover.bottom="{
+            v-b-popover.html.hover.bottom="{
               title: curso.nome,
               content: cursoPopoverContent(curso),
             }"

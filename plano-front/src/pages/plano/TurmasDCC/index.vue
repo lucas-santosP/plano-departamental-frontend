@@ -62,7 +62,7 @@
             paddingX="0"
             v-for="curso in filtroCursos.ativados"
             :key="curso.id + curso.codigo"
-            v-b-popover.hover.bottom="{
+            v-b-popover.html.hover.bottom="{
               title: curso.nome,
               content: cursoPopoverContent(curso),
             }"

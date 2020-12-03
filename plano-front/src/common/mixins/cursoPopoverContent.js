@@ -10,7 +10,7 @@ export default {
           text += `2º - ${curso.alunosEntrada2}`;
           break;
         case 3:
-          text += `1º - ${curso.alunosEntrada}\n2º - ${curso.alunosEntrada2}`;
+          text += `1º - ${curso.alunosEntrada}<br/>2º - ${curso.alunosEntrada2}`;
           break;
         default:
           text += "";
