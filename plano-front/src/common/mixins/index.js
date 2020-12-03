@@ -13,8 +13,10 @@ import maskEmptyToZero from "./maskEmptyToZero";
 import conectaFiltroPerfisEDisciplinas from "./conectaFiltroPerfisEDisciplinas";
 import preventClickSelection from "./preventClickSelection";
 import generateBooleanText from "./generateBooleanText";
+import normalizeInputText from "./normalizeInputText";
 
 export {
+  normalizeInputText,
   preventClickSelection,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
