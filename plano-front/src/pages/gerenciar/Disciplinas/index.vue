@@ -88,7 +88,7 @@
               <v-td
                 width="80"
                 align="start"
-                :style="{ backgroundColor: disciplina.perfil.cor }"
+                :style="{ backgroundColor: disciplina.perfil.cor, color: '#212529' }"
               >
                 {{ disciplina.perfil.abreviacao }}
               </v-td>
