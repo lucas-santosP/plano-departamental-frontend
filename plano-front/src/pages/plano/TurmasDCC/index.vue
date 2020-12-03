@@ -6,15 +6,23 @@
         <BaseButton template="cancelar" @click="toggleIsAdding" />
       </template>
       <template v-else>
-        <BaseButton template="adicionar" @click="toggleIsAdding" />
+        <BaseButton
+          template="adicionar"
+          title="Criar nova turma"
+          @click="toggleIsAdding"
+        />
         <BaseButton
           template="deletar"
-          title="Deletar selecionados"
+          title="Deletar turmas selecionadas"
           @click="$refs.modalDelete.open()"
         />
       </template>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
-      <BaseButton template="relatorio" @click="generateXlsx" />
+      <BaseButton
+        template="download"
+        title="Baixar tabela em .xlsx"
+        @click="generateXlsx"
+      />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </PageHeader>
 
