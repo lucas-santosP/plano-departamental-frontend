@@ -1367,11 +1367,14 @@ async function pdfHorariosLabs({ laboratorios, periodosAtivados, plano }) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-async function pdfCargaProfessores(data) {
+async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plano }) {
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
+  const tables = [];
+  const docentesOrdered = orderBy(docentes, "nome");
+  const periodos1semestre = filter(periodosAtivos, ["semestreId", 1]);
+  const periodos2semestre = filter(periodosAtivos, ["semestreId", 2]);
 
-  let tables = [];
   tables.push({
     columns: [
       {
@@ -1390,10 +1393,7 @@ async function pdfCargaProfessores(data) {
         },
         {
           text:
-            "Departamento de Ciência da Computação - " +
-            data.plano.ano +
-            " - " +
-            data.plano.nome,
+            "Departamento de Ciência da Computação - " + plano.ano + " - " + plano.nome,
           alignment: "center",
           bold: true,
           fontSize: 10,
@@ -1409,27 +1409,18 @@ async function pdfCargaProfessores(data) {
       },
     ],
   });
-  let professores = orderBy(filter(data.Docentes, ["ativo", true]), "nome");
-  let turmasProf1, turmasProf2;
-  let posProf1, posProf2;
-  for (let i = 0; i < professores.length; i++) {
-    turmasProf1 = filter(getTurmasDoDocente(professores[i]), function(t) {
-      return t.periodo == 1 || t.periodo == 2;
-    });
-    turmasProf2 = filter(getTurmasDoDocente(professores[i]), function(t) {
-      return t.periodo == 3 || t.periodo == 4;
-    });
-    posProf1 = filter(getCargaPosDoDocente(professores[i]), function(p) {
-      return p.trimestre == 1 || p.trimestre == 2;
-    });
-    posProf2 = filter(getCargaPosDoDocente(professores[i]), function(p) {
-      return p.trimestre == 3 || p.trimestre == 4;
-    });
+
+  for (let i = 0; i < docentesOrdered.length; i++) {
+    const turmas1Semestre = getTurmasDoDocente(docentesOrdered[i], periodos1semestre);
+    const turmas2Semestre = getTurmasDoDocente(docentesOrdered[i], periodos2semestre);
+    const cargaPos1Semestre = getCargaPosDoDocente(docentesOrdered[i], periodos1semestre);
+    const cargaPos2Semestre = getCargaPosDoDocente(docentesOrdered[i], periodos2semestre);
+
     if (
-      turmasProf1.length > 0 ||
-      turmasProf2.length > 0 ||
-      posProf1.length > 0 ||
-      posProf2.length > 0
+      turmas1Semestre.length ||
+      turmas2Semestre.length ||
+      cargaPos1Semestre.length ||
+      cargaPos2Semestre.length
     ) {
       tables.push({
         style: "tableExample",
@@ -1440,7 +1431,7 @@ async function pdfCargaProfessores(data) {
           body: [
             [
               {
-                text: professores[i].nome,
+                text: docentesOrdered[i].nome,
                 alignment: "left",
                 fontSize: 9,
                 bold: true,
@@ -1448,7 +1439,7 @@ async function pdfCargaProfessores(data) {
               {
                 text:
                   "Carga total: " +
-                  (creditos1(professores[i]) + creditos2(professores[i])),
+                  (creditos1(docentesOrdered[i]) + creditos2(docentesOrdered[i])),
                 alignment: "center",
                 fontSize: 9,
                 bold: true,
@@ -1462,7 +1453,8 @@ async function pdfCargaProfessores(data) {
           },
         },
       });
-      let tableDocenteBody = [
+
+      const tableDocenteBody = [
         [
           "",
           {
@@ -1506,25 +1498,28 @@ async function pdfCargaProfessores(data) {
           },
         ],
       ];
-      for (var j = 0; j < turmasProf1.length; j++) {
+
+      for (let j = 0; j < turmas1Semestre.length; j++) {
         var disciplina = undefined;
         var horario1 = undefined;
         var horario2 = undefined;
         var c1 = 0;
         var c2 = 0;
         for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-          if (turmasProf1[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
+          if (
+            turmas1Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id
+          ) {
             disciplina = store.state.disciplina.Disciplinas[k];
           }
         }
         for (var l = 0; l < store.state.horario.Horarios.length; l++) {
-          if (turmasProf1[j].Horario1 === store.state.horario.Horarios[l].id) {
+          if (turmas1Semestre[j].Horario1 === store.state.horario.Horarios[l].id) {
             horario1 = store.state.horario.Horarios[l];
           }
         }
 
         for (var m = 0; m < store.state.horario.Horarios.length; m++) {
-          if (turmasProf1[j].Horario2 === store.state.horario.Horarios[m].id) {
+          if (turmas1Semestre[j].Horario2 === store.state.horario.Horarios[m].id) {
             horario2 = store.state.horario.Horarios[m];
           }
         }
@@ -1537,19 +1532,19 @@ async function pdfCargaProfessores(data) {
         } else {
           var horarioTotal = horario1.horario + "/" + horario2.horario;
         }
-        if (turmasProf1[j].periodo == 1) {
-          if (turmasProf1[j].Docente1 > 0 && turmasProf1[j].Docente2 > 0)
+        if (turmas1Semestre[j].periodo == 1) {
+          if (turmas1Semestre[j].Docente1 > 0 && turmas1Semestre[j].Docente2 > 0)
             c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
           else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
         } else {
-          if (turmasProf1[j].Docente1 > 0 && turmasProf1[j].Docente2 > 0)
+          if (turmas1Semestre[j].Docente1 > 0 && turmas1Semestre[j].Docente2 > 0)
             c2 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
           else c2 = disciplina.cargaTeorica + disciplina.cargaPratica;
         }
         tableDocenteBody.push([
           "",
           {
-            text: turmasProf1[j].periodo,
+            text: turmas1Semestre[j].periodo,
             fontSize: 6,
             alignment: "left",
           },
@@ -1564,7 +1559,7 @@ async function pdfCargaProfessores(data) {
             alignment: "left",
           },
           {
-            text: turmasProf1[j].letra,
+            text: turmas1Semestre[j].letra,
             fontSize: 6,
             alignment: "center",
           },
@@ -1585,24 +1580,27 @@ async function pdfCargaProfessores(data) {
           },
         ]);
       }
-      for (var n = 0; n < posProf1.length; n++) {
+      for (let n = 0; n < cargaPos1Semestre.length; n++) {
         var c1 = 0;
         var c2 = 0;
-        if (posProf1[n].trimestre === 1 || posProf1[n].trimestre === 2) {
-          c1 = posProf1[n].creditos;
+        if (
+          cargaPos1Semestre[n].trimestre === 1 ||
+          cargaPos1Semestre[n].trimestre === 2
+        ) {
+          c1 = cargaPos1Semestre[n].creditos;
         } else {
-          c2 = posProf1[n].creditos;
+          c2 = cargaPos1Semestre[n].creditos;
         }
         tableDocenteBody.push([
           "",
           {
-            text: posProf1[n].trimestre,
+            text: cargaPos1Semestre[n].trimestre,
             fontSize: 6,
             alignment: "left",
           },
           "",
           {
-            text: "DISCIPLINA DO " + posProf1[n].programa,
+            text: "DISCIPLINA DO " + cargaPos1Semestre[n].programa,
             fontSize: 6,
             alignment: "left",
           },
@@ -1620,25 +1618,28 @@ async function pdfCargaProfessores(data) {
           },
         ]);
       }
-      for (var j = 0; j < turmasProf2.length; j++) {
+
+      for (let j = 0; j < turmas2Semestre.length; j++) {
         var disciplina = undefined;
         var horario1 = undefined;
         var horario2 = undefined;
         var c1 = 0;
         var c2 = 0;
         for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-          if (turmasProf2[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
+          if (
+            turmas2Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id
+          ) {
             disciplina = store.state.disciplina.Disciplinas[k];
           }
         }
         for (var l = 0; l < store.state.horario.Horarios.length; l++) {
-          if (turmasProf2[j].Horario1 === store.state.horario.Horarios[l].id) {
+          if (turmas2Semestre[j].Horario1 === store.state.horario.Horarios[l].id) {
             horario1 = store.state.horario.Horarios[l];
           }
         }
 
         for (var m = 0; m < store.state.horario.Horarios.length; m++) {
-          if (turmasProf2[j].Horario2 === store.state.horario.Horarios[m].id) {
+          if (turmas2Semestre[j].Horario2 === store.state.horario.Horarios[m].id) {
             horario2 = store.state.horario.Horarios[m];
           }
         }
@@ -1651,19 +1652,19 @@ async function pdfCargaProfessores(data) {
         } else {
           var horarioTotal = horario1.horario + "/" + horario2.horario;
         }
-        if (turmasProf2[j].periodo == 1) {
-          if (turmasProf2[j].Docente1 > 0 && turmasProf2[j].Docente2 > 0)
+        if (turmas2Semestre[j].periodo == 1) {
+          if (turmas2Semestre[j].Docente1 > 0 && turmas2Semestre[j].Docente2 > 0)
             c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
           else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
         } else {
-          if (turmasProf2[j].Docente1 > 0 && turmasProf2[j].Docente2 > 0)
+          if (turmas2Semestre[j].Docente1 > 0 && turmas2Semestre[j].Docente2 > 0)
             c2 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
           else c2 = disciplina.cargaTeorica + disciplina.cargaPratica;
         }
         tableDocenteBody.push([
           "",
           {
-            text: turmasProf2[j].periodo,
+            text: turmas2Semestre[j].periodo,
             fontSize: 6,
             alignment: "left",
           },
@@ -1678,7 +1679,7 @@ async function pdfCargaProfessores(data) {
             alignment: "left",
           },
           {
-            text: turmasProf2[j].letra,
+            text: turmas2Semestre[j].letra,
             fontSize: 6,
             alignment: "center",
           },
@@ -1699,24 +1700,27 @@ async function pdfCargaProfessores(data) {
           },
         ]);
       }
-      for (var n = 0; n < posProf2.length; n++) {
+      for (let n = 0; n < cargaPos2Semestre.length; n++) {
         var c1 = 0;
         var c2 = 0;
-        if (posProf2[n].trimestre === 1 || posProf2[n].trimestre === 2) {
-          c1 = posProf2[n].creditos;
+        if (
+          cargaPos2Semestre[n].trimestre === 1 ||
+          cargaPos2Semestre[n].trimestre === 2
+        ) {
+          c1 = cargaPos2Semestre[n].creditos;
         } else {
-          c2 = posProf2[n].creditos;
+          c2 = cargaPos2Semestre[n].creditos;
         }
         tableDocenteBody.push([
           "",
           {
-            text: posProf2[n].trimestre,
+            text: cargaPos2Semestre[n].trimestre,
             fontSize: 6,
             alignment: "left",
           },
           "",
           {
-            text: "DISCIPLINA DO " + posProf2[n].programa,
+            text: "DISCIPLINA DO " + cargaPos2Semestre[n].programa,
             fontSize: 6,
             alignment: "left",
           },
@@ -1734,6 +1738,7 @@ async function pdfCargaProfessores(data) {
           },
         ]);
       }
+
       tableDocenteBody.push([
         "",
         "",
@@ -1748,14 +1753,14 @@ async function pdfCargaProfessores(data) {
           margin: [0, 5, 0, 0],
         },
         {
-          text: creditos1(professores[i]),
+          text: creditos1(docentesOrdered[i]),
           fontSize: 6,
           alignment: "center",
           bold: true,
           margin: [0, 5, 0, 0],
         },
         {
-          text: creditos2(professores[i]),
+          text: creditos2(docentesOrdered[i]),
           fontSize: 6,
           alignment: "center",
           bold: true,
@@ -1783,8 +1788,10 @@ async function pdfCargaProfessores(data) {
     }
   }
 
-  let turmasSemAlocacao = getTurmasSemAlocacao();
-  if (data.SemAlocacao && turmasSemAlocacao.length > 0) {
+  let turmasSemAlocacao = [];
+  if (semAlocacao) turmasSemAlocacao = getTurmasSemAlocacao(periodosAtivos);
+
+  if (turmasSemAlocacao.length > 0) {
     tables.push({
       style: "tableExample",
       table: {
@@ -1955,7 +1962,7 @@ async function pdfCargaProfessores(data) {
     }
   }
 
-  var docDefinition = {
+  let docDefinition = {
     info: {
       title: "Carga Professores",
     },
@@ -2247,28 +2254,41 @@ function checkTurmaHorarioLabs(turma, horario, lab) {
   } else return false;
 }
 
-function getTurmasDoDocente(docente) {
+function getTurmasDoDocente(docente, periodosAtivos) {
+  if (!periodosAtivos.length) return [];
+
   const turmasFiltered = filter(
-    store.state.turma.Turmas,
-    (turma) => turma.Docente1 === docente.id || turma.Docente2 === docente.id
+    store.getters.AllTurmas,
+    (turma) =>
+      (turma.Docente1 === docente.id || turma.Docente2 === docente.id) &&
+      some(periodosAtivos, ["id", turma.periodo])
   );
 
   return orderBy(turmasFiltered, ["periodo", "Disciplina", "letra"]);
 }
 
-function getTurmasSemAlocacao() {
-  return orderBy(
-    filter(store.state.turma.Turmas, (turma) => {
-      return turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null;
-    }),
-    ["periodo", "Disciplina", "letra"]
+function getTurmasSemAlocacao(periodosAtivos) {
+  if (!periodosAtivos.length) return [];
+
+  const turmasFiltered = filter(
+    store.getters.AllTurmas,
+    (turma) =>
+      turma.Docente1 == null &&
+      turma.Docente2 == null &&
+      turma.Disciplina != null &&
+      some(periodosAtivos, ["id", turma.periodo])
   );
+
+  return orderBy(turmasFiltered, ["periodo", "Disciplina", "letra"]);
 }
 
-function getCargaPosDoDocente(professor) {
+function getCargaPosDoDocente(docente, periodosAtivos) {
+  if (!periodosAtivos.length) return [];
+
   const cargaposFiltered = filter(
-    store.state.cargaPos.Cargas,
-    (turma) => turma.Docente === professor.id
+    store.getters.AllCargasPos,
+    (carga) =>
+      carga.Docente === docente.id && some(periodosAtivos, ["id", carga.trimestre])
   );
 
   return orderBy(cargaposFiltered, "trimestre");

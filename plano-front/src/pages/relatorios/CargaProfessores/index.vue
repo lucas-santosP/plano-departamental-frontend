@@ -383,20 +383,23 @@ export default {
         creditos2Semestre,
       };
     },
-    
+
     generatePdf(completo) {
-      let SemAlocacao, Docentes;
+      let semAlocacao, docentes, periodosAtivos;
       if (completo) {
-        SemAlocacao = true;
-        Docentes = this.DocentesAtivos;
+        docentes = this.DocentesAtivos;
+        semAlocacao = true;
+        periodosAtivos = this.PeriodosOptions;
       } else {
-        SemAlocacao = this.filtroDocenteSemAlocacao.ativado;
-        Docentes = this.filtroDocentes.ativados;
+        docentes = this.filtroDocentes.ativados;
+        semAlocacao = this.filtroDocenteSemAlocacao.ativado;
+        periodosAtivos = this.filtroPeriodos.ativados;
       }
 
       pdfCargaProfessores({
-        Docentes,
-        SemAlocacao,
+        docentes,
+        semAlocacao,
+        periodosAtivos,
         plano: this.currentPlano,
       });
     },
