@@ -17,7 +17,7 @@ export default {
           break;
       }
 
-      return text + "\nTurno " + curso.turno;
+      return text + "<br/>Turno " + curso.turno.toLowerCase();
     },
   },
 };
