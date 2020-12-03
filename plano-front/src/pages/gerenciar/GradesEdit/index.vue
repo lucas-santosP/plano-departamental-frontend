@@ -141,7 +141,8 @@
                   :disabled="!hasGradeSelected"
                   type="text"
                   id="periodoDisciplina"
-                  class="form-control form-control-sm input-menor2"
+                  class="form-control form-control-sm mr-2"
+                  style="width:100px"
                   v-model="disciplinaGradeForm.periodo"
                   @keypress="maskOnlyNumber"
                 />
@@ -544,11 +545,7 @@ export default {
   width: 80px;
   text-align: start !important;
 }
-.card .input-menor2 {
-  width: 40px;
-  margin-right: 10px;
-  text-align: center;
-}
+
 .even {
   background-color: #c8c8c8;
 }

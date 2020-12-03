@@ -93,7 +93,7 @@
           </div>
 
           <div class="row mb-2 mx-0">
-            <div class="form-check form-check-inline col m-0 px-0 pl-1">
+            <div class="form-check form-check-inline col m-0 px-0">
               <label class="form-check-label mr-2" for="laboratorio">Laboratório</label>
               <input
                 type="checkbox"

@@ -78,7 +78,7 @@
       >
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
-            <div class="form-group col-9 m-0 p-0 pr-3">
+            <div class="form-group col-9 m-0 p-0">
               <label required for="planoNome">Nome</label>
               <input
                 type="text"
@@ -117,7 +117,7 @@
           </div>
 
           <div class="row mb-2 mx-0">
-            <div class="form-group col-6 m-0 p-0 pr-2">
+            <div class="form-group col-6 m-0 p-0">
               <label required for="planoEditavel">Editável</label>
               <select
                 id="planoEditavel"
@@ -129,7 +129,7 @@
               </select>
             </div>
 
-            <div class="form-group col-6 m-0 p-0 pl-2">
+            <div class="form-group col-6 m-0 p-0">
               <label required for="planoVisivel">Visível</label>
               <select
                 id="planoVisivel"

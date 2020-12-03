@@ -95,6 +95,13 @@ export default {
   font-size: 12px !important;
   text-align: start;
 }
+.card > .card-body select {
+  padding: 0 !important;
+}
+
+.card > .card-body .form-group + .form-group {
+  padding-left: 10px !important;
+}
 .card > .card-body textarea {
   width: 100%;
   padding: 5px;
