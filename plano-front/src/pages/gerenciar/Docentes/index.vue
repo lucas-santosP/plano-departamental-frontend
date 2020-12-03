@@ -184,6 +184,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { clone, filter, orderBy } from "lodash-es";
 import docenteService from "@/common/services/docente";
 import docentePerfilService from "@/common/services/docentePerfil";
 import { toggleItemInArray, generateBooleanText } from "@/common/mixins";
@@ -208,7 +209,7 @@ export default {
   components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
-      docenteForm: this.$_.clone(emptyDocente),
+      docenteForm: clone(emptyDocente),
       perfisAssociados: [],
       docenteClickadoId: null,
       perfilsOfCurrentDocente: [],
@@ -224,18 +225,20 @@ export default {
     },
     cleanDocente() {
       this.docenteClickadoId = null;
-      this.docenteForm = this.$_.clone(emptyDocente);
+      this.docenteForm = clone(emptyDocente);
     },
     showDocente(docente) {
-      this.docenteForm = this.$_.clone(docente);
+      this.docenteForm = clone(docente);
       this.updatePerfisAssociados();
     },
     updatePerfisAssociados() {
-      this.perfilsOfCurrentDocente = this.$_.map(
-        this.$_.filter(this.DocentePerfis, ["DocenteId", this.docenteForm.id]),
-        "Perfil"
+      const docentePerfisFiltered = filter(this.DocentePerfis, [
+        "DocenteId",
+        this.docenteForm.id,
+      ]);
+      this.perfilsOfCurrentDocente = docentePerfisFiltered.map(
+        (docentePerfil) => docentePerfil.Perfil
       );
-
       this.perfisAssociados = [...this.perfilsOfCurrentDocente];
     },
     openModalDelete() {
@@ -319,25 +322,21 @@ export default {
     async editDocentePerfil() {
       //Remove os que não existem em perfisAssociados mas existem em perfilsOfCurrentDocente
       for (let i = 0; i < this.perfilsOfCurrentDocente.length; i++) {
-        const perfilIndex = this.$_.indexOf(
-          this.perfisAssociados,
+        const perfilIndex = this.perfisAssociados.indexOf(
           this.perfilsOfCurrentDocente[i]
         );
-
         if (perfilIndex === -1) await this.deletePerfil(this.perfilsOfCurrentDocente[i]);
       }
       //Adiciona os que existem no perfisAssociados mas não existem em perfilsOfCurrentDocente
       for (let i = 0; i < this.perfisAssociados.length; i++) {
-        const perfilIndex = this.$_.indexOf(
-          this.perfilsOfCurrentDocente,
+        const perfilIndex = this.perfilsOfCurrentDocente.indexOf(
           this.perfisAssociados[i]
         );
-
         if (perfilIndex === -1) await this.addPerfil(this.perfisAssociados[i]);
       }
     },
     async addPerfil(perfilId) {
-      const newPerfilDocente = this.$_.clone(emptyPerfil);
+      const newPerfilDocente = clone(emptyPerfil);
       newPerfilDocente.Docente = this.docenteForm.id;
       newPerfilDocente.DocenteId = this.docenteForm.id;
       newPerfilDocente.Perfil = perfilId;
@@ -353,7 +352,7 @@ export default {
     ...mapGetters(["AllDocentes", "AllPerfis"]),
 
     DocentesOrdered() {
-      return this.$_.orderBy(
+      return orderBy(
         this.AllDocentes,
         this.ordenacaoDocentesMain.order,
         this.ordenacaoDocentesMain.type
