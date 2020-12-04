@@ -9,14 +9,12 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, plano }) {
+  const tables = [];
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
-  const tables = [];
   const disciplinasOrdered = orderBy(disciplinasInTurmas, "codigo");
-  const semestre1Ativo = semestreEstaAtivo(periodosAtivados, 1);
-  const semestre2Ativo = semestreEstaAtivo(periodosAtivados, 2);
 
-  if (semestre1Ativo) {
+  periodosAtivados.forEach((periodo, index) => {
     tables.push({
       columns: [
         {
@@ -35,7 +33,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
             fontSize: 10,
           },
           {
-            text: "1º Semestre - " + plano.ano + " - " + plano.nome,
+            text: `${periodo.id}º Período letivo - ${plano.ano} - ${plano.nome}`,
             alignment: "center",
             bold: true,
             fontSize: 10,
@@ -52,12 +50,10 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
       ],
     });
 
-    for (let i = 0; i < disciplinasOrdered.length; i++) {
-      const turmas1Semestre = disciplinasOrdered[i].turmas.filter(
-        (turma) => turma.periodo === 1 || turma.periodo === 2
-      );
+    disciplinasOrdered.forEach((disciplina) => {
+      const turmasFiltered = filter(disciplina.turmas, ["periodo", periodo.id]);
 
-      if (turmas1Semestre.length) {
+      if (turmasFiltered.length) {
         tables.push({
           style: "tableExample",
           table: {
@@ -67,25 +63,25 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
             body: [
               [
                 {
-                  text: disciplinasOrdered[i].codigo,
+                  text: disciplina.codigo,
                   alignment: "left",
                   bold: true,
                   fontSize: 9,
                 },
                 {
-                  text: disciplinasOrdered[i].nome,
+                  text: disciplina.nome,
                   alignment: "left",
                   bold: true,
                   fontSize: 9,
                 },
                 {
-                  text: perfilDisciplina(disciplinasOrdered[i]),
+                  text: disciplina.perfil.abreviacao,
                   alignment: "center",
                   bold: true,
                   fontSize: 9,
                 },
                 {
-                  text: horasAula(disciplinasOrdered[i]) + " horas",
+                  text: horasAula(disciplina) + " horas",
                   alignment: "center",
                   bold: true,
                   fontSize: 9,
@@ -93,7 +89,6 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
               ],
             ],
           },
-
           layout: {
             vLineWidth: function() {
               return 0;
@@ -101,41 +96,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
           },
         });
 
-        for (let j = 0; j < turmas1Semestre.length; j++) {
-          let docentes = docentesRelatorioDisciplina(turmas1Semestre[j]);
-          let horario1 = find(store.state.horario.Horarios, {
-            id: turmas1Semestre[j].Horario1,
-          });
-          let horario2 = find(store.state.horario.Horarios, {
-            id: turmas1Semestre[j].Horario2,
-          });
-          let horarioTotal = undefined;
-          if (horario1 === undefined && horario2 === undefined) {
-            horarioTotal = "";
-          } else if (horario2 === undefined) {
-            horarioTotal = horario1.horario;
-          } else if (horario1 === undefined) {
-            horarioTotal = horario2.horario;
-          } else {
-            horarioTotal = horario1.horario + "\n" + horario2.horario;
-          }
-          let sala1 = find(store.state.sala.Salas, {
-            id: turmas1Semestre[j].Sala1,
-          });
-          let sala2 = find(store.state.sala.Salas, {
-            id: turmas1Semestre[j].Sala2,
-          });
-          let salaTotal = undefined;
-          if (sala1 === undefined && sala2 === undefined) {
-            salaTotal = "";
-          } else if (sala2 === undefined) {
-            salaTotal = sala1.nome;
-          } else if (sala1 === undefined) {
-            salaTotal = sala2.nome;
-          } else {
-            salaTotal = sala1.nome + "\n" + sala2.nome;
-          }
-
+        turmasFiltered.forEach((turma, j) => {
           tables.push({
             style: "tableExample",
             table: {
@@ -145,7 +106,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
               body: [
                 [
                   {
-                    text: "Turma: " + turmas1Semestre[j].letra,
+                    text: "Turma: " + turma.letra,
                     alignment: "left",
                     fontSize: 8,
                     bold: true,
@@ -157,7 +118,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
                     bold: true,
                   },
                   {
-                    text: docentes,
+                    text: generateDocentesText(turma),
                     alignment: "left",
                     fontSize: 8,
                     bold: true,
@@ -169,7 +130,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
                     bold: true,
                   },
                   {
-                    text: salaTotal,
+                    text: generateSalasText(turma),
                     alignment: "left",
                     fontSize: 8,
                     bold: true,
@@ -181,13 +142,13 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
                     bold: true,
                   },
                   {
-                    text: horarioTotal,
+                    text: generateHorariosText(turma),
                     alignment: "left",
                     fontSize: 8,
                     bold: true,
                   },
                   {
-                    text: "Vagas: " + vagasTurma(turmas1Semestre[j], 1),
+                    text: "Vagas: " + getSomatorioDeVagasDaTurma(turma), //tinha segundo paramentro com 1 e 2
                     alignment: "left",
                     fontSize: 8,
                     bold: true,
@@ -204,66 +165,34 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
               },
             },
           });
-          let pedidosTurma = getPedidosDaTurma(turmas1Semestre[j]);
-          // console.log(pedidosTurma)
-          if (pedidosTurma.length > 0) {
-            let tabelaCursosBody = [
+
+          const pedidosDaTurma = getPedidosDaTurma(turma);
+          if (pedidosDaTurma.length) {
+            const tabelaCursosBody = [
               [
                 { text: "" },
                 { text: "Cód.", alignment: "left", bold: "true", fontSize: 8 },
                 { text: "Curso", alignment: "left", bold: "true", fontSize: 8 },
-                {
-                  text: "Grade",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
-                {
-                  text: "Extra",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
-                {
-                  text: "Total",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
+                { text: "Grade", alignment: "center", bold: "true", fontSize: 8 },
+                { text: "Extra", alignment: "center", bold: "true", fontSize: 8 },
+                { text: "Total", alignment: "center", bold: "true", fontSize: 8 },
               ],
             ];
-            for (let k = 0; k < pedidosTurma.length; k++) {
+
+            pedidosDaTurma.forEach((pedido) => {
+              const vagasTotais = pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas;
+              const curso = getCursoById(pedido.Curso);
+
               tabelaCursosBody.push([
                 { text: "" },
-                {
-                  text: curso(pedidosTurma[k]).codigo,
-                  alignment: "left",
-                  fontSize: 6,
-                },
-                {
-                  text: curso(pedidosTurma[k]).nome,
-                  alignment: "left",
-                  fontSize: 6,
-                },
-                {
-                  text: pedidosTurma[k].vagasPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
-                {
-                  text: pedidosTurma[k].vagasNaoPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
-                {
-                  text:
-                    pedidosTurma[k].vagasPeriodizadas +
-                    pedidosTurma[k].vagasNaoPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
+                { text: curso.codigo, alignment: "left", fontSize: 6 },
+                { text: curso.nome, alignment: "left", fontSize: 6 },
+                { text: pedido.vagasPeriodizadas, alignment: "center", fontSize: 6 },
+                { text: pedido.vagasNaoPeriodizadas, alignment: "center", fontSize: 6 },
+                { text: vagasTotais, alignment: "center", fontSize: 6 },
               ]);
-            }
+            });
+
             tables.push({
               style: "tableExample",
               table: {
@@ -279,287 +208,16 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
                   return 0;
                 },
               },
-              margin: [0, 0, 0, j === turmas1Semestre.length - 1 ? 10 : 5],
+              margin: [0, 0, 0, j + 1 === turmasFiltered.length ? 10 : 5],
             });
           }
-        }
+        });
       }
-    }
-  }
-
-  if (semestre1Ativo && semestre2Ativo) tables.push({ text: "", pageBreak: "before" }); //page break;
-
-  if (semestre2Ativo) {
-    tables.push({
-      columns: [
-        {
-          image: logoDcc,
-          fit: [60, 60],
-          alignment: "left",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-        [
-          {
-            text:
-              "Relação de turmas oferecidas pelo Departamento de Ciência da Computação",
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-          },
-          {
-            text: "2º Semestre - " + plano.ano + " - " + plano.nome,
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-            margin: [0, 0, 0, 5],
-          },
-        ],
-        {
-          image: logoUfjf,
-          fit: [60, 60],
-          alignment: "right",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-      ],
     });
 
-    for (let i = 0; i < disciplinasOrdered.length; i++) {
-      const turmas2Semestre = disciplinasOrdered[i].turmas.filter(
-        (turma) => turma.periodo === 3 || turma.periodo === 4
-      );
-
-      if (turmas2Semestre.length) {
-        tables.push({
-          style: "tableExample",
-          table: {
-            widths: [60, "*", 72, 40],
-            headerRows: 1,
-            color: "#426",
-            body: [
-              [
-                {
-                  text: disciplinasOrdered[i].codigo,
-                  alignment: "left",
-                  bold: true,
-                  fontSize: 9,
-                },
-                {
-                  text: disciplinasOrdered[i].nome,
-                  alignment: "left",
-                  bold: true,
-                  fontSize: 9,
-                },
-                {
-                  text: perfilDisciplina(disciplinasOrdered[i]),
-                  alignment: "center",
-                  bold: true,
-                  fontSize: 9,
-                },
-                {
-                  text: horasAula(disciplinasOrdered[i]) + " horas",
-                  alignment: "center",
-                  bold: true,
-                  fontSize: 9,
-                },
-              ],
-            ],
-          },
-
-          layout: {
-            vLineWidth: function() {
-              return 0;
-            },
-          },
-        });
-
-        for (let j = 0; j < turmas2Semestre.length; j++) {
-          let docentes = docentesRelatorioDisciplina(turmas2Semestre[j]);
-          let horario1 = find(store.state.horario.Horarios, {
-            id: turmas2Semestre[j].Horario1,
-          });
-          let horario2 = find(store.state.horario.Horarios, {
-            id: turmas2Semestre[j].Horario2,
-          });
-          let horarioTotal = undefined;
-          if (horario1 === undefined && horario2 === undefined) {
-            horarioTotal = "";
-          } else if (horario2 === undefined) {
-            horarioTotal = horario1.horario;
-          } else if (horario1 === undefined) {
-            horarioTotal = horario2.horario;
-          } else {
-            horarioTotal = horario1.horario + "\n" + horario2.horario;
-          }
-          let sala1 = find(store.state.sala.Salas, {
-            id: turmas2Semestre[j].Sala1,
-          });
-          let sala2 = find(store.state.sala.Salas, {
-            id: turmas2Semestre[j].Sala2,
-          });
-          let salaTotal = undefined;
-          if (sala1 === undefined && sala2 === undefined) {
-            salaTotal = "";
-          } else if (sala2 === undefined) {
-            salaTotal = sala1.nome;
-          } else if (sala1 === undefined) {
-            salaTotal = sala2.nome;
-          } else {
-            salaTotal = sala1.nome + "\n" + sala2.nome;
-          }
-
-          tables.push({
-            style: "tableExample",
-            table: {
-              widths: [40, 35, "*", 18, 44, 28, 42, 65],
-              headerRows: 1,
-              color: "#426",
-              body: [
-                [
-                  {
-                    text: "Turma: " + turmas2Semestre[j].letra,
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: "Docentes: ",
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: docentes,
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: "Sala: ",
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: salaTotal,
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: "Horário: ",
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: horarioTotal,
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                  {
-                    text: "Vagas: " + vagasTurma(turmas2Semestre[j], 2),
-                    alignment: "left",
-                    fontSize: 8,
-                    bold: true,
-                  },
-                ],
-              ],
-            },
-            layout: {
-              hLineWidth: function(i) {
-                return i === 0 ? (j === 0 ? 0 : 0.5) : 0;
-              },
-              vLineWidth: function() {
-                return 0;
-              },
-            },
-          });
-          let pedidosTurma = getPedidosDaTurma(turmas2Semestre[j]);
-          // console.log(pedidosTurma);
-          if (pedidosTurma.length > 0) {
-            let tabelaCursosBody = [
-              [
-                { text: "" },
-                { text: "Cód.", alignment: "left", bold: "true", fontSize: 8 },
-                { text: "Curso", alignment: "left", bold: "true", fontSize: 8 },
-                {
-                  text: "Grade",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
-                {
-                  text: "Extra",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
-                {
-                  text: "Total",
-                  alignment: "center",
-                  bold: "true",
-                  fontSize: 8,
-                },
-              ],
-            ];
-            for (let k = 0; k < pedidosTurma.length; k++) {
-              tabelaCursosBody.push([
-                { text: "" },
-                {
-                  text: curso(pedidosTurma[k]).codigo,
-                  alignment: "left",
-                  fontSize: 6,
-                },
-                {
-                  text: curso(pedidosTurma[k]).nome,
-                  alignment: "left",
-                  fontSize: 6,
-                },
-                {
-                  text: pedidosTurma[k].vagasPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
-                {
-                  text: pedidosTurma[k].vagasNaoPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
-                {
-                  text:
-                    pedidosTurma[k].vagasPeriodizadas +
-                    pedidosTurma[k].vagasNaoPeriodizadas,
-                  alignment: "center",
-                  fontSize: 6,
-                },
-              ]);
-            }
-            tables.push({
-              style: "tableExample",
-              table: {
-                widths: [20, 24, "*", 24, 24, 24],
-                headerRows: 1,
-                color: "#426",
-                body: tabelaCursosBody,
-              },
-              layout: {
-                hLineWidth: function() {
-                  return 0;
-                },
-                vLineWidth: function() {
-                  return 0;
-                },
-              },
-              margin: [0, 0, 0, j === turmas2Semestre.length - 1 ? 10 : 5],
-            });
-          }
-        }
-      }
-    }
-  }
+    if (index + 1 !== periodosAtivados.length)
+      tables.push({ text: "", pageBreak: "before" }); //page break;
+  });
 
   let docDefinition = {
     info: {
@@ -1865,14 +1523,6 @@ async function pdfTurmasCursos({ cursos, periodos }) {
 export { pdfDisciplinasTurmas, pdfHorariosLabs, pdfCargaProfessores, pdfTurmasCursos };
 
 //Funções auxiliares
-function semestreEstaAtivo(periodos, semestreToCheck) {
-  return some(periodos, (periodo) => {
-    if (semestreToCheck === 1) return periodo.id === 1 || periodo.id === 2;
-    else if (semestreToCheck === 2) return periodo.id === 3 || periodo.id === 4;
-    else return false;
-  });
-}
-
 function checkTurmaLab(turma) {
   let result = 0;
   store.getters.Laboratorios.forEach((lab) => {
@@ -2035,7 +1685,7 @@ function creditos2(professor) {
   return c;
 }
 
-function docentesRelatorioDisciplina(turma) {
+function generateDocentesText(turma) {
   let d1 = find(store.state.docente.Docentes, { id: turma.Docente1 });
   let d2 = find(store.state.docente.Docentes, { id: turma.Docente2 });
   if (d1 === undefined && d2 === undefined) {
@@ -2049,12 +1699,33 @@ function docentesRelatorioDisciplina(turma) {
   }
 }
 
-function vagasTurma(turma, semestre) {
-  if (
-    (semestre === 1 && (turma.periodo == 3 || turma.periodo == 4)) ||
-    (semestre === 2 && (turma.periodo == 1 || turma.periodo == 2))
-  )
-    return 0;
+function generateHorariosText(turma) {
+  const horario1 = find(store.getters.AllHorarios, ["id", turma.Horario1]);
+  const horario2 = find(store.getters.AllHorarios, ["id", turma.Horario2]);
+  let horariosResult = undefined;
+
+  if (horario1 === undefined && horario2 === undefined) horariosResult = "";
+  else if (horario2 === undefined) horariosResult = horario1.horario;
+  else if (horario1 === undefined) horariosResult = horario2.horario;
+  else horariosResult = horario1.horario + "\n" + horario2.horario;
+
+  return horariosResult;
+}
+
+function generateSalasText(turma) {
+  const sala1 = find(store.getters.AllSalas, ["id", turma.Sala1]);
+  const sala2 = find(store.getters.AllSalas, ["id", turma.Sala2]);
+  let salasResult = undefined;
+
+  if (sala1 === undefined && sala2 === undefined) salasResult = "";
+  else if (sala2 === undefined) salasResult = sala1.nome;
+  else if (sala1 === undefined) salasResult = sala2.nome;
+  else salasResult = sala1.nome + "\n" + sala2.nome;
+
+  return salasResult;
+}
+
+function getSomatorioDeVagasDaTurma(turma) {
   let pedidos = store.state.pedido.Pedidos[turma.id];
   let vagasP = 0;
   let vagasNP = 0;
@@ -2069,13 +1740,8 @@ function horasAula(disciplina) {
   return (parseInt(disciplina.cargaPratica) + parseInt(disciplina.cargaTeorica)) * 15;
 }
 
-function perfilDisciplina(disciplina) {
-  let perfil = find(store.state.perfil.Perfis, { id: disciplina.Perfil });
-  return perfil.abreviacao;
-}
-
-function curso(pedido) {
-  return find(store.state.curso.Cursos, { id: pedido.Curso });
+function getCursoById(cursoId) {
+  return find(store.state.curso.Cursos, ["id", cursoId]);
 }
 
 function getPedidosDaTurma(turma) {
@@ -2083,7 +1749,7 @@ function getPedidosDaTurma(turma) {
     store.state.pedido.Pedidos[turma.id],
     (pedido) => pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0
   );
-  return sortBy(pedidosFiltered, (pedido) => curso(pedido).codigo);
+  return sortBy(pedidosFiltered, (pedido) => getCursoById(pedido.Curso).codigo);
 }
 
 function getTurmasDoCurso(curso, periodos) {
