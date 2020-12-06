@@ -287,7 +287,7 @@ import { ModalAjuda, ModalFiltros } from "@/components/modals";
 import DisciplinaRow from "./DisciplinaRow";
 
 export default {
-  name: "GradeDisciplinas",
+  name: "GradesDCC",
   mixins: [
     toggleItemInArray,
     toggleAsideModal,

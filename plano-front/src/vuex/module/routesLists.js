@@ -43,8 +43,8 @@ const state = {
       description: `Listagem de todos os professores com suas respectivas disciplinas (graduação e pós-graduação), exibindo o somatório parcial por semestre e a carga total de cada docente.`,
     },
     {
-      path: "/relatorios/grade-disciplinas",
-      title: "Grades Disciplinas",
+      path: "/relatorios/grades-dcc",
+      title: "Grades - DCC",
       icon: "file-alt",
       description: `Listagem de todas as disciplinas que compõem as grades dos cursos do DCC, mostrando a qual período e semestre cada disciplina pertence.`,
     },
