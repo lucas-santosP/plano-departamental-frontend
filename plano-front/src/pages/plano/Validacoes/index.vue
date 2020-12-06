@@ -1,9 +1,9 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
-    <PageHeader :title="'Validações do Plano'">
+    <portal to="page-header">
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <NavTab
       :currentTab="tabAtivaMain"

@@ -1,10 +1,10 @@
 <template>
   <div class="main-component row p-0">
-    <PageHeader :title="'Horários - Laborátorios'">
+    <portal to="page-header">
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="toggleAsideModal('relatorio')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div class="w-100">
       <ListHorariosLab
@@ -14,6 +14,7 @@
         :turmasInPeriodos="TurmasInPeriodos"
       />
     </div>
+
     <p v-show="horariosIsEmpty" class="text-empty">
       <b>Nenhum horário encontrado.</b>
       Clique no botão de filtros

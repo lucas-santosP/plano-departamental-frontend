@@ -19,7 +19,6 @@ Vue.use(Notifications);
 
 //Global components
 import {
-  PageHeader,
   BaseTable,
   BaseModal,
   BaseButton,
@@ -36,7 +35,6 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("BaseButton", BaseButton);
 Vue.component("BaseTable", BaseTable);
 Vue.component("BaseModal", BaseModal);
-Vue.component("PageHeader", PageHeader);
 Vue.component("v-td", VTd);
 Vue.component("v-th", VTh);
 Vue.component("v-th-ordination", VThOrdination);

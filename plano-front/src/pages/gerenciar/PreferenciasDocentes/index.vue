@@ -1,11 +1,11 @@
 <template>
   <div class="main-component">
-    <PageHeader :title="'Preferências dos docentes'">
+    <portal to="page-header">
       <BaseButton template="adicionar" @click="toggleAsideModal('newPref')" />
       <BaseButton template="file-upload" @click="toggleAsideModal('upload')" />
       <BaseButton template="swap-modes" @click="toggleTableMode" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div class="div-table">
       <BaseTable v-show="tableMode === 'disciplina'">

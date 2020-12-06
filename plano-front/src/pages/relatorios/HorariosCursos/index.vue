@@ -1,10 +1,10 @@
 <template>
   <div class="main-component row">
-    <PageHeader :title="'Horários - Cursos'">
+    <portal to="page-header">
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="toggleAsideModal('relatorio')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div v-show="!onLoading.table && algumHorariosEstaAtivo" class="w-100 m-0">
       <div
@@ -75,6 +75,7 @@
         />
       </template>
     </div>
+
     <p v-show="!algumHorariosEstaAtivo" class="text-empty">
       <b>Nenhum horário encontrado.</b>
       Clique no botão de filtros

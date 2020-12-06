@@ -1,8 +1,8 @@
 <template>
   <div class="main-component">
-    <PageHeader :title="'Usuários'">
+    <portal to="page-header">
       <BaseButton template="ajuda" @click="$refs.modalAjuda.toggle()" />
-    </PageHeader>
+    </portal>
 
     <div class="page-content">
       <div class="div-table">

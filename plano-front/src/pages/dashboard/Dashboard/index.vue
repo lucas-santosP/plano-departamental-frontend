@@ -3,7 +3,11 @@
     <TheNavbar :modalCallbacks="modalCallbacks" />
     <TheSidebar />
 
-    <main @click="closeSidebar">
+    <main role="main">
+      <ThePageHeader :title="currentPageTitle">
+        <portal-target name="page-header" class="aside"></portal-target>
+      </ThePageHeader>
+
       <transition name="router-view-animation" mode="out-in" appear>
         <router-view></router-view>
       </transition>
@@ -25,7 +29,7 @@ import { mapGetters, mapActions } from "vuex";
 import { find, pull } from "lodash-es";
 import bddumpService from "@/common/services/bddump";
 import { EventBus } from "@/plugins/eventBus.js";
-import { TheNavbar, TheSidebar } from "@/components/layout";
+import { TheNavbar, TheSidebar, ThePageHeader } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";
 import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
 
@@ -34,6 +38,7 @@ export default {
   components: {
     TheSidebar,
     TheNavbar,
+    ThePageHeader,
     ModalUser,
     ModalDownload,
   },
@@ -89,7 +94,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos"]),
+    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos", "allRoutes"]),
+
+    currentPageTitle() {
+      const currentPage = this.allRoutes.find((route) => route.path === this.$route.path);
+      return currentPage ? currentPage.title : "Pagina nao encontrado!";
+    },
   },
 };
 </script>
@@ -105,10 +115,10 @@ export default {
 .dashboard > main {
   width: 100%;
   height: calc(100vh - var(--navbar-height));
-  overflow-y: auto !important;
   margin-top: var(--navbar-height);
-  transition: all 200ms ease;
   padding: 0 8px;
+  overflow-y: auto !important;
+  transition: all 200ms ease;
 }
 .dashboard > .base-modal-overlay {
   position: fixed;
@@ -117,6 +127,6 @@ export default {
   z-index: 950;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #00000066;
 }
 </style>

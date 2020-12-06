@@ -1,6 +1,6 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
-    <PageHeader :title="'Graduação - DCC'">
+    <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton template="salvar" @click="$refs.novaTurma.handleCreateTurma()" />
         <BaseButton template="cancelar" @click="toggleIsAdding" />
@@ -24,7 +24,7 @@
         @click="generateXlsx"
       />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div class="div-table">
       <BaseTable>

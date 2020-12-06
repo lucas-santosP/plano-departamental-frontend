@@ -1,25 +1,20 @@
 <template>
-  <div class="page-header mb-2 border-bottom">
-    <h1 class="m-0 my-1">{{ title }}</h1>
-    <aside class="aside my-1">
-      <slot></slot>
-    </aside>
-  </div>
+  <header class="page-header mb-2 border-bottom">
+    <h1>{{ title }}</h1>
+    <slot></slot>
+  </header>
 </template>
 
 <script>
 export default {
-  name: "PageHeader",
+  name: "ThePageHeader",
   props: {
-    title: {
-      type: String,
-      default: "Nenhum titulo!",
-    },
+    title: { type: String, default: "Nenhum titulo!" },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .page-header {
   display: flex;
   flex-direction: row;
@@ -31,17 +26,20 @@ export default {
 .page-header > h1 {
   font-size: 25px;
   font-weight: normal;
-  padding: 0 !important;
+  padding: 0;
+  margin: 0.25rem 0;
 }
-.aside {
+.page-header > .aside {
   display: flex;
   justify-content: flex-end;
+  margin: 0.25rem 0;
 }
+
 /* Para quando tem um select no slot */
-.input-group {
+.page-header > .aside .input-group {
   width: max-content !important;
 }
-.input-group-text {
+.page-header > .aside .input-group-text {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +50,8 @@ export default {
   padding-left: 15px;
   font-size: 12px !important;
 }
-.form-control-top {
+.page-header > .aside .form-control-top,
+.page-header > .aside select {
   height: 25px !important;
   font-size: 12px !important;
   padding: 2px 5px !important;

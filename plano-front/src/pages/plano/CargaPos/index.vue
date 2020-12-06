@@ -1,6 +1,6 @@
 <template>
   <div class="main-component row" v-if="currentPlano.isEditable">
-    <PageHeader :title="'Pós Graduação'">
+    <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton
           template="salvar"
@@ -18,7 +18,7 @@
       </template>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div class="div-table">
       <BaseTable>

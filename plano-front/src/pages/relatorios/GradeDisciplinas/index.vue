@@ -1,6 +1,6 @@
 <template>
   <div class="main-component row">
-    <PageHeader :title="'Grades Disciplinas'">
+    <portal to="page-header">
       <div class="input-group d-flex align-items-center m-0 mx-2 ml-auto p-0">
         <div class="input-group-prepend">
           <label class="input-group-text">Ano</label>
@@ -21,7 +21,7 @@
       </div>
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
-    </PageHeader>
+    </portal>
 
     <div class="div-table">
       <BaseTable>

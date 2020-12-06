@@ -1,7 +1,5 @@
 <template>
   <div class="main-component row p-0">
-    <PageHeader :title="'Dashboard'" />
-
     <div class="alert alert-light mt-1" role="alert">
       <p class="user-paragraph">
         Olá
