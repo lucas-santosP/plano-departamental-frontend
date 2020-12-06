@@ -78,7 +78,7 @@ export default {
         case "download":
           options.title = "Baixar arquivos";
           options.class = "btn-icon icon-gray";
-          options.iconName = "download";
+          options.iconName = "save";
           break;
         case "swap-modes":
           options.title = "Alterar visualização da tabela";
