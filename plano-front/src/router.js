@@ -88,7 +88,7 @@ const routes = [
         component: lazyLoad("relatorios/HorariosLabs"),
       },
       {
-        path: "/relatorios/relatorio-disciplinas",
+        path: "/relatorios/plano-departamental",
         component: lazyLoad("relatorios/PlanoDepartamental"),
       },
       {

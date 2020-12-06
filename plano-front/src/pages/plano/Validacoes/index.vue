@@ -25,7 +25,7 @@
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.perfil.abreviacao"
-            width="75"
+            width="80"
             align="start"
             title="Período letivo"
           >
@@ -58,7 +58,11 @@
               <v-td width="35">
                 {{ validacaoTurma.periodo }}
               </v-td>
-              <v-td width="75" align="start">
+              <v-td
+                width="80"
+                align="start"
+                :title="validacaoTurma.disciplina.perfil.nome"
+              >
                 {{ validacaoTurma.disciplina.perfil.abreviacao }}
               </v-td>
               <v-td width="80" align="start">
@@ -104,7 +108,7 @@
           </template>
 
           <tr v-if="!TurmasValidacoesOrdered.length">
-            <v-td width="705">
+            <v-td width="710">
               <b>Nenhum conflito encontrado em turmas.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -119,7 +123,7 @@
           <v-th-ordination
             :currentOrder="ordenacaoDocentesMain"
             orderToCheck="nome"
-            width="705"
+            width="710"
             align="start"
             colspan="2"
           >
@@ -130,7 +134,7 @@
         <template #tbody>
           <template v-for="validacaoDocente in DocentesValidacoesOrdered">
             <tr :key="validacaoDocente.id + validacaoDocente.nome" class="bg-custom">
-              <v-td colspan="2" width="705" align="start">
+              <v-td colspan="2" width="710" align="start">
                 {{ validacaoDocente.nome }}
               </v-td>
             </tr>
@@ -148,12 +152,12 @@
                 />
               </v-td>
 
-              <v-td width="670" align="start">{{ conflito }}</v-td>
+              <v-td width="675" align="start">{{ conflito }}</v-td>
             </tr>
           </template>
 
           <tr v-if="!DocentesValidacoesOrdered.length">
-            <v-td width="705">
+            <v-td width="710">
               <b>Nenhum conflito encontrado em docentes.</b>
             </v-td>
           </tr>
