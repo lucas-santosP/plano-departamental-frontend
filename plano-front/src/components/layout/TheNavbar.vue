@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar-container shadow">
     <div @click="closeSidebar" class="navbar-brand">
-      <router-link :to="{ path: '/dashboard' }" class="brand-title">
+      <router-link :to="{ path: '/home' }" class="brand-title">
         <font-awesome-icon :icon="['fas', 'graduation-cap']" />
         SIPlanWeb
       </router-link>

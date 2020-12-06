@@ -2,9 +2,9 @@
   <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 mb-3">
     <h3 class="list-title">{{ title }}</h3>
     <ul class="list-group">
-      <li v-for="page in pages" :key="page.routeName" class="list-group-item">
+      <li v-for="page in pages" :key="page.path" class="list-group-item">
         <strong>
-          <router-link :to="{ name: page.routeName }">{{ page.title }}:</router-link>
+          <router-link :to="{ path: page.path }">{{ page.title }}:</router-link>
         </strong>
         {{ page.description }}
       </li>

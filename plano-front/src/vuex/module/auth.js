@@ -74,7 +74,7 @@ const actions = {
 
   doLogout({ commit }) {
     commit(USER_LOGGED_OUT);
-    router.push({ name: "login" });
+    router.push({ path: "/login" });
   },
 };
 
