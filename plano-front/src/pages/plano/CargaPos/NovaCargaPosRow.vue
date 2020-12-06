@@ -86,13 +86,16 @@ export default {
 <style scoped>
 .novacarga {
   font-size: 11px !important;
-  background-color: #cecece;
+  background-color: #e9e9e9;
 }
 .novacarga:hover {
-  background-color: #cecece;
+  background-color: #e9e9e9;
 }
 .novacarga input,
 .novacarga select {
   margin: 5px 0;
+}
+.novaturma {
+  font-size: 11px;
 }
 </style>
