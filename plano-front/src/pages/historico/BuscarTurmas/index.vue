@@ -601,7 +601,7 @@ export default {
         planos: { order: "plano.ano", type: "asc" },
         perfis: { order: "disciplina.perfil.abreviacao", type: "asc" },
       },
-      TurmasRetornadas: null,
+      TurmasRetornadas: [],
     };
   },
 
