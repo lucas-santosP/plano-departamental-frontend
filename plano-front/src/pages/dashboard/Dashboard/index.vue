@@ -3,7 +3,7 @@
     <TheNavbar :modalCallbacks="modalCallbacks" />
     <TheSidebar />
 
-    <main role="main">
+    <main role="main" @click.stop="closeSidebar">
       <ThePageHeader :title="currentPageTitle">
         <portal-target name="page-header" class="aside"></portal-target>
       </ThePageHeader>
