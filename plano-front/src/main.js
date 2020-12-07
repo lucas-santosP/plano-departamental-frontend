@@ -4,16 +4,16 @@ import store from "./vuex/store";
 import router from "./router";
 import axios from "./common/services/axios";
 import { sync } from "vuex-router-sync";
-sync(store, router);
-axios(Vue, store);
 import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";
 import PortalVue from "portal-vue";
 import Notifications from "vue-notification";
 import { VBPopover } from "bootstrap-vue";
+sync(store, router);
+axios(Vue, store);
+Vue.use(VueSocketio, SocketIoInstance, store);
 
 Vue.directive("b-popover", VBPopover);
-Vue.use(VueSocketio, SocketIoInstance, store);
 Vue.use(PortalVue);
 Vue.use(Notifications);
 
