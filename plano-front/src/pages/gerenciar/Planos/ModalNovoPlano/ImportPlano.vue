@@ -1,35 +1,42 @@
 <template>
   <div>
     <p class="alert alert-secondary">
-      Selecione um arquivo
+      Selecione arquivos
       <b>.csv</b>
-      para importar as turmas para o novo plano.
+      para importar as turmas de cada periodo do novo plano.
+      <br />
+      Note que o formato do arquivo requerido é o relatorio de plano departamental gerado
+      pelo SIGA na página: Acadêmico > Consultas > Plano Departamental.
     </p>
 
     <div class="form-row">
-      <div class="form-group col-4">
-        <label for="periodoPlano">Período:</label>
-        <select
-          id="periodoPlano"
-          v-model.number="periodoTurmas"
-          class="form-control w-100"
-        >
-          <option
-            v-for="periodo in PeriodosLetivos"
-            :key="periodo.id + periodo.nome"
-            :value="periodo.id"
-          >
-            {{ periodo.nome }}
-          </option>
-        </select>
+      <div class="form-group">
+        <label for="turmas1">
+          Turmas do
+          <b>primeiro</b>
+          período:
+        </label>
+        <input
+          id="turmas1"
+          type="file"
+          ref="input1periodo"
+          class="w-100 form-control-file"
+          accept=".csv"
+        />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col">
+        <label for="turmas2">
+          Turmas do
+          <b>terceiro</b>
+          período:
+        </label>
         <input
+          id="turmas3"
           type="file"
-          ref="inputFilePlano"
+          ref="input3periodo"
           class="w-100 form-control-file"
           accept=".csv"
         />
@@ -48,44 +55,41 @@ import { generateEmptyTurma, normalizeText } from "@/common/utils";
 export default {
   name: "ModalImportPlano",
   props: { plano: { type: Object, required: true } },
-  data() {
-    return {
-      periodoTurmas: null,
-    };
-  },
 
   methods: {
     ...mapActions(["createTurma", "editPedido"]),
 
     async handleImportPlano() {
-      if (!this.periodoTurmas) {
-        throw new Error("Escolha o período do plano");
+      const [inputFile1Periodo] = this.$refs.input1periodo.files;
+      const [inputFile3Periodo] = this.$refs.input3periodo.files;
+      if (!inputFile1Periodo && !inputFile3Periodo) {
+        throw new Error("Nenhum arquivo selecionado");
       }
 
-      this.setPartialLoading(true);
-      const [inputFile] = this.$refs.inputFilePlano.files;
+      const response = await planoService.create(this.plano);
+      await this.readInputFileTurmas(inputFile1Periodo, response.Plano.id, 1);
+      await this.readInputFileTurmas(inputFile3Periodo, response.Plano.id, 3);
+    },
+    async readInputFileTurmas(inputFile, planoId, periodo) {
       const reader = new FileReader();
 
       reader.onload = async (event) => {
         const workbook = XLSX.read(event.target.result, { type: "binary" });
         const firstWorksheet = workbook.Sheets[workbook.SheetNames[0]];
-
         const dataString = JSON.stringify(XLSX.utils.sheet_to_json(firstWorksheet));
         const dataStringNormalized = dataString
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/\s/g, "");
 
-        const turmasDoPlano = JSON.parse(dataStringNormalized);
-
-        await this.createPlanoImported(turmasDoPlano, this.periodoTurmas);
-        // await this.$store.dispatch("fetchAll"); //Não é necessario ?
-        this.setPartialLoading(false);
+        const turmas = JSON.parse(dataStringNormalized);
+        await this.createTurmasImported(turmas, planoId, periodo);
       };
 
       reader.readAsBinaryString(inputFile);
     },
-    async createPlanoImported(turmasImported, periodo) {
+
+    async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
         disciplinaCod: null,
         letra: null,
@@ -108,12 +112,11 @@ export default {
       }
 
       let currentTurma = {};
-      const response = await planoService.create(this.plano);
 
       for (const turmaFile of turmasImported) {
         const newTurma = generateEmptyTurma({
           periodo,
-          Plano: response.Plano.id,
+          Plano: planoId,
           letra: turmaFile[keys.letra] || null,
         });
 

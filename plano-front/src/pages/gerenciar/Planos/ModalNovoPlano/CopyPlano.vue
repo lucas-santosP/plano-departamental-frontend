@@ -620,7 +620,6 @@ export default {
       return turmasNovoPlano;
     },
     handleCopyPlano() {
-      this.setPartialLoading(true);
       let turmasNovoPlano = this.generateTurmasNovoPlano();
 
       planoService.create(this.plano).then((plano) => {
@@ -776,12 +775,7 @@ export default {
               console.log("erro ao criar turma externa: " + error);
             });
         });
-
-        this.$store.dispatch("fetchAll").then(() => {
-          setTimeout(() => {
-            this.setPartialLoading(false);
-          }, 300);
-        });
+        // this.$store.dispatch("fetchAll");
       });
     },
   },
