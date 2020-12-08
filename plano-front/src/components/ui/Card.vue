@@ -51,10 +51,6 @@ export default {
 </script>
 
 <style>
-.card .btn-icon {
-  margin-right: 0 !important;
-  margin-left: 5px !important;
-}
 .card {
   width: max-content;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
@@ -99,6 +95,13 @@ export default {
   padding: 0 !important;
 }
 
+.card > .card-body .input-md {
+  width: 120px !important;
+}
+.card > .card-body .input-sm {
+  width: 80px !important;
+}
+
 .card > .card-body .form-group + .form-group {
   padding-left: 10px !important;
 }
@@ -107,5 +110,9 @@ export default {
   padding: 5px;
   font-size: 12px;
   text-align: start;
+}
+.card .btn-icon {
+  margin-right: 0 !important;
+  margin-left: 5px !important;
 }
 </style>

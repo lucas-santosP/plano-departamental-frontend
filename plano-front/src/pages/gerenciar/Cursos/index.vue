@@ -100,8 +100,8 @@
                 id="nome"
                 type="text"
                 class="input-maior form-control form-control-sm"
+                @change="cursoForm.nome = normalizeInputText($event)"
                 :value="cursoForm.nome"
-                @input="cursoForm.nome = $event.target.value.toUpperCase()"
               />
             </div>
           </div>
@@ -110,19 +110,20 @@
             <div class="form-group col m-0 px-0">
               <label required for="codigo" class="col-form-label">Código</label>
               <input
-                type="text"
-                class="form-control form-control-sm input-menor"
                 id="codigo"
+                type="text"
+                class="form-control form-control-sm input-md"
+                @change="cursoForm.codigo = normalizeInputText($event)"
                 :value="cursoForm.codigo"
-                @input="cursoForm.codigo = $event.target.value.toUpperCase()"
               />
             </div>
+
             <div class="form-group col m-0 px-0">
               <label required for="turno" class="col-form-label">Turno</label>
               <select
-                type="text"
-                class="form-control form-control-sm input-medio"
                 id="turno"
+                type="text"
+                class="form-control form-control-sm input-md"
                 v-model="cursoForm.turno"
               >
                 <option value="Diurno">Diurno</option>
@@ -141,7 +142,7 @@
                 type="number"
                 min="0"
                 id="alunosEnrada1"
-                class="form-control form-control-sm input-menor"
+                class="form-control form-control-sm text-center input-md"
                 v-model.number="cursoForm.alunosEntrada"
                 @keypress="maskOnlyNumber"
                 @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada')"
@@ -156,7 +157,7 @@
                 type="number"
                 min="0"
                 id="alunosEntrada2"
-                class="form-control form-control-sm input-menor"
+                class="form-control form-control-sm text-center input-md"
                 v-model.number="cursoForm.alunosEntrada2"
                 @keypress="maskOnlyNumber"
                 @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada2')"
@@ -218,7 +219,7 @@
 import ls from "local-storage";
 import { mapActions, mapGetters } from "vuex";
 import { clone, find, orderBy } from "lodash-es";
-import { maskOnlyNumber, maskEmptyToZero } from "@/common/mixins";
+import { maskOnlyNumber, maskEmptyToZero, normalizeInputText } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 import { Card } from "@/components/ui";
 
@@ -235,7 +236,7 @@ const emptyCurso = {
 
 export default {
   name: "DashboardCursos",
-  mixins: [maskOnlyNumber, maskEmptyToZero],
+  mixins: [maskOnlyNumber, maskEmptyToZero, normalizeInputText],
   components: { Card, ModalDelete, ModalAjuda },
   data() {
     return {
@@ -370,16 +371,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.card .input-maior {
-  width: 250px;
-}
-.card .input-menor {
-  width: 100px;
-  text-align: center !important;
-}
-.card .input-medio {
-  width: 100%;
-}
-</style>
