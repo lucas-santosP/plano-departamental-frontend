@@ -84,6 +84,7 @@ export default {
 .card > .card-body select,
 .card > .card-body input[type="text"],
 .card > .card-body input[type="number"],
+.card > .card-body input[type="color"],
 .card > .card-body input[type="password"] {
   width: 100%;
   height: 28px;
