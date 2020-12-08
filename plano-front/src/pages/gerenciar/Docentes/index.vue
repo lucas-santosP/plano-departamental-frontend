@@ -37,7 +37,7 @@
           <template #tbody>
             <tr
               v-for="docente in DocentesOrdered"
-              :key="docente.id + docente.apelido"
+              :key="docente.id"
               :class="[{ 'bg-selected': docenteClickado.id == docente.id }, 'clickable']"
               @click="handleClickInDocente(docente)"
             >
@@ -67,11 +67,10 @@
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label required for="nome" class="col-form-label">Nome</label>
-
               <input
                 id="nome"
                 type="text"
-                class="form-control form-control-sm input-maior"
+                class="form-control form-control-sm input-lg"
                 @change="docenteForm.nome = normalizeInputText($event)"
                 :value="docenteForm.nome"
               />
@@ -84,7 +83,7 @@
               <input
                 id="apelido"
                 type="text"
-                class="form-control form-control-sm input-medio"
+                class="form-control form-control-sm"
                 @change="docenteForm.apelido = normalizeInputText($event)"
                 :value="docenteForm.apelido"
               />
@@ -386,12 +385,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.card .input-maior {
-  width: 270px;
-}
-.card .input-medio {
-  width: 150px;
-}
-</style>

@@ -95,8 +95,11 @@ export default {
   padding: 0 !important;
 }
 
+.card > .card-body .input-lg {
+  width: 270px !important;
+}
 .card > .card-body .input-md {
-  width: 120px !important;
+  width: 130px !important;
 }
 .card > .card-body .input-sm {
   width: 80px !important;
