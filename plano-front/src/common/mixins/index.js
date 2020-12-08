@@ -14,8 +14,10 @@ import conectaFiltroPerfisEDisciplinas from "./conectaFiltroPerfisEDisciplinas";
 import preventClickSelection from "./preventClickSelection";
 import generateBooleanText from "./generateBooleanText";
 import normalizeInputText from "./normalizeInputText";
+import maskLimitLength from "./maskLimitLength";
 
 export {
+  maskLimitLength,
   normalizeInputText,
   preventClickSelection,
   conectaFiltroPerfisEDisciplinas,
