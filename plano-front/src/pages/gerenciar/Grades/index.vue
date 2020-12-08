@@ -87,24 +87,25 @@
       >
         <template #form-group>
           <div class="row mb-2 mx-0">
-            <div class="form-group col-5 m-0 px-0">
+            <div class="form-group col m-0 px-0">
               <label required for="gradeNome" class="col-form-label">Nome</label>
               <input
                 type="text"
-                class="card-input-menor form-control form-control-sm"
+                class="form-control form-control-sm input-md"
                 id="gradeNome"
-                v-model="gradeForm.nome"
+                @change="gradeForm.nome = normalizeInputText($event)"
+                :value="gradeForm.nome"
               />
             </div>
 
-            <div class="form-group col-7 m-0 px-0">
+            <div class="form-group col m-0 px-0">
               <label required for="periodoInicio" class="col-form-label">
                 Período de Início
               </label>
               <input
                 type="text"
                 id="periodoInicio"
-                class="card-input-menor form-control form-control-sm col"
+                class="form-control form-control-sm input-md"
                 v-model="gradeForm.periodoInicio"
               />
             </div>
@@ -117,7 +118,7 @@
               </label>
               <select
                 id="gradeCurso"
-                class="form-control form-control-sm card-input-maior"
+                class="form-control form-control-sm input-lg"
                 v-model.number="gradeForm.Curso"
               >
                 <option :value="4">Ciência da Computação Diurno</option>
@@ -185,7 +186,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { clone, filter, orderBy } from "lodash-es";
-import { maskOnlyNumber } from "@/common/mixins";
+import { normalizeInputText } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
 import { Card } from "@/components/ui";
 const emptyGrade = {
@@ -197,7 +198,7 @@ const emptyGrade = {
 
 export default {
   name: "DashboardGrade",
-  mixins: [maskOnlyNumber],
+  mixins: [normalizeInputText],
   components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
@@ -294,12 +295,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.card-input-maior {
-  width: 210px;
-}
-.card-input-menor {
-  width: 70px;
-}
-</style>
