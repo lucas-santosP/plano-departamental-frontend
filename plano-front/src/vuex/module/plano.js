@@ -124,7 +124,7 @@ const getters = {
     return orderBy(state.Plano, "ano");
   },
   AnosDoPlano() {
-    let firstYear = 2019;
+    let firstYear = 2000;
     const currentYear = new Date().getFullYear();
     const lastYear = currentYear + 5;
     const yearsArry = [];
