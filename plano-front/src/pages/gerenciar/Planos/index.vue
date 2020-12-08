@@ -83,9 +83,10 @@
               <input
                 type="text"
                 id="planoNome"
-                v-model="planoForm.nome"
                 class="form-control w-100"
-                @keypress="limitStringLength"
+                @keypress="limitInputLength($event, 12)"
+                @change="planoForm.nome = normalizeInputText($event)"
+                :value="planoForm.nome"
               />
             </div>
 
@@ -210,7 +211,7 @@ import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/common/services/copyPlano";
 import planoService from "@/common/services/plano";
-import { generateBooleanText } from "@/common/mixins";
+import { generateBooleanText, normalizeInputText } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
@@ -225,7 +226,7 @@ const emptyPlano = {
 
 export default {
   name: "Planos",
-  mixins: [generateBooleanText],
+  mixins: [generateBooleanText, normalizeInputText],
   components: {
     ModalAjuda,
     ModalDelete,
@@ -243,8 +244,8 @@ export default {
   methods: {
     ...mapActions(["deletePlano", "editPlano"]),
 
-    limitStringLength($event) {
-      if ($event.target.value.length >= 12) $event.preventDefault();
+    limitInputLength($event, maxLength) {
+      if ($event.target.value.length >= maxLength) $event.preventDefault();
     },
     handleClickInPlano(plano) {
       this.cleanPlano();
