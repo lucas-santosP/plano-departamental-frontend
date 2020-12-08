@@ -1,7 +1,7 @@
 <template>
   <BaseModal
     ref="baseModalDownloadTurmasCursos"
-    title="Relátorio"
+    title="Período"
     position="right"
     :styles="{ width: '300px', zIndex: 905 }"
   >
@@ -11,13 +11,13 @@
           class="list-group-item clickable text-center m-0 rounded-0 col py-2"
           @click="handleSelect(1)"
         >
-          Primeiro Período
+          Primeiro
         </li>
         <li
           class="list-group-item clickable text-center m-0 rounded-0 col py-2"
           @click="handleSelect(3)"
         >
-          Terceiro Período
+          Terceiro
         </li>
       </ul>
     </template>
@@ -30,10 +30,8 @@ export default {
 
   methods: {
     handleSelect(value) {
-      this.setPartialLoading(true);
-      this.close();
       this.$emit("selection-option", value);
-      this.setPartialLoading(false);
+      this.close();
     },
 
     toggle() {

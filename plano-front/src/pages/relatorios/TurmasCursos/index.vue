@@ -319,7 +319,7 @@ export default {
     },
 
     generatePdf(completo) {
-      let cursos = [];
+      let cursos;
       if (completo) cursos = this.AllCursos;
       else cursos = this.filtroCursos.ativados;
 
@@ -330,6 +330,7 @@ export default {
     },
 
     async downloadTurmasCursos(periodo) {
+      this.setPartialLoading(true);
       await downloadService
         .generatePdfTurmasCurso({
           Plano: localStorage.getItem("Plano"),
@@ -346,6 +347,7 @@ export default {
               .then((r) => r.blob())
               .then((blob) => {
                 saveAs(blob, "TurmasCursos.zip");
+                this.setPartialLoading(false);
               })
           )
         );
