@@ -41,7 +41,9 @@
               <v-td width="80">{{ turma.turma.disciplina.codigo }}</v-td>
               <v-td width="40">{{ turma.turma.letra }}</v-td>
               <v-td width="120">{{ horarioTotal(turma.turma) }}</v-td>
-              <v-td width="80">{{ turma.pedido.vagasPeriodizadas + turma.pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="80">
+                {{ turma.pedido.vagasPeriodizadas + turma.pedido.vagasNaoPeriodizadas }}
+              </v-td>
             </tr>
           </template>
         </template>
@@ -100,7 +102,11 @@
         </template>
 
         <template #tbody>
-          <tr v-for="curso in CursosFiltrados" :key="curso.id + curso.nome">
+          <tr
+            v-for="curso in CursosFiltrados"
+            :key="curso.id + curso.nome"
+            @click="toggleItemInArray(curso, filtroCursos.selecionados)"
+          >
             <v-td width="25" type="content">
               <input type="checkbox" v-model="filtroCursos.selecionados" :value="curso" />
             </v-td>
@@ -172,6 +178,7 @@ import { find, orderBy, filter } from "lodash-es";
 import { pdfTurmasCursos } from "@/common/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
+  toggleItemInArray,
   toggleAsideModal,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
@@ -191,6 +198,7 @@ import { saveAs } from "file-saver";
 export default {
   name: "TurmasCursos",
   mixins: [
+    toggleItemInArray,
     toggleAsideModal,
     conectaFiltroPerfisEDisciplinas,
     conectaFiltrosSemestresEPeriodos,
@@ -225,7 +233,7 @@ export default {
         ativados: [],
       },
       filtroPeriodos: {
-        selecionados: [],
+        selecionados: [1, 3],
         ativados: [],
       },
       modalFiltrosTabs: {
