@@ -219,6 +219,7 @@ import {
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
+import workerSrc from '!!file-loader!pdfjs-dist/build/pdf.worker.min.js'
 
 const emptyPlano = {
   ano: 2019,
@@ -305,6 +306,202 @@ export default {
         this.setPartialLoading(false);
       }
     },
+
+    async importTurmaPorDepartamento(event) {
+      const pdfjsLib = require(/* webpackChunkName: "pdfjs-dist" */ `pdfjs-dist`)
+      pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
+      let file = event.target.files[0];
+      console.log(file)
+      let fullText = []
+      let data = {}
+      let fileReader = new FileReader()
+      fileReader.onload = async function() {
+        let typedarray = new Uint8Array(this.result)
+        let pdf = await pdfjsLib.getDocument(typedarray).promise
+        for(let i = 1; i <= pdf._pdfInfo.numPages; i++){
+          let page = await pdf.getPage(i)
+          let text = await page.getTextContent()
+          fullText.push(...text.items)
+        }
+        let i = 0;
+
+        let nexti = () => {
+          i = i+1
+          if(!fullText[i].str) {
+            i = i + 4
+          }
+          if(fullText[i].str === pdf._pdfInfo.numPages.toString()){
+            if(fullText[i + 2].str === 'Página :'){
+              i = i+8
+            }
+          }
+        }
+
+        while(fullText[i].str !== 'Disciplina'){
+          nexti()
+        }
+
+        while(i < fullText.length){
+
+          if(fullText[i].str === 'Disciplina'){
+            nexti()
+
+            let disciplina = fullText[i].str.split(' ')[0]
+            data[disciplina] = {}
+            data[disciplina].codigo = disciplina
+            data[disciplina].Turmas = {}
+
+            nexti()
+
+            while(i < fullText.length && fullText[i].str !== 'Disciplina') {
+              let turma = fullText[i].str.split(' ')[1]
+              data[disciplina].Turmas[turma] = {}
+              data[disciplina].Turmas[turma].Turma = turma
+
+              nexti()
+
+              data[disciplina].Turmas[turma].vagasOferecidas = fullText[i].str.split(' ')[2]
+
+              nexti()
+
+              data[disciplina].Turmas[turma].vagasOcupadas = fullText[i].str.split(' ')[2]
+
+              nexti()
+
+              if (i < fullText.length && fullText[i].str === 'Aprovado:') {
+                data[disciplina].Turmas[turma].Aprovado = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Cancelado:'
+                && fullText[i].str !== 'Rep Freq:'
+                && fullText[i].str !== 'Rep Nota:'
+                && fullText[i].str !== 'Reprovado:'
+                && fullText[i].str !== 'Sem Conceito:'
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].Aprovado[curso] = {}
+                  data[disciplina].Turmas[turma].Aprovado[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].Aprovado[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+              if (i < fullText.length && fullText[i].str === 'Cancelado:') {
+                data[disciplina].Turmas[turma].Cancelado = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Rep Freq:'
+                && fullText[i].str !== 'Rep Nota:'
+                && fullText[i].str !== 'Reprovado:'
+                && fullText[i].str !== 'Sem Conceito:'
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].Cancelado[curso] = {}
+                  data[disciplina].Turmas[turma].Cancelado[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].Cancelado[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+              if (i < fullText.length && fullText[i].str === 'Rep Freq:') {
+                data[disciplina].Turmas[turma].RepFreq = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Rep Nota:'
+                && fullText[i].str !== 'Reprovado:'
+                && fullText[i].str !== 'Sem Conceito:'
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].RepFreq[curso] = {}
+                  data[disciplina].Turmas[turma].RepFreq[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].RepFreq[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+              if (i < fullText.length && fullText[i].str === 'Rep Nota:') {
+                data[disciplina].Turmas[turma].RepNota = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Reprovado:'
+                && fullText[i].str !== 'Sem Conceito:'
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].RepNota[curso] = {}
+                  data[disciplina].Turmas[turma].RepNota[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].RepNota[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+              if (i < fullText.length && fullText[i].str === 'Reprovado:') {
+                data[disciplina].Turmas[turma].Reprovado = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Sem Conceito:'
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].Reprovado[curso] = {}
+                  data[disciplina].Turmas[turma].Reprovado[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].Reprovado[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+              if (i < fullText.length && fullText[i].str === 'Sem Conceito:') {
+                data[disciplina].Turmas[turma].SemConceito = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Trancado:'
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].SemConceito[curso] = {}
+                  data[disciplina].Turmas[turma].SemConceito[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].SemConceito[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+
+
+              if (i < fullText.length && fullText[i].str === 'Trancado:') {
+                data[disciplina].Turmas[turma].Trancado = {}
+                nexti()
+                while (i < fullText.length
+                && fullText[i].str !== 'Disciplina'
+                && fullText[i].str.substring(0, 5) !== 'Turma') {
+                  let curso = fullText[i].str
+                  data[disciplina].Turmas[turma].Trancado[curso] = {}
+                  data[disciplina].Turmas[turma].Trancado[curso].Curso = fullText[i].str
+                  nexti()
+                  data[disciplina].Turmas[turma].Trancado[curso].Quantidade = fullText[i].str
+                  nexti()
+                }
+              }
+            }
+            console.log(data[disciplina])
+          }
+        }
+      }
+      fileReader.readAsArrayBuffer(file);
+    },
+
     copyPlanoSelected(oldPlano) {
       let newPlano = {
         nome: `Cópia de '${oldPlano.nome}'`,
