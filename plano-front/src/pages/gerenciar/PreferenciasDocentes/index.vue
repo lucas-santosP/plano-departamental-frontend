@@ -468,7 +468,9 @@
       <li class="list-group-item">
         <b>Ordenar:</b>
         Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das
-        informações.
+        informações. Note que existem colunas com o icone
+        <font-awesome-icon :icon="['fas', 'thumbtack']" class="icon-darkgray" />
+        que significa que esta ordenação terá pripridade em relação as outras.
       </li>
     </ModalAjuda>
   </div>

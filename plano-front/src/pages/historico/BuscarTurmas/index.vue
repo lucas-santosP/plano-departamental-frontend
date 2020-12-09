@@ -415,7 +415,29 @@
       </BaseTable>
     </ModalFiltros>
 
-    <ModalAjuda ref="modalAjuda" />
+    <ModalAjuda ref="modalAjuda">
+      <li class="list-group-item">
+        <b>Visualizar conteúdo:</b>
+        Clique no ícone de filtros
+        <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+        no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar
+        entre os tipos de filtro disponíveis. Marque quais informações deseja visualizar,
+        e para finalizar clique no botão OK.
+      </li>
+      <li class="list-group-item">
+        <b>Ordenar:</b>
+        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das
+        informações. Note que existem colunas com o icone
+        <font-awesome-icon :icon="['fas', 'thumbtack']" class="icon-darkgray" />
+        que significa que esta ordenação terá pripridade em relação as outras.
+      </li>
+      <li class="list-group-item">
+        <b>Observações:</b>
+        Note que caso um dos filtros não possua nenhum campo selecionado a busca
+        acontecerá como se todas opções daquele filtro estivesse selecionadas. Ou seja
+        marque apenas os filtros necessários, não é preciso marcar todos os restante.
+      </li>
+    </ModalAjuda>
   </div>
 </template>
 
