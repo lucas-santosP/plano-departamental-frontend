@@ -4,7 +4,7 @@
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="relatorio" @click="toggleAsideModal('relatorio')" />
       <BaseButton template="download" @click="toggleAsideModal('DownloadTurmasCursos')" />
-      <!--<BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />-->
+      <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </portal>
 
     <div class="div-table">
