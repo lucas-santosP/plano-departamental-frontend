@@ -16,8 +16,7 @@
           <v-th width="80" title="Código da Disciplina">Disciplina</v-th>
           <v-th width="40" title="Turma">T.</v-th>
           <v-th width="120" title="Horário">Horário</v-th>
-          <v-th width="80" title="Vagas da Grade">Grade</v-th>
-          <v-th width="80" title="Vagas Não Grade">Extra</v-th>
+          <v-th width="80" title="Vagas">Vagas</v-th>
         </template>
 
         <template #tbody>
@@ -29,7 +28,6 @@
               <v-td width="80"></v-td>
               <v-td width="40"></v-td>
               <v-td width="120"></v-td>
-              <v-td width="80"></v-td>
               <v-td width="80"></v-td>
             </tr>
 
@@ -43,8 +41,7 @@
               <v-td width="80">{{ turma.turma.disciplina.codigo }}</v-td>
               <v-td width="40">{{ turma.turma.letra }}</v-td>
               <v-td width="120">{{ horarioTotal(turma.turma) }}</v-td>
-              <v-td width="80">{{ turma.pedido.vagasPeriodizadas }}</v-td>
-              <v-td width="80">{{ turma.pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="80">{{ turma.pedido.vagasPeriodizadas + turma.pedido.vagasNaoPeriodizadas }}</v-td>
             </tr>
           </template>
         </template>
