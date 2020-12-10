@@ -10,7 +10,7 @@
 @import "./btn-cores.css";
 @import "./slideY-animation.css";
 
-@media screen and (max-width: 594px) {
+@media screen and (max-width: 605px) {
   :root {
     --navbar-height: 60px;
   }
