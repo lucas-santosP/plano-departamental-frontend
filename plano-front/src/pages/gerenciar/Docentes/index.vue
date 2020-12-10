@@ -70,7 +70,7 @@
               <input
                 id="nome"
                 type="text"
-                class="form-control form-control-sm input-lg"
+                class="form-control form-control-sm input-xl"
                 @change="docenteForm.nome = normalizeInputText($event)"
                 :value="docenteForm.nome"
               />

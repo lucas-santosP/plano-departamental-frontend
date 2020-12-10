@@ -118,7 +118,7 @@
               </label>
               <select
                 id="gradeCurso"
-                class="form-control form-control-sm input-lg"
+                class="form-control form-control-sm input-xl"
                 v-model.number="gradeForm.Curso"
               >
                 <option :value="4">Ciência da Computação Diurno</option>
