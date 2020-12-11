@@ -171,12 +171,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit("SET_PARTIAL_LOADING", true);
+  store.commit("SET_LOADING", { type: "partial", value: true });
   next();
 });
 
 router.afterEach(() => {
-  setTimeout(() => store.commit("SET_PARTIAL_LOADING", false), 500);
+  setTimeout(() => {
+    store.commit("SET_LOADING", { type: "partial", value: false });
+  }, 500);
 });
 
 export default router;

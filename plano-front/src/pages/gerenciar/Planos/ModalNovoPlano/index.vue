@@ -74,7 +74,7 @@ export default {
     },
     async handleCreatePlano() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
 
         if (this.currentTab === "Importar") {
           await this.$refs.importPlano.handleImportPlano();
@@ -89,7 +89,7 @@ export default {
           text: error.message,
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
   },

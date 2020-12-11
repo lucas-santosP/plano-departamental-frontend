@@ -335,7 +335,7 @@ export default {
     },
 
     async downloadTurmasCursos(periodo) {
-      this.setPartialLoading(true);
+      this.setLoading({ type: "partial", value: true });
       await downloadService
         .generatePdfTurmasCurso({
           Plano: localStorage.getItem("Plano"),
@@ -352,7 +352,7 @@ export default {
               .then((r) => r.blob())
               .then((blob) => {
                 saveAs(blob, "TurmasCursos.zip");
-                this.setPartialLoading(false);
+                this.setLoading({ type: "partial", value: false });
               })
           )
         );

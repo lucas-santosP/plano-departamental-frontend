@@ -311,7 +311,7 @@ export default {
 
     async handleCreateCurso() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.createCurso(this.cursoForm);
         this.cleanForm();
       } catch (error) {
@@ -321,12 +321,12 @@ export default {
           text: error.message || "",
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleEditCurso() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.editCurso(this.cursoForm);
       } catch (error) {
         this.pushNotification({
@@ -335,12 +335,12 @@ export default {
           text: error.message || "",
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleDeleteCurso() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.deleteCurso(this.cursoForm);
         this.cleanForm();
       } catch (error) {
@@ -350,7 +350,7 @@ export default {
           text: error.message || "",
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
   },

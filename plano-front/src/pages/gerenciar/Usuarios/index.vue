@@ -285,7 +285,7 @@ export default {
     //Services
     async handleCreateUsuario() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         if (this.confirmaSenha !== this.usuarioForm.senha) {
           throw new Error("Campo senha e confirmar senha devem ser iguais.");
         }
@@ -298,12 +298,12 @@ export default {
           text: error.message,
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleUpdateUsuario() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         if (this.isEditingSenha && !this.usuarioForm.senha) {
           throw new Error("Campo <b>senha</b> inválido.");
         }
@@ -320,12 +320,12 @@ export default {
           text: error.message,
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleDeleteUsuario() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.deleteUsuario({ data: this.usuarioForm, notify: true });
         this.cleanUsuarioForm();
       } catch (error) {
@@ -334,7 +334,7 @@ export default {
           text: error.message,
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
   },
