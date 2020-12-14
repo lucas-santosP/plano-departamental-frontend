@@ -1084,7 +1084,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
   let turmasSemAlocacao = [];
   if (semAlocacao) turmasSemAlocacao = getTurmasSemAlocacao(periodosAtivos);
 
-  if (turmasSemAlocacao.length > 0) {
+  if (turmasSemAlocacao.length) {
     tables.push({
       style: "tableExample",
       table: {
@@ -1234,25 +1234,26 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
           alignment: "center",
         },
       ]);
-      tables.push({
-        style: "tableExample",
-        table: {
-          widths: [20, 8, 40, "*", 24, 104, 32, 32],
-          headerRows: 1,
-          color: "#426",
-          body: tableSemAlocacaoBody,
-        },
-        layout: {
-          vLineWidth: function() {
-            return 0;
-          },
-          hLineWidth: function() {
-            return 0;
-          },
-        },
-        margin: [0, 0, 0, 5],
-      });
     }
+
+    tables.push({
+      style: "tableExample",
+      table: {
+        widths: [20, 8, 40, "*", 24, 104, 32, 32],
+        headerRows: 1,
+        color: "#426",
+        body: tableSemAlocacaoBody,
+      },
+      layout: {
+        vLineWidth: function() {
+          return 0;
+        },
+        hLineWidth: function() {
+          return 0;
+        },
+      },
+      margin: [0, 0, 0, 5],
+    });
   }
 
   let docDefinition = {
