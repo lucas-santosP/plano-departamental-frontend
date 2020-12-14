@@ -293,7 +293,7 @@ export default {
       this.$refs.modalDelete.open();
     },
     toggleCurso(id) {
-      var state = ls.get(`${id}`);
+      let state = ls.get(`${id}`);
       this.$store.dispatch("toggleCurso", id);
       ls.set(`${id}`, !state);
     },

@@ -16,9 +16,9 @@ const state = {
 const mutations = {
   [PEDIDO_EXTERNO_FETCHED](state, data) {
     state.Pedidos = {};
-    for (var p = 0; p < data.Pedidos.length; p++) {
+    for (let p = 0; p < data.Pedidos.length; p++) {
       if (data.Pedidos[p].hasOwnProperty("Turma")) {
-        var t = data.Pedidos[p].Turma;
+        let t = data.Pedidos[p].Turma;
         if (state.Pedidos[t] === undefined) {
           state.Pedidos[t] = [];
         }

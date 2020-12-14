@@ -594,7 +594,7 @@ export default {
     this.clearTurmasToDelete();
 
     ls.off("toggle");
-    for (var c = 0; c < this.AllCursos.length; c++) {
+    for (let c = 0; c < this.AllCursos.length; c++) {
       let id = this.AllCursos[c].id;
       ls.off(`${id}`);
     }

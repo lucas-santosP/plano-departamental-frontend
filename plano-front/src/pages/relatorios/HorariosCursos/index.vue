@@ -323,7 +323,7 @@ export default {
     },
 
     checkPeriodo(turma, periodo) {
-      for (var g = 0; g < this.DisciplinasDasGrades.length; g++) {
+      for (let g = 0; g < this.DisciplinasDasGrades.length; g++) {
         if (
           this.DisciplinasDasGrades[g].Disciplina == turma &&
           this.DisciplinasDasGrades[g].periodo == periodo
