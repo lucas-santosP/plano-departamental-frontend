@@ -8,13 +8,18 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, plano }) {
+async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, plano }) {
   const tables = [];
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
   const disciplinasOrdered = orderBy(disciplinasInTurmas, "codigo");
 
   periodosAtivados.forEach((periodo, index) => {
+    let periodoNome = "";
+    if (periodo.id === 2 || periodo.id === 4) {
+      //Pega texto entre parênteses
+      periodoNome = periodo.nome.includes("(") ? periodo.nome.split(" ")[1] + " " : "";
+    }
     tables.push({
       columns: [
         {
@@ -33,7 +38,7 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
             fontSize: 10,
           },
           {
-            text: `${periodo.id}º Período letivo - ${plano.ano} - ${plano.nome}`,
+            text: `${periodo.id}º Período Letivo ${periodoNome}- ${plano.ano} - ${plano.nome}`,
             alignment: "center",
             bold: true,
             fontSize: 10,
@@ -50,10 +55,13 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
       ],
     });
 
+    let periodoPossuiTurmas = false;
     disciplinasOrdered.forEach((disciplina) => {
       const turmasFiltered = filter(disciplina.turmas, ["periodo", periodo.id]);
 
       if (turmasFiltered.length) {
+        periodoPossuiTurmas = true;
+
         tables.push({
           style: "tableExample",
           table: {
@@ -215,8 +223,17 @@ async function pdfDisciplinasTurmas({ disciplinasInTurmas, periodosAtivados, pla
       }
     });
 
-    if (index + 1 !== periodosAtivados.length)
+    if (!periodoPossuiTurmas) {
+      tables.push({
+        text: "Nenhuma turma encontrada no período.",
+        alignment: "center",
+        bold: true,
+        fontSize: 12,
+      });
+    }
+    if (index + 1 !== periodosAtivados.length) {
       tables.push({ text: "", pageBreak: "before" }); //page break;
+    }
   });
 
   let docDefinition = {
@@ -1450,9 +1467,11 @@ async function pdfTurmasCursos({ cursos, periodos }) {
             bold: false,
           },
           {
-            text: (turmas[j].pedido.vagasPeriodizadas || turmas[j].pedido.vagasNaoPeriodizadas)
-              ? turmas[j].pedido.vagasPeriodizadas + turmas[j].pedido.vagasNaoPeriodizadas
-              : "",
+            text:
+              turmas[j].pedido.vagasPeriodizadas || turmas[j].pedido.vagasNaoPeriodizadas
+                ? turmas[j].pedido.vagasPeriodizadas +
+                  turmas[j].pedido.vagasNaoPeriodizadas
+                : "",
             alignment: "center",
             fontSize: 6,
             bold: false,
@@ -1506,7 +1525,7 @@ async function pdfTurmasCursos({ cursos, periodos }) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-export { pdfDisciplinasTurmas, pdfHorariosLabs, pdfCargaProfessores, pdfTurmasCursos };
+export { pdfPlanoDepartamental, pdfHorariosLabs, pdfCargaProfessores, pdfTurmasCursos };
 
 //Funções auxiliares
 function checkTurmaLab(turma) {
