@@ -653,8 +653,7 @@ async function pdfHorariosLabs({ laboratorios, turmas, periodosAtivados, plano }
   periodosAtivados.forEach((periodo, index) => {
     let periodoNome = "";
     if (periodo.id === 2 || periodo.id === 4) {
-      //Pega texto entre parênteses
-      periodoNome = periodo.nome.includes("(") ? periodo.nome.split(" ")[1] + " " : "";
+      periodoNome = periodo.nome.includes("(") ? " " + periodo.nome.split(" ")[1] : ""; //Pega texto entre parênteses
     }
     tables.push({
       columns: [
@@ -679,7 +678,7 @@ async function pdfHorariosLabs({ laboratorios, turmas, periodosAtivados, plano }
             fontSize: 10,
           },
           {
-            text: `${periodo.id}º Período Letivo ${periodoNome} ${plano.ano} - ${plano.nome}`,
+            text: `${periodo.id}º Período Letivo${periodoNome} ${plano.ano} - ${plano.nome}`,
             alignment: "center",
             bold: true,
             fontSize: 10,
