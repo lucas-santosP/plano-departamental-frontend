@@ -219,7 +219,7 @@ import {
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
-import workerSrc from '!!file-loader!pdfjs-dist/build/pdf.worker.min.js'
+import workerSrc from "!!file-loader!pdfjs-dist/build/pdf.worker.min.js";
 
 const emptyPlano = {
   ano: 2019,
@@ -279,7 +279,7 @@ export default {
 
     async handleEditPlano() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.editPlano(this.planoForm);
       } catch (error) {
         this.pushNotification({
@@ -288,12 +288,12 @@ export default {
           text: error.message || "",
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleDeletePlano() {
       try {
-        this.setPartialLoading(true);
+        this.setLoading({ type: "partial", value: true });
         await this.deletePlano(this.planoForm);
         this.cleanPlano();
       } catch (error) {
@@ -303,10 +303,10 @@ export default {
           text: "Tente novamente",
         });
       } finally {
-        this.setPartialLoading(false);
+        this.setLoading({ type: "partial", value: false });
       }
     },
-
+    // prettier-ignore
     async importTurmaPorDepartamento(event) {
       const pdfjsLib = require(/* webpackChunkName: "pdfjs-dist" */ `pdfjs-dist`)
       pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc

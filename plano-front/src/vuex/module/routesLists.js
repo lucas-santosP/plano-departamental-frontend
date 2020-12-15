@@ -5,7 +5,7 @@ const state = {
     {
       path: "/home",
       icon: "home",
-      title: "Dashboard - Home",
+      title: "Início",
       description: `Página inicial.`,
     },
   ],
