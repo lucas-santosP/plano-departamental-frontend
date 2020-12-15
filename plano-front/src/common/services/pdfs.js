@@ -1,4 +1,3 @@
-/* eslint-disable */
 import store from "../../vuex/store";
 import { isNull, filter, find, orderBy, sortBy, some } from "lodash-es";
 import { imageToDataUrl } from "../utils";
@@ -31,8 +30,7 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
         },
         [
           {
-            text:
-              "Relação de turmas oferecidas pelo Departamento de Ciência da Computação",
+            text: "Relação de turmas oferecidas pelo Departamento de Ciência da Computação",
             alignment: "center",
             bold: true,
             fontSize: 10,
@@ -260,6 +258,390 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
       };
     },
   };
+  pdfMake.createPdf(docDefinition).open();
+}
+
+async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos, plano }) {
+  const logoDcc = await imageToDataUrl(urlLogoDcc);
+  const logoUfjf = await imageToDataUrl(urlLogoUfjf);
+  const tables = [];
+  const periodos = [1, 3];
+
+  if (!cursosAtivos.length) {
+    tables.push({ text: "Nenhuma curso selecionado" });
+  } else if (!periodosAtivos.length) {
+    tables.push({ text: "Nenhuma período selecionado" });
+  } else {
+    periodos.forEach((periodoId, index) => {
+      if (some(periodosAtivos, ["id", periodoId])) {
+        //Titulo
+        tables.push(
+          makePageHeader(
+            logoDcc,
+            logoUfjf,
+            "Horários dos cursos",
+            "Departamento de Ciência da Computação",
+            `${periodoId}º Período Letivo ${plano.ano} - ${plano.nome}`
+          )
+        );
+
+        let cursosIndex = 0;
+        let seg = "",
+          ter = "",
+          qua = "",
+          qui = "",
+          sex = "";
+
+        //Ciencia compt Diurno
+        if (some(cursosAtivos, ["codigo", "65C"])) {
+          tables.push({
+            text: "Ciência da Computação - integral",
+            bold: true,
+            margin: [0, 10, 0, 5],
+            fontSize: 10,
+          });
+          const periodosCCD1 = horariosAtivos[`periodo${periodoId}`].CCD;
+          for (let i = 0; i < 10; i++) {
+            if (periodosCCD1[i].length) {
+              tables.push({
+                text: i + 1 + "º Período",
+                fontSize: 8,
+                bold: true,
+                margin: [0, 5, 0, 5],
+              });
+              let tableHorarios = [makeTableHorarioHeader()];
+
+              for (let d = 0; d < 4; d++) {
+                periodosCCD1[i].forEach((turma) => {
+                  if (checkTurmaHorario(turma, 1 + d)) {
+                    if (seg !== "") seg = seg + "\n";
+                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 7 + d)) {
+                    if (ter != "") ter = ter + "\n";
+                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 13 + d)) {
+                    if (qua != "") qua = qua + "\n";
+                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 19 + d)) {
+                    if (qui != "") qui = qui + "\n";
+                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 25 + d)) {
+                    if (sex != "") sex = sex + "\n";
+                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                });
+
+                tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
+                seg = ter = qua = qui = sex = "";
+              }
+
+              tables.push({
+                table: {
+                  widths: ["*", "*", "*", "*", "*", "*"],
+                  headerRows: 1,
+                  color: "#426",
+                  body: tableHorarios,
+                },
+              });
+            }
+          }
+
+          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+            tables.push({ text: "", pageBreak: "after" });
+          }
+          cursosIndex++;
+        }
+        //Ciencia compt Noturno
+        if (some(cursosAtivos, ["codigo", "35A"])) {
+          tables.push({
+            text: "Ciência da Computação - noturno",
+            bold: true,
+            margin: [0, 10, 0, 5],
+            fontSize: 10,
+          });
+
+          const periodosCCN1 = horariosAtivos[`periodo${periodoId}`].CCN;
+          for (let i = 0; i < 10; i++) {
+            if (periodosCCN1[i].length) {
+              tables.push({
+                text: i + 1 + "º Período",
+                fontSize: 8,
+                bold: true,
+                margin: [0, 5, 0, 5],
+              });
+              let tableHorarios = [makeTableHorarioHeader()];
+
+              for (let d = 4; d < 6; d++) {
+                periodosCCN1[i].forEach((turma) => {
+                  if (checkTurmaHorario(turma, 1 + d)) {
+                    if (seg !== "") seg = seg + "\n";
+                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 7 + d)) {
+                    if (ter != "") ter = ter + "\n";
+                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 13 + d)) {
+                    if (qua != "") qua = qua + "\n";
+                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 19 + d)) {
+                    if (qui != "") qui = qui + "\n";
+                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 25 + d)) {
+                    if (sex != "") sex = sex + "\n";
+                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                });
+
+                tableHorarios.push(
+                  makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno")
+                );
+                seg = ter = qua = qui = sex = "";
+              }
+
+              tables.push({
+                table: {
+                  widths: ["*", "*", "*", "*", "*", "*"],
+                  headerRows: 1,
+                  color: "#426",
+                  body: tableHorarios,
+                },
+              });
+            }
+          }
+
+          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+            tables.push({ text: "", pageBreak: "after" });
+          }
+          cursosIndex++;
+        }
+        //Engenharia compt
+        if (some(cursosAtivos, ["codigo", "65B"])) {
+          tables.push({
+            text: "Engenharia Computacional",
+            bold: true,
+            margin: [0, 10, 0, 5],
+            fontSize: 10,
+          });
+
+          const periodosEC1 = horariosAtivos[`periodo${periodoId}`].EC;
+          for (let i = 0; i < 10; i++) {
+            if (periodosEC1[i].length) {
+              tables.push({
+                text: i + 1 + "º Período",
+                fontSize: 8,
+                bold: true,
+                margin: [0, 5, 0, 5],
+              });
+              let tableHorarios = [makeTableHorarioHeader()];
+
+              for (let d = 0; d < 4; d++) {
+                periodosEC1[i].forEach((turma) => {
+                  if (checkTurmaHorario(turma, 1 + d)) {
+                    if (seg !== "") seg = seg + "\n";
+                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 7 + d)) {
+                    if (ter != "") ter = ter + "\n";
+                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 13 + d)) {
+                    if (qua != "") qua = qua + "\n";
+                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 19 + d)) {
+                    if (qui != "") qui = qui + "\n";
+                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 25 + d)) {
+                    if (sex != "") sex = sex + "\n";
+                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                });
+
+                tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
+                seg = ter = qua = qui = sex = "";
+              }
+
+              tables.push({
+                table: {
+                  widths: ["*", "*", "*", "*", "*", "*"],
+                  headerRows: 1,
+                  color: "#426",
+                  body: tableHorarios,
+                },
+              });
+            }
+          }
+
+          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+            tables.push({ text: "", pageBreak: "after" });
+          }
+          cursosIndex++;
+        }
+        //Sistemas de informacao
+        if (some(cursosAtivos, ["codigo", "76A"])) {
+          tables.push({
+            text: "Sistemas de Informação",
+            bold: true,
+            margin: [0, 10, 0, 5],
+            fontSize: 10,
+          });
+
+          const periodosSI1 = horariosAtivos[`periodo${periodoId}`].SI;
+          for (let i = 0; i < 10; i++) {
+            if (periodosSI1[i].length) {
+              tables.push({
+                text: i + 1 + "º Período",
+                fontSize: 8,
+                bold: true,
+                margin: [0, 5, 0, 5],
+              });
+              let tableHorarios = [makeTableHorarioHeader()];
+
+              for (let d = 4; d < 6; d++) {
+                periodosSI1[i].forEach((turma) => {
+                  if (checkTurmaHorario(turma, 1 + d)) {
+                    if (seg !== "") seg = seg + "\n";
+                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 7 + d)) {
+                    if (ter != "") ter = ter + "\n";
+                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 13 + d)) {
+                    if (qua != "") qua = qua + "\n";
+                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 19 + d)) {
+                    if (qui != "") qui = qui + "\n";
+                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                  if (checkTurmaHorario(turma, 25 + d)) {
+                    if (sex != "") sex = sex + "\n";
+                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                  }
+                });
+
+                tableHorarios.push(
+                  makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno")
+                );
+                seg = ter = qua = qui = sex = "";
+              }
+
+              tables.push({
+                table: {
+                  widths: ["*", "*", "*", "*", "*", "*"],
+                  headerRows: 1,
+                  color: "#426",
+                  body: tableHorarios,
+                },
+              });
+            }
+          }
+
+          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+            tables.push({ text: "", pageBreak: "after" });
+          }
+          cursosIndex++;
+        }
+        //Eletivas
+        if (some(cursosAtivos, ["codigo", "-"])) {
+          tables.push({
+            text: "Eletivas",
+            bold: true,
+            margin: [0, 10, 0, 5],
+            fontSize: 10,
+          });
+
+          const eletivas1 = horariosAtivos[`periodo${periodoId}`].Eletivas;
+          if (eletivas1.length) {
+            let tableHorarios = [makeTableHorarioHeader()];
+
+            for (let d = 0; d < 8; d++) {
+              const horarioSeg = (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d);
+              const horarioTer = (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d);
+              const horarioQua = (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d);
+              const horarioQui = (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d);
+              const horarioSex = (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d);
+
+              eletivas1.forEach((turma) => {
+                if (checkTurmaHorario(turma, horarioSeg)) {
+                  if (seg !== "") seg = seg + "\n";
+                  seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, horarioTer)) {
+                  if (ter != "") ter = ter + "\n";
+                  ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, horarioQua)) {
+                  if (qua != "") qua = qua + "\n";
+                  qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, horarioQui)) {
+                  if (qui != "") qui = qui + "\n";
+                  qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, horarioSex)) {
+                  if (sex != "") sex = sex + "\n";
+                  sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                }
+              });
+
+              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "eletiva"));
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorarios,
+              },
+            });
+          }
+
+          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+            tables.push({ text: "", pageBreak: "after" });
+          }
+          cursosIndex++;
+        }
+      }
+    });
+  }
+
+  let docDefinition = {
+    content: tables,
+    info: {
+      title: "Horários - Cursos",
+    },
+    footer: function(currentPage, pageCount) {
+      return {
+        columns: [
+          {
+            text: new Date(Date.now()).toLocaleString(),
+            margin: [30, 10, 0, 0],
+            fontSize: 8,
+            alignment: `left`,
+          },
+          {
+            text: currentPage.toString() + " de " + pageCount,
+            alignment: "right",
+            margin: [0, 10, 30, 0],
+            fontSize: 8,
+          },
+        ],
+      };
+    },
+  };
+
   pdfMake.createPdf(docDefinition).open();
 }
 
@@ -685,8 +1067,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
           fontSize: 10,
         },
         {
-          text:
-            "Departamento de Ciência da Computação - " + plano.ano + " - " + plano.nome,
+          text: "Departamento de Ciência da Computação - " + plano.ano + " - " + plano.nome,
           alignment: "center",
           bold: true,
           fontSize: 10,
@@ -731,8 +1112,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
               },
               {
                 text:
-                  "Carga total: " +
-                  (creditos1(docentesOrdered[i]) + creditos2(docentesOrdered[i])),
+                  "Carga total: " + (creditos1(docentesOrdered[i]) + creditos2(docentesOrdered[i])),
                 alignment: "center",
                 fontSize: 9,
                 bold: true,
@@ -799,9 +1179,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
         var c1 = 0;
         var c2 = 0;
         for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-          if (
-            turmas1Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id
-          ) {
+          if (turmas1Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
             disciplina = store.state.disciplina.Disciplinas[k];
           }
         }
@@ -876,10 +1254,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
       for (let n = 0; n < cargaPos1Semestre.length; n++) {
         var c1 = 0;
         var c2 = 0;
-        if (
-          cargaPos1Semestre[n].trimestre === 1 ||
-          cargaPos1Semestre[n].trimestre === 2
-        ) {
+        if (cargaPos1Semestre[n].trimestre === 1 || cargaPos1Semestre[n].trimestre === 2) {
           c1 = cargaPos1Semestre[n].creditos;
         } else {
           c2 = cargaPos1Semestre[n].creditos;
@@ -919,9 +1294,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
         var c1 = 0;
         var c2 = 0;
         for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-          if (
-            turmas2Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id
-          ) {
+          if (turmas2Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
             disciplina = store.state.disciplina.Disciplinas[k];
           }
         }
@@ -996,10 +1369,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
       for (let n = 0; n < cargaPos2Semestre.length; n++) {
         var c1 = 0;
         var c2 = 0;
-        if (
-          cargaPos2Semestre[n].trimestre === 1 ||
-          cargaPos2Semestre[n].trimestre === 2
-        ) {
+        if (cargaPos2Semestre[n].trimestre === 1 || cargaPos2Semestre[n].trimestre === 2) {
           c1 = cargaPos2Semestre[n].creditos;
         } else {
           c2 = cargaPos2Semestre[n].creditos;
@@ -1161,9 +1531,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
       var c1 = 0;
       var c2 = 0;
       for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-        if (
-          turmasSemAlocacao[j].Disciplina === store.state.disciplina.Disciplinas[k].id
-        ) {
+        if (turmasSemAlocacao[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
           disciplina = store.state.disciplina.Disciplinas[k];
         }
       }
@@ -1424,8 +1792,7 @@ async function pdfTurmasCursos({ cursos, periodos }) {
           {
             text:
               turmas[j].pedido.vagasPeriodizadas || turmas[j].pedido.vagasNaoPeriodizadas
-                ? turmas[j].pedido.vagasPeriodizadas +
-                  turmas[j].pedido.vagasNaoPeriodizadas
+                ? turmas[j].pedido.vagasPeriodizadas + turmas[j].pedido.vagasNaoPeriodizadas
                 : "",
             alignment: "center",
             fontSize: 6,
@@ -1480,7 +1847,13 @@ async function pdfTurmasCursos({ cursos, periodos }) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-export { pdfPlanoDepartamental, pdfHorariosLabs, pdfCargaProfessores, pdfTurmasCursos };
+export {
+  pdfPlanoDepartamental,
+  pdfHorariosCursos,
+  pdfHorariosLabs,
+  pdfCargaProfessores,
+  pdfTurmasCursos,
+};
 
 //Funções auxiliares
 function checkTurmaLab(turma) {
@@ -1528,6 +1901,11 @@ function checkTurmaHorarioLabs(turma, horario, lab) {
   } else return false;
 }
 
+function checkTurmaHorario(turma, horario) {
+  if (turma.Horario1 === horario || turma.Horario2 === horario) return true;
+  else return false;
+}
+
 function getTurmasDoDocente(docente, periodosAtivos) {
   if (!periodosAtivos.length) return [];
 
@@ -1561,8 +1939,7 @@ function getCargaPosDoDocente(docente, periodosAtivos) {
 
   const cargaposFiltered = filter(
     store.getters.AllCargasPos,
-    (carga) =>
-      carga.Docente === docente.id && some(periodosAtivos, ["id", carga.trimestre])
+    (carga) => carga.Docente === docente.id && some(periodosAtivos, ["id", carga.trimestre])
   );
 
   return orderBy(cargaposFiltered, "trimestre");
@@ -1577,10 +1954,7 @@ function creditos1(professor) {
         store.state.turma.Turmas[t].Docente2 === professor.id)
     ) {
       for (var d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
-        if (
-          store.state.disciplina.Disciplinas[d].id ===
-          store.state.turma.Turmas[t].Disciplina
-        ) {
+        if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
           if (
             store.state.turma.Turmas[t].Docente1 > 0 &&
             store.state.turma.Turmas[t].Docente2 > 0
@@ -1617,10 +1991,7 @@ function creditos2(professor) {
         store.state.turma.Turmas[t].Docente2 === professor.id)
     ) {
       for (var d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
-        if (
-          store.state.disciplina.Disciplinas[d].id ===
-          store.state.turma.Turmas[t].Disciplina
-        ) {
+        if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
           if (
             store.state.turma.Turmas[t].Docente1 > 0 &&
             store.state.turma.Turmas[t].Docente2 > 0
@@ -1750,9 +2121,98 @@ function getTurmasDaSala(turmas, salaId) {
   return filter(turmas, (turma) => turma.Sala1 === salaId || turma.Sala2 === salaId);
 }
 
-function getTurmasDoHorario(turmas, horarioId) {
-  return filter(
-    turmas,
-    (turma) => turma.Horario1 === horarioId || turma.Horario2 === horarioId
+function makeTableHorarioHeader() {
+  return [
+    { text: "Horário", alignment: "center", fontSize: 8, bold: true },
+    { text: "Segunda", alignment: "center", fontSize: 8, bold: true },
+    { text: "Terça", alignment: "center", fontSize: 8, bold: true },
+    { text: "Quarta", alignment: "center", fontSize: 8, bold: true },
+    { text: "Quinta", alignment: "center", fontSize: 8, bold: true },
+    { text: "Sexta", alignment: "center", fontSize: 8, bold: true },
+  ];
+}
+
+function makeTableHorariosBody(d, dias, turno) {
+  const body = [];
+  //Horarios possiveis para Diurno
+  if (turno === "diurno") {
+    if (d === 0) body.push({ text: "08 - 10", alignment: "center", fontSize: 8 });
+    else if (d === 1) body.push({ text: "10 - 12", alignment: "center", fontSize: 8 });
+    else if (d === 2) body.push({ text: "14 - 16", alignment: "center", fontSize: 8 });
+    else if (d === 3) body.push({ text: "16 - 18", alignment: "center", fontSize: 8 });
+  }
+  //Horarios possiveis para Noturno
+  else if (turno === "noturno") {
+    if (d === 4) body.push({ text: "19 - 21", alignment: "center", fontSize: 8 });
+    else if (d === 5) body.push({ text: "21 - 23", alignment: "center", fontSize: 8 });
+  }
+  //Horarios possiveis para Eletivas
+  else if (turno === "eletiva") {
+    if (d === 0) body.push({ text: "08 - 10", alignment: "center", fontSize: 8 });
+    else if (d === 1) body.push({ text: "10 - 12", alignment: "center", fontSize: 8 });
+    else if (d === 2) body.push({ text: "14 - 16", alignment: "center", fontSize: 8 });
+    else if (d === 3) body.push({ text: "16 - 18", alignment: "center", fontSize: 8 });
+    else if (d === 4) body.push({ text: "17 - 19", alignment: "center", fontSize: 8 });
+    else if (d === 5) body.push({ text: "18 - 20", alignment: "center", fontSize: 8 });
+    else if (d === 6) body.push({ text: "19 - 21", alignment: "center", fontSize: 8 });
+    else if (d === 7) body.push({ text: "21 - 23", alignment: "center", fontSize: 8 });
+  }
+
+  body.push(
+    { text: dias.seg, alignment: "center", fontSize: 8 },
+    { text: dias.ter, alignment: "center", fontSize: 8 },
+    { text: dias.qua, alignment: "center", fontSize: 8 },
+    { text: dias.qui, alignment: "center", fontSize: 8 },
+    { text: dias.sex, alignment: "center", fontSize: 8 }
   );
+  return body;
+}
+
+function makePageHeader(imgLeft = "", imgRight = "", title1, title2, title3) {
+  const titles = [];
+  if (title1) {
+    titles.push({
+      text: title1,
+      alignment: "center",
+      bold: true,
+      fontSize: 10,
+    });
+  }
+  if (title2) {
+    titles.push({
+      text: title2,
+      alignment: "center",
+      bold: true,
+      fontSize: 10,
+    });
+  }
+  if (title3) {
+    titles.push({
+      text: title3,
+      alignment: "center",
+      bold: true,
+      fontSize: 10,
+      margin: [0, 10, 0, 0],
+    });
+  }
+
+  return {
+    columns: [
+      {
+        image: imgLeft,
+        fit: [60, 60],
+        alignment: "left",
+        width: "16%",
+        margin: [0, 0, 0, 10],
+      },
+      titles,
+      {
+        image: imgRight,
+        fit: [60, 60],
+        alignment: "right",
+        width: "16%",
+        margin: [0, 0, 0, 10],
+      },
+    ],
+  };
 }
