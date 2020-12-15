@@ -7,6 +7,7 @@ import curso from "./module/curso";
 import disciplina from "./module/disciplina";
 import pedido from "./module/pedido";
 import pedidoExterno from "./module/pedidoExterno";
+import pedidoOferecido from "./module/pedidoOferecido";
 import grade from "./module/grade";
 import disciplinaGrade from "./module/disciplinaGrade";
 import docente from "./module/docente";
@@ -71,6 +72,7 @@ export default new Vuex.Store({
     disciplina,
     pedido,
     pedidoExterno,
+    pedidoOferecido,
     grade,
     disciplinaGrade,
     docente,
