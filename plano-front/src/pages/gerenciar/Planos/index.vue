@@ -142,6 +142,12 @@
               </select>
             </div>
           </div>
+
+          <!-- Botão para teste da função importTurmaPorDepartamento
+          <div class="row mb-2 mx-0">
+            <input type="file" @change="importTurmaPorDepartamento($event, AllDisciplinas, AllTurmas, AllCursos)">
+          </div>
+          -->
         </template>
       </Card>
     </div>
@@ -211,6 +217,7 @@ import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/common/services/copyPlano";
 import planoService from "@/common/services/plano";
+import conceitoTurmaCursoService from "@/common/services/conceitoTurmaCurso";
 import {
   generateBooleanText,
   normalizeInputText,
@@ -307,7 +314,7 @@ export default {
       }
     },
     // prettier-ignore
-    async importTurmaPorDepartamento(event) {
+    async importTurmaPorDepartamento(event, AllDisciplinas, AllTurmas, AllCursos) {
       const pdfjsLib = require(/* webpackChunkName: "pdfjs-dist" */ `pdfjs-dist`)
       pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
       let file = event.target.files[0];
@@ -495,10 +502,46 @@ export default {
                 }
               }
             }
-            console.log(data[disciplina])
           }
         }
+        let disciplinas = Object.getOwnPropertyNames(data)
+        let disciplinasNaoEncontradas = []
+        let turmasNaoEncontradas = []
+        let cursosNaoEncontrados = []
+        for(let disc in disciplinas){
+          let disciplina = AllDisciplinas.find( d => d.codigo === disciplinas[disc] )
+          if(!disciplina){
+            disciplinasNaoEncontradas.push(disciplinas[disc])
+          }else{
+            let turmas = Object.getOwnPropertyNames(data[disciplina.codigo].Turmas)
+            for(let t in turmas){
+              let turma = AllTurmas.find( turma => turma.letra === turmas[t] && turma.Disciplina === disciplina.id )
+              if(!turma){
+                turmasNaoEncontradas.push({disciplina: disciplina.codigo, letra: turmas[t]})
+              }else{
+                let conceitos = Object.getOwnPropertyNames(data[disciplina.codigo].Turmas[turma.letra])
+                for(let conceito = 3; conceito < conceitos.length; conceito++){
+                  let cursos = Object.getOwnPropertyNames(data[disciplina.codigo].Turmas[turma.letra][conceitos[conceito]])
+                  for(let c in cursos){
+                    let curso = AllCursos.find( curso => curso.nome === cursos[c] )
+                    if(!curso){
+                      cursosNaoEncontrados.push(cursos[c])
+                    }else{
+                      conceitoTurmaCursoService.create({Curso: curso.id, Turma: turma.id, avaliacao: conceitos[conceito], quantidade: data[disciplina.codigo].Turmas[turma.letra][conceitos[conceito]][curso.nome].Quantidade})
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        console.log(disciplinasNaoEncontradas)
+        console.log(turmasNaoEncontradas)
+        console.log(cursosNaoEncontrados)
       }
+
+
+
       fileReader.readAsArrayBuffer(file);
     },
 
@@ -537,7 +580,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllPlanos", "AnosDoPlano"]),
+    ...mapGetters(["AllPlanos", "AnosDoPlano", "AllDisciplinas", "AllTurmas", "AllCursos"]),
 
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;

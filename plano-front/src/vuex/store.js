@@ -29,6 +29,7 @@ import notifications from "./module/notifications";
 import periodosLetivos from "./module/periodosLetivos";
 import semestresLetivos from "./module/semestresLetivos";
 import docenteDisciplina from "./module/docenteDisciplina";
+import conceitoTurmaCurso from "./module/conceitoTurmaCurso";
 
 import {
   HTTP_REQUEST_INCREMENT,
@@ -93,7 +94,8 @@ export default new Vuex.Store({
     notifications,
     periodosLetivos,
     semestresLetivos,
-    docenteDisciplina
+    docenteDisciplina,
+    conceitoTurmaCurso
   },
 
   strict: process.env.NODE_ENV !== "production",
