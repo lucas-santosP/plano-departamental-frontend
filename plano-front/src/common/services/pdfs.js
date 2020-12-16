@@ -30,7 +30,13 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
         },
         [
           {
-            text: "Relação de turmas oferecidas pelo Departamento de Ciência da Computação",
+            text: "Relação de turmas oferecidas",
+            alignment: "center",
+            bold: true,
+            fontSize: 10,
+          },
+          {
+            text: "Departamento de Ciência da Computação",
             alignment: "center",
             bold: true,
             fontSize: 10,
@@ -40,7 +46,7 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
             alignment: "center",
             bold: true,
             fontSize: 10,
-            margin: [0, 0, 0, 5],
+            margin: [0, 10],
           },
         ],
         {
@@ -223,10 +229,9 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
 
     if (!periodoPossuiTurmas) {
       tables.push({
-        text: "Nenhuma turma encontrada no período.",
+        text: "Nenhuma turma encontrada",
         alignment: "center",
-        bold: true,
-        fontSize: 12,
+        fontSize: 10,
       });
     }
     if (index + 1 !== periodosAtivados.length) {
@@ -354,7 +359,7 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
         //Se todos periodos estão vazios, exibe mensagem
         if (periodosVazio === 10) {
           tables.push({
-            text: "Nenhuma turma encontrada.",
+            text: "Nenhuma turma encontrada",
             fontSize: 10,
           });
         }
@@ -428,7 +433,7 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
         //Se todos periodos estão vazios, exibe mensagem
         if (periodosVazio === 10) {
           tables.push({
-            text: "Nenhuma turma encontrada.",
+            text: "Nenhuma turma encontrada",
             fontSize: 10,
           });
         }
@@ -502,7 +507,7 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
         //Se todos periodos estão vazios, exibe mensagem
         if (periodosVazio === 10) {
           tables.push({
-            text: "Nenhuma turma encontrada.",
+            text: "Nenhuma turma encontrada",
             fontSize: 10,
           });
         }
@@ -576,7 +581,7 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
         //Se todos periodos estão vazios, exibe mensagem
         if (periodosVazio === 10) {
           tables.push({
-            text: "Nenhuma turma encontrada.",
+            text: "Nenhuma turma encontrada",
             fontSize: 10,
           });
         }
@@ -645,7 +650,7 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
         //Se naõ tem nenhuma turmas eletivas, exibe mensagem
         if (!turmasEletivas.length) {
           tables.push({
-            text: "Nenhuma turma encontrada.",
+            text: "Nenhuma turma encontrada",
             fontSize: 10,
           });
         } else if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
@@ -735,318 +740,307 @@ async function pdfHorariosLabs({ laboratorios, turmas, periodosAtivados, plano }
     });
 
     const turmasDoPeriodo = filter(turmas, ["periodo", periodo.id]);
+    let numeroDeTabelas = 0;
 
-    if (!turmasDoPeriodo.length) {
-      tables.push({
-        text: "Nenhuma turma encontrada no período.",
-        alignment: "center",
-        fontSize: 10,
-        margin: [0, 10],
-      });
-    } else {
-      let numeroDeTabelas = 0;
-      laboratorios.forEach((laboratorio) => {
-        const turmasDoLaboratorio = getTurmasDaSala(turmasDoPeriodo, laboratorio.id);
-        //Se não possui turmas pro laboratorio exibe aviso, e vai pro proximo
-        if (!turmasDoLaboratorio.length) {
-          tables.push(
-            {
-              text: laboratorio.nome,
-              alignment: "center",
-              bold: true,
-              margin: [0, 10],
-              fontSize: 9,
-            },
-            {
-              text: "Nenhuma turma encontrada no laborátorio.",
-              alignment: "center",
-              bold: false,
-              fontSize: 9,
-            }
-          );
-          return;
-        }
-        //Verifica quando possuir 4 tabelas na mesma pagina adiciona pageBreak antes da quinta tabela
-        if (numeroDeTabelas % 4 === 0 && numeroDeTabelas !== 0) {
-          tables.push({ text: "", pageBreak: "before" });
-        }
-
-        tables.push({
-          text: laboratorio.nome,
-          alignment: "center",
-          bold: true,
-          margin: [0, 10],
-          fontSize: 9,
-        });
-
-        numeroDeTabelas++;
-        const tableLabsBody = [
-          [
-            { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
-            {
-              text: "Segunda",
-              alignment: "center",
-              bold: true,
-              fontSize: 8,
-            },
-            {
-              text: "Terça",
-              alignment: "center",
-              bold: true,
-              fontSize: 8,
-            },
-            {
-              text: "Quarta",
-              alignment: "center",
-              bold: true,
-              fontSize: 8,
-            },
-            {
-              text: "Quinta",
-              alignment: "center",
-              bold: true,
-              fontSize: 8,
-            },
-            {
-              text: "Sexta",
-              alignment: "center",
-              bold: true,
-              fontSize: 8,
-            },
-          ],
-        ];
-
-        for (let d = 0; d < 8; d++) {
-          let seg = "",
-            ter = "",
-            qua = "",
-            qui = "",
-            sex = "";
-          turmasDoLaboratorio.forEach((turma) => {
-            if (d < 4) {
-              if (checkTurmaHorarioLabs(turma, 1 + d, laboratorio.id)) {
-                if (seg !== "") seg = seg + " ";
-                seg = seg + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 7 + d, laboratorio.id)) {
-                if (ter != "") ter = ter + " ";
-                ter = ter + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 13 + d, laboratorio.id)) {
-                if (qua != "") qua = qua + " ";
-                qua = qua + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 19 + d, laboratorio.id)) {
-                if (qui != "") qui = qui + " ";
-                qui = qui + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 25 + d, laboratorio.id)) {
-                if (sex != "") sex = sex + " ";
-                sex = sex + turma.disciplina.codigo + " " + turma.letra;
-              }
-            } else if (d === 4 || d === 5) {
-              if (checkTurmaHorarioLabs(turma, 28 + d, laboratorio.id)) {
-                if (seg !== "") seg = seg + " ";
-                seg = seg + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 30 + d, laboratorio.id)) {
-                if (ter != "") ter = ter + " ";
-                ter = ter + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 32 + d, laboratorio.id)) {
-                if (qua != "") qua = qua + " ";
-                qua = qua + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 34 + d, laboratorio.id)) {
-                if (qui != "") qui = qui + " ";
-                qui = qui + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 36 + d, laboratorio.id)) {
-                if (sex != "") sex = sex + " ";
-                sex = sex + turma.disciplina.codigo + " " + turma.letra;
-              }
-            } else if (d > 5) {
-              if (checkTurmaHorarioLabs(turma, d - 1)) {
-                if (seg !== "") seg = seg + " ";
-                seg = seg + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 5 + d, laboratorio.id)) {
-                if (ter != "") ter = ter + " ";
-                ter = ter + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 11 + d, laboratorio.id)) {
-                if (qua != "") qua = qua + " ";
-                qua = qua + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 17 + d, laboratorio.id)) {
-                if (qui != "") qui = qui + " ";
-                qui = qui + turma.disciplina.codigo + " " + turma.letra;
-              }
-              if (checkTurmaHorarioLabs(turma, 23 + d, laboratorio.id)) {
-                if (sex != "") sex = sex + " ";
-                sex = sex + turma.disciplina.codigo + " " + turma.letra;
-              }
-            }
-          });
-
-          switch (d) {
-            case 0:
-              tableLabsBody.push([
-                { text: "08 - 10", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 1:
-              tableLabsBody.push([
-                { text: "10 - 12", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 2:
-              tableLabsBody.push([
-                { text: "14 - 16", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 3:
-              tableLabsBody.push([
-                { text: "16 - 18", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 4:
-              tableLabsBody.push([
-                { text: "17 - 19", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 5:
-              tableLabsBody.push([
-                { text: "18 - 20", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 6:
-              tableLabsBody.push([
-                { text: "19 - 21", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-            case 7:
-              tableLabsBody.push([
-                { text: "21 - 23", alignment: "center", fontSize: 8 },
-                {
-                  text: seg,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: ter, alignment: "center", fontSize: 8 },
-                { text: qua, alignment: "center", fontSize: 8 },
-                {
-                  text: qui,
-                  alignment: "center",
-                  fontSize: 8,
-                },
-                { text: sex, alignment: "center", fontSize: 8 },
-              ]);
-              break;
-          }
-        }
-
-        tables.push({
-          table: {
-            widths: ["*", "*", "*", "*", "*", "*"],
-            headerRows: 1,
-            color: "#426",
-            body: tableLabsBody,
+    laboratorios.forEach((laboratorio) => {
+      const turmasDoLaboratorio = getTurmasDaSala(turmasDoPeriodo, laboratorio.id);
+      //Se não possui turmas pro laboratorio exibe aviso, e vai pro proximo
+      if (!turmasDoLaboratorio.length) {
+        tables.push(
+          {
+            text: laboratorio.nome,
+            alignment: "start",
+            bold: true,
+            margin: [0, 10],
+            fontSize: 9,
           },
-        });
+          {
+            text: "Nenhuma turma encontrada",
+            alignment: "start",
+            fontSize: 9,
+          }
+        );
+        return;
+      }
+      //Verifica quando possuir 4 tabelas na mesma pagina adiciona pageBreak antes da quinta tabela
+      if (numeroDeTabelas % 4 === 0 && numeroDeTabelas !== 0) {
+        tables.push({ text: "", pageBreak: "before" });
+      }
+
+      tables.push({
+        text: laboratorio.nome,
+        bold: true,
+        margin: [0, 10],
+        fontSize: 9,
       });
-    }
+
+      numeroDeTabelas++;
+      const tableLabsBody = [
+        [
+          { text: "Horário", alignment: "center", bold: true, fontSize: 8 },
+          {
+            text: "Segunda",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Terça",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quarta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Quinta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+          {
+            text: "Sexta",
+            alignment: "center",
+            bold: true,
+            fontSize: 8,
+          },
+        ],
+      ];
+
+      for (let d = 0; d < 8; d++) {
+        let seg = "",
+          ter = "",
+          qua = "",
+          qui = "",
+          sex = "";
+        turmasDoLaboratorio.forEach((turma) => {
+          if (d < 4) {
+            if (checkTurmaHorarioLabs(turma, 1 + d, laboratorio.id)) {
+              if (seg !== "") seg = seg + " ";
+              seg = seg + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 7 + d, laboratorio.id)) {
+              if (ter != "") ter = ter + " ";
+              ter = ter + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 13 + d, laboratorio.id)) {
+              if (qua != "") qua = qua + " ";
+              qua = qua + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 19 + d, laboratorio.id)) {
+              if (qui != "") qui = qui + " ";
+              qui = qui + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 25 + d, laboratorio.id)) {
+              if (sex != "") sex = sex + " ";
+              sex = sex + turma.disciplina.codigo + " " + turma.letra;
+            }
+          } else if (d === 4 || d === 5) {
+            if (checkTurmaHorarioLabs(turma, 28 + d, laboratorio.id)) {
+              if (seg !== "") seg = seg + " ";
+              seg = seg + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 30 + d, laboratorio.id)) {
+              if (ter != "") ter = ter + " ";
+              ter = ter + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 32 + d, laboratorio.id)) {
+              if (qua != "") qua = qua + " ";
+              qua = qua + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 34 + d, laboratorio.id)) {
+              if (qui != "") qui = qui + " ";
+              qui = qui + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 36 + d, laboratorio.id)) {
+              if (sex != "") sex = sex + " ";
+              sex = sex + turma.disciplina.codigo + " " + turma.letra;
+            }
+          } else if (d > 5) {
+            if (checkTurmaHorarioLabs(turma, d - 1)) {
+              if (seg !== "") seg = seg + " ";
+              seg = seg + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 5 + d, laboratorio.id)) {
+              if (ter != "") ter = ter + " ";
+              ter = ter + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 11 + d, laboratorio.id)) {
+              if (qua != "") qua = qua + " ";
+              qua = qua + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 17 + d, laboratorio.id)) {
+              if (qui != "") qui = qui + " ";
+              qui = qui + turma.disciplina.codigo + " " + turma.letra;
+            }
+            if (checkTurmaHorarioLabs(turma, 23 + d, laboratorio.id)) {
+              if (sex != "") sex = sex + " ";
+              sex = sex + turma.disciplina.codigo + " " + turma.letra;
+            }
+          }
+        });
+
+        switch (d) {
+          case 0:
+            tableLabsBody.push([
+              { text: "08 - 10", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 1:
+            tableLabsBody.push([
+              { text: "10 - 12", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 2:
+            tableLabsBody.push([
+              { text: "14 - 16", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 3:
+            tableLabsBody.push([
+              { text: "16 - 18", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 4:
+            tableLabsBody.push([
+              { text: "17 - 19", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 5:
+            tableLabsBody.push([
+              { text: "18 - 20", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 6:
+            tableLabsBody.push([
+              { text: "19 - 21", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+          case 7:
+            tableLabsBody.push([
+              { text: "21 - 23", alignment: "center", fontSize: 8 },
+              {
+                text: seg,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: ter, alignment: "center", fontSize: 8 },
+              { text: qua, alignment: "center", fontSize: 8 },
+              {
+                text: qui,
+                alignment: "center",
+                fontSize: 8,
+              },
+              { text: sex, alignment: "center", fontSize: 8 },
+            ]);
+            break;
+        }
+      }
+
+      tables.push({
+        table: {
+          widths: ["*", "*", "*", "*", "*", "*"],
+          headerRows: 1,
+          color: "#426",
+          body: tableLabsBody,
+        },
+      });
+    });
 
     if (index + 1 != periodosAtivados.length) {
       tables.push({ text: "pain", pageBreak: "before" }); //page break;
@@ -1099,7 +1093,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
       },
       [
         {
-          text: "Relação de disciplinas ministradas pelos professores do",
+          text: "Relação de disciplinas ministradas pelos professores",
           alignment: "center",
           bold: true,
           fontSize: 10,
@@ -1109,7 +1103,6 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
           alignment: "center",
           bold: true,
           fontSize: 10,
-          margin: [0, 0, 0, 5],
         },
       ],
       {
@@ -1121,6 +1114,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
       },
     ],
   });
+  let possuiAlgumaTurmas = false;
 
   for (let i = 0; i < docentesOrdered.length; i++) {
     const turmas1Semestre = getTurmasDoDocente(docentesOrdered[i], periodos1semestre);
@@ -1164,6 +1158,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
           },
         },
       });
+      possuiAlgumaTurmas = true;
 
       const tableDocenteBody = [
         [
@@ -1518,6 +1513,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
         },
       },
     });
+    possuiAlgumaTurmas = true;
     let tableSemAlocacaoBody = [
       [
         "",
@@ -1562,6 +1558,7 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
         },
       ],
     ];
+
     for (var j = 0; j < turmasSemAlocacao.length; j++) {
       var disciplina = undefined;
       var horario1 = undefined;
@@ -1659,6 +1656,14 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
         },
       },
       margin: [0, 0, 0, 5],
+    });
+  }
+
+  if (!possuiAlgumaTurmas) {
+    tables.push({
+      text: "Nenhuma turma encontrada",
+      alignment: "center",
+      fontSize: 10,
     });
   }
 
