@@ -113,6 +113,11 @@ const routes = [
         beforeEnter: requireSuperAdmin,
       },
       {
+        path: "/gerenciar/grades-cursos-externos-edit",
+        component: lazyLoad("gerenciar/GradesCursosExternosEdit"),
+        beforeEnter: requireSuperAdmin,
+      },
+      {
         path: "/gerenciar/docentes",
         component: lazyLoad("gerenciar/Docentes"),
         beforeEnter: requireSuperAdmin,
@@ -120,6 +125,11 @@ const routes = [
       {
         path: "/gerenciar/grades",
         component: lazyLoad("gerenciar/Grades"),
+        beforeEnter: requireSuperAdmin,
+      },
+      {
+        path: "/gerenciar/gradesCursosExternos",
+        component: lazyLoad("gerenciar/GradesCursosExternos"),
         beforeEnter: requireSuperAdmin,
       },
       {
