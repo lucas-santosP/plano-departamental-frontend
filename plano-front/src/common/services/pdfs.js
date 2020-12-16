@@ -19,52 +19,23 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
       //Pega texto entre parênteses
       periodoNome = periodo.nome.includes("(") ? periodo.nome.split(" ")[1] + " " : "";
     }
-    tables.push({
-      columns: [
-        {
-          image: logoDcc,
-          fit: [60, 60],
-          alignment: "left",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-        [
-          {
-            text: "Relação de turmas oferecidas",
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-          },
-          {
-            text: "Departamento de Ciência da Computação",
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-          },
-          {
-            text: `${periodo.id}º Período Letivo ${periodoNome}- ${plano.ano} - ${plano.nome}`,
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-            margin: [0, 10],
-          },
-        ],
-        {
-          image: logoUfjf,
-          fit: [60, 60],
-          alignment: "right",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-      ],
-    });
+    tables.push(
+      makePageHeader(
+        logoDcc,
+        logoUfjf,
+        "Relação de turmas oferecidas",
+        "Departamento de Ciência da Computação",
+        `${periodo.id}º Período Letivo ${periodoNome}- ${plano.ano} - ${plano.nome}`
+      ),
+      { text: "", margin: [0, 0, 0, 5] }
+    );
 
-    let periodoPossuiTurmas = false;
+    let periodoPossuiAlgumaTurma = false;
     disciplinasOrdered.forEach((disciplina) => {
       const turmasFiltered = filter(disciplina.turmas, ["periodo", periodo.id]);
 
       if (turmasFiltered.length) {
-        periodoPossuiTurmas = true;
+        periodoPossuiAlgumaTurma = true;
 
         tables.push({
           style: "tableExample",
@@ -227,7 +198,7 @@ async function pdfPlanoDepartamental({ disciplinasInTurmas, periodosAtivados, pl
       }
     });
 
-    if (!periodoPossuiTurmas) {
+    if (!periodoPossuiAlgumaTurma) {
       tables.push({
         text: "Nenhuma turma encontrada",
         alignment: "center",
@@ -284,9 +255,10 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
           logoUfjf,
           "Horários dos cursos",
           "Departamento de Ciência da Computação",
-          `${periodo.id}º Período Letivo ${plano.ano} - ${plano.nome}`
+          `${periodo.id}º Período Letivo - ${plano.ano} - ${plano.nome}`
         )
       );
+
       let cursosIndex = 0;
       let seg = "",
         ter = "",
@@ -699,45 +671,15 @@ async function pdfHorariosLabs({ laboratorios, turmas, periodosAtivados, plano }
     if (periodo.id === 2 || periodo.id === 4) {
       periodoNome = periodo.nome.includes("(") ? " " + periodo.nome.split(" ")[1] : ""; //Pega texto entre parênteses
     }
-    tables.push({
-      columns: [
-        {
-          image: logoDcc,
-          fit: [60, 60],
-          alignment: "left",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-        [
-          {
-            text: "Relação de horários das turmas em laboratórios",
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-          },
-          {
-            text: "Departamento de Ciência da Computação",
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-          },
-          {
-            text: `${periodo.id}º Período Letivo${periodoNome} ${plano.ano} - ${plano.nome}`,
-            alignment: "center",
-            bold: true,
-            fontSize: 10,
-            margin: [0, 10, 0, 0],
-          },
-        ],
-        {
-          image: logoUfjf,
-          fit: [60, 60],
-          alignment: "right",
-          width: "16%",
-          margin: [0, 0, 0, 10],
-        },
-      ],
-    });
+    tables.push(
+      makePageHeader(
+        logoDcc,
+        logoUfjf,
+        "Relação de horários das turmas em laboratórios",
+        "Departamento de Ciência da Computação",
+        `${periodo.id}º Período Letivo${periodoNome} - ${plano.ano} - ${plano.nome}`
+      )
+    );
 
     const turmasDoPeriodo = filter(turmas, ["periodo", periodo.id]);
     let numeroDeTabelas = 0;
@@ -1082,38 +1024,16 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
   const periodos1semestre = filter(periodosAtivos, ["semestreId", 1]);
   const periodos2semestre = filter(periodosAtivos, ["semestreId", 2]);
 
-  tables.push({
-    columns: [
-      {
-        image: logoDcc,
-        fit: [60, 60],
-        alignment: "left",
-        width: "16%",
-        margin: [0, 0, 0, 10],
-      },
-      [
-        {
-          text: "Relação de disciplinas ministradas pelos professores",
-          alignment: "center",
-          bold: true,
-          fontSize: 10,
-        },
-        {
-          text: "Departamento de Ciência da Computação - " + plano.ano + " - " + plano.nome,
-          alignment: "center",
-          bold: true,
-          fontSize: 10,
-        },
-      ],
-      {
-        image: logoUfjf,
-        fit: [60, 60],
-        alignment: "right",
-        width: "16%",
-        margin: [0, 0, 0, 10],
-      },
-    ],
-  });
+  tables.push(
+    makePageHeader(
+      logoDcc,
+      logoUfjf,
+      "Relação de disciplinas ministradas pelos professores",
+      "Departamento de Ciência da Computação",
+      plano.ano + " - " + plano.nome
+    ),
+    { text: "", margin: [0, 0, 0, 5] }
+  );
   let possuiAlgumaTurmas = false;
 
   for (let i = 0; i < docentesOrdered.length; i++) {
@@ -1694,38 +1614,21 @@ async function pdfCargaProfessores({ docentes, semAlocacao, periodosAtivos, plan
   pdfMake.createPdf(docDefinition).open();
 }
 
-async function pdfTurmasCursos({ cursos, periodos }) {
+async function pdfTurmasCursos({ cursos, periodos, plano }) {
   const tables = [];
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
 
-  tables.push({
-    columns: [
-      {
-        image: logoDcc,
-        fit: [60, 60],
-        alignment: "left",
-        width: "16%",
-        margin: [0, 0, 0, 10],
-      },
-      [
-        {
-          text:
-            "Relação de turmas oferecidas para cada curso pelo Departamento de Ciência da Computação",
-          alignment: "center",
-          bold: true,
-          fontSize: 10,
-        },
-      ],
-      {
-        image: logoUfjf,
-        fit: [60, 60],
-        alignment: "right",
-        width: "16%",
-        margin: [0, 0, 0, 10],
-      },
-    ],
-  });
+  tables.push(
+    makePageHeader(
+      logoDcc,
+      logoUfjf,
+      "Relação de turmas oferecidas para cada curso",
+      "Departamento de Ciência da Computação",
+      plano.ano + " - " + plano.nome
+    ),
+    { text: "", margin: [0, 0, 0, 5] }
+  );
 
   for (let i = 0; i < cursos.length; i++) {
     let turmas = getTurmasDoCurso(cursos[i].id, periodos);
