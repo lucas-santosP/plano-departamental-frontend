@@ -317,18 +317,18 @@ export default {
 
     generatePdf(completo) {
       let cursos;
-      let periodos;
+      let periodosAtivos;
       if (completo) {
         cursos = this.AllCursos;
-        periodos = [1, 3];
+        periodosAtivos = [1, 3];
       } else {
         cursos = this.filtroCursos.ativados;
-        periodos = this.filtroPeriodos.ativados;
+        periodosAtivos = this.filtroPeriodos.ativados;
       }
 
       pdfTurmasCursos({
         cursos,
-        periodos,
+        periodosAtivos,
         plano: this.currentPlano,
       });
     },
