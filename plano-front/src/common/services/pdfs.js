@@ -265,336 +265,78 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
   const tables = [];
-  const periodos = [1, 3];
+  const periodos = filter(periodosAtivos, (periodo) => periodo.id === 1 || periodo.id === 3); //Somente aceita periodo 1 e 3 por enquanto
 
   if (!cursosAtivos.length) {
     tables.push({ text: "Nenhuma curso selecionado" });
-  } else if (!periodosAtivos.length) {
+  } else if (!periodos.length) {
     tables.push({ text: "Nenhuma período selecionado" });
   } else {
-    periodos.forEach((periodoId, index) => {
-      if (some(periodosAtivos, ["id", periodoId])) {
-        //Titulo
-        tables.push(
-          makePageHeader(
-            logoDcc,
-            logoUfjf,
-            "Horários dos cursos",
-            "Departamento de Ciência da Computação",
-            `${periodoId}º Período Letivo ${plano.ano} - ${plano.nome}`
-          )
-        );
+    periodos.forEach((periodo, index) => {
+      tables.push(
+        makePageHeader(
+          logoDcc,
+          logoUfjf,
+          "Horários dos cursos",
+          "Departamento de Ciência da Computação",
+          `${periodo.id}º Período Letivo ${plano.ano} - ${plano.nome}`
+        )
+      );
+      let cursosIndex = 0;
+      let seg = "",
+        ter = "",
+        qua = "",
+        qui = "",
+        sex = "";
 
-        let cursosIndex = 0;
-        let seg = "",
-          ter = "",
-          qua = "",
-          qui = "",
-          sex = "";
+      //Ciencia compt Diurno
+      if (some(cursosAtivos, ["codigo", "65C"])) {
+        tables.push({
+          text: "Ciência da Computação - integral",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 10,
+        });
+        const periodosCCD = horariosAtivos[`periodo${periodo.id}`].CCD;
+        let periodosVazio = 0;
 
-        //Ciencia compt Diurno
-        if (some(cursosAtivos, ["codigo", "65C"])) {
-          tables.push({
-            text: "Ciência da Computação - integral",
-            bold: true,
-            margin: [0, 10, 0, 5],
-            fontSize: 10,
-          });
-          const periodosCCD1 = horariosAtivos[`periodo${periodoId}`].CCD;
-          for (let i = 0; i < 10; i++) {
-            if (periodosCCD1[i].length) {
-              tables.push({
-                text: i + 1 + "º Período",
-                fontSize: 8,
-                bold: true,
-                margin: [0, 5, 0, 5],
-              });
-              let tableHorarios = [makeTableHorarioHeader()];
-
-              for (let d = 0; d < 4; d++) {
-                periodosCCD1[i].forEach((turma) => {
-                  if (checkTurmaHorario(turma, 1 + d)) {
-                    if (seg !== "") seg = seg + "\n";
-                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 7 + d)) {
-                    if (ter != "") ter = ter + "\n";
-                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 13 + d)) {
-                    if (qua != "") qua = qua + "\n";
-                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 19 + d)) {
-                    if (qui != "") qui = qui + "\n";
-                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 25 + d)) {
-                    if (sex != "") sex = sex + "\n";
-                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                });
-
-                tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
-                seg = ter = qua = qui = sex = "";
-              }
-
-              tables.push({
-                table: {
-                  widths: ["*", "*", "*", "*", "*", "*"],
-                  headerRows: 1,
-                  color: "#426",
-                  body: tableHorarios,
-                },
-              });
-            }
-          }
-
-          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
-            tables.push({ text: "", pageBreak: "after" });
-          }
-          cursosIndex++;
-        }
-        //Ciencia compt Noturno
-        if (some(cursosAtivos, ["codigo", "35A"])) {
-          tables.push({
-            text: "Ciência da Computação - noturno",
-            bold: true,
-            margin: [0, 10, 0, 5],
-            fontSize: 10,
-          });
-
-          const periodosCCN1 = horariosAtivos[`periodo${periodoId}`].CCN;
-          for (let i = 0; i < 10; i++) {
-            if (periodosCCN1[i].length) {
-              tables.push({
-                text: i + 1 + "º Período",
-                fontSize: 8,
-                bold: true,
-                margin: [0, 5, 0, 5],
-              });
-              let tableHorarios = [makeTableHorarioHeader()];
-
-              for (let d = 4; d < 6; d++) {
-                periodosCCN1[i].forEach((turma) => {
-                  if (checkTurmaHorario(turma, 1 + d)) {
-                    if (seg !== "") seg = seg + "\n";
-                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 7 + d)) {
-                    if (ter != "") ter = ter + "\n";
-                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 13 + d)) {
-                    if (qua != "") qua = qua + "\n";
-                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 19 + d)) {
-                    if (qui != "") qui = qui + "\n";
-                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 25 + d)) {
-                    if (sex != "") sex = sex + "\n";
-                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                });
-
-                tableHorarios.push(
-                  makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno")
-                );
-                seg = ter = qua = qui = sex = "";
-              }
-
-              tables.push({
-                table: {
-                  widths: ["*", "*", "*", "*", "*", "*"],
-                  headerRows: 1,
-                  color: "#426",
-                  body: tableHorarios,
-                },
-              });
-            }
-          }
-
-          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
-            tables.push({ text: "", pageBreak: "after" });
-          }
-          cursosIndex++;
-        }
-        //Engenharia compt
-        if (some(cursosAtivos, ["codigo", "65B"])) {
-          tables.push({
-            text: "Engenharia Computacional",
-            bold: true,
-            margin: [0, 10, 0, 5],
-            fontSize: 10,
-          });
-
-          const periodosEC1 = horariosAtivos[`periodo${periodoId}`].EC;
-          for (let i = 0; i < 10; i++) {
-            if (periodosEC1[i].length) {
-              tables.push({
-                text: i + 1 + "º Período",
-                fontSize: 8,
-                bold: true,
-                margin: [0, 5, 0, 5],
-              });
-              let tableHorarios = [makeTableHorarioHeader()];
-
-              for (let d = 0; d < 4; d++) {
-                periodosEC1[i].forEach((turma) => {
-                  if (checkTurmaHorario(turma, 1 + d)) {
-                    if (seg !== "") seg = seg + "\n";
-                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 7 + d)) {
-                    if (ter != "") ter = ter + "\n";
-                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 13 + d)) {
-                    if (qua != "") qua = qua + "\n";
-                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 19 + d)) {
-                    if (qui != "") qui = qui + "\n";
-                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 25 + d)) {
-                    if (sex != "") sex = sex + "\n";
-                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                });
-
-                tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
-                seg = ter = qua = qui = sex = "";
-              }
-
-              tables.push({
-                table: {
-                  widths: ["*", "*", "*", "*", "*", "*"],
-                  headerRows: 1,
-                  color: "#426",
-                  body: tableHorarios,
-                },
-              });
-            }
-          }
-
-          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
-            tables.push({ text: "", pageBreak: "after" });
-          }
-          cursosIndex++;
-        }
-        //Sistemas de informacao
-        if (some(cursosAtivos, ["codigo", "76A"])) {
-          tables.push({
-            text: "Sistemas de Informação",
-            bold: true,
-            margin: [0, 10, 0, 5],
-            fontSize: 10,
-          });
-
-          const periodosSI1 = horariosAtivos[`periodo${periodoId}`].SI;
-          for (let i = 0; i < 10; i++) {
-            if (periodosSI1[i].length) {
-              tables.push({
-                text: i + 1 + "º Período",
-                fontSize: 8,
-                bold: true,
-                margin: [0, 5, 0, 5],
-              });
-              let tableHorarios = [makeTableHorarioHeader()];
-
-              for (let d = 4; d < 6; d++) {
-                periodosSI1[i].forEach((turma) => {
-                  if (checkTurmaHorario(turma, 1 + d)) {
-                    if (seg !== "") seg = seg + "\n";
-                    seg = seg + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 7 + d)) {
-                    if (ter != "") ter = ter + "\n";
-                    ter = ter + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 13 + d)) {
-                    if (qua != "") qua = qua + "\n";
-                    qua = qua + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 19 + d)) {
-                    if (qui != "") qui = qui + "\n";
-                    qui = qui + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                  if (checkTurmaHorario(turma, 25 + d)) {
-                    if (sex != "") sex = sex + "\n";
-                    sex = sex + turma.disciplina.codigo + " " + turma.letra;
-                  }
-                });
-
-                tableHorarios.push(
-                  makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno")
-                );
-                seg = ter = qua = qui = sex = "";
-              }
-
-              tables.push({
-                table: {
-                  widths: ["*", "*", "*", "*", "*", "*"],
-                  headerRows: 1,
-                  color: "#426",
-                  body: tableHorarios,
-                },
-              });
-            }
-          }
-
-          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
-            tables.push({ text: "", pageBreak: "after" });
-          }
-          cursosIndex++;
-        }
-        //Eletivas
-        if (some(cursosAtivos, ["codigo", "-"])) {
-          tables.push({
-            text: "Eletivas",
-            bold: true,
-            margin: [0, 10, 0, 5],
-            fontSize: 10,
-          });
-
-          const eletivas1 = horariosAtivos[`periodo${periodoId}`].Eletivas;
-          if (eletivas1.length) {
+        for (let i = 0; i < 10; i++) {
+          if (!periodosCCD[i].length) {
+            periodosVazio++;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
             let tableHorarios = [makeTableHorarioHeader()];
 
-            for (let d = 0; d < 8; d++) {
-              const horarioSeg = (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d);
-              const horarioTer = (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d);
-              const horarioQua = (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d);
-              const horarioQui = (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d);
-              const horarioSex = (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d);
-
-              eletivas1.forEach((turma) => {
-                if (checkTurmaHorario(turma, horarioSeg)) {
+            for (let d = 0; d < 4; d++) {
+              periodosCCD[i].forEach((turma) => {
+                if (checkTurmaHorario(turma, 1 + d)) {
                   if (seg !== "") seg = seg + "\n";
                   seg = seg + turma.disciplina.codigo + " " + turma.letra;
                 }
-                if (checkTurmaHorario(turma, horarioTer)) {
+                if (checkTurmaHorario(turma, 7 + d)) {
                   if (ter != "") ter = ter + "\n";
                   ter = ter + turma.disciplina.codigo + " " + turma.letra;
                 }
-                if (checkTurmaHorario(turma, horarioQua)) {
+                if (checkTurmaHorario(turma, 13 + d)) {
                   if (qua != "") qua = qua + "\n";
                   qua = qua + turma.disciplina.codigo + " " + turma.letra;
                 }
-                if (checkTurmaHorario(turma, horarioQui)) {
+                if (checkTurmaHorario(turma, 19 + d)) {
                   if (qui != "") qui = qui + "\n";
                   qui = qui + turma.disciplina.codigo + " " + turma.letra;
                 }
-                if (checkTurmaHorario(turma, horarioSex)) {
+                if (checkTurmaHorario(turma, 25 + d)) {
                   if (sex != "") sex = sex + "\n";
                   sex = sex + turma.disciplina.codigo + " " + turma.letra;
                 }
               });
 
-              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "eletiva"));
+              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
               seg = ter = qua = qui = sex = "";
             }
 
@@ -607,12 +349,309 @@ async function pdfHorariosCursos({ horariosAtivos, cursosAtivos, periodosAtivos,
               },
             });
           }
-
-          if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
-            tables.push({ text: "", pageBreak: "after" });
-          }
-          cursosIndex++;
         }
+
+        //Se todos periodos estão vazios, exibe mensagem
+        if (periodosVazio === 10) {
+          tables.push({
+            text: "Nenhuma turma encontrada.",
+            fontSize: 10,
+          });
+        }
+        if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+          tables.push({ text: "", pageBreak: "after" });
+        }
+        cursosIndex++;
+      }
+      //Ciencia compt Noturno
+      if (some(cursosAtivos, ["codigo", "35A"])) {
+        tables.push({
+          text: "Ciência da Computação - noturno",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 10,
+        });
+        const periodosCCN = horariosAtivos[`periodo${periodo.id}`].CCN;
+        let periodosVazio = 0;
+
+        for (let i = 0; i < 10; i++) {
+          if (!periodosCCN[i].length) {
+            periodosVazio++;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorarios = [makeTableHorarioHeader()];
+
+            for (let d = 4; d < 6; d++) {
+              periodosCCN[i].forEach((turma) => {
+                if (checkTurmaHorario(turma, 1 + d)) {
+                  if (seg !== "") seg = seg + "\n";
+                  seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 7 + d)) {
+                  if (ter != "") ter = ter + "\n";
+                  ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 13 + d)) {
+                  if (qua != "") qua = qua + "\n";
+                  qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 19 + d)) {
+                  if (qui != "") qui = qui + "\n";
+                  qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 25 + d)) {
+                  if (sex != "") sex = sex + "\n";
+                  sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                }
+              });
+
+              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno"));
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorarios,
+              },
+            });
+          }
+        }
+
+        //Se todos periodos estão vazios, exibe mensagem
+        if (periodosVazio === 10) {
+          tables.push({
+            text: "Nenhuma turma encontrada.",
+            fontSize: 10,
+          });
+        }
+        if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+          tables.push({ text: "", pageBreak: "after" });
+        }
+        cursosIndex++;
+      }
+      //Engenharia compt
+      if (some(cursosAtivos, ["codigo", "65B"])) {
+        tables.push({
+          text: "Engenharia Computacional",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 10,
+        });
+        const periodosEC = horariosAtivos[`periodo${periodo.id}`].EC;
+        let periodosVazio = 0;
+
+        for (let i = 0; i < 10; i++) {
+          if (!periodosEC[i].length) {
+            periodosVazio++;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorarios = [makeTableHorarioHeader()];
+
+            for (let d = 0; d < 4; d++) {
+              periodosEC[i].forEach((turma) => {
+                if (checkTurmaHorario(turma, 1 + d)) {
+                  if (seg !== "") seg = seg + "\n";
+                  seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 7 + d)) {
+                  if (ter != "") ter = ter + "\n";
+                  ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 13 + d)) {
+                  if (qua != "") qua = qua + "\n";
+                  qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 19 + d)) {
+                  if (qui != "") qui = qui + "\n";
+                  qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 25 + d)) {
+                  if (sex != "") sex = sex + "\n";
+                  sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                }
+              });
+
+              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "diurno"));
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorarios,
+              },
+            });
+          }
+        }
+
+        //Se todos periodos estão vazios, exibe mensagem
+        if (periodosVazio === 10) {
+          tables.push({
+            text: "Nenhuma turma encontrada.",
+            fontSize: 10,
+          });
+        }
+        if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+          tables.push({ text: "", pageBreak: "after" });
+        }
+        cursosIndex++;
+      }
+      //Sistemas de informacao
+      if (some(cursosAtivos, ["codigo", "76A"])) {
+        tables.push({
+          text: "Sistemas de Informação",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 10,
+        });
+        const periodosSI = horariosAtivos[`periodo${periodo.id}`].SI;
+        let periodosVazio = 0;
+
+        for (let i = 0; i < 10; i++) {
+          if (!periodosSI[i].length) {
+            periodosVazio++;
+          } else {
+            tables.push({
+              text: i + 1 + "º Período",
+              fontSize: 8,
+              bold: true,
+              margin: [0, 5, 0, 5],
+            });
+            let tableHorarios = [makeTableHorarioHeader()];
+
+            for (let d = 4; d < 6; d++) {
+              periodosSI[i].forEach((turma) => {
+                if (checkTurmaHorario(turma, 1 + d)) {
+                  if (seg !== "") seg = seg + "\n";
+                  seg = seg + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 7 + d)) {
+                  if (ter != "") ter = ter + "\n";
+                  ter = ter + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 13 + d)) {
+                  if (qua != "") qua = qua + "\n";
+                  qua = qua + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 19 + d)) {
+                  if (qui != "") qui = qui + "\n";
+                  qui = qui + turma.disciplina.codigo + " " + turma.letra;
+                }
+                if (checkTurmaHorario(turma, 25 + d)) {
+                  if (sex != "") sex = sex + "\n";
+                  sex = sex + turma.disciplina.codigo + " " + turma.letra;
+                }
+              });
+
+              tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "noturno"));
+              seg = ter = qua = qui = sex = "";
+            }
+
+            tables.push({
+              table: {
+                widths: ["*", "*", "*", "*", "*", "*"],
+                headerRows: 1,
+                color: "#426",
+                body: tableHorarios,
+              },
+            });
+          }
+        }
+
+        //Se todos periodos estão vazios, exibe mensagem
+        if (periodosVazio === 10) {
+          tables.push({
+            text: "Nenhuma turma encontrada.",
+            fontSize: 10,
+          });
+        }
+        if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+          tables.push({ text: "", pageBreak: "after" });
+        }
+        cursosIndex++;
+      }
+      //Eletivas
+      if (some(cursosAtivos, ["codigo", "-"])) {
+        tables.push({
+          text: "Eletivas",
+          bold: true,
+          margin: [0, 10, 0, 5],
+          fontSize: 10,
+        });
+        const turmasEletivas = horariosAtivos[`periodo${periodo.id}`].Eletivas;
+
+        if (turmasEletivas.length) {
+          let tableHorarios = [makeTableHorarioHeader()];
+
+          for (let d = 0; d < 8; d++) {
+            const horarioSeg = (d === 4 || d === 5 ? 28 : 1) + (d > 5 ? d - 2 : d);
+            const horarioTer = (d === 4 || d === 5 ? 30 : 7) + (d > 5 ? d - 2 : d);
+            const horarioQua = (d === 4 || d === 5 ? 32 : 13) + (d > 5 ? d - 2 : d);
+            const horarioQui = (d === 4 || d === 5 ? 34 : 19) + (d > 5 ? d - 2 : d);
+            const horarioSex = (d === 4 || d === 5 ? 36 : 25) + (d > 5 ? d - 2 : d);
+
+            turmasEletivas.forEach((turma) => {
+              if (checkTurmaHorario(turma, horarioSeg)) {
+                if (seg !== "") seg = seg + "\n";
+                seg = seg + turma.disciplina.codigo + " " + turma.letra;
+              }
+              if (checkTurmaHorario(turma, horarioTer)) {
+                if (ter != "") ter = ter + "\n";
+                ter = ter + turma.disciplina.codigo + " " + turma.letra;
+              }
+              if (checkTurmaHorario(turma, horarioQua)) {
+                if (qua != "") qua = qua + "\n";
+                qua = qua + turma.disciplina.codigo + " " + turma.letra;
+              }
+              if (checkTurmaHorario(turma, horarioQui)) {
+                if (qui != "") qui = qui + "\n";
+                qui = qui + turma.disciplina.codigo + " " + turma.letra;
+              }
+              if (checkTurmaHorario(turma, horarioSex)) {
+                if (sex != "") sex = sex + "\n";
+                sex = sex + turma.disciplina.codigo + " " + turma.letra;
+              }
+            });
+
+            tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "eletiva"));
+            seg = ter = qua = qui = sex = "";
+          }
+
+          tables.push({
+            table: {
+              widths: ["*", "*", "*", "*", "*", "*"],
+              headerRows: 1,
+              color: "#426",
+              body: tableHorarios,
+            },
+          });
+        }
+
+        //Se naõ tem nenhuma turmas eletivas, exibe mensagem
+        if (!turmasEletivas.length) {
+          tables.push({
+            text: "Nenhuma turma encontrada.",
+            fontSize: 10,
+          });
+        } else if (cursosIndex + 1 !== cursosAtivos.length || index + 1 !== periodos.length) {
+          tables.push({ text: "", pageBreak: "after" });
+        }
+        cursosIndex++;
       }
     });
   }
