@@ -1098,7 +1098,7 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
           } else {
             var horarioTotal = horario1.horario + "/" + horario2.horario;
           }
-          if (turmas1Semestre[j].periodo == 1) {
+          if (turmas1Semestre[j].periodo === 1 || turmas1Semestre[j].periodo === 2) {
             if (turmas1Semestre[j].Docente1 > 0 && turmas1Semestre[j].Docente2 > 0)
               c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
             else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
@@ -1213,7 +1213,7 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
           } else {
             var horarioTotal = horario1.horario + "/" + horario2.horario;
           }
-          if (turmas2Semestre[j].periodo == 1) {
+          if (turmas2Semestre[j].periodo === 1 || turmas2Semestre[j].periodo === 2) {
             if (turmas2Semestre[j].Docente1 > 0 && turmas2Semestre[j].Docente2 > 0)
               c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
             else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
@@ -1262,8 +1262,8 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
           ]);
         }
         for (let n = 0; n < cargaPos2Semestre.length; n++) {
-          var c1 = 0;
-          var c2 = 0;
+          let c1 = 0;
+          let c2 = 0;
           if (cargaPos2Semestre[n].trimestre === 1 || cargaPos2Semestre[n].trimestre === 2) {
             c1 = cargaPos2Semestre[n].creditos;
           } else {
@@ -1452,7 +1452,7 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
         } else {
           var horarioTotal = horario1.horario + "/" + horario2.horario;
         }
-        if (turmasSemAlocacao[j].periodo == 1) {
+        if (turmasSemAlocacao[j].periodo === 1 || turmasSemAlocacao[j].periodo === 2) {
           if (turmasSemAlocacao[j].Docente1 > 0 && turmasSemAlocacao[j].Docente2 > 0)
             c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
           else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
@@ -1778,20 +1778,20 @@ function getTurmasDoDocente(docente, periodosAtivos) {
   if (!periodosAtivos.length) return [];
 
   const turmasFiltered = filter(
-    store.getters.AllTurmas,
+    store.getters.TurmasInDisciplinasPerfis,
     (turma) =>
       (turma.Docente1 === docente.id || turma.Docente2 === docente.id) &&
       some(periodosAtivos, ["id", turma.periodo])
   );
 
-  return orderBy(turmasFiltered, ["periodo", "Disciplina", "letra"]);
+  return orderBy(turmasFiltered, ["periodo", "disciplina.nome", "letra"]);
 }
 
 function getTurmasSemAlocacao(periodosAtivos) {
   if (!periodosAtivos.length) return [];
 
   const turmasFiltered = filter(
-    store.getters.AllTurmas,
+    store.getters.TurmasInDisciplinasPerfis,
     (turma) =>
       turma.Docente1 == null &&
       turma.Docente2 == null &&
@@ -1799,7 +1799,7 @@ function getTurmasSemAlocacao(periodosAtivos) {
       some(periodosAtivos, ["id", turma.periodo])
   );
 
-  return orderBy(turmasFiltered, ["periodo", "Disciplina", "letra"]);
+  return orderBy(turmasFiltered, ["periodo", "disciplina.nome", "letra"]);
 }
 
 function getCargaPosDoDocente(docente, periodosAtivos) {
@@ -1815,13 +1815,13 @@ function getCargaPosDoDocente(docente, periodosAtivos) {
 
 function creditos1(professor) {
   var c = 0;
-  for (var t = 0; t < store.state.turma.Turmas.length; t++) {
+  for (let t = 0; t < store.state.turma.Turmas.length; t++) {
     if (
-      store.state.turma.Turmas[t].periodo === 1 &&
+      (store.state.turma.Turmas[t].periodo === 1 || store.state.turma.Turmas[t].periodo === 2) &&
       (store.state.turma.Turmas[t].Docente1 === professor.id ||
         store.state.turma.Turmas[t].Docente2 === professor.id)
     ) {
-      for (var d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
+      for (let d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
         if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
           if (
             store.state.turma.Turmas[t].Docente1 > 0 &&
@@ -1837,7 +1837,7 @@ function creditos1(professor) {
       }
     }
   }
-  for (var t = 0; t < store.state.cargaPos.Cargas.length; t++) {
+  for (let t = 0; t < store.state.cargaPos.Cargas.length; t++) {
     if (store.state.cargaPos.Cargas[t].Docente === professor.id) {
       if (
         store.state.cargaPos.Cargas[t].trimestre == 1 ||
@@ -1852,13 +1852,13 @@ function creditos1(professor) {
 
 function creditos2(professor) {
   var c = 0;
-  for (var t = 0; t < store.state.turma.Turmas.length; t++) {
+  for (let t = 0; t < store.state.turma.Turmas.length; t++) {
     if (
-      store.state.turma.Turmas[t].periodo === 3 &&
+      (store.state.turma.Turmas[t].periodo === 3 || store.state.turma.Turmas[t].periodo === 4) &&
       (store.state.turma.Turmas[t].Docente1 === professor.id ||
         store.state.turma.Turmas[t].Docente2 === professor.id)
     ) {
-      for (var d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
+      for (let d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
         if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
           if (
             store.state.turma.Turmas[t].Docente1 > 0 &&
@@ -1874,9 +1874,12 @@ function creditos2(professor) {
       }
     }
   }
-  for (var t = 0; t < store.state.cargaPos.Cargas.length; t++) {
+  for (let t = 0; t < store.state.cargaPos.Cargas.length; t++) {
     if (store.state.cargaPos.Cargas[t].Docente === professor.id) {
-      if (store.state.cargaPos.Cargas[t].trimestre == 3) {
+      if (
+        store.state.cargaPos.Cargas[t].trimestre == 3 ||
+        store.state.cargaPos.Cargas[t].trimestre == 4
+      ) {
         c += parseFloat(store.state.cargaPos.Cargas[t].creditos);
       }
     }
