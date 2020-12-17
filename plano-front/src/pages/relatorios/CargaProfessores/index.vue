@@ -35,25 +35,27 @@
 
         <template #tbody>
           <template v-if="algumFiltroEstaAtivo">
-            <template v-for="docente in DocentesComTurmasECargasOrdered">
+            <template v-for="docente in DocentesCargaOrdered">
               <DocenteRow :key="docente.id + docente.nome" :docente="docente" />
-              <DocenteTurmaRow
-                v-for="turma in docente.turmas"
-                :key="turma.id + turma.letra + docente.nome"
-                :turma="turma"
-              />
-              <DocenteCargaPosRow
-                v-for="carga in docente.cargasPos"
-                :key="carga.id + carga.programa + docente.id"
-                :carga="carga"
-              />
+
+              <template v-for="semestre in SemestresOptions">
+                <DocenteTurmaRow
+                  v-for="turma in docente.turmas[`semestre${semestre.id}`]"
+                  :key="semestre.id + turma.letra + turma.id + docente.nome"
+                  :turma="turma"
+                />
+                <DocenteCargaPosRow
+                  v-for="carga in docente.cargasPos[`semestre${semestre.id}`]"
+                  :key="semestre.id + carga.id + carga.programa + docente.id"
+                  :carga="carga"
+                />
+              </template>
             </template>
 
             <template v-if="filtroDocenteSemAlocacao.ativado">
-              <DocenteRow :docente="DocenteSemAlocacaoComTurmas" />
-
+              <DocenteRow :docente="DocenteSemAlocacaoCarga" />
               <DocenteTurmaRow
-                v-for="turma in DocenteSemAlocacaoComTurmas.turmas"
+                v-for="turma in DocenteSemAlocacaoCarga.turmas"
                 :key="turma.id + turma.letra + turma.periodo"
                 :turma="turma"
               />
@@ -109,12 +111,15 @@
             <v-td width="425" align="start">{{ docente.apelido }}</v-td>
           </tr>
 
-          <tr @click="toggleFiltroDocenteSemAlocacaoSelecionado" v-prevent-click-selection>
+          <tr
+            @click="filtroDocenteSemAlocacao.selecionado = !filtroDocenteSemAlocacao.selecionado"
+            v-prevent-click-selection
+          >
             <v-td width="25" type="content">
               <input type="checkbox" v-model="filtroDocenteSemAlocacao.selecionado" />
             </v-td>
             <v-td width="425" align="start">
-              {{ DocenteSemAlocacaoComTurmas.apelido }}
+              {{ DocenteSemAlocacaoCarga.apelido }}
             </v-td>
           </tr>
         </template>
@@ -308,35 +313,25 @@ export default {
   },
 
   methods: {
-    toggleFiltroDocenteSemAlocacaoSelecionado() {
-      this.filtroDocenteSemAlocacao.selecionado = !this.filtroDocenteSemAlocacao.selecionado;
-    },
-    calculaCreditosDaTurma(creditos, docente1Id, docente2Id) {
-      if (docente1Id > 0 && docente2Id > 0 && docente1Id !== docente2Id) {
-        return creditos / 2;
-      }
-      return creditos;
-    },
     calculaTurmasDoDocente(docenteId) {
-      const turmasFilteredByDocente = [];
+      const turmasFilteredByDocente = { semestre1: [], semestre2: [] };
       let creditos1Semestre = 0;
       let creditos2Semestre = 0;
 
-      this.TurmasComDocenteFilteredByPeriodo.forEach((turma) => {
-        if (turma.Docente1 === docenteId || turma.Docente2 === docenteId) {
-          const creditosDaTurma = this.calculaCreditosDaTurma(
-            turma.disciplina.creditoTotal,
-            turma.Docente1,
-            turma.Docente2
-          );
+      const turmasDoDocente = this.getTurmasDoDocente(docenteId);
+      const turmasDoDocenteFiltered = turmasDoDocente.filter((turma) =>
+        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      );
 
-          turmasFilteredByDocente.push({ ...turma, creditosDaTurma });
+      turmasDoDocenteFiltered.forEach((turma) => {
+        const creditosDaTurma = this.calculaCreditosDaTurma(turma, turma.disciplina.creditoTotal);
 
-          if (turma.periodo === 1 || turma.periodo === 2) {
-            creditos1Semestre += creditosDaTurma;
-          } else {
-            creditos2Semestre += creditosDaTurma;
-          }
+        if (turma.periodo === 1 || turma.periodo === 2) {
+          creditos1Semestre += creditosDaTurma;
+          turmasFilteredByDocente.semestre1.push({ ...turma, creditosDaTurma });
+        } else {
+          turmasFilteredByDocente.semestre2.push({ ...turma, creditosDaTurma });
+          creditos2Semestre += creditosDaTurma;
         }
       });
 
@@ -347,21 +342,24 @@ export default {
       };
     },
     calculaCargasPosDoDocente(docenteId) {
-      const cargasPosFilteredByDocente = [];
+      const cargasPosFilteredByDocente = { semestre1: [], semestre2: [] };
       let creditos1Semestre = 0;
       let creditos2Semestre = 0;
 
-      this.CargasPosFilteredByPeriodo.forEach((carga) => {
-        if (carga.Docente === docenteId) {
-          cargasPosFilteredByDocente.push({ ...carga });
+      const cargasPosDoDocente = this.getCargasPosDoDocente(docenteId);
+      const cargasPosDoDocenteFiltered = cargasPosDoDocente.filter((carga) =>
+        some(this.filtroPeriodos.ativados, ["id", carga.trimestre])
+      );
 
-          const creditosDaCarga = parseFloat(carga.creditos) || 0;
+      cargasPosDoDocenteFiltered.forEach((carga) => {
+        const creditosDaCarga = parseFloat(carga.creditos) || 0;
 
-          if (carga.trimestre === 1 || carga.trimestre === 2) {
-            creditos1Semestre += creditosDaCarga;
-          } else {
-            creditos2Semestre += creditosDaCarga;
-          }
+        if (carga.trimestre === 1 || carga.trimestre === 2) {
+          cargasPosFilteredByDocente.semestre1.push({ ...carga });
+          creditos1Semestre += creditosDaCarga;
+        } else {
+          cargasPosFilteredByDocente.semestre2.push({ ...carga });
+          creditos2Semestre += creditosDaCarga;
         }
       });
 
@@ -371,7 +369,32 @@ export default {
         creditos2Semestre,
       };
     },
+    getTurmasDoDocente(docenteId) {
+      const turmasDoDocente = this.TurmasInDisciplinasPerfis.filter(
+        (turma) => turma.Docente1 === docenteId || turma.Docente2 === docenteId
+      );
 
+      return orderBy(turmasDoDocente, ["periodo", "disciplina.nome", "letra"]);
+    },
+    getCargasPosDoDocente(docenteId) {
+      const cargasPosDoDocente = this.AllCargasPos.filter((carga) => carga.Docente === docenteId);
+
+      return orderBy(cargasPosDoDocente, "programa");
+    },
+    getTurmasSemDocente() {
+      const turmasSemDocente = filter(
+        this.TurmasInDisciplinasPerfis,
+        (turma) => turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
+      );
+
+      return orderBy(turmasSemDocente, ["periodo", "disciplina.nome", "letra"]);
+    },
+    calculaCreditosDaTurma(turma, creditosDaDisciplina) {
+      if (turma.Docente1 > 0 && turma.Docente2 > 0 && turma.Docente1 !== turma.Docente2) {
+        return creditosDaDisciplina / 2;
+      }
+      return creditosDaDisciplina;
+    },
     generatePdf(completo) {
       let semAlocacaoAtivo, docentes, periodosAtivos;
       if (completo) {
@@ -394,21 +417,21 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DocentesAtivos", "TurmasInDisciplinasPerfis", "AllCargasPos", "AllPlanos"]),
+    ...mapGetters(["DocentesAtivos", "TurmasInDisciplinasPerfis", "AllCargasPos"]),
 
-    DocentesComTurmasECargasOrdered() {
+    DocentesCargaOrdered() {
       return orderBy(
-        this.DocentesComTurmasECargasFilteredByDocente,
+        this.DocentesCargaFiltered,
         this.orednacaoDocentesMain.order,
         this.orednacaoDocentesMain.type
       );
     },
-    DocentesComTurmasECargasFilteredByDocente() {
-      return filter(this.DocentesComTurmasECargas, (docente) =>
+    DocentesCargaFiltered() {
+      return filter(this.DocentesCarga, (docente) =>
         some(this.filtroDocentes.ativados, ["id", docente.id])
       );
     },
-    DocentesComTurmasECargas() {
+    DocentesCarga() {
       return this.DocentesAtivos.map((docente) => {
         const turmasDoDocente = this.calculaTurmasDoDocente(docente.id);
         const cargasPosDoDocente = this.calculaCargasPosDoDocente(docente.id);
@@ -428,11 +451,16 @@ export default {
         };
       });
     },
-    DocenteSemAlocacaoComTurmas() {
+    DocenteSemAlocacaoCarga() {
       let creditos1Semestre = 0;
       let creditos2Semestre = 0;
 
-      const turmasSemDocente = this.TurmasSemDocenteFilteredByPeriodo.map((turma) => {
+      const turmasSemDocente = this.getTurmasSemDocente();
+      const turmasSemDocenteFiltered = filter(turmasSemDocente, (turma) =>
+        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
+      );
+
+      const turmasSemDocenteResult = turmasSemDocenteFiltered.map((turma) => {
         if (turma.periodo === 1 || turma.periodo === 2) {
           creditos1Semestre += turma.disciplina.creditoTotal;
         } else {
@@ -446,41 +474,12 @@ export default {
 
       return {
         apelido: "SEM ALOCAÇÃO",
-        turmas: turmasSemDocente,
+        turmas: turmasSemDocenteResult,
         creditos1Semestre,
         creditos2Semestre,
       };
     },
 
-    TurmasSemDocenteFilteredByPeriodo() {
-      const turmasSemDocente = filter(
-        this.TurmasInDisciplinasPerfis,
-        (turma) => turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
-      );
-
-      const turmasFilteredByPeriodo = filter(turmasSemDocente, (turma) =>
-        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
-      );
-
-      return orderBy(turmasFilteredByPeriodo, ["periodo", "disciplina.nome", "letra"]);
-    },
-    TurmasComDocenteFilteredByPeriodo() {
-      const turmasComDocente = filter(
-        this.TurmasInDisciplinasPerfis,
-        (turma) => turma.Docente1 != null || turma.Docente2 != null
-      );
-
-      const turmasFilteredByPeriodo = filter(turmasComDocente, (turma) =>
-        some(this.filtroPeriodos.ativados, ["id", turma.periodo])
-      );
-
-      return orderBy(turmasFilteredByPeriodo, ["periodo", "disciplina.nome", "letra"]);
-    },
-    CargasPosFilteredByPeriodo() {
-      return filter(this.AllCargasPos, (carga) =>
-        some(this.filtroPeriodos.ativados, ["id", carga.trimestre])
-      );
-    },
     //Modal options
     DocentesOptionsOrdered() {
       return orderBy(
