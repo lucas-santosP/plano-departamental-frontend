@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build",
-    "lint:vue": "vue-cli-service lint",
-    "lint:all": "yarn prettier --write ./src & vue-cli-service lint",
+    "build": "vue-cli-service build", 
+    "lint": "yarn prettier --write ./src & vue-cli-service lint",
     "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
@@ -70,7 +69,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
-      "yarn prettier --write",
+      "prettier --write",
       "vue-cli-service lint",
       "git add"
     ]
