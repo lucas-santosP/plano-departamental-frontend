@@ -22,15 +22,9 @@
           <v-th width="300" align="start">Disciplina</v-th>
           <v-th width="35" title="Turma">T.</v-th>
           <v-th width="130">Horários</v-th>
-          <v-th width="35" paddingX="0" title="Somatório dos créditos no 1º semestre">
-            CS1
-          </v-th>
-          <v-th width="35" paddingX="0" title="Somatório dos créditos no 2º semestre">
-            CS2
-          </v-th>
-          <v-th width="40" paddingX="0" title="Somatório total de créditos">
-            CTotal
-          </v-th>
+          <v-th width="35" paddingX="0" title="Somatório dos créditos no 1º semestre">CS1</v-th>
+          <v-th width="35" paddingX="0" title="Somatório dos créditos no 2º semestre">CS2</v-th>
+          <v-th width="40" paddingX="0" title="Somatório total de créditos">CTotal</v-th>
         </template>
 
         <template #tbody>
@@ -154,9 +148,7 @@
       <BaseTable v-show="modalFiltrosTabs.current === 'Semestres'" type="modal">
         <template #thead>
           <v-th width="25" />
-          <v-th width="425" align="start">
-            Semestre Letivo
-          </v-th>
+          <v-th width="425" align="start">Semestre Letivo</v-th>
         </template>
 
         <template #tbody>

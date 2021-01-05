@@ -95,41 +95,41 @@ export default {
       let { type, position, hasBackground, title, hasFooter, styles } = this;
 
       switch (type) {
-        case "editTurma":
-          if (!title) title = "Editar turma";
-          hasBackground = true;
-          typeStyles.push(positions.center, { width: "510px" });
-          break;
+      case "editTurma":
+        if (!title) title = "Editar turma";
+        hasBackground = true;
+        typeStyles.push(positions.center, { width: "510px" });
+        break;
 
-        case "fromNavbar":
-          hasBackground = true;
-          typeStyles.push(positions.center, { width: "400px" });
-          break;
+      case "fromNavbar":
+        hasBackground = true;
+        typeStyles.push(positions.center, { width: "400px" });
+        break;
 
-        case "filtros":
-          if (!title) title = "Filtros";
-          if (!hasFooter) hasFooter = true;
-          hasBackground = false;
-          typeStyles.push(positions.right, { width: "510px", height: "610px" });
-          break;
+      case "filtros":
+        if (!title) title = "Filtros";
+        if (!hasFooter) hasFooter = true;
+        hasBackground = false;
+        typeStyles.push(positions.right, { width: "510px", height: "610px" });
+        break;
 
-        case "ajuda":
-          title = "Ajuda";
-          hasBackground = false;
-          typeStyles.push(positions.right, { width: "510px" });
-          break;
-        case "editVagas":
-          if (!title) title = "Editar Vagas";
-          title = "Vagas";
-          hasBackground = true;
-          typeStyles.push(positions.center, { width: "580px" });
-          break;
+      case "ajuda":
+        title = "Ajuda";
+        hasBackground = false;
+        typeStyles.push(positions.right, { width: "510px" });
+        break;
+      case "editVagas":
+        if (!title) title = "Editar Vagas";
+        title = "Vagas";
+        hasBackground = true;
+        typeStyles.push(positions.center, { width: "580px" });
+        break;
 
-        default:
-          if (position) typeStyles.push(positions[position]);
-          else typeStyles.push(positions.center);
-          typeStyles.push({ minWidth: "300px" });
-          break;
+      default:
+        if (position) typeStyles.push(positions[position]);
+        else typeStyles.push(positions.center);
+        typeStyles.push({ minWidth: "300px" });
+        break;
       }
 
       typeStyles.push(styles);
@@ -146,17 +146,17 @@ export default {
     },
     customAnimation() {
       switch (this.type) {
-        case "editTurma":
-        case "editVagas":
-        case "fromNavbar":
-          return "center";
+      case "editTurma":
+      case "editVagas":
+      case "fromNavbar":
+        return "center";
 
-        case "filtros":
-        case "ajuda":
-          return "right";
-        default:
-          if (!this.position) return "center";
-          else return this.position;
+      case "filtros":
+      case "ajuda":
+        return "right";
+      default:
+        if (!this.position) return "center";
+        else return this.position;
       }
     },
   },

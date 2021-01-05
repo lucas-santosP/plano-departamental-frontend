@@ -27,7 +27,7 @@
     <v-td width="45" type="content">
       <input
         type="text"
-        style="width:30px"
+        style="width: 30px"
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
@@ -54,11 +54,7 @@
           {{ horario.horario }}
         </option>
       </select>
-      <select
-        v-if="totalCarga >= 4"
-        v-model.number="turmaForm.Horario2"
-        @change="checkHorario(2)"
-      >
+      <select v-if="totalCarga >= 4" v-model.number="turmaForm.Horario2" @change="checkHorario(2)">
         <option />
         <option
           v-for="horario in HorariosFiltredByTurno"
@@ -78,11 +74,7 @@
           </option>
         </select>
 
-        <select
-          v-if="totalCarga >= 4"
-          v-model.number="turmaForm.Sala2"
-          @change="checkSala(2)"
-        >
+        <select v-if="totalCarga >= 4" v-model.number="turmaForm.Sala2" @change="checkSala(2)">
           <option />
           <option v-for="sala in AllSalas" :key="sala.nome + sala.id" :value="sala.id">
             {{ sala.nome }}
@@ -186,9 +178,7 @@ export default {
         (!isNull(this.turmaForm.Horario1) || !isNull(this.turmaForm.Horario2)) &&
         (!isNull(this.turmaForm.Sala1) || !isNull(this.turmaForm.Sala2))
       ) {
-        if (
-          horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31
-        ) {
+        if (horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31) {
           return false;
         } else if (horario === 1 && horarios1618.includes(this.turmaForm.Horario1)) {
           if (this.checkHorarioSala1618(1, 1)) return true;
@@ -443,15 +433,11 @@ export default {
           }
           let h1, h2;
           if (horario === 1) {
-            h1 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
           } else {
-            h1 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
           }
           let d1, d2;
           if (sala === 1) {
@@ -532,14 +518,14 @@ export default {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
       switch (this.turmaForm.turno1) {
-        case "Noturno":
-          return this.HorariosNoturno;
-        case "Diurno":
-          return this.HorariosDiurno;
-        case "EAD":
-          return this.HorariosEAD;
-        default:
-          return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
+      case "Noturno":
+        return this.HorariosNoturno;
+      case "Diurno":
+        return this.HorariosDiurno;
+      case "EAD":
+        return this.HorariosEAD;
+      default:
+        return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
       }
     },
     IndicesInPedidos() {

@@ -126,10 +126,7 @@ const getters = {
     const turmasResult = [];
 
     getters.AllTurmasExternas.forEach((turma) => {
-      const disciplinaFounded = find(getters.DisciplinasExternasInPerfis, [
-        "id",
-        turma.Disciplina,
-      ]);
+      const disciplinaFounded = find(getters.DisciplinasExternasInPerfis, ["id", turma.Disciplina]);
 
       if (disciplinaFounded)
         turmasResult.push({

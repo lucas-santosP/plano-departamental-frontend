@@ -58,11 +58,7 @@
               <v-td width="35">
                 {{ validacaoTurma.periodo }}
               </v-td>
-              <v-td
-                width="80"
-                align="start"
-                :title="validacaoTurma.disciplina.perfil.nome"
-              >
+              <v-td width="80" align="start" :title="validacaoTurma.disciplina.perfil.nome">
                 {{ validacaoTurma.disciplina.perfil.abreviacao }}
               </v-td>
               <v-td width="80" align="start">
@@ -251,29 +247,24 @@
       </div>
     </ModalFiltros>
 
-    <ModalEditTurma
-      ref="modalEditTurma"
-      :turma="turmaClicked"
-      :hasEditDisciplina="false"
-    />
+    <ModalEditTurma ref="modalEditTurma" :turma="turmaClicked" :hasEditDisciplina="false" />
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
         <b>Visualizar conflitos:</b>
         Clique no ícone de filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
-        no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar
-        entre os tipos de filtro disponíveis. Marque quais informações deseja visualizar,
-        e para finalizar clique no botão OK.
+        no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar entre os
+        tipos de filtro disponíveis. Marque quais informações deseja visualizar, e para finalizar
+        clique no botão OK.
       </li>
       <li class="list-group-item">
         <b>Editar turma:</b>
         Clique no ícone
         <font-awesome-icon :icon="['fas', 'edit']" class="icon-darkgray" />
-        presente na couna "Editar". Uma janela de edição irá se abrir. As alterações
-        realizadas nos campos da metade superior da janela somente serão enviadas ao
-        clicar no botão "Salvar". Já para o quantitativo de vagas na parte inferior, as
-        alterações serão salvas automaticamente.
+        presente na couna "Editar". Uma janela de edição irá se abrir. As alterações realizadas nos
+        campos da metade superior da janela somente serão enviadas ao clicar no botão "Salvar". Já
+        para o quantitativo de vagas na parte inferior, as alterações serão salvas automaticamente.
       </li>
       <li class="list-group-item">
         <b>Conflitos críticos:</b>
@@ -608,11 +599,7 @@ export default {
       check = this.checkPedidos(validacao.pedidosTotais);
       if (check) validacao.conflitos.push(check);
 
-      check = this.checkSalasInEAD(
-        validacao.disciplina.ead,
-        validacao.Sala1,
-        validacao.Sala2
-      );
+      check = this.checkSalasInEAD(validacao.disciplina.ead, validacao.Sala1, validacao.Sala2);
       if (check) validacao.conflitos.push(check);
 
       check = this.checkPeriodoCursos(validacao);
@@ -621,9 +608,7 @@ export default {
       check = null;
     },
     checkTurno(turno) {
-      return turno === null || turno === undefined || turno === ""
-        ? this.allConflitos[0]
-        : null;
+      return turno === null || turno === undefined || turno === "" ? this.allConflitos[0] : null;
     },
     checkTurnoEAD(isEAD, turno) {
       return (isEAD == 1 && turno !== "EAD") || (isEAD != 1 && turno == "EAD")
@@ -700,10 +685,10 @@ export default {
             disciplinaGrade.periodo >= grades.CCD[i].inicio &&
             disciplinaGrade.periodo <= grades.CCD[i].fim
           ) {
-            let disciplinasPeriodo = filter(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              { Grade: grades.CCD[i].id, periodo: disciplinaGrade.periodo }
-            );
+            let disciplinasPeriodo = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Grade: grades.CCD[i].id,
+              periodo: disciplinaGrade.periodo,
+            });
             for (let d = 0; d < disciplinasPeriodo.length; d++) {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
@@ -711,12 +696,9 @@ export default {
               let disciplinaConflito = find(this.$store.state.disciplina.Disciplinas, {
                 id: disciplinasPeriodo[d].Disciplina,
               });
-              let externa =
-                disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
               let turmasDisciplina = filter(
-                externa
-                  ? this.$store.state.turmaExterna.Turmas
-                  : this.$store.state.turma.Turmas,
+                externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas,
                 (t) => {
                   let pedido = find(
                     externa
@@ -763,10 +745,10 @@ export default {
             disciplinaGrade.periodo >= grades.CCN[i].inicio &&
             disciplinaGrade.periodo <= grades.CCN[i].fim
           ) {
-            let disciplinasPeriodo = filter(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              { Grade: grades.CCN[i].id, periodo: disciplinaGrade.periodo }
-            );
+            let disciplinasPeriodo = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Grade: grades.CCN[i].id,
+              periodo: disciplinaGrade.periodo,
+            });
             for (let d = 0; d < disciplinasPeriodo.length; d++) {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
@@ -774,12 +756,9 @@ export default {
               let disciplinaConflito = find(this.$store.state.disciplina.Disciplinas, {
                 id: disciplinasPeriodo[d].Disciplina,
               });
-              let externa =
-                disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
               let turmasDisciplina = filter(
-                externa
-                  ? this.$store.state.turmaExterna.Turmas
-                  : this.$store.state.turma.Turmas,
+                externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas,
                 (t) => {
                   let pedido = find(
                     externa
@@ -826,10 +805,10 @@ export default {
             disciplinaGrade.periodo >= grades.SI[i].inicio &&
             disciplinaGrade.periodo <= grades.SI[i].fim
           ) {
-            let disciplinasPeriodo = filter(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              { Grade: grades.SI[i].id, periodo: disciplinaGrade.periodo }
-            );
+            let disciplinasPeriodo = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Grade: grades.SI[i].id,
+              periodo: disciplinaGrade.periodo,
+            });
             for (let d = 0; d < disciplinasPeriodo.length; d++) {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
@@ -837,12 +816,9 @@ export default {
               let disciplinaConflito = find(this.$store.state.disciplina.Disciplinas, {
                 id: disciplinasPeriodo[d].Disciplina,
               });
-              let externa =
-                disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
               let turmasDisciplina = filter(
-                externa
-                  ? this.$store.state.turmaExterna.Turmas
-                  : this.$store.state.turma.Turmas,
+                externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas,
                 (t) => {
                   let pedido = find(
                     externa
@@ -889,10 +865,10 @@ export default {
             disciplinaGrade.periodo >= grades.EC[i].inicio &&
             disciplinaGrade.periodo <= grades.EC[i].fim
           ) {
-            let disciplinasPeriodo = filter(
-              this.$store.state.disciplinaGrade.DisciplinaGrades,
-              { Grade: grades.EC[i].id, periodo: disciplinaGrade.periodo }
-            );
+            let disciplinasPeriodo = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+              Grade: grades.EC[i].id,
+              periodo: disciplinaGrade.periodo,
+            });
             for (let d = 0; d < disciplinasPeriodo.length; d++) {
               if (disciplinasPeriodo[d].Disciplina === turma.Disciplina) {
                 continue;
@@ -900,12 +876,9 @@ export default {
               let disciplinaConflito = find(this.$store.state.disciplina.Disciplinas, {
                 id: disciplinasPeriodo[d].Disciplina,
               });
-              let externa =
-                disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
+              let externa = disciplinaConflito.Perfil == 13 || disciplinaConflito.Perfil == 15;
               let turmasDisciplina = filter(
-                externa
-                  ? this.$store.state.turmaExterna.Turmas
-                  : this.$store.state.turma.Turmas,
+                externa ? this.$store.state.turmaExterna.Turmas : this.$store.state.turma.Turmas,
                 (t) => {
                   let pedido = find(
                     externa
@@ -985,10 +958,7 @@ export default {
     },
     filterByConflitos(arrayConflitos) {
       const conflitosResultantes = filter(arrayConflitos, (conflito) =>
-        some(
-          this.filtroConflitos.ativados,
-          (conflitoType) => conflitoType === conflito.type
-        )
+        some(this.filtroConflitos.ativados, (conflitoType) => conflitoType === conflito.type)
       );
       return conflitosResultantes;
     },
@@ -1009,15 +979,10 @@ export default {
       return result;
     },
     isCritical(tipo) {
-      return tipo == 1 || tipo == 2 || tipo == 3 || tipo == 4 || tipo == 5.1
-        ? true
-        : false;
+      return tipo == 1 || tipo == 2 || tipo == 3 || tipo == 4 || tipo == 5.1 ? true : false;
     },
     isLab(salaId) {
-      let salaResultante = find(
-        this.AllSalas,
-        (sala) => salaId == sala.id && sala.laboratorio
-      );
+      let salaResultante = find(this.AllSalas, (sala) => salaId == sala.id && sala.laboratorio);
       if (salaResultante !== undefined) return true;
       else return false;
     },
@@ -1083,8 +1048,9 @@ export default {
 
         if (cargaGraduacao + cargaPos < 16.0) {
           validacao.conflitos.push(
-            `Apenas ${cargaGraduacao +
-              cargaPos} créditos, ${cargaGraduacao}  na graduação e ${cargaPos} na pós`
+            `Apenas ${
+              cargaGraduacao + cargaPos
+            } créditos, ${cargaGraduacao}  na graduação e ${cargaPos} na pós`
           );
         }
 

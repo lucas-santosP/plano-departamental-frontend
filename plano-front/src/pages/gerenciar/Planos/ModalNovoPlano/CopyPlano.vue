@@ -7,11 +7,7 @@
     </p>
 
     <div class="div-table">
-      <BaseTable
-        type="modal"
-        :hasSearchBar="true"
-        :styles="'max-height:500px; height:500px'"
-      >
+      <BaseTable type="modal" :hasSearchBar="true" :styles="'max-height:500px; height:500px'">
         <template #thead-search>
           <InputSearch
             v-model="searchDisciplinasModal"
@@ -54,11 +50,7 @@
             v-prevent-click-selection
           >
             <v-td width="25" type="content">
-              <input
-                type="checkbox"
-                v-model="filtrosDisciplinas"
-                :value="disciplina.id"
-              />
+              <input type="checkbox" v-model="filtrosDisciplinas" :value="disciplina.id" />
             </v-td>
             <v-td width="80" align="start">{{ disciplina.codigo }}</v-td>
             <v-td width="260" align="start" :title="disciplina.nome">
@@ -87,12 +79,11 @@ import turmaExternaService from "@/common/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import { toggleItemInArray, preventClickSelection } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
-import ImportPlano from "./ImportPlano";
 
 export default {
   name: "ModalNovoPlano",
   mixins: [toggleItemInArray, preventClickSelection],
-  components: { InputSearch, ImportPlano },
+  components: { InputSearch },
   props: {
     plano: { type: Object, required: true },
   },
@@ -278,10 +269,9 @@ export default {
       //# 1 Semestre - Preenche as disciplina da grade
       let disciplinasGrade1Semestre = [];
       for (let i = 0; i < gradesAtivas.semestre1.CCD.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre1.CCD[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre1.CCD[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 1) {
             if (
@@ -308,10 +298,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre1.EC.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre1.EC[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre1.EC[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 1) {
             if (
@@ -338,10 +327,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre1.CCN.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre1.CCN[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre1.CCN[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 0) {
             if (
@@ -368,10 +356,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre1.SI.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre1.SI[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre1.SI[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 0) {
             if (
@@ -401,10 +388,9 @@ export default {
       //# 2 Semestre - Preenche as disciplina da grade
       let disciplinasGrade2Semestre = [];
       for (let i = 0; i < gradesAtivas.semestre2.CCD.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre2.CCD[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre2.CCD[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 0) {
             if (
@@ -431,10 +417,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre2.EC.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre2.EC[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre2.EC[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 0) {
             if (
@@ -461,10 +446,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre2.CCN.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre2.CCN[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre2.CCN[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 1) {
             if (
@@ -491,10 +475,9 @@ export default {
         });
       }
       for (let i = 0; i < gradesAtivas.semestre2.SI.length; i++) {
-        let disciplinasGrade = filter(
-          this.$store.state.disciplinaGrade.DisciplinaGrades,
-          { Grade: gradesAtivas.semestre2.SI[i].id }
-        );
+        let disciplinasGrade = filter(this.$store.state.disciplinaGrade.DisciplinaGrades, {
+          Grade: gradesAtivas.semestre2.SI[i].id,
+        });
         disciplinasGrade.forEach((disciplina) => {
           if (disciplina.periodo % 2 === 1) {
             if (
@@ -652,7 +635,7 @@ export default {
                       vagasPeriodizadas: 1,
                       vagasNaoPeriodizadas: 0,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
@@ -665,7 +648,7 @@ export default {
                       vagasPeriodizadas: 1,
                       vagasNaoPeriodizadas: 0,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
@@ -678,7 +661,7 @@ export default {
                       vagasPeriodizadas: 1,
                       vagasNaoPeriodizadas: 0,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
@@ -691,7 +674,7 @@ export default {
                       vagasPeriodizadas: 1,
                       vagasNaoPeriodizadas: 0,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
@@ -733,7 +716,7 @@ export default {
                       vagasPeriodizadas: p.vagasPeriodizadas,
                       vagasNaoPeriodizadas: 0,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
@@ -768,7 +751,7 @@ export default {
                       vagasPeriodizadas: p.vagasPeriodizadas,
                       vagasNaoPeriodizadas: p.vagasNaoPeriodizadas,
                     })
-                    .then((response) => {})
+                    .then(() => {})
                     .catch((error) => {
                       console.log("erro ao atualizar pedido externo: " + error);
                     });
@@ -806,10 +789,7 @@ export default {
         const disciplinaNome = normalizeText(disciplina.nome);
         const disciplinaCodigo = normalizeText(disciplina.codigo);
 
-        return (
-          disciplinaNome.match(searchNormalized) ||
-          disciplinaCodigo.match(searchNormalized)
-        );
+        return disciplinaNome.match(searchNormalized) || disciplinaCodigo.match(searchNormalized);
       });
     },
   },

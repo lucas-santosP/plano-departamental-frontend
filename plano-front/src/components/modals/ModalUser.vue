@@ -34,11 +34,7 @@
           </div>
           <div class="form-row">
             <label required for="senhaAtual">Senha atual</label>
-            <InputPassword
-              :isInvalid="false"
-              :inputId="'senhaAtual'"
-              v-model="senhaAtual"
-            />
+            <InputPassword :isInvalid="false" :inputId="'senhaAtual'" v-model="senhaAtual" />
           </div>
           <!-- toggle edit senha -->
           <ButtonSlideSection :isOpen="isEditingSenha" @handel-click="toggleEditSenha" />
@@ -62,12 +58,7 @@
           </transition-group>
           <div :key="'btns'" class="mt-3 mb-1 d-flex justify-content-end">
             <BaseButton class="paddingX-20" text="Cancelar" color="gray" @click="close" />
-            <BaseButton
-              class="paddingX-20"
-              text="Salvar"
-              color="blue"
-              @click="editUser"
-            />
+            <BaseButton class="paddingX-20" text="Salvar" color="blue" @click="editUser" />
           </div>
         </div>
       </div>
@@ -129,10 +120,7 @@ export default {
       this.senhaAtual = "";
     },
     validateEditUser(user) {
-      return (
-        (!this.isEditingSenha || this.confirmaSenha === user.senha) &&
-        this.validateUser(user)
-      );
+      return (!this.isEditingSenha || this.confirmaSenha === user.senha) && this.validateUser(user);
     },
     validateUser(user) {
       for (const value of Object.values(user)) {
@@ -151,7 +139,7 @@ export default {
       if (!this.validateEditUser(user)) {
         this.pushNotification({
           type: "error",
-          text: `Campos obrigátorios incompletos ou inválidos.`,
+          text: "Campos obrigátorios incompletos ou inválidos.",
         });
         return;
       }

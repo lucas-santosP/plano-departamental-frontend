@@ -115,9 +115,7 @@
           </tr>
 
           <tr v-if="!AllCursos.length">
-            <v-td colspan="3" width="450">
-              NENHUM CURSO ENCONTRADO
-            </v-td>
+            <v-td colspan="3" width="450">NENHUM CURSO ENCONTRADO</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -217,7 +215,6 @@ import {
   ModalDownloadTurmasCursos,
 } from "@/components/modals";
 import { InputSearch } from "@/components/ui";
-import ModalVagas from "../PlanoDepartamental/ModalVagas";
 import downloadService from "@/common/services/download";
 import { saveAs } from "file-saver";
 
@@ -234,7 +231,6 @@ export default {
     ModalFiltros,
     ModalAjuda,
     InputSearch,
-    ModalVagas,
     ModalDownloadTurmasCursos,
   },
   data() {

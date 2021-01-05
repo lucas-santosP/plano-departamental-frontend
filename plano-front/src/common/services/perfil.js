@@ -1,33 +1,38 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 export default {
-  fetchAll (config = {}) {
-    return Vue.axios.get(`/perfil`, config)
+  fetchAll(config = {}) {
+    return Vue.axios
+      .get("/perfil", config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error));
   },
 
-  get (perfilId, config = {}) {
-    return Vue.axios.get(`/perfil/${perfilId}`, config)
+  get(perfilId, config = {}) {
+    return Vue.axios
+      .get(`/perfil/${perfilId}`, config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error));
   },
 
-  create (payload, config = {}) {
-    return Vue.axios.post('/perfil', payload, config)
+  create(payload, config = {}) {
+    return Vue.axios
+      .post("/perfil", payload, config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error));
   },
 
-  update (perfilId, config = {}) {
-    return Vue.axios.post(`/perfil/${perfilId}`, config)
+  update(perfilId, config = {}) {
+    return Vue.axios
+      .post(`/perfil/${perfilId}`, config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error));
   },
 
-  delete (perfilId, config = {}) {
-    return Vue.axios.delete(`/perfil/${perfilId}`, config)
+  delete(perfilId, config = {}) {
+    return Vue.axios
+      .delete(`/perfil/${perfilId}`, config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
-  }
-}
+      .catch((error) => Promise.reject(error));
+  },
+};

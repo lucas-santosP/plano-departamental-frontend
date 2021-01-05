@@ -35,7 +35,7 @@
     <v-td width="45" type="content">
       <input
         type="text"
-        style="width:30px"
+        style="width: 30px"
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
@@ -79,10 +79,7 @@
           </option>
         </select>
 
-        <select
-          v-if="totalCarga >= 4 && !disciplinaIsParcialEAD"
-          v-model.number="turmaForm.Sala2"
-        >
+        <select v-if="totalCarga >= 4 && !disciplinaIsParcialEAD" v-model.number="turmaForm.Sala2">
           <option />
           <option v-for="sala in AllSalas" :key="sala.nome + sala.id" :value="sala.id">
             {{ sala.nome }}
@@ -150,15 +147,12 @@ export default {
     },
     handleChangeHorario(horarioAtual) {
       if (horarioAtual === 1) this.setTurnoByHorario(this.turmaForm.Horario1);
-      else if (!this.disciplinaIsParcialEAD)
-        this.setTurnoByHorario(this.turmaForm.Horario2);
+      else if (!this.disciplinaIsParcialEAD) this.setTurnoByHorario(this.turmaForm.Horario2);
     },
     setTurnoByHorario(horarioId) {
       if (horarioId == 31 && this.disciplinaIsIntegralEAD) this.turmaForm.turno1 = "EAD";
-      else if (some(this.HorariosNoturno, ["id", horarioId]))
-        this.turmaForm.turno1 = "Noturno";
-      else if (some(this.HorariosDiurno, ["id", horarioId]))
-        this.turmaForm.turno1 = "Diurno";
+      else if (some(this.HorariosNoturno, ["id", horarioId])) this.turmaForm.turno1 = "Noturno";
+      else if (some(this.HorariosDiurno, ["id", horarioId])) this.turmaForm.turno1 = "Diurno";
     },
     async handleCreateTurmaExterna() {
       try {
@@ -194,14 +188,14 @@ export default {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
       switch (this.turmaForm.turno1) {
-        case "Noturno":
-          return this.HorariosNoturno;
-        case "Diurno":
-          return this.HorariosDiurno;
-        case "EAD":
-          return this.HorariosEAD;
-        default:
-          return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
+      case "Noturno":
+        return this.HorariosNoturno;
+      case "Diurno":
+        return this.HorariosDiurno;
+      case "EAD":
+        return this.HorariosEAD;
+      default:
+        return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
       }
     },
     totalCarga() {

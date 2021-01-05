@@ -1,8 +1,5 @@
 <template>
-  <tr
-    class="turmarow max-content"
-    :style="{ backgroundColor: turmaForm.disciplina.perfil.cor }"
-  >
+  <tr class="turmarow max-content" :style="{ backgroundColor: turmaForm.disciplina.perfil.cor }">
     <v-td width="25" type="content">
       <input type="checkbox" v-model="toggleToDelete" :value="turma" />
     </v-td>
@@ -28,7 +25,7 @@
     <v-td width="45" type="content">
       <input
         type="text"
-        style="width:30px"
+        style="width: 30px"
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
@@ -37,11 +34,9 @@
     </v-td>
     <v-td width="160" type="none" paddingX="3">
       <div class="d-flex align-items-center w-100">
-        <div class="d-flex flex-column" style="width:130px">
+        <div class="d-flex flex-column" style="width: 130px">
           <select v-model.number="turmaForm.Docente1" @change="checkDocente">
-            <option v-if="!DocentesAtivos.length">
-              Nenhum Docente Encontrado
-            </option>
+            <option v-if="!DocentesAtivos.length">Nenhum Docente Encontrado</option>
             <option v-else />
             <option
               v-for="docente in DocentesByPreferencia"
@@ -58,9 +53,7 @@
           </select>
 
           <select v-model.number="turmaForm.Docente2" @change="checkDocente">
-            <option v-if="!DocentesAtivos.length">
-              Nenhum Docente Encontrado
-            </option>
+            <option v-if="!DocentesAtivos.length">Nenhum Docente Encontrado</option>
             <option v-else />
             <option
               v-for="docente in DocentesByPreferencia"
@@ -79,7 +72,7 @@
         <font-awesome-icon
           :icon="['fas', 'graduation-cap']"
           :class="['clickable mx-auto', { 'low-opacity': !orderByPreferencia }]"
-          style="font-size:12px"
+          style="font-size: 12px"
           title="Alternar ordenação de docentes por preferência"
           @click="orderByPreferencia = !orderByPreferencia"
         />
@@ -136,9 +129,7 @@
     <v-td width="95" type="content">
       <template v-if="!isIntegralEAD">
         <select v-model.number="turmaForm.Sala1" @change="checkSala">
-          <option v-if="!AllSalas.length" type="text">
-            Nenhuma Sala Encontrada
-          </option>
+          <option v-if="!AllSalas.length" type="text">Nenhuma Sala Encontrada</option>
           <option v-else />
 
           <option v-for="sala in AllSalas" :key="sala.id + sala.nome" :value="sala.id">
@@ -151,9 +142,7 @@
           v-model.number="turmaForm.Sala2"
           @change="checkSala"
         >
-          <option v-if="!AllSalas.length" type="text">
-            Nenhuma Sala Encontrada
-          </option>
+          <option v-if="!AllSalas.length" type="text">Nenhuma Sala Encontrada</option>
           <option v-else />
 
           <option v-for="sala in AllSalas" :key="sala.nome + sala.id" :value="sala.id">
@@ -290,9 +279,7 @@ export default {
         (!isNull(this.turmaForm.Horario1) || !isNull(this.turmaForm.Horario2)) &&
         (!isNull(this.turmaForm.Docente1) || !isNull(this.turmaForm.Docente2))
       ) {
-        if (
-          horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31
-        ) {
+        if (horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31) {
           return false;
         } else if (horario === 1 && horarios1618.includes(this.turmaForm.Horario1)) {
           if (this.checkHorarioDocente1618(1, 1)) return true;
@@ -584,9 +571,7 @@ export default {
         (!isNull(this.turmaForm.Horario1) || !isNull(this.turmaForm.Horario2)) &&
         (!isNull(this.turmaForm.Sala1) || !isNull(this.turmaForm.Sala2))
       ) {
-        if (
-          horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31
-        ) {
+        if (horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31) {
           return false;
         } else if (horario === 1 && horarios1618.includes(this.turmaForm.Horario1)) {
           if (this.checkHorarioSala1618(1, 1)) return true;
@@ -839,15 +824,11 @@ export default {
           }
           let h1, h2;
           if (horario === 1) {
-            h1 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
           } else {
-            h1 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
           }
           let d1, d2;
           if (sala === 1) {
@@ -929,14 +910,14 @@ export default {
       if (cadastroEAD === 1) return this.HorariosEAD;
 
       switch (this.turmaForm.turno1) {
-        case "EAD":
-          return this.HorariosEAD;
-        case "Diurno":
-          return this.HorariosDiurno;
-        case "Noturno":
-          return this.HorariosNoturno;
-        default:
-          return this.AllHorarios;
+      case "EAD":
+        return this.HorariosEAD;
+      case "Diurno":
+        return this.HorariosDiurno;
+      case "Noturno":
+        return this.HorariosNoturno;
+      default:
+        return this.AllHorarios;
       }
     },
     isIntegralEAD() {

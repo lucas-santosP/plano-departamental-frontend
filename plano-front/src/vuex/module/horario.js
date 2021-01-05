@@ -135,11 +135,7 @@ const getters = {
       initialId++;
     });
 
-    return [
-      ...getters.ListaDeHorariosDiurno,
-      ...HorariosExtra,
-      ...getters.ListaDeHorariosNoturno,
-    ];
+    return [...getters.ListaDeHorariosDiurno, ...HorariosExtra, ...getters.ListaDeHorariosNoturno];
   },
 };
 

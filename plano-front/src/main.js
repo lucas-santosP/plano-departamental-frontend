@@ -18,14 +18,7 @@ Vue.use(PortalVue);
 Vue.use(Notifications);
 
 //Global components
-import {
-  BaseTable,
-  BaseModal,
-  BaseButton,
-  VTd,
-  VTh,
-  VThOrdination,
-} from "./components/global";
+import { BaseTable, BaseModal, BaseButton, VTd, VTh, VThOrdination } from "./components/global";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";

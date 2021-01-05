@@ -8,9 +8,7 @@
         </h1>
       </div>
       <div class="card-body" :class="{ 'padding-error': error != null }">
-        <h2 class="sub-title">
-          Login
-        </h2>
+        <h2 class="sub-title">Login</h2>
         <form class="form-signin" @submit.prevent="handleLogin">
           <label for="userLogin" class="sr-only">Usuário</label>
           <input
@@ -30,9 +28,7 @@
             :iconSize="12"
             v-model="form.senha"
           />
-          <button type="submit" class="btn btn-sm btn-block mt-4 mb-3">
-            Entrar
-          </button>
+          <button type="submit" class="btn btn-sm btn-block mt-4 mb-3">Entrar</button>
 
           <span v-show="error != null" class="alert alert-danger">
             {{ error }}

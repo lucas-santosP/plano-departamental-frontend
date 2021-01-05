@@ -24,16 +24,12 @@ const mutations = {
   },
 
   [SOCKET_DISCIPLINA_UPDATED](state, data) {
-    let index = state.Disciplinas.findIndex(
-      (disciplina) => disciplina.id === data.Disciplina.id
-    );
+    let index = state.Disciplinas.findIndex((disciplina) => disciplina.id === data.Disciplina.id);
     Vue.set(state.Disciplinas, index, data.Disciplina);
   },
 
   [SOCKET_DISCIPLINA_DELETED](state, data) {
-    let index = state.Disciplinas.findIndex(
-      (disciplina) => disciplina.id === data.Disciplina.id
-    );
+    let index = state.Disciplinas.findIndex((disciplina) => disciplina.id === data.Disciplina.id);
     state.Disciplinas.splice(index, 1);
   },
 };
@@ -55,12 +51,7 @@ const actions = {
 
   async createDisciplina({ commit }, disciplina) {
     const disciplinaNormalized = cloneDeepWith(disciplina, setEmptyValuesToNull);
-    validateObjectKeys(disciplinaNormalized, [
-      "nome",
-      "codigo",
-      "cargaTeorica",
-      "cargaPratica",
-    ]);
+    validateObjectKeys(disciplinaNormalized, ["nome", "codigo", "cargaTeorica", "cargaPratica"]);
 
     if (disciplinaDCCENaoPossuiPerfil(disciplinaNormalized)) {
       commit(PUSH_NOTIFICATION, {
@@ -80,12 +71,7 @@ const actions = {
 
   async editDisciplina({ commit }, disciplina) {
     const disciplinaNormalized = cloneDeepWith(disciplina, setEmptyValuesToNull);
-    validateObjectKeys(disciplinaNormalized, [
-      "nome",
-      "codigo",
-      "cargaTeorica",
-      "cargaPratica",
-    ]);
+    validateObjectKeys(disciplinaNormalized, ["nome", "codigo", "cargaTeorica", "cargaPratica"]);
 
     if (disciplinaDCCENaoPossuiPerfil(disciplinaNormalized)) {
       commit(PUSH_NOTIFICATION, {
@@ -117,8 +103,7 @@ const getters = {
   AllDisciplinas(state) {
     const disciplinasResult = state.Disciplinas.map((disciplina) => ({
       ...disciplina,
-      creditoTotal:
-        parseInt(disciplina.cargaTeorica, 10) + parseInt(disciplina.cargaPratica, 10),
+      creditoTotal: parseInt(disciplina.cargaTeorica, 10) + parseInt(disciplina.cargaPratica, 10),
     }));
 
     return orderBy(disciplinasResult, ["codigo"]);

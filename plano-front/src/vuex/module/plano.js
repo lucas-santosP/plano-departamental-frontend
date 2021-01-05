@@ -60,9 +60,7 @@ const actions = {
     try {
       dispatch("setLoading", { type: "fetching", value: true });
 
-      const currentPlanoId = localStorage.getItem("Plano")
-        ? localStorage.getItem("Plano")
-        : 1;
+      const currentPlanoId = localStorage.getItem("Plano") ? localStorage.getItem("Plano") : 1;
       dispatch("setCurrentPlanoId", currentPlanoId);
 
       await dispatch("fetchAll");
