@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   env: { node: true },
-  extends: ["plugin:vue/essential", "eslint:recommended"],
+  extends: ["plugin:vue/essential", "eslint:recommended", "prettier"],
   parserOptions: {
     parser: "babel-eslint",
     sourceType: "module",
@@ -9,13 +9,17 @@ module.exports = {
   },
   parser: "vue-eslint-parser",
   rules: {
-    "newline-per-chained-call": ["error", { ignoreChainWithDepth: 10 }],
     "space-before-function-paren": ["error", "never"],
     indent: ["error", 2],
     quotes: ["error", "double"],
     semi: ["error", "always"],
+    "no-prototype-builtins": "warn",
     "arrow-parens": ["error", "always"],
-    "max-len": ["error", { code: 100, ignoreTemplateLiterals: true, ignoreComments: true }],
+    "vue/require-prop-type-constructor": "warn",
+    "max-len": [
+      "error",
+      { code: 100, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreComments: true },
+    ],
     "comma-dangle": [
       2,
       {
@@ -23,6 +27,7 @@ module.exports = {
         objects: "always-multiline",
         imports: "always-multiline",
         exports: "always-multiline",
+        functions: "never",
       },
     ],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",

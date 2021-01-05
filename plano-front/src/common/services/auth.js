@@ -1,14 +1,16 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 export default {
-  fetch (config = {}) {
-    return Vue.axios.get('/authenticate', config)
+  fetch(config = {}) {
+    return Vue.axios
+      .get("/authenticate", config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error));
   },
-  authenticate (payload, config = {}) {
-    return Vue.axios.post('/authenticate', payload, config)
+  authenticate(payload, config = {}) {
+    return Vue.axios
+      .post("/authenticate", payload, config)
       .then((response) => Promise.resolve(response.data))
-      .catch((error) => Promise.reject(error))
-  }
-}
+      .catch((error) => Promise.reject(error));
+  },
+};
