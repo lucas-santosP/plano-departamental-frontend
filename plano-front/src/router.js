@@ -80,6 +80,10 @@ const routes = [
         component: lazyLoad("relatorios/GradesDCC"),
       },
       {
+        path: "/relatorios/grades-outros",
+        component: lazyLoad("relatorios/GradesOutros"),
+      },
+      {
         path: "/relatorios/horarios-cursos",
         component: lazyLoad("relatorios/HorariosCursos"),
       },
