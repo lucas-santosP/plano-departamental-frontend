@@ -2,11 +2,7 @@ module.exports = {
   root: true,
   env: { node: true },
   extends: ["plugin:vue/essential", "eslint:recommended", "prettier"],
-  parserOptions: {
-    parser: "babel-eslint",
-    sourceType: "module",
-    ecmaVersion: 2018,
-  },
+  parserOptions: { parser: "babel-eslint", sourceType: "module", ecmaVersion: 2018 },
   parser: "vue-eslint-parser",
   rules: {
     "space-before-function-paren": ["error", "never"],

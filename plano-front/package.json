@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build", 
+    "build": "vue-cli-service build",
     "lint": "yarn prettier --write ./src & vue-cli-service lint",
     "build-report": "vue-cli-service build --report"
   },
@@ -61,17 +61,5 @@
     "> 1%",
     "last 20 versions",
     "not ie <= 8"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "prettier --write",
-      "vue-cli-service lint",
-      "git add"
-    ]
-  }
+  ]
 }
