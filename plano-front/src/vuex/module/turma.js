@@ -1,5 +1,5 @@
 import Vue from "vue";
-import turmaService from "../../common/services/turma";
+import turmaService from "../../services/turma";
 import { find, cloneDeepWith, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {
@@ -125,10 +125,7 @@ const getters = {
     const turmasResult = [];
 
     getters.AllTurmas.forEach((turma) => {
-      const disciplinaFounded = find(getters.DisciplinasInPerfis, [
-        "id",
-        turma.Disciplina,
-      ]);
+      const disciplinaFounded = find(getters.DisciplinasInPerfis, ["id", turma.Disciplina]);
 
       if (disciplinaFounded)
         turmasResult.push({

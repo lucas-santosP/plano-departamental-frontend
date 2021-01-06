@@ -27,7 +27,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { find, pull } from "lodash-es";
-import bddumpService from "@/common/services/bddump";
+import bddumpService from "@/services/bddump";
 import { EventBus } from "@/plugins/eventBus.js";
 import { TheNavbar, TheSidebar, ThePageHeader } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";

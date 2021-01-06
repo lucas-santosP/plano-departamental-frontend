@@ -13,9 +13,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-item nav-item-plano">
-        <label class="m-0 pr-2" for="planoAtual">
-          Plano atual
-        </label>
+        <label class="m-0 pr-2" for="planoAtual">Plano atual</label>
         <select
           id="planoAtual"
           class="input-plano"

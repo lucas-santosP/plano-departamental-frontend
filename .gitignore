@@ -1,5 +1,5 @@
 plano-front/dist
-.eslintrc.js
+env.js 
 .vscode
 env.js
 # Created by https://www.gitignore.io/api/node,macos,linux,windows,phpstorm

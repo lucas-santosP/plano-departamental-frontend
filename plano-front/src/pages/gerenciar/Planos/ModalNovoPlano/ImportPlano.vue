@@ -5,8 +5,8 @@
       <b>.csv</b>
       para importar as turmas de cada periodo do novo plano.
       <br />
-      Note que o formato do arquivo requerido é o relatorio de plano departamental gerado
-      pelo SIGA na página: Acadêmico > Consultas > Plano Departamental.
+      Note que o formato do arquivo requerido é o relatorio de plano departamental gerado pelo SIGA
+      na página: Acadêmico > Consultas > Plano Departamental.
     </p>
 
     <div class="form-row">
@@ -49,7 +49,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { find, some } from "lodash-es";
 import XLSX from "xlsx";
-import planoService from "@/common/services/plano";
+import planoService from "@/services/plano";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
 
 export default {
@@ -75,7 +75,7 @@ export default {
     async readInputFileTurmas(inputFile, planoId, periodo) {
       const reader = new FileReader();
 
-      reader.onload = async (event) => {
+      reader.onload = async(event) => {
         this.setLoading({ type: "partial", value: true });
         const workbook = XLSX.read(event.target.result, { type: "binary" });
         const firstWorksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -252,25 +252,25 @@ export default {
 
       let diaNormalized = null;
       switch (dia.trim().substring(0, 3)) {
-        case "SEG":
-          diaNormalized = "2a";
-          break;
-        case "TER":
-          diaNormalized = "3a";
-          break;
-        case "QUA":
-          diaNormalized = "4a";
-          break;
-        case "QUI":
-          diaNormalized = "5a";
-          break;
-        case "SEX":
-          diaNormalized = "6a";
-          break;
-        case "SAB":
-          return "EAD"; //Se é sabado ja retorna EAD, pois não possui hora
-        default:
-          return null; //Se não achou ja retorna null e nem verifica hora
+      case "SEG":
+        diaNormalized = "2a";
+        break;
+      case "TER":
+        diaNormalized = "3a";
+        break;
+      case "QUA":
+        diaNormalized = "4a";
+        break;
+      case "QUI":
+        diaNormalized = "5a";
+        break;
+      case "SEX":
+        diaNormalized = "6a";
+        break;
+      case "SAB":
+        return "EAD"; //Se é sabado ja retorna EAD, pois não possui hora
+      default:
+        return null; //Se não achou ja retorna null e nem verifica hora
       }
 
       const [horaInicial, horaFinal] = hora.split("AS");

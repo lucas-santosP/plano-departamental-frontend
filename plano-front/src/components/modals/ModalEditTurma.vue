@@ -13,7 +13,7 @@
             <label for="disciplinaNome">Disciplina:</label>
             <select
               type="text"
-              style="width:260px"
+              style="width: 260px"
               id="disciplinaNome"
               class="form-control"
               v-model="turmaForm.disciplina"
@@ -35,7 +35,7 @@
             <label for="disciplinaCodigo">Código:</label>
             <select
               type="text"
-              style="width: 120px;"
+              style="width: 120px"
               id="disciplinaCodigo"
               class="form-control"
               v-model="turmaForm.disciplina"
@@ -55,10 +55,10 @@
           </div>
         </div>
         <div v-else class="form-row w-100 m-0 mb-2 pr-1">
-          <p class="modal-title col p-0 m-0 ">
+          <p class="modal-title col p-0 m-0">
             {{ turmaForm.disciplina.codigo + " - " + turmaForm.disciplina.nome }}
           </p>
-          <span class="modal-title p-0 m-0 text-right" style="font-weight:normal">
+          <span class="modal-title p-0 m-0 text-right" style="font-weight: normal">
             Créditos: {{ turmaForm.disciplina.creditoTotal }}
           </span>
         </div>
@@ -72,7 +72,7 @@
               class="form-control"
               id="selectPeriodo"
               v-model.number="turmaForm.periodo"
-              style="width:60px"
+              style="width: 60px"
               v-on:change="checkHorariosPeriodo"
             >
               <option value="1">1</option>
@@ -87,7 +87,7 @@
               type="text"
               class="form-control"
               id="inputLetra"
-              style="text-transform: uppercase;width: 50px; text-align:center "
+              style="text-transform: uppercase; width: 50px; text-align: center"
               v-model="turmaForm.letra"
               @keypress="maskTurmaLetra"
             />
@@ -119,7 +119,7 @@
             <select
               type="text"
               class="form-control"
-              style="width:130px;"
+              style="width: 130px"
               id="SelectDocente1"
               v-model="turmaForm.Docente1"
               v-on:change="checkDocente(1)"
@@ -139,7 +139,7 @@
             <select
               type="text"
               class="form-control mt-1"
-              style="width:130px;"
+              style="width: 130px"
               id="docente2"
               v-model="turmaForm.Docente2"
               v-on:change="checkDocente(2)"
@@ -181,8 +181,7 @@
             <select
               v-if="hasMoreThan4Creditos"
               type="text"
-              class="form-control
-            mt-1"
+              class="form-control mt-1"
               style="width: 100px"
               id="horario2"
               v-model="turmaForm.Horario2"
@@ -216,7 +215,7 @@
               <select
                 type="text"
                 class="form-control mb-1"
-                style="width:120px;"
+                style="width: 120px"
                 id="sala1"
                 v-model="turmaForm.Sala1"
                 v-on:change="checkSala()"
@@ -225,11 +224,7 @@
                   Nenhuma Sala Encontrada
                 </option>
                 <option v-else value=""></option>
-                <option
-                  v-for="sala in AllSalas"
-                  :key="'1-sala-id' + sala.id"
-                  :value="sala.id"
-                >
+                <option v-for="sala in AllSalas" :key="'1-sala-id' + sala.id" :value="sala.id">
                   {{ sala.nome }}
                 </option>
               </select>
@@ -246,11 +241,7 @@
                   Nenhuma Sala Encontrada
                 </option>
                 <option v-else value=""></option>
-                <option
-                  v-for="sala in AllSalas"
-                  :key="'2-sala-id' + sala.id"
-                  :value="sala.id"
-                >
+                <option v-for="sala in AllSalas" :key="'2-sala-id' + sala.id" :value="sala.id">
                   {{ sala.nome }}
                 </option>
               </select>
@@ -259,18 +250,8 @@
         </div>
         <!-- Botoes -->
         <div class="w-100 mb-2">
-          <BaseButton
-            class="paddingX-20"
-            color="green"
-            text="Salvar"
-            @click="handleEditTurma"
-          />
-          <BaseButton
-            class="paddingX-20"
-            color="gray"
-            text="Cancelar"
-            @click="resetTurmaForm"
-          />
+          <BaseButton class="paddingX-20" color="green" text="Salvar" @click="handleEditTurma" />
+          <BaseButton class="paddingX-20" color="gray" text="Cancelar" @click="resetTurmaForm" />
         </div>
       </div>
       <hr class="mb-1 mt-0 w-100" />
@@ -278,7 +259,7 @@
       <div class="w-100 d-flex justify-content-between mb-1">
         <h3 class="modal-title">VAGAS</h3>
 
-        <p class="modal-title" style="font-weight:normal">Total: {{ totalPedidos }}</p>
+        <p class="modal-title" style="font-weight: normal">Total: {{ totalPedidos }}</p>
       </div>
 
       <div class="div-table">
@@ -333,9 +314,7 @@
             </tr>
 
             <tr v-if="!CursosTableOrdered.length">
-              <v-td colspan="3" width="450">
-                NENHUM CURSO ENCONTRADO
-              </v-td>
+              <v-td colspan="3" width="450">NENHUM CURSO ENCONTRADO</v-td>
             </tr>
           </template#tbody>
         </BaseTable>
@@ -534,9 +513,7 @@ export default {
         (!isNull(this.turmaForm.Horario1) || !isNull(this.turmaForm.Horario2)) &&
         (!isNull(this.turmaForm.Docente1) || !isNull(this.turmaForm.Docente2))
       ) {
-        if (
-          horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31
-        ) {
+        if (horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31) {
           return false;
         } else if (horario === 1 && horarios1618.includes(this.turmaForm.Horario1)) {
           if (this.checkHorarioDocente1618(1, 1)) return true;
@@ -830,9 +807,7 @@ export default {
         (!isNull(this.turmaForm.Horario1) || !isNull(this.turmaForm.Horario2)) &&
         (!isNull(this.turmaForm.Sala1) || !isNull(this.turmaForm.Sala2))
       ) {
-        if (
-          horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31
-        ) {
+        if (horario === 1 ? this.turmaForm.Horario1 === 31 : this.turmaForm.Horario2 === 31) {
           return false;
         } else if (horario === 1 && horarios1618.includes(this.turmaForm.Horario1)) {
           if (this.checkHorarioSala1618(1, 1)) return true;
@@ -1087,15 +1062,11 @@ export default {
           }
           let h1, h2;
           if (horario === 1) {
-            h1 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario1) && this.turmaForm.Horario1 === t.Horario2;
           } else {
-            h1 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
-            h2 =
-              !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
+            h1 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario1;
+            h2 = !isNull(this.turmaForm.Horario2) && this.turmaForm.Horario2 === t.Horario2;
           }
           let d1, d2;
           if (sala === 1) {
@@ -1143,9 +1114,7 @@ export default {
       return this.turmaForm.disciplina ? this.turmaForm.disciplina.ead === 2 : false;
     },
     hasMoreThan4Creditos() {
-      return this.turmaForm.disciplina
-        ? this.turmaForm.disciplina.creditoTotal >= 4
-        : false;
+      return this.turmaForm.disciplina ? this.turmaForm.disciplina.creditoTotal >= 4 : false;
     },
 
     CursosTableOrdered() {
@@ -1192,23 +1161,21 @@ export default {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
       switch (this.turmaForm.turno1) {
-        case "EAD":
-          return this.HorariosEAD;
-        case "Diurno":
-          return this.HorariosDiurno;
-        case "Noturno":
-          return this.HorariosNoturno;
-        default:
-          return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
+      case "EAD":
+        return this.HorariosEAD;
+      case "Diurno":
+        return this.HorariosDiurno;
+      case "Noturno":
+        return this.HorariosNoturno;
+      default:
+        return filter(this.AllHorarios, (horario) => horario.id != 31); //Todos sem EAD
       }
     },
 
     totalPedidos() {
       return this.currentTurmaPedidos.reduce(
         (sum, pedido) =>
-          sum +
-          parseInt(pedido.vagasNaoPeriodizadas, 10) +
-          parseInt(pedido.vagasPeriodizadas, 10),
+          sum + parseInt(pedido.vagasNaoPeriodizadas, 10) + parseInt(pedido.vagasPeriodizadas, 10),
         0
       );
     },

@@ -39,12 +39,8 @@
           <v-th width="130">Horário</v-th>
 
           <template v-if="filtroPeriodos.ativados.length">
-            <v-th width="45" :title="theadTitle.creditos">
-              SC
-            </v-th>
-            <v-th width="45" :title="theadTitle.vagas">
-              SV
-            </v-th>
+            <v-th width="45" :title="theadTitle.creditos">SC</v-th>
+            <v-th width="45" :title="theadTitle.vagas">SV</v-th>
           </template>
         </template>
 
@@ -222,9 +218,7 @@
           </tr>
 
           <tr v-if="!DisciplinasOptionsOrdered.length">
-            <v-td colspan="3" width="450">
-              NENHUMA DISCIPLINA ENCONTRADA.
-            </v-td>
+            <v-td colspan="3" width="450">NENHUMA DISCIPLINA ENCONTRADA.</v-td>
           </tr>
         </template>
       </BaseTable>
@@ -313,7 +307,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
-import { pdfPlanoDepartamental } from "@/common/services/pdfs";
+import { pdfPlanoDepartamental } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   generateHorariosText,

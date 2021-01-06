@@ -1,6 +1,6 @@
 import Vue from "vue";
 import $socket from "@/socketInstance.js";
-import planoService from "../../common/services/plano";
+import planoService from "@/services/plano";
 import { cloneDeepWith, find, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {
@@ -60,9 +60,7 @@ const actions = {
     try {
       dispatch("setLoading", { type: "fetching", value: true });
 
-      const currentPlanoId = localStorage.getItem("Plano")
-        ? localStorage.getItem("Plano")
-        : 1;
+      const currentPlanoId = localStorage.getItem("Plano") ? localStorage.getItem("Plano") : 1;
       dispatch("setCurrentPlanoId", currentPlanoId);
 
       await dispatch("fetchAll");

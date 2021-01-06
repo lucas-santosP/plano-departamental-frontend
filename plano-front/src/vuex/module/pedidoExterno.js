@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { cloneDeepWith } from "lodash-es";
-import pedidoExternoService from "../../common/services/pedidoExterno";
+import pedidoExternoService from "../../services/pedidoExterno";
 import { setEmptyValuesToNull } from "@/common/utils";
 import {
   PEDIDO_EXTERNO_FETCHED,
@@ -29,8 +29,7 @@ const mutations = {
   },
 
   [SOCKET_PEDIDO_EXTERNO_CREATED](state, data) {
-    if (state.Pedidos[data.Pedido.Turma] === undefined)
-      state.Pedidos[data.Pedido.Turma] = [];
+    if (state.Pedidos[data.Pedido.Turma] === undefined) state.Pedidos[data.Pedido.Turma] = [];
     state.Pedidos[data.Pedido.Turma].push(data.Pedido);
     state.Pedidos = Object.assign({}, state.Pedidos);
   },
@@ -83,10 +82,8 @@ const actions = {
   async editPedidoExterno({ commit }, pedido) {
     const pedidoNormalized = cloneDeepWith(pedido, setEmptyValuesToNull);
 
-    if (pedidoNormalized.vagasPeriodizadas === null)
-      pedidoNormalized.vagasPeriodizadas = 0;
-    if (pedidoNormalized.vagasNaoPeriodizadas === null)
-      pedidoNormalized.vagasNaoPeriodizadas = 0;
+    if (pedidoNormalized.vagasPeriodizadas === null) pedidoNormalized.vagasPeriodizadas = 0;
+    if (pedidoNormalized.vagasNaoPeriodizadas === null) pedidoNormalized.vagasNaoPeriodizadas = 0;
 
     await pedidoExternoService.update(
       pedidoNormalized.Curso,

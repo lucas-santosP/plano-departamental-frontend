@@ -1,5 +1,5 @@
 import Vue from "vue";
-import turmaExternaService from "../../common/services/turmaExterna";
+import turmaExternaService from "../../services/turmaExterna";
 import { cloneDeepWith, find, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {
@@ -126,10 +126,7 @@ const getters = {
     const turmasResult = [];
 
     getters.AllTurmasExternas.forEach((turma) => {
-      const disciplinaFounded = find(getters.DisciplinasExternasInPerfis, [
-        "id",
-        turma.Disciplina,
-      ]);
+      const disciplinaFounded = find(getters.DisciplinasExternasInPerfis, ["id", turma.Disciplina]);
 
       if (disciplinaFounded)
         turmasResult.push({

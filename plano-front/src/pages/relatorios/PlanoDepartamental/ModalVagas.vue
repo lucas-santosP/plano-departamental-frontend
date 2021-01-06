@@ -7,11 +7,7 @@
         </h2>
 
         <label for="selectTurma" class="m-0 mr-2">Turma:</label>
-        <select
-          id="selectTurma"
-          class="form-control select-letra"
-          v-model="turmaLetraForm"
-        >
+        <select id="selectTurma" class="form-control select-letra" v-model="turmaLetraForm">
           <option
             v-for="turma in TurmasOptionsModalVagas"
             :key="turma.id + turma.letra"
@@ -71,10 +67,7 @@
           </template>
 
           <template #tbody>
-            <tr
-              v-for="pedido in PedidosOrdered"
-              :key="pedido.Turma + pedido.curso.codigo"
-            >
+            <tr v-for="pedido in PedidosOrdered" :key="pedido.Turma + pedido.curso.codigo">
               <v-td width="65" align="start">{{ pedido.curso.codigo }}</v-td>
               <v-td width="300" align="start">{{ pedido.curso.nome }}</v-td>
               <v-td width="55">{{ pedido.vagasPeriodizadas }}</v-td>
@@ -159,8 +152,7 @@ export default {
       const turmasResultantes = filter(
         this.TurmasInDisciplinasPerfis,
         (turma) =>
-          turma.Disciplina === this.turma.Disciplina &&
-          turma.periodo === this.turma.periodo
+          turma.Disciplina === this.turma.Disciplina && turma.periodo === this.turma.periodo
       );
 
       return orderBy(turmasResultantes, ["periodo"]);

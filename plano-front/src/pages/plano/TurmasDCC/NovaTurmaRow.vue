@@ -45,7 +45,7 @@
     <v-td width="45" type="content">
       <input
         type="text"
-        style="width:30px"
+        style="width: 30px"
         :value="turmaForm.letra"
         @input="turmaForm.letra = $event.target.value.toUpperCase()"
         @keypress="maskTurmaLetra"
@@ -53,7 +53,7 @@
     </v-td>
     <v-td width="160" type="none" paddingX="3">
       <div class="d-flex align-items-center w-100">
-        <div class="d-flex flex-column" style="width:130px">
+        <div class="d-flex flex-column" style="width: 130px">
           <select v-model.number="turmaForm.Docente1">
             <option></option>
             <option
@@ -90,18 +90,14 @@
         <font-awesome-icon
           :icon="['fas', 'graduation-cap']"
           :class="['clickable mx-auto', { 'low-opacity': !orderByPreferencia }]"
-          style="font-size:12px"
+          style="font-size: 12px"
           title="Alternar ordenação de docentes por preferência"
           @click="orderByPreferencia = !orderByPreferencia"
         />
       </div>
     </v-td>
     <v-td width="80" type="content">
-      <select
-        v-if="turmaForm.disciplina"
-        v-model="turmaForm.turno1"
-        @input="handleChangeTurno"
-      >
+      <select v-if="turmaForm.disciplina" v-model="turmaForm.turno1" @input="handleChangeTurno">
         <option v-if="disciplinaIsIntegralEAD" value="EAD">EAD</option>
         <template v-else>
           <option value="Diurno">Diurno</option>
@@ -229,15 +225,12 @@ export default {
     },
     handleChangeHorario(horarioAtual) {
       if (horarioAtual === 1) this.setTurnoByHorario(this.turmaForm.Horario1);
-      else if (!this.disciplinaIsParcialEAD)
-        this.setTurnoByHorario(this.turmaForm.Horario2);
+      else if (!this.disciplinaIsParcialEAD) this.setTurnoByHorario(this.turmaForm.Horario2);
     },
     setTurnoByHorario(horarioId) {
       if (horarioId == 31 && this.disciplinaIsIntegralEAD) this.turmaForm.turno1 = "EAD";
-      else if (some(this.HorariosNoturno, ["id", horarioId]))
-        this.turmaForm.turno1 = "Noturno";
-      else if (some(this.HorariosDiurno, ["id", horarioId]))
-        this.turmaForm.turno1 = "Diurno";
+      else if (some(this.HorariosNoturno, ["id", horarioId])) this.turmaForm.turno1 = "Noturno";
+      else if (some(this.HorariosDiurno, ["id", horarioId])) this.turmaForm.turno1 = "Diurno";
     },
     async handleCreateTurma() {
       try {
@@ -308,15 +301,15 @@ export default {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;
 
       switch (this.turmaForm.turno1) {
-        case "Noturno":
-          return this.HorariosNoturno;
-        case "Diurno":
-          return this.HorariosDiurno;
-        case "EAD":
-          return this.HorariosEAD;
-        default:
-          //Todos sem EAD
-          return filter(this.AllHorarios, (horario) => horario.id != 31);
+      case "Noturno":
+        return this.HorariosNoturno;
+      case "Diurno":
+        return this.HorariosDiurno;
+      case "EAD":
+        return this.HorariosEAD;
+      default:
+        //Todos sem EAD
+        return filter(this.AllHorarios, (horario) => horario.id != 31);
       }
     },
     totalCarga() {
