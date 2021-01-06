@@ -2028,13 +2028,13 @@ function makePageHeader({ images, plano, title, subtitle }) {
       columns: [
         { image: images[0] || "", fit: [60, 60], alignment: "left", width: "16%" },
         [
-          { text: title, alignment: "center", bold: true, fontSize: 10 },
           {
             text: "Departamento de Ciência da Computação",
             alignment: "center",
             bold: true,
             fontSize: 10,
           },
+          { text: title, alignment: "center", bold: true, fontSize: 10 },
           {
             text: plano ? `Plano ${plano.ano} - ${plano.nome}` : "",
             alignment: "center",
