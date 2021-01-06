@@ -4,7 +4,7 @@
     title="Plano Departamental"
     type="editTurma"
     class="modal-plano"
-    :hasBackground="true"
+    :hasOverlay="true"
     :hasFooter="true"
     btnOkText="Criar plano"
   >

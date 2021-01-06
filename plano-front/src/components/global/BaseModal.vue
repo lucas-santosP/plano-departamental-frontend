@@ -50,7 +50,7 @@ export default {
     type: { type: String, default: "" },
     position: { type: String, default: "" },
     title: { type: String, default: "" },
-    hasBackground: { type: Boolean, default: false },
+    hasOverlay: { type: Boolean, default: false },
     hasFooter: { type: Boolean, default: false },
     classes: { type: String, default: "" },
     styles: { type: Object, default: () => {} },
@@ -94,36 +94,36 @@ export default {
 
     options() {
       const typeStyles = [];
-      let { type, position, hasBackground, title, hasFooter, styles } = this;
+      let { type, position, hasOverlay, title, hasFooter, styles } = this;
 
       switch (type) {
       case "editTurma":
         if (!title) title = "Editar turma";
-        hasBackground = true;
+        hasOverlay = true;
         typeStyles.push(positions.center, { width: "510px" });
         break;
 
       case "fromNavbar":
-        hasBackground = true;
+        hasOverlay = true;
         typeStyles.push(positions.center, { width: "400px" });
         break;
 
       case "filtros":
         if (!title) title = "Filtros";
         if (!hasFooter) hasFooter = true;
-        hasBackground = false;
+        hasOverlay = false;
         typeStyles.push(positions.right, { width: "510px", height: "610px" });
         break;
 
       case "ajuda":
         title = "Ajuda";
-        hasBackground = false;
+        hasOverlay = false;
         typeStyles.push(positions.right, { width: "510px" });
         break;
       case "editVagas":
         if (!title) title = "Editar Vagas";
         title = "Vagas";
-        hasBackground = true;
+        hasOverlay = true;
         typeStyles.push(positions.center, { width: "580px" });
         break;
 
@@ -140,7 +140,7 @@ export default {
       return {
         position,
         typeStyles,
-        hasBackground,
+        hasOverlay,
         title,
         hasFooter,
         customClasses: ["modal-custom", this.classes],
@@ -165,13 +165,13 @@ export default {
 
   watch: {
     visibility(newValue) {
-      if (this.options.hasBackground) {
+      if (this.options.hasOverlay) {
         this.setModalOverlayVisibility(newValue);
       }
     },
     modalOverlayVisibility(newValue) {
       //Para fechar o modal quando clicar no olverlay
-      if (this.options.hasBackground && !newValue && newValue !== this.visibility) {
+      if (this.options.hasOverlay && !newValue && newValue !== this.visibility) {
         this.close();
       }
     },
