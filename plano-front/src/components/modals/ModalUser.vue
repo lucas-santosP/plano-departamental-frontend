@@ -4,7 +4,7 @@
       <div class="user-container w-100">
         <div class="user-header border px-3 py-2 w-100">
           <div class="d-flex w-100 align-items-center">
-            <img class="user-img" src="@/assets/user.png" alt="Usuário" />
+            <img class="user-img" src="@/assets/images/user.png" alt="Usuário" />
             <div class="d-flex flex-column w-100">
               <p class="mx-2">
                 <b>Nome:</b>

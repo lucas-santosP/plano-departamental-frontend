@@ -2,8 +2,8 @@
 import store from "../../vuex/store";
 import { isNull, filter, find, orderBy, sortBy, some } from "lodash-es";
 import { imageToDataUrl } from "../utils";
-import urlLogoUfjf from "../../assets/logo-ufjf.png";
-import urlLogoDcc from "../../assets/logo-dcc.png";
+import urlLogoUfjf from "../../assets/images/logo-ufjf.png";
+import urlLogoDcc from "../../assets/images/logo-dcc.png";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
