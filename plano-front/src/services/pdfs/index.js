@@ -1,3 +1,4 @@
 import pdfCargaProfessores from "./cargaProfessores";
+import pdfTurmasCursos from "./turmasCursos";
 
-export { pdfCargaProfessores };
+export { pdfCargaProfessores, pdfTurmasCursos };
