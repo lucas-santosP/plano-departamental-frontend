@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { orderBy } from "lodash-es";
-import conceitoTurmaCursoService from "../../common/services/conceitoTurmaCurso";
+import conceitoTurmaCursoService from "../../services/conceitoTurmaCurso";
 import {
   CONCEITO_TURMA_CURSO_FETCHED,
   SOCKET_CONCEITO_TURMA_CURSO_CREATED,

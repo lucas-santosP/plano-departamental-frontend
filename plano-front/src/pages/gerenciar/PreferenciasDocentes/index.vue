@@ -454,7 +454,7 @@
 import XLSX from "xlsx";
 import { mapGetters } from "vuex";
 import { find, filter, orderBy, map } from "lodash-es";
-import docenteDisciplinaService from "@/common/services/docenteDisciplina";
+import docenteDisciplinaService from "@/services/docenteDisciplina";
 import { ModalAjuda } from "@/components/modals";
 import { toggleAsideModal } from "@/common/mixins";
 

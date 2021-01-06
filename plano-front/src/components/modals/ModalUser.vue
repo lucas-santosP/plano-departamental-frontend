@@ -69,7 +69,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { clone } from "lodash-es";
-import userService from "@/common/services/usuario";
+import userService from "@/services/usuario";
 import { InputPassword, ButtonSlideSection } from "@/components/ui";
 
 const emptyUser = {

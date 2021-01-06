@@ -1,5 +1,5 @@
 import Vue from "vue";
-import cargaPosService from "../../common/services/cargaPos";
+import cargaPosService from "../../services/cargaPos";
 import { orderBy, cloneDeepWith } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {

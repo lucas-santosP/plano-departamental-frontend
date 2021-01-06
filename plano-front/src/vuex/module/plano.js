@@ -1,6 +1,6 @@
 import Vue from "vue";
 import $socket from "@/socketInstance.js";
-import planoService from "../../common/services/plano";
+import planoService from "@/services/plano";
 import { cloneDeepWith, find, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {

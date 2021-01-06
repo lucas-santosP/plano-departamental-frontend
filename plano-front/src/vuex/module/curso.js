@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { orderBy, cloneDeepWith, filter } from "lodash-es";
-import cursoService from "../../common/services/curso";
+import cursoService from "../../services/curso";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import ls from "local-storage";
 import {

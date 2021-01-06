@@ -1,4 +1,4 @@
-import { HTTP_REQUEST_INCREMENT, HTTP_REQUEST_DECREMENT } from "../../vuex/mutation-types";
+import { HTTP_REQUEST_INCREMENT, HTTP_REQUEST_DECREMENT } from "@/vuex/mutation-types";
 import axios from "axios";
 import VueAxios from "vue-axios";
 

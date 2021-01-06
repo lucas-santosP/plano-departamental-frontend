@@ -237,7 +237,7 @@
 
 <script>
 import { clone, find, filter, orderBy } from "lodash-es";
-import disciplinaGradeCursoExternoService from "@/common/services/disciplinaGradeCursoExterno";
+import disciplinaGradeCursoExternoService from "@/services/disciplinaGradeCursoExterno";
 import { maskOnlyNumber } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";

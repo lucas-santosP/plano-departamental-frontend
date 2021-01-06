@@ -201,9 +201,9 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
-import copyPlanoService from "@/common/services/copyPlano";
-import planoService from "@/common/services/plano";
-import conceitoTurmaCursoService from "@/common/services/conceitoTurmaCurso";
+import copyPlanoService from "@/services/copyPlano";
+import planoService from "@/services/plano";
+import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
 import { generateBooleanText, normalizeInputText, maskLimitLength } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";

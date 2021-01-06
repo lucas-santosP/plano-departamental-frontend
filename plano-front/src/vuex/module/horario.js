@@ -1,5 +1,5 @@
 import Vue from "vue";
-import horarioService from "../../common/services/horario";
+import horarioService from "../../services/horario";
 import { orderBy, find, filter } from "lodash-es";
 import {
   HORARIO_FETCHED,

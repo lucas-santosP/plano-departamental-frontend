@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import store from "./vuex/store";
 import router from "./router";
-import axios from "./common/services/axios";
+import axios from "./services/axios";
 import { sync } from "vuex-router-sync";
 import SocketIoInstance from "./socketInstance.js";
 import VueSocketio from "vue-socket.io";

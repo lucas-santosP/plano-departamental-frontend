@@ -404,7 +404,7 @@
 
 <script>
 import ls from "local-storage";
-import xlsx from "@/common/services/xlsx";
+import xlsx from "@/services/xlsx";
 import { mapGetters, mapActions } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
 import { saveAs } from "file-saver";

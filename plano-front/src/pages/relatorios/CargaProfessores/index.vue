@@ -198,7 +198,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, some, filter, orderBy } from "lodash-es";
-import { pdfCargaProfessores } from "@/common/services/pdfs";
+import { pdfCargaProfessores } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,

@@ -399,7 +399,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, find, filter, orderBy } from "lodash-es";
-import turmaService from "@/common/services/turma";
+import turmaService from "@/services/turma";
 import { normalizeText, generateEmptyTurma } from "@/common/utils";
 import {
   toggleAsideModal,

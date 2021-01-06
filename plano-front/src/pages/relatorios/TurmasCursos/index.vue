@@ -200,7 +200,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { find, orderBy, filter, some } from "lodash-es";
-import { pdfTurmasCursos } from "@/common/services/pdfs";
+import { pdfTurmasCursos } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -215,7 +215,7 @@ import {
   ModalDownloadTurmasCursos,
 } from "@/components/modals";
 import { InputSearch } from "@/components/ui";
-import downloadService from "@/common/services/download";
+import downloadService from "@/services/download";
 import { saveAs } from "file-saver";
 
 export default {

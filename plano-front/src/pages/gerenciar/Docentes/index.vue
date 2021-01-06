@@ -185,8 +185,8 @@
 <script>
 import { mapGetters } from "vuex";
 import { clone, filter, orderBy } from "lodash-es";
-import docenteService from "@/common/services/docente";
-import docentePerfilService from "@/common/services/docentePerfil";
+import docenteService from "@/services/docente";
+import docentePerfilService from "@/services/docentePerfil";
 import { toggleItemInArray, generateBooleanText, normalizeInputText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";

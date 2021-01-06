@@ -1,5 +1,5 @@
 import Vue from "vue";
-import disciplinaGradeCursoExternoService from "../../common/services/disciplinaGradeCursoExterno";
+import disciplinaGradeCursoExternoService from "../../services/disciplinaGradeCursoExterno";
 import {
   DISCIPLINA_GRADE_CURSO_EXTERNO_FETCHED,
   SOCKET_DISCIPLINA_GRADE_CURSO_EXTERNO_CREATED,

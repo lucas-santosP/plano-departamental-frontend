@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { cloneDeepWith } from "lodash-es";
-import pedidoExternoService from "../../common/services/pedidoExterno";
+import pedidoExternoService from "../../services/pedidoExterno";
 import { setEmptyValuesToNull } from "@/common/utils";
 import {
   PEDIDO_EXTERNO_FETCHED,

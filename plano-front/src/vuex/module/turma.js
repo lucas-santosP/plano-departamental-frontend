@@ -1,5 +1,5 @@
 import Vue from "vue";
-import turmaService from "../../common/services/turma";
+import turmaService from "../../services/turma";
 import { find, cloneDeepWith, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {

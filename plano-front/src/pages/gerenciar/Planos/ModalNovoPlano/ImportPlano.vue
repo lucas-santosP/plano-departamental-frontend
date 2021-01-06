@@ -49,7 +49,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { find, some } from "lodash-es";
 import XLSX from "xlsx";
-import planoService from "@/common/services/plano";
+import planoService from "@/services/plano";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
 
 export default {

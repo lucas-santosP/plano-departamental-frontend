@@ -155,7 +155,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { clone, orderBy } from "lodash-es";
-import salaService from "@/common/services/sala";
+import salaService from "@/services/sala";
 import { generateBooleanText, maskOnlyNumber, normalizeInputText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";

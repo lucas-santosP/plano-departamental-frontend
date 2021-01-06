@@ -1,5 +1,5 @@
 import Vue from "vue";
-import gradeCursoExternoService from "../../common/services/gradeCursoExterno";
+import gradeCursoExternoService from "../../services/gradeCursoExterno";
 import { cloneDeepWith, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {

@@ -35,8 +35,8 @@
 
 <script>
 import { saveAs } from "file-saver";
-import xlsxService from "@/common/services/xlsx";
-import downloadService from "@/common/services/download";
+import xlsxService from "@/services/xlsx";
+import downloadService from "@/services/download";
 
 export default {
   name: "ModalDownload",

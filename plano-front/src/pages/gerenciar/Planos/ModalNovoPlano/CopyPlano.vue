@@ -71,11 +71,11 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, find, filter, orderBy, some } from "lodash-es";
-import planoService from "@/common/services/plano";
-import turmaService from "@/common/services/turma";
-import pedidoService from "@/common/services/pedido";
-import pedidoExternoService from "@/common/services/pedidoExterno";
-import turmaExternaService from "@/common/services/turmaExterna";
+import planoService from "@/services/plano";
+import turmaService from "@/services/turma";
+import pedidoService from "@/services/pedido";
+import pedidoExternoService from "@/services/pedidoExterno";
+import turmaExternaService from "@/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import { toggleItemInArray, preventClickSelection } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";

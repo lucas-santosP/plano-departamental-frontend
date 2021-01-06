@@ -155,7 +155,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { orderBy, clone } from "lodash-es";
-import perfilService from "@/common/services/perfil";
+import perfilService from "@/services/perfil";
 import { normalizeInputText, maskLimitLength } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";

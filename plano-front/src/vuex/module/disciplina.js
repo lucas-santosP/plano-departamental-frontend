@@ -1,5 +1,5 @@
 import Vue from "vue";
-import disciplinaService from "../../common/services/disciplina";
+import disciplinaService from "../../services/disciplina";
 import { orderBy, cloneDeepWith, filter, find } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {

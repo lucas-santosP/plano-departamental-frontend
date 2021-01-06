@@ -234,8 +234,8 @@
 
 <script>
 import { clone, find, filter, orderBy } from "lodash-es";
-import disciplinaGradeService from "@/common/services/disciplinaGrade";
-import gradeService from "@/common/services/grade";
+import disciplinaGradeService from "@/services/disciplinaGrade";
+import gradeService from "@/services/grade";
 import { maskOnlyNumber } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
