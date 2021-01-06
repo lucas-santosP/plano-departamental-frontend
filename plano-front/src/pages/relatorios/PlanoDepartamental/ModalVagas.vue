@@ -94,7 +94,7 @@ import { orderBy, find, filter } from "lodash-es";
 export default {
   name: "ModalVagas",
   props: {
-    turma: { type: Object | null, required: true },
+    turma: { type: [Object, null], required: true },
   },
   data() {
     return {

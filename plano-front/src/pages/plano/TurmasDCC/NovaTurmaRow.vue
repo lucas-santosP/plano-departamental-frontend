@@ -181,7 +181,7 @@ import { maskTurmaLetra } from "@/common/mixins";
 export default {
   name: "NovaTurmaRow",
   mixins: [maskTurmaLetra],
-  props: { cursosAtivadosLength: Number, default: 0 },
+  props: { cursosAtivadosLength: { type: Number, default: 0 } },
   data() {
     return {
       turmaForm: generateEmptyTurma({ periodo: 1, letra: "A" }),
