@@ -1,7 +1,6 @@
 <template>
   <transition :name="customAnimation">
     <div
-      @click.stop
       v-if="visibility"
       :class="['modal-custom', options.customClasses]"
       :style="options.typeStyles"
@@ -30,7 +29,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/plugins/eventBus.js";
+import { mapActions, mapGetters } from "vuex";
 const positions = {
   right: {
     top: "80px",
@@ -66,12 +65,13 @@ export default {
     document.addEventListener("keydown", this.closeOnEscKey);
   },
   beforeDestroy() {
-    this.$off("on-close");
-    this.$store.commit("HIDE_MODAL_OVERLAY");
+    this.setModalOverlayVisibility(false);
     document.removeEventListener("keydown", this.closeOnEscKey);
   },
 
   methods: {
+    ...mapActions(["setModalOverlayVisibility"]),
+
     close() {
       this.visibility = false;
     },
@@ -90,6 +90,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["modalOverlayVisibility"]),
+
     options() {
       const typeStyles = [];
       let { type, position, hasBackground, title, hasFooter, styles } = this;
@@ -163,18 +165,14 @@ export default {
 
   watch: {
     visibility(newValue) {
-      if (newValue) {
-        if (this.options.hasBackground) {
-          this.$store.commit("SHOW_MODAL_OVERLAY");
-          EventBus.$on("close-modal", this.close);
-        }
-      } else {
-        this.$emit("on-close");
-
-        if (this.options.hasBackground) {
-          this.$store.commit("HIDE_MODAL_OVERLAY");
-          EventBus.$off("close-modal");
-        }
+      if (this.options.hasBackground) {
+        this.setModalOverlayVisibility(newValue);
+      }
+    },
+    modalOverlayVisibility(newValue) {
+      //Para fechar o modal quando clicar no olverlay
+      if (this.options.hasBackground && !newValue && newValue !== this.visibility) {
+        this.close();
       }
     },
   },

@@ -16,7 +16,7 @@
     <div
       v-if="modalOverlayVisibility"
       class="base-modal-overlay"
-      @click.stop="emitCloseCenterModal"
+      @click.stop="setModalOverlayVisibility(false)"
     ></div>
 
     <ModalUser ref="modalUser" />
@@ -28,20 +28,13 @@
 import { mapGetters, mapActions } from "vuex";
 import { find, pull } from "lodash-es";
 import bddumpService from "@/services/bddump";
-import { EventBus } from "@/plugins/eventBus.js";
 import { TheNavbar, TheSidebar, ThePageHeader } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";
 import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
 
 export default {
   name: "TheDashboard",
-  components: {
-    TheSidebar,
-    TheNavbar,
-    ThePageHeader,
-    ModalUser,
-    ModalDownload,
-  },
+  components: { TheSidebar, TheNavbar, ThePageHeader, ModalUser, ModalDownload },
   data() {
     return {
       modalCallbacks: {
@@ -75,11 +68,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(["initializeCurrentPlano", "changeCurrentPlano", "closeSidebar"]),
+    ...mapActions([
+      "initializeCurrentPlano",
+      "changeCurrentPlano",
+      "closeSidebar",
+      "setModalOverlayVisibility",
+    ]),
 
-    emitCloseCenterModal() {
-      EventBus.$emit("close-modal");
-    },
     returnFiles() {
       bddumpService.returnFiles().then((response) => {
         this.files = response.Files.filter(function(elm) {
