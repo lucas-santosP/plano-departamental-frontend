@@ -45,7 +45,7 @@ Vue.mixin({
 
 //css
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/global.css";
+import "./assets/styles/global.css";
 
 Vue.config.productionTip = false;
 
