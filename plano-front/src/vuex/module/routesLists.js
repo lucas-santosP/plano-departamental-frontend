@@ -57,7 +57,8 @@ const state = {
       path: "/relatorios/grades-outros",
       title: "Grades - Outros",
       icon: "file-alt",
-      description: `Listagem de todas as disciplinas que compõem as grades dos outros cursos, mostrando a qual período e semestre cada disciplina pertence.`,
+      description:
+        "Listagem de todas as disciplinas que compõem as grades dos outros cursos, mostrando a qual período e semestre cada disciplina pertence.",
     },
     {
       path: "/relatorios/horarios-cursos",
