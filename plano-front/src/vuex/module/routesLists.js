@@ -1,7 +1,7 @@
 import { orderBy } from "lodash-es";
 
 const state = {
-  routesHome: [
+  RoutesHome: [
     {
       path: "/home",
       icon: "home",
@@ -9,7 +9,7 @@ const state = {
       description: "Página inicial.",
     },
   ],
-  routesPlano: [
+  RoutesPlano: [
     {
       path: "/plano/turmas-dcc",
       title: "Graduação - DCC",
@@ -38,7 +38,7 @@ const state = {
         "Listagem de pendências que precisam ser resolvidas para a finalização do Plano Departamental.",
     },
   ],
-  routesRelatorios: [
+  RoutesRelatorios: [
     {
       path: "/relatorios/carga-professores",
       title: "Carga Professores",
@@ -86,7 +86,7 @@ const state = {
       description: "Listagem de turmas alocadas para cada curso.",
     },
   ],
-  routesGerenciar: [
+  RoutesGerenciar: [
     {
       path: "/gerenciar/cursos",
       title: "Cursos",
@@ -179,7 +179,7 @@ const state = {
         "Listagem de todos os usuários presentes no sistema, permitindo a adição e a alteração de usuários.",
     },
   ],
-  routesHistorico: [
+  RoutesHistorico: [
     {
       path: "/historico/buscar-turmas",
       title: "Buscar Turmas - DCC",
@@ -190,29 +190,29 @@ const state = {
 };
 
 const getters = {
-  allRoutes() {
-    return state.routesHome.concat(
-      state.routesPlano,
-      state.routesRelatorios,
-      state.routesGerenciar,
-      state.routesHistorico
+  AllRoutes() {
+    return state.RoutesHome.concat(
+      state.RoutesPlano,
+      state.RoutesRelatorios,
+      state.RoutesGerenciar,
+      state.RoutesHistorico
     );
   },
 
-  routesHome(state) {
-    return state.routesHome;
+  RoutesHome(state) {
+    return state.RoutesHome;
   },
-  routesPlano(state) {
-    return state.routesPlano;
+  RoutesPlano(state) {
+    return state.RoutesPlano;
   },
-  routesRelatorios(state) {
-    return orderBy(state.routesRelatorios, ["title"]);
+  RoutesRelatorios(state) {
+    return orderBy(state.RoutesRelatorios, ["title"]);
   },
-  routesGerenciar(state) {
-    return orderBy(state.routesGerenciar, ["title"]);
+  RoutesGerenciar(state) {
+    return orderBy(state.RoutesGerenciar, ["title"]);
   },
-  routesHistorico(state) {
-    return orderBy(state.routesHistorico, ["title"]);
+  RoutesHistorico(state) {
+    return orderBy(state.RoutesHistorico, ["title"]);
   },
 };
 

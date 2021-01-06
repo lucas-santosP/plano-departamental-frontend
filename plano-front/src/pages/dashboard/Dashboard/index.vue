@@ -89,10 +89,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos", "allRoutes"]),
+    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos", "AllRoutes"]),
 
     currentPageTitle() {
-      const currentPage = this.allRoutes.find((route) => route.path === this.$route.path);
+      const currentPage = this.AllRoutes.find((route) => route.path === this.$route.path);
       return currentPage ? currentPage.title : "Pagina nao encontrado!";
     },
   },
