@@ -957,7 +957,8 @@ async function pdfHorariosLabs({ laboratorios, turmas, periodosAtivos, plano }) 
   pdfMake.createPdf(docDefinition).open();
 }
 
-async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos, plano }) {
+async function pdfCargaProfessores(data) {
+  const { docentesCarga, docenteSemAlocacaoCarga, periodosAtivos, plano } = data;
   const logoDcc = await imageToDataUrl(urlLogoDcc);
   const logoUfjf = await imageToDataUrl(urlLogoUfjf);
   const tables = [];
@@ -970,26 +971,20 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
     })
   );
 
-  if ((!docentes.length && !semAlocacaoAtivo) || !periodosAtivos.length) {
+  if ((!docentesCarga.length && !docenteSemAlocacaoCarga) || !periodosAtivos.length) {
     tables.push(makeEmptyPageWarning());
   } else {
-    const docentesOrdered = orderBy(docentes, "nome");
-    const periodos1semestre = filter(periodosAtivos, ["semestreId", 1]);
-    const periodos2semestre = filter(periodosAtivos, ["semestreId", 2]);
+    const docentesOrdered = orderBy(docentesCarga, "nome");
     let possuiAlgumaTurmas = false;
 
-    for (let i = 0; i < docentesOrdered.length; i++) {
-      const turmas1Semestre = getTurmasDoDocente(docentesOrdered[i], periodos1semestre);
-      const turmas2Semestre = getTurmasDoDocente(docentesOrdered[i], periodos2semestre);
-      const cargaPos1Semestre = getCargaPosDoDocente(docentesOrdered[i], periodos1semestre);
-      const cargaPos2Semestre = getCargaPosDoDocente(docentesOrdered[i], periodos2semestre);
-
+    docentesOrdered.forEach((docente) => {
       if (
-        turmas1Semestre.length ||
-        turmas2Semestre.length ||
-        cargaPos1Semestre.length ||
-        cargaPos2Semestre.length
+        docente.turmas.semestre1.length ||
+        docente.turmas.semestre2.length ||
+        docente.cargasPos.semestre2.length ||
+        docente.cargasPos.semestre2.length
       ) {
+        possuiAlgumaTurmas = true;
         tables.push({
           style: "tableExample",
           table: {
@@ -998,16 +993,9 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
             color: "#426",
             body: [
               [
+                { text: docente.nome, alignment: "left", fontSize: 9, bold: true },
                 {
-                  text: docentesOrdered[i].nome,
-                  alignment: "left",
-                  fontSize: 9,
-                  bold: true,
-                },
-                {
-                  text:
-                    "Carga total: " +
-                    (creditos1(docentesOrdered[i]) + creditos2(docentesOrdered[i])),
+                  text: `Carga total: ${docente.creditos1Semestre + docente.creditos2Semestre}`,
                   alignment: "center",
                   fontSize: 9,
                   bold: true,
@@ -1015,292 +1003,66 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
               ],
             ],
           },
-          layout: {
-            vLineWidth: function() {
-              return 0;
-            },
-          },
+          layout: { vLineWidth: () => 0 },
         });
-        possuiAlgumaTurmas = true;
-
-        const tableDocenteBody = [
+        const tableBodyDocente = [
           [
             "",
-            {
-              text: "S.",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Cód.",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Disciplina",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Turma",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "Horário",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "CS1",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
-            {
-              text: "CS2",
-              alignment: "center",
-              fontSize: 8,
-              bold: true,
-            },
+            { text: "S.", fontSize: 8, bold: true },
+            { text: "Cód.", fontSize: 8, bold: true },
+            { text: "Disciplina", fontSize: 8, bold: true },
+            { text: "Turma", alignment: "center", fontSize: 8, bold: true },
+            { text: "Horário", alignment: "center", fontSize: 8, bold: true },
+            { text: "CS1", alignment: "center", fontSize: 8, bold: true },
+            { text: "CS2", alignment: "center", fontSize: 8, bold: true },
           ],
         ];
 
-        for (let j = 0; j < turmas1Semestre.length; j++) {
-          var disciplina = undefined;
-          var horario1 = undefined;
-          var horario2 = undefined;
-          var horarioTotal;
-          var c1 = 0;
-          var c2 = 0;
-          for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-            if (turmas1Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
-              disciplina = store.state.disciplina.Disciplinas[k];
-            }
-          }
-          for (var l = 0; l < store.state.horario.Horarios.length; l++) {
-            if (turmas1Semestre[j].Horario1 === store.state.horario.Horarios[l].id) {
-              horario1 = store.state.horario.Horarios[l];
-            }
-          }
+        store.getters.SemestresLetivos.forEach((semestre) => {
+          docente.turmas[`semestre${semestre.id}`].forEach((turma) => {
+            tableBodyDocente.push([
+              "",
+              { text: turma.periodo, fontSize: 6, alignment: "left" },
+              { text: turma.disciplina.codigo, fontSize: 6, alignment: "left" },
+              { text: turma.disciplina.nome, fontSize: 6, alignment: "left" },
+              { text: turma.letra, fontSize: 6, alignment: "center" },
+              { text: generateHorariosText(turma, " / "), fontSize: 6, alignment: "center" },
+              {
+                text: is1Semestre(turma.periodo) ? turma.creditosDaTurma : "",
+                fontSize: 6,
+                alignment: "center",
+              },
+              {
+                text: is2Semestre(turma.periodo) ? turma.creditosDaTurma : "",
+                fontSize: 6,
+                alignment: "center",
+              },
+            ]);
+          });
 
-          for (var m = 0; m < store.state.horario.Horarios.length; m++) {
-            if (turmas1Semestre[j].Horario2 === store.state.horario.Horarios[m].id) {
-              horario2 = store.state.horario.Horarios[m];
-            }
-          }
-          if (horario1 === undefined && horario2 === undefined) {
-            horarioTotal = "";
-          } else if (horario2 === undefined) {
-            horarioTotal = horario1.horario;
-          } else if (horario1 === undefined) {
-            horarioTotal = horario2.horario;
-          } else {
-            horarioTotal = horario1.horario + "/" + horario2.horario;
-          }
+          docente.cargasPos[`semestre${semestre.id}`].forEach((carga) => {
+            tableBodyDocente.push([
+              "",
+              { text: carga.trimestre, fontSize: 6, alignment: "left" },
+              "",
+              { text: "DISCIPLINA DO " + carga.programa, fontSize: 6, alignment: "left" },
+              "",
+              "",
+              {
+                text: is1Semestre(carga.trimestre) ? carga.creditos : "",
+                fontSize: 6,
+                alignment: "center",
+              },
+              {
+                text: is2Semestre(carga.trimestre) ? carga.creditos : "",
+                fontSize: 6,
+                alignment: "center",
+              },
+            ]);
+          });
+        });
 
-          if (turmas1Semestre[j].periodo === 1 || turmas1Semestre[j].periodo === 2) {
-            if (turmas1Semestre[j].Docente1 > 0 && turmas1Semestre[j].Docente2 > 0)
-              c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-            else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
-          } else {
-            if (turmas1Semestre[j].Docente1 > 0 && turmas1Semestre[j].Docente2 > 0)
-              c2 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-            else c2 = disciplina.cargaTeorica + disciplina.cargaPratica;
-          }
-          tableDocenteBody.push([
-            "",
-            {
-              text: turmas1Semestre[j].periodo,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: disciplina.codigo,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: disciplina.nome,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: turmas1Semestre[j].letra,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: horarioTotal,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c1 === 0 ? "" : c1,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c2 === 0 ? "" : c2,
-              fontSize: 6,
-              alignment: "center",
-            },
-          ]);
-        }
-        for (let n = 0; n < cargaPos1Semestre.length; n++) {
-          var c1 = 0;
-          var c2 = 0;
-          if (cargaPos1Semestre[n].trimestre === 1 || cargaPos1Semestre[n].trimestre === 2) {
-            c1 = cargaPos1Semestre[n].creditos;
-          } else {
-            c2 = cargaPos1Semestre[n].creditos;
-          }
-          tableDocenteBody.push([
-            "",
-            {
-              text: cargaPos1Semestre[n].trimestre,
-              fontSize: 6,
-              alignment: "left",
-            },
-            "",
-            {
-              text: "DISCIPLINA DO " + cargaPos1Semestre[n].programa,
-              fontSize: 6,
-              alignment: "left",
-            },
-            "",
-            "",
-            {
-              text: c1 === 0 ? "" : c1,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c2 === 0 ? "" : c2,
-              fontSize: 6,
-              alignment: "center",
-            },
-          ]);
-        }
-
-        for (let j = 0; j < turmas2Semestre.length; j++) {
-          var disciplina = undefined;
-          var horario1 = undefined;
-          var horario2 = undefined;
-          var c1 = 0;
-          var c2 = 0;
-          for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-            if (turmas2Semestre[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
-              disciplina = store.state.disciplina.Disciplinas[k];
-            }
-          }
-          for (var l = 0; l < store.state.horario.Horarios.length; l++) {
-            if (turmas2Semestre[j].Horario1 === store.state.horario.Horarios[l].id) {
-              horario1 = store.state.horario.Horarios[l];
-            }
-          }
-
-          for (var m = 0; m < store.state.horario.Horarios.length; m++) {
-            if (turmas2Semestre[j].Horario2 === store.state.horario.Horarios[m].id) {
-              horario2 = store.state.horario.Horarios[m];
-            }
-          }
-          if (horario1 === undefined && horario2 === undefined) {
-            horarioTotal = "";
-          } else if (horario2 === undefined) {
-            var horarioTotal = horario1.horario;
-          } else if (horario1 === undefined) {
-            var horarioTotal = horario2.horario;
-          } else {
-            var horarioTotal = horario1.horario + "/" + horario2.horario;
-          }
-          if (turmas2Semestre[j].periodo === 1 || turmas2Semestre[j].periodo === 2) {
-            if (turmas2Semestre[j].Docente1 > 0 && turmas2Semestre[j].Docente2 > 0)
-              c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-            else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
-          } else {
-            if (turmas2Semestre[j].Docente1 > 0 && turmas2Semestre[j].Docente2 > 0)
-              c2 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-            else c2 = disciplina.cargaTeorica + disciplina.cargaPratica;
-          }
-          tableDocenteBody.push([
-            "",
-            {
-              text: turmas2Semestre[j].periodo,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: disciplina.codigo,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: disciplina.nome,
-              fontSize: 6,
-              alignment: "left",
-            },
-            {
-              text: turmas2Semestre[j].letra,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: horarioTotal,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c1 === 0 ? "" : c1,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c2 === 0 ? "" : c2,
-              fontSize: 6,
-              alignment: "center",
-            },
-          ]);
-        }
-        for (let n = 0; n < cargaPos2Semestre.length; n++) {
-          let c1 = 0;
-          let c2 = 0;
-          if (cargaPos2Semestre[n].trimestre === 1 || cargaPos2Semestre[n].trimestre === 2) {
-            c1 = cargaPos2Semestre[n].creditos;
-          } else {
-            c2 = cargaPos2Semestre[n].creditos;
-          }
-          tableDocenteBody.push([
-            "",
-            {
-              text: cargaPos2Semestre[n].trimestre,
-              fontSize: 6,
-              alignment: "left",
-            },
-            "",
-            {
-              text: "DISCIPLINA DO " + cargaPos2Semestre[n].programa,
-              fontSize: 6,
-              alignment: "left",
-            },
-            "",
-            "",
-            {
-              text: c1 === 0 ? "" : c1,
-              fontSize: 6,
-              alignment: "center",
-            },
-            {
-              text: c2 === 0 ? "" : c2,
-              fontSize: 6,
-              alignment: "center",
-            },
-          ]);
-        }
-
-        tableDocenteBody.push([
+        tableBodyDocente.push([
           "",
           "",
           "",
@@ -1314,72 +1076,63 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
             margin: [0, 5, 0, 0],
           },
           {
-            text: creditos1(docentesOrdered[i]),
+            text: docente.creditos1Semestre,
             fontSize: 6,
             alignment: "center",
             bold: true,
             margin: [0, 5, 0, 0],
           },
           {
-            text: creditos2(docentesOrdered[i]),
+            text: docente.creditos2Semestre,
             fontSize: 6,
             alignment: "center",
             bold: true,
             margin: [0, 5, 0, 0],
           },
         ]);
+
         tables.push({
           style: "tableExample",
           table: {
             widths: [20, 8, 40, "*", 24, 104, 32, 32],
             headerRows: 1,
             color: "#426",
-            body: tableDocenteBody,
+            body: tableBodyDocente,
           },
-          layout: {
-            vLineWidth: function() {
-              return 0;
-            },
-            hLineWidth: function() {
-              return 0;
-            },
-          },
+          layout: { vLineWidth: () => 0, hLineWidth: () => 0 },
           margin: [0, 0, 0, 5],
         });
       }
-    }
+    });
 
-    let turmasSemAlocacao = [];
-    if (semAlocacaoAtivo) turmasSemAlocacao = getTurmasSemAlocacao(periodosAtivos);
-
-    if (turmasSemAlocacao.length) {
+    if (docenteSemAlocacaoCarga && docenteSemAlocacaoCarga.turmas.length) {
+      possuiAlgumaTurmas = true;
       tables.push({
         style: "tableExample",
         table: {
-          widths: ["*", 32, 32],
+          widths: ["*", 75],
           headerRows: 1,
           color: "#426",
           body: [
             [
+              { text: docenteSemAlocacaoCarga.nome, alignment: "left", fontSize: 9, bold: true },
               {
-                text: "SEM ALOCAÇÃO",
-                alignment: "left",
+                text: `Carga total: ${
+                  docenteSemAlocacaoCarga.creditos1Semestre +
+                  docenteSemAlocacaoCarga.creditos2Semestre
+                }`,
+                alignment: "center",
                 fontSize: 9,
                 bold: true,
               },
-              "",
-              "",
             ],
           ],
         },
         layout: {
-          vLineWidth: function() {
-            return 0;
-          },
+          vLineWidth: () => 0,
         },
       });
-      possuiAlgumaTurmas = true;
-      let tableSemAlocacaoBody = [
+      let tableBodyDocenteSemAlocacao = [
         [
           "",
           {
@@ -1424,85 +1177,55 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
         ],
       ];
 
-      for (var j = 0; j < turmasSemAlocacao.length; j++) {
-        var disciplina = undefined;
-        var horario1 = undefined;
-        var horario2 = undefined;
-        var c1 = 0;
-        var c2 = 0;
-        for (var k = 0; k < store.state.disciplina.Disciplinas.length; k++) {
-          if (turmasSemAlocacao[j].Disciplina === store.state.disciplina.Disciplinas[k].id) {
-            disciplina = store.state.disciplina.Disciplinas[k];
-          }
-        }
-        for (var l = 0; l < store.state.horario.Horarios.length; l++) {
-          if (turmasSemAlocacao[j].Horario1 === store.state.horario.Horarios[l].id) {
-            horario1 = store.state.horario.Horarios[l];
-          }
-        }
-
-        for (var m = 0; m < store.state.horario.Horarios.length; m++) {
-          if (turmasSemAlocacao[j].Horario2 === store.state.horario.Horarios[m].id) {
-            horario2 = store.state.horario.Horarios[m];
-          }
-        }
-        if (horario1 === undefined && horario2 === undefined) {
-          horarioTotal = "";
-        } else if (horario2 === undefined) {
-          var horarioTotal = horario1.horario;
-        } else if (horario1 === undefined) {
-          var horarioTotal = horario2.horario;
-        } else {
-          var horarioTotal = horario1.horario + "/" + horario2.horario;
-        }
-        if (turmasSemAlocacao[j].periodo === 1 || turmasSemAlocacao[j].periodo === 2) {
-          if (turmasSemAlocacao[j].Docente1 > 0 && turmasSemAlocacao[j].Docente2 > 0)
-            c1 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-          else c1 = disciplina.cargaTeorica + disciplina.cargaPratica;
-        } else {
-          if (turmasSemAlocacao[j].Docente1 > 0 && turmasSemAlocacao[j].Docente2 > 0)
-            c2 = (disciplina.cargaTeorica + disciplina.cargaPratica) / 2;
-          else c2 = disciplina.cargaTeorica + disciplina.cargaPratica;
-        }
-        tableSemAlocacaoBody.push([
+      docenteSemAlocacaoCarga.turmas.forEach((turma) => {
+        tableBodyDocenteSemAlocacao.push([
           "",
+          { text: turma.periodo, fontSize: 6, alignment: "left" },
+          { text: turma.disciplina.codigo, fontSize: 6, alignment: "left" },
+          { text: turma.disciplina.nome, fontSize: 6, alignment: "left" },
+          { text: turma.letra, fontSize: 6, alignment: "center" },
+          { text: generateHorariosText(turma, " / "), fontSize: 6, alignment: "center" },
           {
-            text: turmasSemAlocacao[j].periodo,
-            fontSize: 6,
-            alignment: "left",
-          },
-          {
-            text: disciplina.codigo,
-            fontSize: 6,
-            alignment: "left",
-          },
-          {
-            text: disciplina.nome,
-            fontSize: 6,
-            alignment: "left",
-          },
-          {
-            text: turmasSemAlocacao[j].letra,
+            text: is1Semestre(turma.periodo) ? turma.creditosDaTurma : "",
             fontSize: 6,
             alignment: "center",
           },
           {
-            text: horarioTotal,
-            fontSize: 6,
-            alignment: "center",
-          },
-          {
-            text: c1 === 0 ? "" : c1,
-            fontSize: 6,
-            alignment: "center",
-          },
-          {
-            text: c2 === 0 ? "" : c2,
+            text: is2Semestre(turma.periodo) ? turma.creditosDaTurma : "",
             fontSize: 6,
             alignment: "center",
           },
         ]);
-      }
+      });
+
+      tableBodyDocenteSemAlocacao.push([
+        "",
+        "",
+        "",
+        "",
+        "",
+        {
+          text: "CARGA POR SEMESTRE:",
+          fontSize: 6,
+          alignment: "right",
+          bold: true,
+          margin: [0, 5, 0, 0],
+        },
+        {
+          text: docenteSemAlocacaoCarga.creditos1Semestre,
+          fontSize: 6,
+          alignment: "center",
+          bold: true,
+          margin: [0, 5, 0, 0],
+        },
+        {
+          text: docenteSemAlocacaoCarga.creditos2Semestre,
+          fontSize: 6,
+          alignment: "center",
+          bold: true,
+          margin: [0, 5, 0, 0],
+        },
+      ]);
 
       tables.push({
         style: "tableExample",
@@ -1510,16 +1233,9 @@ async function pdfCargaProfessores({ docentes, semAlocacaoAtivo, periodosAtivos,
           widths: [20, 8, 40, "*", 24, 104, 32, 32],
           headerRows: 1,
           color: "#426",
-          body: tableSemAlocacaoBody,
+          body: tableBodyDocenteSemAlocacao,
         },
-        layout: {
-          vLineWidth: function() {
-            return 0;
-          },
-          hLineWidth: function() {
-            return 0;
-          },
-        },
+        layout: { vLineWidth: () => 0, hLineWidth: () => 0 },
         margin: [0, 0, 0, 5],
       });
     }
@@ -1660,7 +1376,7 @@ async function pdfTurmasCursos({ cursos, periodos, plano }) {
               { text: turma.disciplina.nome, alignment: "left", fontSize: 6, bold: false },
               { text: turma.letra, alignment: "center", fontSize: 6, bold: false },
               {
-                text: generateHorariosText(turma, "/"),
+                text: generateHorariosText(turma, " / "),
                 alignment: "center",
                 fontSize: 6,
                 bold: false,
@@ -1773,119 +1489,6 @@ function checkTurmaHorario(turma, horario) {
   else return false;
 }
 
-function getTurmasDoDocente(docente, periodosAtivos) {
-  if (!periodosAtivos.length) return [];
-
-  const turmasFiltered = filter(
-    store.getters.TurmasInDisciplinasPerfis,
-    (turma) =>
-      (turma.Docente1 === docente.id || turma.Docente2 === docente.id) &&
-      some(periodosAtivos, ["id", turma.periodo])
-  );
-
-  return orderBy(turmasFiltered, ["periodo", "disciplina.nome", "letra"]);
-}
-
-function getTurmasSemAlocacao(periodosAtivos) {
-  if (!periodosAtivos.length) return [];
-
-  const turmasFiltered = filter(
-    store.getters.TurmasInDisciplinasPerfis,
-    (turma) =>
-      turma.Docente1 == null &&
-      turma.Docente2 == null &&
-      turma.Disciplina != null &&
-      some(periodosAtivos, ["id", turma.periodo])
-  );
-
-  return orderBy(turmasFiltered, ["periodo", "disciplina.nome", "letra"]);
-}
-
-function getCargaPosDoDocente(docente, periodosAtivos) {
-  if (!periodosAtivos.length) return [];
-
-  const cargaposFiltered = filter(
-    store.getters.AllCargasPos,
-    (carga) => carga.Docente === docente.id && some(periodosAtivos, ["id", carga.trimestre])
-  );
-
-  return orderBy(cargaposFiltered, "trimestre");
-}
-
-function creditos1(professor) {
-  var c = 0;
-  for (let t = 0; t < store.state.turma.Turmas.length; t++) {
-    if (
-      (store.state.turma.Turmas[t].periodo === 1 || store.state.turma.Turmas[t].periodo === 2) &&
-      (store.state.turma.Turmas[t].Docente1 === professor.id ||
-        store.state.turma.Turmas[t].Docente2 === professor.id)
-    ) {
-      for (let d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
-        if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
-          if (
-            store.state.turma.Turmas[t].Docente1 > 0 &&
-            store.state.turma.Turmas[t].Docente2 > 0
-          ) {
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaPratica) / 2;
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaTeorica) / 2;
-          } else {
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaPratica);
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaTeorica);
-          }
-        }
-      }
-    }
-  }
-  for (let t = 0; t < store.state.cargaPos.Cargas.length; t++) {
-    if (store.state.cargaPos.Cargas[t].Docente === professor.id) {
-      if (
-        store.state.cargaPos.Cargas[t].trimestre == 1 ||
-        store.state.cargaPos.Cargas[t].trimestre == 2
-      ) {
-        c += parseFloat(store.state.cargaPos.Cargas[t].creditos);
-      }
-    }
-  }
-  return c;
-}
-
-function creditos2(professor) {
-  var c = 0;
-  for (let t = 0; t < store.state.turma.Turmas.length; t++) {
-    if (
-      (store.state.turma.Turmas[t].periodo === 3 || store.state.turma.Turmas[t].periodo === 4) &&
-      (store.state.turma.Turmas[t].Docente1 === professor.id ||
-        store.state.turma.Turmas[t].Docente2 === professor.id)
-    ) {
-      for (let d = 0; d < store.state.disciplina.Disciplinas.length; d++) {
-        if (store.state.disciplina.Disciplinas[d].id === store.state.turma.Turmas[t].Disciplina) {
-          if (
-            store.state.turma.Turmas[t].Docente1 > 0 &&
-            store.state.turma.Turmas[t].Docente2 > 0
-          ) {
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaPratica) / 2;
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaTeorica) / 2;
-          } else {
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaPratica);
-            c += parseFloat(store.state.disciplina.Disciplinas[d].cargaTeorica);
-          }
-        }
-      }
-    }
-  }
-  for (let t = 0; t < store.state.cargaPos.Cargas.length; t++) {
-    if (store.state.cargaPos.Cargas[t].Docente === professor.id) {
-      if (
-        store.state.cargaPos.Cargas[t].trimestre == 3 ||
-        store.state.cargaPos.Cargas[t].trimestre == 4
-      ) {
-        c += parseFloat(store.state.cargaPos.Cargas[t].creditos);
-      }
-    }
-  }
-  return c;
-}
-
 function generateDocentesText(turma) {
   let d1 = find(store.state.docente.Docentes, { id: turma.Docente1 });
   let d2 = find(store.state.docente.Docentes, { id: turma.Docente2 });
@@ -1972,6 +1575,14 @@ function getTurmasDoCurso(turmas, cursoId) {
 
 function getTurmasDaSala(turmas, salaId) {
   return filter(turmas, (turma) => turma.Sala1 === salaId || turma.Sala2 === salaId);
+}
+
+function is1Semestre(value) {
+  return value === 1 || value === 2;
+}
+
+function is2Semestre(value) {
+  return value === 3 || value === 4;
 }
 
 //Pdfmake aux
