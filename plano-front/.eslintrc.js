@@ -5,13 +5,12 @@ module.exports = {
   parserOptions: { parser: "babel-eslint", sourceType: "module", ecmaVersion: 2018 },
   parser: "vue-eslint-parser",
   rules: {
+    "no-prototype-builtins": "off",
     "space-before-function-paren": ["error", "never"],
     indent: ["error", 2],
     quotes: ["error", "double"],
     semi: ["error", "always"],
-    "no-prototype-builtins": "warn",
     "arrow-parens": ["error", "always"],
-    "vue/require-prop-type-constructor": "warn",
     "max-len": [
       "error",
       { code: 100, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreComments: true },
