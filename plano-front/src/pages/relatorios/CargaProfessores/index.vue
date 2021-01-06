@@ -371,7 +371,7 @@ export default {
     getCargasPosDoDocente(docenteId) {
       const cargasPosDoDocente = this.AllCargasPos.filter((carga) => carga.Docente === docenteId);
 
-      return orderBy(cargasPosDoDocente, "programa");
+      return orderBy(cargasPosDoDocente, "trimestre", "programa");
     },
     getTurmasSemDocente() {
       const turmasSemDocente = filter(
