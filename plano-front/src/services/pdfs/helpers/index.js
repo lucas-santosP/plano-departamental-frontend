@@ -154,53 +154,6 @@ export async function getHeaderImages() {
 }
 
 //Pdfmake helpers
-export function makeTableHorarioHeader() {
-  return [
-    { text: "Horário", alignment: "center", fontSize: 8, bold: true },
-    { text: "Segunda", alignment: "center", fontSize: 8, bold: true },
-    { text: "Terça", alignment: "center", fontSize: 8, bold: true },
-    { text: "Quarta", alignment: "center", fontSize: 8, bold: true },
-    { text: "Quinta", alignment: "center", fontSize: 8, bold: true },
-    { text: "Sexta", alignment: "center", fontSize: 8, bold: true },
-  ];
-}
-
-export function makeTableHorariosBody(d, dias, turno) {
-  const body = [];
-  //Horarios possiveis para Diurno
-  if (turno === "diurno") {
-    if (d === 0) body.push({ text: "08 - 10", alignment: "center", fontSize: 8 });
-    else if (d === 1) body.push({ text: "10 - 12", alignment: "center", fontSize: 8 });
-    else if (d === 2) body.push({ text: "14 - 16", alignment: "center", fontSize: 8 });
-    else if (d === 3) body.push({ text: "16 - 18", alignment: "center", fontSize: 8 });
-  }
-  //Horarios possiveis para Noturno
-  else if (turno === "noturno") {
-    if (d === 4) body.push({ text: "19 - 21", alignment: "center", fontSize: 8 });
-    else if (d === 5) body.push({ text: "21 - 23", alignment: "center", fontSize: 8 });
-  }
-  //Horarios possiveis para Eletivas
-  else if (turno === "eletiva") {
-    if (d === 0) body.push({ text: "08 - 10", alignment: "center", fontSize: 8 });
-    else if (d === 1) body.push({ text: "10 - 12", alignment: "center", fontSize: 8 });
-    else if (d === 2) body.push({ text: "14 - 16", alignment: "center", fontSize: 8 });
-    else if (d === 3) body.push({ text: "16 - 18", alignment: "center", fontSize: 8 });
-    else if (d === 4) body.push({ text: "17 - 19", alignment: "center", fontSize: 8 });
-    else if (d === 5) body.push({ text: "18 - 20", alignment: "center", fontSize: 8 });
-    else if (d === 6) body.push({ text: "19 - 21", alignment: "center", fontSize: 8 });
-    else if (d === 7) body.push({ text: "21 - 23", alignment: "center", fontSize: 8 });
-  }
-
-  body.push(
-    { text: dias.seg, alignment: "center", fontSize: 8 },
-    { text: dias.ter, alignment: "center", fontSize: 8 },
-    { text: dias.qua, alignment: "center", fontSize: 8 },
-    { text: dias.qui, alignment: "center", fontSize: 8 },
-    { text: dias.sex, alignment: "center", fontSize: 8 }
-  );
-  return body;
-}
-
 export function makePageHeader({ images, plano, title, subtitle }) {
   return [
     {
