@@ -166,7 +166,7 @@
       paddingX="0"
       type="none"
     >
-      <template v-for="(pedido, index) in PedidosOfCurrentTurma">
+      <template v-for="(pedido, index) in PedidosDaTurma">
         <InputsPedidosDCC
           v-if="pedido.Curso === curso.id"
           :key="pedido.Turma + curso.Curso"
@@ -930,17 +930,18 @@ export default {
       return this.turmaForm.disciplina.creditoTotal >= 4;
     },
     totalPedidosPeriodizados() {
-      return this.PedidosOfCurrentTurma.reduce((sum, pedido) => {
+      return this.PedidosDaTurma.reduce((sum, pedido) => {
         return sum + parseInt(pedido.vagasPeriodizadas, 10);
       }, 0);
     },
     totalPedidosNaoPeriodizados() {
-      return this.PedidosOfCurrentTurma.reduce((sum, pedido) => {
+      return this.PedidosDaTurma.reduce((sum, pedido) => {
         return sum + parseInt(pedido.vagasNaoPeriodizadas, 10);
       }, 0);
     },
-    PedidosOfCurrentTurma() {
-      return this.Pedidos[this.turma.id];
+    PedidosDaTurma() {
+      const pedidosDaTurma = this.Pedidos[this.turma.id];
+      return pedidosDaTurma ? pedidosDaTurma : [];
     },
     PreferenciasDisciplina() {
       return filter(this.PreferenciasDocentes, {

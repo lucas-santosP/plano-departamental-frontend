@@ -237,7 +237,6 @@ export default {
         this.setLoading({ type: "partial", value: true });
         this.turmaForm.Plano = this.currentPlano.id;
         await this.createTurma(this.turmaForm);
-        await this.fetchAllPedidos();
 
         this.pushNotification({
           type: "success",

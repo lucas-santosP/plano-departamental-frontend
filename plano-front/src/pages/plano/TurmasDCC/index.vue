@@ -572,7 +572,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteTurmas", "clearTurmasToDelete"]),
+    ...mapActions(["deleteTurmas", "clearTurmasToDelete", "fetchAllPedidos"]),
 
     openModalEditTurma(turma) {
       this.turmaClicked = turma;
@@ -737,6 +737,15 @@ export default {
 
         return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
+    },
+    turmasLength() {
+      return this.TurmasInDisciplinasPerfis.length;
+    },
+  },
+
+  watch: {
+    turmasLength() {
+      this.fetchAllPedidos();
     },
   },
 };
