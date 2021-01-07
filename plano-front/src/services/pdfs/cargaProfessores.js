@@ -12,7 +12,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-export default async function pdfCargaProfessores(data) {
+async function pdfCargaProfessores(data) {
   const { docentesCarga, docenteSemAlocacaoCarga, periodosAtivos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
@@ -269,6 +269,8 @@ export default async function pdfCargaProfessores(data) {
   };
   pdfMake.createPdf(docDefinition).open();
 }
+
+export default pdfCargaProfessores;
 
 function makeDocenteBodyHeader() {
   return [

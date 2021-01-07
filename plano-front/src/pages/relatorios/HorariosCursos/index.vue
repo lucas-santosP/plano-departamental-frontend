@@ -191,7 +191,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { pdfHorariosCursos } from "@/services/pdfs/index";
+import { pdfHorariosCursos } from "@/services/pdfs";
 import { find, some, filter, orderBy, cloneDeep } from "lodash-es";
 import {
   toggleItemInArray,

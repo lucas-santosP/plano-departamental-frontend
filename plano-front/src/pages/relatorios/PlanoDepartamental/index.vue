@@ -307,7 +307,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
-import { pdfPlanoDepartamental } from "@/services/pdfs/index";
+import { pdfPlanoDepartamental } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   generateHorariosText,
