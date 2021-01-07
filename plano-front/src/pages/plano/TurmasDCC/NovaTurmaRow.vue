@@ -190,7 +190,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["createTurma", "fetchAllPedidos"]),
+    ...mapActions(["createTurma"]),
 
     handleChangeTurno() {
       this.turmaForm.Horario1 = null;
@@ -236,12 +236,7 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
         this.turmaForm.Plano = this.currentPlano.id;
-        await this.createTurma(this.turmaForm);
-
-        this.pushNotification({
-          type: "success",
-          text: `A turma ${this.turmaForm.letra} foi criada`,
-        });
+        await this.createTurma({ data: this.turmaForm, notify: true });
       } catch (error) {
         this.pushNotification({
           type: "error",

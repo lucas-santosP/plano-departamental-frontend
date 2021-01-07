@@ -142,7 +142,7 @@ export default {
           continue;
         }
 
-        const turmaCreated = await this.createTurma(newTurma); //Se é uma turma nova então cria
+        const turmaCreated = await this.createTurma({ data: newTurma }); //Se é uma turma nova então cria
         currentTurma = { ...turmaCreated }; //Atualiza currentTurma
         // await this.createPedido(turmaFile, keys, turmaCreated.id); //E cria pedido da turma
       }
