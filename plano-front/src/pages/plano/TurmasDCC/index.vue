@@ -593,15 +593,10 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
 
-        await xlsx.downloadTable({
-          pedidos: this.$store.state.pedido.Pedidos,
-          Plano: localStorage.getItem("Plano"),
-        });
+        await xlsx.downloadTable({ pedidos: this.Pedidos, Plano: this.currentPlano.id });
         const tableData = await fetch("http://200.131.219.57:3000/api/xlsx/download", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${this.$store.state.auth.token}`,
-          },
+          headers: { Authorization: `Bearer ${this.$store.state.auth.token}` },
         });
         const tableDataBlobed = await tableData.blob();
         await saveAs(tableDataBlobed, "tabela.xlsx");
@@ -638,6 +633,7 @@ export default {
       "DisciplinasDCCInPerfis",
       "TurmasInDisciplinasPerfis",
       "TurmasToDelete",
+      "Pedidos",
     ]),
 
     TurmasOrdered() {
