@@ -442,7 +442,7 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
 
-        await this.editTurma(this.turmaForm);
+        await this.editTurma({ data: this.turmaForm, notify: true });
         this.initialData = clone(this.turmaForm);
       } catch (error) {
         const erroMsg = error.response

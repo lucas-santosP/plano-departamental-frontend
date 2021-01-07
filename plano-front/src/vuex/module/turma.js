@@ -85,17 +85,19 @@ const actions = {
     return response.Turma;
   },
 
-  async editTurma({ commit, dispatch }, turma) {
-    const turmaNormalized = cloneDeepWith(turma, setEmptyValuesToNull);
+  async editTurma({ commit, dispatch }, { data, notify }) {
+    const turmaNormalized = cloneDeepWith(data, setEmptyValuesToNull);
     validateObjectKeys(turmaNormalized, ["letra", "Disciplina", "turno1"]);
 
     await turmaService.update(turmaNormalized.id, turmaNormalized);
-
     dispatch("clearTurmasToDelete");
-    commit(PUSH_NOTIFICATION, {
-      type: "success",
-      text: `A turma ${turmaNormalized.letra} foi atualizada`,
-    });
+
+    if (notify) {
+      commit(PUSH_NOTIFICATION, {
+        type: "success",
+        text: `Turma ${turmaNormalized.letra} foi atualizada`,
+      });
+    }
   },
 
   async deleteTurmas({ commit, state }) {

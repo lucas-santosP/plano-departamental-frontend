@@ -859,7 +859,7 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
 
-        await this.editTurma(this.turmaForm);
+        await this.editTurma({ data: this.turmaForm, notify: true });
         this.currentData = cloneDeep(this.turmaForm);
       } catch (error) {
         this.turmaForm = cloneDeep(this.turma);
