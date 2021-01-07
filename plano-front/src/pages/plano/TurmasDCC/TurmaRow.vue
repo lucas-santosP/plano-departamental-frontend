@@ -27,9 +27,11 @@
         type="text"
         style="width: 30px"
         :value="turmaForm.letra"
-        @input="turmaForm.letra = $event.target.value.toUpperCase()"
+        @change="
+          turmaForm.letra = normalizeInputText($event);
+          handleEditTurma();
+        "
         @keypress="maskTurmaLetra"
-        @change="handleEditTurma"
       />
     </v-td>
     <v-td width="160" type="none" paddingX="3">
@@ -182,12 +184,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { clone, cloneDeep, orderBy, isNull, find, filter } from "lodash-es";
-import { maskTurmaLetra } from "@/common/mixins";
+import { maskTurmaLetra, normalizeInputText } from "@/common/mixins";
 import { InputsPedidosDCC } from "@/components/ui";
 
 export default {
   name: "TurmaRow",
-  mixins: [maskTurmaLetra],
+  mixins: [maskTurmaLetra, normalizeInputText],
   components: {
     InputsPedidosDCC,
   },

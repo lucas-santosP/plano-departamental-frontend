@@ -87,8 +87,9 @@
               type="text"
               class="form-control"
               id="inputLetra"
-              style="text-transform: uppercase; width: 50px; text-align: center"
-              v-model="turmaForm.letra"
+              style="width: 50px; text-align: center"
+              :value="turmaForm.letra"
+              @change="turmaForm.letra = normalizeInputText($event)"
               @keypress="maskTurmaLetra"
             />
           </div>
@@ -327,13 +328,13 @@
 import { mapGetters, mapActions } from "vuex";
 import { isNull, clone, find, filter, orderBy } from "lodash-es";
 import { normalizeText } from "@/common/utils";
-import { maskTurmaLetra } from "@/common/mixins";
+import { maskTurmaLetra, normalizeInputText } from "@/common/mixins";
 import InputSearch from "../ui/InputSearch";
 import InputsPedidosDCC from "../ui/InputsPedidosDCC.vue";
 
 export default {
   name: "ModalEditTurma",
-  mixins: [maskTurmaLetra],
+  mixins: [maskTurmaLetra, normalizeInputText],
   components: { InputSearch, InputsPedidosDCC },
   props: {
     turma: { type: Object, required: true },
