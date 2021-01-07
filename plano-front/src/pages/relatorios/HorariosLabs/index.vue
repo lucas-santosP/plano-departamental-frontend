@@ -130,7 +130,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { filter, find, orderBy } from "lodash-es";
-import { pdfHorariosLabs } from "@/services/pdfs";
+import { pdfHorariosLabs } from "@/services/pdfs/index";
 import {
   toggleItemInArray,
   toggleAsideModal,
