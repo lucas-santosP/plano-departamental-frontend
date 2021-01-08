@@ -192,7 +192,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { pdfHorariosCursos } from "@/services/pdfs";
-import { find, some, filter, orderBy, cloneDeep } from "lodash-es";
+import { find, some, filter, orderBy } from "lodash-es";
 import {
   toggleItemInArray,
   toggleAsideModal,
@@ -552,8 +552,10 @@ export default {
 
       pdfHorariosCursos({
         horariosAtivos: {
-          periodo1: cloneDeep(this.horariosAtivos1Periodo),
-          periodo3: cloneDeep(this.horariosAtivos3Periodo),
+          periodo1: this.horariosAtivos1Periodo,
+          periodo2: this.TurmasAtivas2Periodo,
+          periodo3: this.horariosAtivos3Periodo,
+          periodo4: this.TurmasAtivas4Periodo,
         },
         cursosAtivos,
         periodosAtivos,
