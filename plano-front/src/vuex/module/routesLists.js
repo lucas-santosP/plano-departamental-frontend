@@ -30,13 +30,6 @@ const state = {
       icon: "clipboard",
       description: "Cadastro da carga atribuída a cada docente na pós-graduação.",
     },
-    {
-      path: "/plano/validacoes",
-      title: "Validações",
-      icon: "calendar-check",
-      description:
-        "Listagem de pendências que precisam ser resolvidas para a finalização do Plano Departamental.",
-    },
   ],
   RoutesRelatorios: [
     {
@@ -187,6 +180,15 @@ const state = {
       description: "Busca de turmas em todos os planos.",
     },
   ],
+  RoutesValidacoes: [
+    {
+      path: "/validacoes/graduacao-dcc",
+      title: "Graduação - DCC",
+      icon: "calendar-check",
+      description:
+        "Listagem de pendências que precisam ser resolvidas para a finalização do Plano Departamental.",
+    },
+  ],
 };
 
 const getters = {
@@ -195,7 +197,8 @@ const getters = {
       state.RoutesPlano,
       state.RoutesRelatorios,
       state.RoutesGerenciar,
-      state.RoutesHistorico
+      state.RoutesHistorico,
+      state.RoutesValidacoes
     );
   },
 
@@ -213,6 +216,9 @@ const getters = {
   },
   RoutesHistorico(state) {
     return orderBy(state.RoutesHistorico, ["title"]);
+  },
+  RoutesValidacoes(state) {
+    return orderBy(state.RoutesValidacoes, ["title"]);
   },
 };
 

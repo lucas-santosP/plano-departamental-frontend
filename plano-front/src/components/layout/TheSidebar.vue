@@ -14,6 +14,7 @@
         :menuPages="RoutesGerenciar"
       />
       <SidebarMenu menuTitle="Histórico" :menuPages="RoutesHistorico" />
+      <SidebarMenu menuTitle="Validações" :menuPages="RoutesValidacoes" />
     </nav>
   </transition>
 </template>
@@ -34,6 +35,7 @@ export default {
       "RoutesRelatorios",
       "RoutesGerenciar",
       "RoutesHistorico",
+      "RoutesValidacoes",
       "currentUser",
       "currentPlano",
     ]),

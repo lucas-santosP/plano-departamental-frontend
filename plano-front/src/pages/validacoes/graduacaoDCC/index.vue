@@ -322,7 +322,7 @@ const AllConflitosTurmas = [
 ];
 
 export default {
-  name: "Validacoes",
+  name: "ValidacoesGraduacaoDCC",
   mixins: [
     toggleItemInArray,
     toggleAsideModal,
