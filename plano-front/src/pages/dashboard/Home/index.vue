@@ -7,7 +7,6 @@
         este é o sistema de gerenciamento de Plano Departamental do DCC - Departamento de Ciência da
         Computação.
         <br />
-
         Abaixo segue um resumo das funcionalidades de cada página:
       </p>
       <div class="row">
