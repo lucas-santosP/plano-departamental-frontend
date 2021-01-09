@@ -66,7 +66,10 @@
           </template>
 
           <tr v-if="!CursosOrderedTable.length">
-            <v-td colspan="7" width="720"><b>NENHUM CURSO ENCONTRADO</b></v-td>
+            <v-td colspan="7" width="720">
+              <b>Nenhum curso encontrado.</b>
+              Clique no botão de filtros para selecioná-los.
+            </v-td>
           </tr>
         </template>
       </BaseTable>
