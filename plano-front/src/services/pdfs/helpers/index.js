@@ -117,7 +117,7 @@ export function getPedidosDaTurma(turma) {
   return sortBy(pedidosFiltered, (pedido) => getCursoById(pedido.Curso).codigo);
 }
 
-export function getTurmasDoCurso(turmas, cursoId) {
+export function filterTurmasDoCurso(turmas, cursoId) {
   const turmasDoCurso = [];
 
   turmas.forEach((turma) => {
@@ -132,6 +132,14 @@ export function getTurmasDoCurso(turmas, cursoId) {
   });
 
   return orderBy(turmasDoCurso, ["disciplina.codigo", "letra"]);
+}
+
+export function getTurmasDoPeriodo(periodoId) {
+  const turmasDoPeriodo = store.getters.TurmasInDisciplinasPerfis.filter(
+    (turma) => turma.periodo === periodoId
+  );
+
+  return orderBy(turmasDoPeriodo, ["disciplina.codigo", "letra"]);
 }
 
 export function getTurmasDaSala(turmas, salaId) {

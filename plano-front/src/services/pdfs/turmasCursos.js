@@ -3,9 +3,9 @@ import {
   makeEmptyPageWarning,
   generateHorariosText,
   getHeaderImages,
-  getTurmasDoCurso,
+  filterTurmasDoCurso,
+  getTurmasDoPeriodo,
 } from "./helpers";
-import store from "@/vuex/store";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -39,13 +39,11 @@ async function pdfTurmasCursos(data) {
         })
       );
 
-      const turmasDoPeriodo = store.getters.TurmasInDisciplinasPerfis.filter(
-        (turma) => turma.periodo === periodo.id
-      );
+      const turmasDoPeriodo = getTurmasDoPeriodo(periodo.id);
       let possuiAlgumaTurmas = false;
 
       cursos.forEach((curso) => {
-        const turmasDoCurso = getTurmasDoCurso(turmasDoPeriodo, curso.id);
+        const turmasDoCurso = filterTurmasDoCurso(turmasDoPeriodo, curso.id);
 
         if (turmasDoCurso.length) {
           possuiAlgumaTurmas = true;
