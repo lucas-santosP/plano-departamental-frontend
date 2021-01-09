@@ -327,6 +327,8 @@ export default {
 
   beforeMount() {
     this.modalFiltrosCallbacks.selectAll.Periodos();
+    this.modalFiltrosCallbacks.selectAll.Cursos();
+    this.modalFiltrosCallbacks.btnOk();
   },
 
   methods: {
