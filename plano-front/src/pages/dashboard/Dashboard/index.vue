@@ -96,6 +96,24 @@ export default {
       return currentPage ? currentPage.title : "Pagina nao encontrado!";
     },
   },
+  watch: {
+    currentPlano: {
+      handler(currentPlano) {
+        if (!currentPlano) {
+          const firstVisiblePlano = find(this.Planos, ["visible", true]);
+          this.changeCurrentPlano(firstVisiblePlano.id);
+
+          this.pushNotification({
+            type: "warn",
+            title: "Aviso!",
+            text: `O plano atual foi alterando para o ${firstVisiblePlano.ano} - ${firstVisiblePlano.nome}`,
+          });
+        }
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
 };
 </script>
 
