@@ -46,8 +46,8 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      if (!find(this.AllPlanos, ["id", this.currentPlano.id]).visible) {
-        const firstVisiblePlano = find(this.AllPlanos, ["visible", true]);
+      if (!find(this.Planos, ["id", this.currentPlano.id]).visible) {
+        const firstVisiblePlano = find(this.Planos, ["visible", true]);
         this.changeCurrentPlano(firstVisiblePlano.id);
       }
     });
@@ -55,7 +55,7 @@ export default {
       if (mutation.type === SOCKET_PLANO_UPDATED) {
         if (mutation.payload.Plano.id == localStorage.getItem("Plano")) {
           if (!mutation.payload.Plano.visible) {
-            let planovisivel = find(this.AllPlanos, ["visible", true]);
+            let planovisivel = find(this.Planos, ["visible", true]);
             this.changeCurrentPlano(planovisivel.id);
           }
         }
@@ -89,7 +89,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "onLoading", "AllPlanos", "AllRoutes"]),
+    ...mapGetters(["modalOverlayVisibility", "onLoading", "Planos", "AllRoutes"]),
 
     currentPageTitle() {
       const currentPage = this.AllRoutes.find((route) => route.path === this.$route.path);

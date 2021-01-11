@@ -460,13 +460,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "TurmasInDisciplinasPerfis",
-      "DisciplinasDCCInPerfis",
-      "PerfisDCC",
-      "AllPlanos",
-      "Pedidos",
-    ]),
+    ...mapGetters(["TurmasInDisciplinasPerfis", "DisciplinasDCCInPerfis", "PerfisDCC", "Pedidos"]),
 
     DisciplinasInTurmasOrdered() {
       return orderBy(

@@ -73,7 +73,7 @@
         @btn-salvar="handleEditPlano"
         @btn-delete="openModalDelete"
         @btn-add="openModalNovoPlano"
-        @btn-clean="cleanPlano"
+        @btn-clean="cleanPlanoForm"
         @btn-copy="copyPlanoSelected(planoForm)"
       >
         <template #form-group>
@@ -218,7 +218,7 @@ const emptyPlano = {
 };
 
 export default {
-  name: "Planos",
+  name: "GerenciarPlanos",
   mixins: [generateBooleanText, normalizeInputText, maskLimitLength],
   components: {
     ModalAjuda,
@@ -235,14 +235,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(["createPlano", "deletePlano", "editPlano"]),
+    ...mapActions(["createPlano", "deletePlano", "updatePlano"]),
 
     handleClickInPlano(plano) {
-      this.cleanPlano();
+      this.cleanPlanoForm();
       this.planoSelectedId = plano.id;
       this.planoForm = clone(plano);
     },
-    cleanPlano() {
+    cleanPlanoForm() {
       this.planoSelectedId = null;
       this.planoForm = clone(emptyPlano);
     },
@@ -268,7 +268,7 @@ export default {
     async handleEditPlano() {
       try {
         this.setLoading({ type: "partial", value: true });
-        await this.editPlano(this.planoForm);
+        await this.updatePlano({ data: this.planoForm, notify: true });
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -282,8 +282,8 @@ export default {
     async handleDeletePlano() {
       try {
         this.setLoading({ type: "partial", value: true });
-        await this.deletePlano(this.planoForm);
-        this.cleanPlano();
+        await this.deletePlano({ data: this.planoForm, notify: true });
+        this.cleanPlanoForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -574,11 +574,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllPlanos", "AnosDoPlano", "AllDisciplinas", "AllTurmas", "AllCursos"]),
+    ...mapGetters(["Planos", "AnosDoPlano", "AllDisciplinas", "AllTurmas", "AllCursos"]),
 
     PlanosOrdered() {
       const { order, type } = this.ordenacaoMainPlanos;
-      return orderBy(this.AllPlanos, order, type);
+      return orderBy(this.Planos, order, type);
     },
     isEditing() {
       return this.planoSelectedId != null;

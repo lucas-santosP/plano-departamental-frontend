@@ -242,7 +242,6 @@ export default {
       "Laboratorios",
       "TurmasInDisciplinasPerfis",
       "TurmasExternasInDisciplinas",
-      "AllPlanos",
     ]),
 
     LaboratoriosOrdered() {

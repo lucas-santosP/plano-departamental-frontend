@@ -14,12 +14,12 @@ import {
 
 const state = {
   Plano: [],
-  currentPlanoId: null,
+  CurrentPlanoId: null,
 };
 
 const mutations = {
   [SET_CURRENT_PLANO_ID](state, data) {
-    state.currentPlanoId = data;
+    state.CurrentPlanoId = data;
   },
 
   [PLANO_FETCHED](state, data) {
@@ -101,25 +101,25 @@ const actions = {
     return response.Plano;
   },
 
-  async deletePlano({ commit, dispatch, rootGetters }, plano) {
-    if (plano.id === rootGetters.currentPlanoId) {
-      await dispatch("changeCurrentPlano", 1);
+  async deletePlano({ commit }, { data, notify }) {
+    await planoService.delete(data.id, data);
+
+    if (notify) {
+      commit(PUSH_NOTIFICATION, {
+        text: `Plano ${data.nome} - ${data.ano} foi removido`,
+      });
     }
-
-    await planoService.delete(plano.id, plano);
-
-    commit(PUSH_NOTIFICATION, {
-      text: `Plano ${plano.nome} - ${plano.ano} foi removido`,
-    });
   },
 
-  async editPlano({ commit }, plano) {
-    const planoNormalized = cloneDeepWith(plano, setEmptyValuesToNull);
-
+  async updatePlano({ commit }, { data, notify }) {
+    const planoNormalized = cloneDeepWith(data, setEmptyValuesToNull);
     validateObjectKeys(planoNormalized, ["nome", "ano"]);
-    await planoService.update(planoNormalized.id, planoNormalized);
+    const response = await planoService.update(planoNormalized.id, planoNormalized);
 
-    commit(PUSH_NOTIFICATION, { text: "Plano atualizado" });
+    if (notify) {
+      commit(PUSH_NOTIFICATION, { text: `Plano ${planoNormalized.nome} atualizado` });
+    }
+    return response.Plano;
   },
 
   setCurrentPlanoId({ commit }, planoId) {
@@ -130,9 +130,9 @@ const actions = {
 
 const getters = {
   currentPlano(state, rootGetters) {
-    return find(rootGetters.AllPlanos, ["id", state.currentPlanoId]);
+    return find(rootGetters.Planos, ["id", state.CurrentPlanoId]);
   },
-  AllPlanos(state) {
+  Planos(state) {
     return orderBy(state.Plano, "ano");
   },
   AnosDoPlano() {

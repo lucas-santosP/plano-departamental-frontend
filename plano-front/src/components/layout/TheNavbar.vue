@@ -60,10 +60,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["sidebarVisibility", "AllPlanos", "currentPlano"]),
+    ...mapGetters(["sidebarVisibility", "Planos", "currentPlano"]),
 
     PlanosVisiveis() {
-      return filter(this.AllPlanos, ["visible", true]);
+      return filter(this.Planos, ["visible", true]);
     },
   },
 
@@ -73,7 +73,7 @@ export default {
         if (currentPlano) {
           this.planoIdForm = currentPlano.id;
         } else {
-          const firstVisiblePlano = find(this.AllPlanos, ["visible", true]);
+          const firstVisiblePlano = find(this.Planos, ["visible", true]);
           this.changeCurrentPlano(firstVisiblePlano.id);
           this.planoIdForm = firstVisiblePlano.id;
 

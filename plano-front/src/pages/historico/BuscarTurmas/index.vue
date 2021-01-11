@@ -351,7 +351,7 @@
 
         <template #tbody>
           <tr
-            v-for="plano in AllPlanos"
+            v-for="plano in Planos"
             :key="plano.id + plano.ano + plano.nome"
             @click="toggleSearchCodition('Planos', plano.id)"
             v-prevent-click-selection
@@ -363,7 +363,7 @@
             <v-td width="355" align="start">{{ plano.nome }}</v-td>
           </tr>
 
-          <tr v-if="!AllPlanos.length">
+          <tr v-if="!Planos.length">
             <v-td colspan="3" width="450">NENHUM PLANO ENCONTRADO.</v-td>
           </tr>
         </template>
@@ -503,7 +503,7 @@ export default {
             );
           },
           Planos: () => {
-            this.searchConditions.Planos = this.AllPlanos.map((plano) => plano.id);
+            this.searchConditions.Planos = this.Planos.map((plano) => plano.id);
           },
           Periodos: () => {
             this.filtroPeriodos.selecionados = [...this.PeriodosOptions];
@@ -606,7 +606,7 @@ export default {
   computed: {
     ...mapGetters([
       "PerfisDCC",
-      "AllPlanos",
+      "Planos",
       "AllDocentes",
       "AllHorarios",
       "AllSalas",
@@ -627,7 +627,7 @@ export default {
         return {
           ...turma,
           disciplina: find(this.DisciplinasDCCInPerfis, ["id", turma.Disciplina]),
-          plano: find(this.AllPlanos, ["id", turma.Plano]) || {},
+          plano: find(this.Planos, ["id", turma.Plano]) || {},
         };
       });
     },
