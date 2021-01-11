@@ -9,6 +9,7 @@ import {
   SOCKET_PLANO_CREATED,
   SOCKET_PLANO_UPDATED,
   SET_CURRENT_PLANO_ID,
+  PUSH_NOTIFICATION,
 } from "../mutation-types";
 
 const state = {
@@ -87,6 +88,19 @@ const actions = {
     }
   },
 
+  async createPlano({ commit }, { data, notify }) {
+    const planoNormalized = cloneDeepWith(data, setEmptyValuesToNull);
+    validateObjectKeys(planoNormalized, ["nome", "ano"]);
+    const response = await planoService.create(planoNormalized);
+
+    if (notify) {
+      commit(PUSH_NOTIFICATION, {
+        text: `Plano ${planoNormalized.nome} foi criado`,
+      });
+    }
+    return response.Plano;
+  },
+
   async deletePlano({ commit, dispatch, rootGetters }, plano) {
     if (plano.id === rootGetters.currentPlanoId) {
       await dispatch("changeCurrentPlano", 1);
@@ -94,7 +108,7 @@ const actions = {
 
     await planoService.delete(plano.id, plano);
 
-    commit("PUSH_NOTIFICATION", {
+    commit(PUSH_NOTIFICATION, {
       text: `Plano ${plano.nome} - ${plano.ano} foi removido`,
     });
   },
@@ -105,7 +119,7 @@ const actions = {
     validateObjectKeys(planoNormalized, ["nome", "ano"]);
     await planoService.update(planoNormalized.id, planoNormalized);
 
-    commit("PUSH_NOTIFICATION", { text: "Plano atualizado" });
+    commit(PUSH_NOTIFICATION, { text: "Plano atualizado" });
   },
 
   setCurrentPlanoId({ commit }, planoId) {

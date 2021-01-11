@@ -49,7 +49,6 @@
 import { mapActions, mapGetters } from "vuex";
 import { find, some } from "lodash-es";
 import XLSX from "xlsx";
-import planoService from "@/services/plano";
 import { generateEmptyTurma, normalizeText } from "@/common/utils";
 
 export default {
@@ -57,7 +56,12 @@ export default {
   props: { plano: { type: Object, required: true } },
 
   methods: {
-    ...mapActions(["createTurma", "updatePedidoOferecido", "fetchAllPedidosOferecidos"]),
+    ...mapActions([
+      "createPlano",
+      "createTurma",
+      "updatePedidoOferecido",
+      "fetchAllPedidosOferecidos",
+    ]),
 
     async handleImportPlano() {
       const [inputFile1Periodo] = this.$refs.input1periodo.files;
@@ -66,12 +70,12 @@ export default {
         throw new Error("Nenhum arquivo selecionado");
       }
 
-      const response = await planoService.create(this.plano);
+      const planoCreated = await this.createPlano({ data: this.plano });
       if (inputFile1Periodo) {
-        await this.readInputFileTurmas(inputFile1Periodo, response.Plano.id, 1);
+        await this.readInputFileTurmas(inputFile1Periodo, planoCreated.id, 1);
       }
       if (inputFile3Periodo) {
-        await this.readInputFileTurmas(inputFile3Periodo, response.Plano.id, 3);
+        await this.readInputFileTurmas(inputFile3Periodo, planoCreated.id, 3);
       }
     },
     async readInputFileTurmas(inputFile, planoId, periodo) {

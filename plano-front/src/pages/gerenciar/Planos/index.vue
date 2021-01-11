@@ -202,7 +202,6 @@
 import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/services/copyPlano";
-import planoService from "@/services/plano";
 import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
 import { generateBooleanText, normalizeInputText, maskLimitLength } from "@/common/mixins";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
@@ -236,7 +235,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deletePlano", "editPlano"]),
+    ...mapActions(["createPlano", "deletePlano", "editPlano"]),
 
     handleClickInPlano(plano) {
       this.cleanPlano();
@@ -546,9 +545,10 @@ export default {
         ano: oldPlano.ano,
         obs: `Cópia do plano '${oldPlano.nome} - ${oldPlano.ano}'`,
       };
-      planoService.create(newPlano).then((plano) => {
+
+      this.createPlano({ data: newPlano, notify: false }).then((planoCreated) => {
         copyPlanoService
-          .copyPlano(oldPlano.id, plano.Plano.id)
+          .copyPlano(oldPlano.id, planoCreated.id)
           .then(() => {
             this.$notify({
               group: "general",
