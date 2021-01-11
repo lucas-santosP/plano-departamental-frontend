@@ -17,7 +17,6 @@ const mutations = {
   [PEDIDO_OFERECIDO_FETCHED](state, data) {
     state.Pedidos = {};
     for (var p = 0; p < data.Pedidos.length; p++) {
-      // eslint-disable-next-line no-prototype-builtins
       if (data.Pedidos[p].hasOwnProperty("Turma")) {
         var t = data.Pedidos[p].Turma;
         if (state.Pedidos[t] === undefined) {
@@ -51,7 +50,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllPedidosOferecidos");
+  },
+
+  fetchAllPedidosOferecidos({ commit }) {
     return new Promise((resolve, reject) => {
       pedidoOferecidoService
         .fetchAll()
@@ -65,36 +68,25 @@ const actions = {
     });
   },
 
-  fetchAllPedidosExternos({ commit }) {
-    return new Promise((resolve, reject) => {
-      pedidoOferecidoService
-        .fetchAll()
-        .then((response) => {
-          commit(PEDIDO_OFERECIDO_FETCHED, response);
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  },
-
-  async editPedidoOferecido({ commit }, pedido) {
-    const pedidoNormalized = cloneDeepWith(pedido, setEmptyValuesToNull);
+  async updatePedidoOferecido({ commit }, { data, notify }) {
+    const pedidoNormalized = cloneDeepWith(data, setEmptyValuesToNull);
 
     if (pedidoNormalized.vagasOferecidas === null) pedidoNormalized.vagasOferecidas = 0;
     if (pedidoNormalized.vagasOcupadas === null) pedidoNormalized.vagasOcupadas = 0;
 
-    await pedidoOferecidoService.update(
+    const pedidoUpdated = await pedidoOferecidoService.update(
       pedidoNormalized.Curso,
       pedidoNormalized.Turma,
       pedidoNormalized
     );
 
-    commit("PUSH_NOTIFICATION", {
-      type: "success",
-      text: "O pedido foi atualizado",
-    });
+    if (notify) {
+      commit("PUSH_NOTIFICATION", {
+        type: "success",
+        text: "O pedido foi atualizado",
+      });
+    }
+    return pedidoUpdated;
   },
 };
 
