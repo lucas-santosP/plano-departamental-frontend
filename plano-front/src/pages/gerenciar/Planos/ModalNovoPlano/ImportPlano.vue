@@ -57,7 +57,7 @@ export default {
   props: { plano: { type: Object, required: true } },
 
   methods: {
-    ...mapActions(["createTurma", "editPedido"]),
+    ...mapActions(["createTurma", "updatePedidoOferecido", "fetchAllPedidosOferecidos"]),
 
     async handleImportPlano() {
       const [inputFile1Periodo] = this.$refs.input1periodo.files;
@@ -67,10 +67,12 @@ export default {
       }
 
       const response = await planoService.create(this.plano);
-      if (inputFile1Periodo)
+      if (inputFile1Periodo) {
         await this.readInputFileTurmas(inputFile1Periodo, response.Plano.id, 1);
-      if (inputFile3Periodo)
+      }
+      if (inputFile3Periodo) {
         await this.readInputFileTurmas(inputFile3Periodo, response.Plano.id, 3);
+      }
     },
     async readInputFileTurmas(inputFile, planoId, periodo) {
       const reader = new FileReader();
@@ -87,15 +89,18 @@ export default {
           .toUpperCase();
 
         const turmas = JSON.parse(dataStringNormalized);
-        await this.createTurmasImported(turmas, planoId, periodo);
+        const response = await this.createTurmasImported(turmas, planoId, periodo);
+        await this.updatePedidosImported(response.promisesPedidos);
 
-        await this.$store.dispatch("fetchAll");
         this.setLoading({ type: "partial", value: false });
+        this.pushNotification({
+          type: "success",
+          text: "Plano criado e turmas importadas",
+        });
       };
 
       reader.readAsBinaryString(inputFile);
     },
-
     async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
         disciplinaCod: null,
@@ -119,7 +124,7 @@ export default {
       }
 
       let currentTurma = {};
-
+      const promisesPedidos = [];
       for (const turmaFile of turmasImported) {
         const newTurma = generateEmptyTurma({
           periodo,
@@ -136,38 +141,57 @@ export default {
 
         this.setDocentes(newTurma, turmaFile[keys.docentes]);
 
-        //Se a nova turma é igual a currentTurma, não cria a turma e cria apenas a vaga
+        //Se a nova turma é igual a currentTurma, não cria a turma apenas cria o pedidos oferecidos
         if (this.turmasIsEqual(currentTurma, newTurma)) {
-          // await this.createPedido(turmaFile, keys, currentTurma.id); //Esperando criar no banco os outros pedidos
+          const promise = async() => {
+            return await this.handleEditPedidoOferecido(turmaFile, keys, currentTurma.id);
+          };
+          promisesPedidos.push(promise);
           continue;
         }
-
-        const turmaCreated = await this.createTurma({ data: newTurma }); //Se é uma turma nova então cria
-        currentTurma = { ...turmaCreated }; //Atualiza currentTurma
-        // await this.createPedido(turmaFile, keys, turmaCreated.id); //E cria pedido da turma
+        //Se é uma turma nova então cria a turma
+        const turmaCreated = await this.createTurma({ data: newTurma });
+        //Atualiza currentTurma
+        currentTurma = { ...turmaCreated };
+        //E edita o pedido oferecido da turma
+        const promise = async() => {
+          return await this.handleEditPedidoOferecido(turmaFile, keys, turmaCreated.id);
+        };
+        promisesPedidos.push(promise);
       }
+
+      return { promisesPedidos };
     },
-    async createPedido(turmaFile, keys, turmaId) {
+    async updatePedidosImported(promisesPedidos) {
+      await this.fetchAllPedidosOferecidos();
+      await Promise.all(
+        promisesPedidos.map(async(updatePedido) => {
+          return await updatePedido();
+        })
+      );
+    },
+    async handleEditPedidoOferecido(turmaFile, keys, turmaId) {
       const pedido = {
         Turma: null,
         Curso: null,
-        vagasNaoPeriodizadas: 0,
-        vagasPeriodizadas: 0,
         vagasOferecidas: 0,
         vagasOcupadas: 0,
       };
       pedido.Turma = turmaId;
-      pedido.Curso = this.findCursoId(turmaFile[keys.cursoCod]);
+      pedido.Curso = this.findCursoIdByCodigo(turmaFile[keys.cursoCod]);
       pedido.vagasOferecidas = turmaFile[keys.vagas1];
       pedido.vagasOcupadas = turmaFile[keys.vagas2];
 
       if (pedido.Curso) {
-        await this.editPedido(pedido);
+        // await this.updatePedidoOferecido({ data: pedido });
       } else {
-        console.log("Curso não econtrado: " + turmaFile[keys.cursoCod]);
+        console.log(
+          "Curso não econtrado: " + turmaFile[keys.cursoCod],
+          "Turma: " + turmaFile[keys.disciplinaCod] + " - " + turmaFile[keys.letra]
+        );
       }
     },
-
+    //Helpers
     setDisciplina(turma, strCodigo) {
       if (!strCodigo) return;
 
@@ -214,7 +238,7 @@ export default {
         return "Diurno";
       }
     },
-    findCursoId(cursoCodigo) {
+    findCursoIdByCodigo(cursoCodigo) {
       if (!cursoCodigo) return null;
 
       const cursoFounded = find(this.AllCursos, ["codigo", cursoCodigo]);
