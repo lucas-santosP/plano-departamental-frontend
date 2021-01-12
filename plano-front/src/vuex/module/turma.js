@@ -1,6 +1,6 @@
 import Vue from "vue";
 import turmaService from "../../services/turma";
-import { find, cloneDeepWith } from "lodash-es";
+import { find, cloneDeepWith, orderBy } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {
   PUSH_NOTIFICATION,
@@ -139,7 +139,7 @@ const getters = {
         });
     });
 
-    return turmas;
+    return orderBy(turmas, "letra");
   },
 
   TurmasToDelete(state) {
