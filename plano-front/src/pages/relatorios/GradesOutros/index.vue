@@ -638,6 +638,15 @@ export default {
       return this.DisciplinasComGrades;
     },
 
+    PerfisComGrades() {
+      let Perfis = [];
+      this.DisciplinasComGrades.forEach((d) => {
+        if (!find(Perfis, { id: d.Perfil })) {
+          Perfis.push(find(this.AllPerfis, { id: d.Perfil }));
+        }
+      });
+      return Perfis;
+    },
     PerfisOptionsOrdered() {
       return orderBy(
         this.PerfisOptions,
@@ -646,7 +655,7 @@ export default {
       );
     },
     PerfisOptions() {
-      return this.AllPerfis.map((perfil) => {
+      return this.PerfisComGrades.map((perfil) => {
         const todasDisciplinasDoPerfil = filter(this.DisciplinasOptions, ["Perfil", perfil.id]);
         const disciplinasSelecionadas = filter(this.filtroDisciplinas.selecionados, [
           "Perfil",
