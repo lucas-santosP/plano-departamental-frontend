@@ -72,11 +72,15 @@ export default {
       }
 
       this.setLoading({ type: "partial", value: true });
-      const planoCreated = await this.createPlano({ data: this.plano });
-      if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
-      if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+      try {
+        const planoCreated = await this.createPlano({ data: this.plano });
+        if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
+        if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+      } catch (error) {
+        console.log("Erro ao importar", error);
+      }
 
-      console.clear();
+      // console.clear();
       this.setLoading({ type: "partial", value: false });
       this.pushNotification({
         type: "success",
@@ -94,9 +98,7 @@ export default {
         .replace(/\s/g, "")
         .toUpperCase();
       const turmas = JSON.parse(dataStringNormalized);
-
-      const response = await this.createTurmasImported(turmas, planoId, periodo);
-      await this.createPedidosImported(response.promisesPedidos);
+      await this.createTurmasImported(turmas, planoId, periodo);
     },
     async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
@@ -121,7 +123,6 @@ export default {
       }
 
       let currentTurma = {};
-      const promisesPedidos = [];
       for (const turmaFile of turmasImported) {
         const newTurma = generateEmptyTurma({
           periodo,
@@ -142,15 +143,13 @@ export default {
         if (this.turmasIsEqual(currentTurma, newTurma)) {
           const pedidoOferecido = this.makePedidoOferecido(turmaFile, keys, currentTurma.id);
           if (pedidoOferecido) {
-            const promiseUpdatePedido = async() => {
-              try {
-                return await this.updatePedidoOferecido({ data: pedidoOferecido });
-              } catch (error) {
-                if (error.response.data.message === "Pedido inválido")
-                  return await this.createPedidoOferecido({ data: pedidoOferecido });
-              }
-            };
-            promisesPedidos.push(promiseUpdatePedido);
+            try {
+              await this.updatePedidoOferecido({ data: pedidoOferecido });
+            } catch (error) {
+              //Se o pedido não existe
+              if (error.response.data.message === "Pedido inválido")
+                await this.createPedidoOferecido({ data: pedidoOferecido });
+            }
           }
           continue;
         }
@@ -162,21 +161,10 @@ export default {
         //E edita o pedido oferecido da turma
         const pedidoOferecido = this.makePedidoOferecido(turmaFile, keys, turmaCreated.id);
         if (pedidoOferecido) {
-          const promiseCreatePedido = async() => {
-            return await this.createPedidoOferecido({ data: pedidoOferecido });
-          };
-          promisesPedidos.push(promiseCreatePedido);
+          await this.createPedidoOferecido({ data: pedidoOferecido });
         }
       }
 
-      return { promisesPedidos };
-    },
-    async createPedidosImported(promisesPedidos) {
-      await Promise.all(
-        promisesPedidos.map(async(updatePedido) => {
-          return await updatePedido();
-        })
-      );
       await this.fetchAllPedidosOferecidos();
     },
 
@@ -276,7 +264,7 @@ export default {
       }
       //Caso não tenha achando nenhum horario, verifica se tem sala EAD
       if (sala.includes("EAD")) {
-        console.log("Encotrou sala EAD");
+        // console.log("Encotrou sala EAD", sala);
         return 31; //Id horario EAD
       }
 
