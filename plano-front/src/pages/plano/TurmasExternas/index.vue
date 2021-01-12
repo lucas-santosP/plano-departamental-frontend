@@ -372,7 +372,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteTurmasExternas", "clearTurmasExternasToDelete"]),
+    ...mapActions([
+      "deleteTurmasExternas",
+      "clearTurmasExternasToDelete",
+      "fetchAllPedidosExternos",
+    ]),
 
     toggleAddRow() {
       this.isAdding = !this.isAdding;
@@ -439,6 +443,15 @@ export default {
 
         return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
+    },
+    turmasExternasLength() {
+      return this.AllTurmasExternas.length;
+    },
+  },
+
+  watch: {
+    turmasExternasLength() {
+      this.fetchAllPedidosExternos();
     },
   },
 };

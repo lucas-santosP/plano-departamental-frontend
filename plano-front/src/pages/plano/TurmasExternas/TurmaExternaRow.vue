@@ -15,7 +15,7 @@
     <v-td width="330" type="content">
       <select v-model.number="turmaForm.Disciplina" @change="handleEditTurma">
         <option
-          v-for="disciplina in DisciplinasExternas"
+          v-for="disciplina in DisciplinasExternasOrderedByNome"
           :key="disciplina.id"
           :value="disciplina.id"
         >
@@ -104,7 +104,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { clone, isNull, find, some, filter } from "lodash-es";
+import { clone, orderBy, isNull, find, some, filter } from "lodash-es";
 import { maskTurmaLetra } from "@/common/mixins";
 import InputsPedidosExternos from "./InputsPedidosExternos.vue";
 
@@ -487,19 +487,17 @@ export default {
         return this.TurmasExternasToDelete;
       },
     },
-
+    DisciplinasExternasOrderedByNome() {
+      return orderBy(this.DisciplinasExternas, "nome");
+    },
     totalPedidosPeriodizados() {
-      if (!this.PedidosOfCurrentTurma) return 0;
-
-      return this.PedidosOfCurrentTurma.reduce(
+      return this.PedidosDaTurma.reduce(
         (sum, turma) => sum + parseInt(turma.vagasPeriodizadas, 10),
         0
       );
     },
     totalPedidosNaoPeriodizados() {
-      if (!this.PedidosOfCurrentTurma) return 0;
-
-      return this.PedidosOfCurrentTurma.reduce(
+      return this.PedidosDaTurma.reduce(
         (sum, turma) => sum + parseInt(turma.vagasNaoPeriodizadas, 10),
         0
       );
@@ -531,15 +529,15 @@ export default {
     IndicesInPedidos() {
       const indicesResultantes = [];
 
-      this.PedidosOfCurrentTurma.forEach((pedido, index) => {
+      this.PedidosDaTurma.forEach((pedido, index) => {
         const cursoFounded = some(this.PrincipaisCursosDCC, ["id", pedido.Curso]);
 
         if (cursoFounded) indicesResultantes.push(index);
       });
       return indicesResultantes;
     },
-    PedidosOfCurrentTurma() {
-      return this.PedidosExternos[this.turma.id];
+    PedidosDaTurma() {
+      return this.PedidosExternos[this.turma.id] || [];
     },
   },
 

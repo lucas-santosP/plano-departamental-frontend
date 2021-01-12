@@ -51,18 +51,8 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
-    return new Promise((resolve, reject) => {
-      pedidoExternoService
-        .fetchAll()
-        .then((response) => {
-          commit(PEDIDO_EXTERNO_FETCHED, response);
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllPedidosExternos");
   },
 
   fetchAllPedidosExternos({ commit }) {
