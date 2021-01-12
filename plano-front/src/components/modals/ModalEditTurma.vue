@@ -1099,7 +1099,7 @@ export default {
   computed: {
     ...mapGetters([
       "AllCursos",
-      "DisciplinasDCCInPerfis",
+      "DisciplinasDCC",
       "AllSalas",
       "DocentesAtivos",
       "AllHorarios",
@@ -1149,10 +1149,10 @@ export default {
     },
 
     DisciplinasOrderedByNome() {
-      return orderBy(this.DisciplinasDCCInPerfis, "nome");
+      return orderBy(this.DisciplinasDCC, "nome");
     },
     DisciplinasOrderedByCodigo() {
-      return this.DisciplinasDCCInPerfis;
+      return this.DisciplinasDCC;
     },
 
     DocentesOrdered() {

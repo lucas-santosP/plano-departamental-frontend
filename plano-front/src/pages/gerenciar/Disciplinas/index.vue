@@ -70,7 +70,7 @@
           </template>
           <template #tbody>
             <tr
-              v-for="disciplina in DisciplinasInPerfisOrdered"
+              v-for="disciplina in DisciplinasOrdered"
               :key="disciplina.id + disciplina.nome"
               @click="handleClickInDisciplina(disciplina)"
               :class="['clickable', disciplinaEstaSelecionada(disciplina.id)]"
@@ -104,7 +104,7 @@
                 {{ textoDepto(disciplina.departamento) }}
               </v-td>
             </tr>
-            <tr v-if="!DisciplinasInPerfisOrdered.length">
+            <tr v-if="!DisciplinasOrdered.length">
               <v-td width="755" colspan="8">
                 <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="icon-red" />
                 <b>Nenhuma disciplina encontrada!</b>
@@ -402,11 +402,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DisciplinasInPerfis", "AllPerfis"]),
+    ...mapGetters(["AllDisciplinas", "AllPerfis"]),
 
-    DisciplinasInPerfisOrdered() {
+    DisciplinasOrdered() {
       const disciplinasResultantes = orderBy(
-        this.DisciplinasInPerfis,
+        this.AllDisciplinas,
         this.ordenacaoMain.disciplina.order,
         this.ordenacaoMain.disciplina.type
       );

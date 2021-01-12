@@ -527,7 +527,7 @@ export default {
   computed: {
     ...mapGetters([
       "PrincipaisCursosDCC",
-      "DisciplinasInPerfis",
+      "AllDisciplinas",
       "AllPerfis",
       "AllCursos",
       "AllGradesCursosExternos",
@@ -623,7 +623,7 @@ export default {
       });
     },
     DisciplinasOptions() {
-      return this.DisciplinasInPerfis;
+      return this.AllDisciplinas;
     },
     PerfisOptionsOrdered() {
       return orderBy(

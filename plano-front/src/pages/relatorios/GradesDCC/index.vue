@@ -563,7 +563,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["PrincipaisCursosDCC", "DisciplinasInPerfis", "AllPerfis"]),
+    ...mapGetters(["PrincipaisCursosDCC", "AllDisciplinas", "AllPerfis"]),
 
     DisciplinasOrderedMain() {
       let disciplinasResult = this.DisciplinasFiltredMain;
@@ -655,7 +655,7 @@ export default {
       });
     },
     DisciplinasOptions() {
-      return this.DisciplinasInPerfis;
+      return this.AllDisciplinas;
     },
     PerfisOptionsOrdered() {
       return orderBy(

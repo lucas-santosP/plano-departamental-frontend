@@ -61,7 +61,7 @@ const getters = {
     return map(state.DocenteDisciplinas, (pref) => {
       return {
         ...pref,
-        disciplina: find(rootGetters.DisciplinasInPerfis, ["id", pref.Disciplina]),
+        disciplina: find(rootGetters.AllDisciplinas, ["id", pref.Disciplina]),
         docente: find(rootGetters.AllDocentes, ["id", pref.Docente]),
       };
     });

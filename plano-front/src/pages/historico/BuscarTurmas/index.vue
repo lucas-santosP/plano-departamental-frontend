@@ -610,7 +610,7 @@ export default {
       "AllDocentes",
       "AllHorarios",
       "AllSalas",
-      "DisciplinasDCCInPerfis",
+      "DisciplinasDCC",
     ]),
 
     TurmasRetornadasOrdered() {
@@ -626,7 +626,7 @@ export default {
       return this.TurmasRetornadas.map((turma) => {
         return {
           ...turma,
-          disciplina: find(this.DisciplinasDCCInPerfis, ["id", turma.Disciplina]),
+          disciplina: find(this.DisciplinasDCC, ["id", turma.Disciplina]),
           plano: find(this.Planos, ["id", turma.Plano]) || {},
         };
       });
@@ -682,7 +682,7 @@ export default {
       });
     },
     DisciplinasOptions() {
-      return this.DisciplinasDCCInPerfis;
+      return this.DisciplinasDCC;
     },
 
     DocentesOptionsOrdered() {

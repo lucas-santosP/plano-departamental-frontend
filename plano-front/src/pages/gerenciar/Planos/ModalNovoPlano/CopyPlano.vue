@@ -507,10 +507,10 @@ export default {
 
       //Filtra apenas disicplinas DCC
       disciplinasGrade1Semestre = filter(disciplinasGrade1Semestre, (disciplinaGrade) =>
-        some(this.DisciplinasDCCInPerfis, ["id", disciplinaGrade.Disciplina])
+        some(this.DisciplinasDCC, ["id", disciplinaGrade.Disciplina])
       );
       disciplinasGrade2Semestre = filter(disciplinasGrade1Semestre, (disciplinaGrade) =>
-        some(this.DisciplinasDCCInPerfis, ["id", disciplinaGrade.Disciplina])
+        some(this.DisciplinasDCC, ["id", disciplinaGrade.Disciplina])
       );
 
       // Prenche turmasNovoPlano
@@ -771,7 +771,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DisciplinasDCCInPerfis", "AllGrades"]),
+    ...mapGetters(["DisciplinasDCC", "AllGrades"]),
 
     DisciplinasOrderedModal() {
       return orderBy(
@@ -781,11 +781,11 @@ export default {
       );
     },
     DisciplinasFiltredModal() {
-      if (this.searchDisciplinasModal === "") return this.DisciplinasDCCInPerfis;
+      if (this.searchDisciplinasModal === "") return this.DisciplinasDCC;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return filter(this.DisciplinasDCCInPerfis, (disciplina) => {
+      return filter(this.DisciplinasDCC, (disciplina) => {
         const disciplinaNome = normalizeText(disciplina.nome);
         const disciplinaCodigo = normalizeText(disciplina.codigo);
 

@@ -22,7 +22,7 @@
     <v-td width="80" type="content">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
-          v-for="disciplina in DisciplinasDCCInPerfis"
+          v-for="disciplina in DisciplinasDCC"
           :key="disciplina.codigo + disciplina.id"
           :value="disciplina"
         >
@@ -33,7 +33,7 @@
     <v-td width="330" type="content">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
-          v-for="disciplina in DisciplinasDCCInPerfisOrderedByNome"
+          v-for="disciplina in DisciplinasDCCOrderedByNome"
           :key="disciplina.nome + disciplina.id"
           :value="disciplina"
         >
@@ -259,7 +259,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "DisciplinasDCCInPerfis",
+      "DisciplinasDCC",
       "DocentesAtivos",
       "AllHorarios",
       "HorariosEAD",
@@ -288,8 +288,8 @@ export default {
         return this.DocentesAtivos;
       }
     },
-    DisciplinasDCCInPerfisOrderedByNome() {
-      return orderBy(this.DisciplinasDCCInPerfis, ["nome"]);
+    DisciplinasDCCOrderedByNome() {
+      return orderBy(this.DisciplinasDCC, ["nome"]);
     },
     HorariosFiltredByTurno() {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;

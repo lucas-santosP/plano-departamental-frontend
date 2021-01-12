@@ -11,11 +11,7 @@
     </v-td>
     <v-td width="80" type="content">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
-        <option
-          v-for="disciplina in DisciplinasExternasInPerfis"
-          :key="disciplina.id"
-          :value="disciplina"
-        >
+        <option v-for="disciplina in DisciplinasExternas" :key="disciplina.id" :value="disciplina">
           {{ disciplina.codigo }}
         </option>
       </select>
@@ -23,7 +19,7 @@
     <v-td width="330" type="content">
       <select v-model="turmaForm.disciplina" @change="handleChangeDisciplina">
         <option
-          v-for="disciplina in DisciplinasExternasInPerfisOrderedByNome"
+          v-for="disciplina in DisciplinasExternasOrderedByNome"
           :key="disciplina.id + disciplina.codigo"
           :value="disciplina"
         >
@@ -173,7 +169,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "DisciplinasExternasInPerfis",
+      "DisciplinasExternas",
       "AllHorarios",
       "HorariosEAD",
       "HorariosNoturno",
@@ -181,8 +177,8 @@ export default {
       "AllSalas",
     ]),
 
-    DisciplinasExternasInPerfisOrderedByNome() {
-      return orderBy(this.DisciplinasExternasInPerfis, ["nome"]);
+    DisciplinasExternasOrderedByNome() {
+      return orderBy(this.DisciplinasExternas, ["nome"]);
     },
     HorariosFiltredByTurno() {
       if (this.disciplinaIsIntegralEAD) return this.HorariosEAD;

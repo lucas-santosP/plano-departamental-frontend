@@ -122,11 +122,11 @@ const getters = {
     return orderBy(state.Turmas, ["letra"]);
   },
 
-  TurmasExternasInDisciplinas(state, getters) {
+  TurmasExternasInDisciplinas(_, getters) {
     const turmasResult = [];
 
     getters.AllTurmasExternas.forEach((turma) => {
-      const disciplinaFounded = find(getters.DisciplinasExternasInPerfis, ["id", turma.Disciplina]);
+      const disciplinaFounded = find(getters.DisciplinasExternas, ["id", turma.Disciplina]);
 
       if (disciplinaFounded)
         turmasResult.push({

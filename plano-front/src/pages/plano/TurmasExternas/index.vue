@@ -398,7 +398,7 @@ export default {
   computed: {
     ...mapGetters([
       "TurmasExternasInDisciplinas",
-      "DisciplinasExternasInPerfis",
+      "DisciplinasExternas",
       "TurmasExternasToDelete",
       "PrincipaisCursosDCC",
     ]),
@@ -429,11 +429,11 @@ export default {
       );
     },
     DisciplinasOptionsFiltered() {
-      if (this.searchCursosModal === "") return this.DisciplinasExternasInPerfis;
+      if (this.searchCursosModal === "") return this.DisciplinasExternas;
 
       const searchNormalized = normalizeText(this.searchDisciplinasModal);
 
-      return filter(this.DisciplinasExternasInPerfis, (disciplina) => {
+      return filter(this.DisciplinasExternas, (disciplina) => {
         const nome = normalizeText(disciplina.nome);
         const codigo = normalizeText(disciplina.codigo);
 

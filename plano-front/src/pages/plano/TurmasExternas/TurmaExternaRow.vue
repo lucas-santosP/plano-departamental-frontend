@@ -15,7 +15,7 @@
     <v-td width="330" type="content">
       <select v-model.number="turmaForm.Disciplina" @change="handleEditTurma">
         <option
-          v-for="disciplina in DisciplinasExternasInPerfis"
+          v-for="disciplina in DisciplinasExternas"
           :key="disciplina.id"
           :value="disciplina.id"
         >
@@ -468,7 +468,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "DisciplinasExternasInPerfis",
+      "DisciplinasExternas",
       "AllHorarios",
       "HorariosEAD",
       "HorariosNoturno",

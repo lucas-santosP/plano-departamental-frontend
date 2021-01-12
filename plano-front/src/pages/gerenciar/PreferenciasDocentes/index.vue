@@ -286,7 +286,7 @@
                 v-model="add.Disciplina"
               >
                 <option
-                  v-for="disciplina in DisciplinasDCCInPerfis"
+                  v-for="disciplina in DisciplinasDCCOrderedByNome"
                   :key="disciplina.id + disciplina.codigo"
                   :value="disciplina.id"
                 >
@@ -301,7 +301,7 @@
               <label for="addDisciplina">Código:</label>
               <select id="addDisciplina" class="form-control" v-model="add.Disciplina">
                 <option
-                  v-for="disciplina in DisciplinasDCCInPerfis"
+                  v-for="disciplina in DisciplinasDCCOrderedByCodigo"
                   :key="disciplina.id + disciplina.codigo"
                   :value="disciplina.id"
                 >
@@ -341,7 +341,7 @@
             <label for="newDisciplina">Disciplina:</label>
             <select id="newDisciplina" class="form-control" v-model="add.Disciplina">
               <option
-                v-for="disciplina in DisciplinasDCCInPerfis"
+                v-for="disciplina in DisciplinasDCCOrderedByNome"
                 :key="disciplina.id + disciplina.codigo"
                 :value="disciplina.id"
               >
@@ -356,7 +356,7 @@
             <label for="newCodigo">Código:</label>
             <select id="newCodigo" class="form-control" v-model="add.Disciplina">
               <option
-                v-for="disciplina in DisciplinasDCCInPerfis"
+                v-for="disciplina in DisciplinasDCCOrderedByCodigo"
                 :key="disciplina.id + disciplina.codigo"
                 :value="disciplina.id"
               >
@@ -673,7 +673,7 @@ export default {
       const reader = new FileReader();
 
       const docentes = this.DocentesAtivos;
-      const disciplinas = this.DisciplinasDCCInPerfis;
+      const disciplinas = this.DisciplinasDCC;
       const preferencias = this.PreferenciasDocentes;
       reader.onload = function(e) {
         const workbook = XLSX.read(e.target.result, { type: "binary" });
@@ -741,7 +741,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DocentesAtivos", "DisciplinasDCCInPerfis", "PreferenciasDocentes"]),
+    ...mapGetters(["DocentesAtivos", "DisciplinasDCC", "PreferenciasDocentes"]),
 
     DocentesInPreferenciasOrdered() {
       const disciplinasOrd = this.ordenacaoDocentes.disciplinas;
@@ -776,7 +776,6 @@ export default {
 
       return docentesResult;
     },
-
     DisciplinasInPreferenciasOrdered() {
       const docentesOrd = this.ordenacaoDisciplina.docentes;
       const disciplinasOrd = this.ordenacaoDisciplina.disciplinas;
@@ -798,7 +797,7 @@ export default {
     DisciplinasInPreferencias() {
       const disciplinasResult = [];
 
-      this.DisciplinasDCCInPerfis.forEach((disciplina) => {
+      this.DisciplinasDCC.forEach((disciplina) => {
         const preferenciasDaDisciplina = filter(this.PreferenciasDocentes, [
           "Disciplina",
           disciplina.id,
@@ -812,6 +811,13 @@ export default {
       });
 
       return disciplinasResult;
+    },
+
+    DisciplinasDCCOrderedByNome() {
+      return orderBy(this.DisciplinasDCC, ["nome"]);
+    },
+    DisciplinasDCCOrderedByCodigo() {
+      return orderBy(this.DisciplinasDCC, ["codigo"]);
     },
   },
 };

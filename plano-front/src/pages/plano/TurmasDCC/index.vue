@@ -630,7 +630,7 @@ export default {
       "AllCursos",
       "CursosDCC",
       "PerfisDCC",
-      "DisciplinasDCCInPerfis",
+      "DisciplinasDCC",
       "AllTurmas",
       "TurmasToDelete",
       "Pedidos",
@@ -712,7 +712,7 @@ export default {
       });
     },
     DisciplinasOptions() {
-      return this.DisciplinasDCCInPerfis;
+      return this.DisciplinasDCC;
     },
 
     CursosOptionsOrdered() {

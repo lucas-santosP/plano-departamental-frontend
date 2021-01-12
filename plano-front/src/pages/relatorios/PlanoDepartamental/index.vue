@@ -460,7 +460,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "DisciplinasDCCInPerfis", "PerfisDCC", "Pedidos"]),
+    ...mapGetters(["AllTurmas", "DisciplinasDCC", "PerfisDCC", "Pedidos"]),
 
     DisciplinasInTurmasOrdered() {
       return orderBy(
@@ -520,7 +520,7 @@ export default {
     DisciplinasInTurmas() {
       const turmasOrdered = orderBy(this.AllTurmas, "periodo");
 
-      return this.DisciplinasDCCInPerfis.map((disciplina) => {
+      return this.DisciplinasDCC.map((disciplina) => {
         const turmasDaDisciplina = filter(turmasOrdered, ["Disciplina", disciplina.id]);
 
         return {
@@ -613,7 +613,7 @@ export default {
       });
     },
     DisciplinasOptions() {
-      return this.DisciplinasDCCInPerfis;
+      return this.DisciplinasDCC;
     },
   },
 };

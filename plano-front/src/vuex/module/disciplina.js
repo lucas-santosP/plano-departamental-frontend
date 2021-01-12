@@ -100,48 +100,30 @@ const actions = {
 };
 
 const getters = {
-  AllDisciplinas(state) {
-    const disciplinasResult = state.Disciplinas.map((disciplina) => ({
-      ...disciplina,
-      creditoTotal: parseInt(disciplina.cargaTeorica, 10) + parseInt(disciplina.cargaPratica, 10),
-    }));
+  AllDisciplinas(state, getters) {
+    const disciplinas = state.Disciplinas.map((disciplina) => {
+      const perfilFound = find(getters.AllPerfis, ["id", disciplina.Perfil]);
 
-    return orderBy(disciplinasResult, ["codigo"]);
-  },
-  DisciplinasInPerfis(_, getters) {
-    const disciplinasResults = [];
-
-    getters.AllDisciplinas.forEach((disciplina) => {
-      const perfilFounded = find(getters.AllPerfis, ["id", disciplina.Perfil]);
-
-      if (perfilFounded) {
-        disciplinasResults.push({
-          ...disciplina,
-          perfil: {
-            nome: perfilFounded.nome,
-            abreviacao: perfilFounded.abreviacao,
-            cor: perfilFounded.cor,
-          },
-        });
-      } else {
-        disciplinasResults.push({
-          ...disciplina,
-          perfil: {
-            nome: "",
-            abreviacao: "",
-            cor: null,
-          },
-        });
-      }
+      return {
+        ...disciplina,
+        creditoTotal: parseInt(disciplina.cargaTeorica, 10) + parseInt(disciplina.cargaPratica, 10),
+        perfil: {
+          nome: perfilFound.nome,
+          abreviacao: perfilFound.abreviacao,
+          cor: perfilFound.cor,
+        },
+      };
     });
 
-    return disciplinasResults;
+    return orderBy(disciplinas, ["codigo"]);
   },
-  DisciplinasDCCInPerfis(_, getters) {
-    return filter(getters.DisciplinasInPerfis, ["departamento", 1]);
+
+  DisciplinasDCC(_, getters) {
+    return filter(getters.AllDisciplinas, ["departamento", 1]);
   },
-  DisciplinasExternasInPerfis(_, getters) {
-    return filter(getters.DisciplinasInPerfis, ["departamento", 2]);
+
+  DisciplinasExternas(_, getters) {
+    return filter(getters.AllDisciplinas, ["departamento", 2]);
   },
 };
 
