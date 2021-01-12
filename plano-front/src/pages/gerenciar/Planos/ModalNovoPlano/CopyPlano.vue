@@ -69,9 +69,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { union, difference, find, filter, orderBy, some } from "lodash-es";
-import planoService from "@/services/plano";
 import turmaService from "@/services/turma";
 import pedidoService from "@/services/pedido";
 import pedidoExternoService from "@/services/pedidoExterno";
@@ -98,6 +97,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["createPlano"]),
+
     selectAllDisciplinas() {
       this.filtrosDisciplinas = union(
         this.filtrosDisciplinas,
@@ -604,10 +605,9 @@ export default {
     },
     handleCopyPlano() {
       this.setLoading({ type: "partial", value: true });
-      let turmasNovoPlano = this.generateTurmasNovoPlano();
+      const turmasNovoPlano = this.generateTurmasNovoPlano();
 
-      planoService
-        .create(this.plano)
+      this.createPlano({ data: this.plano })
         .then((plano) => {
           turmasNovoPlano.forEach((t) => {
             turmaService
@@ -624,7 +624,7 @@ export default {
                 Horario2: undefined,
                 Sala1: undefined,
                 Sala2: undefined,
-                Plano: plano.Plano.id,
+                Plano: plano.id,
               })
               .then((turma) => {
                 if (t.CCN) {
@@ -704,7 +704,7 @@ export default {
                 Horario2: t.Horario2,
                 Sala1: undefined,
                 Sala2: undefined,
-                Plano: plano.Plano.id,
+                Plano: plano.id,
               })
               .then((turma) => {
                 let pedidos = this.$store.state.pedido.Pedidos[t.id];
@@ -739,7 +739,7 @@ export default {
                 Horario2: t.Horario2,
                 Sala1: undefined,
                 Sala2: undefined,
-                Plano: plano.Plano.id,
+                Plano: plano.id,
               })
               .then((turma) => {
                 let pedidos = this.$store.state.pedidoExterno.Pedidos[t.id];

@@ -74,7 +74,7 @@
         @btn-delete="openModalDelete"
         @btn-add="openModalNovoPlano"
         @btn-clean="cleanPlanoForm"
-        @btn-copy="copyPlanoSelected(planoForm)"
+        @btn-copy="copyPlanoSelected"
       >
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
@@ -539,7 +539,8 @@ export default {
       fileReader.readAsArrayBuffer(file);
     },
 
-    copyPlanoSelected(oldPlano) {
+    copyPlanoSelected() {
+      const oldPlano = clone(this.planoForm);
       let newPlano = {
         nome: `Cópia de '${oldPlano.nome}'`,
         ano: oldPlano.ano,
