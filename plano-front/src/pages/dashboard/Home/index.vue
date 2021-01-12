@@ -10,7 +10,11 @@
         Abaixo segue um resumo das funcionalidades de cada página:
       </p>
       <div class="row">
-        <LinkList v-if="currentUser.isAdmin" title="Plano" :pages="RoutesPlano" />
+        <LinkList
+          v-if="currentUser.isAdmin && currentPlano.isEditable"
+          title="Plano"
+          :pages="RoutesPlano"
+        />
         <LinkList title="Relatórios" :pages="RoutesRelatorios" />
         <LinkList v-if="currentUser.isSuperAdmin" title="Gerenciar" :pages="RoutesGerenciar" />
         <LinkList v-if="currentUser.isSuperAdmin" title="Histórico" :pages="RoutesHistorico" />
