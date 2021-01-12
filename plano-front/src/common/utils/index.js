@@ -4,8 +4,10 @@ import setEmptyValuesToNull from "./setEmptyValuesToNull.js";
 import validateObjectKeys from "./validateObjectKeys.js";
 import generateEmptyTurma from "./generateEmptyTurma.js";
 import imageToDataUrl from "./imageToDataUrl";
+import normalizePedido from "./normalizePedido";
 
 export {
+  normalizePedido,
   imageToDataUrl,
   debounce,
   normalizeText,

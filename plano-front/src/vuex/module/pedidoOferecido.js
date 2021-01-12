@@ -1,7 +1,6 @@
 import Vue from "vue";
-import { cloneDeepWith } from "lodash-es";
 import pedidoOferecidoService from "../../services/pedidoOferecido";
-import { setEmptyValuesToNull } from "@/common/utils";
+import { normalizePedido } from "@/common/utils";
 import {
   PEDIDO_OFERECIDO_FETCHED,
   SOCKET_PEDIDO_OFERECIDO_CREATED,
@@ -68,11 +67,23 @@ const actions = {
     });
   },
 
-  async updatePedidoOferecido({ commit }, { data, notify }) {
-    const pedidoNormalized = cloneDeepWith(data, setEmptyValuesToNull);
+  async createPedidoOferecido({ commit }, { data, notify }) {
+    const pedidoNormalized = normalizePedido(data);
 
-    if (pedidoNormalized.vagasOferecidas === null) pedidoNormalized.vagasOferecidas = 0;
-    if (pedidoNormalized.vagasOcupadas === null) pedidoNormalized.vagasOcupadas = 0;
+    const response = await pedidoOferecidoService.create(pedidoNormalized);
+
+    if (notify) {
+      commit("PUSH_NOTIFICATION", {
+        type: "success",
+        text: "O pedido foi criado",
+      });
+    }
+    console.log(response);
+    return response.Pedido;
+  },
+
+  async updatePedidoOferecido({ commit }, { data, notify }) {
+    const pedidoNormalized = normalizePedido(data);
 
     const pedidoUpdated = await pedidoOferecidoService.update(
       pedidoNormalized.Curso,
