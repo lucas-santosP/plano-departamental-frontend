@@ -47,6 +47,7 @@ const actions = {
       planoService
         .fetchAll()
         .then((response) => {
+          console.log(response);
           commit(PLANO_FETCHED, response);
           resolve(response);
         })
@@ -59,16 +60,15 @@ const actions = {
   async initializeCurrentPlano({ commit, dispatch, state }) {
     try {
       dispatch("setLoading", { type: "fetching", value: true });
-      const response = await dispatch("fetchAllPlanos");
-      console.log(response);
-      let currentPlanoId = localStorage.getItem("Plano") || null;
+      await dispatch("fetchAllPlanos");
+      let localStoragePlanoId = parseInt(localStorage.getItem("Plano"), 10);
 
-      if (!currentPlanoId || !find(state.Plano, ["id", currentPlanoId])) {
+      if (!localStoragePlanoId || !find(state.Plano, ["id", localStoragePlanoId])) {
         const firstVisiblePlano = find(state.Plano, ["visible", true]);
-        currentPlanoId = firstVisiblePlano.id;
+        localStoragePlanoId = firstVisiblePlano.id;
       }
-      dispatch("setCurrentPlanoId", currentPlanoId);
 
+      dispatch("setCurrentPlanoId", localStoragePlanoId);
       await dispatch("fetchAll");
       $socket.open();
       commit("setYear", 2019);
