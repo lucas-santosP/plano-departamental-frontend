@@ -332,7 +332,6 @@ export default {
       "HorariosNoturno",
       "AllDisciplinas",
       "AllCursos",
-      "AllTurmas",
       "AllSalas",
       "AllDocentes",
       "PeriodosLetivos",

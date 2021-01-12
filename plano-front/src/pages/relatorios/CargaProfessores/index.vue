@@ -362,7 +362,7 @@ export default {
       };
     },
     getTurmasDoDocente(docenteId) {
-      const turmasDoDocente = this.TurmasInDisciplinasPerfis.filter(
+      const turmasDoDocente = this.AllTurmas.filter(
         (turma) => turma.Docente1 === docenteId || turma.Docente2 === docenteId
       );
       return orderBy(turmasDoDocente, ["periodo", "disciplina.nome", "letra"]);
@@ -372,7 +372,7 @@ export default {
       return orderBy(cargasPosDoDocente, "trimestre", "programa");
     },
     getTurmasSemDocente() {
-      const turmasSemDocente = this.TurmasInDisciplinasPerfis.filter(
+      const turmasSemDocente = this.AllTurmas.filter(
         (turma) => turma.Docente1 == null && turma.Docente2 == null && turma.Disciplina != null
       );
       return orderBy(turmasSemDocente, ["periodo", "disciplina.nome", "letra"]);
@@ -450,7 +450,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["DocentesAtivos", "TurmasInDisciplinasPerfis", "AllCargasPos"]),
+    ...mapGetters(["DocentesAtivos", "AllTurmas", "AllCargasPos"]),
 
     DocentesCargaOrdered() {
       return orderBy(

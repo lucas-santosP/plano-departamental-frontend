@@ -992,7 +992,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllSalas", "DocentesAtivos", "TurmasInDisciplinasPerfis"]),
+    ...mapGetters(["AllSalas", "DocentesAtivos", "AllTurmas"]),
 
     TurmasValidacoesOrdered() {
       return orderBy(
@@ -1017,7 +1017,7 @@ export default {
     TurmasValidacoes() {
       let turmasResultantes = [];
 
-      this.TurmasInDisciplinasPerfis.forEach((turma) => {
+      this.AllTurmas.forEach((turma) => {
         let validacao = this.createValidacao(turma);
         this.checkAllValidations(validacao);
 

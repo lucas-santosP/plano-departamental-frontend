@@ -135,9 +135,7 @@ export function filterTurmasDoCurso(turmas, cursoId) {
 }
 
 export function getTurmasDoPeriodo(periodoId) {
-  const turmasDoPeriodo = store.getters.TurmasInDisciplinasPerfis.filter(
-    (turma) => turma.periodo === periodoId
-  );
+  const turmasDoPeriodo = store.getters.AllTurmas.filter((turma) => turma.periodo === periodoId);
 
   return orderBy(turmasDoPeriodo, ["disciplina.codigo", "letra"]);
 }

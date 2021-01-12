@@ -372,7 +372,7 @@ export default {
         }
       }
       let even = this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 === semestre - 1;
-      let turmas = filter(this.TurmasInDisciplinasPerfis, {
+      let turmas = filter(this.AllTurmas, {
         periodo: periodo,
       });
       let turmasExternas = filter(this.TurmasExternasInDisciplinas, {
@@ -417,54 +417,54 @@ export default {
     updateHorarios() {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < this.horariosAtivos1Periodo.CCD[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos1Periodo.CCD[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos1Periodo.CCD[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos1Periodo.CCD[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos1Periodo.CCD[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos1Periodo.CCN[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos1Periodo.CCN[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos1Periodo.CCN[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos1Periodo.CCN[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos1Periodo.CCN[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos1Periodo.EC[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos1Periodo.EC[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos1Periodo.EC[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos1Periodo.EC[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos1Periodo.EC[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos1Periodo.SI[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos1Periodo.SI[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos1Periodo.SI[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos1Periodo.SI[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos1Periodo.SI[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
       }
 
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < this.horariosAtivos3Periodo.CCD[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos3Periodo.CCD[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos3Periodo.CCD[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos3Periodo.CCD[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos3Periodo.CCD[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos3Periodo.CCN[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos3Periodo.CCN[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos3Periodo.CCN[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos3Periodo.CCN[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos3Periodo.CCN[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos3Periodo.EC[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos3Periodo.EC[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos3Periodo.EC[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos3Periodo.EC[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos3Periodo.EC[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
         for (let j = 0; j < this.horariosAtivos3Periodo.SI[i].length; j++)
-          for (let k = 0; k < this.TurmasInDisciplinasPerfis.length; k++) {
-            if (this.horariosAtivos3Periodo.SI[i][j].id == this.TurmasInDisciplinasPerfis[k].id) {
-              this.horariosAtivos3Periodo.SI[i].splice(j, 1, this.TurmasInDisciplinasPerfis[k]);
+          for (let k = 0; k < this.AllTurmas.length; k++) {
+            if (this.horariosAtivos3Periodo.SI[i][j].id == this.AllTurmas[k].id) {
+              this.horariosAtivos3Periodo.SI[i].splice(j, 1, this.AllTurmas[k]);
             }
           }
       }
@@ -483,7 +483,7 @@ export default {
       if (periodo === 1) horariosAtivos = this.horariosAtivos1Periodo.Eletivas;
       else horariosAtivos = this.horariosAtivos3Periodo.Eletivas;
 
-      let turmas = filter(this.TurmasInDisciplinasPerfis, {
+      let turmas = filter(this.AllTurmas, {
         periodo: periodo,
       });
 
@@ -571,7 +571,7 @@ export default {
       "DisciplinasDasGrades",
       "AllGrades",
       "PrincipaisCursosDCC",
-      "TurmasInDisciplinasPerfis",
+      "AllTurmas",
       "TurmasExternasInDisciplinas",
       "Pedidos",
       "PedidosExternos",
@@ -624,7 +624,7 @@ export default {
     },
 
     TurmasAtivas2Periodo() {
-      const turmasFiltredbyPeriodo = filter(this.TurmasInDisciplinasPerfis, ["periodo", 2]);
+      const turmasFiltredbyPeriodo = filter(this.AllTurmas, ["periodo", 2]);
       const turmasFiltredByPedidos = filter(turmasFiltredbyPeriodo, (turma) =>
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
@@ -640,7 +640,7 @@ export default {
       return turmasExternasFiltredbyPeidos.concat(turmasFiltredByPedidos);
     },
     TurmasAtivas4Periodo() {
-      const turmasFiltredbyPeriodo = filter(this.TurmasInDisciplinasPerfis, ["periodo", 4]);
+      const turmasFiltredbyPeriodo = filter(this.AllTurmas, ["periodo", 4]);
       const turmasFiltredByPedidos = filter(turmasFiltredbyPeriodo, (turma) =>
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
@@ -722,7 +722,7 @@ export default {
   },
 
   watch: {
-    TurmasInDisciplinasPerfis() {
+    AllTurmas() {
       this.updateHorarios();
     },
   },

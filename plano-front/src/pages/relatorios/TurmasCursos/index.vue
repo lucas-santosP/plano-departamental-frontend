@@ -334,7 +334,7 @@ export default {
   methods: {
     getTurmasDoCurso(cursoId) {
       const turmas = [];
-      this.TurmasInDisciplinasPerfis.forEach((turma) => {
+      this.AllTurmas.forEach((turma) => {
         const pedidoDoCurso = this.Pedidos[turma.id].find((pedido) => pedido.Curso === cursoId);
 
         if (pedidoDoCurso.vagasPeriodizadas > 0 || pedidoDoCurso.vagasNaoPeriodizadas > 0)
@@ -378,7 +378,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TurmasInDisciplinasPerfis", "Pedidos", "AllCursos"]),
+    ...mapGetters(["AllTurmas", "Pedidos", "AllCursos"]),
 
     CursosOrderedTable() {
       const { order, type } = this.ordenacaoTable.cursos;

@@ -113,7 +113,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TurmasInDisciplinasPerfis", "AllCursos"]),
+    ...mapGetters(["AllTurmas", "AllCursos"]),
 
     PedidosOrdered() {
       return orderBy(
@@ -150,7 +150,7 @@ export default {
       if (this.turma === null) return [];
 
       const turmasResultantes = filter(
-        this.TurmasInDisciplinasPerfis,
+        this.AllTurmas,
         (turma) =>
           turma.Disciplina === this.turma.Disciplina && turma.periodo === this.turma.periodo
       );

@@ -460,7 +460,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TurmasInDisciplinasPerfis", "DisciplinasDCCInPerfis", "PerfisDCC", "Pedidos"]),
+    ...mapGetters(["AllTurmas", "DisciplinasDCCInPerfis", "PerfisDCC", "Pedidos"]),
 
     DisciplinasInTurmasOrdered() {
       return orderBy(
@@ -518,7 +518,7 @@ export default {
       return filteredByPeriodos;
     },
     DisciplinasInTurmas() {
-      const turmasOrdered = orderBy(this.TurmasInDisciplinasPerfis, "periodo");
+      const turmasOrdered = orderBy(this.AllTurmas, "periodo");
 
       return this.DisciplinasDCCInPerfis.map((disciplina) => {
         const turmasDaDisciplina = filter(turmasOrdered, ["Disciplina", disciplina.id]);

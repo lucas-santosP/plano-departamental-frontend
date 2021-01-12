@@ -1,6 +1,6 @@
 import Vue from "vue";
 import turmaService from "../../services/turma";
-import { find, cloneDeepWith, orderBy } from "lodash-es";
+import { find, cloneDeepWith } from "lodash-es";
 import { validateObjectKeys, setEmptyValuesToNull } from "@/common/utils";
 import {
   PUSH_NOTIFICATION,
@@ -125,18 +125,13 @@ const actions = {
 };
 
 const getters = {
-  AllTurmas(state) {
-    return orderBy(state.Turmas, ["letra"]);
-  },
-
-  TurmasInDisciplinasPerfis(_, getters) {
-    const turmasResult = [];
-
-    getters.AllTurmas.forEach((turma) => {
+  AllTurmas(state, getters) {
+    const turmas = [];
+    state.Turmas.forEach((turma) => {
       const disciplinaFounded = find(getters.DisciplinasInPerfis, ["id", turma.Disciplina]);
 
       if (disciplinaFounded)
-        turmasResult.push({
+        turmas.push({
           ...turma,
           disciplina: {
             ...disciplinaFounded,
@@ -144,7 +139,7 @@ const getters = {
         });
     });
 
-    return turmasResult;
+    return turmas;
   },
 
   TurmasToDelete(state) {

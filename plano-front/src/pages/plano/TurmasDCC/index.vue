@@ -631,7 +631,7 @@ export default {
       "CursosDCC",
       "PerfisDCC",
       "DisciplinasDCCInPerfis",
-      "TurmasInDisciplinasPerfis",
+      "AllTurmas",
       "TurmasToDelete",
       "Pedidos",
     ]),
@@ -658,7 +658,7 @@ export default {
       );
     },
     TurmasFiltredByPeriodos() {
-      return filter(this.TurmasInDisciplinasPerfis, (turma) =>
+      return filter(this.AllTurmas, (turma) =>
         some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },
@@ -735,7 +735,7 @@ export default {
       });
     },
     turmasLength() {
-      return this.TurmasInDisciplinasPerfis.length;
+      return this.AllTurmas.length;
     },
   },
 
