@@ -531,6 +531,7 @@ export default {
       "AllPerfis",
       "AllCursos",
       "AllGradesCursosExternos",
+      "DisciplinasDasGradesCursosExternos",
     ]),
 
     CursosComGrades() {
@@ -622,9 +623,21 @@ export default {
         return nome.match(searchNormalized) || codigo.match(searchNormalized);
       });
     },
-    DisciplinasOptions() {
-      return this.AllDisciplinas;
+
+    DisciplinasComGrades() {
+      let Disciplinas = [];
+      this.DisciplinasDasGradesCursosExternos.forEach((g) => {
+        if (!find(Disciplinas, { id: g.Disciplina })) {
+          Disciplinas.push(find(this.AllDisciplinas, { id: g.Disciplina }));
+        }
+      });
+      return Disciplinas;
     },
+
+    DisciplinasOptions() {
+      return this.DisciplinasComGrades;
+    },
+
     PerfisOptionsOrdered() {
       return orderBy(
         this.PerfisOptions,
