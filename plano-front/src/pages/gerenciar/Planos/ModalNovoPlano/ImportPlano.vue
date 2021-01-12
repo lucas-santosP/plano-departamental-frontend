@@ -49,7 +49,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { find, some } from "lodash-es";
 import XLSX from "xlsx";
-import { generateEmptyTurma, normalizeText } from "@/common/utils";
+import { readFileToBinary, generateEmptyTurma, normalizeText } from "@/common/utils";
 
 export default {
   name: "ModalImportPlano",
@@ -59,51 +59,44 @@ export default {
     ...mapActions([
       "createPlano",
       "createTurma",
+      "createPedidoOferecido",
       "updatePedidoOferecido",
       "fetchAllPedidosOferecidos",
     ]),
 
     async handleImportPlano() {
-      const [inputFile1Periodo] = this.$refs.input1periodo.files;
-      const [inputFile3Periodo] = this.$refs.input3periodo.files;
-      if (!inputFile1Periodo && !inputFile3Periodo) {
+      const [file1Periodo] = this.$refs.input1periodo.files;
+      const [file3Periodo] = this.$refs.input3periodo.files;
+      if (!file1Periodo && !file3Periodo) {
         throw new Error("Nenhum arquivo selecionado");
       }
 
+      this.setLoading({ type: "partial", value: true });
       const planoCreated = await this.createPlano({ data: this.plano });
-      if (inputFile1Periodo) {
-        await this.readInputFileTurmas(inputFile1Periodo, planoCreated.id, 1);
-      }
-      if (inputFile3Periodo) {
-        await this.readInputFileTurmas(inputFile3Periodo, planoCreated.id, 3);
-      }
+      if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
+      if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+
+      console.clear();
+      this.setLoading({ type: "partial", value: false });
+      this.pushNotification({
+        type: "success",
+        text: "Plano criado e turmas importadas",
+      });
     },
     async readInputFileTurmas(inputFile, planoId, periodo) {
-      const reader = new FileReader();
+      const fileBase64 = await readFileToBinary(inputFile);
+      const workbook = XLSX.read(fileBase64, { type: "binary" });
+      const firstWorksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const dataString = JSON.stringify(XLSX.utils.sheet_to_json(firstWorksheet));
+      const dataStringNormalized = dataString
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, "")
+        .toUpperCase();
+      const turmas = JSON.parse(dataStringNormalized);
 
-      reader.onload = async(event) => {
-        this.setLoading({ type: "partial", value: true });
-        const workbook = XLSX.read(event.target.result, { type: "binary" });
-        const firstWorksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const dataString = JSON.stringify(XLSX.utils.sheet_to_json(firstWorksheet));
-        const dataStringNormalized = dataString
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/\s/g, "")
-          .toUpperCase();
-
-        const turmas = JSON.parse(dataStringNormalized);
-        const response = await this.createTurmasImported(turmas, planoId, periodo);
-        await this.updatePedidosImported(response.promisesPedidos);
-
-        this.setLoading({ type: "partial", value: false });
-        this.pushNotification({
-          type: "success",
-          text: "Plano criado e turmas importadas",
-        });
-      };
-
-      reader.readAsBinaryString(inputFile);
+      const response = await this.createTurmasImported(turmas, planoId, periodo);
+      await this.createPedidosImported(response.promisesPedidos);
     },
     async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
@@ -145,36 +138,50 @@ export default {
 
         this.setDocentes(newTurma, turmaFile[keys.docentes]);
 
-        //Se a nova turma é igual a currentTurma, não cria a turma apenas cria o pedidos oferecidos
+        //Se a nova turma é igual a currentTurma, não cria a turma e apenas atualiza o pedidos oferecidos
         if (this.turmasIsEqual(currentTurma, newTurma)) {
-          const promise = async() => {
-            return await this.handleEditPedidoOferecido(turmaFile, keys, currentTurma.id);
-          };
-          promisesPedidos.push(promise);
+          const pedidoOferecido = this.makePedidoOferecido(turmaFile, keys, currentTurma.id);
+          if (pedidoOferecido) {
+            const promiseUpdatePedido = async() => {
+              try {
+                return await this.updatePedidoOferecido({ data: pedidoOferecido });
+              } catch (error) {
+                if (error.response.data.message === "Pedido inválido")
+                  return await this.createPedidoOferecido({ data: pedidoOferecido });
+              }
+            };
+            promisesPedidos.push(promiseUpdatePedido);
+          }
           continue;
         }
+
         //Se é uma turma nova então cria a turma
         const turmaCreated = await this.createTurma({ data: newTurma });
         //Atualiza currentTurma
         currentTurma = { ...turmaCreated };
         //E edita o pedido oferecido da turma
-        const promise = async() => {
-          return await this.handleEditPedidoOferecido(turmaFile, keys, turmaCreated.id);
-        };
-        promisesPedidos.push(promise);
+        const pedidoOferecido = this.makePedidoOferecido(turmaFile, keys, turmaCreated.id);
+        if (pedidoOferecido) {
+          const promiseCreatePedido = async() => {
+            return await this.createPedidoOferecido({ data: pedidoOferecido });
+          };
+          promisesPedidos.push(promiseCreatePedido);
+        }
       }
 
       return { promisesPedidos };
     },
-    async updatePedidosImported(promisesPedidos) {
-      await this.fetchAllPedidosOferecidos();
+    async createPedidosImported(promisesPedidos) {
       await Promise.all(
         promisesPedidos.map(async(updatePedido) => {
           return await updatePedido();
         })
       );
+      await this.fetchAllPedidosOferecidos();
     },
-    async handleEditPedidoOferecido(turmaFile, keys, turmaId) {
+
+    //Helpers
+    makePedidoOferecido(turmaFile, keys, turmaId) {
       const pedido = {
         Turma: null,
         Curso: null,
@@ -183,19 +190,19 @@ export default {
       };
       pedido.Turma = turmaId;
       pedido.Curso = this.findCursoIdByCodigo(turmaFile[keys.cursoCod]);
-      pedido.vagasOferecidas = turmaFile[keys.vagas1];
-      pedido.vagasOcupadas = turmaFile[keys.vagas2];
+      pedido.vagasOferecidas = parseInt(turmaFile[keys.vagas1], 10);
+      pedido.vagasOcupadas = parseInt(turmaFile[keys.vagas2], 10);
 
       if (pedido.Curso) {
-        // await this.updatePedidoOferecido({ data: pedido });
+        return pedido;
       } else {
         console.log(
           "Curso não econtrado: " + turmaFile[keys.cursoCod],
           "Turma: " + turmaFile[keys.disciplinaCod] + " - " + turmaFile[keys.letra]
         );
+        return null;
       }
     },
-    //Helpers
     setDisciplina(turma, strCodigo) {
       if (!strCodigo) return;
 
