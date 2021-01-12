@@ -42,14 +42,13 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAllPlanos({ commit }) {
     return new Promise((resolve, reject) => {
       planoService
         .fetchAll()
         .then((response) => {
-          console.log(response);
           commit(PLANO_FETCHED, response);
-          resolve();
+          resolve(response);
         })
         .catch((error) => {
           reject(error);
@@ -57,11 +56,17 @@ const actions = {
     });
   },
 
-  async initializeCurrentPlano({ commit, dispatch }) {
+  async initializeCurrentPlano({ commit, dispatch, state }) {
     try {
       dispatch("setLoading", { type: "fetching", value: true });
+      const response = await dispatch("fetchAllPlanos");
+      console.log(response);
+      let currentPlanoId = localStorage.getItem("Plano") || null;
 
-      const currentPlanoId = localStorage.getItem("Plano") ? localStorage.getItem("Plano") : 1;
+      if (!currentPlanoId || !find(state.Plano, ["id", currentPlanoId])) {
+        const firstVisiblePlano = find(state.Plano, ["visible", true]);
+        currentPlanoId = firstVisiblePlano.id;
+      }
       dispatch("setCurrentPlanoId", currentPlanoId);
 
       await dispatch("fetchAll");
@@ -77,7 +82,6 @@ const actions = {
   async changeCurrentPlano({ dispatch }, planoId) {
     try {
       dispatch("setLoading", { type: "fetching", value: true });
-
       dispatch("setCurrentPlanoId", planoId);
       await dispatch("fetchAll");
       $socket.open();
@@ -98,6 +102,7 @@ const actions = {
         text: `Plano ${planoNormalized.nome} foi criado`,
       });
     }
+
     return response.Plano;
   },
 

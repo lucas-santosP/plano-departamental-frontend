@@ -37,6 +37,7 @@ export default {
   components: { TheSidebar, TheNavbar, ThePageHeader, ModalUser, ModalDownload },
   data() {
     return {
+      planoInitilized: false,
       modalCallbacks: {
         openDownload: () => this.$refs.modalDownload.open(),
         openUser: () => this.$refs.modalUser.open(),
@@ -46,10 +47,7 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      if (!find(this.Planos, ["id", this.currentPlano.id]).visible) {
-        const firstVisiblePlano = find(this.Planos, ["visible", true]);
-        this.changeCurrentPlano(firstVisiblePlano.id);
-      }
+      this.planoInitilized = true;
     });
     this.unwatch = this.$store.subscribe((mutation) => {
       if (mutation.type === SOCKET_PLANO_UPDATED) {
@@ -98,8 +96,8 @@ export default {
   },
   watch: {
     currentPlano: {
-      handler(currentPlano) {
-        if (!currentPlano) {
+      handler(newValue) {
+        if (!newValue && this.planoInitilized) {
           const firstVisiblePlano = find(this.Planos, ["visible", true]);
           this.changeCurrentPlano(firstVisiblePlano.id);
 
@@ -110,7 +108,6 @@ export default {
           });
         }
       },
-      immediate: true,
       deep: true,
     },
   },
