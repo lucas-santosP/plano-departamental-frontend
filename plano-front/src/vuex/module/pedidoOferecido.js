@@ -78,7 +78,6 @@ const actions = {
         text: "O pedido foi criado",
       });
     }
-    console.log(response);
     return response.Pedido;
   },
 
