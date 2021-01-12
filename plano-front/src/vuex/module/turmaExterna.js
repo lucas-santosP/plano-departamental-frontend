@@ -118,26 +118,21 @@ const actions = {
 };
 
 const getters = {
-  AllTurmasExternas(state) {
-    return orderBy(state.Turmas, ["letra"]);
-  },
+  AllTurmasExternas(state, getters) {
+    const turmas = [];
+    state.Turmas.forEach((turma) => {
+      const disciplinaFound = find(getters.DisciplinasExternas, ["id", turma.Disciplina]);
 
-  TurmasExternasInDisciplinas(_, getters) {
-    const turmasResult = [];
-
-    getters.AllTurmasExternas.forEach((turma) => {
-      const disciplinaFounded = find(getters.DisciplinasExternas, ["id", turma.Disciplina]);
-
-      if (disciplinaFounded)
-        turmasResult.push({
+      if (disciplinaFound)
+        turmas.push({
           ...turma,
           disciplina: {
-            ...disciplinaFounded,
+            ...disciplinaFound,
           },
         });
     });
 
-    return turmasResult;
+    return orderBy(turmas, "letra");
   },
 
   TurmasExternasToDelete(state) {

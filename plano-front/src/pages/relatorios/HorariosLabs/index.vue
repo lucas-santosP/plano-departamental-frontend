@@ -237,7 +237,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["onLoading", "Laboratorios", "AllTurmas", "TurmasExternasInDisciplinas"]),
+    ...mapGetters(["onLoading", "Laboratorios", "AllTurmas", "AllTurmasExternas"]),
 
     LaboratoriosOrdered() {
       const laboratoriosResultantes = [];
@@ -255,7 +255,7 @@ export default {
     },
     TurmasETurmasExternasOrdered() {
       const turmasOredered = orderBy(this.AllTurmas, ["periodo", "disciplina.nome", "letra"]);
-      const turmasExternasOrdered = orderBy(this.TurmasExternasInDisciplinas, [
+      const turmasExternasOrdered = orderBy(this.AllTurmasExternas, [
         "periodo",
         "disciplina.nome",
         "letra",

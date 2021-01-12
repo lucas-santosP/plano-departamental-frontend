@@ -397,7 +397,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "TurmasExternasInDisciplinas",
+      "AllTurmasExternas",
       "DisciplinasExternas",
       "TurmasExternasToDelete",
       "PrincipaisCursosDCC",
@@ -406,8 +406,8 @@ export default {
     TurmasExternasOrdered() {
       return orderBy(
         this.TurmasExternarFiltredByDisciplinas,
-        ["periodo", this.ordenacaoTurmasMain.order],
-        ["asc", this.ordenacaoTurmasMain.type]
+        ["periodo", this.ordenacaoTurmasMain.order, "letra"],
+        ["asc", this.ordenacaoTurmasMain.type, "asc"]
       );
     },
     TurmasExternarFiltredByDisciplinas() {
@@ -416,7 +416,7 @@ export default {
       );
     },
     TurmasExternarFiltredByPeriodos() {
-      return filter(this.TurmasExternasInDisciplinas, (turma) =>
+      return filter(this.AllTurmasExternas, (turma) =>
         some(this.filtroPeriodos.ativados, ["id", turma.periodo])
       );
     },

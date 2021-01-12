@@ -372,12 +372,8 @@ export default {
         }
       }
       let even = this.$store.state.curso.Cursos[curso - 1].semestreInicial % 2 === semestre - 1;
-      let turmas = filter(this.AllTurmas, {
-        periodo: periodo,
-      });
-      let turmasExternas = filter(this.TurmasExternasInDisciplinas, {
-        periodo: periodo,
-      });
+      let turmas = filter(this.AllTurmas, ["periodo", periodo]);
+      let turmasExternas = filter(this.AllTurmasExternas, ["periodo", periodo]);
       let disciplinasGrades = this.DisciplinasDasGrades;
       let inicio = 0;
 
@@ -567,12 +563,11 @@ export default {
   computed: {
     ...mapGetters([
       "onLoading",
-      "AllDisciplinas",
       "DisciplinasDasGrades",
-      "AllGrades",
       "PrincipaisCursosDCC",
+      "AllGrades",
       "AllTurmas",
-      "TurmasExternasInDisciplinas",
+      "AllTurmasExternas",
       "Pedidos",
       "PedidosExternos",
     ]),
@@ -629,10 +624,7 @@ export default {
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
-      const turmasExternasFiltredbyPeriodo = filter(this.TurmasExternasInDisciplinas, [
-        "periodo",
-        2,
-      ]);
+      const turmasExternasFiltredbyPeriodo = filter(this.AllTurmasExternas, ["periodo", 2]);
       const turmasExternasFiltredbyPeidos = filter(turmasExternasFiltredbyPeriodo, (turma) =>
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
@@ -645,10 +637,7 @@ export default {
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosDeCursosDCC)
       );
 
-      const turmasExternasFiltredbyPeriodo = filter(this.TurmasExternasInDisciplinas, [
-        "periodo",
-        4,
-      ]);
+      const turmasExternasFiltredbyPeriodo = filter(this.AllTurmasExternas, ["periodo", 4]);
       const turmasExternasFiltredbyPeidos = filter(turmasExternasFiltredbyPeriodo, (turma) =>
         this.getTurmasComPedidoPeriodizado(turma, this.PedidosExternosDeCursosDCC)
       );
