@@ -177,7 +177,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar carga por professor:</b>
+        <b>Visualizar carga por docentes:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -188,7 +188,7 @@
         Clique no ícone relatório
         <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
         . Em seguida, indique se deseja gerar o relatório completo com a distribuição das
-        disciplinas para todos os professores ou o relatório parcial com as informações exibidas na
+        disciplinas para todos os docentes ou o relatório parcial com as informações exibidas na
         tela.
       </li>
     </ModalAjuda>
@@ -198,7 +198,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, some, orderBy } from "lodash-es";
-import { pdfCargaProfessores } from "@/services/pdfs";
+import { pdfCargaDocentes } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -213,7 +213,7 @@ import DocenteTurmaRow from "./DocenteTurmaRow";
 import DocenteCargaPosRow from "./DocenteCargaPosRow";
 
 export default {
-  name: "DashboardCargaProfessores",
+  name: "RelatorioCargaDocentes",
   mixins: [
     toggleItemInArray,
     toggleAsideModal,
@@ -440,7 +440,7 @@ export default {
         periodosAtivos = this.filtroPeriodos.ativados;
       }
 
-      pdfCargaProfessores({
+      pdfCargaDocentes({
         docentesCarga,
         docenteSemAlocacaoCarga,
         periodosAtivos,

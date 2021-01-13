@@ -12,7 +12,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-async function pdfCargaProfessores(data) {
+async function pdfCargaDocentes(data) {
   const { docentesCarga, docenteSemAlocacaoCarga, periodosAtivos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
@@ -24,7 +24,7 @@ async function pdfCargaProfessores(data) {
     makePageHeader({
       images: headerImages,
       plano,
-      title: "Relação de disciplinas ministradas pelos professores",
+      title: "Relação de disciplinas ministradas pelos docentes",
     })
   );
 
@@ -32,7 +32,7 @@ async function pdfCargaProfessores(data) {
     tables.push(makeEmptyPageWarning());
   } else {
     const docentesOrdered = orderBy(docentesCarga, "nome");
-    let possuiAlgumaTurmas = false;
+    let possuiAlgumaTurma = false;
 
     docentesOrdered.forEach((docente) => {
       if (
@@ -41,7 +41,7 @@ async function pdfCargaProfessores(data) {
         docente.cargasPos.semestre2.length ||
         docente.cargasPos.semestre2.length
       ) {
-        possuiAlgumaTurmas = true;
+        possuiAlgumaTurma = true;
         const cargaDoDocente = docente.creditos1Semestre + docente.creditos2Semestre;
         tables.push({
           style: "tableExample",
@@ -153,7 +153,7 @@ async function pdfCargaProfessores(data) {
     });
 
     if (docenteSemAlocacaoCarga && docenteSemAlocacaoCarga.turmas.length) {
-      possuiAlgumaTurmas = true;
+      possuiAlgumaTurma = true;
       const cargaDoDocente =
         docenteSemAlocacaoCarga.creditos1Semestre + docenteSemAlocacaoCarga.creditos2Semestre;
       tables.push({
@@ -243,13 +243,13 @@ async function pdfCargaProfessores(data) {
       });
     }
 
-    if (!possuiAlgumaTurmas) {
+    if (!possuiAlgumaTurma) {
       tables.push(makeEmptyPageWarning());
     }
   }
 
   const docDefinition = {
-    info: { title: "Carga Professores" },
+    info: { title: "Carga Docentes" },
     content: tables,
     footer: (currentPage, pageCount) => {
       return {
@@ -273,7 +273,7 @@ async function pdfCargaProfessores(data) {
   pdfMake.createPdf(docDefinition).open();
 }
 
-export default pdfCargaProfessores;
+export default pdfCargaDocentes;
 
 function makeDocenteBodyHeader() {
   return [
