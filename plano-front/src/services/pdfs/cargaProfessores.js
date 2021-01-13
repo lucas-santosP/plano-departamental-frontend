@@ -7,7 +7,7 @@ import {
   is2Semestre,
 } from "./helpers";
 import store from "@/vuex/store";
-import { orderBy } from "lodash-es";
+import { orderBy, some } from "lodash-es";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -16,6 +16,9 @@ async function pdfCargaProfessores(data) {
   const { docentesCarga, docenteSemAlocacaoCarga, periodosAtivos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
+  const semestre1EstaAtivo = some(periodosAtivos, ["semestreId", 1]);
+  const semestre2EstaAtivo = some(periodosAtivos, ["semestreId", 2]);
+  const ehCargaParcial = periodosAtivos.length !== 4; //Se não possui algum periodos é uma carga parcial
 
   tables.push(
     makePageHeader({
@@ -39,6 +42,7 @@ async function pdfCargaProfessores(data) {
         docente.cargasPos.semestre2.length
       ) {
         possuiAlgumaTurmas = true;
+        const cargaDoDocente = docente.creditos1Semestre + docente.creditos2Semestre;
         tables.push({
           style: "tableExample",
           table: {
@@ -49,7 +53,7 @@ async function pdfCargaProfessores(data) {
               [
                 { text: docente.nome, alignment: "left", fontSize: 9, bold: true },
                 {
-                  text: `Carga total: ${docente.creditos1Semestre + docente.creditos2Semestre}`,
+                  text: `Carga ${ehCargaParcial ? "parcial" : "total"}: ${cargaDoDocente}`,
                   alignment: "center",
                   fontSize: 9,
                   bold: true,
@@ -119,14 +123,14 @@ async function pdfCargaProfessores(data) {
             margin: [0, 5, 0, 0],
           },
           {
-            text: docente.creditos1Semestre,
+            text: semestre1EstaAtivo ? docente.creditos1Semestre : "",
             fontSize: 6,
             alignment: "center",
             bold: true,
             margin: [0, 5, 0, 0],
           },
           {
-            text: docente.creditos2Semestre,
+            text: semestre2EstaAtivo ? docente.creditos2Semestre : "",
             fontSize: 6,
             alignment: "center",
             bold: true,
@@ -150,6 +154,8 @@ async function pdfCargaProfessores(data) {
 
     if (docenteSemAlocacaoCarga && docenteSemAlocacaoCarga.turmas.length) {
       possuiAlgumaTurmas = true;
+      const cargaDoDocente =
+        docenteSemAlocacaoCarga.creditos1Semestre + docenteSemAlocacaoCarga.creditos2Semestre;
       tables.push({
         style: "tableExample",
         table: {
@@ -160,10 +166,7 @@ async function pdfCargaProfessores(data) {
             [
               { text: docenteSemAlocacaoCarga.nome, alignment: "left", fontSize: 9, bold: true },
               {
-                text: `Carga total: ${
-                  docenteSemAlocacaoCarga.creditos1Semestre +
-                  docenteSemAlocacaoCarga.creditos2Semestre
-                }`,
+                text: `Carga ${ehCargaParcial ? "parcial" : "total"} : ${cargaDoDocente}`,
                 alignment: "center",
                 fontSize: 9,
                 bold: true,
@@ -212,14 +215,14 @@ async function pdfCargaProfessores(data) {
           margin: [0, 5, 0, 0],
         },
         {
-          text: docenteSemAlocacaoCarga.creditos1Semestre,
+          text: semestre1EstaAtivo ? docenteSemAlocacaoCarga.creditos1Semestre : "",
           fontSize: 6,
           alignment: "center",
           bold: true,
           margin: [0, 5, 0, 0],
         },
         {
-          text: docenteSemAlocacaoCarga.creditos2Semestre,
+          text: semestre2EstaAtivo ? docenteSemAlocacaoCarga.creditos2Semestre : "",
           fontSize: 6,
           alignment: "center",
           bold: true,
