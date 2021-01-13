@@ -363,7 +363,7 @@ async function pdfHorariosCursos(data) {
           })
         );
         const tableHorarios = [makeTableHorarioHeader()];
-        let possuiAlgumaTurma = false;
+        let periodoPossuiAlgumaTurma = false;
         let seg = "",
           ter = "",
           qua = "",
@@ -402,12 +402,12 @@ async function pdfHorariosCursos(data) {
 
           tableHorarios.push(makeTableHorariosBody(d, { seg, ter, qua, qui, sex }, "todos"));
           if (seg || ter || qua || qui || sex) {
-            possuiAlgumaTurma = true;
+            periodoPossuiAlgumaTurma = true;
           }
           seg = ter = qua = qui = sex = "";
         }
 
-        if (possuiAlgumaTurma) {
+        if (periodoPossuiAlgumaTurma) {
           tables.push({
             table: {
               widths: ["*", "*", "*", "*", "*", "*"],
