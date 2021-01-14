@@ -61,7 +61,7 @@ export default {
       "createTurma",
       "createPedidoOferecido",
       "updatePedidoOferecido",
-      "fetchAllPedidosOferecidos",
+      "fetchAll",
     ]),
 
     async handleImportPlano() {
@@ -80,7 +80,7 @@ export default {
         console.log("Erro ao importar", error);
       }
 
-      // console.clear();
+      console.clear();
       this.setLoading({ type: "partial", value: false });
       this.pushNotification({
         type: "success",
@@ -99,6 +99,7 @@ export default {
         .toUpperCase();
       const turmas = JSON.parse(dataStringNormalized);
       await this.createTurmasImported(turmas, planoId, periodo);
+      await this.fetchAll();
     },
     async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
@@ -164,8 +165,6 @@ export default {
           await this.createPedidoOferecido({ data: pedidoOferecido });
         }
       }
-
-      await this.fetchAllPedidosOferecidos();
     },
 
     //Helpers
