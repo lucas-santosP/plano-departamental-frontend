@@ -188,6 +188,13 @@ const state = {
       description:
         "Listagem de pendências que precisam ser resolvidas para a finalização do Plano Departamental.",
     },
+    {
+      path: "/validacoes/lancamento-siga",
+      title: "Lançamento SIGA",
+      icon: "calendar-check",
+      description:
+        "Permite determinar diferenças entre os pedidos do sistemas e os pedidos lançados no SIGA, através da comparação do arquivo .csv gerado pelo SIGA com o plano atual.",
+    },
   ],
 };
 
