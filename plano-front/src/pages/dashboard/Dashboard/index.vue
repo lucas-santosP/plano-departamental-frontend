@@ -60,7 +60,7 @@ export default {
           this.changeCurrentPlano(firstVisiblePlano.id).then(() => {
             this.pushNotification({
               type: "warn",
-              title: "Aviso!",
+              duration: 6000,
               text: `O plano em que você estava foi alterado para não visivel.<br/> Então você foi
                 redirecionado para o plano ${firstVisiblePlano.ano} - ${firstVisiblePlano.nome}`,
             });
