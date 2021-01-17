@@ -1,52 +1,39 @@
 /* ### icon-cores ### */
 .icon-green {
   color: #77dd77 !important;
+  &:hover {
+    color: #54bd54 !important;
+  }
 }
-
-.icon-green:hover {
-  color: #54bd54 !important;
-}
-
 .icon-lightblue {
   color: #9ab3ff !important;
+  &:hover {
+    color: #728bdd !important;
+  }
 }
-
-.icon-lightblue:hover {
-  color: #728bdd !important;
-}
-
 .icon-gray {
   color: #8a8a8a !important;
+  &:hover {
+    color: #747474 !important;
+  }
 }
-
-.icon-gray:hover {
-  color: #747474 !important;
-}
-
 .icon-darkgray {
   color: #2e2e2e !important;
+  &:hover {
+    color: #1b1b1b !important;
+  }
 }
-
-.icon-darkgray:hover {
-  color: #1b1b1b !important;
-}
-
 .icon-red {
-  background-color: inherit !important;
   color: #ff817b !important;
+  &:hover {
+    color: #ff5f48 !important;
+  }
 }
-
-.icon-red:hover {
-  color: #ff5f48 !important;
-}
-
 .icon-blue {
-  background-color: inherit !important;
   color: #2482ed !important;
-}
-
-.icon-blue:hover {
-  color: rgb(25, 85, 163) !important;
+  &:hover {
+    color: rgb(25, 85, 163) !important;
+  }
 }
 
 /* ### text-cores ### */

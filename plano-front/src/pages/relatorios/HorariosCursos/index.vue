@@ -109,7 +109,7 @@
               <input type="checkbox" v-model="filtroCursos.selecionados" :value="curso" />
             </v-td>
             <v-td width="70">{{ curso.codigo }}</v-td>
-            <v-td width="355" class="t-start">{{ curso.nome }}</v-td>
+            <v-td width="355" aling="start">{{ curso.nome }}</v-td>
           </tr>
         </template>
       </BaseTable>

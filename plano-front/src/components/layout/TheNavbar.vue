@@ -113,7 +113,6 @@ export default {
   margin: 0;
   font-size: 16px;
   text-align: start;
-  font-family: "Crete Round", serif;
   text-decoration: none;
   color: currentColor;
 }

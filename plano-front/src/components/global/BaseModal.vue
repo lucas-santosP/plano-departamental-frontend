@@ -243,6 +243,7 @@ export default {
   height: 45px;
 }
 
+/* Animation */
 .right-enter-active {
   animation: zoomInRight 0.3s ease;
 }
@@ -269,7 +270,6 @@ export default {
     transform: scale(0);
   }
 }
-
 .center-enter-active {
   animation: zoomInCenter 0.3s ease;
 }
