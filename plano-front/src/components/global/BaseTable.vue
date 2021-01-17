@@ -159,7 +159,6 @@ export default {
       height: 12px;
       width: 12px;
       border-width: 1px !important;
-      box-shadow: 0px 0px 0px 0.005px #555;
     }
   }
 
