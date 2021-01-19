@@ -68,7 +68,7 @@ const actions = {
   },
 
   async createPedidoOferecido({ commit }, { data, notify }) {
-    const pedidoNormalized = normalizePedido(data);
+    const pedidoNormalized = normalizePedido(data, ["vagasOferecidas", "vagasOcupadas"]);
 
     const response = await pedidoOferecidoService.create(pedidoNormalized);
 
@@ -82,13 +82,14 @@ const actions = {
   },
 
   async updatePedidoOferecido({ commit }, { data, notify }) {
-    const pedidoNormalized = normalizePedido(data);
+    const pedidoNormalized = normalizePedido(data, ["vagasOferecidas", "vagasOcupadas"]);
 
     const pedidoUpdated = await pedidoOferecidoService.update(
       pedidoNormalized.Curso,
       pedidoNormalized.Turma,
       pedidoNormalized
     );
+    console.log(pedidoUpdated);
 
     if (notify) {
       commit("PUSH_NOTIFICATION", {
