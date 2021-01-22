@@ -102,13 +102,13 @@ const routes = [
         beforeEnter: requireSuperAdmin,
       },
       {
-        path: "/gerenciar/grades-edit",
-        component: lazyLoad("gerenciar/GradesEdit"),
+        path: "/gerenciar/disciplinas-grades-dcc",
+        component: lazyLoad("gerenciar/DisciplinasGradesDCC"),
         beforeEnter: requireSuperAdmin,
       },
       {
-        path: "/gerenciar/grades-cursos-externos-edit",
-        component: lazyLoad("gerenciar/GradesCursosExternosEdit"),
+        path: "/gerenciar/disciplinas-grades-outros",
+        component: lazyLoad("gerenciar/DisciplinasGradesExternas"),
         beforeEnter: requireSuperAdmin,
       },
       {
@@ -117,12 +117,12 @@ const routes = [
         beforeEnter: requireSuperAdmin,
       },
       {
-        path: "/gerenciar/grades",
-        component: lazyLoad("gerenciar/Grades"),
+        path: "/gerenciar/grades-cursos-dcc",
+        component: lazyLoad("gerenciar/GradesCursosDCC"),
         beforeEnter: requireSuperAdmin,
       },
       {
-        path: "/gerenciar/gradesCursosExternos",
+        path: "/gerenciar/grades-cursos-outros",
         component: lazyLoad("gerenciar/GradesCursosExternos"),
         beforeEnter: requireSuperAdmin,
       },

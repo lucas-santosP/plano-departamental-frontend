@@ -188,7 +188,7 @@ const emptyGrade = {
 };
 
 export default {
-  name: "DashboardGrade",
+  name: "GerenciarGradesCursosDCC",
   mixins: [normalizeInputText],
   components: { Card, ModalAjuda, ModalDelete },
   data() {

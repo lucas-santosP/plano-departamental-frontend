@@ -96,14 +96,14 @@ const state = {
         "Listagem de todas as disciplinas cadastradas no sistema. Permite a alteração de nome, código, carga teórica e prática, perfis, além de poder definir se a disciplina é EAD ou não.",
     },
     {
-      path: "/gerenciar/grades-edit",
+      path: "/gerenciar/disciplinas-grades-dcc",
       title: "Disciplinas na Grade - DCC",
       icon: "table",
       description:
         "Listagem de todas as disciplinas de uma grade (atual ou antiga) cadastrada no sistema, permitindo a alteração ou adição de novas disciplinas.",
     },
     {
-      path: "/gerenciar/grades-cursos-externos-edit",
+      path: "/gerenciar/disciplinas-grades-outros",
       title: "Disciplinas na Grade - Outros",
       icon: "table",
       description:
@@ -117,18 +117,18 @@ const state = {
         "Listagem de todos os docentes ativos e inativos do DCC, permitindo a alteração de seus perfis.",
     },
     {
-      path: "/gerenciar/grades",
+      path: "/gerenciar/grades-cursos-dcc",
       title: "Grades de Cursos - DCC",
       icon: "sitemap",
       description:
-        "Listagem das grades (atuais ou antigas) dos cursos do DCC que ainda estão em atividade, permitindo a adição de novas grades.",
+        "Listagem das grades (atuais e antigas) dos cursos do DCC que ainda estão em atividade, permitindo a adição de novas grades.",
     },
     {
-      path: "/gerenciar/gradesCursosExternos",
+      path: "/gerenciar/grades-cursos-outros",
       title: "Grades de Cursos - Outros",
       icon: "sitemap",
       description:
-        "Listagem das grades (atuais ou antigas) dos cursos externos que ainda estão em atividade, permitindo a adição de novas grades.",
+        "Listagem das grades (atuais e antigas) dos cursos externos que ainda estão em atividade, permitindo a adição de novas grades.",
     },
     {
       path: "/gerenciar/history",

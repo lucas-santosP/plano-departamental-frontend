@@ -249,7 +249,7 @@ const emptyDisciplinaGrade = {
   Grade: null,
 };
 export default {
-  name: "GerenciarDisciplinasGrade",
+  name: "GerenciarDisciplinasGradesDCC",
   mixins: [maskOnlyNumber],
   components: { Card, ModalAjuda, ModalDelete },
   data() {
