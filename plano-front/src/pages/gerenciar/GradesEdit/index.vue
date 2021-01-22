@@ -65,7 +65,7 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Disciplinas'">
+      <Card :title="'Disciplinas'" width="415">
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0 mr-3">
@@ -74,7 +74,7 @@
                 id="cursoAtual"
                 v-model="currentCursoId"
                 v-on:change="changeCurso"
-                class="form-control form-control-sm input-xl"
+                class="form-control form-control-sm w-100"
               >
                 <option value="4">Ciência da Computação Diurno</option>
                 <option value="1">Ciência da Computação Noturno</option>
@@ -112,8 +112,7 @@
                 :disabled="!hasGradeSelected"
                 type="text"
                 id="disciplina"
-                style="width: 376px"
-                class="form-control form-control-sm"
+                class="form-control form-control-sm w-100"
                 v-model="disciplinaGradeForm.Disciplina"
                 @change="clearClick(), updateDisciplinaForm()"
               >
@@ -131,7 +130,7 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label required for="periodoDisciplina" class="col-form-label pb-1">Período</label>
+              <label required for="periodoDisciplina" class="col-form-label">Período</label>
               <div class="d-flex align-items-center">
                 <input
                   :disabled="!hasGradeSelected"
@@ -239,18 +238,18 @@ import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { mapGetters } from "vuex";
 
 const emptyGrade = {
-  id: undefined,
-  periodoInicio: undefined,
-  Curso: undefined,
-  nome: undefined,
+  id: null,
+  periodoInicio: null,
+  Curso: null,
+  nome: null,
 };
 const emptyDisciplinaGrade = {
   periodo: 1,
-  Disciplina: undefined,
-  Grade: undefined,
+  Disciplina: null,
+  Grade: null,
 };
 export default {
-  name: "DashboardGradeEdit",
+  name: "GerenciarDisciplinasGrade",
   mixins: [maskOnlyNumber],
   components: { Card, ModalAjuda, ModalDelete },
   data() {
