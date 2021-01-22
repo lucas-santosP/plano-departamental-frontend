@@ -1,10 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "./vuex/store";
-// Dashboard
 import Home from "@/pages/dashboard/Home";
-import Login from "@/pages/dashboard/Login";
-import Dashboard from "@/pages/dashboard/Dashboard";
+import PageWrapper from "@/pages/dashboard/PageWrapper";
 
 Vue.use(VueRouter);
 
@@ -36,11 +34,11 @@ function lazyLoad(componentPath) {
 
 const routes = [
   { path: "*", redirect: "/" },
-  { path: "/login", component: Login },
+  { path: "/login", component: lazyLoad("dashboard/Login") },
   {
     path: "/",
     redirect: "/home",
-    component: Dashboard,
+    component: PageWrapper,
     beforeEnter: requireAuth,
     children: [
       //home

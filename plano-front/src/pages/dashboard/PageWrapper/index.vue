@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard" v-if="!onLoading.fetching">
+  <div class="page-wrapper" v-if="!onLoading.fetching">
     <Navbar :modalCallbacks="modalCallbacks" />
     <Sidebar />
 
@@ -27,7 +27,7 @@ import { ModalUser, ModalDownload } from "@/components/modals";
 import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
 
 export default {
-  name: "Dashboard",
+  name: "PageWrapper",
   components: { Sidebar, Navbar, PageHeader, ModalUser, ModalDownload },
   data() {
     return {
@@ -92,6 +92,7 @@ export default {
       return currentPage ? currentPage.title : "Pagina nao encontrado!";
     },
   },
+
   watch: {
     currentPlano: {
       handler(newValue) {
@@ -113,7 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
+.page-wrapper {
   width: 100%;
   height: 100vh;
   overflow: hidden;
