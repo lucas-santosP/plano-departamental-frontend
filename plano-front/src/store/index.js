@@ -32,7 +32,6 @@ import periodosLetivos from "./module/periodosLetivos";
 import semestresLetivos from "./module/semestresLetivos";
 import docenteDisciplina from "./module/docenteDisciplina";
 import conceitoTurmaCurso from "./module/conceitoTurmaCurso";
-
 import { HTTP_REQUEST_INCREMENT, HTTP_REQUEST_DECREMENT } from "./mutation-types";
 
 const state = {
@@ -54,17 +53,11 @@ const mutations = {
   },
 };
 
-const actions = {};
-
-const getters = {};
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state,
   mutations,
-  actions,
-  getters,
   modules: {
     auth,
     perfil,
@@ -98,6 +91,5 @@ export default new Vuex.Store({
     docenteDisciplina,
     conceitoTurmaCurso,
   },
-
   strict: process.env.NODE_ENV !== "production",
 });

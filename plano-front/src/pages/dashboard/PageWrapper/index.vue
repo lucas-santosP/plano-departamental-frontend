@@ -24,7 +24,7 @@ import { find, pull } from "lodash-es";
 import bddumpService from "@/services/bddump";
 import { Navbar, Sidebar, PageHeader } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";
-import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
+import { SOCKET_PLANO_UPDATED } from "@/store/mutation-types";
 
 export default {
   name: "PageWrapper",

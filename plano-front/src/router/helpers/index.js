@@ -1,4 +1,4 @@
-import store from "@/vuex/store";
+import store from "@/store";
 
 export async function requireAuth(to, from, next) {
   try {
