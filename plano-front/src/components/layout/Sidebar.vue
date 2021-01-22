@@ -24,7 +24,7 @@ import { mapGetters } from "vuex";
 import SidebarMenu from "./SidebarMenu.vue";
 
 export default {
-  name: "TheSidebar",
+  name: "Sidebar",
   components: { SidebarMenu },
 
   computed: {

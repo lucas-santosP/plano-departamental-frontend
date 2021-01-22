@@ -20,7 +20,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "TheLoadingView",
+  name: "LoadingView",
   computed: {
     ...mapGetters(["onLoading"]),
   },

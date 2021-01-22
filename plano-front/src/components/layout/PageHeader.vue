@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "ThePageHeader",
+  name: "PageHeader",
   props: {
     title: { type: String, default: "Nenhum titulo!" },
   },

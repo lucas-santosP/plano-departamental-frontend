@@ -18,18 +18,18 @@
       <router-view></router-view>
     </transition>
 
-    <TheLoadingView />
+    <LoadingView />
     <ModalOverlay />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { TheLoadingView, ModalOverlay } from "@/components/layout";
+import { LoadingView, ModalOverlay } from "@/components/layout";
 
 export default {
   name: "App",
-  components: { TheLoadingView, ModalOverlay },
+  components: { LoadingView, ModalOverlay },
   computed: {
     ...mapGetters(["notificationsQueue"]),
   },

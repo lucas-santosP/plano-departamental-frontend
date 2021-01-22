@@ -44,7 +44,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { Logo } from "@/components/ui";
 export default {
-  name: "TheNavbar",
+  name: "Navbar",
   components: { Logo },
   props: {
     modalCallbacks: { type: Object, required: true },

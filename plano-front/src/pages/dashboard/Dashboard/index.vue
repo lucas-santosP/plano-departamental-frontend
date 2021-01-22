@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard" v-if="!onLoading.fetching">
-    <TheNavbar :modalCallbacks="modalCallbacks" />
-    <TheSidebar />
+    <Navbar :modalCallbacks="modalCallbacks" />
+    <Sidebar />
 
     <main role="main" @click.stop="closeSidebar">
-      <ThePageHeader :title="currentPageTitle">
+      <PageHeader :title="currentPageTitle">
         <portal-target name="page-header" class="aside"></portal-target>
-      </ThePageHeader>
+      </PageHeader>
 
       <transition name="fade-transition" mode="out-in" appear>
         <router-view></router-view>
@@ -22,13 +22,13 @@
 import { mapGetters, mapActions } from "vuex";
 import { find, pull } from "lodash-es";
 import bddumpService from "@/services/bddump";
-import { TheNavbar, TheSidebar, ThePageHeader } from "@/components/layout";
+import { Navbar, Sidebar, PageHeader } from "@/components/layout";
 import { ModalUser, ModalDownload } from "@/components/modals";
 import { SOCKET_PLANO_UPDATED } from "../../../vuex/mutation-types";
 
 export default {
-  name: "TheDashboard",
-  components: { TheSidebar, TheNavbar, ThePageHeader, ModalUser, ModalDownload },
+  name: "Dashboard",
+  components: { Sidebar, Navbar, PageHeader, ModalUser, ModalDownload },
   data() {
     return {
       planoWasInitilized: false,
