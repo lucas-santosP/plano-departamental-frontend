@@ -476,38 +476,6 @@ export default {
       });
       return salaFound ? salaFound.id : null;
     },
-    /*
-    // Função antiga de comparar
-    compareSeTurmaSigaNaoExisteNoSistema(turmasDoArquivo) {
-      const turmasFiltered = this.AllTurmas.filter(
-        (turma) => turma.periodo === this.periodoDasTurmas && turma.disciplina.Perfil != 15
-      );
-
-      for (const turmaDoArq of turmasDoArquivo) {
-        const turmaSis = find(
-          turmasFiltered,
-          (turmaSis) =>
-            turmaDoArq.Disciplina == turmaSis.Disciplina && turmaDoArq.letra == turmaSis.letra
-        );
-        // Se não encontrou no sistema
-        if (!turmaSis) {
-          console.log("Não encontrada!", turmaDoArq.disciplinaCodigo + " - " + turmaDoArq.letra);
-          continue;
-        }
-        
-        //this.Pedidos[turmaSis.id] .filter( (pedido) => pedido.vagasPeriodizadas != 0 &&
-        //pedido.vagasNaoPeriodizadas != 0 ) .forEach((pedido) => { const pedidoArqFound =
-        //turmaDoArq.pedidos.find( (pedidoArq) => pedido.Curso == pedidoArq.Curso ); if (!pedidoArqFound) {
-        //console.log( "Pedido não encontrado", pedido, find(this.AllCursos, ["id", pedido.Curso]).codigo,
-        //turmaSis.disciplina.codigo ); return; } const somatorioVagas = pedido.vagasPeriodizadas +
-        //pedido.vagasNaoPeriodizadas; // console.log(pedido, pedidoArqFound); if (somatorioVagas !=
-        //pedidoArqFound.pedidos) console.log( "Turma: " + turmaSis.disciplina.codigo + " - " +
-        //turmaSis.letra, "\nCurso: " + find(this.AllCursos, ["id", pedido.Curso]).codigo, "\nArquivo: " +
-        //pedidoArqFound.pedidos, "\nSistema: " + somatorioVagas ); });
-       
-      }
-    },
-    */
   },
 
   computed: {
