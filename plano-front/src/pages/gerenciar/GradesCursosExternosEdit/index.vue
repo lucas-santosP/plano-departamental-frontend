@@ -65,7 +65,7 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Disciplinas'">
+      <Card :title="'Disciplinas'" width="415">
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0 mr-3">
@@ -73,8 +73,8 @@
               <select
                 id="cursoAtual"
                 v-model="currentCursoId"
-                v-on:change="changeCurso()"
-                class="form-control form-control-sm input-maior"
+                v-on:change="changeCurso"
+                class="form-control form-control-sm w-100"
               >
                 <option
                   v-for="curso in CursosComGrades"
@@ -93,7 +93,7 @@
                 id="gradeSelect"
                 v-model="currentGradeId"
                 @change="changeGrade()"
-                class="form-control form-control-sm input-menor"
+                class="form-control form-control-sm input-sm"
               >
                 <option
                   v-for="grade in GradesFiltredByCurrentCurso"
@@ -114,7 +114,7 @@
               <select
                 :disabled="!hasGradeSelected"
                 type="text"
-                class="form-control form-control-sm input-maior2"
+                class="form-control form-control-sm w-100"
                 id="disciplina"
                 v-model="disciplinaGradeForm.Disciplina"
                 @change="clearClick()"
@@ -136,14 +136,13 @@
 
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
-              <label required for="periodoDisciplina" class="col-form-label pb-1">Período</label>
+              <label required for="periodoDisciplina" class="col-form-label">Período</label>
               <div class="d-flex align-items-center">
                 <input
                   :disabled="!hasGradeSelected"
                   type="text"
                   id="periodoDisciplina"
-                  class="form-control form-control-sm mr-2"
-                  style="width: 100px"
+                  class="form-control form-control-sm input-sm mr-2"
                   v-model="disciplinaGradeForm.periodo"
                   @keypress="maskOnlyNumber"
                 />
@@ -152,12 +151,13 @@
                   :disabled="!hasGradeSelected"
                   template="salvar"
                   title="Salvar período"
-                  @click="editDisciplinaGrade()"
+                  @click="editDisciplinaGrade"
                 />
               </div>
             </div>
           </div>
         </template>
+
         <template #footer>
           <BaseButton
             v-show="!isEditDisciplina"
@@ -236,36 +236,32 @@
 </template>
 
 <script>
-import { clone, find, filter, orderBy } from "lodash-es";
+import { cloneDeep, find, filter, orderBy } from "lodash-es";
 import disciplinaGradeCursoExternoService from "@/services/disciplinaGradeCursoExterno";
 import { maskOnlyNumber } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
 const emptyGrade = {
-  id: undefined,
-  periodoInicio: undefined,
-  Curso: undefined,
-  nome: undefined,
+  id: null,
+  periodoInicio: null,
+  Curso: null,
+  nome: null,
 };
 const emptyDisciplinaGrade = {
-  periodo: undefined,
-  Disciplina: undefined,
-  Grade: undefined,
+  periodo: 1,
+  Disciplina: null,
+  Grade: null,
 };
 export default {
-  name: "DashboardGradeCursosExternosEdit",
+  name: "GerenciarDisciplinasGradeExternas",
   mixins: [maskOnlyNumber],
-  components: {
-    Card,
-    ModalAjuda,
-    ModalDelete,
-  },
+  components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
-      gradeForm: clone(emptyGrade),
-      disciplinaGradeForm: clone(emptyDisciplinaGrade),
-      error: null,
+      gradeForm: cloneDeep(emptyGrade),
+      disciplinaGradeForm: cloneDeep(emptyDisciplinaGrade),
+
       currentGradeId: null,
       currentCursoId: null,
       disciplinaSelectedId: null,
@@ -273,11 +269,11 @@ export default {
       ordenacaoDisciplinasMain: { order: "periodo", type: "asc" },
     };
   },
+
   methods: {
     openModalDelete() {
       this.$refs.modalDelete.open();
     },
-
     handleClickInDisciplina(disciplinaGrade) {
       this.disciplinaSelectedId = disciplinaGrade.Disciplina;
       this.nomeDisciplinaAtual = disciplinaGrade.disciplina_nome;
@@ -285,25 +281,22 @@ export default {
       this.showDisciplina(disciplinaGrade);
       this.showGrade(this.currentGradeId);
     },
-
     clearClick() {
       this.disciplinaSelectedId = null;
       this.nomeDisciplinaAtual = null;
     },
-
     cleanGradeForm() {
-      this.gradeForm = clone(emptyGrade);
-      this.error = undefined;
+      this.gradeForm = cloneDeep(emptyGrade);
     },
     cleanDisciplina() {
       this.clearClick();
-      this.disciplinaGradeForm.periodo = undefined;
-      this.disciplinaGradeForm.Disciplina = undefined;
+      this.disciplinaGradeForm.periodo = 1;
+      this.disciplinaGradeForm.Disciplina = null;
     },
     showGrade(gradeId) {
       this.cleanGradeForm();
       const grade = find(this.$store.state.gradeCursoExterno.Grades, ["id", gradeId]);
-      this.gradeForm = clone(grade);
+      this.gradeForm = cloneDeep(grade);
       this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
     changeCurso() {
@@ -311,7 +304,6 @@ export default {
       this.cleanDisciplina();
       this.cleanGradeForm();
       this.currentGradeId = null;
-      console.log(this.$store.state);
     },
     changeGrade() {
       this.cleanDisciplina();
@@ -319,23 +311,11 @@ export default {
     },
     showDisciplina(disciplinaGrade) {
       this.cleanDisciplina;
-      this.disciplinaGradeForm = clone(disciplinaGrade);
+      this.disciplinaGradeForm = cloneDeep(disciplinaGrade);
     },
     isEven(number) {
       return number % 2 === 0;
     },
-
-    cursoComGrade(c) {
-      let check = false;
-      this.Grades.forEach((g) => {
-        if (g.Curso === c.id) {
-          check = true;
-          return;
-        }
-      });
-      return check;
-    },
-
     addDisciplinaGrade() {
       let nome_disciplina = null;
       for (const key in this.Disciplinas) {
@@ -355,11 +335,10 @@ export default {
           });
         })
         .catch(() => {
-          this.error = "<b>Erro ao incluir Disciplina</b>";
           this.$notify({
             group: "general",
             title: "Erro!",
-            text: this.error,
+            text: "Erro ao incluir Disciplina",
             type: "error",
           });
         });
@@ -380,11 +359,10 @@ export default {
           });
         })
         .catch(() => {
-          this.error = "<b>Erro ao atualizar Disciplina</b>";
           this.$notify({
             group: "general",
             title: "Erro!",
-            text: this.error,
+            text: "Erro ao atualizar Disciplina",
             type: "error",
           });
         });
@@ -406,16 +384,16 @@ export default {
           this.clearClick();
         })
         .catch(() => {
-          this.error = "<b>Erro ao excluir Disciplina</b>";
           this.$notify({
             group: "general",
             title: "Erro!",
-            text: this.error,
+            text: "Erro ao excluir Disciplina",
             type: "error",
           });
         });
     },
   },
+
   computed: {
     hasCursoSelected() {
       return this.currentCursoId != null;
@@ -460,36 +438,15 @@ export default {
     Cursos() {
       return this.$store.state.curso.Cursos;
     },
-
     CursosComGrades() {
-      return filter(this.Cursos, this.cursoComGrade);
+      return filter(this.Cursos, (curso) => {
+        const gradeFound = this.Grades.find((grade) => grade.Curso === curso.id);
+        return gradeFound ? true : false;
+      });
     },
-
     Disciplinas() {
       return orderBy(this.$store.state.disciplina.Disciplinas, "nome");
     },
   },
 };
 </script>
-
-<style scoped>
-.card .input-maior {
-  width: 200px;
-  text-align: start !important;
-}
-.card .input-maior2 {
-  width: 300px;
-  text-align: start;
-}
-.card .input-menor {
-  width: 80px;
-  text-align: start !important;
-}
-
-.even {
-  background-color: #c8c8c8;
-}
-.notEven {
-  background-color: white;
-}
-</style>
