@@ -1,5 +1,5 @@
-import router from "../../router.js";
-import authService from "../../services/auth";
+import router from "@/router";
+import authService from "@/services/auth";
 import {
   AUTHENTICATE,
   USER_FETCHED,

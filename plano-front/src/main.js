@@ -12,7 +12,6 @@ import { VBPopover } from "bootstrap-vue";
 sync(store, router);
 axios(Vue, store);
 Vue.use(VueSocketio, SocketIoInstance, store);
-
 Vue.directive("b-popover", VBPopover);
 Vue.use(PortalVue);
 Vue.use(Notifications);
