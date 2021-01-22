@@ -14,21 +14,22 @@
       :closeOnClick="false"
     />
 
-    <transition name="router-view-animation" mode="out-in" appear>
+    <transition name="fade-transition" mode="out-in" appear>
       <router-view></router-view>
     </transition>
 
     <TheLoadingView />
+    <ModalOverlay />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { TheLoadingView } from "@/components/layout";
+import { TheLoadingView, ModalOverlay } from "@/components/layout";
 
 export default {
   name: "App",
-  components: { TheLoadingView },
+  components: { TheLoadingView, ModalOverlay },
   computed: {
     ...mapGetters(["notificationsQueue"]),
   },

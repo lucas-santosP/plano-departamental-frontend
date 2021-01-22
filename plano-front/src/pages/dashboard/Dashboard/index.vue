@@ -8,16 +8,10 @@
         <portal-target name="page-header" class="aside"></portal-target>
       </ThePageHeader>
 
-      <transition name="router-view-animation" mode="out-in" appear>
+      <transition name="fade-transition" mode="out-in" appear>
         <router-view></router-view>
       </transition>
     </main>
-
-    <div
-      v-if="modalOverlayVisibility"
-      class="base-modal-overlay"
-      @click.stop="setModalOverlayVisibility(false)"
-    ></div>
 
     <ModalUser ref="modalUser" />
     <ModalDownload ref="modalDownload" />
@@ -37,7 +31,7 @@ export default {
   components: { TheSidebar, TheNavbar, ThePageHeader, ModalUser, ModalDownload },
   data() {
     return {
-      planoInitilized: false,
+      planoWasInitilized: false,
       modalCallbacks: {
         openDownload: () => this.$refs.modalDownload.open(),
         openUser: () => this.$refs.modalUser.open(),
@@ -47,7 +41,7 @@ export default {
 
   created() {
     this.initializeCurrentPlano().then(() => {
-      this.planoInitilized = true;
+      this.planoWasInitilized = true;
     });
 
     this.unwatch = this.$store.subscribe((mutation) => {
@@ -75,12 +69,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      "initializeCurrentPlano",
-      "changeCurrentPlano",
-      "closeSidebar",
-      "setModalOverlayVisibility",
-    ]),
+    ...mapActions(["initializeCurrentPlano", "changeCurrentPlano", "closeSidebar"]),
 
     returnFiles() {
       bddumpService.returnFiles().then((response) => {
@@ -96,7 +85,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["modalOverlayVisibility", "onLoading", "Planos", "AllRoutes"]),
+    ...mapGetters(["onLoading", "Planos", "AllRoutes"]),
 
     currentPageTitle() {
       const currentPage = this.AllRoutes.find((route) => route.path === this.$route.path);
@@ -106,7 +95,7 @@ export default {
   watch: {
     currentPlano: {
       handler(newValue) {
-        if (!newValue && this.planoInitilized) {
+        if (!newValue && this.planoWasInitilized) {
           const firstVisiblePlano = find(this.Planos, ["visible", true]);
           this.changeCurrentPlano(firstVisiblePlano.id);
 
@@ -123,29 +112,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .dashboard {
   width: 100%;
   height: 100vh;
   overflow: hidden;
   margin: 0;
   padding: 0;
-}
-.dashboard > main {
-  width: 100%;
-  height: calc(100vh - var(--navbar-height));
-  margin-top: var(--navbar-height);
-  padding: 0 8px;
-  overflow-y: auto !important;
-  transition: all 200ms ease;
-}
-.dashboard > .base-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 950;
-  height: 100vh;
-  width: 100vw;
-  background-color: #00000066;
+  > main {
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    margin-top: var(--navbar-height);
+    padding: 0 8px;
+    overflow-y: auto !important;
+    transition: all 200ms ease;
+  }
 }
 </style>

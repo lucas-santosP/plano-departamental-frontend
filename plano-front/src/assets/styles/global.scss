@@ -114,12 +114,11 @@ label[required] {
   padding-right: 20px !important;
   padding-left: 20px !important;
 }
-/* Transition */
-.router-view-animation-enter-active {
-  animation: fadeIn 0.3s;
-  animation-fill-mode: both;
+
+/* Transitions */
+.fade-transition-enter-active {
+  animation: fadeIn 300ms;
 }
-.router-view-animation-leave-active {
-  animation: fadeOut 0.3s;
-  animation-fill-mode: both;
+.fade-transition-leave-active {
+  animation: fadeOut 300ms;
 }
