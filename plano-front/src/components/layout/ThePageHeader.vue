@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .page-header {
   display: flex;
   flex-direction: row;
@@ -22,40 +22,44 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-}
-.page-header > h1 {
-  font-size: 25px;
-  font-weight: normal;
-  padding: 0;
-  margin: 0.25rem 0;
-}
-.page-header > .aside {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0.25rem 0;
+  > h1 {
+    font-size: 25px;
+    font-weight: normal;
+    padding: 0;
+    margin: 0.25rem 0;
+  }
+  > .aside {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.25rem 0;
+  }
 }
 
-/* Para quando tem um select no slot */
-.page-header > .aside .input-group {
-  width: max-content !important;
-}
-.page-header > .aside .input-group-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 25px !important;
-  margin-bottom: 0;
-  margin-left: -5px;
-  padding-left: 15px;
-  font-size: 12px !important;
-}
-.page-header > .aside .form-control-top,
-.page-header > .aside select {
-  height: 25px !important;
-  font-size: 12px !important;
-  padding: 2px 5px !important;
-  width: 60px;
-  text-align: center;
+/* Para quando tem um input-group no slot */
+.page-header > .aside {
+  .input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    margin: 0 8px;
+    padding: 0;
+  }
+  .input-group-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: 25px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+  select {
+    height: 25px;
+    font-size: 12px;
+    padding: 0px 5px;
+    width: max-content;
+    text-align: center;
+  }
 }
 </style>
