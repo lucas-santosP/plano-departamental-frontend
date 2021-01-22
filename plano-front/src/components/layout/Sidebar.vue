@@ -51,8 +51,7 @@ export default {
   z-index: 940;
   height: calc(100vh - var(--navbar-height));
   width: 100%;
-  max-width: 210px;
-
+  max-width: 230px;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0.5rem 0;

@@ -99,7 +99,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 170px;
+  width: 190px;
   height: 30px;
   margin: 0;
   padding: 0;
@@ -118,7 +118,6 @@ export default {
 }
 .navbar-container > .btn-navbar {
   width: 40px;
-  min-width: 40px;
   height: 30px;
   padding: 0;
   margin: 0;

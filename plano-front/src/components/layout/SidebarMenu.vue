@@ -50,8 +50,7 @@ export default {
   display: flex;
   align-items: center;
   height: 30px;
-  padding: 0 5px;
-  padding-left: 8px;
+  padding: 0 5px 0 5px;
   font-weight: 500;
   font-size: 12px;
   color: inherit;
