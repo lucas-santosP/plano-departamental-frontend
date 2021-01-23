@@ -1,5 +1,5 @@
 <template>
-  <transition name="sidebar-animation">
+  <transition name="sidebar-transition">
     <nav v-show="sidebarVisibility" class="sidebar bg-light" @click.stop>
       <SidebarMenu :menuPages="RoutesHome" />
       <SidebarMenu
@@ -43,45 +43,36 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles/mixins";
+@import "@/assets/styles/theme";
+
 .sidebar {
+  @include base-transition(all);
+  @include custom-scrollbar(7px);
   position: fixed;
   top: var(--navbar-height);
   left: 0;
   z-index: 940;
+  width: 230px;
   height: calc(100vh - var(--navbar-height));
-  width: 100%;
-  max-width: 230px;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0.5rem 0;
-  font-size: 0.875rem;
+  font-size: 14px;
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
-  transition: all 200ms ease;
+
+  > .sidebar-menu:last-of-type {
+    margin-bottom: 2.5rem;
+  }
 }
 
-.sidebar .sidebar-menu:last-of-type {
-  margin-bottom: 2.5rem;
-}
-
-/* SCROLL BAR CUSTOM */
-.sidebar ::-webkit-scrollbar-track {
-  background-color: #f4f4f4 !important;
-}
-.sidebar::-webkit-scrollbar {
-  width: 6px !important;
-  background: #f4f4f4 !important;
-}
-.sidebar::-webkit-scrollbar-thumb {
-  background: #666 !important;
-}
-
-/* animation */
-.sidebar-animation-enter-active {
+/* transition */
+.sidebar-transition-enter-active {
   animation: slideInLeft 0.25s;
   animation-fill-mode: both;
 }
-.sidebar-animation-leave-active {
+.sidebar-transition-leave-active {
   animation: slideOutLeft 0.25s;
   animation-fill-mode: both;
 }

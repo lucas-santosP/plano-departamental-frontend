@@ -16,6 +16,15 @@ $clr-text-dark: #0e0e0e;
 // Others
 $navbar-height: 30px;
 
-@mixin set-navbar-height($height) {
-  $navbar-height: $height px;
+@mixin custom-scrollbar($width) {
+  & ::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+  }
+  &::-webkit-scrollbar {
+    width: $width;
+    background: #f4f4f4;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #666;
+  }
 }

@@ -38,47 +38,51 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/theme.scss";
 
-.sidebar-menu .title {
-  font-weight: bold;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-}
-.sidebar-menu .nav li {
-  color: $clr-text-darkgray;
-  transition: all 100ms ease;
-}
+.sidebar-menu {
+  > .title {
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
 
-.sidebar-menu .nav li .nav-link {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  padding: 0 5px 0 5px;
-  font-weight: 500;
-  font-size: 12px;
-  color: inherit;
-  transition: all 100ms ease;
-}
-.sidebar-menu .nav > li .nav-link:focus {
-  transition: border 100ms ease;
-  box-shadow: none !important;
-  border-left: $clr-lightblue 10px solid !important;
-  outline: #007bff40 solid 2px !important;
-  outline-offset: -1px !important;
-}
-.sidebar-menu .nav > li .nav-link:hover {
-  background-color: $clr-lightblue;
-  color: #fff !important;
-}
-.sidebar-menu .nav > li .nav-link.active {
-  background-color: #0055af;
-  border-left: $clr-lightblue 10px solid;
-  color: #fff;
-}
-.sidebar-menu .nav > li .nav-link > svg {
-  color: inherit;
-  font-size: 12px;
-  width: 18px;
-  margin-right: 3px;
-  text-align: start;
+  ul.nav > li {
+    color: $clr-text-darkgray;
+    transition: all 100ms ease;
+  }
+
+  ul.nav > li > .nav-link {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 5px 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: currentColor;
+    transition: all 100ms ease;
+    &:focus {
+      box-shadow: none !important;
+      outline: #007bff40 solid 2px !important;
+      border-left: $clr-lightblue 10px solid;
+      outline-offset: -2px;
+    }
+    &:hover {
+      background-color: $clr-lightblue;
+      color: #fff;
+    }
+
+    > svg {
+      color: inherit;
+      font-size: 12px;
+      width: 18px;
+      margin-right: 3px;
+      text-align: start;
+    }
+
+    &.active {
+      border-left: $clr-lightblue 10px solid;
+      background-color: $clr-blue;
+      color: #fff;
+    }
+  }
 }
 </style>
