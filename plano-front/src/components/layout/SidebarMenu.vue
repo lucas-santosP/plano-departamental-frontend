@@ -35,14 +35,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles/theme.scss";
+
 .sidebar-menu .title {
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
 }
 .sidebar-menu .nav li {
-  color: #333;
+  color: $clr-text-darkgray;
   transition: all 100ms ease;
 }
 
@@ -59,18 +61,18 @@ export default {
 .sidebar-menu .nav > li .nav-link:focus {
   transition: border 100ms ease;
   box-shadow: none !important;
-  border-left: var(--light-blue) 10px solid !important;
+  border-left: $clr-lightblue 10px solid !important;
   outline: #007bff40 solid 2px !important;
   outline-offset: -1px !important;
 }
 .sidebar-menu .nav > li .nav-link:hover {
-  background-color: #0079fa;
+  background-color: $clr-lightblue;
   color: #fff !important;
 }
 .sidebar-menu .nav > li .nav-link.active {
   background-color: #0055af;
-  border-left: var(--light-blue) 10px solid;
-  color: white;
+  border-left: $clr-lightblue 10px solid;
+  color: #fff;
 }
 .sidebar-menu .nav > li .nav-link > svg {
   color: inherit;

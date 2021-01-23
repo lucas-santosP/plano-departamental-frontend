@@ -28,6 +28,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/theme";
+
 .container-loading {
   position: fixed;
   top: 0;
@@ -56,10 +58,10 @@ export default {
       left: 0;
       width: 64px;
       height: 64px;
-      border: 8px solid var(--dark-gray);
+      border: 8px solid $clr-darkgray;
       border-radius: 50%;
       animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: var(--dark-gray) transparent transparent transparent;
+      border-color: $clr-darkgray transparent transparent transparent;
       &:nth-child(1) {
         animation-delay: -0.45s;
       }

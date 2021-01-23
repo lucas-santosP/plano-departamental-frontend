@@ -96,7 +96,7 @@ export default {
   left: 0;
   width: 100%;
   height: var(--navbar-height);
-  background-color: $clr-base-darkgray;
+  background-color: $clr-darkgray;
   font-size: 12px;
 
   > .navbar-brand {
@@ -108,7 +108,7 @@ export default {
     margin: 0;
     padding: 0;
     color: $clr-text-gray;
-    background-color: $clr-base-dark;
+    background-color: $clr-dark;
     cursor: pointer;
     &:hover {
       color: #fff;
@@ -133,7 +133,7 @@ export default {
     border: none;
     outline: none;
     color: $clr-text-gray;
-    background-color: $clr-base-dark;
+    background-color: $clr-dark;
     font-size: 20px;
     border-left: #1f1f1f 2px solid;
     border-right: #1f1f1f 2px solid;
