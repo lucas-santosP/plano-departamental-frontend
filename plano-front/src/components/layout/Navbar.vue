@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar-container shadow">
+  <nav class="navbar-wrapper shadow">
     <div @click="closeSidebar" class="navbar-brand">
       <router-link :to="{ path: '/home' }" class="brand-title">
         <Logo />
@@ -11,7 +11,7 @@
     </button>
 
     <ul class="navbar-nav">
-      <li class="nav-item nav-item-plano">
+      <li class="nav-item nav-item-input-plano">
         <label class="m-0 pr-2" for="planoAtual">Plano atual</label>
         <select
           id="planoAtual"
@@ -43,6 +43,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { Logo } from "@/components/ui";
+
 export default {
   name: "Navbar",
   components: { Logo },
@@ -81,8 +82,11 @@ export default {
 };
 </script>
 
-<style scoped>
-.navbar-container {
+<style lang="scss" scoped>
+@import "@/assets/styles/mixins";
+@import "@/assets/styles/theme";
+
+.navbar-wrapper {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -92,144 +96,146 @@ export default {
   left: 0;
   width: 100%;
   height: var(--navbar-height);
-  background-color: #343a40;
-}
-/* brand */
-.navbar-container > .navbar-brand {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 190px;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  color: #cdced0;
-  background-color: #272b30;
-  transition: color 0.2s ease;
-}
-.navbar-container > .navbar-brand > .brand-title {
-  padding: 0;
-  margin: 0;
-  font-size: 16px;
-  text-align: start;
-  text-decoration: none;
-  color: currentColor;
-}
-.navbar-container > .btn-navbar {
-  width: 40px;
-  height: 30px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  outline: none;
-  border-left: #1f1f1f 2px solid;
-  border-right: #1f1f1f 2px solid;
-  color: #cdced0;
-  background-color: #272b30;
-  font-size: 20px;
-  transition: color 0.2s ease;
-}
-.navbar-container > .navbar-brand:hover,
-.navbar-container > .btn-navbar:hover {
-  color: #ffffff;
-}
-.btn-navbar:focus,
-.navbar-brand .brand-title:focus {
-  box-shadow: none !important;
-  border-color: #202020 !important;
-}
-/* nav */
-ul.navbar-nav {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: row;
-  height: 30px;
-  padding: 0;
-  margin: 0;
-  padding: 0 5px;
-}
-ul.navbar-nav > li.nav-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 6px;
-  margin: 0 3px;
+  background-color: $clr-base-darkgray;
   font-size: 12px;
-  color: #9a9da0;
-  cursor: pointer;
-}
-ul.navbar-nav > li.nav-item:hover {
-  transition: color 0.2s ease;
-  color: #fff;
-}
-ul.navbar-nav > li.nav-item-plano {
-  cursor: default;
-  padding-right: 0;
-}
-ul.navbar-nav > li.nav-item span,
-ul.navbar-nav > li.nav-item > label {
-  min-width: max-content;
-  line-height: 12px;
-  position: relative;
-  top: 1px;
-}
-ul.navbar-nav > li.nav-item svg {
-  font-size: 12px;
-  margin: 0 3px;
-}
-/* input plano */
-ul.navbar-nav > li.nav-item .input-plano {
-  text-align: start;
-  width: 160px;
-  height: 20px;
-  font-size: 12px;
-  border-radius: 3px;
-  padding: 0 2px;
-  color: currentColor;
-  border: solid 1px #8d8d8d;
-  background-color: #343a40;
-}
-ul.navbar-nav > li.nav-item .input-plano:hover {
-  color: #ffffffbf;
-  border-color: #ffffffbf;
+
+  > .navbar-brand {
+    @include flex-center;
+    @include base-transition(color);
+    @include no-focus;
+    width: 190px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    color: $clr-text-gray;
+    background-color: $clr-base-dark;
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+    }
+
+    > .brand-title {
+      pointer-events: none;
+      font-size: 16px;
+      text-align: start;
+      text-decoration: none;
+      color: currentColor;
+    }
+  }
+
+  > .btn-navbar {
+    @include base-transition(color);
+    @include no-focus;
+    width: 40px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    color: $clr-text-gray;
+    background-color: $clr-base-dark;
+    font-size: 20px;
+    border-left: #1f1f1f 2px solid;
+    border-right: #1f1f1f 2px solid;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  > ul.navbar-nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    height: 30px;
+    margin: 0;
+    padding: 0 5px;
+
+    > li.nav-item {
+      @include flex-center;
+      @include base-transition(color);
+      flex-direction: row;
+      height: 100%;
+      padding: 0 8px;
+      margin: 0 3px;
+      color: $clr-text-gray;
+      filter: brightness(85%);
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
+
+      span,
+      label {
+        min-width: max-content;
+        line-height: 12px;
+        position: relative;
+        top: 1px;
+      }
+      svg {
+        margin: 0 3px;
+      }
+    }
+
+    > li.nav-item-input-plano {
+      cursor: default;
+      padding-right: 0;
+
+      .input-plano {
+        width: 160px;
+        height: 20px;
+        border-radius: 3px;
+        padding: 0 2px;
+        color: currentColor;
+        border-color: $clr-text-gray;
+        background-color: transparent;
+        &:hover {
+          color: #fff;
+          border-color: #fff;
+        }
+      }
+    }
+  }
 }
 
-@media screen and (max-width: 700px) {
-  ul.navbar-nav > li.nav-item > span {
-    display: none;
-  }
-  ul.navbar-nav li.nav-item {
+@media screen and (max-width: 731px) {
+  .navbar-wrapper > ul.navbar-nav > li.nav-item {
     padding: 0 10px;
+    > span {
+      display: none;
+    }
   }
 }
 @media screen and (max-width: 605px) {
-  .navbar-container > .navbar-brand {
-    width: 100% !important;
-  }
-  .navbar-container > .navbar-brand > .brand-title {
-    text-align: center;
-  }
-  .navbar-container > .btn-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  ul.navbar-nav {
-    width: 100% !important;
-    justify-content: flex-start;
-    margin: 0;
-    padding: 0;
-  }
-  ul.navbar-nav li.nav-item:nth-of-type(1) {
-    padding: 0 5px;
-  }
-  ul.navbar-nav > .nav-item:nth-of-type(2) {
-    margin-left: auto;
+  .navbar-wrapper {
+    > .navbar-brand {
+      width: 100%;
+
+      .brand-title {
+        text-align: center;
+      }
+    }
+
+    > .btn-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    > ul.navbar-nav {
+      width: 100% !important;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
+
+      > li.nav-item:nth-of-type(1) {
+        padding: 0 5px;
+      }
+      > li.nav-item:nth-of-type(2) {
+        margin-left: auto;
+      }
+    }
   }
 }
 </style>
