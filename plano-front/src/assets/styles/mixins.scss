@@ -1,0 +1,16 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin base-transition($property) {
+  transition: $property ease 200ms;
+}
+
+@mixin no-focus {
+  &:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+}
