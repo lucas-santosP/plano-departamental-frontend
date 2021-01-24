@@ -1,20 +1,34 @@
 <template>
   <transition name="sidebar-transition">
-    <nav v-show="sidebarVisibility" class="sidebar bg-light" @click.stop>
-      <SidebarMenu :menuPages="RoutesHome" />
+    <nav v-show="sidebarVisibility" class="sidebar" @click.stop>
+      <SidebarMenu :pages="RoutesHome" />
       <SidebarMenu
         v-if="currentUser.isAdmin && currentPlano.isEditable"
-        menuTitle="Plano"
-        :menuPages="RoutesPlano"
+        sectionTitle="Plano"
+        :pages="RoutesPlano"
+        :icon="RoutesPlano[0].icon"
       />
-      <SidebarMenu menuTitle="Relatórios" :menuPages="RoutesRelatorios" />
+      <SidebarMenu
+        sectionTitle="Relatórios"
+        :pages="RoutesRelatorios"
+        :icon="RoutesRelatorios[0].icon"
+      />
       <SidebarMenu
         v-if="currentUser.isSuperAdmin"
-        menuTitle="Gerenciar"
-        :menuPages="RoutesGerenciar"
+        sectionTitle="Gerenciar"
+        :pages="RoutesGerenciar"
+        :icon="RoutesGerenciar[5].icon"
       />
-      <SidebarMenu menuTitle="Histórico" :menuPages="RoutesHistorico" />
-      <SidebarMenu menuTitle="Validações" :menuPages="RoutesValidacoes" />
+      <SidebarMenu
+        sectionTitle="Histórico"
+        :pages="RoutesHistorico"
+        :icon="RoutesHistorico[0].icon"
+      />
+      <SidebarMenu
+        sectionTitle="Validações"
+        :pages="RoutesValidacoes"
+        :icon="RoutesValidacoes[0].icon"
+      />
     </nav>
   </transition>
 </template>
@@ -58,13 +72,11 @@ export default {
   height: calc(100vh - var(--navbar-height));
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.5rem 0;
+  background-color: $clr-dark;
+  padding: 0;
+  padding-bottom: 10px;
   font-size: 14px;
   box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
-
-  > .sidebar-menu:last-of-type {
-    margin-bottom: 2.5rem;
-  }
 }
 
 /* transition */
