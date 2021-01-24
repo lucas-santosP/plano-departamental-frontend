@@ -1,12 +1,10 @@
 <template>
   <nav class="navbar-wrapper shadow">
-    <div @click="closeSidebar" class="navbar-brand">
-      <router-link :to="{ path: '/home' }" class="brand-title">
-        <Logo />
-      </router-link>
-    </div>
+    <router-link to="home" @click.native="closeSidebar" class="navbar-brand">
+      <Logo />
+    </router-link>
 
-    <button @click.stop="toggleSidebar" type="button" class="btn-navbar">
+    <button type="button" @click.stop="toggleSidebar" class="btn-navbar">
       <font-awesome-icon :icon="['fas', sidebarVisibility ? 'times' : 'bars']" />
     </button>
 
@@ -109,17 +107,11 @@ export default {
     padding: 0;
     color: $clr-text-gray;
     background-color: $clr-dark;
-    cursor: pointer;
+    font-size: 16px;
+    text-align: start;
     &:hover {
+      cursor: pointer;
       color: #fff;
-    }
-
-    > .brand-title {
-      pointer-events: none;
-      font-size: 16px;
-      text-align: start;
-      text-decoration: none;
-      color: currentColor;
     }
   }
 
@@ -205,16 +197,17 @@ export default {
     > span {
       display: none;
     }
+
+    &.nav-item-input-plano {
+      padding-right: 0;
+    }
   }
 }
-@media screen and (max-width: 605px) {
+@media screen and (max-width: 614px) {
   .navbar-wrapper {
     > .navbar-brand {
       width: 100%;
-
-      .brand-title {
-        text-align: center;
-      }
+      text-align: center;
     }
 
     > .btn-navbar {
