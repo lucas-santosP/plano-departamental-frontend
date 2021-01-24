@@ -115,7 +115,6 @@ export default {
     }
 
     > .brand-title {
-      pointer-events: none;
       font-size: 16px;
       text-align: start;
       text-decoration: none;
