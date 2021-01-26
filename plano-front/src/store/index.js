@@ -32,7 +32,6 @@ import periodosLetivos from "./module/periodosLetivos";
 import semestresLetivos from "./module/semestresLetivos";
 import docenteDisciplina from "./module/docenteDisciplina";
 import conceitoTurmaCurso from "./module/conceitoTurmaCurso";
-import { HTTP_REQUEST_INCREMENT, HTTP_REQUEST_DECREMENT } from "./mutation-types";
 
 const state = {
   httpRequestCount: 0,
@@ -40,16 +39,20 @@ const state = {
 };
 
 const mutations = {
-  [HTTP_REQUEST_INCREMENT](state) {
-    state.httpRequestCount += 1;
-  },
-
-  [HTTP_REQUEST_DECREMENT](state) {
-    state.httpRequestCount -= 1;
-  },
-
   setYear(year) {
     state.year = year;
+  },
+};
+
+const actions = {
+  async fetchEssentials({ dispatch }) {
+    await dispatch("fetchAllDisciplinas");
+    await dispatch("fetchAllCursos");
+    await dispatch("fetchAllPerfis");
+    await dispatch("fetchAllDocentes");
+    await dispatch("fetchAllSalas");
+    await dispatch("fetchAllHorarios");
+    await dispatch("fetchAllTurmas");
   },
 };
 
@@ -58,6 +61,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state,
   mutations,
+  actions,
   modules: {
     auth,
     perfil,
