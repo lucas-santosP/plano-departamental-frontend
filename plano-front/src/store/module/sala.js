@@ -33,7 +33,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllSalas");
+  },
+
+  fetchAllSalas({ commit }) {
     return new Promise((resolve, reject) => {
       salaService
         .fetchAll()

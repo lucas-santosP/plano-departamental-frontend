@@ -15,12 +15,12 @@ const mutations = {
 };
 
 const actions = {
-  openSidebar({ commit }) {
-    commit("SET_SIDEBAR_VISIBILITY", true);
+  openSidebar({ commit, state }) {
+    if (!state.sidebarVisibility) commit("SET_SIDEBAR_VISIBILITY", true);
   },
 
-  closeSidebar({ commit }) {
-    commit("SET_SIDEBAR_VISIBILITY", false);
+  closeSidebar({ commit, state }) {
+    if (state.sidebarVisibility) commit("SET_SIDEBAR_VISIBILITY", false);
   },
 
   toggleSidebar({ commit }) {

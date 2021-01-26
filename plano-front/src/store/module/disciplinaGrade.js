@@ -40,7 +40,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllDisciplinasGrade");
+  },
+
+  fetchAllDisciplinasGrade({ commit }) {
     return new Promise((resolve, reject) => {
       disciplinaGradeService
         .fetchAll()
@@ -52,6 +56,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllDisciplinasGrade({ commit }) {
+    commit(DISCIPLINA_GRADE_FETCHED, { DisciplinaGrades: [] });
   },
 };
 

@@ -32,18 +32,22 @@ const mutations = {
   },
 
   [SOCKET_PEDIDO_UPDATED](state, data) {
-    let index = state.Pedidos[data.Pedido.Turma].findIndex(
-      (pedido) => pedido.Curso === data.Pedido.Curso
-    );
+    if (state.Pedidos[data.Pedido.Turma]) {
+      const index = state.Pedidos[data.Pedido.Turma].findIndex(
+        (pedido) => pedido.Curso === data.Pedido.Curso
+      );
 
-    if (index !== -1) Vue.set(state.Pedidos[data.Pedido.Turma], index, data.Pedido);
+      if (index !== -1) Vue.set(state.Pedidos[data.Pedido.Turma], index, data.Pedido);
+    }
   },
 
   [SOCKET_PEDIDO_DELETED](state, data) {
-    let index = state.Pedidos[data.Pedido.Turma].findIndex(
-      (pedido) => pedido.Curso === data.Pedido.Curso
-    );
-    state.Pedidos[data.Pedido.Turma].splice(index, 1);
+    if (state.Pedidos[data.Pedido.Turma]) {
+      let index = state.Pedidos[data.Pedido.Turma].findIndex(
+        (pedido) => pedido.Curso === data.Pedido.Curso
+      );
+      state.Pedidos[data.Pedido.Turma].splice(index, 1);
+    }
   },
 };
 
@@ -64,6 +68,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllPedidos({ commit }) {
+    commit(PEDIDO_FETCHED, { Pedidos: [] });
   },
 
   async editPedido({ commit }, pedido) {

@@ -40,7 +40,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllDisciplinasGradeExterna");
+  },
+
+  fetchAllDisciplinasGradeExterna({ commit }) {
     return new Promise((resolve, reject) => {
       disciplinaGradeCursoExternoService
         .fetchAll()
@@ -52,6 +56,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllDisciplinasGradeExterna({ commit }) {
+    commit(DISCIPLINA_GRADE_CURSO_EXTERNO_FETCHED, { DisciplinaGrades: [] });
   },
 };
 

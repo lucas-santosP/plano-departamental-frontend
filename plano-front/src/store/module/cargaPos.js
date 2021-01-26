@@ -47,7 +47,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllCargaPos");
+  },
+
+  fetchAllCargaPos({ commit }) {
     return new Promise((resolve, reject) => {
       cargaPosService
         .fetchAll(localStorage.getItem("Plano"))
@@ -59,6 +63,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllCargaPos({ commit }) {
+    commit(CARGA_POS_FETCHED, { CargasPos: [] });
   },
 
   async createCargaPos({ commit, rootGetters }, carga) {

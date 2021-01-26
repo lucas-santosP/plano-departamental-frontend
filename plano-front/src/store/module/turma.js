@@ -63,7 +63,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllTurmas");
+  },
+
+  fetchAllTurmas({ commit }) {
     return new Promise((resolve, reject) => {
       turmaService
         .fetchAll(localStorage.getItem("Plano"))
@@ -75,6 +79,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllTurmas({ commit }) {
+    commit("TURMA_FETCHED", { Turmas: [] });
   },
 
   async createTurma({ commit }, { data, notify }) {

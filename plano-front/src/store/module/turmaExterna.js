@@ -52,7 +52,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllTurmasExternas");
+  },
+
+  fetchAllTurmasExternas({ commit }) {
     return new Promise((resolve, reject) => {
       turmaExternaService
         .fetchAll(localStorage.getItem("Plano"))
@@ -64,6 +68,10 @@ const actions = {
           reject(error);
         });
     });
+  },
+
+  clearAllTurmasExternas({ commit }) {
+    commit(TURMA_EXTERNA_FETCHED, { Turmas: [] });
   },
 
   async createTurmaExterna({ commit, dispatch, rootGetters }, turma) {

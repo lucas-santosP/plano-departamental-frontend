@@ -33,7 +33,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllPerfis");
+  },
+
+  fetchAllPerfis({ commit }) {
     return new Promise((resolve, reject) => {
       perfilService
         .fetchAll()

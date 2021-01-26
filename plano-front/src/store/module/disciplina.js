@@ -35,7 +35,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllDisciplinas");
+  },
+
+  fetchAllDisciplinas({ commit }) {
     return new Promise((resolve, reject) => {
       disciplinaService
         .fetchAll()

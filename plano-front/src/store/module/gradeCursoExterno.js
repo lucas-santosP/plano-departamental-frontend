@@ -35,7 +35,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchAllGradesExternas");
+  },
+
+  fetchAllGradesExternas({ commit }) {
     return new Promise((resolve, reject) => {
       gradeCursoExternoService
         .fetchAll()
@@ -48,6 +52,11 @@ const actions = {
         });
     });
   },
+
+  clearAllGradesExternas({ commit }) {
+    commit(GRADE_CURSO_EXTERNO_FETCHED, { Grades: [] });
+  },
+
   async createGradeCursoExterno({ commit }, grade) {
     const gradeNormalized = cloneDeepWith(grade, setEmptyValuesToNull);
     validateObjectKeys(gradeNormalized, ["nome", "periodoInicio", "Curso"]);
@@ -59,6 +68,7 @@ const actions = {
       text: `A grade ${gradeNormalized.nome} foi criada`,
     });
   },
+
   async editGradeCursoExterno({ commit }, grade) {
     const gradeNormalized = cloneDeepWith(grade, setEmptyValuesToNull);
     validateObjectKeys(gradeNormalized, ["nome", "periodoInicio", "Curso"]);
