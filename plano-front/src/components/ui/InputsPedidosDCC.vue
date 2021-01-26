@@ -63,18 +63,25 @@ export default {
     async handleEditPedido(pedido) {
       if (pedido === 1) this.pedidoForm.editado1 = true;
       else this.pedidoForm.editado2 = true;
-      try {
-        await this.editPedido(this.pedidoForm);
-      } catch (error) {
-        let erroMsg = "";
-        if (error.response.data.fullMessage)
-          erroMsg += "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+      if (
+        this.PedidosOfCurrentTurma.vagasPeriodizadas !== pedido.vagasPeriodizadas ||
+        this.PedidosOfCurrentTurma.vagasNaoPeriodizadas !== pedido.vagasNaoPeriodizadas ||
+        this.PedidosOfCurrentTurma.editado1 !== pedido.editado1 ||
+        this.PedidosOfCurrentTurma.editado2 !== pedido.editado2
+      ) {
+        try {
+          await this.editPedido(this.pedidoForm);
+        } catch (error) {
+          let erroMsg = "";
+          if (error.response.data.fullMessage)
+            erroMsg += "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
 
-        this.pushNotification({
-          type: "error",
-          title: "Erro ao atualizar Pedido",
-          text: erroMsg,
-        });
+          this.pushNotification({
+            type: "error",
+            title: "Erro ao atualizar Pedido",
+            text: erroMsg,
+          });
+        }
       }
     },
   },
