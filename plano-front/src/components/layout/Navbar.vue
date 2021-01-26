@@ -181,7 +181,7 @@ export default {
         padding: 0 2px;
         color: currentColor;
         border-color: $clr-text-gray;
-        background-color: transparent;
+        background-color: #3f464d;
         &:hover {
           color: #fff;
           border-color: #fff;
