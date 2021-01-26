@@ -543,7 +543,7 @@ export default {
     };
   },
 
-  beforeMount() {
+  created() {
     this.modalFiltrosCallbacks.selectAll.Periodos();
 
     ls.set("toggle", -1);
@@ -569,10 +569,12 @@ export default {
       let id = this.AllCursos[c].id;
       ls.off(`${id}`);
     }
+
+    this.clearAllPedidos();
   },
 
   methods: {
-    ...mapActions(["deleteTurmas", "clearTurmasToDelete", "fetchAllPedidos"]),
+    ...mapActions(["fetchAllPedidos", "clearAllPedidos", "deleteTurmas", "clearTurmasToDelete"]),
 
     openModalEditTurma(turma) {
       this.turmaClicked = turma;

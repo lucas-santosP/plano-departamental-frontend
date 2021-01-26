@@ -297,8 +297,7 @@ export default {
       },
     };
   },
-
-  beforeMount() {
+  created() {
     this.modalFiltrosCallbacks.selectAll.Periodos();
     this.modalFiltrosCallbacks.selectAll.Docentes();
     this.modalFiltrosCallbacks.btnOk();

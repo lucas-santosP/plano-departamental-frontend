@@ -5,6 +5,7 @@
         <BaseButton template="salvar" @click="$refs.novaCargaPosRow.handleCreateCargaPos()" />
         <BaseButton template="cancelar" @click="toggleAddRow" />
       </template>
+
       <template v-else>
         <BaseButton template="adicionar" @click="toggleAddRow" />
         <BaseButton
@@ -13,6 +14,7 @@
           @click="$refs.modalDelete.open()"
         />
       </template>
+
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </portal>
@@ -314,15 +316,28 @@ export default {
     };
   },
 
-  beforeMount() {
+  created() {
+    this.fetchData();
     this.modalFiltrosCallbacks.selectAll.Periodos();
   },
   beforeDestroy() {
     this.clearCargasPosToDelete();
+    this.clearAllCargaPos();
   },
 
   methods: {
-    ...mapActions(["deleteCargasPos", "clearCargasPosToDelete"]),
+    ...mapActions([
+      "deleteCargasPos",
+      "fetchAllCargaPos",
+      "clearAllCargaPos",
+      "clearCargasPosToDelete",
+    ]),
+
+    async fetchData() {
+      this.setLoading({ type: "partial", value: true });
+      await this.fetchAllCargaPos();
+      this.setLoading({ type: "partial", value: false });
+    },
 
     toggleAddRow() {
       this.isAdding = !this.isAdding;

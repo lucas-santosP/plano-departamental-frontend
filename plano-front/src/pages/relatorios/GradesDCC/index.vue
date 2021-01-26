@@ -264,7 +264,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { union, difference, find, some, filter, orderBy } from "lodash-es";
 import { normalizeText } from "@/common/utils";
 import {
@@ -374,19 +374,37 @@ export default {
       },
     };
   },
-
-  beforeMount() {
-    this.ano = this.currentPlano.ano;
-    this.novoAno = this.ano;
-    this.runAll();
-
+  created() {
     this.modalFiltrosCallbacks.selectAll.Cursos();
     this.modalFiltrosCallbacks.selectAll.Perfis();
     this.modalFiltrosCallbacks.selectAll.Disciplinas();
     this.modalFiltrosCallbacks.btnOk();
+
+    this.fetchData().then(() => {
+      this.ano = this.currentPlano.ano;
+      this.novoAno = this.ano;
+      this.runAll();
+    });
+  },
+  beforeDestroy() {
+    this.clearAllGrades();
+    this.clearAllDisciplinasGrade();
   },
 
   methods: {
+    ...mapActions([
+      "fetchAllGrades",
+      "fetchAllDisciplinasGrade",
+      "clearAllGrades",
+      "clearAllDisciplinasGrade",
+    ]),
+
+    async fetchData() {
+      this.setLoading({ type: "table", value: true });
+      await this.fetchAllGrades();
+      await this.fetchAllDisciplinasGrade();
+      this.setLoading({ type: "table", value: false });
+    },
     runNovoAno() {
       //executa runAll, modificando o ano
       if (this.ano != this.novoAno) {
@@ -597,27 +615,31 @@ export default {
       return disciplinasResult;
     },
     DisciplinasFiltredMain() {
-      let disciplinaResult = this.filtroDisciplinas.ativados;
+      const disciplinaResult = [];
 
-      disciplinaResult.forEach((disciplina) => {
-        disciplina.gradeSI = {
-          semestre1: this.disciplinasGrades[disciplina.id][2][0],
-          semestre2: this.disciplinasGrades[disciplina.id][2][1],
-        };
-        disciplina.gradeCCN = {
-          semestre1: this.disciplinasGrades[disciplina.id][0][0],
-          semestre2: this.disciplinasGrades[disciplina.id][0][1],
-        };
-        disciplina.gradeCCD = {
-          semestre1: this.disciplinasGrades[disciplina.id][3][0],
-          semestre2: this.disciplinasGrades[disciplina.id][3][1],
-        };
-        disciplina.gradeEC = {
-          semestre1: this.disciplinasGrades[disciplina.id][1][0],
-          semestre2: this.disciplinasGrades[disciplina.id][1][1],
-        };
+      this.filtroDisciplinas.ativados.forEach((disciplina) => {
+        const disciplinasDaGrade = this.disciplinasGrades[disciplina.id];
+
+        disciplinaResult.push({
+          ...disciplina,
+          gradeSI: {
+            semestre1: disciplinasDaGrade ? disciplinasDaGrade[2][0] : [],
+            semestre2: disciplinasDaGrade ? disciplinasDaGrade[2][1] : [],
+          },
+          gradeCCN: {
+            semestre1: disciplinasDaGrade ? disciplinasDaGrade[0][0] : [],
+            semestre2: disciplinasDaGrade ? disciplinasDaGrade[0][1] : [],
+          },
+          gradeCCD: {
+            semestre1: disciplinasDaGrade ? disciplinasDaGrade[3][0] : [],
+            semestre2: disciplinasDaGrade ? disciplinasDaGrade[3][1] : [],
+          },
+          gradeEC: {
+            semestre1: disciplinasDaGrade ? disciplinasDaGrade[1][0] : [],
+            semestre2: disciplinasDaGrade ? disciplinasDaGrade[1][1] : [],
+          },
+        });
       });
-
       return disciplinaResult;
     },
 

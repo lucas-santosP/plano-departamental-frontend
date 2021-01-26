@@ -66,7 +66,7 @@
           />
 
           <tr v-if="!DisciplinasOrderedMain.length">
-            <v-td width="1120">
+            <v-td :width="560 + filtroCursos.ativados.length * 140">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -238,7 +238,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { union, difference, find, some, filter, orderBy } from "lodash-es";
 import { normalizeText } from "@/common/utils";
 import {
@@ -339,18 +339,36 @@ export default {
     };
   },
 
-  beforeMount() {
-    this.ano = this.currentPlano.ano;
-    this.novoAno = this.ano;
-    this.runAll();
-
-    this.modalFiltrosCallbacks.selectAll.Cursos();
-    this.modalFiltrosCallbacks.selectAll.Perfis();
-    this.modalFiltrosCallbacks.selectAll.Disciplinas();
-    this.modalFiltrosCallbacks.btnOk();
+  created() {
+    this.fetchData().then(() => {
+      this.ano = this.currentPlano.ano;
+      this.novoAno = this.ano;
+      this.runAll();
+      this.modalFiltrosCallbacks.selectAll.Cursos();
+      this.modalFiltrosCallbacks.selectAll.Perfis();
+      this.modalFiltrosCallbacks.selectAll.Disciplinas();
+      this.modalFiltrosCallbacks.btnOk();
+    });
+  },
+  beforeDestroy() {
+    this.clearAllGradesExternas();
+    this.clearAllDisciplinasGradeExterna();
   },
 
   methods: {
+    ...mapActions([
+      "fetchAllGradesExternas",
+      "fetchAllDisciplinasGradeExterna",
+      "clearAllGradesExternas",
+      "clearAllDisciplinasGradeExterna",
+    ]),
+
+    async fetchData() {
+      this.setLoading({ type: "table", value: true });
+      await this.fetchAllGradesExternas();
+      await this.fetchAllDisciplinasGradeExterna();
+      this.setLoading({ type: "table", value: false });
+    },
     runNovoAno() {
       //executa runAll, modificando o ano
       if (this.ano != this.novoAno) {
@@ -577,13 +595,14 @@ export default {
       return disciplinasResult;
     },
     DisciplinasFiltredMain() {
-      let disciplinaResult = this.filtroDisciplinas.ativados;
+      let disciplinaResult = [...this.filtroDisciplinas.ativados];
 
       disciplinaResult.forEach((disciplina) => {
         this.CursosComGrades.forEach((curso) => {
+          const gradeDaDisciplina = this.disciplinasGrades[disciplina.id];
           disciplina[curso.id] = {};
-          disciplina[curso.id].semestre1 = this.disciplinasGrades[disciplina.id][curso.id][0];
-          disciplina[curso.id].semestre2 = this.disciplinasGrades[disciplina.id][curso.id][1];
+          disciplina[curso.id].semestre1 = gradeDaDisciplina ? gradeDaDisciplina[curso.id][0] : [];
+          disciplina[curso.id].semestre2 = gradeDaDisciplina ? gradeDaDisciplina[curso.id][1] : [];
         });
       });
 

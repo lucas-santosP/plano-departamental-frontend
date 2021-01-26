@@ -73,7 +73,7 @@ const actions = {
       }
 
       dispatch("setCurrentPlanoId", storagePlanoId);
-      await dispatch("fetchAll");
+      await dispatch("fetchEssentials");
       $socket.open();
       commit("setYear", 2019);
     } catch (error) {

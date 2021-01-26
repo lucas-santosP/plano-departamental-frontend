@@ -364,19 +364,29 @@ export default {
     };
   },
 
-  beforeMount() {
+  created() {
+    this.fetchData();
     this.modalFiltrosCallbacks.selectAll.Periodos();
   },
   beforeDestroy() {
     this.clearTurmasExternasToDelete();
+    this.clearAllTurmasExternas();
   },
 
   methods: {
     ...mapActions([
+      "fetchAllTurmasExternas",
+      "clearAllTurmasExternas",
       "deleteTurmasExternas",
       "clearTurmasExternasToDelete",
       "fetchAllPedidosExternos",
     ]),
+
+    async fetchData() {
+      this.setLoading({ type: "table", value: true });
+      await this.fetchAllTurmasExternas();
+      this.setLoading({ type: "table", value: false });
+    },
 
     toggleAddRow() {
       this.isAdding = !this.isAdding;
