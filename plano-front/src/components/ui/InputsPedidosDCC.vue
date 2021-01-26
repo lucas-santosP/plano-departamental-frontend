@@ -64,10 +64,10 @@ export default {
       if (pedido === 1) this.pedidoForm.editado1 = true;
       else this.pedidoForm.editado2 = true;
       if (
-        this.PedidosOfCurrentTurma.vagasPeriodizadas !== pedido.vagasPeriodizadas ||
-        this.PedidosOfCurrentTurma.vagasNaoPeriodizadas !== pedido.vagasNaoPeriodizadas ||
-        this.PedidosOfCurrentTurma.editado1 !== pedido.editado1 ||
-        this.PedidosOfCurrentTurma.editado2 !== pedido.editado2
+        this.PedidosOfCurrentTurma.vagasPeriodizadas != this.pedidoForm.vagasPeriodizadas ||
+        this.PedidosOfCurrentTurma.vagasNaoPeriodizadas != this.pedidoForm.vagasNaoPeriodizadas ||
+        this.PedidosOfCurrentTurma.editado1 != this.pedidoForm.editado1 ||
+        this.PedidosOfCurrentTurma.editado2 != this.pedidoForm.editado2
       ) {
         try {
           await this.editPedido(this.pedidoForm);
