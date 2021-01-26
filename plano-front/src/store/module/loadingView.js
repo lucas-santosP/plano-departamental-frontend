@@ -6,6 +6,7 @@ const state = {
     partial: false,
     table: false,
     fetching: false,
+    route: false,
   },
 };
 
@@ -17,11 +18,11 @@ const mutations = {
 
 const actions = {
   setLoading({ commit }, { type, value }) {
-    if (type === "partial" || type === "table") {
+    if (type === "fetching") {
+      commit(SET_LOADING, { type, value });
+    } else {
       if (value) commit(SET_LOADING, { type, value });
       else setTimeout(() => commit(SET_LOADING, { type, value }), 300); //Tempo mínimo de espera
-    } else if (type == "fetching") {
-      commit(SET_LOADING, { type, value });
     }
   },
 };

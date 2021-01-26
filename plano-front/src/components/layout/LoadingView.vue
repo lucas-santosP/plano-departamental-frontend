@@ -1,7 +1,7 @@
 <template>
   <transition name="fade-transition">
     <div
-      v-if="onLoading.fetching || onLoading.partial || onLoading.table"
+      v-if="onLoading.fetching || onLoading.partial || onLoading.table || onLoading.route"
       class="container-loading"
       @click.stop
       @keydown.stop
