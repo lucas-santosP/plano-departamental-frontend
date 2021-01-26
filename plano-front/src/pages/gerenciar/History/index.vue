@@ -458,7 +458,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["onLoading", "History"]),
+    ...mapGetters(["History"]),
 
     HistoryOrdered() {
       return orderBy(this.HistoryFilteredByOperacao, "id", "desc");
