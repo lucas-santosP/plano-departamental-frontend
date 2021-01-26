@@ -1,6 +1,6 @@
 <template>
   <transition name="sidebar-transition">
-    <nav v-show="sidebarVisibility" class="sidebar" @click.stop>
+    <aside v-show="sidebarVisibility" class="sidebar" @click.stop>
       <SidebarMenu :pages="RoutesHome" />
       <SidebarMenu
         v-if="currentUser.isAdmin && currentPlano.isEditable"
@@ -29,7 +29,7 @@
         :pages="RoutesValidacoes"
         :icon="RoutesValidacoes[0].icon"
       />
-    </nav>
+    </aside>
   </transition>
 </template>
 
