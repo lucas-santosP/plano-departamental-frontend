@@ -59,7 +59,7 @@ export default {
 
       setTimeout(() => {
         this.closeSidebar();
-      }, 600);
+      }, 400);
     },
   },
 };
@@ -71,7 +71,7 @@ export default {
 
 .sidebar-menu {
   font-size: 12px;
-  color: $clr-text-gray;
+  color: #333;
 
   > .section-title {
     @include base-transition(all);
@@ -86,15 +86,17 @@ export default {
     font-size: 12px;
     letter-spacing: 1px;
     font-weight: bold;
-    color: #d3d3d3;
+    background-color: #ebebeb;
     text-transform: uppercase;
     cursor: pointer;
     &:hover {
-      background-color: #3b4046;
-      color: #fff;
+      filter: brightness(90%);
+      color: #000;
     }
     &.is-open {
-      background-color: #3b4046;
+      filter: brightness(100%);
+      background-color: #c3c3c3;
+      color: #000;
     }
 
     > svg {
@@ -108,7 +110,7 @@ export default {
 
   ul.nav {
     padding-bottom: 10px;
-    background-color: #1c1f22;
+    color: #333;
   }
 
   ul.nav > li.nav-link {
@@ -118,13 +120,15 @@ export default {
     height: 25px;
     padding: 0 5px;
     padding-left: 27px; // espaço a esquerda igual do section-title
-    color: $clr-text-gray;
     letter-spacing: 0.5px;
     transition: all 100ms ease;
-    transition: background-color 300ms ease;
     &:hover {
       cursor: pointer;
+      background-color: $clr-lightblue;
       color: #fff;
+      &::before {
+        filter: brightness(160%);
+      }
       &::after {
         background-color: #fff;
       }
@@ -138,7 +142,8 @@ export default {
       left: 13px;
       width: 2px;
       height: 100%;
-      background-color: #4b4b4b;
+      background-color: #62676e;
+      transition: all 400ms ease;
     }
     // circle
     &::after {
@@ -152,15 +157,17 @@ export default {
       height: 8px;
       border-radius: 4px;
       background-color: #6e6e6e;
-      transition: all 300ms ease;
+      transition: all 400ms ease;
     }
   }
 
   ul.nav > li.nav-link.active {
     color: #fff;
     background-color: $clr-blue;
+    transition: all 100ms ease;
+    cursor: default;
     &::before {
-      filter: brightness(150%);
+      filter: brightness(160%);
     }
     &::after {
       background-color: #fff;

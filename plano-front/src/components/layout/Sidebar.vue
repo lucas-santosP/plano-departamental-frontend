@@ -72,7 +72,7 @@ export default {
   height: calc(100vh - var(--navbar-height));
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: $clr-dark;
+  background-color: #fff;
   padding: 0;
   padding-bottom: 10px;
   font-size: 14px;
