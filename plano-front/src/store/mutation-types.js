@@ -1,7 +1,3 @@
-// store.js
-export const HTTP_REQUEST_INCREMENT = "HTTP_REQUEST_INCREMENT";
-export const HTTP_REQUEST_DECREMENT = "HTTP_REQUEST_DECREMENT";
-
 // auth.js
 export const AUTHENTICATE = "AUTHENTICATE";
 export const USER_FETCHED = "USER_FETCHED";
