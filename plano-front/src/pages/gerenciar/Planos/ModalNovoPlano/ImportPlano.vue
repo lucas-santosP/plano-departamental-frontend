@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { find, some } from "lodash-es";
 import XLSX from "xlsx";
+import { mapActions, mapGetters } from "vuex";
+import { find, isEqual, some } from "lodash-es";
 import { readFileToBinary, generateEmptyTurma, normalizeText } from "@/common/utils";
 
 export default {
@@ -72,14 +72,24 @@ export default {
       const [file1Periodo] = this.$refs.input1periodo.files;
       const [file3Periodo] = this.$refs.input3periodo.files;
       if (!file1Periodo && !file3Periodo) {
-        throw new Error("Nenhum arquivo selecionado");
+        this.pushNotification({
+          type: "error",
+          text: "Nenhum arquivo selecionado",
+        });
+        return;
       }
 
       try {
-        this.setLoading({ type: "partial", value: true });
+        const turmasFile1Periodo = await this.parseCSVFileToArrayTurmas(file1Periodo);
+        const turmasFile3Periodo = await this.parseCSVFileToArrayTurmas(file3Periodo);
+
+        this.initializeProgressBar({
+          finalValue: turmasFile1Periodo.length + turmasFile3Periodo.length,
+        });
         const planoCreated = await this.createPlano({ data: this.plano });
-        if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
-        if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+        await this.createTurmasFile(turmasFile1Periodo, planoCreated.id, 1);
+        await this.createTurmasFile(turmasFile3Periodo, planoCreated.id, 3);
+
         this.closeModal();
         this.pushNotification({
           type: "success",
@@ -88,15 +98,18 @@ export default {
       } catch (error) {
         this.pushNotification({
           type: "error",
-          title: "Erro na criação do plano",
+          title: "Erro ao criar plano!",
           text: error.message,
         });
       } finally {
-        this.setLoading({ type: "partial", value: false });
+        await this.finishProgressBar();
       }
     },
-    async readInputFileTurmas(inputFile, planoId, periodo) {
-      const fileBase64 = await readFileToBinary(inputFile);
+
+    async parseCSVFileToArrayTurmas(file) {
+      if (!file) return [];
+
+      const fileBase64 = await readFileToBinary(file);
       const workbook = XLSX.read(fileBase64, { type: "binary" });
       const firstWorksheet = workbook.Sheets[workbook.SheetNames[0]];
       const dataString = JSON.stringify(XLSX.utils.sheet_to_json(firstWorksheet));
@@ -105,10 +118,29 @@ export default {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/\s/g, "")
         .toUpperCase();
-      const turmas = JSON.parse(dataStringNormalized);
-      await this.createTurmasImported(turmas, planoId, periodo);
+      const arrayNormalized = JSON.parse(dataStringNormalized);
+
+      const expectedkeys = [
+        "DISCIPLINA",
+        "DISCIPLINA_COD.",
+        "TURMA",
+        "CURSO_COD.",
+        "CURSO",
+        "VAGASOFERECIDAS",
+        "VAGASOCUPADAS",
+        "HORARIOS",
+        "DOCENTES",
+      ];
+      if (!isEqual(Object.keys(arrayNormalized[0]), expectedkeys)) {
+        throw new Error("Verifique a integridade e o formato dos arquivos");
+      }
+
+      return arrayNormalized;
     },
-    async createTurmasImported(turmasImported, planoId, periodo) {
+
+    async createTurmasFile(turmasFile, planoId, periodo) {
+      if (!turmasFile.length) return;
+
       const keys = {
         disciplinaCod: null,
         letra: null,
@@ -119,7 +151,7 @@ export default {
         docentes: null,
       };
       let i = 0;
-      for (const key in turmasImported[0]) {
+      for (const key in turmasFile[0]) {
         if (i === 1) keys.disciplinaCod = key;
         else if (i === 2) keys.letra = key;
         else if (i === 3) keys.cursoCod = key;
@@ -132,14 +164,9 @@ export default {
         }
         i++;
       }
-      if (keys.docentes === null) {
-        throw new Error("Verifique a integridade e o formato do arquivo enviado");
-      }
 
-      this.initializeProgressBar({ finalValue: turmasImported.length });
       let currentTurma = {};
-
-      for (const turmaFile of turmasImported) {
+      for (const turmaFile of turmasFile) {
         this.updateProgressBar();
 
         const newTurma = generateEmptyTurma({
@@ -159,16 +186,14 @@ export default {
 
         //Se a nova newTurma é igual a currentTurma, não cria a turma e apenas cria o pedido
         if (this.turmasIsEqual(currentTurma, newTurma)) {
-          await this.handleCreatePedidoOferecido(turmaFile, keys, currentTurma.id).catch();
+          await this.handleCreatePedidoOferecido(turmaFile, keys, currentTurma.id);
         } else {
           //Se é uma turma nova então cria a turma, atualiza currentTurma e cria o pedido
           const turmaCreated = await this.createTurma({ data: newTurma });
           currentTurma = { ...turmaCreated };
-          await this.handleCreatePedidoOferecido(turmaFile, keys, turmaCreated.id).catch();
+          await this.handleCreatePedidoOferecido(turmaFile, keys, turmaCreated.id);
         }
       }
-
-      await this.finishProgressBar();
     },
 
     //Helpers
@@ -336,7 +361,6 @@ export default {
       "AllCursos",
       "AllSalas",
       "AllDocentes",
-      "PeriodosLetivos",
     ]),
   },
 };
