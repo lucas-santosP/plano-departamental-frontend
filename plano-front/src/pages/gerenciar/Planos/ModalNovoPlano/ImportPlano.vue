@@ -56,7 +56,14 @@ export default {
   props: { plano: { type: Object, required: true } },
 
   methods: {
-    ...mapActions(["createPlano", "createTurma", "createPedidoOferecido"]),
+    ...mapActions([
+      "createPlano",
+      "createTurma",
+      "createPedidoOferecido",
+      "initializeProgressBar",
+      "updateProgressBar",
+      "finishProgressBar",
+    ]),
 
     async handleImportPlano() {
       const [file1Periodo] = this.$refs.input1periodo.files;
@@ -65,20 +72,24 @@ export default {
         throw new Error("Nenhum arquivo selecionado");
       }
 
-      this.setLoading({ type: "partial", value: true });
       try {
+        this.setLoading({ type: "partial", value: true });
         const planoCreated = await this.createPlano({ data: this.plano });
         if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
         if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+        this.pushNotification({
+          type: "success",
+          text: "Plano criado e turmas importadas",
+        });
       } catch (error) {
-        console.log("Erros durante import", error);
+        this.pushNotification({
+          type: "error",
+          title: "Erro na criação do plano",
+          text: error.message,
+        });
+      } finally {
+        this.setLoading({ type: "partial", value: false });
       }
-
-      this.setLoading({ type: "partial", value: false });
-      this.pushNotification({
-        type: "success",
-        text: "Plano criado e turmas importadas",
-      });
     },
     async readInputFileTurmas(inputFile, planoId, periodo) {
       const fileBase64 = await readFileToBinary(inputFile);
@@ -92,7 +103,6 @@ export default {
         .toUpperCase();
       const turmas = JSON.parse(dataStringNormalized);
       await this.createTurmasImported(turmas, planoId, periodo);
-      console.clear();
     },
     async createTurmasImported(turmasImported, planoId, periodo) {
       const keys = {
@@ -112,12 +122,22 @@ export default {
         else if (i === 5) keys.vagas1 = key;
         else if (i === 6) keys.vagas2 = key;
         else if (i === 7) keys.horarioESala = key;
-        else if (i === 8) keys.docentes = key;
+        else if (i === 8) {
+          keys.docentes = key;
+          break;
+        }
         i++;
       }
+      if (keys.docentes === null) {
+        throw new Error("Verifique a integridade e o formato do arquivo enviado");
+      }
 
+      this.initializeProgressBar({ finalValue: turmasImported.length });
       let currentTurma = {};
+
       for (const turmaFile of turmasImported) {
+        this.updateProgressBar();
+
         const newTurma = generateEmptyTurma({
           periodo,
           Plano: planoId,
@@ -135,14 +155,16 @@ export default {
 
         //Se a nova newTurma é igual a currentTurma, não cria a turma e apenas cria o pedido
         if (this.turmasIsEqual(currentTurma, newTurma)) {
-          await this.handleCreatePedidoOferecido(turmaFile, keys, currentTurma.id);
+          await this.handleCreatePedidoOferecido(turmaFile, keys, currentTurma.id).catch();
         } else {
           //Se é uma turma nova então cria a turma, atualiza currentTurma e cria o pedido
           const turmaCreated = await this.createTurma({ data: newTurma });
           currentTurma = { ...turmaCreated };
-          await this.handleCreatePedidoOferecido(turmaFile, keys, turmaCreated.id);
+          await this.handleCreatePedidoOferecido(turmaFile, keys, turmaCreated.id).catch();
         }
       }
+
+      await this.finishProgressBar();
     },
 
     //Helpers
@@ -150,9 +172,7 @@ export default {
       const pedidoOferecido = this.makePedidoOferecido(turmaFile, keys, turmaId);
 
       if (pedidoOferecido) {
-        await this.createPedidoOferecido({ data: pedidoOferecido }).catch(() =>
-          console.log("Error na criacao de pedido")
-        );
+        await this.createPedidoOferecido({ data: pedidoOferecido }).catch(() => {});
       }
     },
     makePedidoOferecido(turmaFile, keys, turmaId) {
