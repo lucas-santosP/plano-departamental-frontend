@@ -53,7 +53,10 @@ import { readFileToBinary, generateEmptyTurma, normalizeText } from "@/common/ut
 
 export default {
   name: "ModalImportPlano",
-  props: { plano: { type: Object, required: true } },
+  props: {
+    plano: { type: Object, required: true },
+    closeModal: { type: Function, required: true },
+  },
 
   methods: {
     ...mapActions([
@@ -77,6 +80,7 @@ export default {
         const planoCreated = await this.createPlano({ data: this.plano });
         if (file1Periodo) await this.readInputFileTurmas(file1Periodo, planoCreated.id, 1);
         if (file3Periodo) await this.readInputFileTurmas(file3Periodo, planoCreated.id, 3);
+        this.closeModal();
         this.pushNotification({
           type: "success",
           text: "Plano criado e turmas importadas",

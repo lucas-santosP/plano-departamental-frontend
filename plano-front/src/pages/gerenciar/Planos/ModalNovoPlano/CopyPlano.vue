@@ -85,6 +85,7 @@ export default {
   components: { InputSearch },
   props: {
     plano: { type: Object, required: true },
+    closeModal: { type: Function, required: true },
   },
   data() {
     return {
@@ -765,6 +766,7 @@ export default {
         .then(() => {
           this.$store.dispatch("fetchAll").then(() => {
             this.setLoading({ type: "partial", value: false });
+            this.closeModal();
           });
         });
     },
