@@ -99,6 +99,9 @@ label[required] {
 }
 .clickable {
   cursor: pointer !important;
+  * {
+    cursor: pointer !important;
+  }
 }
 .max-content {
   width: -webkit-max-content !important;
