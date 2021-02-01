@@ -11,6 +11,7 @@ const state = {
     table: false,
     fetching: false,
     progress: false,
+    route: false,
   },
   loadingProgress: {
     currentPercentage: 0,
@@ -32,12 +33,12 @@ const mutations = {
 };
 
 const actions = {
-  setLoading({ commit }, { type, value }) {
+  setLoading({ commit }, { type, value, wait = 300 }) {
     if (type === "fetching") {
       commit(SET_LOADING, { type, value });
     } else {
-      if (value) commit(SET_LOADING, { type, value });
-      else setTimeout(() => commit(SET_LOADING, { type, value }), 300); // Tempo mínimo de espera
+      if (value === true) commit(SET_LOADING, { type, value });
+      else setTimeout(() => commit(SET_LOADING, { type, value }), wait); // Tempo mínimo de espera
     }
   },
 

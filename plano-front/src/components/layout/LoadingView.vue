@@ -1,12 +1,6 @@
 <template>
   <transition name="fade-transition">
-    <div
-      v-if="onLoading.fetching || onLoading.partial || onLoading.table || onLoading.progress"
-      class="container-loading"
-      @click.stop
-      @keydown.stop
-      @keypress.stop
-    >
+    <div v-if="onAnyLoading" class="container-loading" @click.stop @keydown.stop @keypress.stop>
       <div class="loading-spin">
         <div></div>
         <div></div>
@@ -26,6 +20,10 @@ export default {
   name: "LoadingView",
   computed: {
     ...mapGetters(["onLoading", "loadingProgress"]),
+
+    onAnyLoading() {
+      return Object.values(this.onLoading).some((loading) => loading === true);
+    },
   },
 };
 </script>
