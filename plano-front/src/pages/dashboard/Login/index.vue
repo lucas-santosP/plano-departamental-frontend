@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div v-if="pageVisibility" class="login-container">
     <div class="card ml-auto mr-auto">
       <div class="card-header">
         <Logo />
@@ -53,6 +53,7 @@ export default {
   },
   data() {
     return {
+      pageVisibility: false,
       form: {
         login: "",
         senha: "",
@@ -61,16 +62,20 @@ export default {
     };
   },
 
-  beforeCreate() {
-    this.$store
-      .dispatch("fetchUsuario")
-      .then(() => {
-        this.$router.replace("/dashboard");
-      })
-      .catch(() => {});
+  created() {
+    this.checkIfIsAlreadyLogged();
   },
 
   methods: {
+    async checkIfIsAlreadyLogged() {
+      try {
+        await this.$store.dispatch("fetchUsuario");
+        this.$router.replace("/home");
+      } catch (error) {
+        this.pageVisibility = true;
+      }
+    },
+
     async handleLogin() {
       try {
         this.setLoading({ type: "partial", value: true });
