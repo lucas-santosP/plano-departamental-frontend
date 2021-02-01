@@ -10,19 +10,18 @@
     <template #modal-body>
       <NavTab
         :currentTab="currentTab"
-        :allTabs="['Copiar', 'Importar']"
+        :allTabs="['Importar', 'Copiar']"
         @change-tab="currentTab = $event"
-      />
-
-      <CopyPlano
-        v-show="currentTab === 'Copiar'"
-        ref="copyPlano"
-        :plano="plano"
-        :closeModal="close"
       />
       <ImportPlano
         v-show="currentTab === 'Importar'"
         ref="importPlano"
+        :plano="plano"
+        :closeModal="close"
+      />
+      <CopyPlano
+        v-show="currentTab === 'Copiar'"
+        ref="copyPlano"
         :plano="plano"
         :closeModal="close"
       />
@@ -64,7 +63,7 @@ export default {
   },
   data() {
     return {
-      currentTab: "Copiar",
+      currentTab: "Importar",
     };
   },
 
