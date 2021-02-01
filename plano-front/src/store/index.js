@@ -26,7 +26,7 @@ import history from "./module/history";
 import sidebar from "./module/sidebar";
 import modals from "./module/modals";
 import loadingView from "./module/loadingView";
-import routesLists from "./module/routesLists";
+import pagesLists from "./module/pagesLists";
 import notifications from "./module/notifications";
 import periodosLetivos from "./module/periodosLetivos";
 import semestresLetivos from "./module/semestresLetivos";
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     sidebar,
     modals,
     loadingView,
-    routesLists,
+    pagesLists,
     notifications,
     periodosLetivos,
     semestresLetivos,
