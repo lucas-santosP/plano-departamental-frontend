@@ -9,7 +9,7 @@ import {
 
 const state = {
   token: localStorage.getItem("token"),
-  Usuario: undefined,
+  Usuario: null,
 };
 
 const mutations = {
@@ -33,9 +33,9 @@ const mutations = {
   },
 
   [USER_LOGGED_OUT](state) {
-    state.token = undefined;
+    state.token = null;
     localStorage.removeItem("token");
-    state.Usuario = undefined;
+    state.Usuario = null;
   },
 };
 
@@ -73,8 +73,8 @@ const actions = {
   },
 
   doLogout({ commit }) {
-    commit(USER_LOGGED_OUT);
     router.push({ path: "/login" });
+    commit(USER_LOGGED_OUT);
   },
 };
 
