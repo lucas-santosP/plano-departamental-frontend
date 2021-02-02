@@ -612,9 +612,9 @@ export default {
           }
         });
       }
-      for (let prop in gradesExternasAtivas.semestre1) {
+      for (let prop in gradesExternasAtivas.semestre2) {
         let curso = find(this.AllCursos, { codigo: prop });
-        for (let i = 0; i < gradesExternasAtivas.semestre1[prop].length; i++) {
+        for (let i = 0; i < gradesExternasAtivas.semestre2[prop].length; i++) {
           let disciplinasGrade = filter(this.DisciplinasDasGradesCursosExternos, {
             Grade: gradesExternasAtivas.semestre2[prop][i].id,
           });
@@ -899,6 +899,31 @@ export default {
                     .catch((error) => {
                       console.log("erro ao atualizar pedido: " + error);
                     });
+                }
+                for (let prop in t) {
+                  if (
+                    prop !== "Disciplina" &&
+                    prop !== "CCD" &&
+                    prop !== "EC" &&
+                    prop !== "CCN" &&
+                    prop !== "SI" &&
+                    prop !== "semestre" &&
+                    prop !== "turno" &&
+                    prop !== "letra"
+                  ) {
+                    let c = find(this.AllCursos, { codigo: prop });
+                    pedidoService
+                      .update(c.id, turma.Turma.id, {
+                        Turma: turma.Turma.id,
+                        Curso: c.id,
+                        vagasPeriodizadas: 1,
+                        vagasNaoPeriodizadas: 0,
+                      })
+                      .then(() => {})
+                      .catch((error) => {
+                        console.log("erro ao atualizar pedido: " + error);
+                      });
+                  }
                 }
               })
               .catch((error) => {
