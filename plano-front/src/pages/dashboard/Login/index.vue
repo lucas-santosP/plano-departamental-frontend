@@ -87,7 +87,6 @@ export default {
           this.$router.replace("/dashboard");
         }
       } catch (error) {
-        this.setLoading({ type: "partial", value: false });
         this.error = error.response
           ? error.response.data.message
           : "Erro na requisição! Tente novamente.";
@@ -95,6 +94,8 @@ export default {
         setTimeout(() => {
           this.error = null;
         }, 3000);
+      } finally {
+        this.setLoading({ type: "partial", value: false });
       }
     },
   },
