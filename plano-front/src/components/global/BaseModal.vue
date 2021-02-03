@@ -124,7 +124,7 @@ export default {
         if (!title) title = "Editar Vagas";
         title = "Vagas";
         hasOverlay = true;
-        typeStyles.push(positions.center, { width: "580px" });
+        typeStyles.push(positions.center, { width: "770px" });
         break;
 
       default:
