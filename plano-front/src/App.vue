@@ -19,6 +19,7 @@
     </transition>
 
     <LoadingView />
+    <portal-target name="modal" multiple />
     <ModalOverlay />
   </div>
 </template>

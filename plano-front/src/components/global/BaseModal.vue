@@ -1,54 +1,50 @@
 <template>
-  <transition :name="customAnimation">
-    <div
-      v-if="visibility"
-      :class="['modal-custom', options.customClasses]"
-      :style="options.typeStyles"
-    >
-      <header class="header w-100">
-        <h2 class="title">{{ options.title }}</h2>
-        <button
-          type="button"
-          class="btn-custom btn-close"
-          @click="close()"
-          aria-label="Close modal"
-        >
-          <font-awesome-icon :icon="['fas', 'times']" />
-        </button>
-      </header>
+  <portal to="modal" :order="options.position === 'center' ? 1 : 2">
+    <transition :name="`modal-${options.position}`">
+      <div
+        v-if="visibility"
+        :class="['modal-custom', options.customClasses]"
+        :style="options.typeStyles"
+      >
+        <header class="header">
+          <h2 class="title">{{ options.title }}</h2>
 
-      <main class="body">
-        <slot name="modal-body">Modal Body</slot>
-      </main>
+          <button type="button" class="btn-custom btn-close" @click="close">
+            <font-awesome-icon :icon="['fas', 'times']" />
+          </button>
+        </header>
 
-      <footer v-if="options.hasFooter" class="footer w-100">
-        <slot name="modal-footer"></slot>
-      </footer>
-    </div>
-  </transition>
+        <main class="body">
+          <slot name="modal-body">Modal Body</slot>
+        </main>
+
+        <footer v-if="options.hasFooter" class="footer w-100">
+          <slot name="modal-footer"></slot>
+        </footer>
+      </div>
+    </transition>
+  </portal>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 const positions = {
-  right: {
-    top: "80px",
-    right: "25px",
-    zIndex: 900,
-  },
-  center: {
-    top: "25px",
-    left: "50%",
-    zIndex: 1000,
-    transform: "translateX(-50%)",
-  },
+  right: { top: "80px", right: "25px", zIndex: 900 },
+  center: { top: "25px", left: "50%", zIndex: 1000, transform: "translateX(-50%)" },
 };
 
 export default {
   name: "BaseModal",
   props: {
     type: { type: String, default: "" },
-    position: { type: String, default: "" },
+    position: {
+      type: String,
+      default: "",
+      validator(position) {
+        const validPositions = ["right", "center", ""];
+        return validPositions.includes(position);
+      },
+    },
     title: { type: String, default: "" },
     hasOverlay: { type: Boolean, default: false },
     hasFooter: { type: Boolean, default: false },
@@ -83,9 +79,7 @@ export default {
     },
     closeOnEscKey(event) {
       event.stopPropagation();
-
-      const { code } = event;
-      if (code === "Escape") this.close();
+      if (event.code === "Escape") this.close();
     },
   },
 
@@ -101,41 +95,44 @@ export default {
         if (!title) title = "Editar turma";
         hasOverlay = true;
         typeStyles.push(positions.center, { width: "510px" });
+        position = "center";
         break;
-
       case "fromNavbar":
         hasOverlay = true;
         typeStyles.push(positions.center, { width: "400px" });
+        position = "center";
         break;
-
       case "filtros":
         if (!title) title = "Filtros";
         if (!hasFooter) hasFooter = true;
         hasOverlay = false;
         typeStyles.push(positions.right, { width: "510px", height: "610px" });
+        position = "right";
         break;
-
       case "ajuda":
         title = "Ajuda";
         hasOverlay = false;
         typeStyles.push(positions.right, { width: "510px" });
+        position = "right";
         break;
       case "editVagas":
         if (!title) title = "Editar Vagas";
         title = "Vagas";
         hasOverlay = true;
         typeStyles.push(positions.center, { width: "770px" });
+        position = "center";
         break;
-
       default:
-        if (position) typeStyles.push(positions[position]);
-        else typeStyles.push(positions.center);
+        if (position) {
+          typeStyles.push(positions[position]);
+        } else {
+          typeStyles.push(positions.center);
+          position = "center";
+        }
         typeStyles.push({ minWidth: "300px" });
         break;
       }
-
       typeStyles.push(styles);
-      if (!title) title = "Nenhum titulo recebido";
 
       return {
         position,
@@ -145,21 +142,6 @@ export default {
         hasFooter,
         customClasses: ["modal-custom", this.classes],
       };
-    },
-    customAnimation() {
-      switch (this.type) {
-      case "editTurma":
-      case "editVagas":
-      case "fromNavbar":
-        return "center";
-
-      case "filtros":
-      case "ajuda":
-        return "right";
-      default:
-        if (!this.position) return "center";
-        else return this.position;
-      }
     },
   },
 
@@ -193,6 +175,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
     border-bottom: 1px solid #eeeeee;
     color: #000000;
     height: 55px;
@@ -244,11 +227,11 @@ export default {
 }
 
 /* transition */
-.right-enter-active {
-  animation: zoomInRight 0.3s ease;
+.modal-right-enter-active {
+  animation: zoomInRight 0.25s ease;
 }
-.right-leave-active {
-  animation: zoomOutRight 0.3s ease;
+.modal-right-leave-active {
+  animation: zoomOutRight 0.25s ease;
 }
 @keyframes zoomInRight {
   from {
@@ -270,11 +253,12 @@ export default {
     transform: scale(0);
   }
 }
-.center-enter-active {
-  animation: zoomInCenter 0.3s ease;
+
+.modal-center-enter-active {
+  animation: zoomInCenter 0.25s ease;
 }
-.center-leave-active {
-  animation: zoomOutCenter 0.3s ease;
+.modal-center-leave-active {
+  animation: zoomOutCenter 0.25s ease;
 }
 @keyframes zoomInCenter {
   from {
