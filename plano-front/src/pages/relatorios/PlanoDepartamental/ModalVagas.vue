@@ -1,5 +1,5 @@
 <template>
-  <BaseModal ref="baseModalVagas" :type="'editVagas'" :classes="'modal-vagas'">
+  <BaseModal ref="baseModalVagas" :type="'editVagas'">
     <template #modal-body v-if="turma !== null">
       <div class="modal-vagas-header">
         <h2 class="title">
@@ -8,11 +8,7 @@
 
         <label for="selectTurma" class="m-0 mr-2">Turma:</label>
         <select id="selectTurma" class="form-control select-letra" v-model="turmaLetraForm">
-          <option
-            v-for="turma in TurmasOptionsModalVagas"
-            :key="turma.id + turma.letra"
-            :value="turma.letra"
-          >
+          <option v-for="turma in TurmasOptions" :key="turma.id + turma.letra" :value="turma.letra">
             {{ turma.letra }}
           </option>
         </select>
@@ -41,7 +37,7 @@
               :currentOrder="ordenacaoVagas"
               orderToCheck="vagasPeriodizadas"
               orderType="desc"
-              width="55"
+              width="75"
               title="Vagas periodizadas"
             >
               Grade
@@ -50,16 +46,36 @@
               :currentOrder="ordenacaoVagas"
               orderToCheck="vagasNaoPeriodizadas"
               orderType="desc"
-              width="55"
+              width="75"
               title="Vagas não periodizadas"
             >
               Extra
             </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordenacaoVagas"
-              orderToCheck="vagasTotais"
+              orderToCheck="vagasOferecidas"
               orderType="desc"
-              width="55"
+              width="75"
+              paddingX="0"
+              title="Vagas oferecidas"
+            >
+              Oferecidas
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="vagasOcupadas"
+              orderType="desc"
+              width="75"
+              paddingX="0"
+              title="Vagas ocupadas"
+            >
+              Ocupadas
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="totalVagas"
+              orderType="desc"
+              width="50"
               title="Total de vagas"
             >
               Total
@@ -67,16 +83,23 @@
           </template>
 
           <template #tbody>
-            <tr v-for="pedido in PedidosOrdered" :key="pedido.Turma + pedido.curso.codigo">
+            <tr
+              v-for="pedido in PedidosEPedidosOferecidosOrdered"
+              :key="pedido.curso.codigo + pedido.Turma"
+            >
               <v-td width="65" align="start">{{ pedido.curso.codigo }}</v-td>
-              <v-td width="300" align="start">{{ pedido.curso.nome }}</v-td>
-              <v-td width="55">{{ pedido.vagasPeriodizadas }}</v-td>
-              <v-td width="55">{{ pedido.vagasNaoPeriodizadas }}</v-td>
-              <v-td width="55">{{ pedido.vagasTotais }}</v-td>
+              <v-td width="300" align="start" :title="pedido.curso.nome">
+                {{ pedido.curso.nome }}
+              </v-td>
+              <v-td width="75">{{ pedido.vagasPeriodizadas }}</v-td>
+              <v-td width="75">{{ pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="75">{{ pedido.vagasOferecidas }}</v-td>
+              <v-td width="75">{{ pedido.vagasOcupadas }}</v-td>
+              <v-td width="50">{{ pedido.totalVagas }}</v-td>
             </tr>
 
-            <tr v-if="!PedidosOrdered.length">
-              <v-td colspan="5" width="530">
+            <tr v-if="!PedidosEPedidosOferecidosOrdered.length">
+              <v-td colspan="5" width="715">
                 <b>Turma atual não possui nenhuma vaga cadastrada</b>
               </v-td>
             </tr>
@@ -89,7 +112,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { orderBy, find, filter } from "lodash-es";
+import { orderBy, find } from "lodash-es";
 
 export default {
   name: "ModalVagas",
@@ -99,7 +122,7 @@ export default {
   data() {
     return {
       turmaLetraForm: null,
-      ordenacaoVagas: { order: "vagasTotais", type: "desc" },
+      ordenacaoVagas: { order: "totalVagas", type: "desc" },
     };
   },
 
@@ -110,56 +133,80 @@ export default {
     close() {
       this.$refs.baseModalVagas.close();
     },
+    getPedidosOferecidosDaTurma(turmaId) {
+      if (!this.PedidosOferecidos[turmaId]) return [];
+
+      return this.PedidosOferecidos[turmaId].filter(
+        (pedido) => pedido.vagasOferecidas > 0 || pedido.vagasOcupadas > 0
+      );
+    },
+    getPedidosDaTurma(turmaId) {
+      if (!this.Pedidos[turmaId]) return [];
+
+      return this.Pedidos[turmaId].filter(
+        (pedido) => pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0
+      );
+    },
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "AllCursos"]),
+    ...mapGetters(["AllTurmas", "AllCursos", "Pedidos", "PedidosOferecidos"]),
 
-    PedidosOrdered() {
+    PedidosEPedidosOferecidosOrdered() {
       return orderBy(
-        this.PedidosFiltredByTurma,
+        this.PedidosEPedidosOferecidosDaTurma,
         this.ordenacaoVagas.order,
         this.ordenacaoVagas.type
       );
     },
-    PedidosFiltredByTurma() {
+    PedidosEPedidosOferecidosDaTurma() {
       if (this.turmaLetraForm === null) return [];
 
-      const currentTurmaSelected = find(this.TurmasOptionsModalVagas, [
-        "letra",
-        this.turmaLetraForm,
-      ]);
+      const currentTurma = find(this.TurmasOptions, ["letra", this.turmaLetraForm]);
+      const pedidosDaTurma = this.getPedidosDaTurma(currentTurma.id);
+      const pedidosOferecidosDaTurma = this.getPedidosOferecidosDaTurma(currentTurma.id);
+      const pedidosEPedidosOferecidos = [];
 
-      const pedidosDaTurma = filter(
-        this.Pedidos[currentTurmaSelected.id],
-        (pedido) => pedido.vagasPeriodizadas > 0 || pedido.vagasNaoPeriodizadas > 0
-      );
+      this.AllCursos.forEach((curso) => {
+        const pedidoFound = find(pedidosDaTurma, ["Curso", curso.id]);
+        const pedidoOferecidoFound = find(pedidosOferecidosDaTurma, ["Curso", curso.id]);
 
-      return pedidosDaTurma.map((pedido) => {
-        const cursoFounded = find(this.AllCursos, ["id", pedido.Curso]);
+        if (pedidoFound || pedidoOferecidoFound) {
+          const pedidoResult = {
+            vagasPeriodizadas: 0,
+            vagasNaoPeriodizadas: 0,
+            vagasOferecidas: 0,
+            vagasOcupadas: 0,
+            totalVagas: 0,
+            curso: { ...curso },
+          };
+          if (pedidoFound) {
+            const { vagasPeriodizadas, vagasNaoPeriodizadas } = pedidoFound;
+            pedidoResult.vagasPeriodizadas = vagasPeriodizadas;
+            pedidoResult.vagasNaoPeriodizadas = vagasNaoPeriodizadas;
+            pedidoResult.totalVagas += vagasPeriodizadas + vagasNaoPeriodizadas;
+          }
+          if (pedidoOferecidoFound) {
+            const { vagasOferecidas, vagasOcupadas } = pedidoOferecidoFound;
+            pedidoResult.vagasOferecidas = vagasOferecidas;
+            pedidoResult.vagasOcupadas = vagasOcupadas;
+            pedidoResult.totalVagas += vagasOferecidas + vagasOcupadas;
+          }
 
-        return {
-          ...pedido,
-          vagasTotais: pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas,
-          curso: cursoFounded,
-        };
+          pedidosEPedidosOferecidos.push(pedidoResult);
+        }
       });
-    },
 
-    TurmasOptionsModalVagas() {
+      return pedidosEPedidosOferecidos;
+    },
+    TurmasOptions() {
       if (this.turma === null) return [];
 
-      const turmasResultantes = filter(
-        this.AllTurmas,
+      const turmas = this.AllTurmas.filter(
         (turma) =>
           turma.Disciplina === this.turma.Disciplina && turma.periodo === this.turma.periodo
       );
-
-      return orderBy(turmasResultantes, ["periodo"]);
-    },
-
-    Pedidos() {
-      return this.$store.state.pedido.Pedidos;
+      return orderBy(turmas, ["periodo"]);
     },
   },
 
@@ -171,24 +218,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal-vagas-header {
   width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-}
-.modal-vagas-header > .title {
-  margin: 0;
-  font-weight: bold;
-  font-size: 14px;
-  width: 100%;
-}
-.modal-vagas-header > .select-letra {
-  width: 60px;
-  height: 25px;
-  font-size: 12px;
-  padding: 2px 5px;
-  text-align: start;
+
+  > .title {
+    margin: 0;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  > .select-letra {
+    width: 60px;
+    height: 25px;
+    font-size: 12px;
+    padding: 2px 5px;
+    text-align: start;
+  }
 }
 </style>

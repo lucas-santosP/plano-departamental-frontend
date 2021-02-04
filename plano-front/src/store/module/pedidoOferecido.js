@@ -53,10 +53,6 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ dispatch }) {
-    return dispatch("fetchAllPedidosOferecidos");
-  },
-
   fetchAllPedidosOferecidos({ commit }) {
     return new Promise((resolve, reject) => {
       pedidoOferecidoService

@@ -3,10 +3,10 @@
     <p class="alert alert-secondary">
       Selecione arquivos
       <b>.csv</b>
-      para importar as turmas de cada periodo do novo plano.
-      <br />
-      Note que o formato do arquivo requerido é o relatorio de plano departamental gerado pelo SIGA
-      na página: Acadêmico > Consultas > Plano Departamental.
+      para importar as turmas de cada periodo do novo plano. Note que o formato do arquivo requerido
+      é o relatorio de plano departamental gerado pelo SIGA na página:
+      <b>Acadêmico > Consultas > Plano Departamental</b>
+      . E você pode cancelar o processo durante a importação apertando a tecla esc.
     </p>
 
     <div class="form-row">
@@ -61,15 +61,30 @@ export default {
     plano: { type: Object, required: true },
     closeModal: { type: Function, required: true },
   },
+  data() {
+    return {
+      abortImport: false,
+    };
+  },
+  mounted() {
+    document.addEventListener("keydown", (event) => {
+      event.stopPropagation();
+      if (event.code === "Escape") {
+        this.abortImport = true;
+      }
+    });
+  },
 
   methods: {
     ...mapActions([
       "createPlano",
+      "deletePlano",
       "createTurma",
       "createPedidoOferecido",
       "initializeProgressBar",
       "updateProgressBar",
       "finishProgressBar",
+      "fetchAllPedidos",
     ]),
 
     async handleImportPlano() {
@@ -84,6 +99,7 @@ export default {
       }
 
       try {
+        this.abortImport = false;
         const turmasFile1Periodo = await parseCSVFileToArray(file1Periodo);
         const turmasFile3Periodo = await parseCSVFileToArray(file3Periodo);
         validateTurmasSIGA(turmasFile1Periodo);
@@ -92,15 +108,22 @@ export default {
         this.initializeProgressBar({
           finalValue: turmasFile1Periodo.length + turmasFile3Periodo.length,
         });
-        const planoCreated = await this.createPlano({ data: this.plano });
-        await this.createTurmasFileSIGA(turmasFile1Periodo, planoCreated.id, 1);
-        await this.createTurmasFileSIGA(turmasFile3Periodo, planoCreated.id, 3);
+        const newPlano = await this.createPlano({ data: this.plano });
+        await this.createTurmasFileSIGA(turmasFile1Periodo, newPlano, 1);
+        await this.createTurmasFileSIGA(turmasFile3Periodo, newPlano, 3);
 
-        this.closeModal();
-        this.pushNotification({
-          type: "success",
-          text: "Plano criado e turmas importadas",
-        });
+        if (!this.abortImport) {
+          this.closeModal(); // O modal fecha de qualquer jeito por causa do esc
+          this.pushNotification({
+            type: "success",
+            text: "Plano criado e turmas importadas",
+          });
+        } else {
+          this.pushNotification({
+            type: "warn",
+            text: "Importação do plano foi cancelada",
+          });
+        }
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -112,16 +135,20 @@ export default {
       }
     },
 
-    async createTurmasFileSIGA(turmasSIGA, planoId, periodo) {
+    async createTurmasFileSIGA(turmasSIGA, newPlano, periodo) {
       if (!turmasSIGA.length) return;
 
       let currentTurma = {};
       const keysTurmaSIGA = getKeysTurmaSIGA(turmasSIGA[0]);
 
       for (const turmaSIGA of turmasSIGA) {
-        this.updateProgressBar();
+        if (this.abortImport) {
+          this.deletePlano({ data: { ...newPlano } });
+          break;
+        }
 
-        const newTurma = parseTurmaSIGAToTurma(turmaSIGA, keysTurmaSIGA, planoId, periodo);
+        this.updateProgressBar();
+        const newTurma = parseTurmaSIGAToTurma(turmaSIGA, keysTurmaSIGA, newPlano.id, periodo);
         if (!newTurma) continue;
 
         //Se a nova newTurma é igual a currentTurma, não cria a turma e apenas cria o pedido
@@ -149,3 +176,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.btn-abort {
+  position: fixed;
+  bottom: 20%;
+  background-color: #000;
+  color: #fff;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
