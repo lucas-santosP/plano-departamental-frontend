@@ -8,7 +8,7 @@
     </portal>
 
     <div class="div-table">
-      <BaseTable v-show="tableMode === 'disciplina'">
+      <BaseTable v-if="tableMode === 'disciplina'">
         <template #thead>
           <v-th-ordination
             :currentOrder="ordenacaoDisciplina.disciplinas"
@@ -97,7 +97,7 @@
         </template>
       </BaseTable>
 
-      <BaseTable v-show="tableMode === 'docente'">
+      <BaseTable v-if="tableMode === 'docente'">
         <template #thead>
           <v-th-ordination
             :currentOrder="ordenacaoDocentes.docentes"
