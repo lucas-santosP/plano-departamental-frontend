@@ -102,16 +102,10 @@ const state = {
         "Listagem de todos os docentes ativos e inativos do DCC, permitindo a alteração de seus perfis.",
     },
     {
-      path: "/gerenciar/grades-cursos-dcc",
-      title: "Grades de Cursos - DCC",
+      path: "/gerenciar/grades-cursos",
+      title: "Grades Cursos",
       description:
-        "Listagem das grades (atuais e antigas) dos cursos do DCC que ainda estão em atividade, permitindo a adição de novas grades.",
-    },
-    {
-      path: "/gerenciar/grades-cursos-outros",
-      title: "Grades de Cursos - Outros",
-      description:
-        "Listagem das grades (atuais e antigas) dos cursos externos que ainda estão em atividade, permitindo a adição de novas grades.",
+        "Listagem das grades (atuais e antigas) dos cursos DCC e Outros que ainda estão em atividade, permitindo a adição de novas grades.",
     },
     {
       path: "/gerenciar/history",

@@ -76,13 +76,8 @@ const routesGerenciar = [
     beforeEnter: requireSuperAdmin,
   },
   {
-    path: "/gerenciar/grades-cursos-dcc",
-    component: lazyLoad("gerenciar/GradesCursosDCC"),
-    beforeEnter: requireSuperAdmin,
-  },
-  {
-    path: "/gerenciar/grades-cursos-outros",
-    component: lazyLoad("gerenciar/GradesCursosExternos"),
+    path: "/gerenciar/grades-cursos",
+    component: lazyLoad("gerenciar/GradesCursos"),
     beforeEnter: requireSuperAdmin,
   },
   {
