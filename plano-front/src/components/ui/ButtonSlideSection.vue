@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import { ButtonArrow } from "@/components/ui";
+import ButtonArrow from "./ButtonArrow";
+
 export default {
   name: "ButtonSlideSection",
   components: { ButtonArrow },
