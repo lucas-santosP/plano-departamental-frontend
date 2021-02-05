@@ -7,8 +7,10 @@ import imageToDataUrl from "./imageToDataUrl";
 import normalizePedido from "./normalizePedido";
 import readFileToBinary from "./readFileToBinary";
 import parseCSVFileToArray from "./parseCSVFileToArray";
+import generateEmptyCurso from "./generateEmptyCurso";
 
 export {
+  generateEmptyCurso,
   parseCSVFileToArray,
   readFileToBinary,
   normalizePedido,

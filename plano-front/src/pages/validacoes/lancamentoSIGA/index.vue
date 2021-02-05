@@ -10,50 +10,59 @@
           <template #thead>
             <v-th-ordination
               :currentOrder="ordenacaoConflitos"
-              orderToCheck="turma.disciplina.codigo"
-              width="100"
-              paddingX="0"
+              orderToCheck="disciplina.codigo"
+              width="80"
+              align="start"
               title="Código da Disciplina"
             >
-              Cód. Disciplina
+              Código
             </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordenacaoConflitos"
-              orderToCheck="turma.disciplina.nome"
+              orderToCheck="disciplina.nome"
               width="300"
               align="start"
             >
               Disciplina
             </v-th-ordination>
             <v-th width="30" title="Turma">T.</v-th>
-            <v-th-ordination
-              :currentOrder="ordenacaoConflitos"
-              orderToCheck="curso.codigo"
-              width="90"
-              title="Código do Curso"
-            >
-              Cód. Curso
-            </v-th-ordination>
+            <v-th width="55" title="Código do Curso">Curso</v-th>
             <v-th width="180" align="start" title="Valor do pedido no SIGA">Conflito</v-th>
-            <v-th width="85" paddingX="0" title="Valor do pedido no SIGA">Valor SIGA</v-th>
-            <v-th width="85" paddingX="0" title="Valor do pedido no Sistema">Valor Sistema</v-th>
+            <v-th width="120" paddingX="0" title="Valor do pedido no SIGA">Valor SIGA</v-th>
+            <v-th width="120" paddingX="0" title="Valor do pedido no Sistema">Valor Sistema</v-th>
           </template>
 
           <template #tbody>
-            <tr
-              v-for="conflito in conflitosOrdered"
-              :key="conflito.label + conflito.turma.id + conflito.curso.id"
-            >
-              <v-td width="100">{{ conflito.turma.disciplina.codigo }}</v-td>
-              <v-td width="300" align="start">{{ conflito.turma.disciplina.nome }}</v-td>
-              <v-td width="30">{{ conflito.turma.letra }}</v-td>
-              <v-td width="90">{{ conflito.curso.codigo }}</v-td>
-              <v-td width="180" align="start">{{ conflito.label }}</v-td>
-              <v-td width="85">{{ conflito.siga }}</v-td>
-              <v-td width="85">{{ conflito.sistema }}</v-td>
-            </tr>
+            <template v-for="turmaConflito in turmasConflitosOrdered">
+              <tr :key="turmaConflito.id" class="bg-custom">
+                <v-td width="80" align="start">{{ turmaConflito.disciplina.codigo }}</v-td>
+                <v-td width="300" align="start">{{ turmaConflito.disciplina.nome }}</v-td>
+                <v-td width="30">{{ turmaConflito.letra }}</v-td>
+                <v-td width="55" />
+                <v-td width="180" />
+                <v-td width="120" />
+                <v-td width="120" />
+              </tr>
 
-            <tr v-if="!conflitosOrdered.length">
+              <tr
+                v-for="conflito in turmaConflito.conflitos"
+                :key="turmaConflito.id + conflito.label + conflito.curso.id"
+              >
+                <v-td width="80" />
+                <v-td width="300" />
+                <v-td width="30" />
+                <v-td width="55" :title="conflito.curso.nome">
+                  {{ conflito.curso.codigo }}
+                </v-td>
+                <v-td width="180" align="start">{{ conflito.label }}</v-td>
+                <v-td width="120" paddingX="0" :title="conflito.siga">{{ conflito.siga }}</v-td>
+                <v-td width="120" paddingX="0" :title="conflito.sistema">
+                  {{ conflito.sistema }}
+                </v-td>
+              </tr>
+            </template>
+
+            <tr v-if="!turmasConflitosOrdered.length">
               <v-td width="870">
                 <b>Nenhum conflito encontrado.</b>
                 Certifiqui-se de selecionar um arquivo correspondente com o plano atual e o periodo
@@ -68,10 +77,10 @@
         <template #form-group>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
-              <label required for="nome" class="col-form-label">Período</label>
+              <label required for="periodoPlano" class="col-form-label">Período</label>
               <select
                 id="periodoPlano"
-                v-model.number="periodoDasTurmas"
+                v-model.number="periodoForm"
                 class="input-lg form-control form-control-sm"
               >
                 <option
@@ -93,7 +102,7 @@
               <input
                 type="file"
                 id="turmaFile"
-                ref="inputFilePlano"
+                ref="inputFileForm"
                 class="form-control-file mt-1"
                 accept=".csv"
               />
@@ -125,8 +134,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { find, some, isEqual, orderBy } from "lodash-es";
-import { parseCSVFileToArray } from "@/common/utils";
+import { some, orderBy } from "lodash-es";
+import { parseCSVFileToArray, generateEmptyCurso } from "@/common/utils";
+import { generateDocentesText, generateHorariosText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda } from "@/components/modals";
 import {
@@ -139,12 +149,13 @@ import {
 export default {
   name: "ValidaçãoLançamentoSIGA",
   components: { Card, ModalAjuda },
+  mixins: [generateDocentesText, generateHorariosText],
   data() {
     return {
-      periodoDasTurmas: 1,
-      conflitos: [],
+      periodoForm: 1,
+      turmasConflitos: [],
       ordenacaoConflitos: {
-        order: "turma.disciplina.codigo",
+        order: "disciplina.codigo",
         type: "asc",
       },
     };
@@ -152,19 +163,18 @@ export default {
 
   methods: {
     clearCardForm() {
-      this.periodoDasTurmas = 1;
-      this.$refs.inputFilePlano.value = "";
+      this.periodoForm = 1;
+      this.$refs.inputFileForm.value = "";
     },
-
     async handleCompareTurmas() {
-      if (!this.periodoDasTurmas) {
+      if (!this.periodoForm) {
         this.pushNotification({
           type: "error",
           text: "Nenhum período selecionado",
         });
         return;
       }
-      const [fileTurmas] = this.$refs.inputFilePlano.files;
+      const [fileTurmas] = this.$refs.inputFileForm.files;
       if (!fileTurmas) {
         this.pushNotification({
           type: "error",
@@ -177,22 +187,17 @@ export default {
         this.setLoading({ type: "partial", value: true });
         const turmasFile = await parseCSVFileToArray(fileTurmas);
         validateTurmasSIGA(turmasFile);
-
-        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(
-          turmasFile,
-          this.periodoDasTurmas
-        );
-        this.searchConflictsTurmas(turmasSIGANormalized);
+        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(turmasFile, this.periodoForm);
+        this.searchConflitos(turmasSIGANormalized, this.periodoForm);
       } catch (error) {
+        console.log(error);
         this.pushNotification({
           type: "error",
-          text: error.message || "",
         });
       } finally {
         this.setLoading({ type: "partial", value: false });
       }
     },
-
     normalizeTurmasEPedidosSIGA(turmasSIGA, periodo) {
       const keysTurmaSIGA = getKeysTurmaSIGA(turmasSIGA[0]);
       const turmasNormalized = [];
@@ -210,9 +215,15 @@ export default {
         }
 
         // Se turma igual ao currentTurma apenas adiciona o pedido na turma anterior
-        if (this.turmasIsEqual(currentTurma, newTurma)) {
-          if (pedidoOferecido)
-            turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.push(pedidoOferecido);
+        if (this.turmasAreEqual(currentTurma, newTurma)) {
+          if (pedidoOferecido) {
+            const index = turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.findIndex(
+              (pedido) => pedido.Curso === pedidoOferecido.Curso
+            );
+            if (index === -1) {
+              turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.push(pedidoOferecido);
+            }
+          }
         } else {
           // Se é uma turma nova então adiciona a turma e o pedido
           if (pedidoOferecido) newTurma.pedidosOferecidos.push(pedidoOferecido);
@@ -223,101 +234,106 @@ export default {
 
       return turmasNormalized;
     },
-
-    searchConflictsTurmas(turmasSIGA) {
-      this.conflitos = [];
-      //Turmas do periodo selecionado, exclui perfil MAC que não esta plano DCC do SIGA, e exclui as
-      //disciplinas que são do primeiro periodo de algum gradeDCC
-      const turmasDoSistemaFiltered = this.AllTurmas.filter(
-        (turma) =>
-          turma.periodo === this.periodoDasTurmas &&
-          turma.disciplina.Perfil != 15 &&
-          !some(this.disciplinasGradeDCC1Periodo, ["Disciplina", turma.Disciplina])
+    searchConflitos(turmasSIGA, periodo) {
+      this.turmasConflitos = [];
+      const turmasConflitosFound = [];
+      //Turmas do periodo selecionado, exclui perfil MAC que existe no arquivo SIGA
+      const turmasSistema = this.AllTurmas.filter(
+        (turma) => turma.periodo === periodo && turma.disciplina.Perfil != 15
       );
 
-      for (const turmaSistema of turmasDoSistemaFiltered) {
+      turmasSistema.forEach((turmaSistema) => {
         const turmaSIGAFound = turmasSIGA.find(
           (turmaFile) =>
             turmaSistema.Disciplina == turmaFile.Disciplina && turmaSistema.letra == turmaFile.letra
         );
+        const turmaConflitos = { ...turmaSistema, conflitos: [] };
 
         if (!turmaSIGAFound) {
-          this.conflitos.push({
+          turmaConflitos.conflitos.push({
             label: "Turma existe apenas no sistema",
             siga: "-",
             sistema: "-",
-            turma: { ...turmaSistema },
-            curso: {
-              codigo: "-",
-            },
+            curso: generateEmptyCurso({ codigo: "-" }),
           });
-          continue;
+          turmasConflitosFound.push(turmaConflitos);
+          return;
         }
+        // Conflitos de turmas
+        if (!this.docentesAreEqual(turmaSistema, turmaSIGAFound)) {
+          turmaConflitos.conflitos.push({
+            label: "Docentes diferentes",
+            siga: this.generateDocentesText(turmaSIGAFound.Docente1, turmaSIGAFound.Docente2),
+            sistema: this.generateDocentesText(turmaSistema.Docente1, turmaSistema.Docente2),
+            curso: generateEmptyCurso({ codigo: "-" }),
+          });
+        }
+        if (!this.horariosAreEqual(turmaSistema, turmaSIGAFound)) {
+          turmaConflitos.conflitos.push({
+            label: "Horarios diferentes",
+            siga: this.generateHorariosText(turmaSIGAFound.Horario1, turmaSIGAFound.Horario2),
+            sistema: this.generateHorariosText(turmaSistema.Horario1, turmaSistema.Horario2),
+            curso: generateEmptyCurso({ codigo: "-" }),
+          });
+        }
+        // Conflitos de pedidos - exclui as disciplinas que são do 1 periodo de alguma gradeDCC
+        if (!some(this.disciplinasGradeDCC1Periodo, ["Disciplina", turmaSistema.Disciplina])) {
+          const pedidosDaTurmaSistema = this.Pedidos[turmaSistema.id] || [];
 
-        const pedidosDaTurmaSistema = this.Pedidos[turmaSistema.id];
-
-        turmaSIGAFound.pedidosOferecidos.forEach((pedidoSIGA) => {
-          const pedidoSistemaFound = pedidosDaTurmaSistema.find(
-            (pedidoSis) => pedidoSis.Curso == pedidoSIGA.Curso
-          );
-
-          if (!pedidoSistemaFound) {
-            this.conflitos.push({
-              label: "Pedido não existe no sistema",
-              siga: pedidoSIGA.totalVagas,
-              sistema: "-",
-              turma: { ...turmaSistema },
-              curso: find(this.AllCursos, ["id", pedidoSistemaFound.Curso]),
-            });
-            return;
-          }
-
-          const totalVagasSistema =
-            pedidoSistemaFound.vagasPeriodizadas + pedidoSistemaFound.vagasNaoPeriodizadas;
-
-          if (totalVagasSistema != pedidoSIGA.totalVagas) {
-            this.conflitos.push({
-              label: "Pedido com valores diferentes",
-              siga: pedidoSIGA.totalVagas,
-              sistema: totalVagasSistema == 0 ? "-" : totalVagasSistema,
-              turma: { ...turmaSistema },
-              curso: find(this.AllCursos, ["id", pedidoSistemaFound.Curso]),
-            });
-            return;
-          }
-        });
-
-        pedidosDaTurmaSistema
-          .filter((pedido) => pedido.vagasPeriodizadas != 0 || pedido.vagasNaoPeriodizadas != 0)
-          .forEach((pedidoSistema) => {
-            const pedidoSIGA = turmaSIGAFound.pedidosOferecidos.find(
-              (pedidoArq) => pedidoSistema.Curso == pedidoArq.Curso
+          turmaSIGAFound.pedidosOferecidos.forEach((pedidoSIGA) => {
+            const pedidoSistemaFound = pedidosDaTurmaSistema.find(
+              (pedidoSis) => pedidoSis.Curso == pedidoSIGA.Curso
             );
 
-            if (!pedidoSIGA) {
-              this.conflitos.push({
-                label: "Pedido não existe no SIGA",
-                siga: "-",
-                sistema: pedidoSistema.vagasPeriodizadas + pedidoSistema.vagasNaoPeriodizadas,
-                turma: { ...turmaSistema },
-                curso: find(this.AllCursos, ["id", pedidoSistema.Curso]),
+            if (!pedidoSistemaFound) {
+              turmaConflitos.conflitos.push({
+                label: "Pedido não existe no sistema",
+                siga: pedidoSIGA.totalVagas,
+                sistema: "-",
+                curso: this.AllCursos.find((curso) => curso.id === pedidoSIGA.Curso),
+              });
+              return;
+            }
+
+            const totalVagasSistema =
+              pedidoSistemaFound.vagasPeriodizadas + pedidoSistemaFound.vagasNaoPeriodizadas;
+
+            if (totalVagasSistema != pedidoSIGA.totalVagas) {
+              turmaConflitos.conflitos.push({
+                label: "Pedido com valores diferentes",
+                siga: pedidoSIGA.totalVagas,
+                sistema: totalVagasSistema == 0 ? "-" : totalVagasSistema,
+                curso: this.AllCursos.find((curso) => curso.id === pedidoSistemaFound.Curso),
               });
               return;
             }
           });
-      }
 
-      //Remove turmas duplicados que existe no arquivo
-      const uniqueTurmasOnly = [];
-      this.conflitos.forEach((turma1) => {
-        const alredyHas = uniqueTurmasOnly.find((turma2) => isEqual(turma1, turma2));
+          pedidosDaTurmaSistema
+            .filter((pedido) => pedido.vagasPeriodizadas != 0 || pedido.vagasNaoPeriodizadas != 0)
+            .forEach((pedidoSistema) => {
+              const pedidoSIGA = turmaSIGAFound.pedidosOferecidos.find(
+                (pedidoArq) => pedidoSistema.Curso == pedidoArq.Curso
+              );
 
-        if (!alredyHas) uniqueTurmasOnly.push(turma1);
+              if (!pedidoSIGA) {
+                turmaConflitos.conflitos.push({
+                  label: "Pedido não existe no SIGA",
+                  siga: "-",
+                  sistema: pedidoSistema.vagasPeriodizadas + pedidoSistema.vagasNaoPeriodizadas,
+                  curso: this.AllCursos.find((curso) => curso.id === pedidoSistema.Curso),
+                });
+                return;
+              }
+            });
+        }
+
+        if (turmaConflitos.conflitos.length) turmasConflitosFound.push(turmaConflitos);
       });
-      this.conflitos = [...uniqueTurmasOnly];
-    },
 
-    turmasIsEqual(turma1, turma2) {
+      this.turmasConflitos = turmasConflitosFound;
+    },
+    turmasAreEqual(turma1, turma2) {
       return (
         turma1.letra === turma2.letra &&
         turma1.Disciplina === turma2.Disciplina &&
@@ -325,31 +341,64 @@ export default {
         turma1.Horario2 === turma2.Horario2
       );
     },
+    docentesAreEqual(turma1, turma2) {
+      if (turma1.Docente1 == turma2.Docente1 && turma1.Docente2 == turma2.Docente2) return true;
+      if (turma1.Docente1 == turma2.Docente2 && turma1.Docente2 == turma2.Docente1) return true;
+      return false;
+    },
+    horariosAreEqual(turma1, turma2) {
+      if (
+        (turma1.Horario1 == turma2.Horario1 && turma1.Horario2 == turma2.Horario2) ||
+        (turma1.Horario1 == turma2.Horario2 && turma1.Horario2 == turma2.Horario1)
+      )
+        return true;
+      if (
+        turma1.Horario1 == null &&
+        (turma1.Horario2 == turma2.Horario1 || turma1.Horario2 == turma2.Horario2)
+      )
+        return true;
+      if (
+        turma2.Horario1 == null &&
+        (turma2.Horario2 == turma1.Horario1 || turma2.Horario2 == turma1.Horario2)
+      )
+        return true;
+      if (
+        turma1.Horario2 == null &&
+        (turma1.Horario1 == turma2.Horario1 || turma1.Horario1 == turma2.Horario2)
+      )
+        return true;
+      if (
+        turma2.Horario2 == null &&
+        (turma2.Horario1 == turma1.Horario1 || turma2.Horario1 == turma1.Horario2)
+      )
+        return true;
+
+      return false;
+    },
   },
 
   computed: {
     ...mapGetters(["AllCursos", "AllTurmas", "PeriodosLetivos", "Pedidos", "DisciplinasGrades"]),
 
-    conflitosOrdered() {
+    turmasConflitosOrdered() {
       const { order, type } = this.ordenacaoConflitos;
-      return orderBy(this.conflitos, order, type);
+      return orderBy(this.turmasConflitos, order, type);
     },
-
     disciplinasGradeDCC1Periodo() {
       const disciplinasGradeFiltered = this.DisciplinasGrades.filter(
         (disciplinaGrade) => disciplinaGrade.periodo === 1
       );
 
-      const disciplinasGradeFilteredUnique = [];
+      const disciplinasGradeUnique = [];
       disciplinasGradeFiltered.forEach((disciplinaGrade) => {
-        const alredyExist = disciplinasGradeFilteredUnique.find(
-          (uniqueDisciplinaGrade) => uniqueDisciplinaGrade.Disciplina === disciplinaGrade.Disciplina
+        const alredyExist = disciplinasGradeUnique.find(
+          (disciplinaGrade2) => disciplinaGrade2.Disciplina === disciplinaGrade.Disciplina
         );
 
-        if (!alredyExist) disciplinasGradeFilteredUnique.push({ ...disciplinaGrade });
+        if (!alredyExist) disciplinasGradeUnique.push({ ...disciplinaGrade });
       });
 
-      return disciplinasGradeFilteredUnique;
+      return disciplinasGradeUnique;
     },
   },
 };
