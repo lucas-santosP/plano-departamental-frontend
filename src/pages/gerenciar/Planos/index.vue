@@ -66,16 +66,7 @@
         </BaseTable>
       </div>
 
-      <Card
-        :title="'Plano Departamental'"
-        :toggleFooter="isEditing"
-        :isPlano="isEditing"
-        @btn-salvar="handleEditPlano"
-        @btn-delete="openModalDelete"
-        @btn-add="openModalNovoPlano"
-        @btn-clean="cleanPlanoForm"
-        @btn-copy="copyPlanoSelected"
-      >
+      <Card :title="'Plano Departamental'">
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
             <div class="form-group col-9 m-0 p-0">
@@ -140,10 +131,39 @@
           </div>
           -->
         </template>
+
+        <template #footer>
+          <template v-if="isEditing">
+            <BaseButton
+              title="Importar pedidos"
+              type="icon"
+              color="gray"
+              @click="$refs.modalImportPedidos.open()"
+            >
+              <font-awesome-icon :icon="['fas', 'file-import']" />
+            </BaseButton>
+            <BaseButton
+              title="Copiar Plano"
+              type="icon"
+              color="lightblue"
+              @click="copyPlanoSelected"
+            >
+              <font-awesome-icon :icon="['fas', 'copy']" />
+            </BaseButton>
+
+            <BaseButton template="Salvar" @click="handleEditPlano" />
+            <BaseButton template="deletar" @click="openModalDelete" />
+          </template>
+          <template v-else>
+            <BaseButton template="adicionar" @click="openModalNovoPlano" />
+          </template>
+          <BaseButton template="cancelar" @click="cleanPlanoForm" />
+        </template>
       </Card>
     </div>
 
     <ModalNovoPlano ref="modalNovoPlano" :plano="planoForm" />
+    <ModalImportPedidos ref="modalImportPedidos" :planoForm="planoForm" />
 
     <ModalDelete ref="modalDelete" :isDeleting="isEditing" @btn-deletar="handleDeletePlano">
       <li class="list-group-item">
@@ -208,6 +228,7 @@ import { booleanToText } from "@/common/utils";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
+import ModalImportPedidos from "./ModalImportPedidos/index";
 import workerSrc from "!!file-loader!pdfjs-dist/build/pdf.worker.min.js";
 
 const emptyPlano = {
@@ -226,6 +247,7 @@ export default {
     ModalDelete,
     Card,
     ModalNovoPlano,
+    ModalImportPedidos,
   },
   data() {
     return {
