@@ -53,8 +53,8 @@
               <v-td width="70" align="start">{{ plano.ano }}</v-td>
               <v-td width="150" align="start">{{ plano.nome }}</v-td>
               <v-td width="300" align="start" :title="plano.obs">{{ plano.obs }}</v-td>
-              <v-td width="70">{{ generateBooleanText(plano.isEditable) }}</v-td>
-              <v-td width="70">{{ generateBooleanText(plano.visible) }}</v-td>
+              <v-td width="70">{{ booleanToText(plano.isEditable) }}</v-td>
+              <v-td width="70">{{ booleanToText(plano.visible) }}</v-td>
             </tr>
 
             <tr v-if="!PlanosOrdered.length">
@@ -203,7 +203,8 @@ import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/services/copyPlano";
 import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
-import { generateBooleanText, normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { booleanToText } from "@/common/utils";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
@@ -219,7 +220,7 @@ const emptyPlano = {
 
 export default {
   name: "GerenciarPlanos",
-  mixins: [generateBooleanText, normalizeInputText, maskLimitLength],
+  mixins: [normalizeInputText, maskLimitLength],
   components: {
     ModalAjuda,
     ModalDelete,
@@ -236,6 +237,7 @@ export default {
 
   methods: {
     ...mapActions(["createPlano", "deletePlano", "updatePlano"]),
+    booleanToText,
 
     handleClickInPlano(plano) {
       this.cleanPlanoForm();

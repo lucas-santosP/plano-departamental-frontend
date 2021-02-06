@@ -9,8 +9,10 @@ import readFileToBinary from "./readFileToBinary";
 import parseCSVFileToArray from "./parseCSVFileToArray";
 import generateEmptyCurso from "./generateEmptyCurso";
 import parseDateUTC from "./parseDateUTC";
+import booleanToText from "./booleanToText";
 
 export {
+  booleanToText,
   parseDateUTC,
   generateEmptyCurso,
   parseCSVFileToArray,
