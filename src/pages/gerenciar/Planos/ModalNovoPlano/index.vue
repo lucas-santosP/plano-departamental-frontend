@@ -3,7 +3,7 @@
     ref="baseModalPlano"
     title="Plano Departamental"
     type="editTurma"
-    class="modal-plano"
+    classes="modal-plano"
     :hasOverlay="true"
     :hasFooter="true"
   >

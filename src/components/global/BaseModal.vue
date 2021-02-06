@@ -140,7 +140,7 @@ export default {
         hasOverlay,
         title,
         hasFooter,
-        customClasses: ["modal-custom", this.classes],
+        customClasses: this.classes,
       };
     },
   },
