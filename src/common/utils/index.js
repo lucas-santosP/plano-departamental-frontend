@@ -8,8 +8,10 @@ import normalizePedido from "./normalizePedido";
 import readFileToBinary from "./readFileToBinary";
 import parseCSVFileToArray from "./parseCSVFileToArray";
 import generateEmptyCurso from "./generateEmptyCurso";
+import parseDateUTC from "./parseDateUTC";
 
 export {
+  parseDateUTC,
   generateEmptyCurso,
   parseCSVFileToArray,
   readFileToBinary,

@@ -4,10 +4,6 @@ const timezone = require("dayjs/plugin/timezone");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export default {
-  filters: {
-    convertDateUTC(dateUTC) {
-      return dayjs.utc(dateUTC).tz("America/Sao_Paulo").format("HH:mm - DD/MM/YY");
-    },
-  },
-};
+export default function parseDateUTC(dateUTC) {
+  return dayjs.utc(dateUTC).tz("America/Sao_Paulo").format("DD/MM/YY - HH:mm");
+}

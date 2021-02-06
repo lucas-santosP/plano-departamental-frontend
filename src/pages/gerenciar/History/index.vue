@@ -39,7 +39,7 @@
               {{ history.usuario }}
             </v-td>
             <v-td width="160" paddingX="0">
-              {{ history.createdAt | convertDateUTC }}
+              {{ parseDateUTC(history.createdAt) }}
             </v-td>
           </tr>
 
@@ -118,17 +118,13 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { some, find, filter, orderBy } from "lodash-es";
-import {
-  toggleItemInArray,
-  toggleAsideModal,
-  convertDateUTC,
-  preventClickSelection,
-} from "@/common/mixins";
+import { toggleItemInArray, toggleAsideModal, preventClickSelection } from "@/common/mixins";
+import { parseDateUTC } from "@/common/utils";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 export default {
   name: "DashboardHistory",
-  mixins: [toggleItemInArray, toggleAsideModal, convertDateUTC, preventClickSelection],
+  mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
   components: { ModalFiltros, ModalAjuda },
   data() {
     return {
@@ -180,6 +176,7 @@ export default {
 
   methods: {
     ...mapActions(["fetchAllHistory", "clearHistoryState"]),
+    parseDateUTC,
 
     linhaModificada(h) {
       let linha = h.linhaModificada;
