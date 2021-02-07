@@ -53,6 +53,9 @@ const mutations = {
 };
 
 const actions = {
+  async fetchAll({ dispatch }) {
+    return await dispatch("fetchAllPedidosOferecidos");
+  },
   fetchAllPedidosOferecidos({ commit }) {
     return new Promise((resolve, reject) => {
       pedidoOferecidoService
