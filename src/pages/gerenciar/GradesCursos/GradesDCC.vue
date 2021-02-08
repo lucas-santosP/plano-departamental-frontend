@@ -22,6 +22,9 @@
             <v-td width="100">{{ grade.nome }}</v-td>
           </tr>
         </template>
+        <tr v-if="!PrincipaisCursosDCCComGradeOrdered.length">
+          <v-td width="320" colspan="2">Nenhuma grade encontrada</v-td>
+        </tr>
       </template>
     </BaseTable>
 
