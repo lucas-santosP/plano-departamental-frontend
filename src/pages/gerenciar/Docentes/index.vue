@@ -43,7 +43,7 @@
             >
               <v-td width="240" align="start">{{ docente.nome }}</v-td>
               <v-td width="120" align="start">{{ docente.apelido }}</v-td>
-              <v-td width="65">{{ generateBooleanText(docente.ativo) }}</v-td>
+              <v-td width="65">{{ booleanToText(docente.ativo) }}</v-td>
             </tr>
 
             <tr v-if="!DocentesOrdered.length">
@@ -187,7 +187,8 @@ import { mapGetters } from "vuex";
 import { clone, filter, orderBy } from "lodash-es";
 import docenteService from "@/services/docente";
 import docentePerfilService from "@/services/docentePerfil";
-import { toggleItemInArray, generateBooleanText, normalizeInputText } from "@/common/mixins";
+import { toggleItemInArray, normalizeInputText } from "@/common/mixins";
+import { booleanToText } from "@/common/utils";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
@@ -206,7 +207,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardDocente",
-  mixins: [toggleItemInArray, generateBooleanText, normalizeInputText],
+  mixins: [toggleItemInArray, normalizeInputText],
   components: { Card, ModalAjuda, ModalDelete },
   data() {
     return {
@@ -219,6 +220,8 @@ export default {
   },
 
   methods: {
+    booleanToText,
+
     handleClickInDocente(docente) {
       this.cleanDocente();
       this.docenteClickado = docente;

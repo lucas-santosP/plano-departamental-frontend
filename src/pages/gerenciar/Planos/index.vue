@@ -53,8 +53,8 @@
               <v-td width="70" align="start">{{ plano.ano }}</v-td>
               <v-td width="150" align="start">{{ plano.nome }}</v-td>
               <v-td width="300" align="start" :title="plano.obs">{{ plano.obs }}</v-td>
-              <v-td width="70">{{ generateBooleanText(plano.isEditable) }}</v-td>
-              <v-td width="70">{{ generateBooleanText(plano.visible) }}</v-td>
+              <v-td width="70">{{ booleanToText(plano.isEditable) }}</v-td>
+              <v-td width="70">{{ booleanToText(plano.visible) }}</v-td>
             </tr>
 
             <tr v-if="!PlanosOrdered.length">
@@ -66,16 +66,7 @@
         </BaseTable>
       </div>
 
-      <Card
-        :title="'Plano Departamental'"
-        :toggleFooter="isEditing"
-        :isPlano="isEditing"
-        @btn-salvar="handleEditPlano"
-        @btn-delete="openModalDelete"
-        @btn-add="openModalNovoPlano"
-        @btn-clean="cleanPlanoForm"
-        @btn-copy="copyPlanoSelected"
-      >
+      <Card :title="'Plano Departamental'">
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
             <div class="form-group col-9 m-0 p-0">
@@ -140,10 +131,39 @@
           </div>
           -->
         </template>
+
+        <template #footer>
+          <template v-if="isEditing">
+            <BaseButton
+              title="Importar pedidos"
+              type="icon"
+              color="gray"
+              @click="$refs.modalImportPedidos.open()"
+            >
+              <font-awesome-icon :icon="['fas', 'file-import']" />
+            </BaseButton>
+            <BaseButton
+              title="Copiar Plano"
+              type="icon"
+              color="lightblue"
+              @click="copyPlanoSelected"
+            >
+              <font-awesome-icon :icon="['fas', 'copy']" />
+            </BaseButton>
+
+            <BaseButton template="Salvar" @click="handleEditPlano" />
+            <BaseButton template="deletar" @click="openModalDelete" />
+          </template>
+          <template v-else>
+            <BaseButton template="adicionar" @click="openModalNovoPlano" />
+          </template>
+          <BaseButton template="cancelar" @click="cleanPlanoForm" />
+        </template>
       </Card>
     </div>
 
     <ModalNovoPlano ref="modalNovoPlano" :plano="planoForm" />
+    <ModalImportPedidos ref="modalImportPedidos" :planoForm="planoForm" />
 
     <ModalDelete ref="modalDelete" :isDeleting="isEditing" @btn-deletar="handleDeletePlano">
       <li class="list-group-item">
@@ -203,10 +223,12 @@ import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/services/copyPlano";
 import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
-import { generateBooleanText, normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { booleanToText } from "@/common/utils";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
+import ModalImportPedidos from "./ModalImportPedidos/index";
 import workerSrc from "!!file-loader!pdfjs-dist/build/pdf.worker.min.js";
 
 const emptyPlano = {
@@ -219,12 +241,13 @@ const emptyPlano = {
 
 export default {
   name: "GerenciarPlanos",
-  mixins: [generateBooleanText, normalizeInputText, maskLimitLength],
+  mixins: [normalizeInputText, maskLimitLength],
   components: {
     ModalAjuda,
     ModalDelete,
     Card,
     ModalNovoPlano,
+    ModalImportPedidos,
   },
   data() {
     return {
@@ -236,6 +259,7 @@ export default {
 
   methods: {
     ...mapActions(["createPlano", "deletePlano", "updatePlano"]),
+    booleanToText,
 
     handleClickInPlano(plano) {
       this.cleanPlanoForm();

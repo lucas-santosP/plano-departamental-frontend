@@ -43,7 +43,7 @@
               @click="handleClickInSala(sala)"
             >
               <v-td width="100" align="start">{{ sala.nome }}</v-td>
-              <v-td width="90">{{ generateBooleanText(sala.laboratorio) }}</v-td>
+              <v-td width="90">{{ booleanToText(sala.laboratorio) }}</v-td>
               <v-td width="100">{{ sala.lotacao_maxima }}</v-td>
             </tr>
 
@@ -156,7 +156,8 @@
 import { mapGetters } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import salaService from "@/services/sala";
-import { generateBooleanText, maskOnlyNumber, normalizeInputText } from "@/common/mixins";
+import { maskOnlyNumber, normalizeInputText } from "@/common/mixins";
+import { booleanToText } from "@/common/utils";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
@@ -169,7 +170,7 @@ const emptySala = {
 
 export default {
   name: "DashboardSalas",
-  mixins: [maskOnlyNumber, generateBooleanText, normalizeInputText],
+  mixins: [maskOnlyNumber, normalizeInputText],
   components: {
     Card,
     ModalAjuda,
@@ -185,6 +186,7 @@ export default {
   },
 
   methods: {
+    booleanToText,
     openModalDelete() {
       this.$refs.modalDelete.open();
     },
