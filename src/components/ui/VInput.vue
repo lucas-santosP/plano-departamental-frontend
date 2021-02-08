@@ -1,20 +1,28 @@
 <template>
   <b-form-group class="mb-1" label-size="sm" :label="label" :label-for="id">
-    <b-form-select
+    <b-form-input
       :id="id"
+      :type="inputType"
       :value="value"
       @input="emitInput"
       :state="isValid"
+      :placeholder="placeholder"
       :aria-describedby="feedbackId"
       size="sm"
-    >
-      <b-form-select-option value="" disabled>Selecione...</b-form-select-option>
-      <slot></slot>
-    </b-form-select>
+      autocomplete="off"
+      step="1"
+      min="0"
+    />
 
     <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
+      </template>
+      <template v-if="validation.$params.maxLength && !validation.maxLength">
+        Limite de caracteres excedido
+      </template>
+      <template v-if="validation.$params.integer && !validation.integer">
+        Número deve ser inteiro
       </template>
     </b-form-invalid-feedback>
   </b-form-group>
@@ -24,17 +32,19 @@
 import { uniqueId } from "lodash-es";
 
 export default {
-  name: "Select",
+  name: "VInput",
   props: {
     id: { type: String, default: () => uniqueId() },
+    inputType: { type: String, default: "text" },
     value: { type: [String, Number], required: true },
     label: { type: String, default: "" },
     validation: { type: Object, default: null },
+    placeholder: { type: String, default: "" },
   },
 
   methods: {
     emitInput(newValue) {
-      this.$emit("input", newValue);
+      this.$emit("input", newValue.toUpperCase());
       if (this.validation) this.validation.$touch();
     },
   },

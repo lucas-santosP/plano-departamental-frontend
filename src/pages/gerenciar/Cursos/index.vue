@@ -87,24 +87,24 @@
         @btn-clean="clearForm"
       >
         <template #body>
-          <Input label="Nome" v-model="cursoForm.nome" :validation="$v.cursoForm.nome" />
+          <VInput label="Nome" v-model="cursoForm.nome" :validation="$v.cursoForm.nome" />
 
           <div class="row">
             <div class="col">
-              <Input label="Código" v-model="cursoForm.codigo" :validation="$v.cursoForm.codigo" />
+              <VInput label="Código" v-model="cursoForm.codigo" :validation="$v.cursoForm.codigo" />
             </div>
             <div class="col">
-              <Select label="Turno" v-model="cursoForm.turno" :validation="$v.cursoForm.turno">
+              <VSelect label="Turno" v-model="cursoForm.turno" :validation="$v.cursoForm.turno">
                 <b-form-select-option value="Diurno">DIURNO</b-form-select-option>
                 <b-form-select-option value="Noturno">NOTURNO</b-form-select-option>
                 <b-form-select-option value="Integral">INTEGRAL</b-form-select-option>
-              </Select>
+              </VSelect>
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <Input
+              <VInput
                 inputType="number"
                 label="Alunos 1º Período"
                 v-model.number="cursoForm.alunosEntrada"
@@ -113,7 +113,7 @@
               />
             </div>
             <div class="col">
-              <Input
+              <VInput
                 inputType="number"
                 label="Alunos 2º Período"
                 v-model.number="cursoForm.alunosEntrada2"
@@ -172,13 +172,13 @@
 import { mapActions, mapGetters } from "vuex";
 import { orderBy } from "lodash-es";
 import { required, integer } from "vuelidate/lib/validators";
-import { ModalDelete, ModalAjuda } from "@/components/modals";
 import { makeEmptyCurso } from "@utils/factories";
-import { Card, Input, Select } from "@/components/ui";
+import { ModalDelete, ModalAjuda } from "@/components/modals";
+import { Card, VInput, VSelect } from "@/components/ui";
 
 export default {
   name: "DashboardCursos",
-  components: { Card, Input, Select, ModalDelete, ModalAjuda },
+  components: { Card, VInput, VSelect, ModalDelete, ModalAjuda },
   data() {
     return {
       modalDeleteText: "",

@@ -13,7 +13,7 @@
 import { uniqueId } from "lodash-es";
 import { preventClickSelection } from "@mixins";
 export default {
-  name: "Checkbox",
+  name: "VCheckbox",
   mixins: [preventClickSelection],
   props: {
     id: { type: String, default: () => uniqueId() },
