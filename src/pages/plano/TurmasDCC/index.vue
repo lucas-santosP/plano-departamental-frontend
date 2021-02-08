@@ -737,10 +737,16 @@ export default {
     turmasLength() {
       return this.AllTurmas.length;
     },
+    cursosLength() {
+      return this.AllCursos.length;
+    },
   },
 
   watch: {
     turmasLength() {
+      this.fetchAllPedidos();
+    },
+    cursosLength() {
       this.fetchAllPedidos();
     },
   },
