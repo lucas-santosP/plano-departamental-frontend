@@ -135,8 +135,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { some, orderBy } from "lodash-es";
-import { parseCSVFileToArray, generateEmptyCurso } from "@/common/utils";
-import { generateDocentesText, generateHorariosText } from "@/common/mixins";
+import { parseCSVFileToArray } from "@utils";
+import { makeEmptyCurso } from "@utils/factories";
+import { generateDocentesText, generateHorariosText } from "@mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda } from "@/components/modals";
 import {
@@ -254,7 +255,7 @@ export default {
             label: "Turma existe apenas no sistema",
             siga: "-",
             sistema: "-",
-            curso: generateEmptyCurso({ codigo: "-" }),
+            curso: makeEmptyCurso({ codigo: "-" }),
           });
           turmasConflitosFound.push(turmaConflitos);
           return;
@@ -265,7 +266,7 @@ export default {
             label: "Docentes diferentes",
             siga: this.generateDocentesText(turmaSIGAFound.Docente1, turmaSIGAFound.Docente2),
             sistema: this.generateDocentesText(turmaSistema.Docente1, turmaSistema.Docente2),
-            curso: generateEmptyCurso({ codigo: "-" }),
+            curso: makeEmptyCurso({ codigo: "-" }),
           });
         }
         if (!this.horariosAreEqual(turmaSistema, turmaSIGAFound)) {
@@ -273,7 +274,7 @@ export default {
             label: "Horarios diferentes",
             siga: this.generateHorariosText(turmaSIGAFound.Horario1, turmaSIGAFound.Horario2),
             sistema: this.generateHorariosText(turmaSistema.Horario1, turmaSistema.Horario2),
-            curso: generateEmptyCurso({ codigo: "-" }),
+            curso: makeEmptyCurso({ codigo: "-" }),
           });
         }
         // Conflitos de pedidos - exclui as disciplinas que são do 1 periodo de alguma gradeDCC

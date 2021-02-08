@@ -1,4 +1,4 @@
-function generateEmptyCurso(overwriteValues = {}) {
+function makeEmptyCurso(overwriteValues = {}) {
   const {
     id = null,
     semestreInicial = null,
@@ -21,4 +21,4 @@ function generateEmptyCurso(overwriteValues = {}) {
     alunosEntrada2,
   };
 }
-export default generateEmptyCurso;
+export default makeEmptyCurso;

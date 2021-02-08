@@ -170,32 +170,20 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { orderBy } from "lodash-es";
 import { required, integer } from "vuelidate/lib/validators";
-import { clone, orderBy } from "lodash-es";
-import { maskOnlyNumber, maskEmptyToZero, normalizeInputText } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
+import { makeEmptyCurso } from "@utils/factories";
 import { Card, Input, Select } from "@/components/ui";
-
-const emptyCurso = {
-  id: null,
-  semestreInicial: null,
-  posicao: null,
-  nome: "",
-  codigo: "",
-  turno: "",
-  alunosEntrada: 0,
-  alunosEntrada2: 0,
-};
 
 export default {
   name: "DashboardCursos",
-  mixins: [maskOnlyNumber, maskEmptyToZero, normalizeInputText],
   components: { Card, Input, Select, ModalDelete, ModalAjuda },
   data() {
     return {
       modalDeleteText: "",
       cursoSelecionado: "",
-      cursoForm: clone(emptyCurso),
+      cursoForm: makeEmptyCurso(),
       ordenacaoCursos: { order: "codigo", type: "asc" },
     };
   },
@@ -214,11 +202,11 @@ export default {
 
     handleClickInCurso(curso) {
       this.cursoSelecionado = curso.id;
-      this.cursoForm = clone(curso);
+      this.cursoForm = { ...curso };
     },
     clearForm() {
       this.cursoSelecionado = "";
-      this.cursoForm = clone(emptyCurso);
+      this.cursoForm = makeEmptyCurso();
       this.$nextTick(() => this.$v.$reset());
     },
     checkSeCursoTemAlgumPedido(cursoId) {
