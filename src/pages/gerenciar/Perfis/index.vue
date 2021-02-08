@@ -65,7 +65,7 @@
         @btn-add="addPerfil"
         @btn-clean="cleanPerfil"
       >
-        <template #form-group>
+        <template #body>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label required for="perfilNome" class="col-form-label">Nome</label>

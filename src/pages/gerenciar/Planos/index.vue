@@ -67,7 +67,7 @@
       </div>
 
       <Card :title="'Plano Departamental'">
-        <template #form-group>
+        <template #body>
           <div class="row w-100 m-0 mb-2">
             <div class="form-group col-8 m-0 p-0">
               <label required for="planoNome">Nome</label>

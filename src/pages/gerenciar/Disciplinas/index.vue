@@ -122,7 +122,7 @@
         @btn-add="handleCreateDisciplina"
         @btn-clean="cleanForm"
       >
-        <template #form-group>
+        <template #body>
           <div class="row mb-2 mx-0">
             <div class="form-group m-0 col px-0">
               <label required for="disciplinaNome" class="col-form-label">Nome</label>

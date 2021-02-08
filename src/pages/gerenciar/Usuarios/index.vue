@@ -64,7 +64,7 @@
         @btn-add="handleCreateUsuario"
         @btn-clean="cleanUsuarioForm"
       >
-        <template #form-group>
+        <template #body>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0">
               <label required for="usuarioNome">Nome</label>

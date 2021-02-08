@@ -4,7 +4,7 @@
       <h1 class="card-title">{{ title }}</h1>
     </div>
     <div class="card-body">
-      <slot name="form-group"></slot>
+      <slot name="body"></slot>
     </div>
 
     <div class="card-footer">

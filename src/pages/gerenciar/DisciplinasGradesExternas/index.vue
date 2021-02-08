@@ -66,7 +66,7 @@
       </div>
 
       <Card :title="'Disciplinas'" width="415">
-        <template #form-group>
+        <template #body>
           <div class="row mb-2 mx-0">
             <div class="form-group col m-0 px-0 mr-3">
               <label for="cursoAtual" class="col-form-label">Curso</label>
