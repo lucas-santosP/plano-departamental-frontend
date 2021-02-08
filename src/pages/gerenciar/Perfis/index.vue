@@ -86,7 +86,7 @@
                 id="abreviacao"
                 type="text"
                 class="form-control form-control-sm input-md"
-                @keypress="maskLimitLength($event, 10)"
+                maxlength="10"
                 @change="perfilForm.abreviacao = normalizeInputText($event)"
                 :value="perfilForm.abreviacao"
               />
@@ -156,7 +156,7 @@
 import { mapGetters } from "vuex";
 import { orderBy, clone } from "lodash-es";
 import perfilService from "@/services/perfil";
-import { normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { normalizeInputText } from "@/common/mixins";
 import { Card } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 
@@ -169,7 +169,7 @@ const emptyPerfil = {
 
 export default {
   name: "DashboardPerfis",
-  mixins: [normalizeInputText, maskLimitLength],
+  mixins: [normalizeInputText],
   components: {
     ModalAjuda,
     Card,

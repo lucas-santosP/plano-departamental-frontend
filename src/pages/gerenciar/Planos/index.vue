@@ -75,7 +75,7 @@
                 type="text"
                 id="planoNome"
                 class="form-control w-100"
-                @keypress="maskLimitLength($event, 12)"
+                maxlength="12"
                 @change="planoForm.nome = normalizeInputText($event)"
                 :value="planoForm.nome"
               />
@@ -223,7 +223,7 @@ import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
 import copyPlanoService from "@/services/copyPlano";
 import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
-import { normalizeInputText, maskLimitLength } from "@/common/mixins";
+import { normalizeInputText } from "@/common/mixins";
 import { booleanToText } from "@/common/utils";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
 import { Card } from "@/components/ui";
@@ -241,7 +241,7 @@ const emptyPlano = {
 
 export default {
   name: "GerenciarPlanos",
-  mixins: [normalizeInputText, maskLimitLength],
+  mixins: [normalizeInputText],
   components: {
     ModalAjuda,
     ModalDelete,
