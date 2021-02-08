@@ -44,7 +44,8 @@ export default {
       if (!this.validation) return null;
 
       const { $dirty, $error } = this.validation;
-      return $dirty ? !$error : null;
+      if ($dirty && $error) return false;
+      return null;
     },
     feedbackId() {
       return "feedback-" + this.id;
