@@ -90,7 +90,7 @@
             </div>
 
             <div class="form-group col-auto m-0 p-0 pt-4">
-              <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center h-100">
                 <label for="ativo" class="form-check-label m-0 mr-2">Ativo</label>
                 <input id="ativo" type="checkbox" :value="1" v-model.number="docenteForm.ativo" />
               </div>
