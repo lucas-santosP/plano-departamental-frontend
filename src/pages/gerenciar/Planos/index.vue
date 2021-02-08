@@ -69,7 +69,7 @@
       <Card :title="'Plano Departamental'">
         <template #form-group>
           <div class="row w-100 m-0 mb-2">
-            <div class="form-group col-9 m-0 p-0">
+            <div class="form-group col-8 m-0 p-0">
               <label required for="planoNome">Nome</label>
               <input
                 type="text"
@@ -81,7 +81,7 @@
               />
             </div>
 
-            <div class="form-group col-3 m-0 p-0">
+            <div class="form-group col-4 m-0 p-0">
               <label required for="ano">Ano</label>
               <select id="planoAno" class="form-control w-100" v-model.number="planoForm.ano">
                 <option v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano">
