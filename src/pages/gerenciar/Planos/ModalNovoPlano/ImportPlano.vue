@@ -4,7 +4,9 @@
       Selecione arquivos
       <b>.csv</b>
       para importar as turmas de cada periodo do novo plano. Note que o formato do arquivo requerido
-      é o relatorio de plano departamental gerado pelo SIGA na página:
+      é o relatorio de plano departamental gerado pelo
+      <a href="https://siga.ufjf.br" target="_blank">SIGA</a>
+      na página:
       <b>Acadêmico > Consultas > Plano Departamental</b>
       . E você pode cancelar o processo durante a importação apertando a tecla esc.
     </p>
@@ -84,7 +86,6 @@ export default {
       "initializeProgressBar",
       "updateProgressBar",
       "finishProgressBar",
-      "fetchAllPedidos",
     ]),
 
     async handleImportPlano() {
