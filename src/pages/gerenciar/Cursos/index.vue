@@ -79,77 +79,46 @@
 
       <Card
         :title="'Curso'"
+        width="320"
         :toggleFooter="isEditing"
         @btn-salvar="handleEditCurso"
         @btn-delete="openModalDelete"
         @btn-add="handleCreateCurso"
-        @btn-clean="cleanForm"
+        @btn-clean="clearForm"
       >
         <template #body>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="nome" class="col-form-label">Nome</label>
-              <input
-                id="nome"
-                type="text"
-                class="input-maior form-control form-control-sm"
-                @change="cursoForm.nome = normalizeInputText($event)"
-                :value="cursoForm.nome"
-              />
+          <Input label="Nome" v-model="cursoForm.nome" :validation="$v.cursoForm.nome" />
+
+          <div class="row">
+            <div class="col">
+              <Input label="Código" v-model="cursoForm.codigo" :validation="$v.cursoForm.codigo" />
+            </div>
+            <div class="col">
+              <Select label="Turno" v-model="cursoForm.turno" :validation="$v.cursoForm.turno">
+                <b-form-select-option value="Diurno">DIURNO</b-form-select-option>
+                <b-form-select-option value="Noturno">NOTURNO</b-form-select-option>
+                <b-form-select-option value="Integral">INTEGRAL</b-form-select-option>
+              </Select>
             </div>
           </div>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="codigo" class="col-form-label">Código</label>
-              <input
-                id="codigo"
-                type="text"
-                class="form-control form-control-sm input-md"
-                @change="cursoForm.codigo = normalizeInputText($event)"
-                :value="cursoForm.codigo"
-              />
-            </div>
-
-            <div class="form-group col m-0 px-0">
-              <label required for="turno" class="col-form-label">Turno</label>
-              <select
-                id="turno"
-                type="text"
-                class="form-control form-control-sm input-md"
-                v-model="cursoForm.turno"
-              >
-                <option value="Diurno">Diurno</option>
-                <option value="Noturno">Noturno</option>
-                <option value="Integral">Integral</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="alunosEntrada1" class="col-form-label">Alunos 1º Período</label>
-              <input
-                type="number"
-                min="0"
-                id="alunosEnrada1"
-                class="form-control form-control-sm text-center input-md"
+          <div class="row">
+            <div class="col">
+              <Input
+                inputType="number"
+                label="Alunos 1º Período"
                 v-model.number="cursoForm.alunosEntrada"
-                @keypress="maskOnlyNumber"
-                @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada')"
+                :validation="$v.cursoForm.alunosEntrada"
+                textAlign="center"
               />
             </div>
-
-            <div class="form-group col m-0 px-0">
-              <label required for="alunosEntrada2" class="col-form-label">Alunos 2º Período</label>
-              <input
-                type="number"
-                min="0"
-                id="alunosEntrada2"
-                class="form-control form-control-sm text-center input-md"
+            <div class="col">
+              <Input
+                inputType="number"
+                label="Alunos 2º Período"
                 v-model.number="cursoForm.alunosEntrada2"
-                @keypress="maskOnlyNumber"
-                @blur="maskEmptyToZero($event, cursoForm, 'alunosEntrada2')"
+                :validation="$v.cursoForm.alunosEntrada2"
+                textAlign="center"
               />
             </div>
           </div>
@@ -200,12 +169,12 @@
 </template>
 
 <script>
-import ls from "local-storage";
 import { mapActions, mapGetters } from "vuex";
-import { clone, find, orderBy } from "lodash-es";
+import { required, integer } from "vuelidate/lib/validators";
+import { clone, orderBy } from "lodash-es";
 import { maskOnlyNumber, maskEmptyToZero, normalizeInputText } from "@/common/mixins";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
-import { Card } from "@/components/ui";
+import { Card, Input, Select } from "@/components/ui";
 
 const emptyCurso = {
   id: null,
@@ -221,7 +190,7 @@ const emptyCurso = {
 export default {
   name: "DashboardCursos",
   mixins: [maskOnlyNumber, maskEmptyToZero, normalizeInputText],
-  components: { Card, ModalDelete, ModalAjuda },
+  components: { Card, Input, Select, ModalDelete, ModalAjuda },
   data() {
     return {
       modalDeleteText: "",
@@ -230,36 +199,40 @@ export default {
       ordenacaoCursos: { order: "codigo", type: "asc" },
     };
   },
-
-  created() {
-    this.selectAll = true;
+  validations: {
+    cursoForm: {
+      nome: { required },
+      codigo: { required },
+      turno: { required },
+      alunosEntrada: { required, integer },
+      alunosEntrada2: { required, integer },
+    },
   },
 
   methods: {
     ...mapActions(["createCurso", "editCurso", "deleteCurso"]),
 
     handleClickInCurso(curso) {
-      this.cleanForm();
       this.cursoSelecionado = curso.id;
       this.cursoForm = clone(curso);
     },
-    cleanForm() {
+    clearForm() {
       this.cursoSelecionado = "";
       this.cursoForm = clone(emptyCurso);
+      this.$nextTick(() => this.$v.$reset());
     },
     checkSeCursoTemAlgumPedido(cursoId) {
-      for (let t in this.$store.state.pedido.Pedidos) {
-        let pedido = find(this.$store.state.pedido.Pedidos[t], (p) => {
-          if (p.Curso === cursoId) {
-            if (parseInt(p.vagasPeriodizadas, 10) > 0 || parseInt(p.vagasNaoPeriodizadas, 10) > 0) {
-              return true;
-            }
-          }
-          return false;
-        });
-        if (pedido) return true;
+      let temPedido = false;
+      for (let t in this.Pedidos) {
+        const pedidoFound = this.Pedidos[t].find(
+          (p) =>
+            p.Curso === cursoId &&
+            (parseInt(p.vagasPeriodizadas, 10) > 0 || parseInt(p.vagasNaoPeriodizadas, 10) > 0)
+        );
+        if (pedidoFound) temPedido = true;
       }
-      return false;
+
+      return temPedido;
     },
     openModalDelete() {
       if (this.checkSeCursoTemAlgumPedido(this.cursoForm.id)) {
@@ -273,28 +246,15 @@ export default {
 
       this.$refs.modalDelete.open();
     },
-    toggleCurso(id) {
-      let state = ls.get(`${id}`);
-      this.$store.dispatch("toggleCurso", id);
-      ls.set(`${id}`, !state);
-    },
-    toggleAllCursos() {
-      if (this.selectAll === true) {
-        this.$store.dispatch("toggleAllCursosFalse");
-        this.selectAll = false;
-        ls.set("toggle", false);
-      } else {
-        this.$store.dispatch("toggleAllCursosTrue");
-        this.selectAll = true;
-        ls.set("toggle", true);
-      }
-    },
 
     async handleCreateCurso() {
+      this.$v.cursoForm.$touch();
+      if (this.$v.cursoForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        await this.createCurso(this.cursoForm);
-        this.cleanForm();
+        await this.createCurso({ ...this.cursoForm });
+        this.clearForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -306,9 +266,12 @@ export default {
       }
     },
     async handleEditCurso() {
+      this.$v.cursoForm.$touch();
+      if (this.$v.cursoForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        await this.editCurso(this.cursoForm);
+        await this.editCurso({ ...this.cursoForm });
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -320,10 +283,13 @@ export default {
       }
     },
     async handleDeleteCurso() {
+      this.$v.cursoForm.$touch();
+      if (this.$v.cursoForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        await this.deleteCurso(this.cursoForm);
-        this.cleanForm();
+        await this.deleteCurso({ ...this.cursoForm });
+        this.clearForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -337,7 +303,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllCursos"]),
+    ...mapGetters(["AllCursos", "Pedidos"]),
 
     CursosOrdered() {
       return orderBy(this.AllCursos, this.ordenacaoCursos.order, this.ordenacaoCursos.type);
