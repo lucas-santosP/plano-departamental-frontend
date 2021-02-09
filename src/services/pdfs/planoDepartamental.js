@@ -15,7 +15,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-async function pdfPlanoDepartamental(data) {
+export async function pdfPlanoDepartamental(data) {
   const { disciplinasInTurmas, periodosAtivos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
@@ -228,5 +228,3 @@ async function pdfPlanoDepartamental(data) {
   };
   pdfMake.createPdf(docDefinition).open();
 }
-
-export default pdfPlanoDepartamental;

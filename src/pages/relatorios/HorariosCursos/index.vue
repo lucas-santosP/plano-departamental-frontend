@@ -191,7 +191,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { pdfHorariosCursos } from "@/services/pdfs";
 import { find, some, filter, orderBy } from "lodash-es";
 import {
   toggleItemInArray,
@@ -537,26 +536,30 @@ export default {
       return some(Pedidos, (pedido) => pedido.Turma === turma.id && pedido.vagasPeriodizadas > 0);
     },
     generatePdf(completo) {
-      let cursosAtivos, periodosAtivos;
-      if (completo) {
-        cursosAtivos = this.CursosModal;
-        periodosAtivos = this.PeriodosOptions;
-      } else {
-        cursosAtivos = this.filtroCursos.ativados;
-        periodosAtivos = this.filtroPeriodos.ativados;
-      }
+      import(/*webpackChunkName:"group-pdf"*/ "@/services/pdfs/horariosCursos").then(
+        ({ pdfHorariosCursos }) => {
+          let cursosAtivos, periodosAtivos;
+          if (completo) {
+            cursosAtivos = this.CursosModal;
+            periodosAtivos = this.PeriodosOptions;
+          } else {
+            cursosAtivos = this.filtroCursos.ativados;
+            periodosAtivos = this.filtroPeriodos.ativados;
+          }
 
-      pdfHorariosCursos({
-        horariosAtivos: {
-          periodo1: this.horariosAtivos1Periodo,
-          periodo2: this.TurmasAtivas2Periodo,
-          periodo3: this.horariosAtivos3Periodo,
-          periodo4: this.TurmasAtivas4Periodo,
-        },
-        cursosAtivos,
-        periodosAtivos,
-        plano: this.currentPlano,
-      });
+          pdfHorariosCursos({
+            horariosAtivos: {
+              periodo1: this.horariosAtivos1Periodo,
+              periodo2: this.TurmasAtivas2Periodo,
+              periodo3: this.horariosAtivos3Periodo,
+              periodo4: this.TurmasAtivas4Periodo,
+            },
+            cursosAtivos,
+            periodosAtivos,
+            plano: this.currentPlano,
+          });
+        }
+      );
     },
   },
 

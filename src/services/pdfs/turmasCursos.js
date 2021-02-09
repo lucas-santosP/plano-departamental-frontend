@@ -10,7 +10,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-async function pdfTurmasCursos(data) {
+export async function pdfTurmasCursos(data) {
   const { cursos, periodos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
@@ -141,5 +141,3 @@ async function pdfTurmasCursos(data) {
   };
   pdfMake.createPdf(docDefinition).open();
 }
-
-export default pdfTurmasCursos;

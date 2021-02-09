@@ -198,7 +198,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, some, orderBy } from "lodash-es";
-import { pdfCargaDocentes } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -429,22 +428,24 @@ export default {
       };
     },
     generatePdf(completo) {
-      let docentesCarga, docenteSemAlocacaoCarga, periodosAtivos;
-      if (completo) {
-        docentesCarga = this.DocentesCarga;
-        docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCarga;
-        periodosAtivos = this.PeriodosOptions;
-      } else {
-        docentesCarga = this.DocentesCargaFiltered;
-        docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCargaFiltered;
-        periodosAtivos = this.filtroPeriodos.ativados;
-      }
+      import("@/services/pdfs/cargaDocentes").then(({ pdfCargaDocentes }) => {
+        let docentesCarga, docenteSemAlocacaoCarga, periodosAtivos;
+        if (completo) {
+          docentesCarga = this.DocentesCarga;
+          docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCarga;
+          periodosAtivos = this.PeriodosOptions;
+        } else {
+          docentesCarga = this.DocentesCargaFiltered;
+          docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCargaFiltered;
+          periodosAtivos = this.filtroPeriodos.ativados;
+        }
 
-      pdfCargaDocentes({
-        docentesCarga,
-        docenteSemAlocacaoCarga,
-        periodosAtivos,
-        plano: this.currentPlano,
+        pdfCargaDocentes({
+          docentesCarga,
+          docenteSemAlocacaoCarga,
+          periodosAtivos,
+          plano: this.currentPlano,
+        });
       });
     },
   },

@@ -311,7 +311,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
-import { pdfPlanoDepartamental } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   generateHorariosText,
@@ -455,20 +454,22 @@ export default {
       );
     },
     generatePdf(completo) {
-      let disciplinasInTurmas = [];
-      let periodosAtivos = [];
-      if (completo) {
-        disciplinasInTurmas = this.DisciplinasComTurmas;
-        periodosAtivos = this.PeriodosOptions;
-      } else {
-        disciplinasInTurmas = this.DisciplinasComTurmasFiltered;
-        periodosAtivos = this.filtroPeriodos.ativados;
-      }
+      import("@/services/pdfs/planoDepartamental").then(({ pdfPlanoDepartamental }) => {
+        let disciplinasInTurmas = [];
+        let periodosAtivos = [];
+        if (completo) {
+          disciplinasInTurmas = this.DisciplinasComTurmas;
+          periodosAtivos = this.PeriodosOptions;
+        } else {
+          disciplinasInTurmas = this.DisciplinasComTurmasFiltered;
+          periodosAtivos = this.filtroPeriodos.ativados;
+        }
 
-      pdfPlanoDepartamental({
-        disciplinasInTurmas,
-        periodosAtivos,
-        plano: this.currentPlano,
+        pdfPlanoDepartamental({
+          disciplinasInTurmas,
+          periodosAtivos,
+          plano: this.currentPlano,
+        });
       });
     },
   },

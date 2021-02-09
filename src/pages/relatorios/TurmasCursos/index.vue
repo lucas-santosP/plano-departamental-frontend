@@ -225,7 +225,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { orderBy } from "lodash-es";
-import { pdfTurmasCursos } from "@/services/pdfs";
 import { normalizeText } from "@/common/utils";
 import {
   toggleItemInArray,
@@ -364,16 +363,18 @@ export default {
       }
     },
     generatePdf(completo) {
-      let cursos, periodos;
-      if (completo) {
-        cursos = this.AllCursos;
-        periodos = this.PeriodosOptions;
-      } else {
-        cursos = this.filtroCursos.ativados;
-        periodos = this.filtroPeriodos.ativados;
-      }
+      import("@/services/pdfs/turmasCursos").then(({ pdfTurmasCursos }) => {
+        let cursos, periodos;
+        if (completo) {
+          cursos = this.AllCursos;
+          periodos = this.PeriodosOptions;
+        } else {
+          cursos = this.filtroCursos.ativados;
+          periodos = this.filtroPeriodos.ativados;
+        }
 
-      pdfTurmasCursos({ cursos, periodos, plano: this.currentPlano });
+        pdfTurmasCursos({ cursos, periodos, plano: this.currentPlano });
+      });
     },
   },
 

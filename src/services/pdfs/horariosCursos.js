@@ -9,7 +9,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-async function pdfHorariosCursos(data) {
+export async function pdfHorariosCursos(data) {
   const { horariosAtivos, cursosAtivos, periodosAtivos, plano } = data;
   const tables = [];
   const headerImages = await getHeaderImages();
@@ -451,8 +451,6 @@ async function pdfHorariosCursos(data) {
   };
   pdfMake.createPdf(docDefinition).open();
 }
-
-export default pdfHorariosCursos;
 
 function makeTableHorarioHeader() {
   return [

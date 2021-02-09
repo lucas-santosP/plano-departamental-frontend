@@ -130,7 +130,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { filter, find, orderBy } from "lodash-es";
-import { pdfHorariosLabs } from "@/services/pdfs";
 import {
   toggleItemInArray,
   toggleAsideModal,
@@ -218,20 +217,22 @@ export default {
 
   methods: {
     generatePdf(completo) {
-      let laboratorios, periodosAtivos;
-      if (completo) {
-        laboratorios = this.LaboratoriosOrdered;
-        periodosAtivos = this.PeriodosOptions;
-      } else {
-        laboratorios = this.filtroLaboratorios.ativados;
-        periodosAtivos = this.filtroPeriodos.ativados;
-      }
+      import("@/services/pdfs/horariosLabs").then(({ pdfHorariosLabs }) => {
+        let laboratorios, periodosAtivos;
+        if (completo) {
+          laboratorios = this.LaboratoriosOrdered;
+          periodosAtivos = this.PeriodosOptions;
+        } else {
+          laboratorios = this.filtroLaboratorios.ativados;
+          periodosAtivos = this.filtroPeriodos.ativados;
+        }
 
-      pdfHorariosLabs({
-        laboratorios,
-        periodosAtivos,
-        turmas: this.TurmasETurmasExternasOrdered,
-        plano: this.currentPlano,
+        pdfHorariosLabs({
+          laboratorios,
+          periodosAtivos,
+          turmas: this.TurmasETurmasExternasOrdered,
+          plano: this.currentPlano,
+        });
       });
     },
   },
