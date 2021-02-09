@@ -140,8 +140,10 @@ export default {
           return;
         }
 
-        await this.createPedidosFileSIGA(turmasFile1Periodo, turmasDoPlano, 1);
-        await this.createPedidosFileSIGA(turmasFile3Periodo, turmasDoPlano, 3);
+        const turmas1Periodo = turmasDoPlano.filter((turma) => turma.periodo === 1);
+        const turmas3Periodo = turmasDoPlano.filter((turma) => turma.periodo === 3);
+        await this.createPedidosFileSIGA(turmasFile1Periodo, turmas1Periodo, 1);
+        await this.createPedidosFileSIGA(turmasFile3Periodo, turmas3Periodo, 3);
 
         if (!this.abortImport) {
           this.close();
@@ -156,6 +158,7 @@ export default {
           });
         }
       } catch (error) {
+        console.log(error);
         this.pushNotification({
           type: "error",
           title: "Erro ao importar pedidos!",
@@ -174,23 +177,29 @@ export default {
         if (this.abortImport) break;
         this.updateProgressBar();
 
-        const turmaDoPlanoFound = turmasDoPlano.find(
-          (turma) =>
-            turma.periodo === periodo &&
-            turma.disciplina.codigo === turmaSIGA[keysTurmaSIGA.disciplinaCod] &&
-            turma.letra === turmaSIGA[keysTurmaSIGA.letra]
+        const disciplinaFound = this.AllDisciplinas.find(
+          (disciplina) => disciplina.codigo === turmaSIGA[keysTurmaSIGA.disciplinaCod]
         );
-        if (turmaDoPlanoFound) {
-          const pedidoOferecido = parseTurmaSIGAToPedido(
-            turmaSIGA,
-            keysTurmaSIGA,
-            turmaDoPlanoFound.id
+        if (!disciplinaFound) continue;
+
+        const turmaDoPlanoFound = turmasDoPlano.find((turma) => {
+          return (
+            turma.periodo === periodo &&
+            turma.Disciplina === disciplinaFound.id &&
+            turma.letra === turmaSIGA[keysTurmaSIGA.letra]
           );
-          // Se for igual ao currentPedido, não cria pois ja foi criado antes
-          if (pedidoOferecido && !this.pedidosAreEqual(pedidoOferecido, currentPedido)) {
-            const pedidoCreated = await this.handleCreatePedidoOferecido(pedidoOferecido);
-            currentPedido = { ...pedidoCreated };
-          }
+        });
+        if (!turmaDoPlanoFound) continue;
+
+        const pedidoOferecido = parseTurmaSIGAToPedido(
+          turmaSIGA,
+          keysTurmaSIGA,
+          turmaDoPlanoFound.id
+        );
+        // Se for igual ao currentPedido, não cria pois ja foi criado antes
+        if (pedidoOferecido && !this.pedidosAreEqual(pedidoOferecido, currentPedido)) {
+          const pedidoCreated = await this.handleCreatePedidoOferecido(pedidoOferecido);
+          currentPedido = { ...pedidoCreated };
         }
       }
     },
@@ -207,7 +216,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas"]),
+    ...mapGetters(["AllTurmas", "AllDisciplinas"]),
   },
 };
 </script>
