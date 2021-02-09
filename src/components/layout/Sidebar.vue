@@ -63,8 +63,7 @@ export default {
   background-color: #fff;
   padding: 0;
   padding-bottom: 10px;
-  font-size: 14px;
-  box-shadow: 0px 0px 75px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* transition */
