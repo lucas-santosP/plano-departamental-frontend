@@ -15,9 +15,7 @@
       />
       <span>
         {{ text }}
-        <template v-if="text === ''">
-          <slot></slot>
-        </template>
+        <slot v-if="text === ''"></slot>
       </span>
 
       <div>
@@ -39,9 +37,8 @@
 
     <template v-else>
       {{ text }}
-      <template v-if="text === ''">
-        <slot></slot>
-      </template>
+      <slot v-if="text === ''"></slot>
+
       <OrdinationArrow
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
@@ -52,18 +49,16 @@
 </template>
 
 <script>
-import Vth from "./VTh";
 import OrdinationArrow from "@/components/ui/OrdinationArrow";
 
 export default {
   name: "v-th-ordination",
-  components: { OrdinationArrow, "v-th": Vth },
+  components: { OrdinationArrow },
   props: {
     currentOrder: { type: Object, required: true },
     orderToCheck: { type: String, required: true },
     orderType: { type: String, default: "asc" },
     orderFixed: { type: Boolean, default: false },
-
     text: { type: String, default: "" },
     align: { type: String, default: "center" },
     width: { type: [String, Number], required: true },
@@ -85,11 +80,6 @@ export default {
       } else {
         currentOrder.type = currentOrder.type == "asc" ? "desc" : "asc";
       }
-    },
-  },
-  computed: {
-    tdWidth() {
-      return `${parseInt(this.width, 10)}px`;
     },
   },
 };
