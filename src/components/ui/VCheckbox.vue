@@ -1,8 +1,8 @@
 <template>
-  <b-form-group class="mb-1 mt-1">
+  <b-form-group class="mb-1 mt-2" :style="`${inlineRow ? 'transform: translateY(75%)' : ''}`">
     <div class="d-flex justify-content-start align-items-center">
       <b-form-checkbox :id="id" :checked="value" @change="emitInput" size="sm" />
-      <label v-prevent-click-selection :for="id" class="d-block col-form-label-sm pr-2">
+      <label v-prevent-click-selection :for="id" class="d-block col-form-label-sm p-0 pr-2">
         {{ label }}
       </label>
     </div>
@@ -17,10 +17,10 @@ export default {
   mixins: [preventClickSelection],
   props: {
     id: { type: String, default: () => uniqueId() },
-    value: { type: Boolean, required: true },
+    value: { type: [Boolean, Number], required: true },
     label: { type: String, default: "" },
+    inlineRow: { type: Boolean, defualt: false },
   },
-
   methods: {
     emitInput(newValue) {
       this.$emit("input", newValue);
