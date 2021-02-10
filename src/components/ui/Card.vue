@@ -102,7 +102,7 @@ export default {
     width: 80px !important;
   }
 
-  .form-group + .form-group {
+  div.form-group + div.form-group:not([role="group"]) {
     padding-left: 10px !important;
   }
 
