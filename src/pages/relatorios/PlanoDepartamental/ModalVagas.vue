@@ -15,71 +15,80 @@
       </div>
 
       <div class="div-table">
-        <BaseTable :styles="'height:auto'">
-          <template #thead>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="curso.codigo"
-              width="65"
-              align="start"
-            >
-              Código
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="curso.nome"
-              width="300"
-              align="start"
-            >
-              Nome
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="vagasPeriodizadas"
-              orderType="desc"
-              width="75"
-              title="Vagas periodizadas"
-            >
-              Grade
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="vagasNaoPeriodizadas"
-              orderType="desc"
-              width="75"
-              title="Vagas não periodizadas"
-            >
-              Extra
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="vagasOferecidas"
-              orderType="desc"
-              width="75"
-              paddingX="0"
-              title="Vagas oferecidas"
-            >
-              Oferecidas
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="vagasOcupadas"
-              orderType="desc"
-              width="75"
-              paddingX="0"
-              title="Vagas ocupadas"
-            >
-              Ocupadas
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoVagas"
-              orderToCheck="totalVagas"
-              orderType="desc"
-              width="50"
-              title="Total de vagas"
-            >
-              Total
-            </v-th-ordination>
+        <BaseTable styles="height:auto;max-height:400px">
+          <template #thead-root>
+            <div class="sticky-row-top">
+              <tr>
+                <v-th colspan="2" />
+                <v-th colspan="3">SIPlanWeb</v-th>
+                <v-th colspan="2">SIGA</v-th>
+              </tr>
+              <tr>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="curso.codigo"
+                  width="65"
+                  align="start"
+                >
+                  Código
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="curso.nome"
+                  width="300"
+                  align="start"
+                >
+                  Nome
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="vagasPeriodizadas"
+                  orderType="desc"
+                  width="75"
+                  title="Vagas periodizadas"
+                >
+                  Grade
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="vagasNaoPeriodizadas"
+                  orderType="desc"
+                  width="75"
+                  title="Vagas não periodizadas"
+                >
+                  Extra
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="totalVagas"
+                  orderType="desc"
+                  width="50"
+                  title="Total de vagas"
+                >
+                  Total
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="vagasOferecidas"
+                  orderType="desc"
+                  width="75"
+                  paddingX="0"
+                  title="Vagas oferecidas"
+                >
+                  Oferecidas
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoVagas"
+                  orderToCheck="vagasOcupadas"
+                  orderType="desc"
+                  width="75"
+                  paddingX="0"
+                  title="Vagas ocupadas"
+                >
+                  Ocupadas
+                </v-th-ordination>
+              </tr>
+            </div>
           </template>
 
           <template #tbody>
@@ -93,9 +102,9 @@
               </v-td>
               <v-td width="75">{{ pedido.vagasPeriodizadas }}</v-td>
               <v-td width="75">{{ pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="50">{{ pedido.totalVagas }}</v-td>
               <v-td width="75">{{ pedido.vagasOferecidas }}</v-td>
               <v-td width="75">{{ pedido.vagasOcupadas }}</v-td>
-              <v-td width="50">{{ pedido.totalVagas }}</v-td>
             </tr>
 
             <tr v-if="!PedidosEPedidosOferecidosOrdered.length">
@@ -190,7 +199,6 @@ export default {
             const { vagasOferecidas, vagasOcupadas } = pedidoOferecidoFound;
             pedidoResult.vagasOferecidas = vagasOferecidas;
             pedidoResult.vagasOcupadas = vagasOcupadas;
-            pedidoResult.totalVagas += vagasOferecidas + vagasOcupadas;
           }
 
           pedidosEPedidosOferecidos.push(pedidoResult);

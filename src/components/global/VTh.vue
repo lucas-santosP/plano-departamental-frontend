@@ -15,7 +15,7 @@
 export default {
   name: "v-th",
   props: {
-    width: { type: [String, Number], required: true },
+    width: { type: [String, Number], default: "" },
     align: { type: String, default: "center" },
     paddingX: { type: [String, Number], default: "5" },
   },

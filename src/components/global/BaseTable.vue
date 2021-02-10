@@ -5,6 +5,8 @@
     :style="styles"
   >
     <thead class="thead-light max-content sticky-row-top">
+      <slot name="thead-root"></slot>
+
       <div class="div-search sticky-row-top" v-if="hasSearchBar">
         <slot name="thead-search"></slot>
       </div>

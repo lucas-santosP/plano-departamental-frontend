@@ -39,9 +39,9 @@
           <v-th width="130">Horário</v-th>
 
           <template v-if="filtroPeriodos.ativados.length">
-            <v-th width="45" :title="theadTitle.creditos">SC</v-th>
-            <v-th width="45" :title="theadTitle.vagas">S.V</v-th>
-            <v-th width="45" :title="theadTitle.vagasOferecidas">SVO</v-th>
+            <v-th width="55" :title="theadTitle.creditos">S.C</v-th>
+            <v-th width="55" :title="theadTitle.vagas">S.V</v-th>
+            <v-th width="55" paddingX="0" :title="theadTitle.vagasOferecidas">S.V SIGA</v-th>
           </template>
         </template>
 
@@ -50,9 +50,9 @@
             <v-td width="80" />
             <v-td width="350" align="start">TOTAIS</v-td>
             <v-td width="455" colspan="6" />
-            <v-td width="45">{{ somatorioTotais.creditos }}</v-td>
-            <v-td width="45">{{ somatorioTotais.vagas }}</v-td>
-            <v-td width="45">{{ somatorioTotais.vagasOferecidas }}</v-td>
+            <v-td width="55">{{ somatorioTotais.creditos }}</v-td>
+            <v-td width="55">{{ somatorioTotais.vagas }}</v-td>
+            <v-td width="55">{{ somatorioTotais.vagasOferecidas }}</v-td>
           </tr>
 
           <template v-for="disciplina in DisciplinasComTurmasOrdered">
@@ -62,13 +62,13 @@
               <v-td width="80">{{ disciplina.perfil.abreviacao }}</v-td>
               <v-td width="30">{{ disciplina.creditoTotal }}</v-td>
               <v-td width="340" colspan="4" />
-              <v-td width="45">
+              <v-td width="55">
                 {{ disciplina.somatorioCreditos }}
               </v-td>
-              <v-td width="45">
+              <v-td width="55">
                 {{ disciplina.somatorioVagas }}
               </v-td>
-              <v-td width="45">
+              <v-td width="55">
                 {{ disciplina.somatorioVagasOferecidas }}
               </v-td>
             </tr>
@@ -86,27 +86,27 @@
               <v-td width="130" paddingX="0">
                 {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
               </v-td>
-              <v-td width="45" />
+              <v-td width="55" />
               <v-td
                 v-if="filtroPeriodos.ativados.length"
-                width="45"
+                width="55"
                 paddingX="0"
                 class="td-vagas clickable"
                 @click.native="handleClickInTurmaVaga(turma)"
               >
                 {{ turma.vagas }}
               </v-td>
-              <v-td v-else width="45"></v-td>
+              <v-td v-else width="55"></v-td>
               <v-td
                 v-if="filtroPeriodos.ativados.length"
-                width="45"
+                width="55"
                 paddingX="0"
                 class="td-vagas clickable"
                 @click.native="handleClickInTurmaVaga(turma)"
               >
                 {{ turma.vagasOferecidas }}
               </v-td>
-              <v-td v-else width="45"></v-td>
+              <v-td v-else width="55"></v-td>
             </tr>
           </template>
 
@@ -588,7 +588,7 @@ export default {
       return {
         creditos: `Somatório dos créditos no ${periodoText} período`,
         vagas: `Somatório das vagas no ${periodoText} período`,
-        vagasOferecidas: `Somatório das vagas oferecidas no ${periodoText} período`,
+        vagasOferecidas: `Somatório das vagas do SIGA no ${periodoText} período`,
       };
     },
     //Modal Options
