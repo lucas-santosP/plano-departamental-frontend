@@ -19,6 +19,10 @@
         <b>Acadêmico > Consultas > Plano Departamental.</b>
         E você pode cancelar o processo durante a importação apertando a tecla esc.
       </p>
+      <p v-if="planoFormHasPedidosOferecidos" class="alert alert-danger">
+        O plano selecionado já possui pedidos SIGA, continuar este processor irá
+        <b>sobreescreve-los.</b>
+      </p>
 
       <div class="row mb-2 mx-0">
         <div class="form-group col m-0 p-0">
@@ -75,6 +79,8 @@ export default {
   data() {
     return {
       abortImport: false,
+      turmasDoPlanoForm: [],
+      planoFormHasPedidosOferecidos: false,
     };
   },
   mounted() {
@@ -94,6 +100,7 @@ export default {
     ]),
 
     open() {
+      this.checkPedidosOferecidos();
       this.$refs.baseModalImportPedidos.open();
     },
     close() {
@@ -102,6 +109,21 @@ export default {
     onEscAbortImport(event) {
       event.stopPropagation();
       if (event.code === "Escape") this.abortImport = true;
+    },
+    async checkPedidosOferecidos() {
+      this.turmasDoPlanoForm = [];
+      this.planoFormHasPedidosOferecidos = false;
+
+      if (this.currentPlano.id !== this.planoForm.id) {
+        const { Turmas = [] } = await turmaService.fetchAll(this.planoForm.id);
+        this.turmasDoPlanoForm = [...Turmas];
+      } else {
+        this.turmasDoPlanoForm = this.AllTurmas;
+      }
+
+      this.planoFormHasPedidosOferecidos = this.turmasDoPlanoForm.some(
+        (turma) => this.PedidosOferecidos[turma.id] && this.PedidosOferecidos[turma.id].length > 0
+      );
     },
     async handleImportPedidosOferecidos() {
       const [file1Periodo] = this.$refs.input1periodo.files;
@@ -113,6 +135,13 @@ export default {
         });
         return;
       }
+      if (!this.turmasDoPlanoForm.length) {
+        this.pushNotification({
+          type: "error",
+          text: "Plano selecionado não possui turmas",
+        });
+        return;
+      }
 
       try {
         this.abortImport = false;
@@ -120,28 +149,12 @@ export default {
         const turmasFile3Periodo = await parseCSVFileToArray(file3Periodo);
         validateTurmasSIGA(turmasFile1Periodo);
         validateTurmasSIGA(turmasFile3Periodo);
-
         this.initializeProgressBar({
           finalValue: turmasFile1Periodo.length + turmasFile3Periodo.length,
         });
 
-        let turmasDoPlano;
-        if (this.planoForm.id === this.currentPlano.id) {
-          turmasDoPlano = [...this.AllTurmas];
-        } else {
-          const { Turmas = [] } = await turmaService.fetchAll(this.planoForm.id);
-          turmasDoPlano = Turmas;
-        }
-        if (!turmasDoPlano.length) {
-          this.pushNotification({
-            type: "error",
-            text: "Plano selecionado não possui turmas",
-          });
-          return;
-        }
-
-        const turmas1Periodo = turmasDoPlano.filter((turma) => turma.periodo === 1);
-        const turmas3Periodo = turmasDoPlano.filter((turma) => turma.periodo === 3);
+        const turmas1Periodo = this.turmasDoPlanoForm.filter((turma) => turma.periodo === 1);
+        const turmas3Periodo = this.turmasDoPlanoForm.filter((turma) => turma.periodo === 3);
         await this.createPedidosFileSIGA(turmasFile1Periodo, turmas1Periodo, 1);
         await this.createPedidosFileSIGA(turmasFile3Periodo, turmas3Periodo, 3);
 
@@ -167,8 +180,8 @@ export default {
         await this.finishProgressBar();
       }
     },
-    async createPedidosFileSIGA(turmasSIGA, turmasDoPlano, periodo) {
-      if (!turmasSIGA.length || !turmasDoPlano.length) return;
+    async createPedidosFileSIGA(turmasSIGA, turmasDoPlanoForm, periodo) {
+      if (!turmasSIGA.length || !turmasDoPlanoForm.length) return;
 
       let currentPedido = {};
       const keysTurmaSIGA = getKeysTurmaSIGA(turmasSIGA[0]);
@@ -182,7 +195,7 @@ export default {
         );
         if (!disciplinaFound) continue;
 
-        const turmaDoPlanoFound = turmasDoPlano.find((turma) => {
+        const turmaDoPlanoFound = turmasDoPlanoForm.find((turma) => {
           return (
             turma.periodo === periodo &&
             turma.Disciplina === disciplinaFound.id &&
@@ -216,7 +229,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "AllDisciplinas"]),
+    ...mapGetters(["AllTurmas", "AllDisciplinas", "PedidosOferecidos"]),
   },
 };
 </script>
@@ -241,7 +254,6 @@ export default {
     margin-bottom: 1rem;
     padding: 8px 10px;
     padding-right: 20px;
-    background-color: #e9ecef !important;
     font-size: 12px;
     word-break: break-word;
     border-top-left-radius: 0;
@@ -258,5 +270,15 @@ export default {
   label {
     margin: 0;
   }
+}
+
+.overlay-modal-import {
+  background-color: rgba(46, 46, 46, 0.342);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1005;
+  height: 100vh;
+  width: 100%;
 }
 </style>
