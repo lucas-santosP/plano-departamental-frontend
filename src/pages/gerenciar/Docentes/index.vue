@@ -38,7 +38,7 @@
             <tr
               v-for="docente in DocentesOrdered"
               :key="docente.id"
-              :class="[{ 'bg-selected': docenteClickado.id == docente.id }, 'clickable']"
+              :class="[{ 'bg-selected': docenteSelecionadoId == docente.id }, 'clickable']"
               @click="handleClickInDocente(docente)"
             >
               <v-td width="240" align="start">{{ docente.nome }}</v-td>
@@ -57,73 +57,56 @@
 
       <Card
         :title="'Docente'"
-        :toggleFooter="isEdit"
-        @btn-salvar="editDocente"
-        @btn-delete="openModalDelete"
-        @btn-add="addDocente"
-        @btn-clean="cleanDocente"
+        width="320"
+        :toggleFooter="isEditing"
+        @btn-salvar="handleUpdateDocente"
+        @btn-delete="$refs.modalDelete.open()"
+        @btn-add="handleCreateDocente"
+        @btn-clean="clearForm"
       >
         <template #body>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="nome" class="col-form-label">Nome</label>
-              <input
-                id="nome"
-                type="text"
-                class="form-control form-control-sm input-xl"
-                @change="docenteForm.nome = normalizeInputText($event)"
-                :value="docenteForm.nome"
+          <VInput label="Nome" v-model="docenteForm.nome" :validation="$v.docenteForm.nome" />
+
+          <div class="row">
+            <div class="col-8">
+              <VInput
+                label="Apelido"
+                v-model="docenteForm.apelido"
+                :validation="$v.docenteForm.apelido"
               />
+            </div>
+            <div class="col">
+              <VCheckbox label="Ativo" v-model="docenteForm.ativo" inlineRow />
             </div>
           </div>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col-8 m-0 px-0">
-              <label required for="apelido" class="col-form-label">Apelido</label>
-              <input
-                id="apelido"
-                type="text"
-                class="form-control form-control-sm"
-                @change="docenteForm.apelido = normalizeInputText($event)"
-                :value="docenteForm.apelido"
-              />
-            </div>
-
-            <div class="form-group col-auto m-0 p-0 pt-4">
-              <div class="d-flex align-items-center h-100">
-                <label for="ativo" class="form-check-label m-0 mr-2">Ativo</label>
-                <input id="ativo" type="checkbox" :value="1" v-model.number="docenteForm.ativo" />
-              </div>
-            </div>
-          </div>
-
-          <template v-if="isEdit">
+          <template v-if="isEditing">
             <div class="border-bottom mt-2 mb-1"></div>
             <small>Perfis Associados ao docente</small>
 
-            <div class="row mb-3 mx-0">
+            <div class="row mx-0">
               <div class="div-table">
-                <BaseTable type="main" :styles="'max-height: 300px'">
+                <BaseTable type="main" styles="max-height: 300px">
                   <template #thead>
                     <v-th width="25" />
-                    <v-th width="225" align="start">Perfis</v-th>
+                    <v-th width="235" align="start">Perfis</v-th>
                   </template>
 
                   <template #tbody>
                     <tr
                       v-for="perfil in AllPerfis"
                       :key="perfil.id + perfil.abreviacao"
-                      @click="toggleItemInArray(perfil.id, perfisAssociados)"
+                      @click="toggleItemInArray(perfil.id, perfisDocenteForm)"
                     >
                       <v-td width="25" type="content">
                         <input
                           type="checkbox"
                           style="width: 11px"
-                          v-model="perfisAssociados"
+                          v-model="perfisDocenteForm"
                           :value="perfil.id"
                         />
                       </v-td>
-                      <v-td width="225" align="start" :title="perfil.nome">
+                      <v-td width="235" align="start" :title="perfil.nome">
                         {{ perfil.nome }}
                       </v-td>
                     </tr>
@@ -136,8 +119,8 @@
       </Card>
     </div>
 
-    <ModalDelete ref="modalDelete" :isDeleting="isEdit" @btn-deletar="deleteDocente">
-      <li v-if="isEdit" class="list-group-item">
+    <ModalDelete ref="modalDelete" :isDeleting="isEditing" @btn-deletar="handleDeleteDocente">
+      <li v-if="isEditing" class="list-group-item">
         <span>
           Tem certeza que deseja excluír o docente
           <b>{{ docenteForm.nome }}</b>
@@ -183,81 +166,59 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { clone, filter, orderBy } from "lodash-es";
-import docenteService from "@/services/docente";
-import docentePerfilService from "@/services/docentePerfil";
-import { toggleItemInArray, normalizeInputText } from "@/common/mixins";
-import { booleanToText } from "@/common/utils";
-import { Card } from "@/components/ui";
+import { mapActions, mapGetters } from "vuex";
+import { orderBy } from "lodash-es";
+import { required, maxLength } from "vuelidate/lib/validators";
+import { toggleItemInArray } from "@mixins";
+import { booleanToText } from "@utils";
+import { makeEmptyDocente } from "@utils/factories";
+import { Card, VInput, VCheckbox } from "@/components/ui";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
-
-const emptyDocente = {
-  id: null,
-  nome: null,
-  apelido: null,
-  nomesiga: null,
-  creditos: 0,
-  ativo: 1,
-};
-const emptyPerfil = {
-  DocenteId: null,
-  Perfil: null,
-};
 
 export default {
   name: "DashboardDocente",
-  mixins: [toggleItemInArray, normalizeInputText],
-  components: { Card, ModalAjuda, ModalDelete },
+  mixins: [toggleItemInArray],
+  components: { Card, VInput, VCheckbox, ModalAjuda, ModalDelete },
   data() {
     return {
-      docenteForm: clone(emptyDocente),
-      perfisAssociados: [],
-      docenteClickado: {},
-      perfilsOfCurrentDocente: [],
+      docenteForm: makeEmptyDocente(),
+      perfisDocenteForm: [],
+      docenteSelecionadoId: null,
       ordenacaoDocentesMain: { order: "nome", type: "asc" },
     };
   },
+  validations: {
+    docenteForm: {
+      nome: { required },
+      apelido: { required, maxLength: maxLength(15) },
+    },
+  },
 
   methods: {
+    ...mapActions(["createDocente", "updateDocente", "deleteDocente"]),
     booleanToText,
 
     handleClickInDocente(docente) {
-      this.cleanDocente();
-      this.docenteClickado = docente;
-      this.showDocente(docente);
-    },
-    cleanDocente() {
-      this.docenteClickado = {};
-      this.docenteForm = clone(emptyDocente);
-    },
-    showDocente(docente) {
-      this.docenteForm = clone(docente);
-      this.updatePerfisAssociados();
-    },
-    updatePerfisAssociados() {
-      const docentePerfisFiltered = filter(this.DocentePerfis, ["DocenteId", this.docenteForm.id]);
-      this.perfilsOfCurrentDocente = docentePerfisFiltered.map(
-        (docentePerfil) => docentePerfil.Perfil
+      this.docenteSelecionadoId = docente.id;
+      this.docenteForm = { ...docente };
+      const perfisDoDocente = this.DocentesPerfis.filter(
+        (docentePerfil) => docentePerfil.DocenteId === this.docenteForm.id
       );
-      this.perfisAssociados = [...this.perfilsOfCurrentDocente];
+      this.perfisDocenteForm = perfisDoDocente.map((perfilDocente) => perfilDocente.Perfil);
     },
-    openModalDelete() {
-      this.$refs.modalDelete.open();
+    clearForm() {
+      this.docenteSelecionadoId = null;
+      this.docenteForm = makeEmptyDocente();
+      this.$nextTick(() => this.$v.$reset());
     },
+    async handleCreateDocente() {
+      this.$v.docenteForm.$touch();
+      if (this.$v.docenteForm.$anyError) return;
 
-    async addDocente() {
       try {
         this.setLoading({ type: "partial", value: true });
-        if (!this.docenteForm.nomesiga) {
-          this.docenteForm.nomesiga = this.docenteForm.nome;
-        }
-        const response = await docenteService.create(this.docenteForm);
-        this.cleanDocente();
-        this.pushNotification({
-          type: "success",
-          text: `Docente ${response.Docente.nome} foi criada!`,
-        });
+        await this.createDocente({ data: this.docenteForm, notify: true });
+        this.clearForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -270,18 +231,15 @@ export default {
         this.setLoading({ type: "partial", value: false });
       }
     },
-    async editDocente() {
+    async handleUpdateDocente() {
+      this.$v.docenteForm.$touch();
+      if (this.$v.docenteForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        if (!this.docenteForm.nome || !this.docenteForm.apelido) {
-          throw new Error("Campos obrigatorios invalidos");
-        }
-        const response = await docenteService.update(this.docenteForm.id, this.docenteForm);
-        await this.editDocentePerfil();
-
-        this.pushNotification({
-          type: "success",
-          text: `Docente ${response.Docente.nome} foi atualizada!`,
+        await this.updateDocente({
+          data: { docente: this.docenteForm, docentePerfisIds: this.perfisDocenteForm },
+          notify: true,
         });
       } catch (error) {
         this.pushNotification({
@@ -293,22 +251,15 @@ export default {
               ? "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>")
               : "",
         });
-
-        this.showDocente(this.docenteClickado);
       } finally {
         this.setLoading({ type: "partial", value: false });
       }
     },
-    async deleteDocente() {
+    async handleDeleteDocente() {
       try {
         this.setLoading({ type: "partial", value: true });
-        const response = await docenteService.delete(this.docenteForm.id, this.docenteForm);
-
-        this.cleanDocente();
-        this.pushNotification({
-          type: "success",
-          text: `Docente ${response.Docente.nome} foi excluída!`,
-        });
+        await this.deleteDocente({ data: this.docenteForm, notify: true });
+        this.clearForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -319,34 +270,10 @@ export default {
         this.setLoading({ type: "partial", value: false });
       }
     },
-
-    async editDocentePerfil() {
-      //Remove os que não existem em perfisAssociados mas existem em perfilsOfCurrentDocente
-      for (let i = 0; i < this.perfilsOfCurrentDocente.length; i++) {
-        const perfilIndex = this.perfisAssociados.indexOf(this.perfilsOfCurrentDocente[i]);
-        if (perfilIndex === -1) await this.deletePerfil(this.perfilsOfCurrentDocente[i]);
-      }
-      //Adiciona os que existem no perfisAssociados mas não existem em perfilsOfCurrentDocente
-      for (let i = 0; i < this.perfisAssociados.length; i++) {
-        const perfilIndex = this.perfilsOfCurrentDocente.indexOf(this.perfisAssociados[i]);
-        if (perfilIndex === -1) await this.addPerfil(this.perfisAssociados[i]);
-      }
-    },
-    async addPerfil(perfilId) {
-      const newPerfilDocente = clone(emptyPerfil);
-      newPerfilDocente.Docente = this.docenteForm.id;
-      newPerfilDocente.DocenteId = this.docenteForm.id;
-      newPerfilDocente.Perfil = perfilId;
-
-      return await docentePerfilService.create(newPerfilDocente);
-    },
-    async deletePerfil(perfilId) {
-      return await docentePerfilService.delete(this.docenteForm.id, perfilId);
-    },
   },
 
   computed: {
-    ...mapGetters(["AllDocentes", "AllPerfis"]),
+    ...mapGetters(["AllDocentes", "DocentesPerfis", "AllPerfis"]),
 
     DocentesOrdered() {
       return orderBy(
@@ -355,12 +282,7 @@ export default {
         this.ordenacaoDocentesMain.type
       );
     },
-
-    DocentePerfis() {
-      return this.$store.state.docentePerfil.DocentePerfis;
-    },
-
-    isEdit() {
+    isEditing() {
       return this.docenteForm.id !== null;
     },
   },
