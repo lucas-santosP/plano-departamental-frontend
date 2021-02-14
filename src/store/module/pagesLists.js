@@ -84,16 +84,10 @@ const state = {
         "Listagem de todas as disciplinas cadastradas no sistema. Permite a alteração de nome, código, carga teórica e prática, perfis, além de poder definir se a disciplina é EAD ou não.",
     },
     {
-      path: "/gerenciar/disciplinas-grades-dcc",
-      title: "Disciplinas na Grade - DCC",
+      path: "/gerenciar/disciplinas-grades",
+      title: "Disciplinas na Grade",
       description:
         "Listagem de todas as disciplinas de uma grade (atual ou antiga) cadastrada no sistema, permitindo a alteração ou adição de novas disciplinas.",
-    },
-    {
-      path: "/gerenciar/disciplinas-grades-outros",
-      title: "Disciplinas na Grade - Outros",
-      description:
-        "Listagem de todas as disciplinas de uma grade (atual ou antiga) de um curso externo cadastrada no sistema, permitindo a alteração ou adição de novas disciplinas.",
     },
     {
       path: "/gerenciar/docentes",

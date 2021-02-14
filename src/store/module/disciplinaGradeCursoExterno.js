@@ -59,6 +59,15 @@ const getters = {
   DisciplinasDasGradesCursosExternos(state) {
     return state.DisciplinaGrades;
   },
+  DisciplinasGradesExternas(state, rootGetters) {
+    return state.DisciplinaGrades.map((disciplinaGrade) => {
+      const disciplinaFound = rootGetters.AllDisciplinas.find(
+        (disciplina) => disciplina.id === disciplinaGrade.Disciplina
+      );
+
+      return { ...disciplinaGrade, disciplina: { ...disciplinaFound } };
+    });
+  },
 };
 
 export default {
