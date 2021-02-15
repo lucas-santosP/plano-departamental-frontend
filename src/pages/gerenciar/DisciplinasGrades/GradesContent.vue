@@ -1,74 +1,76 @@
 <template>
   <div class="page-content">
-    <NavTab
-      :currentTab="currentTab"
-      :allTabs="['DCC', 'Outros']"
-      @change-tab="$emit('change-tab', $event)"
-    />
+    <div class="fex flex-column flex-grow-1">
+      <NavTab
+        :currentTab="currentTab"
+        :allTabs="['DCC', 'Outros']"
+        @change-tab="$emit('change-tab', $event)"
+      />
 
-    <div class="div-table">
-      <BaseTable styles="height:calc(100vh - 130px)">
-        <template #thead>
-          <v-th-ordination
-            :currentOrder="ordenacaoDisciplinasMain"
-            orderToCheck="periodo"
-            width="35"
-            title="Período"
-          >
-            P.
-          </v-th-ordination>
-          <v-th-ordination
-            :currentOrder="ordenacaoDisciplinasMain"
-            orderToCheck="disciplina.codigo"
-            width="80"
-            align="start"
-          >
-            Código
-          </v-th-ordination>
-          <v-th-ordination
-            :currentOrder="ordenacaoDisciplinasMain"
-            orderToCheck="disciplina.nome"
-            width="400"
-            align="start"
-          >
-            Disciplina
-          </v-th-ordination>
-        </template>
+      <div class="div-table">
+        <BaseTable styles="height:calc(100vh - 130px)">
+          <template #thead>
+            <v-th-ordination
+              :currentOrder="ordenacaoDisciplinasMain"
+              orderToCheck="periodo"
+              width="35"
+              title="Período"
+            >
+              P.
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoDisciplinasMain"
+              orderToCheck="disciplina.codigo"
+              width="80"
+              align="start"
+            >
+              Código
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoDisciplinasMain"
+              orderToCheck="disciplina.nome"
+              width="400"
+              align="start"
+            >
+              Disciplina
+            </v-th-ordination>
+          </template>
 
-        <template #tbody>
-          <tr
-            v-for="disciplinaGrade in DisciplinaGradesOrdered"
-            @click="handleClickInDisciplina(disciplinaGrade)"
-            :key="disciplinaGrade.Disciplina"
-            :class="[
-              'clickable',
-              { 'bg-custom': isEven(disciplinaGrade.periodo) },
-              { 'bg-selected': disciplinaSelectedId === disciplinaGrade.Disciplina },
-            ]"
-          >
-            <v-td width="35">{{ disciplinaGrade.periodo }}</v-td>
-            <v-td width="80" align="start">
-              {{ disciplinaGrade.disciplina.codigo }}
-            </v-td>
-            <v-td width="400" align="start">
-              {{ disciplinaGrade.disciplina.nome }}
-            </v-td>
-          </tr>
+          <template #tbody>
+            <tr
+              v-for="disciplinaGrade in DisciplinaGradesOrdered"
+              @click="handleClickInDisciplina(disciplinaGrade)"
+              :key="disciplinaGrade.Disciplina"
+              :class="[
+                'clickable',
+                { 'bg-custom': isEven(disciplinaGrade.periodo) },
+                { 'bg-selected': disciplinaSelectedId === disciplinaGrade.Disciplina },
+              ]"
+            >
+              <v-td width="35">{{ disciplinaGrade.periodo }}</v-td>
+              <v-td width="80" align="start">
+                {{ disciplinaGrade.disciplina.codigo }}
+              </v-td>
+              <v-td width="400" align="start">
+                {{ disciplinaGrade.disciplina.nome }}
+              </v-td>
+            </tr>
 
-          <tr v-if="!hasGradeSelected">
-            <v-td width="515" colspan="3">
-              <b>Nenhuma disciplina encontrada</b>
-              , selecione uma grade.
-            </v-td>
-          </tr>
-          <tr v-else-if="!DisciplinaGradesOrdered.length">
-            <v-td width="515" colspan="3">
-              <b>Nenhuma disciplina encontrada</b>
-              na grade selecionada.
-            </v-td>
-          </tr>
-        </template>
-      </BaseTable>
+            <tr v-if="!hasGradeSelected">
+              <v-td width="515" colspan="3">
+                <b>Nenhuma disciplina encontrada</b>
+                , selecione uma grade.
+              </v-td>
+            </tr>
+            <tr v-else-if="!DisciplinaGradesOrdered.length">
+              <v-td width="515" colspan="3">
+                <b>Nenhuma disciplina encontrada</b>
+                na grade selecionada.
+              </v-td>
+            </tr>
+          </template>
+        </BaseTable>
+      </div>
     </div>
 
     <Card :title="'Disciplinas'" width="415">
