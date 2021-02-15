@@ -9,25 +9,29 @@
       :placeholder="placeholder"
       :aria-describedby="feedbackId"
       :disabled="disabled"
+      :min="min"
       size="sm"
       autocomplete="off"
       step="1"
-      min="0"
     />
 
     <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId" style="">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
-      <template v-if="validation.$params.maxLength && !validation.maxLength">
+      <template v-else-if="validation.$params.maxLength && !validation.maxLength">
         Limite de caracteres excedido
       </template>
-      <template v-if="validation.$params.integer && !validation.integer">
+      <template v-else-if="validation.$params.integer && !validation.integer">
         Número deve ser inteiro
       </template>
-      <template v-if="validation.$params.maxValue && !validation.maxValue">
+      <template v-else-if="validation.$params.maxValue && !validation.maxValue">
         Valor máximo excedido
       </template>
+      <template v-else-if="validation.$params.minValue && !validation.minValue">
+        Valor minimo excedido
+      </template>
+      <template v-else>Valor inválido</template>
     </b-form-invalid-feedback>
   </b-form-group>
 </template>
@@ -45,6 +49,7 @@ export default {
     validation: { type: Object, default: null },
     placeholder: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
+    min: { type: Number, default: 0 },
   },
 
   methods: {
