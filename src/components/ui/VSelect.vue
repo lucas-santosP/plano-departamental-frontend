@@ -19,6 +19,7 @@
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
+      <template v-else>Valor inválido</template>
     </b-form-invalid-feedback>
   </b-form-group>
 </template>
