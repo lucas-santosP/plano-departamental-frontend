@@ -6,9 +6,12 @@
       @input="emitInput"
       :state="isValid"
       :aria-describedby="feedbackId"
+      :disabled="disabled"
       size="sm"
+      @change="$emit('change', $event)"
     >
-      <b-form-select-option value="" disabled>Selecione...</b-form-select-option>
+      <VOption v-if="value === null" :value="null" text="Selecione..." disabled />
+      <VOption v-else :value="''" text="Selecione..." disabled />
       <slot></slot>
     </b-form-select>
 
@@ -22,14 +25,27 @@
 
 <script>
 import { uniqueId } from "lodash-es";
+import VOption from "./VOption";
 
 export default {
   name: "VSelect",
+  components: { VOption },
   props: {
     id: { type: String, default: () => uniqueId() },
-    value: { type: [String, Number], required: true },
+    value: {
+      required: true,
+      validator: (prop) => {
+        return (
+          typeof prop === "string" ||
+          typeof prop === "number" ||
+          typeof prop === "object" ||
+          prop === null
+        );
+      },
+    },
     label: { type: String, default: "" },
     validation: { type: Object, default: null },
+    disabled: { type: Boolean, default: false },
   },
 
   methods: {

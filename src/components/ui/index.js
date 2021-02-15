@@ -7,11 +7,13 @@ import InputsPedidosDCC from "./InputsPedidosDCC.vue";
 import Logo from "./Logo.vue";
 import ButtonArrow from "./ButtonArrow.vue";
 import VSelect from "./VSelect.vue";
+import VOption from "./VOption.vue";
 import VInput from "./VInput.vue";
 import VCheckbox from "./VCheckbox.vue";
 
 export {
   VSelect,
+  VOption,
   VInput,
   VCheckbox,
   Logo,
