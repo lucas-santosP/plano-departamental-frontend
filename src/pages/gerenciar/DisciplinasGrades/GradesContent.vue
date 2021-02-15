@@ -73,108 +73,115 @@
       </div>
     </div>
 
-    <Card :title="'Disciplinas'" width="415">
+    <Card title="Disciplinas" width="420">
       <template #body>
-        <div class="row mb-2 mx-0">
-          <div class="form-group col m-0 px-0 mr-3">
-            <label for="cursoAtual" class="col-form-label">Curso</label>
-            <select
-              id="cursoAtual"
-              v-model="currentCursoId"
-              @change="changeCurso"
-              class="form-control form-control-sm w-100"
-            >
-              <option v-for="curso in CursosOptions" :key="curso.nome + curso.id" :value="curso.id">
-                {{ curso.nome }}
-              </option>
-            </select>
+        <div class="row">
+          <div class="col-8">
+            <VSelect label="Curso" v-model="currentCursoId" @change="handleSelectCursos">
+              <VOption v-if="!CursosOptions.length" text="Nenhum cursos encontrado" />
+              <VOption
+                v-for="curso in CursosOptions"
+                :key="curso.nome + curso.id"
+                :value="curso.id"
+                :text="curso.nome"
+              />
+            </VSelect>
           </div>
 
-          <div class="form-group m-0 px-0">
-            <label for="gradeSelect" class="col-form-label">Grade</label>
-            <select
-              :disabled="!hasCursoSelected"
-              id="gradeSelect"
+          <div class="col">
+            <VSelect
+              label="Grade"
               v-model="currentGradeId"
-              @change="changeGrade"
-              class="form-control form-control-sm input-sm"
+              @change="handleSelectGrade"
+              :disabled="!hasCursoSelected"
             >
-              <option
+              <VOption v-if="!GradesOptionsFiltred.length" text="Nenhuma grade encontrada" />
+              <VOption
                 v-for="grade in GradesOptionsFiltred"
                 :key="grade.id + grade.nome"
                 :value="grade.id"
-              >
-                {{ grade.nome }}
-              </option>
-            </select>
+                :text="grade.nome"
+              />
+            </VSelect>
           </div>
         </div>
 
-        <div class="w-100 border mt-3 mb-2"></div>
+        <div class="w-100 border my-2"></div>
 
-        <div class="row mb-2 mx-0">
-          <div class="form-group m-0 col px-0">
-            <label required for="disciplina" class="col-form-label">Disciplina</label>
-            <select
-              :disabled="!hasGradeSelected"
-              type="text"
-              id="disciplina"
-              class="form-control form-control-sm w-100"
+        <VSelect
+          label="Disciplina"
+          v-model="disciplinaGradeForm.Disciplina"
+          :validation="$v.disciplinaGradeForm.Disciplina"
+          @change="handleSelectDisciplina"
+          :disabled="!hasGradeSelected"
+        >
+          <VOption v-if="!DisciplinasOptions.length" text="Nenhuma disciplina encontrada" />
+          <VOption
+            v-for="disciplina in DisciplinasOptions"
+            :key="disciplina.id + disciplina.nome"
+            :value="disciplina.id"
+            :text="disciplina.nome"
+          />
+        </VSelect>
+
+        <div class="row">
+          <div class="col-7">
+            <VSelect
+              label="Código"
               v-model="disciplinaGradeForm.Disciplina"
-              @change="clearClick(), updateDisciplinaForm()"
+              :validation="$v.disciplinaGradeForm.Disciplina"
+              @change="handleSelectDisciplina"
+              :disabled="!hasGradeSelected"
             >
-              <option v-if="!DisciplinasOptions.length">Nenhuma Disciplina Encontrada</option>
-              <option
+              <VOption v-if="!DisciplinasOptions.length" text="Nenhuma disciplina encontrada" />
+              <VOption
                 v-for="disciplina in DisciplinasOptions"
                 :key="disciplina.id + disciplina.nome"
                 :value="disciplina.id"
-              >
-                {{ disciplina.nome }}
-              </option>
-            </select>
+                :text="disciplina.codigo"
+              />
+            </VSelect>
           </div>
-        </div>
 
-        <div class="row mb-2 mx-0">
-          <div class="form-group m-0 col px-0">
-            <label required for="periodoDisciplina" class="col-form-label">Período</label>
-            <div class="d-flex align-items-center">
-              <input
-                :disabled="!hasGradeSelected"
-                type="number"
-                id="periodoDisciplina"
-                class="form-control form-control-sm input-sm mr-2"
-                v-model="disciplinaGradeForm.periodo"
-              />
+          <div class="col-3">
+            <VInput
+              inputType="number"
+              label="Período"
+              v-model.number="disciplinaGradeForm.periodo"
+              :validation="$v.disciplinaGradeForm.periodo"
+              :min="1"
+              :disabled="!hasGradeSelected"
+            />
+          </div>
 
-              <BaseButton
-                :disabled="!hasGradeSelected"
-                template="salvar"
-                title="Salvar período"
-                @click="handleUpdateDisciplinaGrade"
-              />
-            </div>
+          <div class="col">
+            <BaseButton
+              :disabled="!hasGradeSelected || !isEditDisciplina"
+              template="salvar"
+              title="Atualizar período da disciplina"
+              class="btn-append"
+              @click="handleUpdateDisciplinaGrade"
+            />
           </div>
         </div>
       </template>
 
       <template #footer>
         <BaseButton
-          v-show="!isEditDisciplina"
           template="adicionar"
           title="Adicionar à Grade"
-          :disabled="!hasGradeSelected"
           @click="handleCreateDisciplinaGrade"
+          :disabled="!hasGradeSelected || isEditDisciplina"
         />
 
         <BaseButton
           template="deletar"
           title="Deletar Disciplina"
-          :disabled="!hasGradeSelected"
           @click="$refs.modalDelete.open()"
+          :disabled="!hasGradeSelected || !isEditDisciplina"
         />
 
-        <BaseButton template="cancelar" :disabled="!hasGradeSelected" @click="clearDisciplina" />
+        <BaseButton template="cancelar" @click="clearDisciplina" :disabled="!hasGradeSelected" />
       </template>
     </Card>
 
@@ -198,8 +205,9 @@
 <script>
 import { mapGetters } from "vuex";
 import { cloneDeep, orderBy } from "lodash-es";
+import { required, integer, maxValue, minValue } from "vuelidate/lib/validators";
 import { ModalDelete } from "@/components/modals";
-import { Card, NavTab } from "@/components/ui";
+import { Card, NavTab, VInput, VSelect, VOption } from "@/components/ui";
 
 const emptyGrade = {
   id: null,
@@ -209,14 +217,14 @@ const emptyGrade = {
 };
 const emptyDisciplinaGrade = {
   periodo: 1,
-  Disciplina: null,
-  Grade: null,
-  disciplina: null,
+  Disciplina: "",
+  Grade: "",
+  disciplina: {},
 };
 
 export default {
-  name: "BaseDisciplinasGrades",
-  components: { Card, ModalDelete, NavTab },
+  name: "GradesContent",
+  components: { Card, ModalDelete, NavTab, VInput, VSelect, VOption },
   props: {
     currentTab: { type: String, required: true },
     arraysData: {
@@ -244,19 +252,47 @@ export default {
       ordenacaoDisciplinasMain: { order: "periodo", type: "asc" },
     };
   },
+  validations: {
+    disciplinaGradeForm: {
+      periodo: { required, integer, maxValue: maxValue(15), minValue: minValue(1) },
+      Disciplina: { required },
+    },
+  },
 
   methods: {
-    updateDisciplinaForm() {
+    handleSelectCursos() {
+      ///Curso foi selecionado mas grade ainda não foi selecionada
+      this.clearDisciplina();
+      this.clearGradeForm();
+      this.currentGradeId = null;
+    },
+    handleSelectGrade() {
+      this.clearDisciplina();
+      if (this.currentGradeId) this.showGrade(this.currentGradeId);
+    },
+    handleSelectDisciplina() {
       const disciplinaFound = this.AllDisciplinas.find(
         (disciplina) => disciplina.id === this.disciplinaGradeForm.Disciplina
       );
+      if (!disciplinaFound) return;
+
       this.disciplinaGradeForm.disciplina = { ...disciplinaFound };
+      this.disciplinaGradeForm.Grade = this.currentGradeId;
+
+      const disciplinaDaGradeAtual = this.DisciplinaGradesFiltred.find(
+        (disciplinaGrade) => disciplinaGrade.Disciplina === disciplinaFound.id
+      );
+      if (disciplinaDaGradeAtual) {
+        this.disciplinaSelectedId = disciplinaFound.id;
+        this.disciplinaGradeForm.periodo = disciplinaDaGradeAtual.periodo;
+      } else {
+        this.clearClick();
+      }
     },
     handleClickInDisciplina(disciplinaGrade) {
       this.disciplinaSelectedId = disciplinaGrade.Disciplina;
-
-      this.showDisciplina(disciplinaGrade);
       this.showGrade(this.currentGradeId);
+      this.showDisciplina(disciplinaGrade);
     },
     clearClick() {
       this.disciplinaSelectedId = null;
@@ -267,40 +303,28 @@ export default {
     clearDisciplina() {
       this.clearClick();
       this.disciplinaGradeForm = cloneDeep(emptyDisciplinaGrade);
-    },
-    clearAllForm() {
-      this.clearDisciplina();
-      this.clearGradeForm();
-      this.currentGradeId = null;
-      this.currentCursoId = null;
+      this.$nextTick(() => this.$v.$reset());
     },
     showGrade(gradeId) {
-      this.clearGradeForm();
       const grade = this.arraysData.Grades.find((grade) => grade.id === gradeId);
       this.gradeForm = cloneDeep(grade);
-      this.disciplinaGradeForm.Grade = this.gradeForm.id;
-    },
-    changeCurso() {
-      ///Curso foi selecionado mas grade ainda não foi selecionada
-      this.clearDisciplina();
-      this.clearGradeForm();
-      this.currentGradeId = null;
-    },
-    changeGrade() {
-      this.clearDisciplina();
-      if (this.currentGradeId) this.showGrade(this.currentGradeId);
     },
     showDisciplina(disciplinaGrade) {
-      this.clearDisciplina;
       this.disciplinaGradeForm = cloneDeep(disciplinaGrade);
+      this.disciplinaGradeForm.Grade = this.gradeForm.id;
     },
     isEven(number) {
       return number % 2 === 0;
     },
     async handleCreateDisciplinaGrade() {
+      this.$v.disciplinaGradeForm.$touch();
+      if (this.$v.disciplinaGradeForm.$anyError) return;
+
       try {
+        this.setLoading({ type: "partial", value: true });
         const disciplinaGrade = { ...this.disciplinaGradeForm };
-        await this.disciplinaGradeServices.create(disciplinaGrade);
+        const response = await this.disciplinaGradeServices.create(disciplinaGrade);
+        this.disciplinaSelectedId = response.DisciplinaGrade.Disciplina;
         this.$notify({
           group: "general",
           title: "Sucesso!",
@@ -315,10 +339,16 @@ export default {
           text: "Erro ao incluir disciplina, verifique se a disciplina já não existe na grade",
           type: "error",
         });
+      } finally {
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleUpdateDisciplinaGrade() {
+      this.$v.disciplinaGradeForm.$touch();
+      if (this.$v.disciplinaGradeForm.$anyError) return;
+
       try {
+        this.setLoading({ type: "partial", value: true });
         const disciplinaGrade = { ...this.disciplinaGradeForm };
         await this.disciplinaGradeServices.update(
           disciplinaGrade.Disciplina,
@@ -338,10 +368,13 @@ export default {
           text: "Erro ao atualizar disciplina",
           type: "error",
         });
+      } finally {
+        this.setLoading({ type: "partial", value: false });
       }
     },
     async handleDeleteDisciplinaGrade() {
       try {
+        this.setLoading({ type: "partial", value: true });
         const disciplinaGrade = { ...this.disciplinaGradeForm };
         await this.disciplinaGradeServices.delete(
           disciplinaGrade.Disciplina,
@@ -363,6 +396,8 @@ export default {
           text: "Erro ao excluir disciplina",
           type: "error",
         });
+      } finally {
+        this.setLoading({ type: "partial", value: false });
       }
     },
   },
@@ -400,3 +435,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn-append {
+  margin-top: 23px !important; /* altura do label */
+}
+</style>
