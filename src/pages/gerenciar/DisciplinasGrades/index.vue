@@ -5,7 +5,7 @@
     </portal>
 
     <keep-alive>
-      <GradesContent
+      <DisciplinasGradesContent
         v-if="currentTab === 'DCC'"
         key="DCC"
         :arraysData="contentPropsDCC.arraysData"
@@ -13,7 +13,7 @@
         :currentTab="currentTab"
         @change-tab="currentTab = $event"
       />
-      <GradesContent
+      <DisciplinasGradesContent
         v-else
         key="Outros"
         :arraysData="contentPropsOutros.arraysData"
@@ -69,11 +69,11 @@ import { mapGetters } from "vuex";
 import disciplinaGradeExternoService from "@/services/disciplinaGradeCursoExterno";
 import disciplinaGradeService from "@/services/disciplinaGrade";
 import { ModalAjuda } from "@/components/modals";
-import GradesContent from "./GradesContent";
+import DisciplinasGradesContent from "./DisciplinasGradesContent";
 
 export default {
   name: "GerenciarGrades",
-  components: { GradesContent, ModalAjuda },
+  components: { DisciplinasGradesContent, ModalAjuda },
   data() {
     return {
       currentTab: "DCC",

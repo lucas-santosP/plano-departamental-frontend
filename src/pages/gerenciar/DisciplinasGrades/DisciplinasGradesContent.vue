@@ -223,7 +223,7 @@ const emptyDisciplinaGrade = {
 };
 
 export default {
-  name: "GradesContent",
+  name: "DisciplinasGradesContent",
   components: { Card, ModalDelete, NavTab, VInput, VSelect, VOption },
   props: {
     currentTab: { type: String, required: true },
