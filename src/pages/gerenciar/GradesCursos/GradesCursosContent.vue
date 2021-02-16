@@ -55,59 +55,49 @@
       @btn-clean="cleanGrade"
     >
       <template #body>
-        <div class="row mb-2 mx-0">
-          <div class="form-group col-8 m-0 px-0">
-            <label required for="gradeNome" class="col-form-label">Nome</label>
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              id="gradeNome"
-              @change="gradeForm.nome = normalizeInputText($event)"
-              :value="gradeForm.nome"
-            />
+        <div class="row">
+          <div class="col-8">
+            <VInput label="Nome" v-model="gradeForm.nome" :validation="$v.gradeForm.nome" />
           </div>
-
-          <div class="form-group col-4 m-0 px-0">
-            <label required for="periodoInicio" class="col-form-label">Período de Início</label>
-            <input
-              type="text"
-              id="periodoInicio"
-              class="form-control form-control-sm"
+          <div class="col">
+            <VInput
+              label="Período de Início"
               v-model="gradeForm.periodoInicio"
+              :validation="$v.gradeForm.periodoInicio"
+              placeholder="Ex: 2018.3"
             />
           </div>
         </div>
 
-        <div class="row mb-2 mx-0">
-          <div class="form-group col-8 m-0 px-0">
-            <label required for="gradeCurso" class="col-form-label">Curso</label>
-            <select
-              id="gradeCurso"
-              class="form-control form-control-sm"
+        <div class="row">
+          <div class="col-8">
+            <VSelect
+              label="Curso"
+              v-model.number="gradeForm.Curso"
+              :validation="$v.gradeForm.Curso"
               :title="getCursoNome(gradeForm.Curso)"
-              v-model.number="gradeForm.Curso"
             >
-              <option v-for="curso in CursosOptions" :key="curso.id + curso.nome" :value="curso.id">
-                {{ curso.nome }}
-              </option>
-            </select>
+              <VOption
+                v-for="curso in CursosOptions"
+                :key="curso.id + curso.nome"
+                :value="curso.id"
+                :text="curso.nome"
+              />
+            </VSelect>
           </div>
-
-          <div class="form-group col-4 m-0 px-0">
-            <label required for="gradeCursoCodigo" class="col-form-label">Código</label>
-            <select
-              id="gradeCursoCodigo"
-              class="form-control form-control-sm"
+          <div class="col">
+            <VSelect
+              label="Código"
               v-model.number="gradeForm.Curso"
+              :validation="$v.gradeForm.Curso"
             >
-              <option
+              <VOption
                 v-for="curso in CursosOptions"
                 :key="curso.id + curso.codigo"
                 :value="curso.id"
-              >
-                {{ curso.codigo }}
-              </option>
-            </select>
+                :text="curso.codigo"
+              />
+            </VSelect>
           </div>
         </div>
       </template>
@@ -128,21 +118,14 @@
 
 <script>
 import { clone, orderBy } from "lodash-es";
-import { normalizeInputText } from "@/common/mixins";
+import { required, maxLength, minLength, decimal } from "vuelidate/lib/validators";
+import { makeEmptyGrade } from "@utils/factories";
 import { ModalDelete } from "@/components/modals";
-import { Card, NavTab } from "@/components/ui";
-
-const emptyGrade = {
-  id: null,
-  periodoInicio: null,
-  Curso: null,
-  nome: null,
-};
+import { Card, VInput, VSelect, VOption, NavTab } from "@/components/ui";
 
 export default {
   name: "GradesCursosContent",
-  mixins: [normalizeInputText],
-  components: { Card, ModalDelete, NavTab },
+  components: { Card, ModalDelete, NavTab, VInput, VSelect, VOption },
   props: {
     currentTab: { type: String, required: true },
     arraysData: {
@@ -162,16 +145,24 @@ export default {
   },
   data() {
     return {
-      gradeForm: clone(emptyGrade),
+      gradeForm: makeEmptyGrade(),
       gradeSelected: null,
       ordenacaoCursos: { order: "nome", type: "asc" },
     };
   },
+  validations: {
+    gradeForm: {
+      nome: { required, maxLength: maxLength(9) },
+      periodoInicio: { required, decimal, maxLength: maxLength(6), minLength: minLength(6) },
+      Curso: { required },
+    },
+  },
 
   methods: {
     cleanGrade() {
-      this.gradeForm = clone(emptyGrade);
+      this.gradeForm = makeEmptyGrade();
       this.gradeSelected = null;
+      this.$nextTick(() => this.$v.$reset());
     },
     showGrade(grade) {
       this.cleanGrade();
@@ -185,6 +176,9 @@ export default {
       return cursoFound ? cursoFound.nome : "";
     },
     async handleCreateGrade() {
+      this.$v.gradeForm.$touch();
+      if (this.$v.gradeForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
         await this.gradeService.create(this.gradeForm);
@@ -200,6 +194,9 @@ export default {
       }
     },
     async handleEditGrade() {
+      this.$v.gradeForm.$touch();
+      if (this.$v.gradeForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
         await this.gradeService.update(this.gradeForm);
