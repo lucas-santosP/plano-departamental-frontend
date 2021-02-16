@@ -206,21 +206,9 @@
 import { mapGetters } from "vuex";
 import { cloneDeep, orderBy } from "lodash-es";
 import { required, integer, maxValue, minValue } from "vuelidate/lib/validators";
+import { makeEmptyGrade, makeEmptyDisciplinaGrade } from "@utils/factories";
 import { ModalDelete } from "@/components/modals";
 import { Card, NavTab, VInput, VSelect, VOption } from "@/components/ui";
-
-const emptyGrade = {
-  id: null,
-  periodoInicio: null,
-  Curso: null,
-  nome: null,
-};
-const emptyDisciplinaGrade = {
-  periodo: 1,
-  Disciplina: "",
-  Grade: "",
-  disciplina: {},
-};
 
 export default {
   name: "DisciplinasGradesContent",
@@ -244,8 +232,8 @@ export default {
   },
   data() {
     return {
-      disciplinaGradeForm: cloneDeep(emptyDisciplinaGrade),
-      gradeForm: cloneDeep(emptyGrade),
+      disciplinaGradeForm: makeEmptyDisciplinaGrade(),
+      gradeForm: makeEmptyGrade(),
       currentGradeId: null,
       currentCursoId: null,
       disciplinaSelectedId: null,
@@ -298,11 +286,11 @@ export default {
       this.disciplinaSelectedId = null;
     },
     clearGradeForm() {
-      this.gradeForm = cloneDeep(emptyGrade);
+      this.gradeForm = makeEmptyGrade();
     },
     clearDisciplina() {
       this.clearClick();
-      this.disciplinaGradeForm = cloneDeep(emptyDisciplinaGrade);
+      this.disciplinaGradeForm = makeEmptyDisciplinaGrade();
       this.$nextTick(() => this.$v.$reset());
     },
     showGrade(gradeId) {
