@@ -44,6 +44,19 @@
         />
       </div>
     </div>
+
+    <portal to="loading-content">
+      <BaseButton
+        color="gray"
+        text="Cancelar"
+        class="paddingX-20"
+        :disable="abortImport"
+        @click="
+          abortImport = true;
+          closeModal();
+        "
+      />
+    </portal>
   </div>
 </template>
 
@@ -135,7 +148,6 @@ export default {
         await this.finishProgressBar();
       }
     },
-
     async createTurmasFileSIGA(turmasSIGA, newPlano, periodo) {
       if (!turmasSIGA.length) return;
 
@@ -163,14 +175,12 @@ export default {
         }
       }
     },
-
     async handleCreatePedidoOferecido(turmaSIGA, keysTurmaSIGA, turmaId) {
       const pedidoOferecido = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, turmaId);
       if (pedidoOferecido) {
         await this.createPedidoOferecido({ data: pedidoOferecido }).catch(() => {});
       }
     },
-
     turmasIsEqual(turma1, turma2) {
       return turma1.letra === turma2.letra && turma1.Disciplina === turma2.Disciplina;
     },

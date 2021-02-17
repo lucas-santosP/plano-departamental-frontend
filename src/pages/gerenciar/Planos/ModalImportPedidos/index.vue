@@ -48,6 +48,19 @@
           />
         </div>
       </div>
+
+      <portal to="loading-content">
+        <BaseButton
+          color="gray"
+          text="Cancelar"
+          class="paddingX-20"
+          :disable="abortImport"
+          @click="
+            abortImport = true;
+            close();
+          "
+        />
+      </portal>
     </template>
 
     <template #modal-footer>
