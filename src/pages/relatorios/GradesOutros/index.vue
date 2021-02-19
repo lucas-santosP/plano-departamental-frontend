@@ -531,7 +531,7 @@ export default {
       "AllPerfis",
       "AllCursos",
       "AllGradesCursosExternos",
-      "DisciplinasDasGradesCursosExternos",
+      "DisciplinasGradesExternas",
     ]),
 
     CursosComGrades() {
@@ -626,7 +626,7 @@ export default {
 
     DisciplinasComGrades() {
       let Disciplinas = [];
-      this.DisciplinasDasGradesCursosExternos.forEach((g) => {
+      this.DisciplinasGradesExternas.forEach((g) => {
         if (!find(Disciplinas, { id: g.Disciplina })) {
           Disciplinas.push(find(this.AllDisciplinas, { id: g.Disciplina }));
         }

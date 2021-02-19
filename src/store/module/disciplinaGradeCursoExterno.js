@@ -40,7 +40,10 @@ const mutations = {
 };
 
 const actions = {
-  fetchAll({ commit }) {
+  fetchAll({ dispatch }) {
+    return dispatch("fetchDisciplinaGradeExterna");
+  },
+  fetchDisciplinaGradeExterna({ commit }) {
     return new Promise((resolve, reject) => {
       disciplinaGradeCursoExternoService
         .fetchAll()
@@ -56,9 +59,6 @@ const actions = {
 };
 
 const getters = {
-  DisciplinasDasGradesCursosExternos(state) {
-    return state.DisciplinaGrades;
-  },
   DisciplinasGradesExternas(state, rootGetters) {
     return state.DisciplinaGrades.map((disciplinaGrade) => {
       const disciplinaFound = rootGetters.AllDisciplinas.find(

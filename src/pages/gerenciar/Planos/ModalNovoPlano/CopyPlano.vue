@@ -462,7 +462,7 @@ export default {
       for (let prop in gradesExternasAtivas.semestre1) {
         let curso = find(this.AllCursos, { codigo: prop });
         for (let i = 0; i < gradesExternasAtivas.semestre1[prop].length; i++) {
-          let disciplinasGrade = filter(this.DisciplinasDasGradesCursosExternos, {
+          let disciplinasGrade = filter(this.DisciplinasGradesExternas, {
             Grade: gradesExternasAtivas.semestre1[prop][i].id,
           });
 
@@ -615,7 +615,7 @@ export default {
       for (let prop in gradesExternasAtivas.semestre2) {
         let curso = find(this.AllCursos, { codigo: prop });
         for (let i = 0; i < gradesExternasAtivas.semestre2[prop].length; i++) {
-          let disciplinasGrade = filter(this.DisciplinasDasGradesCursosExternos, {
+          let disciplinasGrade = filter(this.DisciplinasGradesExternas, {
             Grade: gradesExternasAtivas.semestre2[prop][i].id,
           });
 
@@ -1023,7 +1023,7 @@ export default {
       "AllGrades",
       "AllCursos",
       "AllGradesCursosExternos",
-      "DisciplinasDasGradesCursosExternos",
+      "DisciplinasGradesExternas",
     ]),
 
     DisciplinasOrderedModal() {
