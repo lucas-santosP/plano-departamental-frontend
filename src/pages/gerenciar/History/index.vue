@@ -24,13 +24,13 @@
               {{ history.campoModificado }}
             </v-td>
             <v-td width="200" paddingX="0">
-              {{ linhaModificada(history) }}
+              {{ getLinhaModificada(history) }}
             </v-td>
             <v-td width="120" paddingX="0">
-              {{ valorAnterior(history) }}
+              {{ getValorAnterior(history) }}
             </v-td>
             <v-td width="120" paddingX="0">
-              {{ valorNovo(history) }}
+              {{ getValorNovo(history) }}
             </v-td>
             <v-td width="65" paddingX="0">
               {{ history.tipoOperacao }}
@@ -117,8 +117,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { some, find, filter, orderBy } from "lodash-es";
-import { toggleItemInArray, toggleAsideModal, preventClickSelection } from "@/common/mixins";
+import { some, find, orderBy } from "lodash-es";
+import { toggleItemInArray, toggleAsideModal, preventClickSelection } from "@mixins";
 import { parseDateUTC } from "@/common/utils";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
@@ -178,7 +178,7 @@ export default {
     ...mapActions(["fetchAllHistory", "clearHistoryState"]),
     parseDateUTC,
 
-    linhaModificada(h) {
+    getLinhaModificada(h) {
       let linha = h.linhaModificada;
       let aux = undefined;
       switch (h.tabelaModificada) {
@@ -309,7 +309,7 @@ export default {
       }
       return linha;
     },
-    valorAnterior(h) {
+    getValorAnterior(h) {
       let v = h.valorAnterior;
       switch (h.campoModificado) {
       case "Curso":
@@ -382,7 +382,7 @@ export default {
 
       return v;
     },
-    valorNovo(h) {
+    getValorNovo(h) {
       let v = h.valorNovo;
       switch (h.campoModificado) {
       case "Curso":
@@ -461,17 +461,17 @@ export default {
     ...mapGetters(["onLoading", "History"]),
 
     HistoryOrdered() {
-      return orderBy(this.HistoryFilteredByOperacao, "id", "desc");
+      return orderBy(this.HistoryFiltered, "id", "desc");
     },
-    HistoryFilteredByOperacao() {
-      return filter(this.HistoryFilteredByTabelas, (history) =>
-        some(this.filtroOperacoes.ativados, ["id", history.tipoOperacao])
-      );
-    },
-    HistoryFilteredByTabelas() {
-      return filter(this.History, (history) =>
-        some(this.filtroTabelas.ativados, ["id", history.tabelaModificada])
-      );
+    HistoryFiltered() {
+      const filterByOperacao = (history) => {
+        return some(this.filtroOperacoes.ativados, ["id", history.tipoOperacao]);
+      };
+      const filterByOTabela = (history) => {
+        return some(this.filtroTabelas.ativados, ["id", history.tabelaModificada]);
+      };
+
+      return this.History.filter(filterByOTabela).filter(filterByOperacao);
     },
     OperacoesOptions() {
       return [
