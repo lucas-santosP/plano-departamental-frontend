@@ -54,7 +54,10 @@ export default {
 
   methods: {
     emitInput(newValue) {
-      this.$emit("input", newValue.toUpperCase());
+      let newValueNormalized = newValue;
+      if (this.inputType === "text") newValueNormalized = newValue.toUpperCase();
+
+      this.$emit("input", newValueNormalized);
       if (this.validation) this.validation.$touch();
     },
   },
