@@ -10,8 +10,10 @@ import VSelect from "./VSelect.vue";
 import VOption from "./VOption.vue";
 import VInput from "./VInput.vue";
 import VCheckbox from "./VCheckbox.vue";
+import VTextarea from "./VTextarea.vue";
 
 export {
+  VTextarea,
   VSelect,
   VOption,
   VInput,

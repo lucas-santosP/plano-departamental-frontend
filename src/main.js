@@ -24,6 +24,7 @@ import {
   FormGroupPlugin,
   FormInputPlugin,
   BFormCheckbox,
+  BFormTextarea,
 } from "bootstrap-vue";
 Vue.use(FormPlugin);
 Vue.use(FormGroupPlugin);
@@ -31,6 +32,7 @@ Vue.use(FormInputPlugin);
 Vue.use(FormSelectPlugin);
 Vue.directive("b-popover", VBPopover);
 Vue.component("b-form-checkbox", BFormCheckbox);
+Vue.component("b-form-textarea", BFormTextarea);
 
 //Global components
 import { BaseTable, BaseModal, BaseButton, VTd, VTh, VThOrdination } from "./components/global";
