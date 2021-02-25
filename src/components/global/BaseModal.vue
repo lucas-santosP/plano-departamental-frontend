@@ -148,6 +148,7 @@ export default {
   watch: {
     visibility(newValue) {
       if (this.options.hasOverlay) this.setModalOverlayVisibility(newValue);
+      if (!newValue) this.$emit("on-close");
     },
     modalOverlayVisibility(newValue) {
       //Para fechar o modal quando clicar no olverlay
@@ -211,6 +212,17 @@ export default {
     display: block !important;
     overflow-y: auto !important;
     padding: 15px 20px;
+    font-size: 12px;
+
+    ::v-deep {
+      label {
+        font-size: 12px;
+      }
+      select,
+      input:not([type="checkbox"]) {
+        font-size: 12px;
+      }
+    }
   }
 
   > .footer {
