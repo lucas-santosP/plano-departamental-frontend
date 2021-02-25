@@ -15,7 +15,7 @@
       step="1"
     />
 
-    <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId" style="">
+    <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
