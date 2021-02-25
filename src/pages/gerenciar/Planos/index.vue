@@ -194,7 +194,7 @@
         <b>Deletar:</b>
         Clique na linha da tabela do plano que deseja remover. Em seguida, no cartão à direita,
         clique em Remover
-        <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" />
+        <font-awesome-icon :icon="['fas', 'trash']" class="icon-red" />
         e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
@@ -202,6 +202,13 @@
         Clique na linha da tabela do plano que deseja copiar. Em seguida, no cartão à direita,
         clique em Copiar
         <font-awesome-icon :icon="['fas', 'copy']" class="icon-lightblue" />
+        .
+      </li>
+      <li class="list-group-item">
+        <b>Importar pedidos SIGA:</b>
+        Clique na linha da tabela do plano que deseja importar os pedidos. Em seguida, no cartão à
+        direita, clique em Importar
+        <font-awesome-icon :icon="['fas', 'file-import']" class="icon-gray" />
         .
       </li>
       <li class="list-group-item">
