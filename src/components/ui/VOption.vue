@@ -1,5 +1,7 @@
 <template>
-  <b-form-select-option :value="value" :disabled="disabled">{{ text }}</b-form-select-option>
+  <b-form-select-option :value="value" :disabled="disabled">
+    {{ text }}
+  </b-form-select-option>
 </template>
 
 <script>
@@ -17,7 +19,7 @@ export default {
         );
       },
     },
-    text: { type: String, required: true },
+    text: { type: [String, Number], required: true },
     disabled: { type: Boolean, default: false },
   },
 };
