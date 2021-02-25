@@ -11,35 +11,20 @@
       . E você pode cancelar o processo durante a importação apertando a tecla esc.
     </p>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="turmas1">
-          Turmas do
-          <b>primeiro</b>
-          período:
-        </label>
-        <input
-          id="turmas1"
-          type="file"
-          ref="input1periodo"
-          class="w-100 form-control-file"
+    <div class="row">
+      <div class="col">
+        <VInputFile
+          label="Primeiro período"
+          v-model="form.file1Periodo"
+          :validation="$v.form.file1Periodo"
           accept=".csv"
         />
       </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col">
-        <label for="turmas2">
-          Turmas do
-          <b>terceiro</b>
-          período:
-        </label>
-        <input
-          id="turmas3"
-          type="file"
-          ref="input3periodo"
-          class="w-100 form-control-file"
+      <div class="col">
+        <VInputFile
+          label="Terceiro período"
+          v-model="form.file3Periodo"
+          :validation="$v.form.file3Periodo"
           accept=".csv"
         />
       </div>
@@ -62,6 +47,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { requiredIf } from "vuelidate/lib/validators";
 import { parseCSVFileToArray } from "@/common/utils";
 import {
   parseTurmaSIGAToTurma,
@@ -69,9 +55,11 @@ import {
   getKeysTurmaSIGA,
   validateTurmasSIGA,
 } from "@/common/utils/turmasSIGA";
+import { VInputFile } from "@/components/ui";
 
 export default {
   name: "ModalImportPlano",
+  components: { VInputFile },
   props: {
     plano: { type: Object, required: true },
     closeModal: { type: Function, required: true },
@@ -79,7 +67,25 @@ export default {
   data() {
     return {
       abortImport: false,
+      form: {
+        file1Periodo: null,
+        file3Periodo: null,
+      },
     };
+  },
+  validations: {
+    form: {
+      file1Periodo: {
+        requiredIf: requiredIf(function() {
+          return !this.form.file3Periodo;
+        }),
+      },
+      file3Periodo: {
+        requiredIf: requiredIf(function() {
+          return !this.form.file1Periodo;
+        }),
+      },
+    },
   },
   mounted() {
     document.addEventListener("keydown", (event) => {
@@ -102,20 +108,13 @@ export default {
     ]),
 
     async handleImportPlano() {
-      const [file1Periodo] = this.$refs.input1periodo.files;
-      const [file3Periodo] = this.$refs.input3periodo.files;
-      if (!file1Periodo && !file3Periodo) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum arquivo selecionado",
-        });
-        return;
-      }
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) return;
 
       try {
         this.abortImport = false;
-        const turmasFile1Periodo = await parseCSVFileToArray(file1Periodo);
-        const turmasFile3Periodo = await parseCSVFileToArray(file3Periodo);
+        const turmasFile1Periodo = await parseCSVFileToArray(this.form.file1Periodo);
+        const turmasFile3Periodo = await parseCSVFileToArray(this.form.file3Periodo);
         validateTurmasSIGA(turmasFile1Periodo);
         validateTurmasSIGA(turmasFile3Periodo);
 
