@@ -4,7 +4,8 @@
     title="Importar pedidos"
     :hasOverlay="true"
     :hasFooter="true"
-    classes="modal-import-pedidos"
+    :styles="{ width: '500px' }"
+    @on-close="clearForm"
   >
     <template #modal-body>
       <p class="alert alert-secondary">
@@ -24,26 +25,20 @@
         <b>sobreescreve-los.</b>
       </p>
 
-      <div class="row mb-2 mx-0">
-        <div class="form-group col m-0 p-0">
-          <label for="inputPedidos">Primeiro periodo:</label>
-          <input
-            id="inputPedidos"
-            type="file"
-            ref="input1periodo"
-            class="w-100 form-control-file mt-1"
+      <div class="row">
+        <div class="col">
+          <VInputFile
+            label="Primeiro período"
+            v-model="form.file1Periodo"
+            :validation="$v.form.file1Periodo"
             accept=".csv"
           />
         </div>
-      </div>
-      <div class="row mb-2 mx-0">
-        <div class="form-group col m-0 p-0">
-          <label for="inputPedidos">Terceiro periodo:</label>
-          <input
-            id="inputPedidos"
-            type="file"
-            ref="input3periodo"
-            class="w-100 form-control-file mt-1"
+        <div class="col">
+          <VInputFile
+            label="Terceiro período"
+            v-model="form.file3Periodo"
+            :validation="$v.form.file3Periodo"
             accept=".csv"
           />
         </div>
@@ -76,6 +71,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { requiredIf } from "vuelidate/lib/validators";
 import turmaService from "@/services/turma";
 import { parseCSVFileToArray } from "@/common/utils";
 import {
@@ -83,18 +79,38 @@ import {
   getKeysTurmaSIGA,
   validateTurmasSIGA,
 } from "@/common/utils/turmasSIGA";
+import { VInputFile } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",
+  components: { VInputFile },
   props: {
     planoForm: { type: Object, required: true },
   },
   data() {
     return {
+      form: {
+        file1Periodo: null,
+        file3Periodo: null,
+      },
       abortImport: false,
       turmasDoPlanoForm: [],
       planoFormHasPedidosOferecidos: false,
     };
+  },
+  validations: {
+    form: {
+      file1Periodo: {
+        requiredIf: requiredIf(function() {
+          return !this.form.file3Periodo;
+        }),
+      },
+      file3Periodo: {
+        requiredIf: requiredIf(function() {
+          return !this.form.file1Periodo;
+        }),
+      },
+    },
   },
   mounted() {
     document.addEventListener("keydown", this.onEscAbortImport);
@@ -123,6 +139,11 @@ export default {
       event.stopPropagation();
       if (event.code === "Escape") this.abortImport = true;
     },
+    clearForm() {
+      this.form.file1Periodo = null;
+      this.form.file3Periodo = null;
+      this.$nextTick(() => this.$v.$reset());
+    },
     async checkPedidosOferecidos() {
       this.turmasDoPlanoForm = [];
       this.planoFormHasPedidosOferecidos = false;
@@ -139,15 +160,9 @@ export default {
       );
     },
     async handleImportPedidosOferecidos() {
-      const [file1Periodo] = this.$refs.input1periodo.files;
-      const [file3Periodo] = this.$refs.input3periodo.files;
-      if (!file1Periodo && !file3Periodo) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum arquivo selecionado",
-        });
-        return;
-      }
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) return;
+
       if (!this.turmasDoPlanoForm.length) {
         this.pushNotification({
           type: "error",
@@ -158,8 +173,8 @@ export default {
 
       try {
         this.abortImport = false;
-        const turmasFile1Periodo = await parseCSVFileToArray(file1Periodo);
-        const turmasFile3Periodo = await parseCSVFileToArray(file3Periodo);
+        const turmasFile1Periodo = await parseCSVFileToArray(this.form.file1Periodo);
+        const turmasFile3Periodo = await parseCSVFileToArray(this.form.file3Periodo);
         validateTurmasSIGA(turmasFile1Periodo);
         validateTurmasSIGA(turmasFile3Periodo);
         this.initializeProgressBar({
@@ -246,52 +261,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.modal-import-pedidos {
-  font-size: 14px;
-
-  .form-row {
-    margin: 0;
-    padding: 0;
-    margin-bottom: 1rem;
-  }
-
-  .form-group {
-    margin: 0;
-    padding: 0;
-  }
-
-  .alert {
-    width: 470px;
-    margin-bottom: 1rem;
-    padding: 8px 10px;
-    padding-right: 20px;
-    font-size: 12px;
-    word-break: break-word;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .form-control {
-    width: 100%;
-    height: 28px;
-    font-size: 12px;
-    padding: 0 5px;
-    text-align: start;
-  }
-  label {
-    margin: 0;
-  }
-}
-
-.overlay-modal-import {
-  background-color: rgba(46, 46, 46, 0.342);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1005;
-  height: 100vh;
-  width: 100%;
-}
-</style>
