@@ -11,8 +11,10 @@ import VOption from "./VOption.vue";
 import VInput from "./VInput.vue";
 import VCheckbox from "./VCheckbox.vue";
 import VTextarea from "./VTextarea.vue";
+import VInputFile from "./VInputFile.vue";
 
 export {
+  VInputFile,
   VTextarea,
   VSelect,
   VOption,
