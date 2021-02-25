@@ -6,7 +6,7 @@
 
     <div class="page-content">
       <div class="div-table">
-        <BaseTable :styles="'height:max-content'">
+        <BaseTable styles="height:max-content">
           <template #thead>
             <v-th-ordination
               :currentOrder="ordenacaoMainPlanos"
@@ -66,59 +66,27 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Plano Departamental'">
+      <Card title="Plano Departamental" width="330">
         <template #body>
-          <div class="row w-100 m-0 mb-2">
-            <div class="form-group col-8 m-0 p-0">
-              <label required for="planoNome">Nome</label>
-              <input
-                type="text"
-                id="planoNome"
-                class="form-control w-100"
-                maxlength="12"
-                @change="planoForm.nome = normalizeInputText($event)"
-                :value="planoForm.nome"
-              />
+          <div class="row">
+            <div class="col-8">
+              <VInput label="Nome" v-model="planoForm.nome" :validation="$v.planoForm.nome" />
             </div>
-
-            <div class="form-group col-4 m-0 p-0">
-              <label required for="ano">Ano</label>
-              <select id="planoAno" class="form-control w-100" v-model.number="planoForm.ano">
-                <option v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano">
-                  {{ ano }}
-                </option>
-              </select>
+            <div class="col">
+              <VSelect label="Ano" v-model.number="planoForm.ano" :validation="$v.planoForm.ano">
+                <VOption v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano" :text="ano" />
+              </VSelect>
             </div>
           </div>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label for="planoObs">Observações</label>
-              <textarea
-                id="planoObs"
-                cols="38"
-                rows="5"
-                v-model="planoForm.obs"
-                class="form-control"
-              ></textarea>
-            </div>
-          </div>
+          <VTextarea label="Observações" v-model="planoForm.obs" rows="4" />
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col-6 m-0 p-0">
-              <label required for="planoEditavel">Editável</label>
-              <select id="planoEditavel" v-model.number="planoForm.isEditable" class="form-control">
-                <option :value="true">Sim</option>
-                <option :value="false">Não</option>
-              </select>
+          <div class="row">
+            <div class="col">
+              <VCheckbox label="Editável" v-model="planoForm.isEditable" />
             </div>
-
-            <div class="form-group col-6 m-0 p-0">
-              <label required for="planoVisivel">Visível</label>
-              <select id="planoVisivel" v-model.number="planoForm.visible" class="form-control">
-                <option :value="true">Sim</option>
-                <option :value="false">Não</option>
-              </select>
+            <div class="col">
+              <VCheckbox label="Visível" v-model="planoForm.visible" />
             </div>
           </div>
 
@@ -126,10 +94,8 @@
           <div class="row mb-2 mx-0">
             <input 
               type="file" 
-              @change="importTurmaPorDepartamento($event, AllDisciplinas, AllTurmas, AllCursos)"
-            >
-          </div>
-          -->
+              @change="importTurmaPorDepartamento($event, AllDisciplinas, AllTurmas, AllCursos)">
+          </div>  -->
         </template>
 
         <template #footer>
@@ -151,13 +117,11 @@
               <font-awesome-icon :icon="['fas', 'copy']" />
             </BaseButton>
 
-            <BaseButton template="Salvar" @click="handleEditPlano" />
+            <BaseButton class="ml-auto" template="Salvar" @click="handleEditPlano" />
             <BaseButton template="deletar" @click="openModalDelete" />
           </template>
-          <template v-else>
-            <BaseButton template="adicionar" @click="openModalNovoPlano" />
-          </template>
-          <BaseButton template="cancelar" @click="cleanPlanoForm" />
+          <BaseButton v-else template="adicionar" @click="openModalNovoPlano" />
+          <BaseButton template="cancelar" @click="clearPlanoForm" />
         </template>
       </Card>
     </div>
@@ -228,18 +192,18 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { clone, orderBy } from "lodash-es";
+import { required, maxLength, numeric } from "vuelidate/lib/validators";
 import copyPlanoService from "@/services/copyPlano";
 import conceitoTurmaCursoService from "@/services/conceitoTurmaCurso";
-import { normalizeInputText } from "@/common/mixins";
-import { booleanToText } from "@/common/utils";
+import { booleanToText } from "@utils";
 import { ModalAjuda, ModalDelete } from "@/components/modals";
-import { Card } from "@/components/ui";
+import { Card, VInput, VSelect, VOption, VCheckbox, VTextarea } from "@/components/ui";
 import ModalNovoPlano from "./ModalNovoPlano/index";
 import ModalImportPedidos from "./ModalImportPedidos/index";
 import workerSrc from "!!file-loader!pdfjs-dist/build/pdf.worker.min.js";
 
 const emptyPlano = {
-  ano: 2019,
+  ano: new Date().getFullYear(),
   nome: "",
   obs: "",
   isEditable: true,
@@ -248,13 +212,17 @@ const emptyPlano = {
 
 export default {
   name: "GerenciarPlanos",
-  mixins: [normalizeInputText],
   components: {
     ModalAjuda,
     ModalDelete,
     Card,
     ModalNovoPlano,
     ModalImportPedidos,
+    VInput,
+    VSelect,
+    VOption,
+    VCheckbox,
+    VTextarea,
   },
   data() {
     return {
@@ -263,40 +231,40 @@ export default {
       ordenacaoMainPlanos: { order: "ano", type: "asc" },
     };
   },
+  validations: {
+    planoForm: {
+      ano: { required, numeric },
+      nome: { required, maxLength: maxLength(14) },
+    },
+  },
 
   methods: {
     ...mapActions(["createPlano", "deletePlano", "updatePlano"]),
     booleanToText,
 
     handleClickInPlano(plano) {
-      this.cleanPlanoForm();
+      this.clearPlanoForm();
       this.planoSelectedId = plano.id;
       this.planoForm = clone(plano);
     },
-    cleanPlanoForm() {
+    clearPlanoForm() {
       this.planoSelectedId = null;
       this.planoForm = clone(emptyPlano);
+      this.$nextTick(() => this.$v.$reset());
     },
     openModalDelete() {
       this.$refs.modalDelete.open();
     },
     openModalNovoPlano() {
-      if (
-        this.planoForm.ano === "" ||
-        this.planoForm.ano === null ||
-        this.planoForm.nome === "" ||
-        this.planoForm.nome === null
-      )
-        this.pushNotification({
-          type: "error",
-          text: "Campos obrigatórios inválidos ou incompletos.",
-        });
-      else {
-        this.$refs.modalNovoPlano.open();
-      }
-    },
+      this.$v.planoForm.$touch();
+      if (this.$v.planoForm.$anyError) return;
 
+      this.$refs.modalNovoPlano.open();
+    },
     async handleEditPlano() {
+      this.$v.planoForm.$touch();
+      if (this.$v.planoForm.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
         await this.updatePlano({ data: this.planoForm, notify: true });
@@ -314,12 +282,41 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
         await this.deletePlano({ data: this.planoForm, notify: true });
-        this.cleanPlanoForm();
+        this.clearPlanoForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
           title: "Erro ao deletar plano",
           text: "Tente novamente",
+        });
+      } finally {
+        this.setLoading({ type: "partial", value: false });
+      }
+    },
+    async copyPlanoSelected() {
+      const planoToCopy = clone(this.planoForm);
+      const newPlano = {
+        nome: `Cópia de '${planoToCopy.nome}'`,
+        ano: planoToCopy.ano,
+        obs: `Cópia do plano '${planoToCopy.nome} - ${planoToCopy.ano}'`,
+      };
+
+      try {
+        this.setLoading({ type: "partial", value: true });
+        const planoCreated = await this.createPlano({ data: newPlano, notify: false });
+        await copyPlanoService.copyPlano(planoToCopy.id, planoCreated.id);
+        this.pushNotification({
+          type: "success",
+          text: `O Plano ${planoToCopy.nome} foi copiado!`,
+        });
+      } catch (error) {
+        let errorMsg = "<b>Erro ao copiar plano</b>";
+        if (error.response.data.fullMessage) {
+          errorMsg += "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
+        }
+        this.pushNotification({
+          type: "error",
+          text: errorMsg,
         });
       } finally {
         this.setLoading({ type: "partial", value: false });
@@ -568,40 +565,6 @@ export default {
 
 
       fileReader.readAsArrayBuffer(file);
-    },
-
-    copyPlanoSelected() {
-      const oldPlano = clone(this.planoForm);
-      let newPlano = {
-        nome: `Cópia de '${oldPlano.nome}'`,
-        ano: oldPlano.ano,
-        obs: `Cópia do plano '${oldPlano.nome} - ${oldPlano.ano}'`,
-      };
-
-      this.createPlano({ data: newPlano, notify: false }).then((planoCreated) => {
-        copyPlanoService
-          .copyPlano(oldPlano.id, planoCreated.id)
-          .then(() => {
-            this.$notify({
-              group: "general",
-              title: "Sucesso!",
-              text: `O Plano ${oldPlano.nome} foi copiado!`,
-              type: "success",
-            });
-          })
-          .catch((error) => {
-            this.error = "<b>Erro ao copiar plano</b>";
-            if (error.response.data.fullMessage) {
-              this.error += "<br/>" + error.response.data.fullMessage.replace("\n", "<br/>");
-            }
-            this.$notify({
-              group: "general",
-              title: "Erro!",
-              text: this.error,
-              type: "error",
-            });
-          });
-      });
     },
   },
 
