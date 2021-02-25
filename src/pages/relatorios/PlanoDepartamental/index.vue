@@ -8,110 +8,124 @@
 
     <div class="div-table">
       <BaseTable>
-        <template #thead>
-          <v-th-ordination
-            :currentOrder="ordenacaoMain.disciplinas"
-            orderToCheck="codigo"
-            width="80"
-          >
-            Código
-          </v-th-ordination>
-          <v-th-ordination
-            :currentOrder="ordenacaoMain.disciplinas"
-            orderToCheck="nome"
-            width="350"
-            align="start"
-          >
-            Nome
-          </v-th-ordination>
-          <v-th-ordination
-            :currentOrder="ordenacaoMain.disciplinas"
-            orderToCheck="perfil.abreviacao"
-            width="80"
-            align="center"
-          >
-            Perfil
-          </v-th-ordination>
-          <v-th width="30" title="Créditos">C.</v-th>
-          <v-th width="30" title="Período letivo">P.</v-th>
-          <v-th width="35" title="Turma">T.</v-th>
-          <v-th width="150">Docentes</v-th>
-          <v-th width="130">Horário</v-th>
+        <template #thead-root>
+          <div class="sticky-row-top">
+            <tr>
+              <v-th colspan="9" />
+              <template v-if="filtroPeriodos.ativados.length">
+                <v-th width="78" paddingX="0" title="Vagas SIPlanWeb">V. SIPlanWeb</v-th>
+                <v-th colspan="2" paddingX="0" title="Vagas SIGA">V. SIGA</v-th>
+              </template>
+            </tr>
+            <tr>
+              <v-th-ordination
+                :currentOrder="ordenacaoMain.disciplinas"
+                orderToCheck="codigo"
+                width="80"
+              >
+                Código
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoMain.disciplinas"
+                orderToCheck="nome"
+                width="350"
+                align="start"
+              >
+                Nome
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoMain.disciplinas"
+                orderToCheck="perfil.abreviacao"
+                width="80"
+                align="center"
+              >
+                Perfil
+              </v-th-ordination>
+              <v-th width="30" title="Créditos">C.</v-th>
+              <v-th width="30" title="Período letivo">P.</v-th>
+              <v-th width="35" title="Turma">T.</v-th>
+              <v-th width="150">Docentes</v-th>
+              <v-th width="130">Horário</v-th>
 
-          <template v-if="filtroPeriodos.ativados.length">
-            <v-th width="55" :title="theadTitle.creditos">S.C</v-th>
-            <v-th width="55" :title="theadTitle.vagas">S.V</v-th>
-            <v-th width="55" paddingX="0" :title="theadTitle.vagasOferecidas">S.V SIGA</v-th>
-          </template>
+              <template v-if="filtroPeriodos.ativados.length">
+                <v-th width="65" paddingX="0" :title="theadTitle.creditos">T. Créditos</v-th>
+                <v-th width="78" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
+                <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
+                <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
+              </template>
+            </tr>
+          </div>
         </template>
 
         <template #tbody>
-          <tr v-if="DisciplinasComTurmasOrdered.length" class="tr-totais">
-            <v-td width="80" />
-            <v-td width="350" align="start">TOTAIS</v-td>
-            <v-td width="455" colspan="6" />
-            <v-td width="55">{{ somatorioTotais.creditos }}</v-td>
-            <v-td width="55">{{ somatorioTotais.vagas }}</v-td>
-            <v-td width="55">{{ somatorioTotais.vagasOferecidas }}</v-td>
-          </tr>
-
-          <template v-for="disciplina in DisciplinasComTurmasOrdered">
-            <tr :key="disciplina.id + disciplina.codigo" class="bg-custom">
-              <v-td width="80">{{ disciplina.codigo }}</v-td>
-              <v-td width="350" align="start">{{ disciplina.nome }}</v-td>
-              <v-td width="80">{{ disciplina.perfil.abreviacao }}</v-td>
-              <v-td width="30">{{ disciplina.creditoTotal }}</v-td>
-              <v-td width="340" colspan="4" />
-              <v-td width="55">
-                {{ disciplina.somatorioCreditos }}
-              </v-td>
-              <v-td width="55">
-                {{ disciplina.somatorioVagas }}
-              </v-td>
-              <v-td width="55">
-                {{ disciplina.somatorioVagasOferecidas }}
-              </v-td>
+          <template v-if="DisciplinasDataOrdered.length">
+            <tr class="tr-totais">
+              <v-td colspan="1" />
+              <v-td width="350" align="start">TOTAIS</v-td>
+              <v-td colspan="6" />
+              <v-td width="65">{{ totalsSummation.creditos }}</v-td>
+              <v-td width="78">{{ totalsSummation.vagas }}</v-td>
+              <v-td width="78">{{ totalsSummation.vagasOferecidas }}</v-td>
+              <v-td width="78">{{ totalsSummation.vagasOcupadas }}</v-td>
             </tr>
 
-            <tr v-for="turma in disciplina.turmas" :key="turma.id + turma.letra">
-              <v-td width="80" />
-              <v-td width="350" />
-              <v-td width="80" />
-              <v-td width="30" />
-              <v-td width="30">{{ turma.periodo }}</v-td>
-              <v-td width="35" paddingX="0">{{ turma.letra }}</v-td>
-              <v-td width="150" paddingX="0">
-                {{ generateDocentesText(turma.Docente1, turma.Docente2) }}
-              </v-td>
-              <v-td width="130" paddingX="0">
-                {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
-              </v-td>
-              <v-td width="55" />
-              <v-td
-                v-if="filtroPeriodos.ativados.length"
-                width="55"
-                paddingX="0"
-                class="td-vagas clickable"
-                @click.native="handleClickInTurmaVaga(turma)"
-              >
-                {{ turma.vagas }}
-              </v-td>
-              <v-td v-else width="55"></v-td>
-              <v-td
-                v-if="filtroPeriodos.ativados.length"
-                width="55"
-                paddingX="0"
-                class="td-vagas clickable"
-                @click.native="handleClickInTurmaVaga(turma)"
-              >
-                {{ turma.vagasOferecidas }}
-              </v-td>
-              <v-td v-else width="55"></v-td>
-            </tr>
+            <template v-for="disciplina in DisciplinasDataOrdered">
+              <tr :key="disciplina.id + disciplina.codigo" class="bg-custom">
+                <v-td width="80">{{ disciplina.codigo }}</v-td>
+                <v-td width="350" align="start">{{ disciplina.nome }}</v-td>
+                <v-td width="80">{{ disciplina.perfil.abreviacao }}</v-td>
+                <v-td width="30">{{ disciplina.creditoTotal }}</v-td>
+                <v-td colspan="4" />
+                <v-td width="65">{{ disciplina.totalCreditos }}</v-td>
+                <v-td width="78">{{ disciplina.totalVagas }}</v-td>
+                <v-td width="78">{{ disciplina.totalVagasOferecidas }}</v-td>
+                <v-td width="78">{{ disciplina.totalVagasOcupadas }}</v-td>
+              </tr>
+
+              <tr v-for="turma in disciplina.turmas" :key="turma.id + turma.letra">
+                <v-td width="80" />
+                <v-td width="350" />
+                <v-td width="80" />
+                <v-td width="30" />
+                <v-td width="30">{{ turma.periodo }}</v-td>
+                <v-td width="35" paddingX="0">{{ turma.letra }}</v-td>
+                <v-td width="150" paddingX="0">
+                  {{ generateDocentesText(turma.Docente1, turma.Docente2) }}
+                </v-td>
+                <v-td width="130" paddingX="0">
+                  {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
+                </v-td>
+                <v-td width="65" />
+
+                <template v-if="filtroPeriodos.ativados.length">
+                  <v-td
+                    width="78"
+                    class="td-vagas clickable"
+                    @click="handleClickInTurmaVaga(turma)"
+                  >
+                    {{ turma.vagas }}
+                  </v-td>
+                  <v-td
+                    width="78"
+                    class="td-vagas clickable"
+                    @click="handleClickInTurmaVaga(turma)"
+                  >
+                    {{ turma.vagasOferecidas }}
+                  </v-td>
+                  <v-td
+                    width="78"
+                    class="td-vagas clickable"
+                    @click="handleClickInTurmaVaga(turma)"
+                  >
+                    {{ turma.vagasOcupadas }}
+                  </v-td>
+                </template>
+              </tr>
+            </template>
           </template>
 
-          <tr v-if="!DisciplinasComTurmasOrdered.length">
-            <v-td :width="`${filtroPeriodos.ativados.length ? 1020 : 885}`" class="border-right-0">
+          <tr v-else>
+            <v-td :width="`${filtroPeriodos.ativados.length ? 1165 : 885}`" class="border-right-0">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -215,7 +229,7 @@
               />
             </v-td>
             <v-td width="70" align="start">{{ disciplina.codigo }}</v-td>
-            <v-td align="start" width="270" :title="disciplina.nome">
+            <v-td align="start" width="270">
               {{ disciplina.nome }}
             </v-td>
             <v-td width="85" align="start">{{ disciplina.perfil.abreviacao }}</v-td>
@@ -435,33 +449,38 @@ export default {
       this.turmaClicked = turma;
       this.$refs.modalVagas.open();
     },
-    getTotalVagasDaTurma(turmaId) {
+    getVagasDaTurma(turmaId) {
+      let vagas = 0;
+      let vagasOferecidas = 0;
+      let vagasOcupadas = 0;
+
       const pedidosDaTurma = this.Pedidos[turmaId];
-      if (!pedidosDaTurma) return 0;
+      if (pedidosDaTurma) {
+        vagas = pedidosDaTurma.reduce(
+          (sum, pedido) => sum + pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas,
+          0
+        );
+      }
 
-      return pedidosDaTurma.reduce(
-        (sum, pedido) => sum + pedido.vagasPeriodizadas + pedido.vagasNaoPeriodizadas,
-        0
-      );
+      const pedidosSIGADaTurma = this.PedidosOferecidos[turmaId];
+      if (pedidosSIGADaTurma) {
+        pedidosSIGADaTurma.forEach((pedido) => {
+          vagasOferecidas += pedido.vagasOferecidas;
+          vagasOcupadas += pedido.vagasOcupadas;
+        });
+      }
+      return { vagas, vagasOferecidas, vagasOcupadas };
     },
-    getTotalVagasOferecidasDaTurma(turmaId) {
-      const pedidosOferecidasDaTurma = this.PedidosOferecidos[turmaId];
-      if (!pedidosOferecidasDaTurma) return 0;
 
-      return pedidosOferecidasDaTurma.reduce(
-        (sum, pedido) => sum + pedido.vagasOferecidas + pedido.vagasOcupadas,
-        0
-      );
-    },
     generatePdf(completo) {
       import("@/services/pdfs/planoDepartamental").then(({ pdfPlanoDepartamental }) => {
         let disciplinasInTurmas = [];
         let periodosAtivos = [];
         if (completo) {
-          disciplinasInTurmas = this.DisciplinasComTurmas;
+          disciplinasInTurmas = this.DisciplinasData;
           periodosAtivos = this.PeriodosOptions;
         } else {
-          disciplinasInTurmas = this.DisciplinasComTurmasFiltered;
+          disciplinasInTurmas = this.DisciplinasDataFiltered;
           periodosAtivos = this.filtroPeriodos.ativados;
         }
 
@@ -477,34 +496,34 @@ export default {
   computed: {
     ...mapGetters(["AllTurmas", "DisciplinasDCC", "PerfisDCC", "Pedidos", "PedidosOferecidos"]),
 
-    DisciplinasComTurmasOrdered() {
+    DisciplinasDataOrdered() {
       return orderBy(
-        this.DisciplinasComTurmasSomatorios,
+        this.DisciplinasDataSummated,
         ["periodo", this.ordenacaoMain.disciplinas.order],
         ["asc", this.ordenacaoMain.disciplinas.type]
       );
     },
-    DisciplinasComTurmasSomatorios() {
-      return this.DisciplinasComTurmasFiltered.map((disciplina) => {
+    DisciplinasDataSummated() {
+      return this.DisciplinasDataFiltered.map((disciplina) => {
         const turmas = [];
-        let somatorioVagas = 0;
-        let somatorioVagasOferecidas = 0;
-        let somatorioCreditos = 0;
+        let totalVagas = 0;
+        let totalVagasOferecidas = 0;
+        let totalVagasOcupadas = 0;
+        let totalCreditos = 0;
 
         disciplina.turmas.forEach((turma) => {
           if (turma.Disciplina === disciplina.id) {
-            somatorioCreditos += turma.disciplina.creditoTotal;
-
-            const totalVagasDaTurma = this.getTotalVagasDaTurma(turma.id);
-            somatorioVagas += totalVagasDaTurma;
-
-            const totalVagasOferecidasDaTurma = this.getTotalVagasOferecidasDaTurma(turma.id);
-            somatorioVagasOferecidas += totalVagasOferecidasDaTurma;
+            const { vagas, vagasOferecidas, vagasOcupadas } = this.getVagasDaTurma(turma.id);
+            totalVagas += vagas;
+            totalVagasOferecidas += vagasOferecidas;
+            totalVagasOcupadas += vagasOcupadas;
+            totalCreditos += turma.disciplina.creditoTotal;
 
             turmas.push({
               ...turma,
-              vagas: totalVagasDaTurma,
-              vagasOferecidas: totalVagasOferecidasDaTurma,
+              vagas,
+              vagasOferecidas,
+              vagasOcupadas,
             });
           }
         });
@@ -512,65 +531,56 @@ export default {
         return {
           ...disciplina,
           turmas,
-          somatorioCreditos,
-          somatorioVagas,
-          somatorioVagasOferecidas,
+          totalCreditos,
+          totalVagas,
+          totalVagasOferecidas,
+          totalVagasOcupadas,
         };
       });
     },
-    DisciplinasComTurmasFiltered() {
-      const filteredByDisciplinas = this.DisciplinasComTurmas.filter((disciplina) =>
+    DisciplinasDataFiltered() {
+      const disciplinasFilteredByDisciplinas = this.DisciplinasData.filter((disciplina) =>
         some(this.filtroDisciplinas.ativados, ["id", disciplina.id])
       );
 
-      const filteredByPeriodos = [];
-      filteredByDisciplinas.forEach((disciplina) => {
-        const turmasFiltred = disciplina.turmas.filter((turma) =>
+      const disciplinasFilteredByPeriodos = [];
+      disciplinasFilteredByDisciplinas.forEach((disciplina) => {
+        const turmasDaDisciplina = disciplina.turmas.filter((turma) =>
           some(this.filtroPeriodos.ativados, ["id", turma.periodo])
         );
 
-        if (turmasFiltred.length) {
-          filteredByPeriodos.push({
-            ...disciplina,
-            turmas: turmasFiltred,
-          });
+        if (turmasDaDisciplina.length) {
+          disciplinasFilteredByPeriodos.push({ ...disciplina, turmas: turmasDaDisciplina });
         }
       });
 
-      return filteredByPeriodos;
+      return disciplinasFilteredByPeriodos;
     },
-    DisciplinasComTurmas() {
+    DisciplinasData() {
       const turmasOrdered = orderBy(this.AllTurmas, "periodo");
 
       return this.DisciplinasDCC.map((disciplina) => {
         const turmasDaDisciplina = filter(turmasOrdered, ["Disciplina", disciplina.id]);
-
-        return {
-          ...disciplina,
-          turmas: turmasDaDisciplina,
-        };
+        return { ...disciplina, turmas: turmasDaDisciplina };
       });
     },
-    somatorioTotais() {
+    totalsSummation() {
       let vagas = 0;
       let vagasOferecidas = 0;
+      let vagasOcupadas = 0;
       let creditos = 0;
 
-      this.DisciplinasComTurmasSomatorios.forEach((disciplina) => {
-        vagas += disciplina.somatorioVagas;
-        vagasOferecidas += disciplina.somatorioVagasOferecidas;
-        creditos += disciplina.somatorioCreditos;
+      this.DisciplinasDataSummated.forEach((disciplina) => {
+        vagas += disciplina.totalVagas;
+        vagasOferecidas += disciplina.totalVagasOferecidas;
+        vagasOcupadas += disciplina.totalVagasOcupadas;
+        creditos += disciplina.totalCreditos;
       });
 
-      return {
-        creditos,
-        vagas,
-        vagasOferecidas,
-      };
+      return { creditos, vagas, vagasOferecidas, vagasOcupadas };
     },
     theadTitle() {
       const { ativados: periodosAtivados } = this.filtroPeriodos;
-
       if (!periodosAtivados.length) {
         return {
           creditos: "",
@@ -579,16 +589,17 @@ export default {
         };
       }
 
-      let periodoText = "";
+      let periodosText = "";
       periodosAtivados.forEach((periodo, index) => {
-        periodoText += `${periodo.id}º`;
-        if (index !== periodosAtivados.length - 1) periodoText += ", ";
+        periodosText += `${periodo.id}º`;
+        if (index !== periodosAtivados.length - 1) periodosText += ", ";
       });
 
       return {
-        creditos: `Somatório dos créditos no ${periodoText} período`,
-        vagas: `Somatório das vagas no ${periodoText} período`,
-        vagasOferecidas: `Somatório das vagas do SIGA no ${periodoText} período`,
+        creditos: `Total de créditos no ${periodosText} período`,
+        vagas: `Total de vagas SIPlanWeb grade+extra no ${periodosText} período`,
+        vagasOferecidas: `Total de vagas SIGA oferecidas no ${periodosText} período`,
+        vagasOcupadas: `Total de vagas SIGA ocupadas no ${periodosText} período`,
       };
     },
     //Modal Options
