@@ -101,7 +101,7 @@ export default {
       "createPlano",
       "deletePlano",
       "createTurma",
-      "createPedidoOferecido",
+      "createPedidoSIGA",
       "initializeProgressBar",
       "updateProgressBar",
       "finishProgressBar",
@@ -165,19 +165,19 @@ export default {
 
         //Se a nova newTurma é igual a currentTurma, não cria a turma e apenas cria o pedido
         if (this.turmasIsEqual(currentTurma, newTurma)) {
-          await this.handleCreatePedidoOferecido(turmaSIGA, keysTurmaSIGA, currentTurma.id);
+          await this.handleCreatePedidoSIGA(turmaSIGA, keysTurmaSIGA, currentTurma.id);
         } else {
           //Se é uma turma nova então cria a turma, atualiza currentTurma e cria o pedido
           const turmaCreated = await this.createTurma({ data: newTurma });
-          await this.handleCreatePedidoOferecido(turmaSIGA, keysTurmaSIGA, turmaCreated.id);
+          await this.handleCreatePedidoSIGA(turmaSIGA, keysTurmaSIGA, turmaCreated.id);
           currentTurma = { ...turmaCreated };
         }
       }
     },
-    async handleCreatePedidoOferecido(turmaSIGA, keysTurmaSIGA, turmaId) {
-      const pedidoOferecido = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, turmaId);
-      if (pedidoOferecido) {
-        await this.createPedidoOferecido({ data: pedidoOferecido }).catch(() => {});
+    async handleCreatePedidoSIGA(turmaSIGA, keysTurmaSIGA, turmaId) {
+      const pedidoSIGA = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, turmaId);
+      if (pedidoSIGA) {
+        await this.createPedidoSIGA({ data: pedidoSIGA }).catch(() => {});
       }
     },
     turmasIsEqual(turma1, turma2) {

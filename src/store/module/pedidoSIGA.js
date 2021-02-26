@@ -1,11 +1,11 @@
 import Vue from "vue";
-import pedidoOferecidoService from "../../services/pedidoOferecido";
-import { normalizePedido } from "@/common/utils";
+import pedidoSIGAService from "@/services/pedidoSIGA";
+import { normalizePedido } from "@utils";
 import {
-  PEDIDO_OFERECIDO_FETCHED,
-  SOCKET_PEDIDO_OFERECIDO_CREATED,
-  SOCKET_PEDIDO_OFERECIDO_DELETED,
-  SOCKET_PEDIDO_OFERECIDO_UPDATED,
+  PEDIDO_SIGA_FETCHED,
+  SOCKET_PEDIDO_SIGA_CREATED,
+  SOCKET_PEDIDO_SIGA_DELETED,
+  SOCKET_PEDIDO_SIGA_UPDATED,
 } from "../mutation-types";
 
 const state = {
@@ -13,7 +13,7 @@ const state = {
 };
 
 const mutations = {
-  [PEDIDO_OFERECIDO_FETCHED](state, data) {
+  [PEDIDO_SIGA_FETCHED](state, data) {
     state.Pedidos = {};
     for (var p = 0; p < data.Pedidos.length; p++) {
       if (data.Pedidos[p].hasOwnProperty("Turma")) {
@@ -27,13 +27,13 @@ const mutations = {
     state.Pedidos = Object.assign({}, state.Pedidos);
   },
 
-  [SOCKET_PEDIDO_OFERECIDO_CREATED](state, data) {
+  [SOCKET_PEDIDO_SIGA_CREATED](state, data) {
     if (state.Pedidos[data.Pedido.Turma] === undefined) state.Pedidos[data.Pedido.Turma] = [];
     state.Pedidos[data.Pedido.Turma].push(data.Pedido);
     state.Pedidos = Object.assign({}, state.Pedidos);
   },
 
-  [SOCKET_PEDIDO_OFERECIDO_UPDATED](state, data) {
+  [SOCKET_PEDIDO_SIGA_UPDATED](state, data) {
     if (!state.Pedidos[data.Pedido.Turma]) return;
 
     const index = state.Pedidos[data.Pedido.Turma].findIndex(
@@ -42,7 +42,7 @@ const mutations = {
     if (index !== -1) Vue.set(state.Pedidos[data.Pedido.Turma], index, data.Pedido);
   },
 
-  [SOCKET_PEDIDO_OFERECIDO_DELETED](state, data) {
+  [SOCKET_PEDIDO_SIGA_DELETED](state, data) {
     if (!state.Pedidos[data.Pedido.Turma]) return;
 
     const index = state.Pedidos[data.Pedido.Turma].findIndex(
@@ -54,14 +54,14 @@ const mutations = {
 
 const actions = {
   async fetchAll({ dispatch }) {
-    return await dispatch("fetchAllPedidosOferecidos");
+    return await dispatch("fetchAllPedidosSIGA");
   },
-  fetchAllPedidosOferecidos({ commit }) {
+  fetchAllPedidosSIGA({ commit }) {
     return new Promise((resolve, reject) => {
-      pedidoOferecidoService
+      pedidoSIGAService
         .fetchAll()
         .then((response) => {
-          commit(PEDIDO_OFERECIDO_FETCHED, response);
+          commit(PEDIDO_SIGA_FETCHED, response);
           resolve();
         })
         .catch((error) => {
@@ -69,20 +69,18 @@ const actions = {
         });
     });
   },
-
-  async createPedidoOferecido({ commit }, { data, notify }) {
+  async createPedidoSIGA({ commit }, { data, notify }) {
     const pedidoNormalized = normalizePedido(data, ["vagasOferecidas", "vagasOcupadas"]);
-    const response = await pedidoOferecidoService.create(pedidoNormalized);
+    const response = await pedidoSIGAService.create(pedidoNormalized);
 
     if (notify) {
       commit("PUSH_NOTIFICATION", { type: "success", text: "O pedido foi criado" });
     }
     return response.Pedido;
   },
-
-  async updatePedidoOferecido({ commit }, { data, notify }) {
+  async updatePedidoSIGA({ commit }, { data, notify }) {
     const pedidoNormalized = normalizePedido(data, ["vagasOferecidas", "vagasOcupadas"]);
-    const response = await pedidoOferecidoService.update(
+    const response = await pedidoSIGAService.update(
       pedidoNormalized.Curso,
       pedidoNormalized.Turma,
       pedidoNormalized
@@ -96,7 +94,7 @@ const actions = {
 };
 
 const getters = {
-  PedidosOferecidos(state) {
+  AllPedidosSIGA(state) {
     return state.Pedidos;
   },
 };

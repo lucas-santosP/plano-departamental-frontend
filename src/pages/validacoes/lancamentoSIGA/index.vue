@@ -207,27 +207,27 @@ export default {
       for (const turmaSIGA of turmasSIGA) {
         const newTurma = parseTurmaSIGAToTurma(turmaSIGA, keysTurmaSIGA, null, periodo);
         if (!newTurma) continue;
-        newTurma.pedidosOferecidos = []; //Array com todos pedidos da turmas
+        newTurma.pedidosSIGA = []; //Array com todos pedidos da turmas
 
-        const pedidoOferecido = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, null);
-        if (pedidoOferecido) {
-          const { vagasOferecidas, vagasOcupadas } = pedidoOferecido;
-          pedidoOferecido.totalVagas = vagasOferecidas + vagasOcupadas;
+        const pedidoSIGA = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, null);
+        if (pedidoSIGA) {
+          const { vagasOferecidas, vagasOcupadas } = pedidoSIGA;
+          pedidoSIGA.totalVagas = vagasOferecidas + vagasOcupadas;
         }
 
         // Se turma igual ao currentTurma apenas adiciona o pedido na turma anterior
         if (this.turmasAreEqual(currentTurma, newTurma)) {
-          if (pedidoOferecido) {
-            const index = turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.findIndex(
-              (pedido) => pedido.Curso === pedidoOferecido.Curso
+          if (pedidoSIGA) {
+            const index = turmasNormalized[turmasNormalized.length - 1].pedidosSIGA.findIndex(
+              (pedido) => pedido.Curso === pedidoSIGA.Curso
             );
             if (index === -1) {
-              turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.push(pedidoOferecido);
+              turmasNormalized[turmasNormalized.length - 1].pedidosSIGA.push(pedidoSIGA);
             }
           }
         } else {
           // Se é uma turma nova então adiciona a turma e o pedido
-          if (pedidoOferecido) newTurma.pedidosOferecidos.push(pedidoOferecido);
+          if (pedidoSIGA) newTurma.pedidosSIGA.push(pedidoSIGA);
           turmasNormalized.push(newTurma);
           currentTurma = { ...newTurma };
         }
@@ -281,7 +281,7 @@ export default {
         if (!some(this.disciplinasGradeDCC1Periodo, ["Disciplina", turmaSistema.Disciplina])) {
           const pedidosDaTurmaSistema = this.Pedidos[turmaSistema.id] || [];
 
-          turmaSIGAFound.pedidosOferecidos.forEach((pedidoSIGA) => {
+          turmaSIGAFound.pedidosSIGA.forEach((pedidoSIGA) => {
             const pedidoSistemaFound = pedidosDaTurmaSistema.find(
               (pedidoSis) => pedidoSis.Curso == pedidoSIGA.Curso
             );
@@ -313,7 +313,7 @@ export default {
           pedidosDaTurmaSistema
             .filter((pedido) => pedido.vagasPeriodizadas != 0 || pedido.vagasNaoPeriodizadas != 0)
             .forEach((pedidoSistema) => {
-              const pedidoSIGA = turmaSIGAFound.pedidosOferecidos.find(
+              const pedidoSIGA = turmaSIGAFound.pedidosSIGA.find(
                 (pedidoArq) => pedidoSistema.Curso == pedidoArq.Curso
               );
 

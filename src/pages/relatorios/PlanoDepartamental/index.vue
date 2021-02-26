@@ -462,7 +462,7 @@ export default {
         );
       }
 
-      const pedidosSIGADaTurma = this.PedidosOferecidos[turmaId];
+      const pedidosSIGADaTurma = this.AllPedidosSIGA[turmaId];
       if (pedidosSIGADaTurma) {
         pedidosSIGADaTurma.forEach((pedido) => {
           vagasOferecidas += pedido.vagasOferecidas;
@@ -494,7 +494,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "DisciplinasDCC", "PerfisDCC", "Pedidos", "PedidosOferecidos"]),
+    ...mapGetters(["AllTurmas", "DisciplinasDCC", "PerfisDCC", "Pedidos", "AllPedidosSIGA"]),
 
     DisciplinasDataOrdered() {
       return orderBy(

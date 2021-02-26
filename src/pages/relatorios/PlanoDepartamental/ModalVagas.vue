@@ -92,10 +92,7 @@
           </template>
 
           <template #tbody>
-            <tr
-              v-for="pedido in PedidosEPedidosOferecidosOrdered"
-              :key="pedido.curso.codigo + pedido.Turma"
-            >
+            <tr v-for="pedido in PedidosDataOrdered" :key="pedido.curso.codigo + pedido.Turma">
               <v-td width="65" align="start">{{ pedido.curso.codigo }}</v-td>
               <v-td width="300" align="start" :title="pedido.curso.nome">
                 {{ pedido.curso.nome }}
@@ -107,7 +104,7 @@
               <v-td width="75">{{ pedido.vagasOcupadas }}</v-td>
             </tr>
 
-            <tr v-if="!PedidosEPedidosOferecidosOrdered.length">
+            <tr v-if="!PedidosDataOrdered.length">
               <v-td colspan="5" width="715">
                 <b>Turma atual não possui nenhuma vaga cadastrada</b>
               </v-td>
@@ -142,10 +139,10 @@ export default {
     close() {
       this.$refs.baseModalVagas.close();
     },
-    getPedidosOferecidosDaTurma(turmaId) {
-      if (!this.PedidosOferecidos[turmaId]) return [];
+    getPedidosSIGADaTurma(turmaId) {
+      if (!this.AllPedidosSIGA[turmaId]) return [];
 
-      return this.PedidosOferecidos[turmaId].filter(
+      return this.AllPedidosSIGA[turmaId].filter(
         (pedido) => pedido.vagasOferecidas > 0 || pedido.vagasOcupadas > 0
       );
     },
@@ -159,34 +156,30 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "AllCursos", "Pedidos", "PedidosOferecidos"]),
+    ...mapGetters(["AllTurmas", "AllCursos", "Pedidos", "AllPedidosSIGA"]),
 
-    PedidosEPedidosOferecidosOrdered() {
-      return orderBy(
-        this.PedidosEPedidosOferecidosDaTurma,
-        this.ordenacaoVagas.order,
-        this.ordenacaoVagas.type
-      );
+    PedidosDataOrdered() {
+      return orderBy(this.PedidosData, this.ordenacaoVagas.order, this.ordenacaoVagas.type);
     },
-    PedidosEPedidosOferecidosDaTurma() {
+    PedidosData() {
       if (this.turmaLetraForm === null) return [];
 
       const currentTurma = find(this.TurmasOptions, ["letra", this.turmaLetraForm]);
       const pedidosDaTurma = this.getPedidosDaTurma(currentTurma.id);
-      const pedidosOferecidosDaTurma = this.getPedidosOferecidosDaTurma(currentTurma.id);
-      const pedidosEPedidosOferecidos = [];
+      const pedidosSIGADaTurma = this.getPedidosSIGADaTurma(currentTurma.id);
+      const pedidosResultData = [];
 
       this.AllCursos.forEach((curso) => {
         const pedidoFound = find(pedidosDaTurma, ["Curso", curso.id]);
-        const pedidoOferecidoFound = find(pedidosOferecidosDaTurma, ["Curso", curso.id]);
+        const pedidoSIGAFound = find(pedidosSIGADaTurma, ["Curso", curso.id]);
 
-        if (pedidoFound || pedidoOferecidoFound) {
+        if (pedidoFound || pedidoSIGAFound) {
           const pedidoResult = {
             vagasPeriodizadas: 0,
             vagasNaoPeriodizadas: 0,
+            totalVagas: 0,
             vagasOferecidas: 0,
             vagasOcupadas: 0,
-            totalVagas: 0,
             curso: { ...curso },
           };
           if (pedidoFound) {
@@ -195,17 +188,17 @@ export default {
             pedidoResult.vagasNaoPeriodizadas = vagasNaoPeriodizadas;
             pedidoResult.totalVagas += vagasPeriodizadas + vagasNaoPeriodizadas;
           }
-          if (pedidoOferecidoFound) {
-            const { vagasOferecidas, vagasOcupadas } = pedidoOferecidoFound;
+          if (pedidoSIGAFound) {
+            const { vagasOferecidas, vagasOcupadas } = pedidoSIGAFound;
             pedidoResult.vagasOferecidas = vagasOferecidas;
             pedidoResult.vagasOcupadas = vagasOcupadas;
           }
 
-          pedidosEPedidosOferecidos.push(pedidoResult);
+          pedidosResultData.push(pedidoResult);
         }
       });
 
-      return pedidosEPedidosOferecidos;
+      return pedidosResultData;
     },
     TurmasOptions() {
       if (this.turma === null) return [];
