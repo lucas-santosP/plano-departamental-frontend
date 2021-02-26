@@ -27,7 +27,7 @@ export default {
     align: { type: String, default: "center" },
     paddingX: { type: [String, Number], default: "5" },
     whiteSpace: { type: String, default: "nowrap" },
-    title: { type: String, default: "" },
+    title: { type: [String, Number], default: "" },
   },
 
   computed: {
