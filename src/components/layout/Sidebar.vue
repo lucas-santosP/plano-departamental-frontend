@@ -1,33 +1,33 @@
 <template>
   <transition name="sidebar-transition">
     <nav v-show="sidebarVisibility" class="sidebar" @click.stop>
-      <SidebarMenu :pages="PagesHome" />
-      <SidebarMenu
+      <SidebarSection :pages="PagesHome" />
+      <SidebarSection
         v-if="currentUser.isAdmin && currentPlano.isEditable"
         sectionTitle="Plano"
         :pages="PagesPlano"
         icon="clipboard"
       />
-      <SidebarMenu sectionTitle="Relatórios" :pages="PagesRelatorios" icon="file-alt" />
-      <SidebarMenu
+      <SidebarSection sectionTitle="Relatórios" :pages="PagesRelatorios" icon="file-alt" />
+      <SidebarSection
         v-if="currentUser.isSuperAdmin"
         sectionTitle="Gerenciar"
         :pages="PagesGerenciar"
         icon="sitemap"
       />
-      <SidebarMenu sectionTitle="Histórico" :pages="PagesHistorico" icon="search" />
-      <SidebarMenu sectionTitle="Validações" :pages="PagesValidacoes" icon="calendar-check" />
+      <SidebarSection sectionTitle="Histórico" :pages="PagesHistorico" icon="search" />
+      <SidebarSection sectionTitle="Validações" :pages="PagesValidacoes" icon="calendar-check" />
     </nav>
   </transition>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import SidebarMenu from "./SidebarMenu.vue";
+import SidebarSection from "./SidebarSection.vue";
 
 export default {
   name: "Sidebar",
-  components: { SidebarMenu },
+  components: { SidebarSection },
 
   computed: {
     ...mapGetters([
