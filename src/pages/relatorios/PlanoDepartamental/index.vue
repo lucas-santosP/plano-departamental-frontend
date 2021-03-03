@@ -13,8 +13,8 @@
             <tr>
               <v-th colspan="9" />
               <template v-if="filtroPeriodos.ativados.length">
-                <v-th width="78" paddingX="0" title="Vagas SIPlanWeb">V. SIPlanWeb</v-th>
-                <v-th colspan="2" paddingX="0" title="Vagas SIGA">V. SIGA</v-th>
+                <v-th width="78" paddingX="0" title="Vagas SIPlanWeb">Vagas Plano</v-th>
+                <v-th colspan="2" paddingX="0" title="Vagas SIGA">Vagas SIGA</v-th>
               </template>
             </tr>
             <tr>
@@ -41,14 +41,14 @@
               >
                 Perfil
               </v-th-ordination>
-              <v-th width="30" title="Créditos">C.</v-th>
+
               <v-th width="30" title="Período letivo">P.</v-th>
               <v-th width="35" title="Turma">T.</v-th>
               <v-th width="150">Docentes</v-th>
               <v-th width="130">Horário</v-th>
 
               <template v-if="filtroPeriodos.ativados.length">
-                <v-th width="65" paddingX="0" :title="theadTitle.creditos">T. Créditos</v-th>
+                <v-th width="65" paddingX="0" :title="theadTitle.creditos">Créditos</v-th>
                 <v-th width="78" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
                 <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
                 <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
@@ -60,9 +60,13 @@
         <template #tbody>
           <template v-if="DisciplinasDataOrdered.length">
             <tr class="tr-totais">
-              <v-td colspan="1" />
+              <v-td width="80" />
               <v-td width="350" align="start">TOTAIS</v-td>
-              <v-td colspan="6" />
+              <v-td width="80" />
+              <v-td width="30" />
+              <v-td width="35">{{ totalsSummation.numeroDeTurmas }}</v-td>
+              <v-td width="150" />
+              <v-td width="130" />
               <v-td width="65">{{ totalsSummation.creditos }}</v-td>
               <v-td width="78">{{ totalsSummation.vagas }}</v-td>
               <v-td width="78">{{ totalsSummation.vagasOferecidas }}</v-td>
@@ -74,8 +78,9 @@
                 <v-td width="80">{{ disciplina.codigo }}</v-td>
                 <v-td width="350" align="start">{{ disciplina.nome }}</v-td>
                 <v-td width="80">{{ disciplina.perfil.abreviacao }}</v-td>
-                <v-td width="30">{{ disciplina.creditoTotal }}</v-td>
-                <v-td colspan="4" />
+                <v-td width="30" />
+                <v-td width="35">{{ disciplina.turmas.length }}</v-td>
+                <v-td colspan="2" />
                 <v-td width="65">{{ disciplina.totalCreditos }}</v-td>
                 <v-td width="78">{{ disciplina.totalVagas }}</v-td>
                 <v-td width="78">{{ disciplina.totalVagasOferecidas }}</v-td>
@@ -86,7 +91,6 @@
                 <v-td width="80" />
                 <v-td width="350" />
                 <v-td width="80" />
-                <v-td width="30" />
                 <v-td width="30">{{ turma.periodo }}</v-td>
                 <v-td width="35" paddingX="0">{{ turma.letra }}</v-td>
                 <v-td width="150" paddingX="0">
@@ -95,7 +99,7 @@
                 <v-td width="130" paddingX="0">
                   {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
                 </v-td>
-                <v-td width="65" />
+                <v-td width="65">{{ disciplina.creditoTotal }}</v-td>
 
                 <template v-if="filtroPeriodos.ativados.length">
                   <v-td
@@ -125,7 +129,7 @@
           </template>
 
           <tr v-else>
-            <v-td :width="`${filtroPeriodos.ativados.length ? 1165 : 885}`" class="border-right-0">
+            <v-td :width="`${filtroPeriodos.ativados.length ? 1155 : 855}`" class="border-right-0">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -569,15 +573,17 @@ export default {
       let vagasOferecidas = 0;
       let vagasOcupadas = 0;
       let creditos = 0;
+      let numeroDeTurmas = 0;
 
       this.DisciplinasDataSummated.forEach((disciplina) => {
         vagas += disciplina.totalVagas;
         vagasOferecidas += disciplina.totalVagasOferecidas;
         vagasOcupadas += disciplina.totalVagasOcupadas;
         creditos += disciplina.totalCreditos;
+        numeroDeTurmas += disciplina.turmas.length;
       });
 
-      return { creditos, vagas, vagasOferecidas, vagasOcupadas };
+      return { creditos, vagas, vagasOferecidas, vagasOcupadas, numeroDeTurmas };
     },
     theadTitle() {
       const { ativados: periodosAtivados } = this.filtroPeriodos;

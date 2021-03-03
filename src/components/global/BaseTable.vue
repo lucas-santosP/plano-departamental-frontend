@@ -80,7 +80,7 @@ export default {
     display: block !important;
     background-color: #e9ecef !important;
     tr th {
-      word-wrap: none;
+      word-wrap: break-word;
       height: 18px;
       user-select: none;
     }
