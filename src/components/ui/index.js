@@ -1,6 +1,5 @@
 import Card from "./Card.vue";
 import NavTab from "./NavTab.vue";
-import InputPassword from "./InputPassword.vue";
 import SectionSlider from "./SectionSlider.vue";
 import InputSearch from "./InputSearch.vue";
 import InputsPedidosDCC from "./InputsPedidosDCC.vue";
@@ -27,7 +26,6 @@ export {
   InputsPedidosDCC,
   InputSearch,
   SectionSlider,
-  InputPassword,
   Card,
   NavTab,
 };
