@@ -12,8 +12,10 @@ import VInput from "./VInput.vue";
 import VCheckbox from "./VCheckbox.vue";
 import VTextarea from "./VTextarea.vue";
 import VInputFile from "./VInputFile.vue";
+import VInputPassword from "./VInputPassword.vue";
 
 export {
+  VInputPassword,
   VInputFile,
   VTextarea,
   VSelect,
