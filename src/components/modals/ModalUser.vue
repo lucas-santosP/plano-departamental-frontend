@@ -37,7 +37,7 @@
             <InputPassword :isInvalid="false" :inputId="'senhaAtual'" v-model="senhaAtual" />
           </div>
           <!-- toggle edit senha -->
-          <ButtonSlideSection :isOpen="isEditingSenha" @handel-click="toggleEditSenha" />
+          <SectionSlider :isOpen="isEditingSenha" @handel-click="toggleEditSenha" />
 
           <transition-group name="slideY" mode="out-in">
             <template v-if="isEditingSenha">
@@ -70,7 +70,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { clone } from "lodash-es";
 import userService from "@/services/usuario";
-import { InputPassword, ButtonSlideSection } from "@/components/ui";
+import { InputPassword, SectionSlider } from "@/components/ui";
 
 const emptyUser = {
   nome: "",
@@ -81,7 +81,7 @@ const emptyUser = {
 
 export default {
   name: "ModalUser",
-  components: { InputPassword, ButtonSlideSection },
+  components: { InputPassword, SectionSlider },
   data() {
     return {
       userForm: clone(emptyUser),

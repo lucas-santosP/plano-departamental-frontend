@@ -1,6 +1,6 @@
 <template>
   <div class="container" @click.stop="$emit('handel-click')">
-    <span class="title">{{ title }}</span>
+    <span class="text">{{ text }}</span>
 
     <ButtonArrow :state="isOpen" />
   </div>
@@ -10,16 +10,16 @@
 import ButtonArrow from "./ButtonArrow";
 
 export default {
-  name: "ButtonSlideSection",
+  name: "SectionSlider",
   components: { ButtonArrow },
   props: {
-    title: { type: String, default: "Editar senha" },
+    text: { type: String, default: "" },
     isOpen: { type: Boolean, default: false },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   position: relative;
   display: flex;
@@ -32,26 +32,28 @@ export default {
   cursor: pointer;
   user-select: none;
   transition: all 0.25s ease;
-}
-.container::before,
-.container::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-}
-.container::before {
-  top: 0;
-  border-top: 1px solid #dee2e6;
-}
-.container::after {
-  bottom: 0;
-  border-bottom: 1px solid #dee2e6;
-}
-.container:hover {
-  filter: brightness(85%);
-}
-.container > .title {
-  font-weight: normal;
-  font-size: inherit;
+  &:hover {
+    filter: brightness(85%);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+  }
+  &::before {
+    top: 0;
+    border-top: 1px solid #dee2e6;
+  }
+  &::after {
+    bottom: 0;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  > .text {
+    font-weight: normal;
+    font-size: inherit;
+  }
 }
 </style>
