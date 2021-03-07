@@ -14,7 +14,7 @@
     <font-awesome-icon
       class="input-icon"
       @click="togglePasswordVisibility"
-      :style="{ right: `${isInvalid ? '25' : '5'}px` }"
+      :style="iconPosition"
       :icon="['fas', currentIcon]"
     />
   </div>
@@ -56,10 +56,17 @@ export default {
       }
     },
   },
+
   computed: {
-    isInvalid() {
-      if (!this.validation) return false;
-      return this.validation.$error;
+    iconPosition() {
+      let right, top;
+      if (this.validation && this.validation.$error) right = "25px";
+      else right = "5px";
+
+      if (this.label) top = "38px";
+      else top = "14px";
+
+      return { right, top };
     },
   },
 };
@@ -73,7 +80,7 @@ export default {
     cursor: pointer;
     position: absolute;
     width: 13px;
-    top: 38px;
+    top: 32px;
     transition: right ease 0.2s;
     transform: translate(-50%, -50%);
   }
