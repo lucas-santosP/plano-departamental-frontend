@@ -39,8 +39,8 @@
             <tr
               v-for="usuario in UsuariosOrdered"
               :key="usuario.id"
-              :class="{ 'bg-selected': usuario.id === usuarioClickado }"
-              @click="selecionaUsuario(usuario)"
+              :class="{ 'bg-selected': usuario.id === usuarioSelectedId }"
+              @click="handleClickInUsuario(usuario)"
             >
               <v-td width="150" align="start">{{ usuario.nome }}</v-td>
               <v-td width="120" align="start">{{ usuario.login }}</v-td>
@@ -57,106 +57,61 @@
       </div>
 
       <Card
-        :title="'Usuário'"
+        title="Usuário"
+        width="300"
         :toggleFooter="isEditing"
         @btn-salvar="handleUpdateUsuario"
         @btn-delete="openModalDelete"
         @btn-add="handleCreateUsuario"
-        @btn-clean="cleanUsuarioForm"
+        @btn-clean="clearUsuarioForm"
       >
         <template #body>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="usuarioNome">Nome</label>
-              <input
-                id="usuarioNome"
-                type="text"
-                class="form-control input-lg"
-                v-model="usuarioForm.nome"
-              />
-            </div>
-          </div>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="login">Login</label>
-              <input
-                class="form-control input-lg"
-                type="text"
-                id="login"
-                v-model="usuarioForm.login"
-              />
-            </div>
-          </div>
-          <!-- Create -->
-          <template v-if="!isEditing">
-            <!-- senha -->
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label required for="novaSenha">Senha</label>
-                <InputPassword :iconSize="13" :inputId="'novaSenha'" v-model="usuarioForm.senha" />
-              </div>
-            </div>
-            <!-- confirmar senha -->
-            <div class="row mb-2 mx-0">
-              <div class="form-group col m-0 px-0">
-                <label required for="confirmaSenha">Confirmar senha</label>
-                <InputPassword
-                  :iconSize="13"
-                  :isInvalid="confirmaSenha != usuarioForm.senha"
-                  :inputId="'confirmaSenha'"
-                  v-model="confirmaSenha"
-                />
-              </div>
-            </div>
-          </template>
-          <!-- Edit -->
-          <template v-else-if="isEditing">
-            <!-- toggle edit senha -->
-            <ButtonSlideSection :isOpen="isEditingSenha" @handel-click="toggleEditSenha" />
+          <VInput label="Nome" v-model="usuarioForm.nome" :validation="$v.usuarioForm.nome" />
+          <VInput label="Login" v-model="usuarioForm.login" :validation="$v.usuarioForm.login" />
 
-            <!-- edit senha -->
+          <!-- Edit password -->
+          <template v-if="isEditing">
+            <SectionSlider
+              text="Alterar senha"
+              :isOpen="isEditingSenha"
+              @handel-click="toggleEditSenha"
+            />
             <transition-group name="slideY" mode="out-in">
               <template v-if="isEditingSenha">
-                <div :key="'senha'" class="row mb-2 mx-0">
-                  <div class="form-group col m-0 px-0">
-                    <label required for="novaSenha">Nova senha</label>
-                    <InputPassword
-                      :iconSize="13"
-                      :inputId="'novaSenha'"
-                      v-model="usuarioForm.senha"
-                    />
-                  </div>
-                </div>
-                <!-- confirma nova senha -->
-                <div :key="'confirma'" class="row mb-2 mx-0">
-                  <div class="form-group col m-0 px-0">
-                    <label required for="confirmaSenha">Confirmar nova senha</label>
-                    <InputPassword
-                      :iconSize="13"
-                      :isInvalid="confirmaSenha != usuarioForm.senha"
-                      :inputId="'confirmaSenha'"
-                      v-model="confirmaSenha"
-                    />
-                  </div>
-                </div>
+                <VInputPassword
+                  key="editSenha"
+                  label="Nova senha"
+                  v-model="usuarioForm.senha"
+                  :validation="$v.usuarioForm.senha"
+                />
+                <VInputPassword
+                  key="editConfirmaSenha"
+                  label="Confirmar senha"
+                  v-model="confirmaSenha"
+                  :validation="$v.confirmaSenha"
+                />
               </template>
             </transition-group>
           </template>
+          <!-- Create password -->
+          <template v-else>
+            <VInputPassword
+              label="Senha"
+              v-model="usuarioForm.senha"
+              :validation="$v.usuarioForm.senha"
+            />
+            <VInputPassword
+              label="Confirmar senha"
+              v-model="confirmaSenha"
+              :validation="$v.confirmaSenha"
+            />
+          </template>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label for="usuarioAdmin">Tipo</label>
-              <select
-                id="usuarioAdmin"
-                v-model.number="usuarioForm.admin"
-                class="form-control input-lg"
-              >
-                <option :value="0">Consulta</option>
-                <option :value="1">Comissão</option>
-                <option :value="2">Administrador</option>
-              </select>
-            </div>
-          </div>
+          <VSelect label="Tipo" v-model.number="usuarioForm.admin">
+            <VOption :value="0" text="Consulta" />
+            <VOption :value="1" text="Comissão" />
+            <VOption :value="2" text="Administrador" />
+          </VSelect>
         </template>
       </Card>
     </div>
@@ -212,33 +167,51 @@
 <script>
 import { orderBy } from "lodash-es";
 import { mapActions, mapGetters } from "vuex";
-import { InputPassword, Card, ButtonSlideSection } from "@/components/ui";
+import { requiredIf, required, integer } from "vuelidate/lib/validators";
+import { makeEmptyUser } from "@utils/factories";
+import { Card, VInput, VSelect, VOption, VInputPassword, SectionSlider } from "@/components/ui";
 import { ModalDelete, ModalAjuda } from "@/components/modals";
-
-const emptyUsuario = {
-  nome: "",
-  login: "",
-  senha: "",
-  admin: 0,
-};
 
 export default {
   name: "GerenciarUsuarios",
   components: {
     Card,
-    InputPassword,
-    ButtonSlideSection,
+    SectionSlider,
     ModalDelete,
     ModalAjuda,
+    VInput,
+    VSelect,
+    VOption,
+    VInputPassword,
   },
   data() {
     return {
-      usuarioForm: emptyUsuario,
+      usuarioForm: makeEmptyUser(),
       confirmaSenha: "",
-      usuarioClickado: null,
+      usuarioSelectedId: null,
       isEditingSenha: false,
       ordenacaoUsuarios: { order: "nome", type: "asc" },
     };
+  },
+  validations: {
+    usuarioForm: {
+      nome: { required },
+      login: { required },
+      senha: {
+        requiredIf: requiredIf(function() {
+          return this.isEditingSenha || !this.isEditing;
+        }),
+      },
+      admin: { required, integer },
+    },
+    confirmaSenha: {
+      requiredIf: requiredIf(function() {
+        return this.isEditingSenha;
+      }),
+      sameAsPassword: function(value) {
+        return this.usuarioForm.senha === value;
+      },
+    },
   },
 
   methods: {
@@ -254,30 +227,35 @@ export default {
     },
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;
-      this.usuarioForm.senha = "";
-      this.confirmaSenha = "";
+      this.clearSenhaForm();
     },
-    selecionaUsuario(usuario) {
-      this.cleanUsuarioForm();
-      this.usuarioClickado = usuario.id;
+    handleClickInUsuario(usuario) {
+      this.clearUsuarioForm();
+      this.usuarioSelectedId = usuario.id;
       this.usuarioForm = { ...usuario };
     },
-    cleanUsuarioForm() {
-      this.usuarioClickado = null;
+    clearUsuarioForm() {
+      this.usuarioSelectedId = null;
       this.confirmaSenha = "";
       this.isEditingSenha = false;
-      this.usuarioForm = { ...emptyUsuario };
+      this.usuarioForm = makeEmptyUser();
+      this.$nextTick(() => this.$v.$reset());
+    },
+    clearSenhaForm() {
+      this.usuarioForm.senha = "";
+      this.confirmaSenha = "";
+      this.$nextTick(() => this.$v.$reset());
     },
     //Services
     async handleCreateUsuario() {
+      this.$v.usuarioForm.$touch();
+      this.$v.confirmaSenha.$touch();
+      if (this.$v.usuarioForm.$anyError || this.$v.confirmaSenha.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        if (this.confirmaSenha !== this.usuarioForm.senha) {
-          throw new Error("Campo senha e confirmar senha devem ser iguais.");
-        }
-
         await this.createUsuario({ data: this.usuarioForm, notify: true });
-        this.cleanUsuarioForm();
+        this.clearUsuarioForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -288,18 +266,14 @@ export default {
       }
     },
     async handleUpdateUsuario() {
+      this.$v.usuarioForm.$touch();
+      this.$v.confirmaSenha.$touch();
+      if (this.$v.usuarioForm.$anyError || this.$v.confirmaSenha.$anyError) return;
+
       try {
         this.setLoading({ type: "partial", value: true });
-        if (this.isEditingSenha && !this.usuarioForm.senha) {
-          throw new Error("Campo <b>senha</b> inválido.");
-        }
-        if (this.confirmaSenha !== this.usuarioForm.senha) {
-          throw new Error("Campo senha e confirmar senha devem ser iguais.");
-        }
-
         await this.updateUsuario({ data: this.usuarioForm, notify: true });
-        this.usuarioForm.senha = "";
-        this.confirmaSenha = "";
+        this.clearSenhaForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -313,7 +287,7 @@ export default {
       try {
         this.setLoading({ type: "partial", value: true });
         await this.deleteUsuario({ data: this.usuarioForm, notify: true });
-        this.cleanUsuarioForm();
+        this.clearUsuarioForm();
       } catch (error) {
         this.pushNotification({
           type: "error",
@@ -346,7 +320,7 @@ export default {
       );
     },
     isEditing() {
-      return this.usuarioClickado != null;
+      return this.usuarioSelectedId != null;
     },
   },
 };
