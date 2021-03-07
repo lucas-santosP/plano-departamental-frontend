@@ -216,8 +216,11 @@ export default {
 
     ::v-deep {
       label {
+        line-height: 1.2;
         font-size: 12px;
+        font-weight: bold;
       }
+
       select,
       input:not([type="checkbox"]) {
         font-size: 12px;
