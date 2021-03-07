@@ -14,7 +14,7 @@
     <font-awesome-icon
       class="input-icon"
       @click="togglePasswordVisibility"
-      :style="{ right: `${validation.$error ? '25' : '5'}px` }"
+      :style="{ right: `${isInvalid ? '25' : '5'}px` }"
       :icon="['fas', currentIcon]"
     />
   </div>
@@ -54,6 +54,12 @@ export default {
         this.inputType = "text";
         this.currentIcon = "eye";
       }
+    },
+  },
+  computed: {
+    isInvalid() {
+      if (!this.validation) return false;
+      return this.validation.$error;
     },
   },
 };
