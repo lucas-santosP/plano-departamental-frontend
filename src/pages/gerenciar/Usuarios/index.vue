@@ -66,8 +66,18 @@
         @btn-clean="clearUsuarioForm"
       >
         <template #body>
-          <VInput label="Nome" v-model="usuarioForm.nome" :validation="$v.usuarioForm.nome" />
-          <VInput label="Login" v-model="usuarioForm.login" :validation="$v.usuarioForm.login" />
+          <VInput
+            label="Nome"
+            v-model="usuarioForm.nome"
+            :validation="$v.usuarioForm.nome"
+            :upperCase="false"
+          />
+          <VInput
+            label="Login"
+            v-model="usuarioForm.login"
+            :validation="$v.usuarioForm.login"
+            :upperCase="false"
+          />
 
           <!-- Edit password -->
           <template v-if="isEditing">
