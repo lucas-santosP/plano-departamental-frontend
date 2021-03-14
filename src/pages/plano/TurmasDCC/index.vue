@@ -23,9 +23,9 @@
         <template #thead>
           <v-th width="25" />
           <v-th width="40" paddingX="0">Editar</v-th>
-          <v-th width="55" paddingX="0" title="Período letivo, ordenação fixa">
+          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
-            P.
+            Período
           </v-th>
           <v-th-ordination
             :orderFixed="true"
@@ -50,8 +50,8 @@
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="25" paddingX="0" title="Créditos">C.</v-th>
-          <v-th width="45" paddingX="0" title="Turma">T.</v-th>
+          <v-th width="55" paddingX="0" title="Créditos">Créditos</v-th>
+          <v-th width="45" paddingX="0" title="Turma">Turma</v-th>
           <v-th width="160" align="start">Docente</v-th>
           <v-th width="80">Turno</v-th>
           <v-th width="85">Horário</v-th>
