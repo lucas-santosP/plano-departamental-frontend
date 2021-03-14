@@ -17,7 +17,10 @@
       <BaseTable>
         <template #thead>
           <v-th width="25" />
-          <v-th width="55" title="Período letivo">P.</v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+            Período
+          </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.codigo"
@@ -34,8 +37,8 @@
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="25" title="Créditos">C.</v-th>
-          <v-th width="45" title="Turma">T.</v-th>
+          <v-th width="55" paddingX="0" title="Créditos">Créditos</v-th>
+          <v-th width="45" paddingX="0" title="Turma">Turma</v-th>
           <v-th width="80">Turno</v-th>
           <v-th width="85">Horário</v-th>
           <v-th width="95">Sala</v-th>
@@ -64,7 +67,7 @@
           />
 
           <tr v-if="!TurmasExternasOrdered.length">
-            <v-td width="1005">
+            <v-td width="1050">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
