@@ -22,25 +22,26 @@
         <template #thead>
           <v-th width="75">Programa</v-th>
           <v-th width="25" />
-          <v-th width="55" title="Período, ordenação fixa">
+          <v-th width="65" title="Período letivo, ordenação fixa">
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
-            P.
+            Período
           </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="docenteApelido"
             width="145"
             align="start"
-            text="Docente"
-          />
+          >
+            Docente
+          </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="creditos"
             orderType="desc"
-            width="60"
-            title="Créditos"
-            text="C."
-          />
+            width="70"
+          >
+            Créditos
+          </v-th-ordination>
         </template>
         <template #add-row>
           <NovaCargaPosRow ref="novaCargaPosRow" v-if="isAdding" />
@@ -66,7 +67,7 @@
           </template>
 
           <tr v-if="!ProgramasInCargaPosOrdered.length">
-            <v-td width="360" whiteSpace="normal">
+            <v-td width="380" whiteSpace="normal">
               <b>Nenhuma carga encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
