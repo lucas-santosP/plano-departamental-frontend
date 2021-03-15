@@ -72,17 +72,21 @@ export default {
 .table-custom {
   display: block;
   overflow-y: scroll;
-  margin: 0 !important;
+  margin: 0;
   font-weight: normal;
-  background-color: #fff !important;
+  background-color: #fff;
 
   thead {
     display: block !important;
     background-color: #e9ecef !important;
+
     tr th {
       word-wrap: break-word;
       height: 18px;
       user-select: none;
+      border-color: #d7d9da !important;
+      border-left-color: #d1d2d3 !important;
+      border-right-color: #d1d2d3 !important;
     }
     tr th svg {
       font-size: 9px;
@@ -123,6 +127,7 @@ export default {
     margin: 0 !important;
     padding: 0 5px;
   }
+
   /* Inputs */
   tbody tr > td {
     input[type="text"],
