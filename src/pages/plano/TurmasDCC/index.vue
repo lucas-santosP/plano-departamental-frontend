@@ -91,7 +91,7 @@
           />
 
           <tr v-if="!TurmasOrdered.length">
-            <v-td :width="1145 + 35 * filtroCursos.ativados.length">
+            <v-td :width="1185 + 35 * filtroCursos.ativados.length">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
