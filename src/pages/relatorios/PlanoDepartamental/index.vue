@@ -11,9 +11,9 @@
         <template #thead-root>
           <div class="sticky-row-top">
             <tr>
-              <v-th colspan="9" />
+              <v-th colspan="8" />
               <template v-if="filtroPeriodos.ativados.length">
-                <v-th width="78" paddingX="0" title="Vagas SIPlanWeb">Vagas Plano</v-th>
+                <v-th width="80" paddingX="0" title="Vagas Plano (SIPlanWeb)">Vagas Plano</v-th>
                 <v-th colspan="2" paddingX="0" title="Vagas SIGA">Vagas SIGA</v-th>
               </template>
             </tr>
@@ -41,17 +41,19 @@
               >
                 Perfil
               </v-th-ordination>
-
-              <v-th width="30" title="Período letivo">P.</v-th>
-              <v-th width="35" title="Turma">T.</v-th>
-              <v-th width="150">Docentes</v-th>
+              <v-th width="65" title="Período letivo, ordenação fixa">
+                <font-awesome-icon :icon="['fas', 'thumbtack']" />
+                Período
+              </v-th>
+              <v-th width="45" title="Turma">Turma</v-th>
+              <v-th width="150" align="start">Docentes</v-th>
               <v-th width="130">Horário</v-th>
 
               <template v-if="filtroPeriodos.ativados.length">
                 <v-th width="65" paddingX="0" :title="theadTitle.creditos">Créditos</v-th>
-                <v-th width="78" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
-                <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
-                <v-th width="78" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
+                <v-th width="80" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
+                <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
+                <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
               </template>
             </tr>
           </div>
@@ -59,77 +61,24 @@
 
         <template #tbody>
           <template v-if="DisciplinasDataOrdered.length">
-            <tr class="tr-totais">
-              <v-td width="80" />
-              <v-td width="350" align="start">TOTAIS</v-td>
-              <v-td width="80" />
-              <v-td width="30" />
-              <v-td width="35">{{ totalsSummation.numeroDeTurmas }}</v-td>
-              <v-td width="150" />
-              <v-td width="130" />
-              <v-td width="65">{{ totalsSummation.creditos }}</v-td>
-              <v-td width="78">{{ totalsSummation.vagas }}</v-td>
-              <v-td width="78">{{ totalsSummation.vagasOferecidas }}</v-td>
-              <v-td width="78">{{ totalsSummation.vagasOcupadas }}</v-td>
-            </tr>
+            <TotalsRow :totalsSummation="totalsSummation" />
 
             <template v-for="disciplina in DisciplinasDataOrdered">
-              <tr :key="disciplina.id + disciplina.codigo" class="bg-custom">
-                <v-td width="80">{{ disciplina.codigo }}</v-td>
-                <v-td width="350" align="start">{{ disciplina.nome }}</v-td>
-                <v-td width="80">{{ disciplina.perfil.abreviacao }}</v-td>
-                <v-td width="30" />
-                <v-td width="35">{{ disciplina.turmas.length }}</v-td>
-                <v-td colspan="2" />
-                <v-td width="65">{{ disciplina.totalCreditos }}</v-td>
-                <v-td width="78">{{ disciplina.totalVagas }}</v-td>
-                <v-td width="78">{{ disciplina.totalVagasOferecidas }}</v-td>
-                <v-td width="78">{{ disciplina.totalVagasOcupadas }}</v-td>
-              </tr>
+              <DisciplinaRow :disciplina="disciplina" :key="disciplina.id + disciplina.codigo" />
 
-              <tr v-for="turma in disciplina.turmas" :key="turma.id + turma.letra">
-                <v-td width="80" />
-                <v-td width="350" />
-                <v-td width="80" />
-                <v-td width="30">{{ turma.periodo }}</v-td>
-                <v-td width="35" paddingX="0">{{ turma.letra }}</v-td>
-                <v-td width="150" paddingX="0">
-                  {{ generateDocentesText(turma.Docente1, turma.Docente2) }}
-                </v-td>
-                <v-td width="130" paddingX="0">
-                  {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
-                </v-td>
-                <v-td width="65">{{ disciplina.creditoTotal }}</v-td>
-
-                <template v-if="filtroPeriodos.ativados.length">
-                  <v-td
-                    width="78"
-                    class="td-vagas clickable"
-                    @click="handleClickInTurmaVaga(turma)"
-                  >
-                    {{ turma.vagas }}
-                  </v-td>
-                  <v-td
-                    width="78"
-                    class="td-vagas clickable"
-                    @click="handleClickInTurmaVaga(turma)"
-                  >
-                    {{ turma.vagasOferecidas }}
-                  </v-td>
-                  <v-td
-                    width="78"
-                    class="td-vagas clickable"
-                    @click="handleClickInTurmaVaga(turma)"
-                  >
-                    {{ turma.vagasOcupadas }}
-                  </v-td>
-                </template>
-              </tr>
+              <TurmaRow
+                v-for="turma in disciplina.turmas"
+                :key="turma.id + turma.letra + disciplina.id"
+                :turma="turma"
+                :creditoTotal="disciplina.creditoTotal"
+                :showVagas="!!filtroPeriodos.ativados.length"
+                @click-in-turma-vaga="handleClickInTurmaVaga"
+              />
             </template>
           </template>
 
           <tr v-else>
-            <v-td :width="`${filtroPeriodos.ativados.length ? 1155 : 855}`" class="border-right-0">
+            <v-td :width="`${filtroPeriodos.ativados.length ? 1205 : 900}`">
               <b>Nenhuma disciplina encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -300,7 +249,6 @@
     </ModalFiltros>
 
     <ModalVagas ref="modalVagas" :turma="turmaClicked" />
-
     <ModalRelatorio ref="modalRelatorio" @selection-option="generatePdf($event)" />
 
     <ModalAjuda ref="modalAjuda">
@@ -331,8 +279,6 @@ import { mapGetters } from "vuex";
 import { union, difference, orderBy, filter, some } from "lodash-es";
 import { normalizeText } from "@/common/utils";
 import {
-  generateHorariosText,
-  generateDocentesText,
   toggleAsideModal,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
@@ -341,12 +287,13 @@ import {
 import { InputSearch } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 import ModalVagas from "./ModalVagas";
+import TotalsRow from "./Table/TotalsRow.vue";
+import DisciplinaRow from "./Table/DisciplinaRow.vue";
+import TurmaRow from "./Table/TurmaRow.vue";
 
 export default {
   name: "PlanoDepartamental",
   mixins: [
-    generateHorariosText,
-    generateDocentesText,
     toggleAsideModal,
     conectaFiltroPerfisEDisciplinas,
     conectaFiltrosSemestresEPeriodos,
@@ -358,6 +305,9 @@ export default {
     ModalAjuda,
     InputSearch,
     ModalVagas,
+    TotalsRow,
+    DisciplinaRow,
+    TurmaRow,
   },
   data() {
     return {
@@ -603,7 +553,7 @@ export default {
 
       return {
         creditos: `Total de créditos no ${periodosText} período`,
-        vagas: `Total de vagas SIPlanWeb grade+extra no ${periodosText} período`,
+        vagas: `Total de vagas do Plano (SIPlanWeb) grade+extra no ${periodosText} período`,
         vagasOferecidas: `Total de vagas SIGA oferecidas no ${periodosText} período`,
         vagasOcupadas: `Total de vagas SIGA ocupadas no ${periodosText} período`,
       };
@@ -662,19 +612,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import "@/assets/styles/theme.scss";
-
-td.td-vagas:hover {
-  color: $clr-lightblue;
-  text-decoration: underline;
-}
-
-.tr-totais {
-  background-color: #cecece;
-  &:hover {
-    background-color: #cecece !important;
-  }
-}
-</style>
