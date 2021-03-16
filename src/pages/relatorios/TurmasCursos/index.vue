@@ -29,8 +29,8 @@
             Curso
           </v-th-ordination>
           <v-th width="65" title="Período letivo, ordenação fixa">
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
             Periodo
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
           </v-th>
           <v-th width="95" title="Código da Disciplina">Cód. Disciplina</v-th>
           <v-th width="45" title="Turma">Turma</v-th>

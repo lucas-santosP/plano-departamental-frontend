@@ -18,8 +18,8 @@
         <template #thead>
           <v-th width="25" />
           <v-th width="65" title="Período letivo, ordenação fixa">
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
             Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
           </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"

@@ -50,8 +50,8 @@
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="60" paddingX="0" title="Créditos">Créditos</v-th>
-          <v-th width="45" paddingX="0" title="Turma">Turma</v-th>
+          <v-th width="60" paddingX="0">Créditos</v-th>
+          <v-th width="45" paddingX="0">Turma</v-th>
           <v-th width="160" align="start">Docente</v-th>
           <v-th width="80">Turno</v-th>
           <v-th width="85">Horário</v-th>

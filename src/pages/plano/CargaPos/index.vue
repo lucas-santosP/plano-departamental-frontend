@@ -23,8 +23,8 @@
           <v-th width="75">Programa</v-th>
           <v-th width="25" />
           <v-th width="65" title="Período letivo, ordenação fixa">
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
             Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
           </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoCargaPos"

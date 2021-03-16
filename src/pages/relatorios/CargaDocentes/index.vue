@@ -24,8 +24,8 @@
                 Docente
               </v-th-ordination>
               <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
-                <font-awesome-icon :icon="['fas', 'thumbtack']" />
                 Período
+                <font-awesome-icon :icon="['fas', 'thumbtack']" />
               </v-th>
               <v-th width="80">Código</v-th>
               <v-th width="300" align="start">Disciplina</v-th>

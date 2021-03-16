@@ -14,20 +14,16 @@
     <div class="div-table">
       <BaseTable v-show="tabAtivaMain === 'Turmas'" classes="custom-table-height">
         <template #thead>
-          <v-th-ordination
-            :currentOrder="ordenacaoTurmasMain"
-            orderToCheck="periodo"
-            width="35"
-            title="Período letivo"
-          >
-            P.
-          </v-th-ordination>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.perfil.abreviacao"
             width="80"
             align="start"
-            title="Período letivo"
+            title="Perfil da Disciplina"
           >
             Perfil
           </v-th-ordination>
@@ -35,7 +31,7 @@
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.codigo"
             width="80"
-            align="start"
+            title="Código da Disciplina"
           >
             Código
           </v-th-ordination>
@@ -44,36 +40,35 @@
             orderToCheck="disciplina.nome"
             width="300"
             align="start"
+            title="Nome da Disciplina"
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="35" title="Turma">T.</v-th>
-          <v-th width="130" align="start">Docentes</v-th>
+          <v-th width="45">Turma</v-th>
+          <v-th width="150" align="start" title="Apelido do Docente">Docentes</v-th>
           <v-th width="50">Editar</v-th>
         </template>
 
         <template #tbody>
           <template v-for="validacaoTurma in TurmasValidacoesOrdered">
             <tr :key="validacaoTurma.id + validacaoTurma.letra" class="bg-custom">
-              <v-td width="35">
+              <v-td width="65">
                 {{ validacaoTurma.periodo }}
               </v-td>
               <v-td width="80" align="start" :title="validacaoTurma.disciplina.perfil.nome">
                 {{ validacaoTurma.disciplina.perfil.abreviacao }}
               </v-td>
-              <v-td width="80" align="start">
+              <v-td width="80">
                 {{ validacaoTurma.disciplina.codigo }}
               </v-td>
               <v-td width="300" align="start">
                 {{ validacaoTurma.disciplina.nome }}
               </v-td>
-              <v-td width="35">
+              <v-td width="45">
                 {{ validacaoTurma.letra }}
               </v-td>
-              <v-td width="130" align="start">
-                {{ validacaoTurma.docente1Apelido }}
-                <br />
-                {{ validacaoTurma.docente2Apelido }}
+              <v-td width="150" align="start">
+                {{ generateDocentesText(validacaoTurma.Docente1, validacaoTurma.Docente2) }}
               </v-td>
               <v-td width="50">
                 <button
@@ -104,7 +99,7 @@
           </template>
 
           <tr v-if="!TurmasValidacoesOrdered.length">
-            <v-td width="710">
+            <v-td width="770">
               <b>Nenhum conflito encontrado em turmas.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -122,6 +117,7 @@
             width="710"
             align="start"
             colspan="2"
+            title="Nome do Docente"
           >
             Nome
           </v-th-ordination>
@@ -281,6 +277,7 @@ import { mapGetters } from "vuex";
 import { clone, cloneDeep, find, some, filter, orderBy } from "lodash-es";
 import { generateEmptyTurma } from "@/common/utils";
 import {
+  generateDocentesText,
   toggleItemInArray,
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
@@ -328,6 +325,7 @@ export default {
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
+    generateDocentesText,
   ],
   components: {
     ModalAjuda,
