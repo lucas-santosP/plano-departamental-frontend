@@ -16,79 +16,77 @@
 
       <div class="div-table">
         <BaseTable styles="height:auto;max-height:400px">
-          <template #thead-root>
-            <div class="sticky-row-top">
-              <tr>
-                <v-th colspan="2" />
-                <v-th colspan="3">SIPlanWeb</v-th>
-                <v-th colspan="2">SIGA</v-th>
-              </tr>
-              <tr>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="curso.codigo"
-                  width="65"
-                  align="start"
-                >
-                  Código
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="curso.nome"
-                  width="300"
-                  align="start"
-                >
-                  Nome
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasPeriodizadas"
-                  orderType="desc"
-                  width="75"
-                  title="Vagas periodizadas"
-                >
-                  Grade
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasNaoPeriodizadas"
-                  orderType="desc"
-                  width="75"
-                  title="Vagas não periodizadas"
-                >
-                  Extra
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="totalVagas"
-                  orderType="desc"
-                  width="50"
-                  title="Total de vagas"
-                >
-                  Total
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasOferecidas"
-                  orderType="desc"
-                  width="75"
-                  paddingX="0"
-                  title="Vagas oferecidas"
-                >
-                  Oferecidas
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasOcupadas"
-                  orderType="desc"
-                  width="75"
-                  paddingX="0"
-                  title="Vagas ocupadas"
-                >
-                  Ocupadas
-                </v-th-ordination>
-              </tr>
-            </div>
+          <template #thead>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="curso.codigo"
+              width="65"
+              align="start"
+            >
+              Código
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="curso.nome"
+              width="300"
+              align="start"
+            >
+              Nome
+            </v-th-ordination>
+            <v-th colspan="3" width="190" paddinX="0">
+              SIPlanWeb
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasPeriodizadas"
+                orderType="desc"
+                width="70"
+                title="Vagas periodizadas"
+              >
+                Grade
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasNaoPeriodizadas"
+                orderType="desc"
+                width="70"
+                title="Vagas não periodizadas"
+              >
+                Extra
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="totalVagas"
+                orderType="desc"
+                width="50"
+                title="Total de vagas"
+              >
+                Total
+              </v-th-ordination>
+            </v-th>
+
+            <v-th colspan="2" width="160" paddinX="0">
+              SIGA
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasOferecidas"
+                orderType="desc"
+                width="80"
+                paddingX="0"
+                title="Vagas oferecidas"
+              >
+                Oferecidas
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasOcupadas"
+                orderType="desc"
+                width="80"
+                paddingX="0"
+                title="Vagas ocupadas"
+              >
+                Ocupadas
+              </v-th-ordination>
+            </v-th>
           </template>
 
           <template #tbody>
@@ -97,11 +95,11 @@
               <v-td width="300" align="start" :title="pedido.curso.nome">
                 {{ pedido.curso.nome }}
               </v-td>
-              <v-td width="75">{{ pedido.vagasPeriodizadas }}</v-td>
-              <v-td width="75">{{ pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="70">{{ pedido.vagasPeriodizadas }}</v-td>
+              <v-td width="70">{{ pedido.vagasNaoPeriodizadas }}</v-td>
               <v-td width="50">{{ pedido.totalVagas }}</v-td>
-              <v-td width="75">{{ pedido.vagasOferecidas }}</v-td>
-              <v-td width="75">{{ pedido.vagasOcupadas }}</v-td>
+              <v-td width="80">{{ pedido.vagasOferecidas }}</v-td>
+              <v-td width="80">{{ pedido.vagasOcupadas }}</v-td>
             </tr>
 
             <tr v-if="!PedidosDataOrdered.length">

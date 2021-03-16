@@ -7,38 +7,34 @@
     <div class="page-content">
       <div class="table-div">
         <BaseTable>
-          <template #thead-root>
-            <div class="sticky-row-top">
-              <tr>
-                <v-th colspan="4" />
-                <v-th colspan="3">Conflito</v-th>
-              </tr>
-              <tr>
-                <v-th-ordination
-                  :currentOrder="ordenacaoConflitos"
-                  orderToCheck="disciplina.codigo"
-                  width="80"
-                  align="start"
-                  title="Código da Disciplina"
-                >
-                  Código
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoConflitos"
-                  orderToCheck="disciplina.nome"
-                  width="300"
-                  align="start"
-                  title="Nome da Disciplina"
-                >
-                  Disciplina
-                </v-th-ordination>
-                <v-th width="45">Turma</v-th>
-                <v-th width="55" title="Código do Curso">Curso</v-th>
-                <v-th width="180" align="start" title="Tipo do Conflito">Tipo</v-th>
-                <v-th width="120" title="Valor no SIGA">SIGA</v-th>
-                <v-th width="120" title="Valor no Sistema (SIPlanWeb)">Sistema</v-th>
-              </tr>
-            </div>
+          <template #thead>
+            <v-th-ordination
+              :currentOrder="ordenacaoConflitos"
+              orderToCheck="disciplina.codigo"
+              width="80"
+              align="start"
+              title="Código da Disciplina"
+            >
+              Código
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoConflitos"
+              orderToCheck="disciplina.nome"
+              width="300"
+              align="start"
+              title="Nome da Disciplina"
+            >
+              Disciplina
+            </v-th-ordination>
+            <v-th width="45">Turma</v-th>
+            <v-th width="55" title="Código do Curso">Curso</v-th>
+
+            <v-th colspan="420" paddingX="0">
+              Conflito
+              <v-th width="180" align="start" title="Tipo do Conflito">Tipo</v-th>
+              <v-th width="120" title="Valor no SIGA">SIGA</v-th>
+              <v-th width="120" title="Valor no Sistema (SIPlanWeb)">Sistema</v-th>
+            </v-th>
           </template>
 
           <template #tbody>

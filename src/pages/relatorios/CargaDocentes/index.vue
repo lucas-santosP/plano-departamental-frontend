@@ -8,40 +8,32 @@
 
     <div class="div-table">
       <BaseTable>
-        <template #thead-root>
-          <div class="sticky-row-top">
-            <tr>
-              <v-th colspan="6" />
-              <v-th width="200" colspan="3">Créditos</v-th>
-            </tr>
-            <tr>
-              <v-th-ordination
-                :currentOrder="orednacaoDocentesMain"
-                orderToCheck="apelido"
-                width="130"
-                align="start"
-              >
-                Docente
-              </v-th-ordination>
-              <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
-                Período
-                <font-awesome-icon :icon="['fas', 'thumbtack']" />
-              </v-th>
-              <v-th width="80">Código</v-th>
-              <v-th width="300" align="start">Disciplina</v-th>
-              <v-th width="45">Turma</v-th>
-              <v-th width="130">Horários</v-th>
-              <v-th width="75" paddingX="0" title="Créditos do 1º Semestre letivo">
-                1º Semestre
-              </v-th>
-              <v-th width="75" paddingX="0" title="Créditos do 2º Semestre letivo">
-                2º Semestre
-              </v-th>
-              <v-th width="50" paddingX="0" title="Total de créditos do 1º e 2º Semestre letivo">
-                Total
-              </v-th>
-            </tr>
-          </div>
+        <template #thead>
+          <v-th-ordination
+            :currentOrder="orednacaoDocentesMain"
+            orderToCheck="apelido"
+            width="130"
+            align="start"
+          >
+            Docente
+          </v-th-ordination>
+          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
+            Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
+          <v-th width="80">Código</v-th>
+          <v-th width="300" align="start">Disciplina</v-th>
+          <v-th width="45">Turma</v-th>
+          <v-th width="130">Horários</v-th>
+
+          <v-th width="200" colspan="3" paddingX="0">
+            Créditos
+            <v-th width="75" paddingX="0" title="Créditos do 1º Semestre letivo">1º Semestre</v-th>
+            <v-th width="75" paddingX="0" title="Créditos do 2º Semestre letivo">2º Semestre</v-th>
+            <v-th width="50" paddingX="0" title="Total de créditos do 1º e 2º Semestre letivo">
+              Total
+            </v-th>
+          </v-th>
         </template>
 
         <template #tbody>

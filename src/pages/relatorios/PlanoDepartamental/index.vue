@@ -8,55 +8,51 @@
 
     <div class="div-table">
       <BaseTable>
-        <template #thead-root>
-          <div class="sticky-row-top">
-            <tr>
-              <v-th colspan="8" />
-              <template v-if="filtroPeriodos.ativados.length">
-                <v-th width="80" paddingX="0" title="Vagas Plano (SIPlanWeb)">Vagas Plano</v-th>
-                <v-th colspan="2" paddingX="0" title="Vagas SIGA">Vagas SIGA</v-th>
-              </template>
-            </tr>
-            <tr>
-              <v-th-ordination
-                :currentOrder="ordenacaoMain.disciplinas"
-                orderToCheck="codigo"
-                width="80"
-              >
-                Código
-              </v-th-ordination>
-              <v-th-ordination
-                :currentOrder="ordenacaoMain.disciplinas"
-                orderToCheck="nome"
-                width="350"
-                align="start"
-              >
-                Nome
-              </v-th-ordination>
-              <v-th-ordination
-                :currentOrder="ordenacaoMain.disciplinas"
-                orderToCheck="perfil.abreviacao"
-                width="80"
-                align="center"
-              >
-                Perfil
-              </v-th-ordination>
-              <v-th width="65" title="Período letivo, ordenação fixa">
-                Período
-                <font-awesome-icon :icon="['fas', 'thumbtack']" />
-              </v-th>
-              <v-th width="45" title="Turma">Turma</v-th>
-              <v-th width="150" align="start" title="Apelido do Docente">Docentes</v-th>
-              <v-th width="130">Horário</v-th>
+        <template #thead>
+          <v-th-ordination
+            :currentOrder="ordenacaoMain.disciplinas"
+            orderToCheck="codigo"
+            width="80"
+          >
+            Código
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoMain.disciplinas"
+            orderToCheck="nome"
+            width="350"
+            align="start"
+          >
+            Nome
+          </v-th-ordination>
+          <v-th-ordination
+            :currentOrder="ordenacaoMain.disciplinas"
+            orderToCheck="perfil.abreviacao"
+            width="80"
+            align="center"
+          >
+            Perfil
+          </v-th-ordination>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
+          <v-th width="45" title="Turma">Turma</v-th>
+          <v-th width="150" align="start" title="Apelido do Docente">Docentes</v-th>
+          <v-th width="130">Horário</v-th>
 
-              <template v-if="filtroPeriodos.ativados.length">
-                <v-th width="65" paddingX="0" :title="theadTitle.creditos">Créditos</v-th>
-                <v-th width="80" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
-                <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
-                <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
-              </template>
-            </tr>
-          </div>
+          <template v-if="filtroPeriodos.ativados.length">
+            <v-th width="65" paddingX="0" :title="theadTitle.creditos">Créditos</v-th>
+            <v-th width="80" paddingX="0" title="Vagas Plano (SIPlanWeb)">
+              Vagas Plano
+              <v-th width="80" paddingX="0" :title="theadTitle.vagas">Grade+Extra</v-th>
+            </v-th>
+
+            <v-th colspan="2" width="160" paddingX="0" title="Vagas SIGA">
+              Vagas SIGA
+              <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Oferecidas</v-th>
+              <v-th width="80" paddingX="0" :title="theadTitle.vagasOferecidas">Ocupadas</v-th>
+            </v-th>
+          </template>
         </template>
 
         <template #tbody>
