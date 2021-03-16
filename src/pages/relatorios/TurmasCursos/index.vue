@@ -17,7 +17,7 @@
             paddingX="0"
             title="Código do curso"
           >
-            Cód. Curso
+            Código
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoTable.cursos"
@@ -26,13 +26,16 @@
             align="start"
             title="Nome do Curso"
           >
-            Nome do Curso
+            Curso
           </v-th-ordination>
-          <v-th width="30" title="Período">P.</v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+            Periodo
+          </v-th>
           <v-th width="95" title="Código da Disciplina">Cód. Disciplina</v-th>
-          <v-th width="45" title="Turma">T.</v-th>
+          <v-th width="45" title="Turma">Turma</v-th>
           <v-th width="120" title="Horário">Horário</v-th>
-          <v-th width="45" title="Vagas">Vagas</v-th>
+          <v-th width="45" paddingX="0" title="Vagas do Plano Grade+Extra">Vagas</v-th>
         </template>
 
         <template #tbody>
@@ -40,7 +43,7 @@
             <tr :key="curso.id" class="bg-custom">
               <v-td width="85">{{ curso.codigo }}</v-td>
               <v-td width="300" align="start" :title="curso.nome">{{ curso.nome }}</v-td>
-              <v-td width="30"></v-td>
+              <v-td width="65"></v-td>
               <v-td width="95"></v-td>
               <v-td width="40"></v-td>
               <v-td width="120"></v-td>
@@ -53,7 +56,7 @@
             >
               <v-td width="85"></v-td>
               <v-td width="300"></v-td>
-              <v-td width="30">{{ turma.periodo }}</v-td>
+              <v-td width="65">{{ turma.periodo }}</v-td>
               <v-td width="95">{{ turma.disciplina.codigo }}</v-td>
               <v-td width="45">{{ turma.letra }}</v-td>
               <v-td width="120">{{ generateHorariosText(turma.Horario1, turma.Horario2) }}</v-td>
@@ -66,7 +69,7 @@
           </template>
 
           <tr v-if="!CursosOrderedTable.length">
-            <v-td colspan="7" width="720">
+            <v-td colspan="7" width="755">
               <b>Nenhum curso encontrado.</b>
               Clique no botão de filtros para selecioná-los.
             </v-td>
