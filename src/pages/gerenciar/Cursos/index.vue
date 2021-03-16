@@ -13,6 +13,7 @@
               orderToCheck="codigo"
               width="65"
               align="start"
+              title="Código do Curso"
             >
               Código
             </v-th-ordination>
@@ -22,13 +23,13 @@
               orderToCheck="nome"
               width="300"
               align="start"
+              title="Nome do Curso"
             >
               Nome
             </v-th-ordination>
             <v-th-ordination :currentOrder="ordenacaoCursos" orderToCheck="turno" width="65">
               Turno
             </v-th-ordination>
-
             <v-th-ordination
               :currentOrder="ordenacaoCursos"
               orderToCheck="alunosEntrada"
@@ -39,7 +40,6 @@
             >
               1º Período
             </v-th-ordination>
-
             <v-th-ordination
               :currentOrder="ordenacaoCursos"
               orderToCheck="alunosEntrada2"
@@ -51,6 +51,7 @@
               3º Período
             </v-th-ordination>
           </template>
+
           <template #tbody>
             <tr
               v-for="curso in CursosOrdered"
@@ -67,6 +68,7 @@
               <v-td width="75">{{ curso.alunosEntrada }}</v-td>
               <v-td width="75">{{ curso.alunosEntrada2 }}</v-td>
             </tr>
+
             <tr v-if="!CursosOrdered.length">
               <v-td width="580" colspan="5">
                 <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="icon-red" />
@@ -78,7 +80,7 @@
       </div>
 
       <Card
-        :title="'Curso'"
+        title="Curso"
         width="320"
         :toggleFooter="isEditing"
         @btn-salvar="handleEditCurso"
