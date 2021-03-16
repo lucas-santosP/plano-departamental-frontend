@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="240"
               align="start"
+              title="Nome do Docente"
             >
               Nome
             </v-th-ordination>
@@ -21,6 +22,7 @@
               orderToCheck="apelido"
               width="120"
               align="start"
+              title="Apelido do Docente"
             >
               Apelido
             </v-th-ordination>
@@ -47,7 +49,8 @@
             </tr>
 
             <tr v-if="!DocentesOrdered.length">
-              <v-td width="665" colspan="3">
+              <v-td width="425" colspan="3">
+                <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="icon-red" />
                 <b>Nenhum docente encontrado</b>
               </v-td>
             </tr>
