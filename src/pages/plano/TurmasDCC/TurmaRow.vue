@@ -21,7 +21,7 @@
     </v-td>
     <v-td width="80" paddingX="2">{{ turmaForm.disciplina.codigo }}</v-td>
     <v-td width="330" align="start">{{ turmaForm.disciplina.nome }}</v-td>
-    <v-td width="55">{{ turmaForm.disciplina.creditoTotal }}</v-td>
+    <v-td width="60">{{ turmaForm.disciplina.creditoTotal }}</v-td>
     <v-td width="45" type="content">
       <input
         type="text"

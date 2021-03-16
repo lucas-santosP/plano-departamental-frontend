@@ -41,7 +41,7 @@
         </option>
       </select>
     </v-td>
-    <v-td width="55">{{ totalCarga }}</v-td>
+    <v-td width="60">{{ totalCarga }}</v-td>
     <v-td width="45" type="content">
       <input
         type="text"

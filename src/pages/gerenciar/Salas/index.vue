@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="100"
               align="start"
+              title="Nome da Sala"
             >
               Nome
             </v-th-ordination>
@@ -30,6 +31,7 @@
               orderToCheck="lotacao_maxima"
               orderType="desc"
               width="100"
+              title="Lotação maxima da Sala"
             >
               Lotação max.
             </v-th-ordination>

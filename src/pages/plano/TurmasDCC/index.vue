@@ -24,8 +24,8 @@
           <v-th width="25" />
           <v-th width="40" paddingX="0">Editar</v-th>
           <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
             Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
           </v-th>
           <v-th-ordination
             :orderFixed="true"
@@ -50,7 +50,7 @@
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="55" paddingX="0" title="Créditos">Créditos</v-th>
+          <v-th width="60" paddingX="0" title="Créditos">Créditos</v-th>
           <v-th width="45" paddingX="0" title="Turma">Turma</v-th>
           <v-th width="160" align="start">Docente</v-th>
           <v-th width="80">Turno</v-th>
@@ -91,7 +91,7 @@
           />
 
           <tr v-if="!TurmasOrdered.length">
-            <v-td :width="1185 + 35 * filtroCursos.ativados.length">
+            <v-td :width="1190 + 35 * filtroCursos.ativados.length">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />

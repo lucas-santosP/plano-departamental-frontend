@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="150"
               align="start"
+              title="Nome do Usuário"
             >
               Nome
             </v-th-ordination>
