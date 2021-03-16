@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="currentPlano.isEditable">
+  <div class="main-component row">
     <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton template="salvar" @click="$refs.novaTurmaRow.handleCreateTurmaExterna()" />
@@ -280,6 +280,7 @@ import {
   cursoPopoverContent,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
+  redirectIfPlanoNotEditable,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
@@ -294,6 +295,7 @@ export default {
     cursoPopoverContent,
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
+    redirectIfPlanoNotEditable,
   ],
   components: {
     ModalFiltros,

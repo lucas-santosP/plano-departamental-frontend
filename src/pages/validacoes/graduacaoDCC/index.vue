@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="currentPlano.isEditable">
+  <div class="main-component row">
     <portal to="page-header">
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
@@ -282,6 +282,7 @@ import {
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
+  redirectIfPlanoNotEditable,
 } from "@/common/mixins";
 import { ModalAjuda, ModalFiltros, ModalEditTurma } from "@/components/modals";
 import { NavTab } from "@/components/ui";
@@ -326,6 +327,7 @@ export default {
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
     generateDocentesText,
+    redirectIfPlanoNotEditable,
   ],
   components: {
     ModalAjuda,

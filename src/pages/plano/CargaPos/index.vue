@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="currentPlano.isEditable">
+  <div class="main-component row">
     <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton template="salvar" @click="$refs.novaCargaPosRow.handleCreateCargaPos()" />
@@ -240,6 +240,7 @@ import {
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
+  redirectIfPlanoNotEditable,
 } from "@/common/mixins";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
@@ -252,6 +253,7 @@ export default {
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
+    redirectIfPlanoNotEditable,
   ],
   components: {
     ModalDelete,
