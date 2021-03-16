@@ -7,22 +7,19 @@
     class="clickable"
   >
     <div v-if="orderFixed" class="container-fixed-order">
-      <font-awesome-icon
-        v-if="align === 'center'"
-        :icon="['fas', 'thumbtack']"
-        :class="{ 'low-opacity': currentOrder.order === null }"
-        title="Ordenação fixa"
-      />
-      <span>
-        {{ text }}
-        <slot v-if="text === ''"></slot>
-      </span>
+      <div
+        :class="`flex w-100 ${
+          align === 'start' ? 'justify-content-center' : 'justify-content-start'
+        }`"
+      >
+        <span>
+          {{ text }}
+          <slot v-if="text === ''"></slot>
+        </span>
 
-      <div>
         <font-awesome-icon
           :icon="['fas', 'thumbtack']"
-          v-if="align === 'start'"
-          class="mx-1"
+          class="mr-1"
           :class="{ 'low-opacity': currentOrder.order === null }"
           title="Ordenação fixa"
         />
