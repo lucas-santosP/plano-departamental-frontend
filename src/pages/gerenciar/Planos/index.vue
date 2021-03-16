@@ -13,6 +13,7 @@
               orderToCheck="ano"
               width="70"
               align="start"
+              title="Ano do Plano"
             >
               Ano
             </v-th-ordination>
@@ -21,6 +22,7 @@
               orderToCheck="nome"
               width="150"
               align="start"
+              title="Nome do Plano"
             >
               Nome
             </v-th-ordination>
