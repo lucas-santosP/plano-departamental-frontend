@@ -101,7 +101,7 @@
         </template>
       </BaseTable>
 
-      <BaseTable v-if="tableMode === 'docente'">
+      <BaseTable v-else-if="tableMode === 'docente'">
         <template #thead>
           <v-th-ordination
             :currentOrder="ordenacaoDocentes.docentes"
@@ -196,33 +196,35 @@
     <BaseModal
       ref="modalEditPref"
       class="modal-pref"
-      :title="'Editar Preferência'"
-      :hasFooter="true"
-      :position="'right'"
+      title="Editar Preferência"
+      position="right"
+      hasFooter
       :styles="{ width: '400px' }"
     >
       <template #modal-body>
-        <div class="form-row w-100">
-          <span class="w-100 mb-2">
+        <div class="row">
+          <span class="col-12 mb-2">
             <b>Docente:</b>
             {{ edit.docente ? edit.docente.nome : "" }}
           </span>
-          <span class="w-100">
+          <span class="col-12">
             <b>Disciplina:</b>
             {{ edit.disciplina ? edit.disciplina.nome : "" }}
           </span>
         </div>
 
-        <div class="form-row w-100">
-          <div class="form-group col-6">
-            <label for="editPref">Preferência:</label>
-            <select id="editPref" class="form-control" v-model="preferenciaForm.preferencia">
-              <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
-                {{ pref }} - {{ preferenciaText(pref) }}
-              </option>
-            </select>
-          </div>
-        </div>
+        <VSelect
+          label="Preferência"
+          v-model.number="preferenciaForm.preferencia"
+          :validation="$v.preferenciaForm.preferencia"
+        >
+          <VOption
+            v-for="preferencia in [0, 1, 2, 3]"
+            :key="preferencia"
+            :value="preferencia"
+            :text="`${preferencia} - ${preferenciaText(preferencia)}`"
+          />
+        </VSelect>
       </template>
 
       <template #modal-footer>
@@ -238,8 +240,8 @@
           ? 'Adicionar preferência ao docente'
           : 'Adicionar preferência à disciplina'
       "
-      :hasFooter="true"
-      :position="'right'"
+      position="right"
+      hasFooter
       :styles="{ width: '400px' }"
     >
       <template #modal-body>
@@ -251,80 +253,83 @@
             </span>
           </div>
 
-          <div class="form-row w-100">
-            <div class="form-group col-6">
-              <label for="addDocente">Docente:</label>
-              <select id="addDocente" class="form-control" v-model="add.Docente">
-                <option
+          <div class="row">
+            <div class="col">
+              <VSelect label="Docente" v-model.number="add.Docente" :validation="$v.add.Docente">
+                <VOption
                   v-for="docente in DocentesAtivos"
-                  :key="docente.id + docente.apelido"
+                  :key="docente.id + docente.nome"
                   :value="docente.id"
-                >
-                  {{ docente.apelido }}
-                </option>
-              </select>
+                  :text="docente.apelido"
+                />
+              </VSelect>
             </div>
-
-            <div class="form-group col-6 pl-3">
-              <label for="addPref">Preferência:</label>
-              <select id="addPref" v-model.number="add.preferencia" class="form-control">
-                <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
-                  {{ pref }} - {{ preferenciaText(pref) }}
-                </option>
-              </select>
+            <div class="col">
+              <VSelect
+                label="Preferência"
+                v-model.number="add.preferencia"
+                :validation="$v.add.preferencia"
+              >
+                <VOption
+                  v-for="preferencia in [0, 1, 2, 3]"
+                  :key="preferencia"
+                  :value="preferencia"
+                  :text="`${preferencia} - ${preferenciaText(preferencia)}`"
+                />
+              </VSelect>
             </div>
           </div>
         </template>
 
         <template v-else-if="tableMode === 'docente'">
-          <div class="form-row w-100">
-            <span class="w-100">
+          <div class="row">
+            <span class="col">
               <b>Docente:</b>
               {{ add.Docente ? add.Docente.apelido : "" }}
             </span>
           </div>
 
-          <div class="form-row w-100">
-            <div class="form-group col">
-              <label for="addDisciplina">Disciplina:</label>
-              <select
-                id="addDisciplina"
-                class="form-control"
-                style="width: 100%"
-                v-model="add.Disciplina"
+          <VSelect
+            label="Disciplina"
+            v-model.number="add.Disciplina"
+            :validation="$v.add.Disciplina"
+          >
+            <VOption
+              v-for="disciplina in DisciplinasDCCOrderedByNome"
+              :key="disciplina.id + disciplina.codigo"
+              :value="disciplina.id"
+              :text="disciplina.nome"
+            />
+          </VSelect>
+
+          <div class="row">
+            <div class="col">
+              <VSelect
+                label="Código"
+                v-model.number="add.Disciplina"
+                :validation="$v.add.Disciplina"
               >
-                <option
+                <VOption
                   v-for="disciplina in DisciplinasDCCOrderedByNome"
                   :key="disciplina.id + disciplina.codigo"
                   :value="disciplina.id"
-                >
-                  {{ disciplina.nome }}
-                </option>
-              </select>
+                  :text="disciplina.codigo"
+                />
+              </VSelect>
             </div>
-          </div>
-
-          <div class="form-row w-100">
-            <div class="form-group col-6">
-              <label for="addDisciplina">Código:</label>
-              <select id="addDisciplina" class="form-control" v-model="add.Disciplina">
-                <option
-                  v-for="disciplina in DisciplinasDCCOrderedByCodigo"
-                  :key="disciplina.id + disciplina.codigo"
-                  :value="disciplina.id"
-                >
-                  {{ disciplina.codigo }}
-                </option>
-              </select>
-            </div>
-
-            <div class="form-group col-6 pl-3">
-              <label for="addPref">Preferência:</label>
-              <select id="addPref" v-model.number="add.preferencia" class="form-control">
-                <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
-                  {{ pref }} - {{ preferenciaText(pref) }}
-                </option>
-              </select>
+            <div class="col">
+              <VSelect
+                label="Preferência"
+                v-model.number="add.preferencia"
+                :validation="$v.add.preferencia"
+              >
+                <VOption
+                  v-for="preferencia in [0, 1, 2, 3]"
+                  :key="preferencia"
+                  :value="preferencia"
+                  :text="`${preferencia} - ${preferenciaText(preferencia)}`"
+                />
+              </VSelect>
             </div>
           </div>
         </template>
@@ -338,62 +343,60 @@
     <BaseModal
       ref="modalNewPref"
       class="modal-pref"
-      :title="'Nova Preferência'"
-      :hasFooter="true"
-      :position="'right'"
+      title="Nova Preferência"
+      position="right"
+      hasFooter
       :styles="{ width: '400px' }"
     >
       <template #modal-body>
-        <div class="form-row w-100">
-          <div class="form-group col">
-            <label for="newDisciplina">Disciplina:</label>
-            <select id="newDisciplina" class="form-control" v-model="add.Disciplina">
-              <option
+        <VSelect label="Disciplina" v-model.number="add.Disciplina" :validation="$v.add.Disciplina">
+          <VOption
+            v-for="disciplina in DisciplinasDCCOrderedByNome"
+            :key="disciplina.id + disciplina.codigo"
+            :value="disciplina.id"
+            :text="disciplina.nome"
+          />
+        </VSelect>
+
+        <div class="row">
+          <div class="col">
+            <VSelect label="Código" v-model.number="add.Disciplina" :validation="$v.add.Disciplina">
+              <VOption
                 v-for="disciplina in DisciplinasDCCOrderedByNome"
                 :key="disciplina.id + disciplina.codigo"
                 :value="disciplina.id"
-              >
-                {{ disciplina.nome }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row w-100">
-          <div class="form-group col-6">
-            <label for="newCodigo">Código:</label>
-            <select id="newCodigo" class="form-control" v-model="add.Disciplina">
-              <option
-                v-for="disciplina in DisciplinasDCCOrderedByCodigo"
-                :key="disciplina.id + disciplina.codigo"
-                :value="disciplina.id"
-              >
-                {{ disciplina.codigo }}
-              </option>
-            </select>
+                :text="disciplina.codigo"
+              />
+            </VSelect>
           </div>
 
-          <div class="form-group col-6 pl-3">
-            <label for="newDocente">Docente:</label>
-            <select id="newDocente" class="form-control" v-model="add.Docente">
-              <option
+          <div class="col">
+            <VSelect label="Docente" v-model.number="add.Docente" :validation="$v.add.Docente">
+              <VOption
                 v-for="docente in DocentesAtivos"
                 :key="docente.id + docente.nome"
                 :value="docente.id"
-              >
-                {{ docente.apelido }}
-              </option>
-            </select>
+                :text="docente.apelido"
+              />
+            </VSelect>
           </div>
         </div>
 
-        <div class="form-group col-6">
-          <label for="newPref">Preferência:</label>
-          <select id="newPref" v-model.number="add.preferencia" class="form-control">
-            <option v-for="pref in [0, 1, 2, 3]" :key="pref" :value="pref">
-              {{ pref }} - {{ preferenciaText(pref) }}
-            </option>
-          </select>
+        <div class="row">
+          <div class="col-6">
+            <VSelect
+              label="Preferência"
+              v-model.number="add.preferencia"
+              :validation="$v.add.preferencia"
+            >
+              <VOption
+                v-for="preferencia in [0, 1, 2, 3]"
+                :key="preferencia"
+                :value="preferencia"
+                :text="`${preferencia} - ${preferenciaText(preferencia)}`"
+              />
+            </VSelect>
+          </div>
         </div>
       </template>
 
@@ -405,13 +408,13 @@
     <BaseModal
       ref="modalUpload"
       class="modal-pref"
-      :title="'Importar preferências'"
-      :hasFooter="true"
+      title="Importar preferências"
       position="right"
+      hasFooter
       :styles="{ width: '400px' }"
     >
       <template #modal-body>
-        <input type="file" ref="xlsxPrefs" id="xlsxPrefs" />
+        <VInputFile v-model="fileXlsxPrefs" :validation="$v.fileXlsxPrefs" accept=".xlsx" />
       </template>
 
       <template #modal-footer>
@@ -462,13 +465,15 @@
 import XLSX from "xlsx";
 import { mapGetters } from "vuex";
 import { find, filter, orderBy, map } from "lodash-es";
+import { required, integer } from "vuelidate/lib/validators";
 import docenteDisciplinaService from "@/services/docenteDisciplina";
 import { ModalAjuda } from "@/components/modals";
 import { toggleAsideModal } from "@/common/mixins";
+import { VSelect, VOption, VInputFile } from "@/components/ui";
 
 export default {
   name: "PreferenciasDocentes",
-  components: { ModalAjuda },
+  components: { ModalAjuda, VInputFile, VSelect, VOption },
   mixins: [toggleAsideModal],
   data() {
     return {
@@ -479,7 +484,7 @@ export default {
         "modalNewPref",
         "modalUpload",
       ],
-      file: null,
+      fileXlsxPrefs: null,
       preferenciaForm: {
         Docente: null,
         Disciplina: null,
@@ -508,6 +513,23 @@ export default {
         pref: { order: "preferencia", type: "desc" },
       },
     };
+  },
+  validations: {
+    fileXlsxPrefs: { required },
+    preferenciaForm: {
+      Docente: { required },
+      Disciplina: { required },
+      preferencia: { required, integer },
+    },
+    edit: {
+      docente: { required },
+      disciplina: { required, integer },
+    },
+    add: {
+      Docente: { required },
+      Disciplina: { required },
+      preferencia: { required, integer },
+    },
   },
 
   methods: {
@@ -555,6 +577,7 @@ export default {
         preferencia: p,
       };
       this.closeAllModals();
+      this.$nextTick(() => this.$v.$reset());
       this.$refs.modalEditPref.open();
     },
     openModalAddPreferencia(data) {
@@ -565,6 +588,7 @@ export default {
       }
 
       this.closeAllModals();
+      this.$nextTick(() => this.$v.$reset());
       this.$refs.modalAddPref.open();
     },
     findPreferencia(docente, disciplina) {
@@ -576,32 +600,33 @@ export default {
       return preferenciaFounded ? preferenciaFounded.preferencia : 0;
     },
     addPreferencia() {
-      if (this.add.Docente && this.add.Disciplina && this.add.preferencia) {
-        if (this.add.Docente.id) this.add.Docente = this.add.Docente.id;
-        if (this.add.Disciplina.id) this.add.Disciplina = this.add.Disciplina.id;
+      this.$v.add.$touch();
+      if (this.$v.add.$anyError) return;
 
-        docenteDisciplinaService
-          .create(this.add)
-          .then(() => {
-            this.pushNotification({
-              type: "success",
-              text: "Preferência adicionada com sucesso!",
-            });
+      const preferenciaToAdd = { ...this.add };
+      if (this.add.Docente.id) preferenciaToAdd.Docente = this.add.Docente.id;
+      if (this.add.Disciplina.id) preferenciaToAdd.Disciplina = this.add.Disciplina.id;
 
-            this.add.Disciplina = null;
-            this.add.Docente = null;
-            this.add.preferencia = 0;
-          })
-          .catch(() => {
-            this.pushNotification({
-              type: "error",
-              title: "Erro ao adicionar preferência!",
-              text: "Verifique se a preferência já não existe",
-            });
+      docenteDisciplinaService
+        .create(preferenciaToAdd)
+        .then(() => {
+          this.pushNotification({
+            type: "success",
+            text: "Preferência adicionada com sucesso!",
           });
-      }
+        })
+        .catch(() => {
+          this.pushNotification({
+            type: "error",
+            title: "Erro ao adicionar preferência!",
+            text: "Verifique se a preferência já não existe",
+          });
+        });
     },
     handleEditPrefs() {
+      this.$v.preferenciaForm.$touch();
+      if (this.$v.preferenciaForm.$anyError) return;
+
       if (this.edit.isZero) {
         if (this.preferenciaForm.preferencia != 0) {
           docenteDisciplinaService
@@ -677,7 +702,9 @@ export default {
       }
     },
     importPrefs() {
-      this.file = this.$refs.xlsxPrefs.files[0];
+      this.$v.fileXlsxPrefs.$touch();
+      if (this.$v.fileXlsxPrefs.$anyError) return;
+
       const reader = new FileReader();
 
       const docentes = this.DocentesAtivos;
@@ -743,7 +770,7 @@ export default {
           }
         }
       };
-      reader.readAsBinaryString(this.file);
+      reader.readAsBinaryString(this.fileXlsxPrefs);
       this.$refs.modalUpload.close();
     },
   },
