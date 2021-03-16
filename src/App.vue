@@ -47,10 +47,3 @@ export default {
   },
 };
 </script>
-
-<style>
-#app .vue-notification.warn {
-  background: #fa9e2d;
-  border-left-color: #e07e06;
-}
-</style>
