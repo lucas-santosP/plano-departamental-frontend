@@ -67,7 +67,7 @@
           />
 
           <tr v-if="!TurmasExternasOrdered.length">
-            <v-td width="1050">
+            <v-td width="1045">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
