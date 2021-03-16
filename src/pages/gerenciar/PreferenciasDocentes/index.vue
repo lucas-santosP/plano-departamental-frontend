@@ -15,6 +15,7 @@
             orderToCheck="codigo"
             width="90"
             align="start"
+            title="Código da Disciplina"
           >
             Código
           </v-th-ordination>
@@ -23,6 +24,7 @@
             orderToCheck="nome"
             width="420"
             align="start"
+            title="Nome da Disciplina"
           >
             Nome
           </v-th-ordination>
@@ -30,6 +32,7 @@
             width="80"
             :currentOrder="ordenacaoDisciplina.disciplinas"
             orderToCheck="perfil.abreviacao"
+            title="Perfil da Disciplina"
           >
             Perfil
           </v-th-ordination>
@@ -38,6 +41,7 @@
             orderToCheck="docente.apelido"
             width="120"
             align="start"
+            title="Nome do Docente"
           >
             Docente
           </v-th-ordination>
@@ -46,10 +50,10 @@
             orderToCheck="preferencia"
             orderType="desc"
             :orderFixed="true"
-            width="60"
-            title="Preferência"
+            width="100"
+            title="Preferência do Docente"
           >
-            Pref.
+            Preferência
           </v-th-ordination>
         </template>
 
@@ -61,7 +65,7 @@
               <v-td width="80" paddingX="2">{{ disciplina.perfil.abreviacao }}</v-td>
               <v-td width="120" />
               <v-td
-                width="60"
+                width="100"
                 class="clickable"
                 type="content"
                 @click="openModalAddPreferencia(disciplina)"
@@ -81,7 +85,7 @@
                 {{ preferencia.docente.apelido }}
               </v-td>
               <v-td
-                width="60"
+                width="100"
                 class="td-pref"
                 @click="openModalEditPreferencia(preferencia)"
                 :title="
@@ -104,6 +108,7 @@
             orderToCheck="nome"
             width="120"
             align="start"
+            title="Nome do Docente"
           >
             Docente
           </v-th-ordination>
@@ -111,6 +116,7 @@
             :currentOrder="ordenacaoDocentes.disciplinas"
             orderToCheck="disciplina.codigo"
             width="90"
+            title="Código da Disciplina"
           >
             Código
           </v-th-ordination>
@@ -119,6 +125,7 @@
             orderToCheck="disciplina.nome"
             width="420"
             align="start"
+            title="Nome da Disciplina"
           >
             Nome
           </v-th-ordination>
@@ -126,6 +133,7 @@
             :currentOrder="ordenacaoDocentes.disciplinas"
             orderToCheck="disciplina.perfil.abreviacao"
             width="80"
+            title="Perfil da Disciplina"
           >
             Perfil
           </v-th-ordination>
@@ -134,10 +142,10 @@
             orderToCheck="preferencia"
             orderType="desc"
             :orderFixed="true"
-            width="60"
-            title="Preferência"
+            width="100"
+            title="Preferência do Docente"
           >
-            Pref.
+            Preferência
           </v-th-ordination>
         </template>
 
@@ -149,7 +157,7 @@
               <v-td width="420" />
               <v-td width="80" />
               <v-td
-                width="60"
+                width="100"
                 type="content"
                 class="clickable"
                 @click="openModalAddPreferencia(docente)"
@@ -167,7 +175,7 @@
               <v-td width="420" align="start">{{ preferencia.disciplina.nome }}</v-td>
               <v-td width="80">{{ preferencia.disciplina.perfil.abreviacao }}</v-td>
               <v-td
-                width="60"
+                width="100"
                 class="td-pref"
                 type="content"
                 @click="openModalEditPreferencia(preferencia)"
