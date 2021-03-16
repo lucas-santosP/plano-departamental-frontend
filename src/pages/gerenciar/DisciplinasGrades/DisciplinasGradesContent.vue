@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="fex flex-column flex-grow-1">
+    <div class="flex flex-column flex-grow-1">
       <NavTab
         :currentTab="currentTab"
         :allTabs="['DCC', 'Outros']"
