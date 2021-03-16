@@ -14,7 +14,7 @@
           <v-th width="120">Valor Anterior</v-th>
           <v-th width="120">Novo Valor</v-th>
           <v-th width="65">Operação</v-th>
-          <v-th width="80">Usuário</v-th>
+          <v-th width="80" title="Usuário que realizou a operação">Usuário</v-th>
           <v-th width="160">Data</v-th>
         </template>
         <template #tbody>
