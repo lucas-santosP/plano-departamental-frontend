@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="350"
               align="start"
+              title="Nome do Perfil"
             >
               Nome
             </v-th-ordination>
@@ -21,10 +22,11 @@
               orderToCheck="abreviacao"
               width="90"
               align="start"
+              title="Abreviação do Perfil"
             >
               Abreviação
             </v-th-ordination>
-            <v-th width="60">Cor</v-th>
+            <v-th width="65" title="Cor do Perfil">Cor</v-th>
           </template>
 
           <template #tbody>
@@ -35,8 +37,8 @@
               @click="handleClickInPerfil(perfil)"
             >
               <v-td width="350" align="start">{{ perfil.nome }}</v-td>
-              <v-td width="90">{{ perfil.abreviacao }}</v-td>
-              <v-td width="60" type="content">
+              <v-td width="90" align="start">{{ perfil.abreviacao }}</v-td>
+              <v-td width="65" type="content">
                 <div
                   :style="{
                     backgroundColor: perfil.cor,
@@ -49,7 +51,7 @@
             </tr>
 
             <tr v-if="!PerfisOrdered.length">
-              <v-td width="500" colspan="3">
+              <v-td width="505" colspan="3">
                 <b>Nenhum perfil encontrado</b>
               </v-td>
             </tr>
