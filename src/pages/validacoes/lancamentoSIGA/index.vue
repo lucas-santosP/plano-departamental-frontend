@@ -80,44 +80,26 @@
 
       <Card title="Validar pedidos">
         <template #body>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="periodoPlano" class="col-form-label">Período</label>
-              <select
-                id="periodoPlano"
-                v-model.number="periodoForm"
-                class="input-lg form-control form-control-sm"
-              >
-                <option
-                  v-for="periodo in PeriodosLetivos"
-                  :key="periodo.id + periodo.nome"
-                  :value="periodo.id"
-                >
-                  {{ periodo.nome }}
-                </option>
-              </select>
-            </div>
-          </div>
+          <VSelect label="Perído" v-model.number="form.periodo" :validation="$v.form.periodo">
+            <VOption
+              v-for="periodo in PeriodosLetivos"
+              :key="periodo.id + periodo.nome"
+              :value="periodo.id"
+              :text="periodo.nome"
+            />
+          </VSelect>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="turmaFile" class="col-form-label">
-                Arquivo .csv do plano SIGA
-              </label>
-              <input
-                type="file"
-                id="turmaFile"
-                ref="inputFileForm"
-                class="form-control-file mt-1"
-                accept=".csv"
-              />
-            </div>
-          </div>
+          <VInputFile
+            label="Arquivo do plano SIGA (.csv)"
+            v-model="form.file"
+            :validation="$v.form.file"
+            accept=".csv"
+          />
         </template>
 
         <template #footer>
           <BaseButton template="Salvar" title="Iniciar" @click="handleCompareTurmas" />
-          <BaseButton template="cancelar" @click="clearCardForm" />
+          <BaseButton template="cancelar" @click="clearForm" />
         </template>
       </Card>
     </div>
@@ -140,6 +122,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { some, orderBy } from "lodash-es";
+import { required, integer } from "vuelidate/lib/validators";
 import { parseCSVFileToArray } from "@utils";
 import {
   parseTurmaSIGAToTurma,
@@ -149,16 +132,19 @@ import {
 } from "@/common/utils/turmasSIGA";
 import { makeEmptyCurso } from "@utils/factories";
 import { generateDocentesText, generateHorariosText } from "@mixins";
-import { Card } from "@/components/ui";
+import { Card, VSelect, VOption, VInputFile } from "@/components/ui";
 import { ModalAjuda } from "@/components/modals";
 
 export default {
   name: "ValidaçãoLançamentoSIGA",
-  components: { Card, ModalAjuda },
+  components: { Card, ModalAjuda, VSelect, VOption, VInputFile },
   mixins: [generateDocentesText, generateHorariosText],
   data() {
     return {
-      periodoForm: 1,
+      form: {
+        periodo: 1,
+        filePlano: null,
+      },
       turmasConflitos: [],
       ordenacaoConflitos: {
         order: "disciplina.codigo",
@@ -166,35 +152,32 @@ export default {
       },
     };
   },
+  validations: {
+    form: {
+      periodo: { required, integer },
+      file: { required },
+    },
+  },
 
   methods: {
-    clearCardForm() {
-      this.periodoForm = 1;
-      this.$refs.inputFileForm.value = "";
+    clearForm() {
+      this.form.periodo = 1;
+      this.form.file = null;
+      this.$nextTick(() => this.$v.$reset());
     },
     async handleCompareTurmas() {
-      if (!this.periodoForm) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum período selecionado",
-        });
-        return;
-      }
-      const [fileTurmas] = this.$refs.inputFileForm.files;
-      if (!fileTurmas) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum arquivo selecionado",
-        });
-        return;
-      }
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) return;
 
       try {
         this.setLoading({ type: "partial", value: true });
-        const turmasFile = await parseCSVFileToArray(fileTurmas);
+        const turmasFile = await parseCSVFileToArray(this.form.file);
         validateTurmasSIGA(turmasFile);
-        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(turmasFile, this.periodoForm);
-        this.searchConflitos(turmasSIGANormalized, this.periodoForm);
+        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(
+          turmasFile,
+          this.form.periodo
+        );
+        this.searchConflitos(turmasSIGANormalized, this.form.periodo);
       } catch (error) {
         console.log(error);
         this.pushNotification({
