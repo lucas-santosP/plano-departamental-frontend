@@ -13,16 +13,17 @@
             <v-th-ordination
               :currentOrder="ordenacaoDisciplinasMain"
               orderToCheck="periodo"
-              width="35"
-              title="Período"
+              width="65"
+              title="Período letivo"
             >
-              P.
+              Período
             </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordenacaoDisciplinasMain"
               orderToCheck="disciplina.codigo"
               width="80"
               align="start"
+              title="Código da Disciplina"
             >
               Código
             </v-th-ordination>
@@ -31,6 +32,7 @@
               orderToCheck="disciplina.nome"
               width="400"
               align="start"
+              title="Nome da Disciplina"
             >
               Disciplina
             </v-th-ordination>
@@ -47,23 +49,19 @@
                 { 'bg-selected': disciplinaSelectedId === disciplinaGrade.Disciplina },
               ]"
             >
-              <v-td width="35">{{ disciplinaGrade.periodo }}</v-td>
-              <v-td width="80" align="start">
-                {{ disciplinaGrade.disciplina.codigo }}
-              </v-td>
-              <v-td width="400" align="start">
-                {{ disciplinaGrade.disciplina.nome }}
-              </v-td>
+              <v-td width="65">{{ disciplinaGrade.periodo }}</v-td>
+              <v-td width="80" align="start">{{ disciplinaGrade.disciplina.codigo }}</v-td>
+              <v-td width="400" align="start">{{ disciplinaGrade.disciplina.nome }}</v-td>
             </tr>
 
             <tr v-if="!hasGradeSelected">
-              <v-td width="515" colspan="3">
+              <v-td width="545" colspan="3">
                 <b>Nenhuma disciplina encontrada</b>
                 , selecione uma grade.
               </v-td>
             </tr>
             <tr v-else-if="!DisciplinaGradesOrdered.length">
-              <v-td width="515" colspan="3">
+              <v-td width="545" colspan="3">
                 <b>Nenhuma disciplina encontrada</b>
                 na grade selecionada.
               </v-td>
@@ -160,6 +158,7 @@
               template="salvar"
               title="Atualizar período da disciplina"
               class="btn-append"
+              style="margin-top: 23px"
               @click="handleUpdateDisciplinaGrade"
             />
           </div>
@@ -423,9 +422,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.btn-append {
-  margin-top: 23px !important; /* altura do label */
-}
-</style>
