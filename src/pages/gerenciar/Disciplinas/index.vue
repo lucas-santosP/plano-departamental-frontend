@@ -7,67 +7,76 @@
     <div class="page-content">
       <div class="div-table">
         <BaseTable>
-          <template #thead>
-            <v-th-ordination
-              :currentOrder="ordenacaoMain.disciplina"
-              orderToCheck="codigo"
-              width="85"
-              align="start"
-            >
-              Código
-            </v-th-ordination>
-
-            <v-th-ordination
-              :currentOrder="ordenacaoMain.disciplina"
-              orderToCheck="nome"
-              width="300"
-              align="start"
-            >
-              Nome
-            </v-th-ordination>
-
-            <v-th-ordination
-              :orderFixed="true"
-              :currentOrder="ordenacaoMain.perfil"
-              orderToCheck="perfil.abreviacao"
-              width="80"
-              align="start"
-            >
-              Perfil
-            </v-th-ordination>
-
-            <v-th width="40" title="Carga Teórica">C.T.</v-th>
-            <v-th width="40" title="Carga Prática">C.P.</v-th>
-
-            <v-th-ordination
-              :currentOrder="ordenacaoMain.disciplina"
-              orderToCheck="ead"
-              orderType="desc"
-              width="70"
-            >
-              EAD
-            </v-th-ordination>
-
-            <v-th-ordination
-              :currentOrder="ordenacaoMain.disciplina"
-              orderToCheck="laboratorio"
-              orderType="desc"
-              width="70"
-              title="Laborátorio"
-            >
-              Lab.
-            </v-th-ordination>
-
-            <v-th-ordination
-              :currentOrder="ordenacaoMain.disciplina"
-              orderToCheck="departamento"
-              width="70"
-              title="Departamento"
-              align="start"
-            >
-              Depto.
-            </v-th-ordination>
+          <template #thead-root>
+            <div class="sticky-row-top">
+              <tr>
+                <v-th colspan="3" />
+                <v-th colspan="2" title="Carga da Disciplina">Carga</v-th>
+                <v-th colspan="3" />
+              </tr>
+              <tr>
+                <v-th-ordination
+                  :orderFixed="true"
+                  :currentOrder="ordenacaoMain.perfil"
+                  orderToCheck="perfil.abreviacao"
+                  width="80"
+                  align="start"
+                  title="Perfil da Disciplina"
+                >
+                  Perfil
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoMain.disciplina"
+                  orderToCheck="codigo"
+                  width="85"
+                  align="start"
+                  title="Código da Disciplina"
+                >
+                  Código
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoMain.disciplina"
+                  orderToCheck="nome"
+                  width="300"
+                  align="start"
+                  title="Nome da Disciplina"
+                >
+                  Nome
+                </v-th-ordination>
+                <v-th width="55" title="Carga Teórica">Teórica</v-th>
+                <v-th width="55" title="Carga Prática">Prática</v-th>
+                <v-th-ordination
+                  :currentOrder="ordenacaoMain.disciplina"
+                  orderToCheck="ead"
+                  orderType="desc"
+                  width="70"
+                  title="Disciplina em EAD"
+                >
+                  EAD
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoMain.disciplina"
+                  orderToCheck="laboratorio"
+                  orderType="desc"
+                  width="85"
+                  paddingX="0"
+                  title="Disciplina em Laborátorio"
+                >
+                  Laborátorio
+                </v-th-ordination>
+                <v-th-ordination
+                  :currentOrder="ordenacaoMain.disciplina"
+                  orderToCheck="departamento"
+                  width="95"
+                  paddingX="0"
+                  title="Departamento da Disciplina"
+                >
+                  Departamento
+                </v-th-ordination>
+              </tr>
+            </div>
           </template>
+
           <template #tbody>
             <tr
               v-for="disciplina in DisciplinasOrdered"
@@ -75,12 +84,6 @@
               @click="handleClickInDisciplina(disciplina)"
               :class="['clickable', disciplinaEstaSelecionada(disciplina.id)]"
             >
-              <v-td width="85" align="start">
-                {{ disciplina.codigo }}
-              </v-td>
-              <v-td width="300" align="start">
-                {{ disciplina.nome }}
-              </v-td>
               <v-td
                 width="80"
                 align="start"
@@ -88,24 +91,32 @@
               >
                 {{ disciplina.perfil.abreviacao }}
               </v-td>
-              <v-td width="40">
+              <v-td width="85" align="start">
+                {{ disciplina.codigo }}
+              </v-td>
+              <v-td width="300" align="start">
+                {{ disciplina.nome }}
+              </v-td>
+
+              <v-td width="55">
                 {{ disciplina.cargaTeorica }}
               </v-td>
-              <v-td width="40">
+              <v-td width="55">
                 {{ disciplina.cargaPratica }}
               </v-td>
               <v-td width="70">
                 {{ textoEad(disciplina.ead) }}
               </v-td>
-              <v-td width="70">
+              <v-td width="85">
                 {{ textoLab(disciplina.laboratorio) }}
               </v-td>
-              <v-td width="70" align="start">
+              <v-td width="95">
                 {{ textoDepto(disciplina.departamento) }}
               </v-td>
             </tr>
+
             <tr v-if="!DisciplinasOrdered.length">
-              <v-td width="755" colspan="8">
+              <v-td width="825" colspan="8">
                 <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="icon-red" />
                 <b>Nenhuma disciplina encontrada!</b>
               </v-td>
@@ -115,7 +126,7 @@
       </div>
 
       <Card
-        :title="'Disciplina'"
+        title="Disciplina"
         width="380"
         :toggleFooter="isEditing"
         @btn-salvar="handleEditDisciplina"
