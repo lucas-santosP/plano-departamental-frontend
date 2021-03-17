@@ -19,7 +19,7 @@ export default {
         );
       },
     },
-    text: { type: [String, Number], required: true },
+    text: { type: [String, Number], default: "" },
     disabled: { type: Boolean, default: false },
   },
 };

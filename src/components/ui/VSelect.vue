@@ -2,7 +2,7 @@
   <b-form-group class="mb-1" label-size="sm" :label="label" :label-for="id">
     <b-form-select
       :id="id"
-      :value="value"
+      :value="valueNormalized"
       @input="emitInput"
       :state="isValid"
       :aria-describedby="feedbackId"
@@ -10,8 +10,11 @@
       size="sm"
       @change="$emit('change', $event)"
     >
-      <VOption v-if="value === null" :value="null" text="Selecione..." disabled />
-      <VOption v-else :value="''" text="Selecione..." disabled />
+      <template v-if="emptyPlaceholder">
+        <VOption v-if="value === null" :value="null" text="Selecione..." disabled />
+        <VOption v-else :value="''" text="Selecione..." disabled />
+      </template>
+
       <slot></slot>
     </b-form-select>
 
@@ -47,6 +50,7 @@ export default {
     label: { type: String, default: "" },
     validation: { type: Object, default: null },
     disabled: { type: Boolean, default: false },
+    emptyPlaceholder: { type: Boolean, default: true },
   },
 
   methods: {
@@ -57,6 +61,9 @@ export default {
   },
 
   computed: {
+    valueNormalized() {
+      return this.value ? this.value : "";
+    },
     isValid() {
       if (!this.validation) return null;
 
