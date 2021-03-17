@@ -247,7 +247,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar conflitos:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone de filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar entre os

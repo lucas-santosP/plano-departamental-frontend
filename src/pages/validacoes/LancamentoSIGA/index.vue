@@ -102,14 +102,18 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Visualizar conteúdo:</b>
+        Preencha o cartão a direita com o período do plano atual que deseja validar, em seguida
+        selecione o arquivo (.csv) de plano gerado pelo SIGA para o período correspondente. E para
+        finalizar clique no botão iniciar
+        <font-awesome-icon :icon="['fas', 'check']" class="icon-blue" />
+        .
+      </li>
+      <li class="list-group-item">
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>

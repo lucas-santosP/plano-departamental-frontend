@@ -124,8 +124,8 @@ import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 export default {
   name: "DashboardHistory",
-  mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
   components: { ModalFiltros, ModalAjuda },
+  mixins: [toggleItemInArray, toggleAsideModal, preventClickSelection],
   data() {
     return {
       asideModalsRefs: ["modalFiltros", "modalAjuda"],

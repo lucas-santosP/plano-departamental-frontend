@@ -253,7 +253,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar disciplinas na grade:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -279,18 +279,13 @@ import DisciplinaRow from "./DisciplinaRow";
 
 export default {
   name: "GradesDCC",
+  components: { InputSearch, ModalAjuda, ModalFiltros, DisciplinaRow },
   mixins: [
     toggleItemInArray,
     toggleAsideModal,
     conectaFiltroPerfisEDisciplinas,
     preventClickSelection,
   ],
-  components: {
-    InputSearch,
-    ModalAjuda,
-    ModalFiltros,
-    DisciplinaRow,
-  },
   data() {
     return {
       searchDisciplinas: "",

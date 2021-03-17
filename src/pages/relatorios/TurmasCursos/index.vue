@@ -204,22 +204,19 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar plano:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
         deseja visualizar e clique em OK.
       </li>
+
       <li class="list-group-item">
         <b>Relatório :</b>
         Clique no ícone relatório
         <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
         . Em seguida, indique se deseja gerar o relatório completo com todas as disciplinas ou o
         relatório parcial com as disciplinas exibidas na tela.
-      </li>
-      <li class="list-group-item">
-        <b>Visualizar vagas por turma:</b>
-        Clique no número de vagas desta turma, na última coluna da tabela, na linha correspondente.
       </li>
     </ModalAjuda>
   </div>
@@ -248,13 +245,6 @@ import { saveAs } from "file-saver";
 
 export default {
   name: "TurmasCursos",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-    generateHorariosText,
-  ],
   components: {
     ModalRelatorio,
     ModalFiltros,
@@ -262,6 +252,13 @@ export default {
     InputSearch,
     ModalDownloadTurmasCursos,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+    generateHorariosText,
+  ],
   data() {
     return {
       searchCursos: "",

@@ -186,7 +186,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar carga por docentes:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -222,12 +222,6 @@ import DocenteCargaPosRow from "./DocenteCargaPosRow";
 
 export default {
   name: "RelatorioCargaDocentes",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-  ],
   components: {
     ModalRelatorio,
     ModalAjuda,
@@ -237,6 +231,12 @@ export default {
     DocenteCargaPosRow,
     DocenteRow,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+  ],
   data() {
     return {
       searchDocentes: "",

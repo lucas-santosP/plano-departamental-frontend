@@ -424,7 +424,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Adicionar:</b>
+        <b>Adicionar preferência do docente:</b>
         Clique no ícone de adicionar
         <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
         no cabeçalho da página. Em seguida, preencha a janela que se abrirá à direita e para
@@ -435,12 +435,12 @@
         e para finalizar clique no botão Confirmar.
       </li>
       <li class="list-group-item">
-        <b>Editar:</b>
+        <b>Editar preferência do docente:</b>
         Clique no numero da coluna Pref. (preferência) na linha que deseja alterar. Em seguida, na
         janela que se abrirá à direita altere as informações que desejar e clique em Salvar.
       </li>
       <li class="list-group-item">
-        <b>Deletar:</b>
+        <b>Deletar preferência do docente:</b>
         Basta seguir os passos da edição descrito acima colocando o valor da preferência como zero.
       </li>
       <li class="list-group-item">
@@ -449,13 +449,6 @@
         <font-awesome-icon :icon="['fas', 'sync-alt']" class="icon-gray" />
         no cabeçalho da página para alterar a visualizaçao das preferencias entre docentes por
         disciplinas, ou disciplinas por docentes.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
-        Note que existem colunas com o icone
-        <font-awesome-icon :icon="['fas', 'thumbtack']" class="icon-darkgray" />
-        que significa que esta ordenação terá pripridade em relação as outras.
       </li>
     </ModalAjuda>
   </div>

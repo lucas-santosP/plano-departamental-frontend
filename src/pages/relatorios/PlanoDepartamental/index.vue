@@ -249,11 +249,16 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar plano:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
         deseja visualizar e clique em OK.
+      </li>
+      <li class="list-group-item">
+        <b>Visualizar vagas por turma:</b>
+        Clique no número de vagas desta turma, em uma das três últimas colunas da tabela, na linha
+        correspondente.
       </li>
       <li class="list-group-item">
         <b>Relatório :</b>
@@ -261,10 +266,6 @@
         <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
         . Em seguida, indique se deseja gerar o relatório completo com todas as disciplinas ou o
         relatório parcial com as disciplinas exibidas na tela.
-      </li>
-      <li class="list-group-item">
-        <b>Visualizar vagas por turma:</b>
-        Clique no número de vagas desta turma, na última coluna da tabela, na linha correspondente.
       </li>
     </ModalAjuda>
   </div>
@@ -289,12 +290,6 @@ import TurmaRow from "./Table/TurmaRow.vue";
 
 export default {
   name: "PlanoDepartamental",
-  mixins: [
-    toggleAsideModal,
-    conectaFiltroPerfisEDisciplinas,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-  ],
   components: {
     ModalRelatorio,
     ModalFiltros,
@@ -305,6 +300,12 @@ export default {
     DisciplinaRow,
     TurmaRow,
   },
+  mixins: [
+    toggleAsideModal,
+    conectaFiltroPerfisEDisciplinas,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+  ],
   data() {
     return {
       turmaClicked: null,

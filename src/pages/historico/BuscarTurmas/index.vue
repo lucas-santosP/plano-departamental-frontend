@@ -395,13 +395,6 @@
         clique no botão OK.
       </li>
       <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
-        Note que existem colunas com o icone
-        <font-awesome-icon :icon="['fas', 'thumbtack']" class="icon-darkgray" />
-        que significa que esta ordenação terá pripridade em relação as outras.
-      </li>
-      <li class="list-group-item">
         <b>Observações:</b>
         Note que caso um dos filtros não possua nenhum campo selecionado a busca acontecerá como se
         todas opções daquele filtro estivesse selecionadas. Ou seja marque apenas os filtros

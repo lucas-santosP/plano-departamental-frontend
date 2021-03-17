@@ -190,7 +190,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar cargas:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone de filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar entre os
@@ -248,13 +248,6 @@ import CargaPosRow from "./CargaPosRow.vue";
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-    redirectIfPlanoNotEditable,
-  ],
   components: {
     ModalDelete,
     ModalFiltros,
@@ -262,6 +255,13 @@ export default {
     CargaPosRow,
     NovaCargaPosRow,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+    redirectIfPlanoNotEditable,
+  ],
   data() {
     return {
       isAdding: false,
