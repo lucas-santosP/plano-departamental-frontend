@@ -2,6 +2,7 @@
   <div :class="typeClass">
     <input
       type="text"
+      title="Vagas grade (periodizados)"
       :class="[
         'input-pedidos',
         {
@@ -18,6 +19,7 @@
 
     <input
       type="text"
+      title="Vagas extra (não periodizados)"
       :class="[
         'input-pedidos',
         {
