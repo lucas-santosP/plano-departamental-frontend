@@ -5,17 +5,17 @@ import PageWrapper from "@/pages/dashboard/PageWrapper";
 const routesPlano = [
   {
     path: "/plano/turmas-dcc",
-    component: lazyLoad("plano/TurmasDCC"),
+    component: lazyLoad("plano/GraduacaoDCC"),
     beforeEnter: requireAdmin,
   },
   {
     path: "/plano/turmas-externas",
-    component: lazyLoad("plano/TurmasExternas"),
+    component: lazyLoad("plano/GraduacaoOutros"),
     beforeEnter: requireAdmin,
   },
   {
     path: "/plano/carga-pos",
-    component: lazyLoad("plano/CargaPos"),
+    component: lazyLoad("plano/PosGraduacao"),
     beforeEnter: requireAdmin,
   },
 ];
@@ -77,7 +77,7 @@ const routesGerenciar = [
   },
   {
     path: "/gerenciar/history",
-    component: lazyLoad("gerenciar/History"),
+    component: lazyLoad("gerenciar/HistoryLog"),
     beforeEnter: requireSuperAdmin,
   },
   {
@@ -116,12 +116,12 @@ const routesHistorico = [
 const routesValidacoes = [
   {
     path: "/validacoes/graduacao-dcc",
-    component: lazyLoad("validacoes/graduacaoDCC"),
+    component: lazyLoad("validacoes/GraduacaoDCC"),
     beforeEnter: requireAdmin,
   },
   {
     path: "/validacoes/lancamento-siga",
-    component: lazyLoad("validacoes/lancamentoSIGA"),
+    component: lazyLoad("validacoes/LancamentoSIGA"),
     beforeEnter: requireAdmin,
   },
 ];
