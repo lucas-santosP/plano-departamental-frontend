@@ -14,16 +14,20 @@
             orderToCheck="plano.ano"
             width="120"
             align="start"
-            title="Ano/nome"
+            title="Ano/nome do Plano"
           >
             Plano
           </v-th-ordination>
-          <v-th width="30" title="Período letivo">P.</v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
           <v-th-ordination
             :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"
             orderToCheck="disciplina.perfil.abreviacao"
             width="80"
+            title="Perfil da Disciplina"
           >
             Perfil
           </v-th-ordination>
@@ -31,6 +35,7 @@
             :currentOrder="ordenacaoMain.turmas"
             orderToCheck="disciplina.codigo"
             width="80"
+            title="Código da Disciplina"
           >
             Código
           </v-th-ordination>
@@ -39,12 +44,13 @@
             orderToCheck="disciplina.nome"
             width="330"
             align="start"
+            title="Nome da Disciplina"
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="35" title="Turma">T.</v-th>
-          <v-th width="200" align="start">Docente</v-th>
-          <v-th width="80">Turno</v-th>
+          <v-th width="45">Turma</v-th>
+          <v-th width="200" align="start" title="Nome do Docente">Docente</v-th>
+          <v-th width="80" align="start">Turno</v-th>
           <v-th width="120" align="start">Horário</v-th>
           <v-th width="100" align="start">Sala</v-th>
         </template>
@@ -57,22 +63,31 @@
               </template>
               <template v-else>-</template>
             </v-td>
-            <v-td width="30">{{ turma.periodo }}</v-td>
+            <v-td width="65">{{ turma.periodo }}</v-td>
             <v-td width="80" paddinX="0" :style="{ backgroundColor: turma.disciplina.perfil.cor }">
               {{ turma.disciplina.perfil.abreviacao }}
             </v-td>
             <v-td width="80">{{ turma.disciplina.codigo }}</v-td>
             <v-td width="330" align="start">{{ turma.disciplina.nome }}</v-td>
-            <v-td width="35" paddinX="0">{{ turma.letra }}</v-td>
+            <v-td width="45" paddinX="0">{{ turma.letra }}</v-td>
             <v-td width="200" align="start">
               {{ generateDocentesText(turma.Docente1, turma.Docente2) }}
             </v-td>
-            <v-td width="80">{{ turma.turno1 }}</v-td>
+            <v-td width="80" align="start">{{ turma.turno1 }}</v-td>
             <v-td width="120" align="start">
               {{ generateHorariosText(turma.Horario1, turma.Horario2) }}
             </v-td>
             <v-td width="100" align="start" :title="generateSalasText(turma.Sala1, turma.Sala2)">
               {{ generateSalasText(turma.Sala1, turma.Sala2) }}
+            </v-td>
+          </tr>
+
+          <tr v-if="!TurmasRetornadasOrdered.length">
+            <v-td :width="1220">
+              <b>Nenhuma turma encontrada.</b>
+              Clique no botão de filtros
+              <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
+              para selecioná-las.
             </v-td>
           </tr>
         </template>
@@ -378,13 +393,6 @@
         no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar entre os
         tipos de filtro disponíveis. Marque quais informações deseja visualizar, e para finalizar
         clique no botão OK.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
-        Note que existem colunas com o icone
-        <font-awesome-icon :icon="['fas', 'thumbtack']" class="icon-darkgray" />
-        que significa que esta ordenação terá pripridade em relação as outras.
       </li>
       <li class="list-group-item">
         <b>Observações:</b>

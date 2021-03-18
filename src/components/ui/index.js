@@ -1,7 +1,6 @@
 import Card from "./Card.vue";
 import NavTab from "./NavTab.vue";
-import InputPassword from "./InputPassword.vue";
-import ButtonSlideSection from "./ButtonSlideSection.vue";
+import SectionSlider from "./SectionSlider.vue";
 import InputSearch from "./InputSearch.vue";
 import InputsPedidosDCC from "./InputsPedidosDCC.vue";
 import Logo from "./Logo.vue";
@@ -12,8 +11,10 @@ import VInput from "./VInput.vue";
 import VCheckbox from "./VCheckbox.vue";
 import VTextarea from "./VTextarea.vue";
 import VInputFile from "./VInputFile.vue";
+import VInputPassword from "./VInputPassword.vue";
 
 export {
+  VInputPassword,
   VInputFile,
   VTextarea,
   VSelect,
@@ -24,8 +25,7 @@ export {
   ButtonArrow,
   InputsPedidosDCC,
   InputSearch,
-  ButtonSlideSection,
-  InputPassword,
+  SectionSlider,
   Card,
   NavTab,
 };

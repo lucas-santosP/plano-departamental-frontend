@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="350"
               align="start"
+              title="Nome do Perfil"
             >
               Nome
             </v-th-ordination>
@@ -21,10 +22,11 @@
               orderToCheck="abreviacao"
               width="90"
               align="start"
+              title="Abreviação do Perfil"
             >
               Abreviação
             </v-th-ordination>
-            <v-th width="60">Cor</v-th>
+            <v-th width="65" title="Cor do Perfil">Cor</v-th>
           </template>
 
           <template #tbody>
@@ -35,8 +37,8 @@
               @click="handleClickInPerfil(perfil)"
             >
               <v-td width="350" align="start">{{ perfil.nome }}</v-td>
-              <v-td width="90">{{ perfil.abreviacao }}</v-td>
-              <v-td width="60" type="content">
+              <v-td width="90" align="start">{{ perfil.abreviacao }}</v-td>
+              <v-td width="65" type="content">
                 <div
                   :style="{
                     backgroundColor: perfil.cor,
@@ -49,7 +51,7 @@
             </tr>
 
             <tr v-if="!PerfisOrdered.length">
-              <v-td width="500" colspan="3">
+              <v-td width="505" colspan="3">
                 <b>Nenhum perfil encontrado</b>
               </v-td>
             </tr>
@@ -102,34 +104,30 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Adicionar:</b>
+        <b>Adicionar perfil:</b>
         Preencha o cartão em branco à direita e em seguida, clique em Adicionar
         <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Editar:</b>
+        <b>Editar perfil:</b>
         Clique na linha da tabela do perfil que deseja alterar. Em seguida, no cartão à direita,
         altere as informações que desejar e clique em Salvar
         <font-awesome-icon :icon="['fas', 'check']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Deletar:</b>
+        <b>Deletar perfil:</b>
         Clique na linha da tabela do perfil que deseja remover. Em seguida, no cartão à direita,
         clique em Remover
         <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" />
         e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>

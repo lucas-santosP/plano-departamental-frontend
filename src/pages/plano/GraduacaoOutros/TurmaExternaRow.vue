@@ -3,7 +3,7 @@
     <v-td width="25" type="content">
       <input type="checkbox" v-model="toggleToDelete" :value="turma" />
     </v-td>
-    <v-td width="55" type="content">
+    <v-td width="65" type="content">
       <select v-model.number="turmaForm.periodo" @change="handleEditTurma">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -23,7 +23,7 @@
         </option>
       </select>
     </v-td>
-    <v-td width="25">{{ totalCarga }}</v-td>
+    <v-td width="55">{{ totalCarga }}</v-td>
     <v-td width="45" type="content">
       <input
         type="text"

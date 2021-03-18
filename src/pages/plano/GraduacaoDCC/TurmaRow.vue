@@ -8,7 +8,7 @@
         <font-awesome-icon :icon="['fas', 'edit']" class="btn-table-icon icon-darkgray" />
       </button>
     </v-td>
-    <v-td width="55" type="content">
+    <v-td width="65" type="content">
       <select v-model.number="turmaForm.periodo" @change="checkHorariosPeriodo()">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -21,7 +21,7 @@
     </v-td>
     <v-td width="80" paddingX="2">{{ turmaForm.disciplina.codigo }}</v-td>
     <v-td width="330" align="start">{{ turmaForm.disciplina.nome }}</v-td>
-    <v-td width="25">{{ turmaForm.disciplina.creditoTotal }}</v-td>
+    <v-td width="60">{{ turmaForm.disciplina.creditoTotal }}</v-td>
     <v-td width="45" type="content">
       <input
         type="text"

@@ -38,7 +38,7 @@ export default {
     label: { type: String, default: "" },
     validation: { type: Object, default: null },
     placeholder: { type: String, default: "Selecione..." },
-    browseText: { type: String, default: "Escolher arquivo" },
+    browseText: { type: String, default: "Arquivo" },
     disabled: { type: Boolean, default: false },
     accept: { type: String, default: "" },
     multiple: { type: Boolean, default: false },

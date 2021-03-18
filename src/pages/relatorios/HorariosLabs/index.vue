@@ -108,7 +108,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar alocação:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -141,18 +141,13 @@ import ListHorariosLab from "./ListHorariosLab";
 
 export default {
   name: "DashboardLaboratoriosAlocacao",
+  components: { ModalRelatorio, ModalAjuda, ModalFiltros, ListHorariosLab },
   mixins: [
     toggleItemInArray,
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
   ],
-  components: {
-    ModalRelatorio,
-    ModalAjuda,
-    ModalFiltros,
-    ListHorariosLab,
-  },
   data() {
     return {
       asideModalsRefs: ["modalFiltros", "modalAjuda", "modalRelatorio"],

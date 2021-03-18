@@ -1,7 +1,7 @@
 <template>
   <tr class="novaturma">
     <v-td width="25" type="content" />
-    <v-td width="55" type="content">
+    <v-td width="65" type="content">
       <select v-model.number="turmaForm.periodo">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -27,7 +27,7 @@
         </option>
       </select>
     </v-td>
-    <v-td width="25">{{ totalCarga }}</v-td>
+    <v-td width="55">{{ totalCarga }}</v-td>
     <v-td width="45" type="content">
       <input
         type="text"

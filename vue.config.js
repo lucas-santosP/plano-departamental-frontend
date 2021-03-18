@@ -8,5 +8,6 @@ module.exports = {
         "@mixins": path.resolve(__dirname, "src/common/mixins"),
       },
     },
+    // devServer: { hot: false }, // para desabilitar HMR
   },
 };

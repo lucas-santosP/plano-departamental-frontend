@@ -13,6 +13,7 @@
               orderToCheck="ano"
               width="70"
               align="start"
+              title="Ano do Plano"
             >
               Ano
             </v-th-ordination>
@@ -21,6 +22,7 @@
               orderToCheck="nome"
               width="150"
               align="start"
+              title="Nome do Plano"
             >
               Nome
             </v-th-ordination>
@@ -142,27 +144,27 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Adicionar:</b>
+        <b>Adicionar plano:</b>
         Preencha o cartão em branco à direita e em seguida, clique em Adicionar
         <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Editar:</b>
+        <b>Editar plano:</b>
         Clique na linha da tabela do plano que deseja alterar. Em seguida, no cartão à direita,
         altere as informações que desejar e clique em Salvar
         <font-awesome-icon :icon="['fas', 'check']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Deletar:</b>
+        <b>Deletar plano:</b>
         Clique na linha da tabela do plano que deseja remover. Em seguida, no cartão à direita,
         clique em Remover
         <font-awesome-icon :icon="['fas', 'trash']" class="icon-red" />
         e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
-        <b>Copiar:</b>
+        <b>Copiar plano:</b>
         Clique na linha da tabela do plano que deseja copiar. Em seguida, no cartão à direita,
         clique em Copiar
         <font-awesome-icon :icon="['fas', 'copy']" class="icon-lightblue" />
@@ -176,14 +178,10 @@
         .
       </li>
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>

@@ -29,14 +29,14 @@
         Na parte superior do cartão à direita, selecione o curso e a grade que deseja visualizar.
       </li>
       <li class="list-group-item">
-        <b>Adicionar:</b>
+        <b>Adicionar disciplina na grade:</b>
         Para adicionar uma disciplinas à grade selecionada, com a parte de baixo do cartão à direita
         em branco, preencha-a e em seguida clique em Adicionar
         <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Editar:</b>
+        <b>Editar disciplina da grade:</b>
         Para editar uma disciplinas da grade selecionada clique na linha da tabela da disciplina que
         deseja alterar. Em seguida, no cartão à direita, altere as informações que desejar e clique
         em Salvar
@@ -44,21 +44,17 @@
         .
       </li>
       <li class="list-group-item">
-        <b>Deletar:</b>
+        <b>Deletar disciplina da grade:</b>
         Clique na linha da tabela da disciplina que deseja remover. Em seguida, no cartão à direita,
         clique em Remover
         <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" />
         e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações da disciplina porém a grade continuará selecionada.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>

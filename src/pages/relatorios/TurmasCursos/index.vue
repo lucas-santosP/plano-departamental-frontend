@@ -17,7 +17,7 @@
             paddingX="0"
             title="Código do curso"
           >
-            Cód. Curso
+            Código
           </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoTable.cursos"
@@ -26,13 +26,16 @@
             align="start"
             title="Nome do Curso"
           >
-            Nome do Curso
+            Curso
           </v-th-ordination>
-          <v-th width="30" title="Período">P.</v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            Periodo
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
           <v-th width="95" title="Código da Disciplina">Cód. Disciplina</v-th>
-          <v-th width="45" title="Turma">T.</v-th>
+          <v-th width="45" title="Turma">Turma</v-th>
           <v-th width="120" title="Horário">Horário</v-th>
-          <v-th width="45" title="Vagas">Vagas</v-th>
+          <v-th width="45" paddingX="0" title="Vagas do Plano Grade+Extra">Vagas</v-th>
         </template>
 
         <template #tbody>
@@ -40,7 +43,7 @@
             <tr :key="curso.id" class="bg-custom">
               <v-td width="85">{{ curso.codigo }}</v-td>
               <v-td width="300" align="start" :title="curso.nome">{{ curso.nome }}</v-td>
-              <v-td width="30"></v-td>
+              <v-td width="65"></v-td>
               <v-td width="95"></v-td>
               <v-td width="40"></v-td>
               <v-td width="120"></v-td>
@@ -53,7 +56,7 @@
             >
               <v-td width="85"></v-td>
               <v-td width="300"></v-td>
-              <v-td width="30">{{ turma.periodo }}</v-td>
+              <v-td width="65">{{ turma.periodo }}</v-td>
               <v-td width="95">{{ turma.disciplina.codigo }}</v-td>
               <v-td width="45">{{ turma.letra }}</v-td>
               <v-td width="120">{{ generateHorariosText(turma.Horario1, turma.Horario2) }}</v-td>
@@ -66,7 +69,7 @@
           </template>
 
           <tr v-if="!CursosOrderedTable.length">
-            <v-td colspan="7" width="720">
+            <v-td colspan="7" width="755">
               <b>Nenhum curso encontrado.</b>
               Clique no botão de filtros para selecioná-los.
             </v-td>
@@ -201,22 +204,19 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar plano:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
         deseja visualizar e clique em OK.
       </li>
+
       <li class="list-group-item">
         <b>Relatório :</b>
         Clique no ícone relatório
         <font-awesome-icon :icon="['fas', 'file-alt']" class="icon-gray" />
         . Em seguida, indique se deseja gerar o relatório completo com todas as disciplinas ou o
         relatório parcial com as disciplinas exibidas na tela.
-      </li>
-      <li class="list-group-item">
-        <b>Visualizar vagas por turma:</b>
-        Clique no número de vagas desta turma, na última coluna da tabela, na linha correspondente.
       </li>
     </ModalAjuda>
   </div>
@@ -245,13 +245,6 @@ import { saveAs } from "file-saver";
 
 export default {
   name: "TurmasCursos",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-    generateHorariosText,
-  ],
   components: {
     ModalRelatorio,
     ModalFiltros,
@@ -259,6 +252,13 @@ export default {
     InputSearch,
     ModalDownloadTurmasCursos,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+    generateHorariosText,
+  ],
   data() {
     return {
       searchCursos: "",

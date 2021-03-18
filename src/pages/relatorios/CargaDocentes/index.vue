@@ -17,14 +17,23 @@
           >
             Docente
           </v-th-ordination>
-          <v-th width="30" title="Período" paddingX="0">P.</v-th>
+          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
+            Período
+            <font-awesome-icon :icon="['fas', 'thumbtack']" />
+          </v-th>
           <v-th width="80">Código</v-th>
           <v-th width="300" align="start">Disciplina</v-th>
-          <v-th width="35" title="Turma">T.</v-th>
+          <v-th width="45">Turma</v-th>
           <v-th width="130">Horários</v-th>
-          <v-th width="35" paddingX="0" title="Somatório dos créditos no 1º semestre">CS1</v-th>
-          <v-th width="35" paddingX="0" title="Somatório dos créditos no 2º semestre">CS2</v-th>
-          <v-th width="40" paddingX="0" title="Somatório total de créditos">CTotal</v-th>
+
+          <v-th width="200" colspan="3" paddingX="0">
+            Créditos
+            <v-th width="75" paddingX="0" title="Créditos do 1º Semestre letivo">1º Semestre</v-th>
+            <v-th width="75" paddingX="0" title="Créditos do 2º Semestre letivo">2º Semestre</v-th>
+            <v-th width="50" paddingX="0" title="Total de créditos do 1º e 2º Semestre letivo">
+              Total
+            </v-th>
+          </v-th>
         </template>
 
         <template #tbody>
@@ -177,7 +186,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar carga por docentes:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -213,12 +222,6 @@ import DocenteCargaPosRow from "./DocenteCargaPosRow";
 
 export default {
   name: "RelatorioCargaDocentes",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-  ],
   components: {
     ModalRelatorio,
     ModalAjuda,
@@ -228,6 +231,12 @@ export default {
     DocenteCargaPosRow,
     DocenteRow,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+  ],
   data() {
     return {
       searchDocentes: "",

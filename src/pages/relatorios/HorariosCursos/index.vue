@@ -172,7 +172,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar grade:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
@@ -203,18 +203,13 @@ import ListHorarios from "./ListTableHorarios.vue";
 
 export default {
   name: "DashboardHorarios",
+  components: { ModalFiltros, ModalAjuda, ModalRelatorio, ListHorarios },
   mixins: [
     toggleItemInArray,
     toggleAsideModal,
     conectaFiltrosSemestresEPeriodos,
     preventClickSelection,
   ],
-  components: {
-    ModalFiltros,
-    ModalAjuda,
-    ModalRelatorio,
-    ListHorarios,
-  },
   data() {
     return {
       asideModalsRefs: ["modalFiltros", "modalAjuda", "modalRelatorio"],

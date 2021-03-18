@@ -11,7 +11,7 @@
       <p class="alert alert-secondary">
         Selecione arquivos
         <b>.csv</b>
-        para importar os pedidos oferecidos e ocupados de cada período no plano
+        para importar os pedidos SIGA (oferecidos e ocupados) de cada período no plano
         <b>{{ planoForm.nome }} - {{ planoForm.ano }}.</b>
         <br />
         Note que o formato do arquivo requerido é o relatório de plano departamental gerado pelo
@@ -20,7 +20,7 @@
         <b>Acadêmico > Consultas > Plano Departamental.</b>
         E você pode cancelar o processo durante a importação apertando a tecla esc.
       </p>
-      <p v-if="planoFormHasPedidosOferecidos" class="alert alert-danger">
+      <p v-if="planoFormHasPedidosSIGA" class="alert alert-danger">
         O plano selecionado já possui pedidos SIGA, continuar este processor irá
         <b>sobreescreve-los.</b>
       </p>
@@ -63,7 +63,7 @@
         text="Confirmar"
         color="blue"
         class="px-3 ml-auto"
-        @click="handleImportPedidosOferecidos"
+        @click="handleImportPedidosSIGAS"
       />
     </template>
   </BaseModal>
@@ -82,7 +82,7 @@ import {
 import { VInputFile } from "@/components/ui";
 
 export default {
-  name: "ModalNovoPlano",
+  name: "ModalImportPedidos",
   components: { VInputFile },
   props: {
     planoForm: { type: Object, required: true },
@@ -95,7 +95,7 @@ export default {
       },
       abortImport: false,
       turmasDoPlanoForm: [],
-      planoFormHasPedidosOferecidos: false,
+      planoFormHasPedidosSIGA: false,
     };
   },
   validations: {
@@ -121,15 +121,15 @@ export default {
 
   methods: {
     ...mapActions([
-      "createPedidoOferecido",
-      "updatePedidoOferecido",
+      "createPedidoSIGA",
+      "updatePedidoSIGA",
       "initializeProgressBar",
       "updateProgressBar",
       "finishProgressBar",
     ]),
 
     open() {
-      this.checkPedidosOferecidos();
+      this.checkPedidosSIGA();
       this.$refs.baseModalImportPedidos.open();
     },
     close() {
@@ -144,9 +144,9 @@ export default {
       this.form.file3Periodo = null;
       this.$nextTick(() => this.$v.$reset());
     },
-    async checkPedidosOferecidos() {
+    async checkPedidosSIGA() {
       this.turmasDoPlanoForm = [];
-      this.planoFormHasPedidosOferecidos = false;
+      this.planoFormHasPedidosSIGA = false;
 
       if (this.currentPlano.id !== this.planoForm.id) {
         const { Turmas = [] } = await turmaService.fetchAll(this.planoForm.id);
@@ -155,11 +155,11 @@ export default {
         this.turmasDoPlanoForm = this.AllTurmas;
       }
 
-      this.planoFormHasPedidosOferecidos = this.turmasDoPlanoForm.some(
-        (turma) => this.PedidosOferecidos[turma.id] && this.PedidosOferecidos[turma.id].length > 0
+      this.planoFormHasPedidosSIGA = this.turmasDoPlanoForm.some(
+        (turma) => this.AllPedidosSIGA[turma.id] && this.AllPedidosSIGA[turma.id].length > 0
       );
     },
-    async handleImportPedidosOferecidos() {
+    async handleImportPedidosSIGAS() {
       this.$v.form.$touch();
       if (this.$v.form.$anyError) return;
 
@@ -232,23 +232,19 @@ export default {
         });
         if (!turmaDoPlanoFound) continue;
 
-        const pedidoOferecido = parseTurmaSIGAToPedido(
-          turmaSIGA,
-          keysTurmaSIGA,
-          turmaDoPlanoFound.id
-        );
+        const pedidoSIGA = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, turmaDoPlanoFound.id);
         // Se for igual ao currentPedido, não cria pois ja foi criado antes
-        if (pedidoOferecido && !this.pedidosAreEqual(pedidoOferecido, currentPedido)) {
-          const pedidoCreated = await this.handleCreatePedidoOferecido(pedidoOferecido);
+        if (pedidoSIGA && !this.pedidosAreEqual(pedidoSIGA, currentPedido)) {
+          const pedidoCreated = await this.handleCreatePedidoSIGA(pedidoSIGA);
           currentPedido = { ...pedidoCreated };
         }
       }
     },
-    async handleCreatePedidoOferecido(pedidoOferecido) {
+    async handleCreatePedidoSIGA(pedidoSIGA) {
       try {
-        return await this.createPedidoOferecido({ data: pedidoOferecido });
+        return await this.createPedidoSIGA({ data: pedidoSIGA });
       } catch (error) {
-        return await this.updatePedidoOferecido({ data: pedidoOferecido });
+        return await this.updatePedidoSIGA({ data: pedidoSIGA });
       }
     },
     pedidosAreEqual(pedido1, pedido2) {
@@ -257,7 +253,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "AllDisciplinas", "PedidosOferecidos"]),
+    ...mapGetters(["AllTurmas", "AllDisciplinas", "AllPedidosSIGA"]),
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="fex flex-column flex-grow-1">
+    <div class="flex flex-column flex-grow-1">
       <NavTab
         :currentTab="currentTab"
         :allTabs="['DCC', 'Outros']"
@@ -15,10 +15,11 @@
               align="start"
               orderToCheck="nome"
               width="220"
+              title="Nome do Cursos"
             >
               Cursos
             </v-th-ordination>
-            <v-th width="100">Grades</v-th>
+            <v-th width="100" title="Nome da Grade">Grades</v-th>
           </template>
 
           <template #tbody>

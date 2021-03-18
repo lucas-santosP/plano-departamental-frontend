@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="currentPlano.isEditable">
+  <div class="main-component row">
     <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton template="salvar" @click="$refs.novaCargaPosRow.handleCreateCargaPos()" />
@@ -22,25 +22,26 @@
         <template #thead>
           <v-th width="75">Programa</v-th>
           <v-th width="25" />
-          <v-th width="55" title="Período, ordenação fixa">
+          <v-th width="65" title="Período letivo, ordenação fixa">
+            Período
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
-            P.
           </v-th>
           <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="docenteApelido"
             width="145"
             align="start"
-            text="Docente"
-          />
+          >
+            Docente
+          </v-th-ordination>
           <v-th-ordination
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="creditos"
             orderType="desc"
-            width="60"
-            title="Créditos"
-            text="C."
-          />
+            width="70"
+          >
+            Créditos
+          </v-th-ordination>
         </template>
         <template #add-row>
           <NovaCargaPosRow ref="novaCargaPosRow" v-if="isAdding" />
@@ -66,7 +67,7 @@
           </template>
 
           <tr v-if="!ProgramasInCargaPosOrdered.length">
-            <v-td width="360" whiteSpace="normal">
+            <v-td width="380" whiteSpace="normal">
               <b>Nenhuma carga encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -189,7 +190,7 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Visualizar cargas:</b>
+        <b>Visualizar conteúdo:</b>
         Clique no ícone de filtros
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         no cabeçalho da página e, na janela que se abrirá, utilize as abas para navegar entre os
@@ -239,6 +240,7 @@ import {
   toggleAsideModal,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
+  redirectIfPlanoNotEditable,
 } from "@/common/mixins";
 import { ModalDelete, ModalFiltros, ModalAjuda } from "@/components/modals";
 import NovaCargaPosRow from "./NovaCargaPosRow.vue";
@@ -246,12 +248,6 @@ import CargaPosRow from "./CargaPosRow.vue";
 
 export default {
   name: "DashboardCargaPos",
-  mixins: [
-    toggleItemInArray,
-    toggleAsideModal,
-    conectaFiltrosSemestresEPeriodos,
-    preventClickSelection,
-  ],
   components: {
     ModalDelete,
     ModalFiltros,
@@ -259,6 +255,13 @@ export default {
     CargaPosRow,
     NovaCargaPosRow,
   },
+  mixins: [
+    toggleItemInArray,
+    toggleAsideModal,
+    conectaFiltrosSemestresEPeriodos,
+    preventClickSelection,
+    redirectIfPlanoNotEditable,
+  ],
   data() {
     return {
       isAdding: false,

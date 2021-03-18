@@ -16,98 +16,93 @@
 
       <div class="div-table">
         <BaseTable styles="height:auto;max-height:400px">
-          <template #thead-root>
-            <div class="sticky-row-top">
-              <tr>
-                <v-th colspan="2" />
-                <v-th colspan="3">SIPlanWeb</v-th>
-                <v-th colspan="2">SIGA</v-th>
-              </tr>
-              <tr>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="curso.codigo"
-                  width="65"
-                  align="start"
-                >
-                  Código
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="curso.nome"
-                  width="300"
-                  align="start"
-                >
-                  Nome
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasPeriodizadas"
-                  orderType="desc"
-                  width="75"
-                  title="Vagas periodizadas"
-                >
-                  Grade
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasNaoPeriodizadas"
-                  orderType="desc"
-                  width="75"
-                  title="Vagas não periodizadas"
-                >
-                  Extra
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="totalVagas"
-                  orderType="desc"
-                  width="50"
-                  title="Total de vagas"
-                >
-                  Total
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasOferecidas"
-                  orderType="desc"
-                  width="75"
-                  paddingX="0"
-                  title="Vagas oferecidas"
-                >
-                  Oferecidas
-                </v-th-ordination>
-                <v-th-ordination
-                  :currentOrder="ordenacaoVagas"
-                  orderToCheck="vagasOcupadas"
-                  orderType="desc"
-                  width="75"
-                  paddingX="0"
-                  title="Vagas ocupadas"
-                >
-                  Ocupadas
-                </v-th-ordination>
-              </tr>
-            </div>
+          <template #thead>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="curso.codigo"
+              width="65"
+              align="start"
+            >
+              Código
+            </v-th-ordination>
+            <v-th-ordination
+              :currentOrder="ordenacaoVagas"
+              orderToCheck="curso.nome"
+              width="300"
+              align="start"
+            >
+              Nome
+            </v-th-ordination>
+            <v-th colspan="3" width="190" paddinX="0">
+              SIPlanWeb
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasPeriodizadas"
+                orderType="desc"
+                width="70"
+                title="Vagas periodizadas"
+              >
+                Grade
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasNaoPeriodizadas"
+                orderType="desc"
+                width="70"
+                title="Vagas não periodizadas"
+              >
+                Extra
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="totalVagas"
+                orderType="desc"
+                width="50"
+                title="Total de vagas"
+              >
+                Total
+              </v-th-ordination>
+            </v-th>
+
+            <v-th colspan="2" width="160" paddinX="0">
+              SIGA
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasOferecidas"
+                orderType="desc"
+                width="80"
+                paddingX="0"
+                title="Vagas oferecidas"
+              >
+                Oferecidas
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoVagas"
+                orderToCheck="vagasOcupadas"
+                orderType="desc"
+                width="80"
+                paddingX="0"
+                title="Vagas ocupadas"
+              >
+                Ocupadas
+              </v-th-ordination>
+            </v-th>
           </template>
 
           <template #tbody>
-            <tr
-              v-for="pedido in PedidosEPedidosOferecidosOrdered"
-              :key="pedido.curso.codigo + pedido.Turma"
-            >
+            <tr v-for="pedido in PedidosDataOrdered" :key="pedido.curso.codigo + pedido.Turma">
               <v-td width="65" align="start">{{ pedido.curso.codigo }}</v-td>
               <v-td width="300" align="start" :title="pedido.curso.nome">
                 {{ pedido.curso.nome }}
               </v-td>
-              <v-td width="75">{{ pedido.vagasPeriodizadas }}</v-td>
-              <v-td width="75">{{ pedido.vagasNaoPeriodizadas }}</v-td>
+              <v-td width="70">{{ pedido.vagasPeriodizadas }}</v-td>
+              <v-td width="70">{{ pedido.vagasNaoPeriodizadas }}</v-td>
               <v-td width="50">{{ pedido.totalVagas }}</v-td>
-              <v-td width="75">{{ pedido.vagasOferecidas }}</v-td>
-              <v-td width="75">{{ pedido.vagasOcupadas }}</v-td>
+              <v-td width="80">{{ pedido.vagasOferecidas }}</v-td>
+              <v-td width="80">{{ pedido.vagasOcupadas }}</v-td>
             </tr>
 
-            <tr v-if="!PedidosEPedidosOferecidosOrdered.length">
+            <tr v-if="!PedidosDataOrdered.length">
               <v-td colspan="5" width="715">
                 <b>Turma atual não possui nenhuma vaga cadastrada</b>
               </v-td>
@@ -142,10 +137,10 @@ export default {
     close() {
       this.$refs.baseModalVagas.close();
     },
-    getPedidosOferecidosDaTurma(turmaId) {
-      if (!this.PedidosOferecidos[turmaId]) return [];
+    getPedidosSIGADaTurma(turmaId) {
+      if (!this.AllPedidosSIGA[turmaId]) return [];
 
-      return this.PedidosOferecidos[turmaId].filter(
+      return this.AllPedidosSIGA[turmaId].filter(
         (pedido) => pedido.vagasOferecidas > 0 || pedido.vagasOcupadas > 0
       );
     },
@@ -159,34 +154,30 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["AllTurmas", "AllCursos", "Pedidos", "PedidosOferecidos"]),
+    ...mapGetters(["AllTurmas", "AllCursos", "Pedidos", "AllPedidosSIGA"]),
 
-    PedidosEPedidosOferecidosOrdered() {
-      return orderBy(
-        this.PedidosEPedidosOferecidosDaTurma,
-        this.ordenacaoVagas.order,
-        this.ordenacaoVagas.type
-      );
+    PedidosDataOrdered() {
+      return orderBy(this.PedidosData, this.ordenacaoVagas.order, this.ordenacaoVagas.type);
     },
-    PedidosEPedidosOferecidosDaTurma() {
+    PedidosData() {
       if (this.turmaLetraForm === null) return [];
 
       const currentTurma = find(this.TurmasOptions, ["letra", this.turmaLetraForm]);
       const pedidosDaTurma = this.getPedidosDaTurma(currentTurma.id);
-      const pedidosOferecidosDaTurma = this.getPedidosOferecidosDaTurma(currentTurma.id);
-      const pedidosEPedidosOferecidos = [];
+      const pedidosSIGADaTurma = this.getPedidosSIGADaTurma(currentTurma.id);
+      const pedidosResultData = [];
 
       this.AllCursos.forEach((curso) => {
         const pedidoFound = find(pedidosDaTurma, ["Curso", curso.id]);
-        const pedidoOferecidoFound = find(pedidosOferecidosDaTurma, ["Curso", curso.id]);
+        const pedidoSIGAFound = find(pedidosSIGADaTurma, ["Curso", curso.id]);
 
-        if (pedidoFound || pedidoOferecidoFound) {
+        if (pedidoFound || pedidoSIGAFound) {
           const pedidoResult = {
             vagasPeriodizadas: 0,
             vagasNaoPeriodizadas: 0,
+            totalVagas: 0,
             vagasOferecidas: 0,
             vagasOcupadas: 0,
-            totalVagas: 0,
             curso: { ...curso },
           };
           if (pedidoFound) {
@@ -195,17 +186,17 @@ export default {
             pedidoResult.vagasNaoPeriodizadas = vagasNaoPeriodizadas;
             pedidoResult.totalVagas += vagasPeriodizadas + vagasNaoPeriodizadas;
           }
-          if (pedidoOferecidoFound) {
-            const { vagasOferecidas, vagasOcupadas } = pedidoOferecidoFound;
+          if (pedidoSIGAFound) {
+            const { vagasOferecidas, vagasOcupadas } = pedidoSIGAFound;
             pedidoResult.vagasOferecidas = vagasOferecidas;
             pedidoResult.vagasOcupadas = vagasOcupadas;
           }
 
-          pedidosEPedidosOferecidos.push(pedidoResult);
+          pedidosResultData.push(pedidoResult);
         }
       });
 
-      return pedidosEPedidosOferecidos;
+      return pedidosResultData;
     },
     TurmasOptions() {
       if (this.turma === null) return [];

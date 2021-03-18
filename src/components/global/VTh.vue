@@ -5,6 +5,7 @@
       width: thWidth,
       maxWidth: thWidth,
       padding: thPadding,
+      verticalAlign: 'middle',
     }"
   >
     <slot></slot>

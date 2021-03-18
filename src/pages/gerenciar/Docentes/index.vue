@@ -13,6 +13,7 @@
               orderToCheck="nome"
               width="240"
               align="start"
+              title="Nome do Docente"
             >
               Nome
             </v-th-ordination>
@@ -21,6 +22,7 @@
               orderToCheck="apelido"
               width="120"
               align="start"
+              title="Apelido do Docente"
             >
               Apelido
             </v-th-ordination>
@@ -47,7 +49,8 @@
             </tr>
 
             <tr v-if="!DocentesOrdered.length">
-              <v-td width="665" colspan="3">
+              <v-td width="425" colspan="3">
+                <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="icon-red" />
                 <b>Nenhum docente encontrado</b>
               </v-td>
             </tr>
@@ -132,34 +135,30 @@
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Adicionar:</b>
+        <b>Adicionar docente:</b>
         Preencha o cartão em branco à direita e em seguida, clique em Adicionar
         <font-awesome-icon :icon="['fas', 'plus']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Editar:</b>
+        <b>Editar docente:</b>
         Clique na linha da tabela do docente que deseja alterar. Em seguida, no cartão à direita,
         altere as informações que desejar e clique em Salvar
         <font-awesome-icon :icon="['fas', 'check']" class="icon-green" />
         .
       </li>
       <li class="list-group-item">
-        <b>Deletar:</b>
+        <b>Deletar docente:</b>
         Clique na linha da tabela do docente que deseja remover. Em seguida, no cartão à direita,
         clique em Remover
         <font-awesome-icon :icon="['fas', 'trash-alt']" class="icon-red" />
         e confirme a remoção na janela que será aberta.
       </li>
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>

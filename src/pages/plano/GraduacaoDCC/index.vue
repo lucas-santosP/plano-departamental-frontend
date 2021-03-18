@@ -1,5 +1,5 @@
 <template>
-  <div class="main-component row" v-if="currentPlano.isEditable">
+  <div class="main-component row">
     <portal to="page-header">
       <template v-if="isAdding">
         <BaseButton template="salvar" @click="$refs.novaTurma.handleCreateTurma()" />
@@ -23,9 +23,9 @@
         <template #thead>
           <v-th width="25" />
           <v-th width="40" paddingX="0">Editar</v-th>
-          <v-th width="55" paddingX="0" title="Período letivo, ordenação fixa">
+          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
+            Período
             <font-awesome-icon :icon="['fas', 'thumbtack']" />
-            P.
           </v-th>
           <v-th-ordination
             :orderFixed="true"
@@ -50,8 +50,8 @@
           >
             Disciplina
           </v-th-ordination>
-          <v-th width="25" paddingX="0" title="Créditos">C.</v-th>
-          <v-th width="45" paddingX="0" title="Turma">T.</v-th>
+          <v-th width="60" paddingX="0">Créditos</v-th>
+          <v-th width="45" paddingX="0">Turma</v-th>
           <v-th width="160" align="start">Docente</v-th>
           <v-th width="80">Turno</v-th>
           <v-th width="85">Horário</v-th>
@@ -91,7 +91,7 @@
           />
 
           <tr v-if="!TurmasOrdered.length">
-            <v-td :width="1145 + 35 * filtroCursos.ativados.length">
+            <v-td :width="1190 + 35 * filtroCursos.ativados.length">
               <b>Nenhuma turma encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
@@ -416,6 +416,7 @@ import {
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
+  redirectIfPlanoNotEditable,
 } from "@/common/mixins";
 import { InputSearch } from "@/components/ui";
 import { ModalDelete, ModalFiltros, ModalEditTurma, ModalAjuda } from "@/components/modals";
@@ -431,6 +432,7 @@ export default {
     conectaFiltrosSemestresEPeriodos,
     conectaFiltroPerfisEDisciplinas,
     preventClickSelection,
+    redirectIfPlanoNotEditable,
   ],
   components: {
     ModalAjuda,

@@ -22,14 +22,19 @@
               orderToCheck="disciplina.nome"
               width="300"
               align="start"
+              title="Nome da Disciplina"
             >
               Disciplina
             </v-th-ordination>
-            <v-th width="30" title="Turma">T.</v-th>
+            <v-th width="45">Turma</v-th>
             <v-th width="55" title="Código do Curso">Curso</v-th>
-            <v-th width="180" align="start" title="Valor do pedido no SIGA">Conflito</v-th>
-            <v-th width="120" paddingX="0" title="Valor do pedido no SIGA">Valor SIGA</v-th>
-            <v-th width="120" paddingX="0" title="Valor do pedido no Sistema">Valor Sistema</v-th>
+
+            <v-th colspan="420" paddingX="0">
+              Conflito
+              <v-th width="180" align="start" title="Tipo do Conflito">Tipo</v-th>
+              <v-th width="120" title="Valor no SIGA">SIGA</v-th>
+              <v-th width="120" title="Valor no Sistema (SIPlanWeb)">Sistema</v-th>
+            </v-th>
           </template>
 
           <template #tbody>
@@ -37,7 +42,7 @@
               <tr :key="turmaConflito.id" class="bg-custom">
                 <v-td width="80" align="start">{{ turmaConflito.disciplina.codigo }}</v-td>
                 <v-td width="300" align="start">{{ turmaConflito.disciplina.nome }}</v-td>
-                <v-td width="30">{{ turmaConflito.letra }}</v-td>
+                <v-td width="45">{{ turmaConflito.letra }}</v-td>
                 <v-td width="55" />
                 <v-td width="180" />
                 <v-td width="120" />
@@ -50,20 +55,16 @@
               >
                 <v-td width="80" />
                 <v-td width="300" />
-                <v-td width="30" />
-                <v-td width="55" :title="conflito.curso.nome">
-                  {{ conflito.curso.codigo }}
-                </v-td>
+                <v-td width="45" />
+                <v-td width="55" :title="conflito.curso.nome">{{ conflito.curso.codigo }}</v-td>
                 <v-td width="180" align="start">{{ conflito.label }}</v-td>
-                <v-td width="120" paddingX="0" :title="conflito.siga">{{ conflito.siga }}</v-td>
-                <v-td width="120" paddingX="0" :title="conflito.sistema">
-                  {{ conflito.sistema }}
-                </v-td>
+                <v-td width="120" :title="conflito.siga">{{ conflito.siga }}</v-td>
+                <v-td width="120" :title="conflito.sistema">{{ conflito.sistema }}</v-td>
               </tr>
             </template>
 
             <tr v-if="!turmasConflitosOrdered.length">
-              <v-td width="870">
+              <v-td width="900">
                 <b>Nenhum conflito encontrado.</b>
                 Certifiqui-se de selecionar um arquivo correspondente com o plano atual e o periodo
                 selecionado.
@@ -73,60 +74,46 @@
         </BaseTable>
       </div>
 
-      <Card :title="'Validar pedidos'">
+      <Card title="Validar pedidos">
         <template #body>
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="periodoPlano" class="col-form-label">Período</label>
-              <select
-                id="periodoPlano"
-                v-model.number="periodoForm"
-                class="input-lg form-control form-control-sm"
-              >
-                <option
-                  v-for="periodo in PeriodosLetivos"
-                  :key="periodo.id + periodo.nome"
-                  :value="periodo.id"
-                >
-                  {{ periodo.nome }}
-                </option>
-              </select>
-            </div>
-          </div>
+          <VSelect label="Perído" v-model.number="form.periodo" :validation="$v.form.periodo">
+            <VOption
+              v-for="periodo in PeriodosLetivos"
+              :key="periodo.id + periodo.nome"
+              :value="periodo.id"
+              :text="periodo.nome"
+            />
+          </VSelect>
 
-          <div class="row mb-2 mx-0">
-            <div class="form-group col m-0 px-0">
-              <label required for="turmaFile" class="col-form-label">
-                Arquivo .csv do plano SIGA
-              </label>
-              <input
-                type="file"
-                id="turmaFile"
-                ref="inputFileForm"
-                class="form-control-file mt-1"
-                accept=".csv"
-              />
-            </div>
-          </div>
+          <VInputFile
+            label="Arquivo do plano SIGA (.csv)"
+            v-model="form.file"
+            :validation="$v.form.file"
+            accept=".csv"
+          />
         </template>
 
         <template #footer>
-          <BaseButton template="Salvar" :title="'Iniciar'" @click="handleCompareTurmas" />
-          <BaseButton template="cancelar" @click="clearCardForm" />
+          <BaseButton template="Salvar" title="Iniciar" @click="handleCompareTurmas" />
+          <BaseButton template="cancelar" @click="clearForm" />
         </template>
       </Card>
     </div>
 
     <ModalAjuda ref="modalAjuda">
       <li class="list-group-item">
-        <b>Limpar:</b>
+        <b>Visualizar conteúdo:</b>
+        Preencha o cartão a direita com o período do plano atual que deseja validar, em seguida
+        selecione o arquivo (.csv) de plano gerado pelo SIGA para o período correspondente. E para
+        finalizar clique no botão iniciar
+        <font-awesome-icon :icon="['fas', 'check']" class="icon-blue" />
+        .
+      </li>
+      <li class="list-group-item">
+        <b>Limpar formulário:</b>
         No cartão à direita, clique em Cancelar
         <font-awesome-icon :icon="['fas', 'times']" class="icon-gray" />
         , para limpar as informações.
-      </li>
-      <li class="list-group-item">
-        <b>Ordenar:</b>
-        Clique no cabeçalho da tabela, na coluna desejada, para alterar a ordenação das informações.
       </li>
     </ModalAjuda>
   </div>
@@ -135,25 +122,29 @@
 <script>
 import { mapGetters } from "vuex";
 import { some, orderBy } from "lodash-es";
+import { required, integer } from "vuelidate/lib/validators";
 import { parseCSVFileToArray } from "@utils";
-import { makeEmptyCurso } from "@utils/factories";
-import { generateDocentesText, generateHorariosText } from "@mixins";
-import { Card } from "@/components/ui";
-import { ModalAjuda } from "@/components/modals";
 import {
   parseTurmaSIGAToTurma,
   parseTurmaSIGAToPedido,
   getKeysTurmaSIGA,
   validateTurmasSIGA,
 } from "@/common/utils/turmasSIGA";
+import { makeEmptyCurso } from "@utils/factories";
+import { generateDocentesText, generateHorariosText } from "@mixins";
+import { Card, VSelect, VOption, VInputFile } from "@/components/ui";
+import { ModalAjuda } from "@/components/modals";
 
 export default {
   name: "ValidaçãoLançamentoSIGA",
-  components: { Card, ModalAjuda },
+  components: { Card, ModalAjuda, VSelect, VOption, VInputFile },
   mixins: [generateDocentesText, generateHorariosText],
   data() {
     return {
-      periodoForm: 1,
+      form: {
+        periodo: 1,
+        filePlano: null,
+      },
       turmasConflitos: [],
       ordenacaoConflitos: {
         order: "disciplina.codigo",
@@ -161,35 +152,32 @@ export default {
       },
     };
   },
+  validations: {
+    form: {
+      periodo: { required, integer },
+      file: { required },
+    },
+  },
 
   methods: {
-    clearCardForm() {
-      this.periodoForm = 1;
-      this.$refs.inputFileForm.value = "";
+    clearForm() {
+      this.form.periodo = 1;
+      this.form.file = null;
+      this.$nextTick(() => this.$v.$reset());
     },
     async handleCompareTurmas() {
-      if (!this.periodoForm) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum período selecionado",
-        });
-        return;
-      }
-      const [fileTurmas] = this.$refs.inputFileForm.files;
-      if (!fileTurmas) {
-        this.pushNotification({
-          type: "error",
-          text: "Nenhum arquivo selecionado",
-        });
-        return;
-      }
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) return;
 
       try {
         this.setLoading({ type: "partial", value: true });
-        const turmasFile = await parseCSVFileToArray(fileTurmas);
+        const turmasFile = await parseCSVFileToArray(this.form.file);
         validateTurmasSIGA(turmasFile);
-        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(turmasFile, this.periodoForm);
-        this.searchConflitos(turmasSIGANormalized, this.periodoForm);
+        const turmasSIGANormalized = this.normalizeTurmasEPedidosSIGA(
+          turmasFile,
+          this.form.periodo
+        );
+        this.searchConflitos(turmasSIGANormalized, this.form.periodo);
       } catch (error) {
         console.log(error);
         this.pushNotification({
@@ -207,27 +195,27 @@ export default {
       for (const turmaSIGA of turmasSIGA) {
         const newTurma = parseTurmaSIGAToTurma(turmaSIGA, keysTurmaSIGA, null, periodo);
         if (!newTurma) continue;
-        newTurma.pedidosOferecidos = []; //Array com todos pedidos da turmas
+        newTurma.pedidosSIGA = []; //Array com todos pedidos da turmas
 
-        const pedidoOferecido = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, null);
-        if (pedidoOferecido) {
-          const { vagasOferecidas, vagasOcupadas } = pedidoOferecido;
-          pedidoOferecido.totalVagas = vagasOferecidas + vagasOcupadas;
+        const pedidoSIGA = parseTurmaSIGAToPedido(turmaSIGA, keysTurmaSIGA, null);
+        if (pedidoSIGA) {
+          const { vagasOferecidas, vagasOcupadas } = pedidoSIGA;
+          pedidoSIGA.totalVagas = vagasOferecidas + vagasOcupadas;
         }
 
         // Se turma igual ao currentTurma apenas adiciona o pedido na turma anterior
         if (this.turmasAreEqual(currentTurma, newTurma)) {
-          if (pedidoOferecido) {
-            const index = turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.findIndex(
-              (pedido) => pedido.Curso === pedidoOferecido.Curso
+          if (pedidoSIGA) {
+            const index = turmasNormalized[turmasNormalized.length - 1].pedidosSIGA.findIndex(
+              (pedido) => pedido.Curso === pedidoSIGA.Curso
             );
             if (index === -1) {
-              turmasNormalized[turmasNormalized.length - 1].pedidosOferecidos.push(pedidoOferecido);
+              turmasNormalized[turmasNormalized.length - 1].pedidosSIGA.push(pedidoSIGA);
             }
           }
         } else {
           // Se é uma turma nova então adiciona a turma e o pedido
-          if (pedidoOferecido) newTurma.pedidosOferecidos.push(pedidoOferecido);
+          if (pedidoSIGA) newTurma.pedidosSIGA.push(pedidoSIGA);
           turmasNormalized.push(newTurma);
           currentTurma = { ...newTurma };
         }
@@ -281,7 +269,7 @@ export default {
         if (!some(this.disciplinasGradeDCC1Periodo, ["Disciplina", turmaSistema.Disciplina])) {
           const pedidosDaTurmaSistema = this.Pedidos[turmaSistema.id] || [];
 
-          turmaSIGAFound.pedidosOferecidos.forEach((pedidoSIGA) => {
+          turmaSIGAFound.pedidosSIGA.forEach((pedidoSIGA) => {
             const pedidoSistemaFound = pedidosDaTurmaSistema.find(
               (pedidoSis) => pedidoSis.Curso == pedidoSIGA.Curso
             );
@@ -313,7 +301,7 @@ export default {
           pedidosDaTurmaSistema
             .filter((pedido) => pedido.vagasPeriodizadas != 0 || pedido.vagasNaoPeriodizadas != 0)
             .forEach((pedidoSistema) => {
-              const pedidoSIGA = turmaSIGAFound.pedidosOferecidos.find(
+              const pedidoSIGA = turmaSIGAFound.pedidosSIGA.find(
                 (pedidoArq) => pedidoSistema.Curso == pedidoArq.Curso
               );
 

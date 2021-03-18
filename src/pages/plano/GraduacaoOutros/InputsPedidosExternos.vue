@@ -2,6 +2,7 @@
   <div class="pedidos-container">
     <input
       type="text"
+      title="Vagas grade (periodizados)"
       :class="['input-pedidos', { empty: pedidoForm.vagasPeriodizadas == 0 }]"
       v-model.number="pedidoForm.vagasPeriodizadas"
       @change="handleEditPedido"
@@ -11,6 +12,7 @@
     />
     <input
       type="text"
+      title="Vagas extra (não periodizados)"
       :class="['input-pedidos', { empty: pedidoForm.vagasNaoPeriodizadas == 0 }]"
       v-model.number="pedidoForm.vagasNaoPeriodizadas"
       @change="handleEditPedido"

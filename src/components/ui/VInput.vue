@@ -49,13 +49,14 @@ export default {
     validation: { type: Object, default: null },
     placeholder: { type: String, default: "" },
     disabled: { type: Boolean, default: false },
+    upperCase: { type: Boolean, default: true },
     min: { type: Number, default: 0 },
   },
 
   methods: {
     emitInput(newValue) {
       let newValueNormalized = newValue;
-      if (this.inputType === "text") newValueNormalized = newValue.toUpperCase();
+      if (this.inputType === "text" && this.upperCase) newValueNormalized = newValue.toUpperCase();
 
       this.$emit("input", newValueNormalized);
       if (this.validation) this.validation.$touch();

@@ -8,7 +8,7 @@
       </select>
     </v-td>
     <v-td width="25" />
-    <v-td width="55" type="content">
+    <v-td width="65" type="content">
       <select v-model.number="cargaPosForm.trimestre">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -24,7 +24,7 @@
         </option>
       </select>
     </v-td>
-    <v-td width="60" type="content">
+    <v-td width="70" type="content">
       <input
         type="text"
         v-model.number="cargaPosForm.creditos"
