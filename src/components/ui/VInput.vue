@@ -13,9 +13,11 @@
       size="sm"
       autocomplete="off"
       step="1"
+      @change="$emit('change', $event)"
+      @blur="$emit('blur', $event)"
     />
 
-    <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId">
+    <b-form-invalid-feedback v-if="textFeedback && !isValid" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
@@ -51,6 +53,7 @@ export default {
     disabled: { type: Boolean, default: false },
     upperCase: { type: Boolean, default: true },
     min: { type: Number, default: 0 },
+    textFeedback: { type: Boolean, defualt: true },
   },
 
   methods: {

@@ -18,7 +18,7 @@
       <slot></slot>
     </b-form-select>
 
-    <b-form-invalid-feedback v-if="isValid === false" :id="feedbackId">
+    <b-form-invalid-feedback v-if="textFeedback && !isValid" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
@@ -51,6 +51,7 @@ export default {
     validation: { type: Object, default: null },
     disabled: { type: Boolean, default: false },
     emptyPlaceholder: { type: Boolean, default: true },
+    textFeedback: { type: Boolean, defualt: true },
   },
 
   methods: {
