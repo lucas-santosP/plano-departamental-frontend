@@ -70,7 +70,7 @@ export default {
 .table-custom {
   display: block;
   overflow-y: scroll;
-  margin: 0;
+  margin: 0 !important;
   font-weight: normal;
   background-color: #fff;
 
