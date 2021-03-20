@@ -89,7 +89,7 @@
         :hasSearchBar="true"
       >
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinasModal"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -282,7 +282,7 @@ import {
   preventClickSelection,
   redirectIfPlanoNotEditable,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalDelete, ModalAjuda, ModalFiltros } from "@/components/modals";
 import TurmaExternaRow from "./TurmaExternaRow.vue";
 import NovaTurmaExternaRow from "./NovaTurmaExternaRow.vue";
@@ -301,7 +301,7 @@ export default {
     ModalFiltros,
     ModalAjuda,
     ModalDelete,
-    InputSearch,
+    VInputSearch,
     TurmaExternaRow,
     NovaTurmaExternaRow,
   },

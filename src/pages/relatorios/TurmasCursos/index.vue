@@ -92,7 +92,7 @@
     >
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Cursos'" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchCursos"
             placeholder="Pesquise nome ou codigo de um curso..."
           />
@@ -239,7 +239,7 @@ import {
   ModalFiltros,
   ModalDownloadTurmasCursos,
 } from "@/components/modals";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import downloadService from "@/services/download";
 import { saveAs } from "file-saver";
 
@@ -249,7 +249,7 @@ export default {
     ModalRelatorio,
     ModalFiltros,
     ModalAjuda,
-    InputSearch,
+    VInputSearch,
     ModalDownloadTurmasCursos,
   },
   mixins: [

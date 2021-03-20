@@ -147,7 +147,7 @@
         :hasSearchBar="true"
       >
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinasModal"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -211,7 +211,7 @@
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Cursos'" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchCursosModal"
             placeholder="Pesquise nome ou codigo de um curso..."
           />
@@ -418,7 +418,7 @@ import {
   preventClickSelection,
   redirectIfPlanoNotEditable,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalDelete, ModalFiltros, ModalEditTurma, ModalAjuda } from "@/components/modals";
 import NovaTurmaRow from "./NovaTurmaRow.vue";
 import TurmaRow from "./TurmaRow.vue";
@@ -441,7 +441,7 @@ export default {
     TurmaRow,
     NovaTurmaRow,
     ModalEditTurma,
-    InputSearch,
+    VInputSearch,
   },
   data() {
     return {

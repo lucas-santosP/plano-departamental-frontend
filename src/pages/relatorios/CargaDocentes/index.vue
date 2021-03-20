@@ -84,7 +84,7 @@
     >
       <BaseTable v-show="modalFiltrosTabs.current === 'Docentes'" type="modal" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDocentes"
             placeholder="Pesquise pelo apelido de um docente..."
           />
@@ -214,7 +214,7 @@ import {
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalAjuda, ModalRelatorio, ModalFiltros } from "@/components/modals";
 import DocenteRow from "./DocenteRow";
 import DocenteTurmaRow from "./DocenteTurmaRow";
@@ -226,7 +226,7 @@ export default {
     ModalRelatorio,
     ModalAjuda,
     ModalFiltros,
-    InputSearch,
+    VInputSearch,
     DocenteTurmaRow,
     DocenteCargaPosRow,
     DocenteRow,

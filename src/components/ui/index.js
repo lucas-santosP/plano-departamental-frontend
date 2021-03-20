@@ -1,7 +1,7 @@
 import Card from "./Card.vue";
 import NavTab from "./NavTab.vue";
 import SectionSlider from "./SectionSlider.vue";
-import InputSearch from "./InputSearch.vue";
+import VInputSearch from "./VInputSearch.vue";
 import InputsPedidosDCC from "./InputsPedidosDCC.vue";
 import Logo from "./Logo.vue";
 import ButtonArrow from "./ButtonArrow.vue";
@@ -24,7 +24,7 @@ export {
   Logo,
   ButtonArrow,
   InputsPedidosDCC,
-  InputSearch,
+  VInputSearch,
   SectionSlider,
   Card,
   NavTab,

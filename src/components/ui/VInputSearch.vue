@@ -18,7 +18,7 @@
 import { debounce } from "@/common/utils";
 
 export default {
-  name: "InputSearch",
+  name: "VInputSearch",
   props: {
     value: { type: String, require: true },
     placeholder: { type: String, default: "Pesquisar..." },

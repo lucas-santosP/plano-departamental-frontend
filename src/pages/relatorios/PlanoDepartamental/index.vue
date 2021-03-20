@@ -129,7 +129,7 @@
         :hasSearchBar="true"
       >
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinas"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -281,7 +281,7 @@ import {
   conectaFiltrosSemestresEPeriodos,
   preventClickSelection,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalRelatorio, ModalAjuda, ModalFiltros } from "@/components/modals";
 import ModalVagas from "./ModalVagas";
 import TotalsRow from "./Table/TotalsRow.vue";
@@ -294,7 +294,7 @@ export default {
     ModalRelatorio,
     ModalFiltros,
     ModalAjuda,
-    InputSearch,
+    VInputSearch,
     ModalVagas,
     TotalsRow,
     DisciplinaRow,

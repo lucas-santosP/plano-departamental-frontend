@@ -210,7 +210,7 @@
       <div class="div-table">
         <BaseTable styles="height:350px;font-size:10px!important" :hasSearchBar="true">
           <template #thead-search>
-            <InputSearch
+            <VInputSearch
               v-model="searchCursos"
               placeholder="Pesquise nome ou codigo de um curso..."
             />
@@ -271,12 +271,12 @@ import { requiredIf, required, maxLength, integer, alpha } from "vuelidate/lib/v
 import { normalizeText } from "@/common/utils";
 import { VInput, VSelect, VOption } from "@/components/ui";
 import { maskTurmaLetra, normalizeInputText } from "@/common/mixins";
-import InputSearch from "../ui/InputSearch";
+import VInputSearch from "../ui/VInputSearch";
 import InputsPedidosDCC from "../ui/InputsPedidosDCC.vue";
 
 export default {
   name: "ModalEditTurma",
-  components: { InputSearch, VInput, InputsPedidosDCC, VSelect, VOption },
+  components: { VInputSearch, VInput, InputsPedidosDCC, VSelect, VOption },
   mixins: [maskTurmaLetra, normalizeInputText],
   props: {
     turma: { type: Object, required: true },

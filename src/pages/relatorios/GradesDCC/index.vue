@@ -148,7 +148,7 @@
         :hasSearchBar="true"
       >
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinas"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -273,13 +273,13 @@ import {
   conectaFiltroPerfisEDisciplinas,
   preventClickSelection,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalAjuda, ModalFiltros } from "@/components/modals";
 import DisciplinaRow from "./DisciplinaRow";
 
 export default {
   name: "GradesDCC",
-  components: { InputSearch, ModalAjuda, ModalFiltros, DisciplinaRow },
+  components: { VInputSearch, ModalAjuda, ModalFiltros, DisciplinaRow },
   mixins: [
     toggleItemInArray,
     toggleAsideModal,

@@ -142,7 +142,7 @@
         :hasSearchBar="true"
       >
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinasModal"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -203,7 +203,7 @@
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Docentes'" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDocentesModal"
             placeholder="Pesquise nome ou apelido de um docente..."
           />
@@ -303,7 +303,7 @@
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Horários'" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch v-model="searchHorariosModal" placeholder="Pesquise um horário..." />
+          <VInputSearch v-model="searchHorariosModal" placeholder="Pesquise um horário..." />
         </template>
         <template #thead>
           <v-th width="25" />
@@ -331,7 +331,7 @@
 
       <BaseTable type="modal" v-show="modalFiltrosTabs.current === 'Salas'" :hasSearchBar="true">
         <template #thead-search>
-          <InputSearch v-model="searchSalasModal" placeholder="Pesquise uma sala..." />
+          <VInputSearch v-model="searchSalasModal" placeholder="Pesquise uma sala..." />
         </template>
         <template #thead>
           <v-th width="25" />
@@ -418,7 +418,7 @@ import {
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,
 } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
+import { VInputSearch } from "@/components/ui";
 import { ModalFiltros, ModalAjuda } from "@/components/modals";
 
 export default {
@@ -435,7 +435,7 @@ export default {
   components: {
     ModalAjuda,
     ModalFiltros,
-    InputSearch,
+    VInputSearch,
   },
   data() {
     return {

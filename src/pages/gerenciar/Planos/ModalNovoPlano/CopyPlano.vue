@@ -9,7 +9,7 @@
     <div class="div-table">
       <BaseTable type="modal" :hasSearchBar="true" :styles="'max-height:500px; height:500px'">
         <template #thead-search>
-          <InputSearch
+          <VInputSearch
             v-model="searchDisciplinasModal"
             placeholder="Pesquise nome ou codigo de uma disciplina..."
           />
@@ -77,13 +77,12 @@ import pedidoExternoService from "@/services/pedidoExterno";
 import turmaExternaService from "@/services/turmaExterna";
 import { normalizeText } from "@/common/utils";
 import { toggleItemInArray, preventClickSelection } from "@/common/mixins";
-import { InputSearch } from "@/components/ui";
-//import semestresLetivos from "../../../../store/module/semestresLetivos";
+import { VInputSearch } from "@/components/ui";
 
 export default {
   name: "ModalNovoPlano",
   mixins: [toggleItemInArray, preventClickSelection],
-  components: { InputSearch },
+  components: { VInputSearch },
   props: {
     plano: { type: Object, required: true },
     closeModal: { type: Function, required: true },
