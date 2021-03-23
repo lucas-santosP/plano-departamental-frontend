@@ -38,8 +38,7 @@
       <div class="d-flex align-items-center w-100">
         <div class="d-flex flex-column" style="width: 130px">
           <select v-model.number="turmaForm.Docente1" @change="checkDocente">
-            <option v-if="!DocentesAtivos.length">Nenhum Docente Encontrado</option>
-            <option v-else />
+            <option />
             <option
               v-for="docente in DocentesByPreferencia"
               :key="docente.id + docente.apelido"
@@ -47,16 +46,15 @@
             >
               {{ docente.apelido }}
               {{
-                orderByPreferencia && preferenciaDocente(docente)
-                  ? "- " + preferenciaDocente(docente)
+                orderByPreferencia && getPreferenciaDocente(docente)
+                  ? "- " + getPreferenciaDocente(docente)
                   : ""
               }}
             </option>
           </select>
 
           <select v-model.number="turmaForm.Docente2" @change="checkDocente">
-            <option v-if="!DocentesAtivos.length">Nenhum Docente Encontrado</option>
-            <option v-else />
+            <option />
             <option
               v-for="docente in DocentesByPreferencia"
               :key="docente.apelido + docente.id"
@@ -64,8 +62,8 @@
             >
               {{ docente.apelido }}
               {{
-                orderByPreferencia && preferenciaDocente(docente)
-                  ? "- " + preferenciaDocente(docente)
+                orderByPreferencia && getPreferenciaDocente(docente)
+                  ? "- " + getPreferenciaDocente(docente)
                   : ""
               }}
             </option>
@@ -877,10 +875,8 @@ export default {
       }
     },
 
-    preferenciaDocente(docente) {
-      let p = find(this.PreferenciasDisciplina, {
-        Docente: docente.id,
-      });
+    getPreferenciaDocente(docente) {
+      let p = find(this.PreferenciasDisciplina, ["Docente", docente.id]);
       return p ? p.preferencia : false;
     },
   },

@@ -55,7 +55,7 @@
       <div class="d-flex align-items-center w-100">
         <div class="d-flex flex-column" style="width: 130px">
           <select v-model.number="turmaForm.Docente1">
-            <option></option>
+            <option />
             <option
               v-for="docente in DocentesByPreferencia"
               :key="docente.id + docente.apelido"
@@ -63,8 +63,8 @@
             >
               {{ docente.apelido }}
               {{
-                orderByPreferencia && preferenciaDocente(docente)
-                  ? "- " + preferenciaDocente(docente)
+                orderByPreferencia && getPreferenciaDocente(docente)
+                  ? "- " + getPreferenciaDocente(docente)
                   : ""
               }}
             </option>
@@ -79,8 +79,8 @@
             >
               {{ docente.apelido }}
               {{
-                orderByPreferencia && preferenciaDocente(docente)
-                  ? "- " + preferenciaDocente(docente)
+                orderByPreferencia && getPreferenciaDocente(docente)
+                  ? "- " + getPreferenciaDocente(docente)
                   : ""
               }}
             </option>
@@ -174,7 +174,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { orderBy, filter, some } from "lodash-es";
+import { orderBy, filter, some, find } from "lodash-es";
 import { generateEmptyTurma } from "@/common/utils";
 import { maskTurmaLetra } from "@/common/mixins";
 
@@ -249,10 +249,8 @@ export default {
         this.setLoading({ type: "partial", value: false });
       }
     },
-    preferenciaDocente(docente) {
-      let p = find(this.PreferenciasDisciplina, {
-        Docente: docente.id,
-      });
+    getPreferenciaDocente(docente) {
+      let p = find(this.PreferenciasDisciplina, ["Docente", docente.id]);
       return p ? p.preferencia : false;
     },
   },
@@ -270,9 +268,10 @@ export default {
     ]),
 
     PreferenciasDisciplina() {
-      return filter(this.PreferenciasDocentes, ["Disciplina", this.turmaForm.Disciplina]);
+      return filter(this.PreferenciasDocentes, {
+        Disciplina: this.turmaForm.Disciplina,
+      });
     },
-
     DocentesByPreferencia() {
       if (this.orderByPreferencia) {
         return orderBy(
