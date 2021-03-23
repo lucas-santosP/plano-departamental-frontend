@@ -11,12 +11,10 @@ import conectaFiltrosSemestresEPeriodos from "./conectaFiltrosSemestresEPeriodos
 import maskEmptyToZero from "./maskEmptyToZero";
 import conectaFiltroPerfisEDisciplinas from "./conectaFiltroPerfisEDisciplinas";
 import preventClickSelection from "./preventClickSelection";
-import normalizeInputText from "./normalizeInputText";
 import redirectIfPlanoNotEditable from "./redirectIfPlanoNotEditable";
 
 export {
   redirectIfPlanoNotEditable,
-  normalizeInputText,
   preventClickSelection,
   conectaFiltroPerfisEDisciplinas,
   conectaFiltrosSemestresEPeriodos,

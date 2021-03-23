@@ -270,14 +270,12 @@ import { isNull, clone, find, filter, orderBy } from "lodash-es";
 import { requiredIf, required, maxLength, integer, alpha } from "vuelidate/lib/validators";
 import { normalizeText } from "@/common/utils";
 import { VInput, VSelect, VOption } from "@/components/ui";
-import { maskTurmaLetra, normalizeInputText } from "@/common/mixins";
 import VInputSearch from "../ui/VInputSearch";
 import InputsPedidosDCC from "../ui/InputsPedidosDCC.vue";
 
 export default {
   name: "ModalEditTurma",
   components: { VInputSearch, VInput, InputsPedidosDCC, VSelect, VOption },
-  mixins: [maskTurmaLetra, normalizeInputText],
   props: {
     turma: { type: Object, required: true },
     hasEditDisciplina: { type: Boolean, default: false },
