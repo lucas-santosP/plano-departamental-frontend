@@ -2,9 +2,8 @@
   <BaseModal ref="baseModalAjuda" title="Ajuda" type="ajuda">
     <template #modal-body>
       <ul class="list-ajuda list-group">
-        <li v-if="pageDescription" class="list-group-item">
-          <b>Descrição da página:</b>
-          {{ pageDescription }}
+        <li v-if="pageShortDescription" class="list-group-item">
+          <h2>{{ pageShortDescription }}</h2>
         </li>
         <li class="list-group-item">
           <b>Ordenar tabela:</b>
@@ -39,9 +38,12 @@ export default {
   computed: {
     ...mapGetters(["AllPages"]),
 
-    pageDescription() {
+    pageShortDescription() {
       const page = this.AllPages.find((page) => page.path === this.$route.path);
-      return page ? page.description : "";
+      if (!page) return "";
+
+      const [shortDescription] = page.description.split(".");
+      return shortDescription + ".";
     },
   },
 };
@@ -51,13 +53,29 @@ export default {
 @import "@/assets/styles/theme.scss";
 
 .modal-custom .list-ajuda {
-  .list-group-item b:first-of-type {
-    color: $clr-lightblue;
+  font-size: 12px;
+
+  .list-group-item {
+    > b {
+      color: $clr-lightblue;
+    }
+
+    svg {
+      font-size: 12px !important;
+      margin: 0 1px !important;
+      color: #585858;
+    }
   }
-  svg {
-    font-size: 12px !important;
-    margin: 0 1px !important;
-    color: #585858;
+
+  .list-group-item:first-of-type {
+    background-color: #eaeaea;
+
+    h2 {
+      font-size: 12px;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1.5;
+    }
   }
 }
 </style>

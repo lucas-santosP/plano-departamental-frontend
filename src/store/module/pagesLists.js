@@ -13,13 +13,13 @@ const state = {
       path: "/plano/turmas-dcc",
       title: "Graduação - DCC",
       description:
-        "Cadastro de todas as turmas de todas as disciplinas oferecidas pelo DCC. Permite a alteração de vagas, horários, sala e docentes de todas as disciplinas.",
+        "Cadastro de todas as turmas de disciplinas oferecidas pelo DCC. Permite a alteração de vagas, horários, sala e docentes das turmas.",
     },
     {
       path: "/plano/turmas-externas",
       title: "Graduação - Outros",
       description:
-        "Similar a \"Graduação - DCC\", permite o cadastro de todas as turmas de disciplinas que fazem parte das grades dos cursos cadastrados, mas que são oferecidas por outros departamentos.",
+        "Cadastro de todas as turmas de disciplinas que não são oferecidas pelo DCC, mas fazem parte das grades de cursos do DCC. Permite a alteração de vagas, horários das turmas.",
     },
     {
       path: "/plano/carga-pos",
@@ -32,19 +32,17 @@ const state = {
       path: "/relatorios/carga-docentes",
       title: "Carga Docentes",
       description:
-        "Listagem de todos os docentes com suas respectivas disciplinas (graduação e pós-graduação), exibindo o somatório parcial por semestre e a carga total de cada docente.",
+        "Listagem de todos os docentes com suas respectivas disciplinas (graduação e pós-graduação). Exibindo o somatório parcial por semestre e a carga total de cada docente.",
     },
     {
       path: "/relatorios/grades-dcc",
       title: "Grades - DCC",
-      description:
-        "Listagem de todas as disciplinas que compõem as grades dos cursos do DCC, mostrando a qual período e semestre cada disciplina pertence.",
+      description: "Listagem de todas as disciplinas que compõem as grades dos cursos do DCC.",
     },
     {
       path: "/relatorios/grades-outros",
       title: "Grades - Outros",
-      description:
-        "Listagem de todas as disciplinas que compõem as grades dos outros cursos, mostrando a qual período e semestre cada disciplina pertence.",
+      description: "Listagem de todas as disciplinas que compõem as grades dos outros cursos.",
     },
     {
       path: "/relatorios/horarios-cursos",
@@ -153,7 +151,7 @@ const state = {
       path: "/validacoes/lancamento-siga",
       title: "Lançamento SIGA",
       description:
-        "Listagem das diferenças entre o plano atual do sistemas e o lançamento presente no SIGA, através da comparação do arquivo (.csv) gerado pelo SIGA.",
+        "Listagem das diferenças entre o plano atual do sistemas e o lançamento presente no SIGA. Através da comparação do arquivo (.csv) gerado pelo SIGA.",
     },
   ],
 };
