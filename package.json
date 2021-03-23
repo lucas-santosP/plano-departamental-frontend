@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "build-report": "vue-cli-service build --report",
-    "lint-format": "yarn prettier --write ./src & vue-cli-service lint"
+    "lint-format": "yarn prettier --write ./src & vue-cli-service lint",
+    "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
@@ -36,8 +36,6 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@fullhuman/postcss-purgecss": "^4.0.0",
-    "@fullhuman/vue-cli-plugin-purgecss": "~4.0.2",
     "@vue/cli-plugin-babel": "^3.0.0-beta.6",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "^3.0.0-beta.6",
@@ -48,8 +46,6 @@
     "eslint-plugin-vue": "^6.2.2",
     "husky": "^4.3.6",
     "lint-staged": "^9.5.0",
-    "postcss": "^8.2.6",
-    "postcss-loader": "^4.2.0",
     "prettier": "^2.2.1",
     "sass": "^1.32.0",
     "sass-loader": "^10.1.0",
@@ -62,6 +58,11 @@
     "plugins": [
       "@babel/plugin-syntax-dynamic-import"
     ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
     "> 1%",
