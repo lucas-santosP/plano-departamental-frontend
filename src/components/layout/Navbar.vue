@@ -9,6 +9,14 @@
     </button>
 
     <ul class="navbar-nav">
+      <li v-if="!sync" class="nav-item" @click="syncArquivosPlano">
+        <font-awesome-icon :icon="['fas', 'sync-alt']" />
+        <span>Sincronizar drive</span>
+      </li>
+      <li v-else class="nav-item">
+        <font-awesome-icon :icon="['fas', 'sync-alt']" spin />
+        <span>Sincronizar drive</span>
+      </li>
       <li class="nav-item nav-item-input-plano">
         <label class="m-0 pr-2" for="planoAtual">Plano atual</label>
         <select
@@ -41,6 +49,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { Logo } from "@/components/ui";
+import xlsxService from "@/services/xlsx";
+import downloadService from "@/services/download";
 
 export default {
   name: "Navbar",
@@ -51,15 +61,37 @@ export default {
   data() {
     return {
       planoIdForm: null,
+      sync: false,
     };
   },
 
   methods: {
     ...mapActions(["closeSidebar", "toggleSidebar", "changeCurrentPlano", "doLogout"]),
+
+    async syncArquivosPlano() {
+      this.sync = true;
+      try {
+        await xlsxService.downloadTable({ pedidos: this.Pedidos, Plano: this.currentPlano.id });
+        await downloadService.generatePdf({ Plano: this.currentPlano.id });
+        await downloadService.download();
+        const sync = await downloadService.syncDrive();
+        console.log(sync);
+        this.sync = false;
+        return sync;
+      } catch (error) {
+        console.log(error);
+        this.sync = false;
+        this.pushNotification({
+          type: "error",
+          title: "Erro ao fazer download",
+          text: "Tente novamente mais tarde",
+        });
+      }
+    },
   },
 
   computed: {
-    ...mapGetters(["sidebarVisibility", "Planos", "currentPlano"]),
+    ...mapGetters(["sidebarVisibility", "Planos", "currentPlano", "Pedidos"]),
 
     PlanosVisiveis() {
       return this.Planos.filter((plano) => plano.visible === true);
