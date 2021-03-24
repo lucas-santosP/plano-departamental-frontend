@@ -1,7 +1,7 @@
 <template>
   <tr class="tr-totais">
     <v-td width="80" />
-    <v-td width="350" align="start">TOTAIS</v-td>
+    <v-td width="350" />
     <v-td width="80" />
     <v-td width="65" />
     <v-td width="45">{{ totalsSummation.numeroDeTurmas }}</v-td>
