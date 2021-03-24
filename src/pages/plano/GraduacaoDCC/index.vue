@@ -23,10 +23,7 @@
         <template #thead>
           <v-th width="25" />
           <v-th width="40" paddingX="0">Editar</v-th>
-          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">
-            Período
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
-          </v-th>
+          <v-th width="65" paddingX="0" title="Período letivo, ordenação fixa">Período</v-th>
           <v-th-ordination
             :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"

@@ -14,10 +14,7 @@
     <div class="div-table">
       <BaseTable v-show="tabAtivaMain === 'Turmas'" classes="custom-table-height">
         <template #thead>
-          <v-th width="65" title="Período letivo, ordenação fixa">
-            Período
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
-          </v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">Período</v-th>
           <v-th-ordination
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.perfil.abreviacao"

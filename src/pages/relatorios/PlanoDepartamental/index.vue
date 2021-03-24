@@ -32,10 +32,7 @@
           >
             Perfil
           </v-th-ordination>
-          <v-th width="65" title="Período letivo, ordenação fixa">
-            Período
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
-          </v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">Período</v-th>
           <v-th width="45" title="Turma">Turma</v-th>
           <v-th width="150" align="start" title="Apelido do Docente">Docentes</v-th>
           <v-th width="130">Horário</v-th>

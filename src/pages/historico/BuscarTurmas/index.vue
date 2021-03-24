@@ -18,10 +18,7 @@
           >
             Plano
           </v-th-ordination>
-          <v-th width="65" title="Período letivo, ordenação fixa">
-            Período
-            <font-awesome-icon :icon="['fas', 'thumbtack']" />
-          </v-th>
+          <v-th width="65" title="Período letivo, ordenação fixa">Período</v-th>
           <v-th-ordination
             :orderFixed="true"
             :currentOrder="ordenacaoMain.perfis"
