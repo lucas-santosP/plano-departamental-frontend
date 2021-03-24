@@ -1,20 +1,17 @@
 <template>
   <v-th @click.native="toggleOrder" :width="width" class="v-th">
-    <div class="w-100 d-flex justify-content-center align-items-center">
-      <span>
-        <slot></slot>
-      </span>
+    <div class="position-relative max-content mx-auto">
+      <slot></slot>
 
       <font-awesome-icon
         v-if="orderFixed"
         :icon="['fas', 'thumbtack']"
-        class="ml-1"
-        :class="{ 'low-opacity': currentOrder.order === null }"
+        :class="['icon-fixed', { 'low-opacity': currentOrder.order === null }]"
         title="Ordenação fixa"
       />
 
       <OrdinationArrow
-        class="ml-1"
+        :class="['icon-arrow', { 'is-fixed': orderFixed }]"
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
         :orderType="orderType"
@@ -57,10 +54,28 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .v-th:hover {
-  transform: all ease 0.3s;
-  filter: brightness(96%);
+  transition: all ease 0.3s;
+  filter: brightness(95%);
   cursor: pointer;
+}
+
+.icon-arrow {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  transform: translate(-50%, -50%);
+
+  &.is-fixed {
+    right: -25px;
+  }
+}
+
+.icon-fixed {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  transform: translate(-50%, -50%);
 }
 </style>
