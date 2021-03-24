@@ -25,7 +25,6 @@
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.codigo"
             width="80"
-            text="Código"
           >
             Código
           </v-th-ordination>
@@ -33,7 +32,6 @@
             :currentOrder="ordenacaoTurmasMain"
             orderToCheck="disciplina.nome"
             width="330"
-            align="start"
           >
             Disciplina
           </v-th-ordination>

@@ -1,47 +1,25 @@
 <template>
-  <v-th
-    @click.native="toggleOrder"
-    :align="align"
-    :width="width"
-    :paddingX="paddingX"
-    class="clickable"
-  >
-    <div v-if="orderFixed" class="container-fixed-order">
-      <div
-        :class="`flex w-100 ${
-          align === 'start' ? 'justify-content-center' : 'justify-content-start'
-        }`"
-      >
-        <span>
-          {{ text }}
-          <slot v-if="text === ''"></slot>
-        </span>
+  <v-th @click.native="toggleOrder" :width="width" class="v-th">
+    <div class="w-100 d-flex justify-content-center align-items-center">
+      <span>
+        <slot></slot>
+      </span>
 
-        <font-awesome-icon
-          :icon="['fas', 'thumbtack']"
-          class="mr-1"
-          :class="{ 'low-opacity': currentOrder.order === null }"
-          title="Ordenação fixa"
-        />
-
-        <OrdinationArrow
-          :currentOrder="currentOrder"
-          :orderToCheck="orderToCheck"
-          :orderType="orderType"
-        />
-      </div>
-    </div>
-
-    <template v-else>
-      {{ text }}
-      <slot v-if="text === ''"></slot>
+      <font-awesome-icon
+        v-if="orderFixed"
+        :icon="['fas', 'thumbtack']"
+        class="ml-1"
+        :class="{ 'low-opacity': currentOrder.order === null }"
+        title="Ordenação fixa"
+      />
 
       <OrdinationArrow
+        class="ml-1"
         :currentOrder="currentOrder"
         :orderToCheck="orderToCheck"
         :orderType="orderType"
       />
-    </template>
+    </div>
   </v-th>
 </template>
 
@@ -56,10 +34,7 @@ export default {
     orderToCheck: { type: String, required: true },
     orderType: { type: String, default: "asc" },
     orderFixed: { type: Boolean, default: false },
-    text: { type: String, default: "" },
-    align: { type: String, default: "center" },
     width: { type: [String, Number], required: true },
-    paddingX: { type: [String, Number], default: "5" },
   },
 
   methods: {
@@ -83,10 +58,9 @@ export default {
 </script>
 
 <style scoped>
-.container-fixed-order {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.v-th:hover {
+  transform: all ease 0.3s;
+  filter: brightness(96%);
+  cursor: pointer;
 }
 </style>

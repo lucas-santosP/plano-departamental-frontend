@@ -107,8 +107,9 @@
             orderToCheck="nome"
             width="425"
             align="start"
-            text="Nome"
-          />
+          >
+            Nome
+          </v-th-ordination>
         </template>
 
         <template #tbody>
@@ -153,25 +154,25 @@
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="codigo"
             width="70"
-            align="start"
-            text="Código"
-          />
+          >
+            Código
+          </v-th-ordination>
 
           <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="nome"
             width="270"
-            align="start"
-            text="Nome"
-          />
+          >
+            Nome
+          </v-th-ordination>
 
           <v-th-ordination
             :currentOrder="ordenacaoModal.disciplinas"
             orderToCheck="perfil.abreviacao"
             width="85"
-            align="start"
-            text="Perfil"
-          />
+          >
+            Perfil
+          </v-th-ordination>
         </template>
 
         <template #tbody>

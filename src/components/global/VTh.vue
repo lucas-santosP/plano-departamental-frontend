@@ -1,10 +1,10 @@
 <template>
   <th
     :style="{
-      textAlign: align,
+      textAlign: 'center',
+      padding: 0,
       width: thWidth,
       maxWidth: thWidth,
-      padding: thPadding,
       verticalAlign: 'middle',
     }"
   >
@@ -17,16 +17,11 @@ export default {
   name: "v-th",
   props: {
     width: { type: [String, Number], default: "" },
-    align: { type: String, default: "center" },
-    paddingX: { type: [String, Number], default: "5" },
   },
 
   computed: {
     thWidth() {
       return `${this.width}px`;
-    },
-    thPadding() {
-      return `0 ${this.paddingX}px`;
     },
   },
 };

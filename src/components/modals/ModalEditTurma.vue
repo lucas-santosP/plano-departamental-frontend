@@ -219,34 +219,36 @@
             <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="codigo"
-              width="50"
+              width="65"
               align="start"
-              title="Código"
-              text="Cód."
-            />
+            >
+              Código
+            </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="nome"
-              width="320"
+              width="305"
               align="start"
-              text="Nome"
-            />
+            >
+              Nome
+            </v-th-ordination>
             <v-th-ordination
               :currentOrder="ordemVagas"
               orderToCheck="VagasTotais"
               width="80"
               orderType="desc"
               title="Vagas periodizadas / Não periodizadas"
-              text="Vagas"
-            />
+            >
+              Vagas
+            </v-th-ordination>
           </template#thead>
 
           <template#tbody>
             <tr v-for="curso in CursosTableOrdered" :key="curso.id + curso.codigo">
-              <v-td width="50" align="start">
+              <v-td width="65" align="start">
                 {{ curso.codigo }}
               </v-td>
-              <v-td width="320" align="start" :title="curso.nome">
+              <v-td width="305" align="start" :title="curso.nome">
                 {{ curso.nome }}
               </v-td>
               <v-td width="80" type="content">
