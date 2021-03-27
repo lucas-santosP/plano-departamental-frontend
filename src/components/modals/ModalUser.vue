@@ -35,7 +35,7 @@
           :validation="$v.userForm.login"
           :upperCase="false"
         />
-        <VInputPassword label="Nova senha" v-model="senhaAtual" :validation="$v.senhaAtual" />
+        <VInputPassword label="Senha" v-model="senhaAtual" :validation="$v.senhaAtual" />
 
         <SectionSlider :isOpen="isEditingSenha" @handel-click="toggleEditSenha" />
         <transition-group name="slideY" mode="out-in">
@@ -56,7 +56,7 @@
         </transition-group>
 
         <div class="mt-3 mb-1 d-flex justify-content-end">
-          <BaseButton class="paddingX-20" text="Cancelar" color="gray" @click="close" />
+          <BaseButton class="paddingX-20" text="Cancelar" color="gray" @click="clearEditUserForm" />
           <BaseButton class="paddingX-20" text="Salvar" color="blue" @click="handleUpdateUser" />
         </div>
       </div>
@@ -115,9 +115,7 @@ export default {
     open() {
       this.$refs.baseModalUser.open();
     },
-    close() {
-      this.$refs.baseModalUser.close();
-    },
+
     toggleEditSenha() {
       this.isEditingSenha = !this.isEditingSenha;
       this.userForm.senha = "";
