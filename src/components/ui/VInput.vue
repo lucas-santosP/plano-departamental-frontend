@@ -53,7 +53,7 @@ export default {
     disabled: { type: Boolean, default: false },
     upperCase: { type: Boolean, default: true },
     min: { type: Number, default: 0 },
-    textFeedback: { type: Boolean, defualt: true },
+    textFeedback: { type: Boolean, default: true },
   },
 
   methods: {

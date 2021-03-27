@@ -51,7 +51,7 @@ export default {
     validation: { type: Object, default: null },
     disabled: { type: Boolean, default: false },
     emptyPlaceholder: { type: Boolean, default: true },
-    textFeedback: { type: Boolean, defualt: true },
+    textFeedback: { type: Boolean, default: true },
   },
 
   methods: {
