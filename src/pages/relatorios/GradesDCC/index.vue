@@ -6,15 +6,12 @@
           <span class="input-group-text">Ano</span>
         </div>
         <select class="form-control" v-model="novoAno" @change="runNovoAno">
-          <option
-            v-for="i in Array.from(Array(11), (e, i) => i - 5)"
-            :key="i"
-            :value="AnoAtual + i"
-          >
-            {{ AnoAtual + i }}
+          <option v-for="ano in AnosDoPlano" :key="'ano' + ano" :value="ano">
+            {{ ano }}
           </option>
         </select>
       </div>
+
       <BaseButton template="filtros" @click="toggleAsideModal('filtros')" />
       <BaseButton template="ajuda" @click="toggleAsideModal('ajuda')" />
     </portal>
@@ -258,6 +255,12 @@
         <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />
         . Em seguida, utilize as abas para navegar entre os filtros. Selecione as informações que
         deseja visualizar, incluindo o ano do plano departamental, e clique em OK.
+      </li>
+      <li class="list-group-item">
+        <b>Alterar ano:</b>
+        Utilizando o input de ano no cabeçalho da página é possivel alterar o ano de visualização
+        das grades. Com isso pode-se observar a transição entre diferentes grades com o passar dos
+        anos.
       </li>
     </ModalAjuda>
   </div>
@@ -558,7 +561,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["PrincipaisCursosDCC", "AllDisciplinas", "AllPerfis"]),
+    ...mapGetters(["PrincipaisCursosDCC", "AllDisciplinas", "AllPerfis", "AnosDoPlano"]),
 
     DisciplinasOrderedMain() {
       let disciplinasResult = this.DisciplinasFiltredMain;
@@ -614,12 +617,6 @@ export default {
       });
 
       return disciplinaResult;
-    },
-
-    AnoAtual() {
-      return find(this.$store.state.plano.Plano, {
-        id: parseInt(localStorage.getItem("Plano"), 10),
-      }).ano;
     },
     cursosAtivados() {
       return {
