@@ -3,9 +3,9 @@
     <h3 class="list-title">{{ title }}</h3>
     <ul class="list-group">
       <li v-for="page in pages" :key="page.path" class="list-group-item">
-        <strong>
+        <b>
           <router-link :to="{ path: page.path }">{{ page.title }}:</router-link>
-        </strong>
+        </b>
         {{ page.description }}
       </li>
     </ul>
@@ -14,24 +14,23 @@
 
 <script>
 export default {
-  name: "LinkList",
+  name: "PagesList",
   props: {
-    title: {
-      type: String,
-      default: "Vázio",
-    },
+    title: { type: String, default: "" },
     pages: { type: Array, default: () => [] },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/theme.scss";
+
 .list-container {
-  .list-title {
-    margin-top: 16px;
+  > .list-title {
     font-size: 14px;
-    font-weight: 600;
-    color: #3f3f3f;
+    margin-top: 16px;
+    font-weight: bold;
+    color: $clr-text-darkgray;
   }
 
   > .list-group {
