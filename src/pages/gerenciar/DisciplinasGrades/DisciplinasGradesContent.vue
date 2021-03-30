@@ -13,7 +13,7 @@
             <v-th-ordination
               :currentOrder="ordenacaoDisciplinasMain"
               orderToCheck="periodo"
-              width="65"
+              width="70"
               title="Período letivo"
             >
               Período
@@ -49,7 +49,7 @@
                 { 'bg-selected': disciplinaSelectedId === disciplinaGrade.Disciplina },
               ]"
             >
-              <v-td width="65">{{ disciplinaGrade.periodo }}</v-td>
+              <v-td width="70">{{ disciplinaGrade.periodo }}</v-td>
               <v-td width="80" align="start">{{ disciplinaGrade.disciplina.codigo }}</v-td>
               <v-td width="400" align="start">{{ disciplinaGrade.disciplina.nome }}</v-td>
             </tr>

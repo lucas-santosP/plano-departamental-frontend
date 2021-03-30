@@ -11,7 +11,7 @@
             <v-th-ordination
               :currentOrder="ordenacaoMainPlanos"
               orderToCheck="ano"
-              width="70"
+              width="65"
               title="Ano do Plano"
             >
               Ano
@@ -51,7 +51,7 @@
               :class="{ 'bg-selected': plano.id === planoSelectedId }"
               @click="handleClickInPlano(plano)"
             >
-              <v-td width="70">{{ plano.ano }}</v-td>
+              <v-td width="65">{{ plano.ano }}</v-td>
               <v-td width="150" align="start">{{ plano.nome }}</v-td>
               <v-td width="300" align="start" :title="plano.obs">{{ plano.obs }}</v-td>
               <v-td width="70">{{ booleanToText(plano.isEditable) }}</v-td>

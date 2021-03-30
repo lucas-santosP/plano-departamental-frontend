@@ -21,7 +21,7 @@
               :currentOrder="ordenacaoSalasMain"
               orderToCheck="laboratorio"
               orderType="desc"
-              width="90"
+              width="95"
               align="start"
             >
               Laboratório
@@ -30,7 +30,7 @@
               :currentOrder="ordenacaoSalasMain"
               orderToCheck="lotacao_maxima"
               orderType="desc"
-              width="100"
+              width="110"
               title="Lotação maxima da Sala"
             >
               Lotação max.
@@ -45,8 +45,8 @@
               @click="handleClickInSala(sala)"
             >
               <v-td width="100" align="start">{{ sala.nome }}</v-td>
-              <v-td width="90">{{ booleanToText(sala.laboratorio) }}</v-td>
-              <v-td width="100">{{ sala.lotacao_maxima }}</v-td>
+              <v-td width="95">{{ booleanToText(sala.laboratorio) }}</v-td>
+              <v-td width="110">{{ sala.lotacao_maxima }}</v-td>
             </tr>
 
             <tr v-if="!SalasOrdered.length">
