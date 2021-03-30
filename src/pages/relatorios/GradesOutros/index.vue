@@ -232,9 +232,9 @@
       </li>
       <li class="list-group-item">
         <b>Alterar ano:</b>
-        Utilizando o input de ano no cabeçalho da página é possivel alterar o ano de visualização
-        das grades. Com isso pode-se observar a transição entre diferentes grades com o passar dos
-        anos.
+        Utilizando o componente de ano no cabeçalho da página é possivel alterar o ano de
+        visualização das grades. Com isso pode-se observar a transição entre diferentes grades com o
+        passar dos anos.
       </li>
     </ModalAjuda>
   </div>
