@@ -6,9 +6,6 @@ import {
   filterTurmasDoCurso,
   getTurmasDoPeriodo,
 } from "./helpers";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export async function pdfTurmasCursos(data) {
   const { cursos, periodos, plano } = data;
@@ -139,5 +136,9 @@ export async function pdfTurmasCursos(data) {
       };
     },
   };
+
+  const { default: pdfMake } = await import("pdfmake/build/pdfmake");
+  const { default: pdfFonts } = await import("pdfmake/build/vfs_fonts");
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   pdfMake.createPdf(docDefinition).open();
 }

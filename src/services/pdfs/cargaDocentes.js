@@ -8,9 +8,6 @@ import {
 } from "./helpers";
 import store from "@/store";
 import { orderBy, some } from "lodash-es";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export async function pdfCargaDocentes(data) {
   const { docentesCarga, docenteSemAlocacaoCarga, periodosAtivos, plano } = data;
@@ -270,6 +267,10 @@ export async function pdfCargaDocentes(data) {
       };
     },
   };
+
+  const { default: pdfMake } = await import("pdfmake/build/pdfmake");
+  const { default: pdfFonts } = await import("pdfmake/build/vfs_fonts");
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   pdfMake.createPdf(docDefinition).open();
 }
 

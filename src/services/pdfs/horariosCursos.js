@@ -5,9 +5,6 @@ import {
   checkTurmaHorario,
 } from "./helpers";
 import { some, orderBy } from "lodash-es";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export async function pdfHorariosCursos(data) {
   const { horariosAtivos, cursosAtivos, periodosAtivos, plano } = data;
@@ -449,6 +446,10 @@ export async function pdfHorariosCursos(data) {
       };
     },
   };
+
+  const { default: pdfMake } = await import("pdfmake/build/pdfmake");
+  const { default: pdfFonts } = await import("pdfmake/build/vfs_fonts");
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   pdfMake.createPdf(docDefinition).open();
 }
 
