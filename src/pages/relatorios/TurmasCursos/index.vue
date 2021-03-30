@@ -359,19 +359,19 @@ export default {
         this.setLoading({ type: "partial", value: false });
       }
     },
-    generatePdf(completo) {
-      import("@/services/pdfs/turmasCursos").then(({ pdfTurmasCursos }) => {
-        let cursos, periodos;
-        if (completo) {
-          cursos = this.AllCursos;
-          periodos = this.PeriodosOptions;
-        } else {
-          cursos = this.filtroCursos.ativados;
-          periodos = this.filtroPeriodos.ativados;
-        }
+    async generatePdf(completo) {
+      const { pdfTurmasCursos } = await import("@/services/pdfs/turmasCursos");
 
-        pdfTurmasCursos({ cursos, periodos, plano: this.currentPlano });
-      });
+      let cursos, periodos;
+      if (completo) {
+        cursos = this.AllCursos;
+        periodos = this.PeriodosOptions;
+      } else {
+        cursos = this.filtroCursos.ativados;
+        periodos = this.filtroPeriodos.ativados;
+      }
+
+      pdfTurmasCursos({ cursos, periodos, plano: this.currentPlano });
     },
   },
 

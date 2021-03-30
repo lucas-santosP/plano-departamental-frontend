@@ -433,25 +433,25 @@ export default {
         creditos2Semestre,
       };
     },
-    generatePdf(completo) {
-      import("@/services/pdfs/cargaDocentes").then(({ pdfCargaDocentes }) => {
-        let docentesCarga, docenteSemAlocacaoCarga, periodosAtivos;
-        if (completo) {
-          docentesCarga = this.DocentesCarga;
-          docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCarga;
-          periodosAtivos = this.PeriodosOptions;
-        } else {
-          docentesCarga = this.DocentesCargaFiltered;
-          docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCargaFiltered;
-          periodosAtivos = this.filtroPeriodos.ativados;
-        }
+    async generatePdf(completo) {
+      const { pdfCargaDocentes } = await import("@/services/pdfs/cargaDocentes");
 
-        pdfCargaDocentes({
-          docentesCarga,
-          docenteSemAlocacaoCarga,
-          periodosAtivos,
-          plano: this.currentPlano,
-        });
+      let docentesCarga, docenteSemAlocacaoCarga, periodosAtivos;
+      if (completo) {
+        docentesCarga = this.DocentesCarga;
+        docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCarga;
+        periodosAtivos = this.PeriodosOptions;
+      } else {
+        docentesCarga = this.DocentesCargaFiltered;
+        docenteSemAlocacaoCarga = this.DocenteSemAlocacaoCargaFiltered;
+        periodosAtivos = this.filtroPeriodos.ativados;
+      }
+
+      pdfCargaDocentes({
+        docentesCarga,
+        docenteSemAlocacaoCarga,
+        periodosAtivos,
+        plano: this.currentPlano,
       });
     },
   },

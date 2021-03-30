@@ -420,23 +420,23 @@ export default {
       return { vagas, vagasOferecidas, vagasOcupadas };
     },
 
-    generatePdf(completo) {
-      import("@/services/pdfs/planoDepartamental").then(({ pdfPlanoDepartamental }) => {
-        let disciplinasInTurmas = [];
-        let periodosAtivos = [];
-        if (completo) {
-          disciplinasInTurmas = this.DisciplinasData;
-          periodosAtivos = this.PeriodosOptions;
-        } else {
-          disciplinasInTurmas = this.DisciplinasDataFiltered;
-          periodosAtivos = this.filtroPeriodos.ativados;
-        }
+    async generatePdf(completo) {
+      const { pdfPlanoDepartamental } = await import("@/services/pdfs/planoDepartamental");
 
-        pdfPlanoDepartamental({
-          disciplinasInTurmas,
-          periodosAtivos,
-          plano: this.currentPlano,
-        });
+      let disciplinasInTurmas = [];
+      let periodosAtivos = [];
+      if (completo) {
+        disciplinasInTurmas = this.DisciplinasData;
+        periodosAtivos = this.PeriodosOptions;
+      } else {
+        disciplinasInTurmas = this.DisciplinasDataFiltered;
+        periodosAtivos = this.filtroPeriodos.ativados;
+      }
+
+      pdfPlanoDepartamental({
+        disciplinasInTurmas,
+        periodosAtivos,
+        plano: this.currentPlano,
       });
     },
   },

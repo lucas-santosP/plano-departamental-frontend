@@ -211,23 +211,23 @@ export default {
   },
 
   methods: {
-    generatePdf(completo) {
-      import("@/services/pdfs/horariosLabs").then(({ pdfHorariosLabs }) => {
-        let laboratorios, periodosAtivos;
-        if (completo) {
-          laboratorios = this.LaboratoriosOrdered;
-          periodosAtivos = this.PeriodosOptions;
-        } else {
-          laboratorios = this.filtroLaboratorios.ativados;
-          periodosAtivos = this.filtroPeriodos.ativados;
-        }
+    async generatePdf(completo) {
+      const { pdfHorariosLabs } = await import("@/services/pdfs/horariosLabs");
 
-        pdfHorariosLabs({
-          laboratorios,
-          periodosAtivos,
-          turmas: this.TurmasETurmasExternasOrdered,
-          plano: this.currentPlano,
-        });
+      let laboratorios, periodosAtivos;
+      if (completo) {
+        laboratorios = this.LaboratoriosOrdered;
+        periodosAtivos = this.PeriodosOptions;
+      } else {
+        laboratorios = this.filtroLaboratorios.ativados;
+        periodosAtivos = this.filtroPeriodos.ativados;
+      }
+
+      pdfHorariosLabs({
+        laboratorios,
+        periodosAtivos,
+        turmas: this.TurmasETurmasExternasOrdered,
+        plano: this.currentPlano,
       });
     },
   },
