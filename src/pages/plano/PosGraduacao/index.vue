@@ -35,7 +35,7 @@
             :currentOrder="ordenacaoCargaPos"
             orderToCheck="creditos"
             orderType="desc"
-            width="70"
+            width="80"
           >
             Créditos
           </v-th-ordination>
@@ -64,7 +64,7 @@
           </template>
 
           <tr v-if="!ProgramasInCargaPosOrdered.length">
-            <v-td width="380" whiteSpace="normal">
+            <v-td width="390" whiteSpace="normal">
               <b>Nenhuma carga encontrada.</b>
               Clique no botão de filtros
               <font-awesome-icon :icon="['fas', 'list-ul']" class="icon-gray" />

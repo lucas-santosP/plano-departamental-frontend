@@ -24,7 +24,7 @@
         </option>
       </select>
     </v-td>
-    <v-td width="70" type="content">
+    <v-td width="80" type="content">
       <input
         type="text"
         v-model.number="cargaPosForm.creditos"
