@@ -55,27 +55,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-th:hover {
-  transition: all ease 0.3s;
-  filter: brightness(95%);
-  cursor: pointer;
-}
-
-.icon-arrow {
-  position: absolute;
-  top: 50%;
-  right: -14px;
-  transform: translate(-50%, -50%);
-
-  &.is-fixed {
-    right: -25px;
+.v-th {
+  &:hover {
+    transition: all ease 0.3s;
+    filter: brightness(95%);
+    cursor: pointer;
   }
-}
 
-.icon-fixed {
-  position: absolute;
-  top: 50%;
-  right: -14px;
-  transform: translate(-50%, -50%);
+  svg {
+    width: 7.5px !important;
+
+    &.icon-arrow {
+      position: absolute;
+      top: 50%;
+      right: -14px;
+      transform: translate(-50%, -50%);
+    }
+
+    &.icon-fixed {
+      position: absolute;
+      top: 50%;
+      left: -14px;
+      transform: translate(50%, -50%);
+    }
+  }
 }
 </style>
