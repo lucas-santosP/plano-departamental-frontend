@@ -11,8 +11,7 @@
             <v-th-ordination
               :currentOrder="ordenacaoCursos"
               orderToCheck="codigo"
-              width="65"
-              align="start"
+              width="75"
               title="Código do Curso"
             >
               Código
@@ -22,34 +21,36 @@
               :currentOrder="ordenacaoCursos"
               orderToCheck="nome"
               width="300"
-              align="start"
               title="Nome do Curso"
             >
               Nome
             </v-th-ordination>
-            <v-th-ordination :currentOrder="ordenacaoCursos" orderToCheck="turno" width="65">
+            <v-th-ordination :currentOrder="ordenacaoCursos" orderToCheck="turno" width="70">
               Turno
             </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoCursos"
-              orderToCheck="alunosEntrada"
-              orderType="desc"
-              width="75"
-              paddingX="0"
-              title="Entrada de alunos 1º período"
-            >
-              1º Período
-            </v-th-ordination>
-            <v-th-ordination
-              :currentOrder="ordenacaoCursos"
-              orderToCheck="alunosEntrada2"
-              orderType="desc"
-              width="75"
-              paddingX="0"
-              title="Entrada de alunos 3º período"
-            >
-              3º Período
-            </v-th-ordination>
+            <v-th width="170">
+              Período
+              <v-th-ordination
+                :currentOrder="ordenacaoCursos"
+                orderToCheck="alunosEntrada"
+                orderType="desc"
+                width="85"
+                paddingX="0"
+                title="Entrada de alunos 1º período"
+              >
+                Primeiro
+              </v-th-ordination>
+              <v-th-ordination
+                :currentOrder="ordenacaoCursos"
+                orderToCheck="alunosEntrada2"
+                orderType="desc"
+                width="85"
+                paddingX="0"
+                title="Entrada de alunos 3º período"
+              >
+                Terceiro
+              </v-th-ordination>
+            </v-th>
           </template>
 
           <template #tbody>
@@ -60,13 +61,13 @@
               class=""
               :class="['clickable', { 'bg-selected': cursoSelecionado === curso.id }]"
             >
-              <v-td width="65" align="start">{{ curso.codigo }}</v-td>
+              <v-td width="75">{{ curso.codigo }}</v-td>
               <v-td width="300" align="start" :title="curso.nome">
                 {{ curso.nome }}
               </v-td>
-              <v-td width="65">{{ curso.turno }}</v-td>
-              <v-td width="75">{{ curso.alunosEntrada }}</v-td>
-              <v-td width="75">{{ curso.alunosEntrada2 }}</v-td>
+              <v-td width="70">{{ curso.turno }}</v-td>
+              <v-td width="85">{{ curso.alunosEntrada }}</v-td>
+              <v-td width="85">{{ curso.alunosEntrada2 }}</v-td>
             </tr>
 
             <tr v-if="!CursosOrdered.length">

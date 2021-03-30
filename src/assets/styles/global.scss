@@ -82,23 +82,6 @@ label[required] {
   }
 }
 
-th {
-  // Remove a duplicação de bordas
-  > th {
-    border-bottom: none !important;
-
-    &:first-of-type {
-      border-left: none !important;
-    }
-    &:last-of-type {
-      border-right: none !important;
-    }
-    & + th {
-      border-left: none !important;
-    }
-  }
-}
-
 .modal-custom .list-group {
   font-size: 12px;
   text-align: start;

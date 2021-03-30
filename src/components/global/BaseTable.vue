@@ -85,10 +85,27 @@ export default {
       border-color: #d7d9da !important;
       border-left-color: #d1d2d3 !important;
       border-right-color: #d1d2d3 !important;
+
+      // th aninhado com multiplas linhas
+      > th {
+        border-bottom: none !important;
+        z-index: 10;
+        &:first-of-type {
+          border-left: none !important;
+        }
+        &:last-of-type {
+          border-right: none !important;
+        }
+        & + th {
+          border-left: none !important;
+        }
+      }
     }
+
     tr th svg {
       font-size: 9px;
     }
+
     .div-search {
       display: flex;
       align-items: center;
