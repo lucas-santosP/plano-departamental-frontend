@@ -5,7 +5,7 @@
       :type="inputType"
       :value="value"
       @input="emitInput"
-      :state="isValid"
+      :state="validationState"
       :placeholder="placeholder"
       :aria-describedby="feedbackId"
       :disabled="disabled"
@@ -17,7 +17,7 @@
       @blur="$emit('blur', $event)"
     />
 
-    <b-form-invalid-feedback v-if="textFeedback && isValid === false" :id="feedbackId">
+    <b-form-invalid-feedback v-if="textFeedback && validationState === false" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
@@ -67,7 +67,9 @@ export default {
   },
 
   computed: {
-    isValid() {
+    // retorna null caso nao possua validacao, ou caso possua
+    // retorna false para invalido e true para valido
+    validationState() {
       if (!this.validation) return null;
 
       const { $dirty, $error } = this.validation;

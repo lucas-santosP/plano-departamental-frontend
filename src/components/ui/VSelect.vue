@@ -4,7 +4,7 @@
       :id="id"
       :value="valueNormalized"
       @input="emitInput"
-      :state="isValid"
+      :state="validationState"
       :aria-describedby="feedbackId"
       :disabled="disabled"
       size="sm"
@@ -18,7 +18,7 @@
       <slot></slot>
     </b-form-select>
 
-    <b-form-invalid-feedback v-if="textFeedback && isValid === false" :id="feedbackId">
+    <b-form-invalid-feedback v-if="textFeedback && validationState === false" :id="feedbackId">
       <template v-if="validation.$params.required && !validation.required">
         Campo obrigatório
       </template>
@@ -65,7 +65,7 @@ export default {
     valueNormalized() {
       return this.value ? this.value : "";
     },
-    isValid() {
+    validationState() {
       if (!this.validation) return null;
 
       const { $dirty, $error } = this.validation;
