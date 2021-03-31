@@ -86,7 +86,7 @@ export async function pdfPlanoDepartamental(data) {
             tables.push({
               style: "tableExample",
               table: {
-                widths: [36, 35, "*", 18, 36, 28, 32, 42],
+                widths: [50, 35, "*", 18, 36, 28, 32, 42],
                 headerRows: 1,
                 color: "#426",
                 body: [
