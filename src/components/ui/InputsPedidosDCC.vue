@@ -2,7 +2,7 @@
   <div :class="typeClass">
     <input
       type="text"
-      title="Vagas grade (periodizados)"
+      :title="titlePedido.periodizado"
       :class="[
         'input-pedidos',
         {
@@ -19,7 +19,7 @@
 
     <input
       type="text"
-      title="Vagas extra (não periodizados)"
+      :title="titlePedido.naoPeriodizado"
       :class="[
         'input-pedidos',
         {
@@ -96,6 +96,15 @@ export default {
     },
     typeClass() {
       return `${this.type}-pedidos-container`;
+    },
+    titlePedido() {
+      const { editado1, editado2, vagasPeriodizadas, vagasNaoPeriodizadas } = this.pedidoForm;
+      let periodizado = "Vagas grade (periodizados)";
+      let naoPeriodizado = "Vagas extra (não periodizados)";
+
+      if (!editado1 && vagasPeriodizadas !== 0) periodizado += "\nValor do plano copiado";
+      if (!editado2 && vagasNaoPeriodizadas !== 0) naoPeriodizado += "\nValor do plano copiado";
+      return { periodizado, naoPeriodizado };
     },
   },
 

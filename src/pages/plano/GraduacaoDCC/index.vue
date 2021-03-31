@@ -389,6 +389,17 @@
         e aguarde o download do arquivo (.xlsx) iniciar.
       </li>
       <li class="list-group-item">
+        <b>Cores das vagas:</b>
+        Quando a caixa de vaga esta azul significa que aquele é o valor do plano anterior e que
+        ainda não foi alterado.
+        <br />
+        Mas note que, esta funcionalidade apenas aparece caso o valor anterior seja diferente de
+        zero e o plano atual tenha sido gerado utilizando a funcionalidade de copiar plano presente
+        na página de
+        <router-link to="/gerenciar/plano-departamental">gerenciar plano departamental</router-link>
+        do sistema.
+      </li>
+      <li class="list-group-item">
         <b>Observações:</b>
         Em cada coluna de um curso, para cada disciplina, existem dois campos de vagas. O campo
         superior é destinado às vagas de grade, e o inferior é referente às vagas para alunos não
